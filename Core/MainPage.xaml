@@ -1,0 +1,210 @@
+﻿<Page x:Class="Core.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:API"
+    xmlns:util="using:Core.Utils"
+    xmlns:Control="using:Core.Utils.Controls"
+    xmlns:CommonControl="using:API.Utils"
+    xmlns:common="using:Core"
+    mc:Ignorable="d"
+    Background="#FFf0f3f6" RequestedTheme="Dark">
+
+    <Page.Resources>
+        <Storyboard x:Name="HeaderAnimateIn">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="HeaderContent">
+                <EasingDoubleKeyFrame KeyTime="0" Value="-81"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-7"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <CommonNavigationTransitionInfo IsStaggeringEnabled="True"/>
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+
+    <Grid x:Name="LayoutRoot" Loaded="LayoutRoot_Loaded">
+        <CommonControl:ErrorFlyout x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel x:Name="HeaderContainer">
+                <Border Canvas.ZIndex="99999" Height="26" Background="{StaticResource HeaderDarkBlue}" VerticalAlignment="Top"/>
+                <Grid x:Name="HeaderContent" Background="{StaticResource HeaderLightBlue}" Height="56" Margin="0, -1, 0, 0" RenderTransformOrigin="0.5,0.5">
+                    <Grid.RenderTransform>
+                        <CompositeTransform TranslateY="0"/>
+                    </Grid.RenderTransform>
+
+                    <TextBlock x:Name="PageTitle" Text="Sapphire" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
+                    <StackPanel Orientation="Horizontal" Margin="5, 0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <GridView x:Name="Navigation" ScrollViewer.VerticalScrollMode="Disabled" Height="35" Margin="0, 0, 0, 3" SelectionChanged="Navigation_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Image Source="Assets/Navigation/Dashboard.png" x:Name="DashboardIcon" Height="30" Width="35" Opacity=".5"/>
+                            <Image Source="Assets/Navigation/Activity.png" x:Name="ActivityIcon" Height="30" Width="35" Opacity=".5"/>
+                            <Image Source="Assets/Navigation/Account.png" x:Name="AccountIcon" Height="30" Width="35" Opacity=".5"/>
+                            <Image Source="Assets/Navigation/Search.png" x:Name="SearchIcon" Height="30" Width="35" Opacity=".5"/>
+                        </GridView>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+
+            <Pivot Grid.Row="1" x:Name="NavigationPivot" SelectionChanged="NavigationPivot_SelectionChanged" Margin="0, -40, 0, 0" Background="{StaticResource StandardGray}" Canvas.ZIndex="-1">
+                <PivotItem x:Name="DashboardPivot" Margin="0" HorizontalContentAlignment="Center">
+                    <Grid>
+                        <Grid.Resources>
+                            <!--<Storyboard x:Name="RefreshButtonIntoView">
+                                <DoubleAnimation Duration="0:0:0.2"
+                             To="50"
+                             EnableDependentAnimation="True"
+                             Storyboard.TargetProperty="Height"
+                             Storyboard.TargetName="GoToTop"
+                             Completed="RefreshButtonIntoView_Completed">
+                                </DoubleAnimation>
+                            </Storyboard>
+                            <Storyboard x:Name="RefreshButtonOutOfView">
+                                <DoubleAnimation Duration="0:0:0.2"
+                             To="0"
+                             EnableDependentAnimation="True"
+                             Storyboard.TargetProperty="Height"
+                             Storyboard.TargetName="GoToTop"
+                             Completed="RefreshButtonIntoView_Completed">
+                                </DoubleAnimation>
+                            </Storyboard>-->
+                            <Storyboard x:Name="CreateButtonIntoView">
+                                <DoubleAnimation Duration="0:0:0.2"
+                             To="50"
+                             EnableDependentAnimation="True"
+                             Storyboard.TargetProperty="Height"
+                             Storyboard.TargetName="CreatePost">
+                                </DoubleAnimation>
+                            </Storyboard>
+                            <Storyboard x:Name="CreateButtonOutOfView">
+                                <DoubleAnimation Duration="0:0:0.2"
+                             To="0"
+                             EnableDependentAnimation="True"
+                             Storyboard.TargetProperty="Height"
+                             Storyboard.TargetName="CreatePost">
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </Grid.Resources>
+                        <Control:PostView x:Name="Posts" Margin="0, 0, 0, 24" URL="https://api.tumblr.com/v2/user/dashboard" AffectHeader="True" Loaded="Posts_Loaded"/>
+                        <Control:NewPostDialog x:Name="CreatePostControl" Visibility="Collapsed"/>
+                        <!--<Button x:Name="GoToTop" Visibility="Collapsed" ClickMode="Press" Click="GoToTop_Click" Height="0" Width="50" Margin="10, 38" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="0" MinHeight="0" Style="{StaticResource ButtonStyleNoBG}">
+                            <Grid>
+                                <Ellipse Fill="{StaticResource HeaderLightBlue}"/>
+                                <Image Source="Assets/Top.png" Margin="10"/>
+                            </Grid>
+                        </Button>-->
+                        <Button x:Name="CreatePost" Visibility="Visible" ClickMode="Press" Click="CreatePost_Click" Height="0" Width="50" Margin="10, 38" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="0" MinHeight="0" Style="{StaticResource ButtonStyleNoBG}">
+                            <Grid>
+                                <Ellipse x:Name="CreatePostFill" Fill="{StaticResource HeaderLightBlue}"/>
+                                <Image x:Name="CreatePostIcon" Source="Assets/New.png" Margin="10" RenderTransformOrigin="0.5,0.5" Canvas.ZIndex="50"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+                </PivotItem>
+
+                <PivotItem x:Name="ActivityPivot" Margin="0">
+                    <Control:ActivityList x:Name="ActivityPosts" Margin="0, 0, 0, 54"/>
+                </PivotItem>
+
+                <PivotItem x:Name="AccountPivot" Margin="0" DataContext="{Binding}">
+                    <StackPanel x:Name="AccountPivotContent" Visibility="Collapsed" VerticalAlignment="Top">
+                        <Grid Height="175" Background="{StaticResource HeaderLightBlue}">
+                            <Image Source="{Binding Path=theme.header_image_focused}" Stretch="UniformToFill" VerticalAlignment="Center" Opacity="0.7"/>
+                            <Border Margin="13, 0, 0, -45" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="96" Width="96" BorderThickness="0.5" BorderBrush="White">
+                                <Image Source="{Binding Path=avatar}"/>
+                            </Border>
+                        </Grid>
+                        <TextBlock Text="{Binding title}" Margin="126, -50, 10, 4" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
+                        <TextBlock Text="{Binding description}" Margin="126, 4, 10, 4" Foreground="{StaticResource HeaderLightBlue}" FontSize="18" Height="47" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxLines="2"/>
+
+                        <StackPanel Height="55" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <StackPanel Tag="Following" Margin="0, 5, 0, 0" Tapped="AccountDetails_Tapped" Width="90">
+                                <TextBlock Text="{Binding following, FallbackValue=0}" Opacity="0.5" Foreground="{StaticResource HeaderDarkBlue}" HorizontalAlignment="Center" FontSize="24" VerticalAlignment="Center"/>
+                                <TextBlock Text="following" Foreground="{StaticResource HeaderLightBlue}" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <Rectangle Height="50" Width="0.5" Fill="#33000000" VerticalAlignment="Center"/>
+                            <StackPanel Tag="Posts" Margin="0, 5, 0, 0" Tapped="AccountDetails_Tapped" Width="90">
+                                <TextBlock Text="{Binding posts, FallbackValue=0}" Opacity="0.5" Foreground="{StaticResource HeaderDarkBlue}" HorizontalAlignment="Center" FontSize="24" VerticalAlignment="Center"/>
+                                <TextBlock Text="posts" Foreground="{StaticResource HeaderLightBlue}" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <Rectangle Height="50" Width="0.5" Fill="#33000000" VerticalAlignment="Center"/>
+                            <StackPanel Tag="Likes" Margin="0, 5, 0, 0" Tapped="AccountDetails_Tapped" Width="90">
+                                <TextBlock Text="{Binding likes, FallbackValue=0}" Opacity="0.5" Foreground="{StaticResource HeaderDarkBlue}" HorizontalAlignment="Center" FontSize="24" VerticalAlignment="Center"/>
+                                <TextBlock Text="likes" Foreground="{StaticResource HeaderLightBlue}" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <Rectangle Height="50" Width="0.5" Fill="#33000000" VerticalAlignment="Center"/>
+                            <StackPanel Tag="Followers" Margin="0, 5, 0, 0" Tapped="AccountDetails_Tapped" Width="90">
+                                <TextBlock Text="{Binding followers, FallbackValue=0}" Opacity="0.5" Foreground="{StaticResource HeaderDarkBlue}" HorizontalAlignment="Center" FontSize="24" VerticalAlignment="Center"/>
+                                <TextBlock Text="followers" Foreground="{StaticResource HeaderLightBlue}" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Background="#0C000000" Height="50" Tag="Blogs" Margin="4, 4, 4, 2" Tapped="AccountNavPanel_Tapped">
+                            <Image Source="Assets/Blog.png" Width="35" Height="35" Margin="10, 0, 25, 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <TextBlock Text="blogs" FontFamily="Segoe WP" FontWeight="Thin" Foreground="#FF2D3F53" FontSize="24" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <!--<StackPanel Orientation="Horizontal" Background="#0C000000" Height="50" Margin="4, 2" Tag="Messages" Tapped="AccountNavPanel_Tapped">
+                            <Image Source="Assets/Messages.png" Width="35" Height="35" Margin="10, 0, 25, 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <TextBlock Text="messages" FontFamily="Segoe WP" FontWeight="Thin" Foreground="#FF2D3F53" FontSize="24" VerticalAlignment="Center"/>
+                        </StackPanel>-->
+                        <!--<StackPanel Orientation="Horizontal" Height="58" Background="#19283440" Margin="4, 2" Tag="Queue" Tapped="AccountNavPanel_Tapped">
+                            <Image Source="Assets/Queue.png" Width="35" Height="35" Margin="10, 0, 25, 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <TextBlock Text="queue" FontFamily="Segoe WP" FontWeight="Thin" Foreground="#FF2D3F53" FontSize="24" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Height="58" Background="#19283440" Margin="4, 2" Tag="Drafts" Tapped="AccountNavPanel_Tapped">
+                            <Image Source="Assets/Draft.png" Width="35" Height="35" Margin="10, 0, 25, 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <TextBlock Text="drafts" FontFamily="Segoe WP" FontWeight="Thin" Foreground="#FF2D3F53" FontSize="24" VerticalAlignment="Center"/>
+                        </StackPanel>-->
+                    </StackPanel>
+                </PivotItem>
+                <PivotItem x:Name="SearchPivot" Margin="0">
+                    <StackPanel Margin="10" VerticalAlignment="Top">
+                        <TextBox x:Name="SearchText" KeyDown="SearchText_KeyDown" Margin="10" BorderThickness="0.5" PlaceholderText="Search..." BorderBrush="{StaticResource HeaderLightBlue}"/>
+                        <GridView x:Name="SpotlightTags" Height="439" Loaded="SpotlightTags_Loaded" ItemsSource="{Binding}" ScrollViewer.VerticalScrollMode="Enabled">
+                            <GridView.Header>
+                                <TextBlock Foreground="{StaticResource HeaderLightBlue}" Text="Trending tags" FontSize="24" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
+                            </GridView.Header>
+                            <GridView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Tapped="SpotlightTagItem_Tapped" Tag="{Binding tag}" Margin="5, 5, 0, 0" Width="112" Height="112" BorderBrush="#0C000000" BorderThickness="1">
+                                        <Grid>
+                                            <Image Stretch="UniformToFill" Source="{Binding promo_image}"/>
+                                            <StackPanel VerticalAlignment="Top" Background="#33000000" Height="35">
+                                                <TextBlock Margin="10, 5" Foreground="White" Text="{Binding title}" FontSize="18" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+                        </GridView>
+                    </StackPanel>
+                </PivotItem>
+            </Pivot>
+        </Grid>
+    </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar x:Name="CommandBar" ClosedDisplayMode="Minimal" Background="{StaticResource HeaderDarkBlue}" Foreground="{StaticResource LightGray}" BorderBrush="{x:Null}">
+            <AppBarButton x:Name="RefreshButton" Icon="Refresh" Label="refresh" Click="RefreshButton_Click"/>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Name="SettingsButton" Label="settings" Click="SettingsButton_Click"/>
+                <AppBarButton x:Name="LogoutButton" Label="logout" Click="LogoutButton_Click"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

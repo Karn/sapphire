@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        body, html {
+            overflow-x: hidden;
+            overflow-y: auto;
+            -ms-content-zooming: none;
+        }
+
+        #image {
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            /* Preserve aspet ratio */
+            width: 100% !important;
+            height: 100% !important;
+        }
+    </style>
+    <script type="text/javascript">
+
+        function SetImage(url) {
+            var img = document.getElementById("image");
+            img.src = decodeURI(url);
+            //document.getElementById("image").src = decodeURI(url);
+            //return document.getElementById("image").src;
+        }
+    </script>
+</head>
+<body id="mybody" style="margin:0px;padding:0px; overflow:hidden;">
+    <img id="image"/>
+</body>
+</html>

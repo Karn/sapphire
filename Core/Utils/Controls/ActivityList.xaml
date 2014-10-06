@@ -1,0 +1,122 @@
+﻿<UserControl
+    x:Class="Core.Utils.Controls.ActivityList"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Core.Utils.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converter="using:Core.Utils.Converters"
+    xmlns:util="using:Core.Utils"
+    xmlns:q="using:QKit"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="380">
+
+    <UserControl.Resources>
+
+        <DataTemplate x:Key="reblog">
+            <Border Width="390" BorderBrush="#7F283440" Background="{Binding followed, Converter={StaticResource FollowingToBG}}" BorderThickness="0,0,0,0">
+                <StackPanel Width="390" HorizontalAlignment="Stretch" Orientation="Horizontal">
+                    <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar}"/>
+                    <Image Width="18" Height="18" Margin="-20 ,35, 0, 0" Source="ms-appx:///Assets/AReblog.png" />
+                    <StackPanel Orientation="Horizontal" Margin="10" Width="245">
+                        <TextBlock MaxWidth="240" FontSize="15" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" TextTrimming="CharacterEllipsis">
+                            <Run Text="{Binding from_tumblelog_name}"/>
+                            <Run Text="reblogged your post." FontWeight="Light"/>
+                        </TextBlock>
+                    </StackPanel>
+                    <Image Tapped="GoToPost" Tag="{Binding target_post_id}" HorizontalAlignment="Right" Width="45" Height="45" Margin="5" Source="{Binding Path=media_url}" Stretch="UniformToFill"/>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="like">
+            <Border Width="390" BorderBrush="#7F283440" Background="{Binding followed, Converter={StaticResource FollowingToBG}}" BorderThickness="0,0,0,0">
+                <StackPanel Width="390" HorizontalAlignment="Stretch" Orientation="Horizontal">
+                    <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar}"/>
+                    <Image Width="18" Height="18" Margin="-20 ,35, 0, 0" Source="ms-appx:///Assets/ALiked.png" />
+                    <StackPanel Orientation="Horizontal" Margin="10" Width="245">
+                        <TextBlock MaxWidth="240" FontSize="15" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" TextTrimming="CharacterEllipsis">
+                            <Run Text="{Binding from_tumblelog_name}"/>
+                            <Run Text="liked your post." FontWeight="Light"/>
+                        </TextBlock>
+                    </StackPanel>
+                    <Image Tapped="GoToPost" Tag="{Binding target_post_id}" HorizontalAlignment="Right" Width="45" Height="45" Margin="5" Source="{Binding Path=media_url}" Stretch="UniformToFill"/>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="follow">
+            <Border Width="390" BorderBrush="#7F283440" Background="{Binding followed, Converter={StaticResource FollowingToBG}}" BorderThickness="0,0,0,0">
+                <StackPanel Width="390" HorizontalAlignment="Stretch" Orientation="Horizontal">
+                    <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar}"/>
+                    <Image Width="18" Height="18" Margin="-20 ,35, 0, 0" Source="ms-appx:///Assets/AFollowing.png" />
+                    <StackPanel Orientation="Horizontal" Margin="10" Width="245">
+                        <TextBlock MaxWidth="240" FontSize="15" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" TextTrimming="CharacterEllipsis">
+                            <Run Text="{Binding from_tumblelog_name}"/>
+                            <Run Text="started following you." FontWeight="Light"/>
+                        </TextBlock>
+                    </StackPanel>
+                    <Image HorizontalAlignment="Right" Width="45" Height="45" Margin="5" Source="ms-appx:///Assets/AFollowing2.png"  Stretch="UniformToFill"/>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="user_mention">
+            <Border Width="390" BorderBrush="#7F283440" Background="{Binding followed, Converter={StaticResource FollowingToBG}}" BorderThickness="0,0,0,0">
+                <StackPanel Width="390" HorizontalAlignment="Stretch" Orientation="Horizontal">
+                    <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar}"/>
+                    <Image Width="18" Height="18" Margin="-20 ,35, 0, 0" Source="ms-appx:///Assets/AMention.png" />
+                    <StackPanel Orientation="Horizontal" Margin="10" Width="245">
+                        <TextBlock MaxWidth="240" FontSize="15" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" TextTrimming="CharacterEllipsis">
+                            <Run Text="{Binding from_tumblelog_name}"/>
+                            <Run Text="mentioned you in a post." FontWeight="Light"/>
+                        </TextBlock>
+                    </StackPanel>
+                    <Image HorizontalAlignment="Right" Width="45" Height="45" Margin="5" Source="ms-appx:///Assets/AFollowing2.png"  Stretch="UniformToFill"/>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+
+        <converter:ActivityTemplateSelector x:Key="ActivityListTemplate"
+            ReblogTemplate="{StaticResource reblog}"
+            LikeTemplate="{StaticResource like}"
+            FollowTemplate="{StaticResource follow}"
+            UserMentionTemplate="{StaticResource user_mention}"/>
+
+        <converter:RelativeDate x:Key="RelativeDate"/>
+        <converter:ToPrettyDate x:Key="ToPrettyDate"/>
+        <converter:FollowingToBG x:Key="FollowingToBG"/>
+
+        <CollectionViewSource x:Name="csvNotifications" IsSourceGrouped="True"/>
+    </UserControl.Resources>
+
+    <ListView x:Name="Notifications" Margin="2, 2" ItemsSource="{Binding Source={StaticResource csvNotifications}}" ItemTemplateSelector="{StaticResource ActivityListTemplate}" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" Loaded="Notifications_Loaded" Background="#00000000">
+        <ListView.Resources>
+            <ControlTemplate x:Key="ListViewControlTemplate1" TargetType="ListView">
+                <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                    <ScrollViewer x:Name="ScrollViewer" ViewChanging="ScrollViewer_ViewChanging" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}" IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" TabNavigation="{TemplateBinding TabNavigation}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+                        <ItemsPresenter HeaderTemplate="{TemplateBinding HeaderTemplate}" Header="{TemplateBinding Header}" HeaderTransitions="{TemplateBinding HeaderTransitions}" Padding="{TemplateBinding Padding}"/>
+                    </ScrollViewer>
+                </Border>
+            </ControlTemplate>
+        </ListView.Resources>
+        <ListView.ItemContainerStyle>
+            <StaticResource ResourceKey="ListViewItemContainerStyle"/>
+        </ListView.ItemContainerStyle>
+        <ListView.GroupStyle>
+            <GroupStyle HidesIfEmpty="True">
+                <GroupStyle.HeaderTemplate>
+                    <DataTemplate>
+                        <Border Width="385" Height="35" Padding="0, 3" Background="#FFf0f3f6" BorderBrush="#33000000" BorderThickness="0, 0, 0, 0.5">
+                            <Grid>
+                                <TextBlock HorizontalAlignment="Left" FontSize="16" Margin="10, 2" Text="{Binding Key, Converter={StaticResource RelativeDate}}" Foreground="{StaticResource HeaderLightBlue}"/>
+                                <TextBlock HorizontalAlignment="Right" FontSize="16" Margin="15, 2" Text="{Binding Key, Converter={StaticResource ToPrettyDate}}" Foreground="{StaticResource HeaderLightBlue}"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </GroupStyle.HeaderTemplate>
+            </GroupStyle>
+        </ListView.GroupStyle>
+        <ListView.Template>
+            <StaticResource ResourceKey="ListViewControlTemplate1"/>
+        </ListView.Template>
+    </ListView>
+</UserControl>

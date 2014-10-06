@@ -1,0 +1,25 @@
+﻿<Page
+    x:Class="Core.Pages.BlogDetails"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Core.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Core.Utils.Controls"
+    mc:Ignorable="d"
+    Background="{StaticResource StandardGray}">
+
+    <StackPanel x:Name="LayoutRoot" DataContext="{Binding}">
+        <Grid Height="125" Background="{StaticResource HeaderLightBlue}">
+            <Image Source="{Binding Path=theme.header_image_focused}" Stretch="UniformToFill" VerticalAlignment="Center" Opacity="0.7"/>
+            <Border Margin="13, 0, 0, -45" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="96" Width="96" BorderThickness="0.5" BorderBrush="White">
+                <Image Source="{Binding Path=avatar}"/>
+            </Border>
+        </Grid>
+        <TextBlock Text="{Binding title}" Margin="126, -50, 10, 4" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
+        <TextBlock Text="{Binding description}" Margin="126, 4, 10, 4" Foreground="{StaticResource HeaderLightBlue}" FontSize="18" Height="47" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxLines="2"/>
+        
+        <controls:PostView x:Name="Posts" Loaded="Posts_Loaded" Height="457"/>
+
+    </StackPanel>
+</Page>
