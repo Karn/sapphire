@@ -221,6 +221,7 @@
     <Content Include="Assets\WideLogo.scale-240.png" />
     <Content Include="Common\ReadMe.txt" />
     <None Include="Package.StoreAssociation.xml" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -302,6 +303,11 @@
     <SDKReference Include="AdDuplex.WinPhone.Extension, Version=8.5.0.5">
       <Name>AdDuplex SDK for Windows Phone 8.1 %28XAML%29</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MarkedUp">
+      <HintPath>..\packages\MarkedUp.1.3.9\lib\portable-netcore451+wpa81\MarkedUp.winmd</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

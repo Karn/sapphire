@@ -31,7 +31,7 @@ namespace Core.Utils.Converters {
 
             // 5.
             // Handle same-day times.
-            if (dayDiff == 0) {
+            if (dayDiff == 0 || dayDiff == -1) {
                 return "today";
             }
             // 6.

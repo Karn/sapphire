@@ -88,7 +88,7 @@ namespace Core {
 
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 
-            if (!string.IsNullOrEmpty(UserData.AreNotificationsEnabled) && UserData.AreNotificationsEnabled == "True")
+            //if (!string.IsNullOrEmpty(UserData.AreNotificationsEnabled) && UserData.AreNotificationsEnabled == "True")
                 RegisterBackgroundTask();
 
         }
@@ -97,12 +97,16 @@ namespace Core {
             //Animate
             //Header
             HeaderAnimateIn.Begin();
-
         }
 
         private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e) {
             //Fix navigating
-            if (JustNavigatedBack) {
+            if (CreatePostControl.Visibility == Visibility.Visible) {
+                CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
+                CreatePostFill.Fill = new SolidColorBrush(Color.FromArgb(255, 52, 73, 94));
+                CreatePostControl.Visibility = Visibility.Collapsed;
+                e.Handled = true;
+            } else if (JustNavigatedBack) {
                 JustNavigatedBack = false;
                 e.Handled = true;
                 return;
@@ -145,7 +149,6 @@ namespace Core {
                 CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
                 CreatePostFill.Fill = new SolidColorBrush(Color.FromArgb(255, 52, 73, 94));
             }
-
             if (SwitchedBlog) {
                 AccountPivot.DataContext = UserData.CurrentBlog;
                 ActivityPosts.ClearPosts();
@@ -204,10 +207,10 @@ namespace Core {
                     return;
                 }
             }
-            Debug.WriteLine("Registering Task");
+            MarkedUp.AnalyticClient.SessionEvent("Registering Task");
             await BackgroundExecutionManager.RequestAccessAsync();
 
-            BackgroundTaskBuilder taskBuilder = new BackgroundTaskBuilder { Name = "Push Notification Task", TaskEntryPoint = "NotificationTask.NotificationHandler" };
+            BackgroundTaskBuilder taskBuilder = new BackgroundTaskBuilder { Name = "Push Notification Task", TaskEntryPoint = "BackgroundUtilities.NotificationHandler" };
             taskBuilder.SetTrigger(new TimeTrigger(15, true));
             taskBuilder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
             BackgroundTaskRegistration myFirstTask = taskBuilder.Register();
@@ -385,6 +388,7 @@ namespace Core {
                 CreatePostFill.Fill = new SolidColorBrush(Color.FromArgb(255, 207, 73, 73));
                 CreatePostControl.Visibility = Visibility.Visible;
                 CreatePostControl.AnimateIn();
+
             } else {
                 CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
                 CreatePostFill.Fill = new SolidColorBrush(Color.FromArgb(255, 52, 73, 94));

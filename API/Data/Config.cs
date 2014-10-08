@@ -124,7 +124,6 @@ namespace API.Data {
 
         public static int LastNotification {
             get {
-
                 return string.IsNullOrEmpty(LocalSettings.Values["LAST_NOTIFICATION"].ToString()) ? 0 : int.Parse(LocalSettings.Values["LAST_NOTIFICATION"].ToString());
             }
             set {

@@ -5,9 +5,10 @@ namespace API.Data {
     /// </summary>
     public class DataStoreHandler {
 
-        public DataStoreHandler() {
+        public static void CreateSettings() {
 
         }
+
         /// <summary>
         /// Load and initialize the settings that are stored locally
         /// </summary>

@@ -1,5 +1,6 @@
 ﻿using API.Data;
 using Core.Common;
+using MarkedUp;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -39,6 +40,8 @@ namespace Core
         {
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
+
+
         }
 
         /// <summary>
@@ -117,8 +120,10 @@ namespace Core
                 //{
                 //    throw new Exception("Failed to create initial page");
                 //}
+                //Initialize In app puchase handler
                 Utils.IAPHander.UpdateInAppPurchases();
-
+                //Initialize Analytics
+                AnalyticClient.Initialize("95b1a985-187e-4062-a756-ffac679e4fe4");
                 if (!string.IsNullOrEmpty(Config.OAuthToken) && !string.IsNullOrEmpty(Config.OAuthTokenSecret)) {
                     if (!rootFrame.Navigate(typeof(MainPage), e.Arguments)) {
                         throw new Exception("Failed to create initial page");

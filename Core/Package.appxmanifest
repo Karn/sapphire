@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="16658Awefull.Spphire" Publisher="CN=B36F1956-9DEC-4300-89F6-8B539E1FE65D" Version="1.1.0.1" />
+  <Identity Name="16658Awefull.Spphire" Publisher="CN=B36F1956-9DEC-4300-89F6-8B539E1FE65D" Version="1.1.0.2" />
   <mp:PhoneIdentity PhoneProductId="58033d27-5a32-4a56-b046-5533cd80de3d" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Sаpphire</DisplayName>
+    <DisplayName>Sappһire</DisplayName>
     <PublisherDisplayName>Awefull</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -16,7 +16,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Core.App">
-      <m3:VisualElements DisplayName="Sаpphire" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="Sapphire App" ForegroundText="light" BackgroundColor="transparent" ToastCapable="true">
+      <m3:VisualElements DisplayName="Sappһire" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="Sapphire App" ForegroundText="light" BackgroundColor="transparent" ToastCapable="true">
         <m3:LockScreen Notification="badge" BadgeLogo="Assets\BadgeLogo.png" />
         <m3:DefaultTile Wide310x150Logo="Assets\WideLogo.png" Square71x71Logo="Assets\Square71x71Logo.png">
         </m3:DefaultTile>

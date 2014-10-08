@@ -77,5 +77,12 @@ namespace Core.Utils.Controls {
                 throw new Exception("NavFail");
             }
         }
+
+        private async void FollowIcon_Tapped(object sender, TappedRoutedEventArgs e) {
+            var x = ((Image)sender);
+            if (await RequestHandler.FollowUnfollow(true, x.Tag.ToString())) {
+                x.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 }

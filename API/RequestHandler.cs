@@ -216,8 +216,8 @@ namespace API {
 
             string Response = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/user/notifications");
             if (Response.Contains("200")) {
-                Responses.GetActivity activity = JsonConvert.DeserializeObject<Responses.GetActivity>(Response);
                 try {
+                    Responses.GetActivity activity = JsonConvert.DeserializeObject<Responses.GetActivity>(Response);
                     var Notifications = new List<Content.Activity.Notification>();
 
                     foreach (var b in activity.response.blogs) {
@@ -227,7 +227,7 @@ namespace API {
                                     n.date = new System.DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(n.timestamp).ToString("yyyy'-'MM'-'dd");
                                     Notifications.Add(n);
                                 }
-                                Config.LastNotification = Notifications.First().timestamp;
+                                //Config.LastNotification = Notifications.First().timestamp;
                             }
                         }
                     }

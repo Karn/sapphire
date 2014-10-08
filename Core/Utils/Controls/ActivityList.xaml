@@ -55,7 +55,7 @@
                             <Run Text="started following you." FontWeight="Light"/>
                         </TextBlock>
                     </StackPanel>
-                    <Image HorizontalAlignment="Right" Width="45" Height="45" Margin="5" Source="ms-appx:///Assets/AFollowing2.png"  Stretch="UniformToFill"/>
+                    <Image HorizontalAlignment="Right" Width="45" Height="45" Margin="5" Source="ms-appx:///Assets/AFollowing2.png" Stretch="UniformToFill" Tag="{Binding from_tumblelog_name}" Visibility="{Binding followed, Converter={StaticResource FollowingToVisibility}}" Tapped="FollowIcon_Tapped"/>
                 </StackPanel>
             </Border>
         </DataTemplate>

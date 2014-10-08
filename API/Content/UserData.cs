@@ -26,7 +26,8 @@ namespace API.Content {
                                                    "REBLOGS",
                                                    "LIKES",
                                                    "USER_MENTIONS",
-                                                   "ENABLE_ADS"
+                                                   "ENABLE_ADS",
+                                                   "LAST_NOTIFICATION"
                                                };
 
         public static void CreateDataContainer() {

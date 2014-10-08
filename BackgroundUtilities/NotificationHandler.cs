@@ -29,6 +29,7 @@ namespace BackgroundUtilities {
 
         private async Task RetrieveNotifications() {
 
+            Debug.WriteLine(Config.LastNotification);
             var LastNotification = Config.LastNotification;
             Debug.WriteLine("Last notification: " + LastNotification);
 
@@ -49,9 +50,8 @@ namespace BackgroundUtilities {
                         Config.LastNotification = Notifications.First().timestamp;
                     Debug.WriteLine("Count: " + Notifications.Count);
                     Debug.WriteLine("Last notification: " + Config.LastNotification);
-                }
-                catch (Exception e) {
-                    Debug.WriteLine("Failed to serialize.");
+                } catch (Exception e) {
+                    Debug.WriteLine("Failed to serialize. " + e.Message);
                 }
             }
 

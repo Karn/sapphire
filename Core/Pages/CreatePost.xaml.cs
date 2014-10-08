@@ -141,9 +141,12 @@ namespace Core.Pages {
         private void Post_Text(object sender, RoutedEventArgs e) {
             var title = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Text_Title")).Text;
             var body = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Text_Body")).Text;
-            var tags = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Text_Tags")).Text.Replace(" #", ", ");
-            tags = tags.Substring(1, tags.Length - 1);
-            API.Content.CreatePost.Text(title, body, AuthenticationManager.Utils.UrlEncode(tags));
+            var tags = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Text_Tags")).Text;
+            if (!string.IsNullOrEmpty(tags)) {
+                tags = tags.Replace(" #", ", ");
+                tags = AuthenticationManager.Utils.UrlEncode(tags.Substring(1, tags.Length - 1));
+            }
+            API.Content.CreatePost.Text(title, body, tags);
             Frame.GoBack();
         }
 

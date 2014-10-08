@@ -10,7 +10,7 @@ namespace Core.Utils.Converters {
     public sealed class RelativeTime : IValueConverter {
 
         public object Convert(object value, Type targetType, object parameter, string language) {
-            return GetPrettyDate(DateTime.Parse(value.ToString()));
+            return GetPrettyDate(DateTime.Parse(value.ToString()).ToLocalTime());
         }
 
         static string GetPrettyDate(DateTime d) {
