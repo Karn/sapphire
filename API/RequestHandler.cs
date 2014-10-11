@@ -19,6 +19,8 @@ namespace API {
         const string TAG = "Client";
         private static HttpClient WebClient = new HttpClient();
 
+        public static bool ReloadAccountData = false;
+
         public static bool CanRequestData() {
             if (NetworkInterface.GetIsNetworkAvailable()) {
                 if (!string.IsNullOrEmpty(Config.OAuthToken))
@@ -65,8 +67,12 @@ namespace API {
                         var parsedData = JsonConvert.DeserializeObject<Responses.GetInfo>(requestResult);
 
                         UserData.UserBlogs.Clear();
-
+                        if (ReloadAccountData) {
+                            UserData.CurrentBlog = null;
+                            ReloadAccountData = false;
+                        }
                         foreach (var b in parsedData.response.user.blogs) {
+                            Debug.WriteLine(b.Name);
                             b.following = parsedData.response.user.following.ToString();
                             b.likes = parsedData.response.user.likes;
 
@@ -229,10 +235,13 @@ namespace API {
                                 }
                                 //Config.LastNotification = Notifications.First().timestamp;
                             }
+                        } else {
+                            Debug.WriteLine("No current blog set");
                         }
                     }
                     return Notifications;
                 } catch (Exception e) {
+                    Debug.WriteLine("[Client.cs]: Unable to serialize activity data. Result: " + e.StackTrace);
                     Utils.DebugHandler.ErrorLog.Add("[Client.cs]: Unable to serialize activity data. Result: " + e.StackTrace);
                 }
             }

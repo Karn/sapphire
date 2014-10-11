@@ -124,12 +124,13 @@ namespace Core
                 Utils.IAPHander.UpdateInAppPurchases();
                 //Initialize Analytics
                 AnalyticClient.Initialize("95b1a985-187e-4062-a756-ffac679e4fe4");
-                if (!string.IsNullOrEmpty(Config.OAuthToken) && !string.IsNullOrEmpty(Config.OAuthTokenSecret)) {
+                Config.ReadLocalAccountStore();
+
+                if (Config.AccountTokens.Count != 0 && Config.AccountSecretTokens.Count != 0) {
                     if (!rootFrame.Navigate(typeof(MainPage), e.Arguments)) {
                         throw new Exception("Failed to create initial page");
                     }
                 } else {
-
                     if (!rootFrame.Navigate(typeof(Pages.xAuthLogin), e.Arguments)) {
                         throw new Exception("Failed to create initial page");
                     }

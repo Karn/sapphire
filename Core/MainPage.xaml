@@ -122,7 +122,7 @@
                 </PivotItem>
 
                 <PivotItem x:Name="AccountPivot" Margin="0" DataContext="{Binding}">
-                    <StackPanel x:Name="AccountPivotContent" Visibility="Collapsed" VerticalAlignment="Top">
+                    <StackPanel x:Name="AccountPivotContent" VerticalAlignment="Top">
                         <Grid Height="175" Background="{StaticResource HeaderLightBlue}">
                             <Image Source="{Binding Path=theme.header_image_focused}" Stretch="UniformToFill" VerticalAlignment="Center" Opacity="0.7"/>
                             <Border Margin="13, 0, 0, -45" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="96" Width="96" BorderThickness="0.5" BorderBrush="White">
@@ -203,7 +203,7 @@
             <AppBarButton x:Name="RefreshButton" Icon="Refresh" Label="refresh" Click="RefreshButton_Click"/>
             <CommandBar.SecondaryCommands>
                 <AppBarButton x:Name="SettingsButton" Label="settings" Click="SettingsButton_Click"/>
-                <AppBarButton x:Name="LogoutButton" Label="logout" Click="LogoutButton_Click"/>
+                <AppBarButton x:Name="AccountManageButton" Label="account" Click="ManageAccountButton_Click"/>
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

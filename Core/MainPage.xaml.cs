@@ -52,6 +52,7 @@ namespace Core {
         private static bool NavigatedFromToast;
 
         public static bool SwitchedBlog = false;
+        public static bool SwitchedAccount = false;
 
         public static NewPostDialog NPD;
 
@@ -78,8 +79,9 @@ namespace Core {
             //UserData
             UserData.LoadData();
 
-            //RefreshButtonIntoView_ = RefreshButtonIntoView;
-            //RefreshButtonOutOfView_ = RefreshButtonOutOfView;
+            if (Config.AccountTokens.Count > 1) {
+                AccountManageButton.Label = "accounts";
+            }
 
             CreateButtonIntoView_ = CreateButtonIntoView;
             CreateButtonOutOfView_ = CreateButtonOutOfView;
@@ -89,7 +91,7 @@ namespace Core {
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 
             //if (!string.IsNullOrEmpty(UserData.AreNotificationsEnabled) && UserData.AreNotificationsEnabled == "True")
-                RegisterBackgroundTask();
+            RegisterBackgroundTask();
 
         }
 
@@ -110,13 +112,13 @@ namespace Core {
                 JustNavigatedBack = false;
                 e.Handled = true;
                 return;
-            } else if (NavigationPivot.SelectedIndex == 0) {
-                API.Data.DataStoreHandler.SaveAllSettings();
-                Application.Current.Exit();
-            } else {
+            } else if (NavigationPivot.SelectedIndex != 0) {
                 NavigationPivot.SelectedIndex = 0;
                 e.Handled = true;
                 return;
+            } else {
+                API.Data.DataStoreHandler.SaveAllSettings();
+                Application.Current.Exit();
             }
         }
 
@@ -149,7 +151,14 @@ namespace Core {
                 CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
                 CreatePostFill.Fill = new SolidColorBrush(Color.FromArgb(255, 52, 73, 94));
             }
-            if (SwitchedBlog) {
+
+            if (SwitchedAccount) {
+                NavigationPivot.SelectedIndex = 0;
+                RequestHandler.ReloadAccountData = true;
+                SetAccountData();
+                Posts.RefeshPosts();
+                SwitchedAccount = false;
+            } else if (SwitchedBlog) {
                 AccountPivot.DataContext = UserData.CurrentBlog;
                 ActivityPosts.ClearPosts();
                 ActivityPosts.LoadPosts();
@@ -280,11 +289,14 @@ namespace Core {
             }
         }
 
-        private void LogoutButton_Click(object sender, RoutedEventArgs e) {
-            DataStoreHandler.ClearSettings();
-            AccountPivot.DataContext = null;
+        private void ManageAccountButton_Click(object sender, RoutedEventArgs e) {
+            //DataStoreHandler.ClearSettings();
+            //AccountPivot.DataContext = null;
 
-            if (!Frame.Navigate(typeof(Pages.xAuthLogin))) {
+            //if (!Frame.Navigate(typeof(Pages.xAuthLogin))) {
+            //    Debug.WriteLine("Failed to Navigate");
+            //}
+            if (!Frame.Navigate(typeof(Pages.AccountManager))) {
                 Debug.WriteLine("Failed to Navigate");
             }
         }
@@ -354,7 +366,7 @@ namespace Core {
         }
 
 
-        private void Posts_Loaded(object sender, RoutedEventArgs e) {
+        public void Posts_Loaded(object sender, RoutedEventArgs e) {
             if (UserData.CurrentBlog == null)
                 SetAccountData();
 
@@ -367,6 +379,7 @@ namespace Core {
                 sb.ProgressIndicator.Text = "Loading account data...";
                 await sb.ProgressIndicator.ShowAsync();
                 try {
+                    Debug.WriteLine("Loading account data...");
                     AccountPivot.DataContext = await RequestHandler.RetrieveAccountInformation() ? UserData.CurrentBlog : null;
                     if (!ActivityPosts.ContentLoaded)
                         ActivityPosts.LoadPosts();
@@ -376,7 +389,6 @@ namespace Core {
                 }
                 RefreshButton.IsEnabled = true;
                 await sb.ProgressIndicator.HideAsync();
-                AccountPivotContent.Visibility = Windows.UI.Xaml.Visibility.Visible;
             } else {
                 ErrorFlyout.DisplayMessage("Unable to load Account information.");
             }

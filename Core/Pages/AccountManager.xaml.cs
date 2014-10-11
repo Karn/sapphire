@@ -1,22 +1,16 @@
 ﻿using API.Content;
+using API.Data;
 using Core.Common;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.Background;
-using Windows.ApplicationModel.DataTransfer;
-using Windows.ApplicationModel.Email;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
-using Windows.Storage;
-using Windows.System;
-using Windows.UI;
+using Windows.Phone.UI.Input;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -26,33 +20,35 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-//Below is how to get application package details
-//http://code.msdn.microsoft.com/wpapps/Package-sample-46e239fa
-
-
-
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
 namespace Core.Pages {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class Settings : Page {
+    public sealed partial class AccountManager : Page {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
-        public Settings() {
+        public AccountManager() {
             this.InitializeComponent();
 
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-            if (!Utils.IAPHander.ShowAds) {
-                RemoveAdsButton.Content = "Ads have been removed! Thanks!";
-                RemoveAdsButton.IsTapEnabled = false;
-                RemoveAdsButton.Background = new SolidColorBrush(Color.FromArgb(255, 51, 63, 74));
+            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+
+            List.ItemsSource = UserData.UserBlogs;
+        }
+
+        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e) {
+            //Fix navigating
+            if (!Frame.Navigate(typeof(MainPage))) {
+                throw new Exception();
             }
+            e.Handled = true;
+            return;
         }
 
         /// <summary>
@@ -82,6 +78,7 @@ namespace Core.Pages {
         /// a dictionary of state preserved by this page during an earlier
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
+            List.ItemsSource = Config.AccountTokens.Keys;
         }
 
         /// <summary>
@@ -93,7 +90,6 @@ namespace Core.Pages {
         /// <param name="e">Event data that provides an empty dictionary to be populated with
         /// serializable state.</param>
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) {
-
         }
 
         #region NavigationHelper registration
@@ -121,14 +117,73 @@ namespace Core.Pages {
 
         #endregion
 
-        private async void RemoveAds_Click(object sender, RoutedEventArgs e) {
-            if (Utils.IAPHander.ShowAds)
-                await Utils.IAPHander.RemoveAds();
+        private void SelectAccountButton_Tapped(object sender, TappedRoutedEventArgs e) {
+            if (Config.SelectedAccount != ((Button)sender).Tag.ToString()) {
+                Config.SelectedAccount = ((Button)sender).Tag.ToString();
+
+                string token = "";
+                Config.AccountTokens.TryGetValue(Config.SelectedAccount, out token);
+                Config.OAuthToken = token;
+
+                string secrettoken = "";
+                Config.AccountSecretTokens.TryGetValue(Config.SelectedAccount, out secrettoken);
+                Config.OAuthTokenSecret = secrettoken;
+
+                MainPage.SwitchedAccount = true;
+                if (!Frame.Navigate(typeof(MainPage))) {
+                    throw new Exception();
+                }
+            } else {
+                if (!Frame.Navigate(typeof(MainPage))) {
+                    throw new Exception();
+                }
+            }
         }
 
-        private async void ReviewButton_Click(object sender, RoutedEventArgs e) {
-            await Launcher.LaunchUriAsync(new Uri("ms-windows-store:reviewapp?appid=d9b787e4-616a-40ea-bdb4-c81523cb0733"));
+        private void AddAccount_Click(object sender, RoutedEventArgs e) {
+            if (!Frame.Navigate(typeof(xAuthLogin))) {
+                throw new Exception();
+            }
+            List.ItemsSource = Config.AccountTokens.Keys;
         }
 
+        private void StackPanel_Holding(object sender, HoldingRoutedEventArgs e) {
+            FrameworkElement senderElement = sender as FrameworkElement;
+            FlyoutBase flyoutBase = FlyoutBase.GetAttachedFlyout(senderElement);
+
+            flyoutBase.ShowAt(senderElement);
+        }
+
+        private void RemoveButton_Click(object sender, RoutedEventArgs e) {
+            var x = ((MenuFlyoutItem)sender).Tag.ToString();
+
+            Config.AccountTokens.Remove(x);
+            Config.AccountSecretTokens.Remove(x);
+            Debug.WriteLine(Config.AccountTokens.Count);
+            if (Config.AccountTokens.Count != 0) {
+                if (Config.SelectedAccount == x) {
+                    Config.SelectedAccount = Config.AccountTokens.Keys.First();
+
+                    string token = "";
+                    Config.AccountTokens.TryGetValue(Config.SelectedAccount, out token);
+                    Config.OAuthToken = token;
+
+                    string secrettoken = "";
+                    Config.AccountSecretTokens.TryGetValue(Config.SelectedAccount, out secrettoken);
+                    Config.OAuthTokenSecret = secrettoken;
+
+                    MainPage.SwitchedAccount = true;
+                }
+                Config.SaveLocalAccountStore();
+            } else {
+                Config.SaveLocalAccountStore();
+                if (!Frame.Navigate(typeof(xAuthLogin))) {
+                    throw new Exception();
+                }
+                return;
+            }
+
+            List.ItemsSource = Config.AccountTokens.Keys;
+        }
     }
 }

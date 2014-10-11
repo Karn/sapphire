@@ -6,7 +6,7 @@ namespace API.Data {
     public class DataStoreHandler {
 
         public static void CreateSettings() {
-
+            
         }
 
         /// <summary>
@@ -15,6 +15,7 @@ namespace API.Data {
         public static void LoadSettings() {
 
         }
+
         /// <summary>
         /// Save settings before exit
         /// </summary>

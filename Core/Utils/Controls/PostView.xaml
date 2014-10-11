@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:Core.Utils.Converters"
+    xmlns:controls="using:Core.Utils.Controls"
     xmlns:util="using:Core.Utils"
     xmlns:ad="using:AdDuplex.Universal.Controls.WinPhone.XAML"
     mc:Ignorable="d"
@@ -32,19 +33,18 @@
                         <TextBlock Text="{Binding date, Converter={StaticResource ToRelativeTime}}" Margin="5, -16, 5, 0" Foreground="{StaticResource HeaderDarkBlue}" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis"/>
                     </StackPanel>
                 </StackPanel>
-                <!--<Button x:Name="OtherOptionsButton" Padding="0" BorderThickness="0" MinWidth="0" MaxHeight="0" Click="OtherOptionsButton_Click" Tag="{Binding}" Height="35" Width="35" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10, 0" Opacity="0.5">
+                <Button x:Name="OtherOptionsButton" Padding="0" BorderThickness="0" MinWidth="0" MaxHeight="0" Tag="{Binding}" Height="35" Width="35" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10, 0" Opacity="0.5">
                     <Button.Background>
                         <ImageBrush Stretch="UniformToFill" ImageSource="ms-appx:///Assets/More.png"/>
                     </Button.Background>
                     <Button.Flyout>
-                        <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource Popup}">
-                            <MenuFlyoutItem Text="By rating" Tag="rating"/>
-                            <MenuFlyoutItem Text="By match" Tag="match"/>
-                            <MenuFlyoutItem Text="By distance" Tag="distance" />
+                        <MenuFlyout>
+                            <MenuFlyoutItem Click="OtherOptionsButton_Click" Text="Save to phone" Tag="{Binding path_to_low_res_pic}" Visibility="{Binding IsPhoto, Converter={StaticResource BooleanToVisisbilityConverter}}"/>
+                            <MenuFlyoutItem Click="OtherOptionsButton_Click" Text="Share" Tag="{Binding post_url}"/>
                         </MenuFlyout>
                     </Button.Flyout>
 
-                </Button>-->
+                </Button>
             </Grid>
         </DataTemplate>
 
@@ -129,7 +129,8 @@
                             <ImageBrush Stretch="UniformToFill" ImageSource="ms-appx:///Assets/Play.png"/>
                         </HyperlinkButton.Background>
                     </HyperlinkButton>
-
+                    <!--<controls:AnimationImage ImageUrl="/Assets/18.gif" Width="100" Height="100"/>-->
+                    <!--<controls:GifImage Width="380" MinHeight="150" Loaded="GifImage_Loaded"/>-->
                     <!--<AppBarButton Icon="Play" Click="AppBarButton_Click" IsEnabled="False" Tag="{Binding path_to_low_res_pic}" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
                     <!--<control:GifView x:Name="Gif" Visibility="Collapsed" Width="380"/>-->
                 </Grid>

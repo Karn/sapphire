@@ -1,7 +1,38 @@
-﻿using Windows.Storage;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using Windows.Storage;
 
 namespace API.Data {
     public static class Config {
+
+        public static Dictionary<string, string> AccountTokens;
+        public static Dictionary<string, string> AccountSecretTokens;
+
+        public static void ReadLocalAccountStore() {
+            try {
+                AccountTokens = JsonConvert.DeserializeObject<Dictionary<string, string>>(LocalSettings.Values["AccountTokens"].ToString());
+                AccountSecretTokens = JsonConvert.DeserializeObject<Dictionary<string, string>>(LocalSettings.Values["AccountSecretTokens"].ToString());
+                
+            } catch (Exception e) {
+                AccountTokens = new Dictionary<string, string>();
+                AccountSecretTokens = new Dictionary<string, string>();
+            }
+        }
+
+        public static void SaveLocalAccountStore() {
+            LocalSettings.Values["AccountTokens"] = JsonConvert.SerializeObject(AccountTokens);
+            LocalSettings.Values["AccountSecretTokens"] = JsonConvert.SerializeObject(AccountSecretTokens);
+        }
+
+        public static string SelectedAccount {
+            get {
+                return LocalSettings.Values["SelectedAccount"].ToString();
+            }
+            set {
+                LocalSettings.Values["SelectedAccount"] = value;
+            }
+        }
 
         /// <summary>
         /// Application data for this application

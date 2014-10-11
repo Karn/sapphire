@@ -8,6 +8,8 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using API.Data;
+using Windows.Phone.UI.Input;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -18,7 +20,7 @@ namespace Core.Pages {
     public sealed partial class xAuthLogin : Page {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
-        
+
         private StatusBar sb;
 
         public xAuthLogin() {
@@ -35,6 +37,18 @@ namespace Core.Pages {
             sb.ForegroundColor = Color.FromArgb(255, 255, 255, 255);
 
             FadeInLogoImage.Begin();
+
+            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+        }
+
+        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e) {
+            //Fix navigating
+            if (Config.AccountTokens.Count == 0) {
+                API.Data.DataStoreHandler.SaveAllSettings();
+                Application.Current.Exit();
+            }
+            e.Handled = true;
+            return;
         }
 
         /// <summary>
@@ -115,9 +129,15 @@ namespace Core.Pages {
                 await sb.ProgressIndicator.HideAsync();
 
                 if (response == "Okay") {
-                    UserData.CreateDataContainer();
-                    if (!Frame.Navigate(typeof(MainPage))) {
-                        throw new Exception();
+                    if (Config.AccountTokens.Count == 1) {
+                        UserData.CreateDataContainer();
+                        if (!Frame.Navigate(typeof(MainPage))) {
+                            throw new Exception();
+                        }
+                    } else {
+                        if (!Frame.Navigate(typeof(AccountManager))) {
+                            throw new Exception();
+                        }
                     }
                 } else {
                     ErrorFlyout.DisplayMessage(response);

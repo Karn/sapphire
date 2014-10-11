@@ -26,10 +26,28 @@
                     <TextBlock Margin="7, 0, 7, 10" Text="Would you like to enable notifications?" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
 
                 </StackPanel>-->
-                <StackPanel Height="500" Width="380">
+                <StackPanel Height="500" HorizontalAlignment="Stretch" Margin="0">
+                    <TextBlock Margin="7, 0" Text="Like this app?" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                    <TextBlock Margin="7, 0, 7, 10" Text="It's always nice to hear what the users think about the app so be sure to review the app and let me know what you think!" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
+                    <Button x:Name="ReviewButton" Content="Rate and review!" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="ReviewButton_Click"/>
+
                     <TextBlock Margin="7, 0" Text="In app advertisements" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                     <TextBlock Margin="7, 0, 7, 10" Text="If you'd like to remove the adversitements you can click the button below to upgrade to the ad free version. (P.s you're awesome if you do! ...and even if you dont!)" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
                     <Button x:Name="RemoveAdsButton" Content="Remove these dumb ads please" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="RemoveAds_Click"/>
+                    
+                </StackPanel>
+            </PivotItem>
+            <PivotItem Margin="10, 0">
+                <PivotItem.Header>
+                    <TextBlock Text="toggles" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe WP" CharacterSpacing="-25" Foreground="{StaticResource HeaderLightBlue}"/>
+                </PivotItem.Header>
+
+                <StackPanel Height="500" HorizontalAlignment="Stretch" Margin="0">
+                    <TextBlock Margin="7, 0" Text="Dark theme" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                    <ToggleSwitch Style="{StaticResource Switch}" Header="For blogging in the dark or simply as a preference." OffContent="Disabled" OnContent="Enabled"/>
+                    <TextBlock Margin="7, 0" Text="Refresh button" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                    <TextBlock Margin="7, 0, 7, 10" Text="If you prefer to use a refresh button rather than the pull to refresh gesture, select the toggle below." TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
+
                 </StackPanel>
             </PivotItem>
             <PivotItem Margin="10, 0">
@@ -46,7 +64,7 @@
                     <TextBlock Margin="7, 0, 7, 10" Text="It is important to note that this application ('Sapphire') is a 3rd party client for Tumblr and is in no way affiliated, endorsed or advocated for by Yahoo! Inc. Content that is retrieved via the Tumblr APIs is property of its respective owners and is not a reflection of the developer ('Karn, Awefull'). Additionally, you agree that the developer is not liable for any issues that may occur whilst using this application." TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
 
                     <TextBlock Margin="7, 0" Text="Support + Feedback" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                    <TextBlock Margin="7, 0, 7, 10" Text="If you come across a bug, or something that you feel needs improving, feel free to use the links below to let us know!" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
+                    <TextBlock Margin="7, 0, 7, 10" Text="If you come across a bug, or something that you feel needs improving, feel free to use the links below to get in touch!" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
 
                     <HyperlinkButton x:Name="Blog" Content="Blog" HorizontalAlignment="Stretch" Margin="10, 0" FontSize="20" MinHeight="10" BorderThickness="0" Foreground="#FF529ECC" NavigateUri="http://sapphireapp.tumblr.com"/>
                     <HyperlinkButton x:Name="Reddit" Content="/r/Sapphire" HorizontalAlignment="Stretch" Margin="10, 0" FontSize="20" MinHeight="10" Foreground="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" NavigateUri="http://reddit.com/r/sapphire"/>

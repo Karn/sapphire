@@ -187,6 +187,7 @@
     <MainPackageIdentityName>16658Awefull.Spphire</MainPackageIdentityName>
     <ReservedNames>
       <ReservedName>Sаpphire</ReservedName>
+      <ReservedName>Sappһire</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
@@ -197,7 +198,7 @@
     <PackageInfo>
       <OsMinVersion>6.3.0.0</OsMinVersion>
       <PackageArchitecture>neutral</PackageArchitecture>
-      <PackageMaxArchitectureVersion>1.1.0.1</PackageMaxArchitectureVersion>
+      <PackageMaxArchitectureVersion>1.1.0.4</PackageMaxArchitectureVersion>
     </PackageInfo>
   </PackageInfoList>
 </StoreAssociation>

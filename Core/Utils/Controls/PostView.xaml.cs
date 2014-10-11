@@ -19,6 +19,8 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml.Data;
 using API;
+using Windows.Storage;
+using Windows.Networking.BackgroundTransfer;
 
 // Use setter to set item source of posts
 
@@ -104,11 +106,12 @@ namespace Core.Utils.Controls {
                             foreach (var x in posts) {
                                 PostItems.Add(x);
                             }
+
                             LastPostID = PostItems.Last().id;
                         } else {
                             MainPage.ErrorFlyout.DisplayMessage("Unable to deserialize posts.");
                         }
-                        if (Utils.IAPHander.ShowAds)
+                        if (Utils.IAPHander.ShowAds && posts.Count > 5)
                             PostItems.Add(new Post { type = "advert" });
                         Posts.ItemsSource = PostItems;
                     } catch (Exception e) {
@@ -280,6 +283,12 @@ namespace Core.Utils.Controls {
             scrollViewer.ChangeView(null, 60.0, null);
         }
 
+        public void RefeshPosts() {
+            LastPostID = "";
+            PostItems.Clear();
+            LoadPosts(true);
+        }
+
         private void scrollViewer_SizeChanged(object sender, SizeChangedEventArgs e) {
             Posts.Width = e.NewSize.Width;
             Posts.Height = e.NewSize.Height;
@@ -327,5 +336,42 @@ namespace Core.Utils.Controls {
             }
         }
 
+        private async void OtherOptionsButton_Click(object sender, RoutedEventArgs e) {
+            MenuFlyoutItem selectedItem = sender as MenuFlyoutItem;
+
+            if (selectedItem != null) {
+                if (selectedItem.Text.ToString().ToLowerInvariant() == "Save to phone".ToLowerInvariant()) {
+                    Debug.WriteLine("Trying to save :" + selectedItem.Tag.ToString());
+                    Debug.WriteLine(await SaveFileAsync(new Uri(selectedItem.Tag.ToString())));
+                } else if (selectedItem.Text.ToString().ToLowerInvariant() == "Share".ToLowerInvariant()) {
+                    ShareURI = selectedItem.Tag.ToString();
+                    Debug.WriteLine(ShareURI);
+                    DataTransferManager.GetForCurrentView().DataRequested += PostView_DataRequested;
+                    DataTransferManager.ShowShareUI();
+                }
+            }
+        }
+
+        private async Task<bool> SaveFileAsync(Uri fileUri) {
+            Debug.WriteLine("Saving..");
+            // create the blank file in specified folder
+            try {
+                var StorageFolder = await KnownFolders.PicturesLibrary.CreateFolderAsync("Sapphire", CreationCollisionOption.OpenIfExists);
+
+                var file = await StorageFolder.CreateFileAsync(fileUri.ToString().Split('/').Last(), CreationCollisionOption.ReplaceExisting);
+
+                // create the downloader instance and prepare for downloading the file
+                var backgroundDownloader = new BackgroundDownloader();
+                var downloadOperation = backgroundDownloader.CreateDownload(fileUri, file);
+
+                // start the download operation asynchronously
+                var result = await downloadOperation.StartAsync();
+
+                return true;
+            } catch (Exception e) {
+                Debug.WriteLine("Unable to save photo: " + e.Message);
+                return false;
+            }
+        }
     }
 }

@@ -12,8 +12,10 @@ namespace API.Content {
         public string blog_name { get; set; }
         public Visibility IsEditable { 
             get {
-                if (UserData.CurrentBlog.Name != null && blog_name == UserData.CurrentBlog.Name)
-                    return Visibility.Visible;
+                if (UserData.CurrentBlog != null) {
+                    if (blog_name == UserData.CurrentBlog.Name)
+                        return Visibility.Visible;
+                }
                 return Visibility.Collapsed;
             }
         }
@@ -48,7 +50,6 @@ namespace API.Content {
         public ObservableCollection<Photo> photos { get; set; }
         public string link_url { get; set; }
         public string photoset_layout { get; set; }
-
         public string permalink_url { get; set; }
         public bool html5_capable { get; set; }
         public string thumbnail_url { get; set; }
@@ -74,6 +75,11 @@ namespace API.Content {
         public string source { get; set; }
         public string path_to_low_res_pic { get; set; }
         public int pic_height { get; set; }
+        public bool IsPhoto {
+            get {
+                return type == "photo";
+            }
+        }
         public string asking_name { get; set; }
         public object asking_url { get; set; }
         public string question { get; set; }

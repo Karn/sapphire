@@ -146,7 +146,7 @@ namespace Core.Pages {
                 tags = tags.Replace(" #", ", ");
                 tags = AuthenticationManager.Utils.UrlEncode(tags.Substring(1, tags.Length - 1));
             }
-            API.Content.CreatePost.Text(title, body, tags);
+            API.Content.CreatePost.Text(AuthenticationManager.Utils.UrlEncode(title), AuthenticationManager.Utils.UrlEncode(body), tags);
             Frame.GoBack();
         }
 

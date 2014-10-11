@@ -403,15 +403,28 @@ namespace API.Authentication {
                     if (response.Contains("oauth_token")) {
                         foreach (var x in Utils.ParseResponseString(response)) {
                             if (x.Key == "oauth_token") {
-                                Config.OAuthToken = x.Value;
+                                if (Config.AccountTokens.Count == 0) {
+                                    Config.AccountTokens.Add(username, x.Value);
+                                    Config.OAuthToken = x.Value;
+                                } else {
+                                    Config.AccountTokens.Add(username, x.Value);
+                                }
+                                Config.SelectedAccount = username;
                                 Debug.WriteLine("OAuth Access Token: " + Config.OAuthToken);
                             } else if (x.Key == "oauth_token_secret") {
-                                Config.OAuthTokenSecret = x.Value;
+                                if (Config.AccountSecretTokens.Count == 0) {
+                                    Config.AccountSecretTokens.Add(username, x.Value);
+                                    Config.OAuthTokenSecret = x.Value;
+                                } else {
+                                    Config.AccountSecretTokens.Add(username, x.Value);
+                                }
+                                Config.SelectedAccount = username;
                                 Debug.WriteLine("OAuth Access Token Secret: " + Config.OAuthTokenSecret);
                             }
                         }
-                        if (!string.IsNullOrEmpty(Config.OAuthToken) || !string.IsNullOrEmpty(Config.OAuthTokenSecret)) {
+                        if (Config.AccountTokens.ContainsKey(username) || Config.AccountSecretTokens.ContainsKey(username)) {
                             //Data.AppSettings.UpdateSettings();
+                            Config.SaveLocalAccountStore();
                             return "Okay";
                         }
                     } else {
