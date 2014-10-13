@@ -10,7 +10,7 @@
     xmlns:CommonControl="using:API.Utils"
     xmlns:common="using:Core"
     mc:Ignorable="d"
-    Background="#FFf0f3f6" RequestedTheme="Dark">
+    Background="#FFf0f3f6">
 
     <Page.Resources>
         <Storyboard x:Name="HeaderAnimateIn">
@@ -35,7 +35,6 @@
 
     <Grid x:Name="LayoutRoot" Loaded="LayoutRoot_Loaded">
         <CommonControl:ErrorFlyout x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
-        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -43,8 +42,8 @@
             </Grid.RowDefinitions>
 
             <StackPanel x:Name="HeaderContainer">
-                <Border Canvas.ZIndex="99999" Height="26" Background="{StaticResource HeaderDarkBlue}" VerticalAlignment="Top"/>
-                <Grid x:Name="HeaderContent" Background="{StaticResource HeaderLightBlue}" Height="56" Margin="0, -1, 0, 0" RenderTransformOrigin="0.5,0.5">
+                <Border Canvas.ZIndex="99999" Height="26" Background="{ThemeResource HeaderDarkBlue}" VerticalAlignment="Top"/>
+                <Grid x:Name="HeaderContent" Background="{ThemeResource HeaderLightBlue}" Height="56" Margin="0, -1, 0, 0" RenderTransformOrigin="0.5,0.5">
                     <Grid.RenderTransform>
                         <CompositeTransform TranslateY="0"/>
                     </Grid.RenderTransform>
@@ -104,13 +103,13 @@
                         <Control:NewPostDialog x:Name="CreatePostControl" Visibility="Collapsed"/>
                         <!--<Button x:Name="GoToTop" Visibility="Collapsed" ClickMode="Press" Click="GoToTop_Click" Height="0" Width="50" Margin="10, 38" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="0" MinHeight="0" Style="{StaticResource ButtonStyleNoBG}">
                             <Grid>
-                                <Ellipse Fill="{StaticResource HeaderLightBlue}"/>
+                                <Ellipse Fill="{ThemeResource HeaderLightBlue}"/>
                                 <Image Source="Assets/Top.png" Margin="10"/>
                             </Grid>
                         </Button>-->
                         <Button x:Name="CreatePost" Visibility="Visible" ClickMode="Press" Click="CreatePost_Click" Height="0" Width="50" Margin="10, 38" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="0" MinHeight="0" Style="{StaticResource ButtonStyleNoBG}">
                             <Grid>
-                                <Ellipse x:Name="CreatePostFill" Fill="{StaticResource HeaderLightBlue}"/>
+                                <Ellipse x:Name="CreatePostFill" Stroke="{StaticResource DarkText}" StrokeThickness="0.1" Fill="{ThemeResource HeaderLightBlue}"/>
                                 <Image x:Name="CreatePostIcon" Source="Assets/New.png" Margin="10" RenderTransformOrigin="0.5,0.5" Canvas.ZIndex="50"/>
                             </Grid>
                         </Button>
@@ -123,40 +122,40 @@
 
                 <PivotItem x:Name="AccountPivot" Margin="0" DataContext="{Binding}">
                     <StackPanel x:Name="AccountPivotContent" VerticalAlignment="Top">
-                        <Grid Height="175" Background="{StaticResource HeaderLightBlue}">
+                        <Grid Height="175" Background="{ThemeResource HeaderLightBlue}">
                             <Image Source="{Binding Path=theme.header_image_focused}" Stretch="UniformToFill" VerticalAlignment="Center" Opacity="0.7"/>
                             <Border Margin="13, 0, 0, -45" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="96" Width="96" BorderThickness="0.5" BorderBrush="White">
                                 <Image Source="{Binding Path=avatar}"/>
                             </Border>
                         </Grid>
                         <TextBlock Text="{Binding title}" Margin="126, -50, 10, 4" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
-                        <TextBlock Text="{Binding description}" Margin="126, 4, 10, 4" Foreground="{StaticResource HeaderLightBlue}" FontSize="18" Height="47" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxLines="2"/>
+                        <TextBlock Text="{Binding description}" Margin="126, 4, 10, 4" Foreground="{ThemeResource DarkText}" FontSize="18" Height="47" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxLines="2"/>
 
                         <StackPanel Height="55" Orientation="Horizontal" HorizontalAlignment="Center">
                             <StackPanel Tag="Following" Margin="0, 5, 0, 0" Tapped="AccountDetails_Tapped" Width="90">
-                                <TextBlock Text="{Binding following, FallbackValue=0}" Opacity="0.5" Foreground="{StaticResource HeaderDarkBlue}" HorizontalAlignment="Center" FontSize="24" VerticalAlignment="Center"/>
-                                <TextBlock Text="following" Foreground="{StaticResource HeaderLightBlue}" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding following, FallbackValue=0}" Opacity="0.5" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Center" FontSize="24" VerticalAlignment="Center"/>
+                                <TextBlock Text="following" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center"/>
                             </StackPanel>
-                            <Rectangle Height="50" Width="0.5" Fill="#33000000" VerticalAlignment="Center"/>
+                            <Rectangle Height="50" Width="0.5" Fill="{ThemeResource DarkText}" VerticalAlignment="Center"/>
                             <StackPanel Tag="Posts" Margin="0, 5, 0, 0" Tapped="AccountDetails_Tapped" Width="90">
-                                <TextBlock Text="{Binding posts, FallbackValue=0}" Opacity="0.5" Foreground="{StaticResource HeaderDarkBlue}" HorizontalAlignment="Center" FontSize="24" VerticalAlignment="Center"/>
-                                <TextBlock Text="posts" Foreground="{StaticResource HeaderLightBlue}" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding posts, FallbackValue=0}" Opacity="0.5" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Center" FontSize="24" VerticalAlignment="Center"/>
+                                <TextBlock Text="posts" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center"/>
                             </StackPanel>
-                            <Rectangle Height="50" Width="0.5" Fill="#33000000" VerticalAlignment="Center"/>
+                            <Rectangle Height="50" Width="0.5" Fill="{ThemeResource DarkText}" VerticalAlignment="Center"/>
                             <StackPanel Tag="Likes" Margin="0, 5, 0, 0" Tapped="AccountDetails_Tapped" Width="90">
-                                <TextBlock Text="{Binding likes, FallbackValue=0}" Opacity="0.5" Foreground="{StaticResource HeaderDarkBlue}" HorizontalAlignment="Center" FontSize="24" VerticalAlignment="Center"/>
-                                <TextBlock Text="likes" Foreground="{StaticResource HeaderLightBlue}" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding likes, FallbackValue=0}" Opacity="0.5" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Center" FontSize="24" VerticalAlignment="Center"/>
+                                <TextBlock Text="likes" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center"/>
                             </StackPanel>
-                            <Rectangle Height="50" Width="0.5" Fill="#33000000" VerticalAlignment="Center"/>
+                            <Rectangle Height="50" Width="0.5" Fill="{ThemeResource DarkText}" VerticalAlignment="Center"/>
                             <StackPanel Tag="Followers" Margin="0, 5, 0, 0" Tapped="AccountDetails_Tapped" Width="90">
-                                <TextBlock Text="{Binding followers, FallbackValue=0}" Opacity="0.5" Foreground="{StaticResource HeaderDarkBlue}" HorizontalAlignment="Center" FontSize="24" VerticalAlignment="Center"/>
-                                <TextBlock Text="followers" Foreground="{StaticResource HeaderLightBlue}" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding followers, FallbackValue=0}" Opacity="0.5" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Center" FontSize="24" VerticalAlignment="Center"/>
+                                <TextBlock Text="followers" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center"/>
                             </StackPanel>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Background="#0C000000" Height="50" Tag="Blogs" Margin="4, 4, 4, 2" Tapped="AccountNavPanel_Tapped">
-                            <Image Source="Assets/Blog.png" Width="35" Height="35" Margin="10, 0, 25, 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <TextBlock Text="blogs" FontFamily="Segoe WP" FontWeight="Thin" Foreground="#FF2D3F53" FontSize="24" VerticalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" Background="{ThemeResource Accent2}" Height="50" Tag="Blogs" Margin="4, 4, 4, 2" Tapped="AccountNavPanel_Tapped">
+                            <Image Source="{ThemeResource BlogButtonAsset}" Width="35" Height="35" Margin="10, 0, 25, 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <TextBlock Text="blogs" FontFamily="Segoe WP" FontWeight="Thin" Foreground="{ThemeResource DarkText}" FontSize="24" VerticalAlignment="Center"/>
                         </StackPanel>
                         <!--<StackPanel Orientation="Horizontal" Background="#0C000000" Height="50" Margin="4, 2" Tag="Messages" Tapped="AccountNavPanel_Tapped">
                             <Image Source="Assets/Messages.png" Width="35" Height="35" Margin="10, 0, 25, 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -174,10 +173,10 @@
                 </PivotItem>
                 <PivotItem x:Name="SearchPivot" Margin="0">
                     <StackPanel Margin="10" VerticalAlignment="Top">
-                        <TextBox x:Name="SearchText" KeyDown="SearchText_KeyDown" Margin="10" BorderThickness="0.5" PlaceholderText="Search..." BorderBrush="{StaticResource HeaderLightBlue}"/>
+                        <TextBox x:Name="SearchText" KeyDown="SearchText_KeyDown" Margin="10" BorderThickness="0.5" PlaceholderText="Search..." BorderBrush="{ThemeResource HeaderLightBlue}"/>
                         <GridView x:Name="SpotlightTags" Height="439" Loaded="SpotlightTags_Loaded" ItemsSource="{Binding}" ScrollViewer.VerticalScrollMode="Enabled">
                             <GridView.Header>
-                                <TextBlock Foreground="{StaticResource HeaderLightBlue}" Text="Trending tags" FontSize="24" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
+                                <TextBlock Foreground="{ThemeResource HeaderLightBlue}" Text="Trending tags" FontSize="24" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
                             </GridView.Header>
                             <GridView.ItemTemplate>
                                 <DataTemplate>
@@ -199,7 +198,7 @@
     </Grid>
 
     <Page.BottomAppBar>
-        <CommandBar x:Name="CommandBar" ClosedDisplayMode="Minimal" Background="{StaticResource HeaderDarkBlue}" Foreground="{StaticResource LightGray}" BorderBrush="{x:Null}">
+        <CommandBar x:Name="CommandBar" ClosedDisplayMode="Minimal" Background="{ThemeResource HeaderDarkBlue}" Foreground="{StaticResource LightGray}" BorderBrush="{x:Null}">
             <AppBarButton x:Name="RefreshButton" Icon="Refresh" Label="refresh" Click="RefreshButton_Click"/>
             <CommandBar.SecondaryCommands>
                 <AppBarButton x:Name="SettingsButton" Label="settings" Click="SettingsButton_Click"/>

@@ -34,6 +34,17 @@ namespace API.Data {
             }
         }
 
+        public static string SelectedTheme {
+            get {
+                if (LocalSettings.Values["THEME"] != null)
+                    return LocalSettings.Values["THEME"].ToString();
+                return "Light";
+            }
+            set {
+                LocalSettings.Values["THEME"] = value;
+            }
+        }
+
         /// <summary>
         /// Application data for this application
         /// </summary>

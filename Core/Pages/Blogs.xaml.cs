@@ -35,6 +35,7 @@ namespace Core.Pages {
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
             List.ItemsSource = UserData.UserBlogs;
+            MainPage.ErrorFlyout = _ErrorFlyout;
         }
 
         /// <summary>

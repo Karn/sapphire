@@ -41,7 +41,11 @@ namespace Core
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
 
-
+            if (Config.SelectedTheme == "Dark") {
+                RequestedTheme = ApplicationTheme.Dark;
+            } else {
+                RequestedTheme = ApplicationTheme.Light;
+            }
         }
 
         /// <summary>
@@ -106,7 +110,7 @@ namespace Core
 
                 rootFrame.ContentTransitions = null;
                 rootFrame.Navigated += this.RootFrame_FirstNavigated;
-                rootFrame.Background = App.Current.Resources["HeaderLightBlue"] as SolidColorBrush;
+                //rootFrame.Background = App.Current.Resources["HeaderLightBlue"] as SolidColorBrush;
 
 
                 DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;

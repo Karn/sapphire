@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converter="using:Core.Utils.Converters"
     xmlns:control="using:Core.Utils.Controls"
+    xmlns:CommonControl="using:API.Utils"
     mc:Ignorable="d"
     Background="{StaticResource Blue}">
 
@@ -14,9 +15,9 @@
 
         <DataTemplate x:Key="Text">
             <StackPanel Margin="10" Width="380">
-                <TextBlock Margin="7, 0" Text="Title" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                <TextBlock Margin="7, 0" Text="Title" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                 <TextBox x:Name="Text_Title"/>
-                <TextBlock Margin="7, 0" Text="Body" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                <TextBlock Margin="7, 0" Text="Body" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                 <TextBox x:Name="Text_Body" TextWrapping="Wrap" Height="295"/>
 
                 <TextBox x:Name="Text_Tags" Margin="0, 0" Grid.Row="1" TextWrapping="Wrap" KeyDown="TagBox_KeyDown" PlaceholderText="Tags"/>
@@ -29,12 +30,12 @@
 
         <DataTemplate x:Key="Photo">
             <StackPanel Margin="10" Width="380">
-                <TextBlock Margin="7, 0" Text="Image" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                <TextBlock Margin="7, 0" Text="Image" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                 <Grid x:Name="Photo_Grid" Tapped="Photo_Image_Tapped" Background="White">
                     <Image Height="200" Width="200" HorizontalAlignment="Left" x:Name="Photo_Image" />
                 </Grid>
                 
-                <TextBlock Margin="7, 0" Text="Caption" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                <TextBlock Margin="7, 0" Text="Caption" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                 <TextBox x:Name="Text_Body" TextWrapping="Wrap" Height="150"/>
 
                 <!--<TextBox Margin="0, 0" Grid.Row="1" TextWrapping="Wrap" KeyDown="TagBox_KeyDown" PlaceholderText="Tags"/>-->
@@ -47,9 +48,9 @@
 
         <DataTemplate x:Key="Quote">
             <StackPanel Margin="10" Width="380">
-                <TextBlock Margin="7, 0" Text="Source" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                <TextBlock Margin="7, 0" Text="Source" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                 <TextBox x:Name="Quote_Source"/>
-                <TextBlock Margin="7, 0" Text="Quote" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                <TextBlock Margin="7, 0" Text="Quote" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                 <TextBox x:Name="Quote_Quote" TextWrapping="Wrap" Height="295"/>
 
                 <TextBox Margin="0, 0" Grid.Row="1" TextWrapping="Wrap" KeyDown="TagBox_KeyDown" PlaceholderText="Tags"/>
@@ -62,11 +63,11 @@
 
         <DataTemplate x:Key="Link">
             <StackPanel Margin="10" Width="380">
-                <TextBlock Margin="7, 0" Text="Title" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                <TextBlock Margin="7, 0" Text="Title" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                 <TextBox x:Name="Link_Title"/>
-                <TextBlock Margin="7, 0" Text="Url" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                <TextBlock Margin="7, 0" Text="Url" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                 <TextBox x:Name="Link_Url"/>
-                <TextBlock Margin="7, 0" Text="Description" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                <TextBlock Margin="7, 0" Text="Description" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                 <TextBox x:Name="Link_Description" TextWrapping="Wrap" Height="210"/>
                 <TextBox Margin="0, 0" Grid.Row="1" TextWrapping="Wrap" KeyDown="TagBox_KeyDown" PlaceholderText="Tags"/>
 
@@ -91,9 +92,11 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Margin="0" VerticalAlignment="Top" Background="{StaticResource HeaderLightBlue}">
-            <Grid Height="45" Margin="0, 25, 0, 0" Background="{StaticResource HeaderLightBlue}">
-                <TextBlock x:Name="PageTitle" Text="New Post" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
+        
+        <CommonControl:ErrorFlyout Grid.RowSpan="2" x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
+        <StackPanel Grid.Row="0" Margin="0" VerticalAlignment="Top" Background="{ThemeResource HeaderLightBlue}">
+            <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource HeaderLightBlue}">
+                <TextBlock x:Name="PageTitle" Foreground="{ThemeResource LightText}" Text="New Post" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
             </Grid>
         </StackPanel>
 
@@ -109,13 +112,13 @@
                     <StaticResource ResourceKey="ListViewItemContainerStyle"/>
                 </ListView.ItemContainerStyle>
                 <StackPanel Margin="10" Width="380">
-                    <TextBlock Margin="7, 0" Text="Image" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                    <TextBlock Margin="7, 0" Text="Image" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                     
                     <Grid x:Name="Photo_Grid" Height="200" Width="200" HorizontalAlignment="Left" Tapped="Photo_Image_Tapped" Background="White">
                         <Image Height="200" Width="200" HorizontalAlignment="Left" x:Name="Photo_Image" />
                     </Grid>
 
-                    <TextBlock Margin="7, 0" Text="Caption" TextWrapping="Wrap" Foreground="{StaticResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                    <TextBlock Margin="7, 0" Text="Caption" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                     <TextBox x:Name="Text_Body" TextWrapping="Wrap" Height="150"/>
 
                     <!--<TextBox Margin="0, 0" Grid.Row="1" TextWrapping="Wrap" KeyDown="TagBox_KeyDown" PlaceholderText="Tags"/>-->

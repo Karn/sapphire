@@ -37,6 +37,8 @@ namespace Core.Pages {
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
+
+            MainPage.ErrorFlyout = _ErrorFlyout;
         }
 
         /// <summary>
@@ -68,7 +70,6 @@ namespace Core.Pages {
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
             blogName = e.NavigationParameter.ToString();
             LayoutRoot.DataContext = await RequestHandler.GetBlog(blogName);
-            
         }
 
         /// <summary>

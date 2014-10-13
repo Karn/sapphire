@@ -70,6 +70,8 @@ namespace Core.Pages {
                 PageTitle.Text = "Tagged: " + y[0].Substring(4);
             }
             PostList.offset = 0;
+
+            MainPage.ErrorFlyout = _ErrorFlyout;
         }
 
         /// <summary>

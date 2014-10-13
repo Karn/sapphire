@@ -42,9 +42,9 @@ namespace Core.Utils.Controls {
 
         public static bool isAnimating;
 
-        public static ImageBrush RebloggedBrush = new ImageBrush { ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Reblogged.png")) };
-        public static ImageBrush LikeBrush = new ImageBrush { ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Likes.png")) };
-        public static ImageBrush LikeFullBrush = new ImageBrush { ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Liked.png")) };
+        public static ImageBrush RebloggedBrush = new ImageBrush { ImageSource = App.Current.Resources["RebloggedAsset"] as BitmapImage };
+        public static ImageBrush LikeBrush = new ImageBrush { ImageSource = App.Current.Resources["LikeAsset"] as BitmapImage };
+        public static ImageBrush LikeFullBrush = new ImageBrush { ImageSource = App.Current.Resources["LikedAsset"] as BitmapImage };
 
         public bool IsSinglePost;
 
@@ -366,7 +366,8 @@ namespace Core.Utils.Controls {
 
                 // start the download operation asynchronously
                 var result = await downloadOperation.StartAsync();
-
+                //var frame =  
+                MainPage.ErrorFlyout.DisplayMessage("Image saved.");
                 return true;
             } catch (Exception e) {
                 Debug.WriteLine("Unable to save photo: " + e.Message);

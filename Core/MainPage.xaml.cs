@@ -24,15 +24,8 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Core {
     public sealed partial class MainPage : Page {
-        public static Boolean IsTrial;
 
         public static ErrorFlyout ErrorFlyout;
-
-        public static Storyboard HeaderExtend;
-        public static Storyboard HeaderCompress;
-
-        public static TextBlock ErrorTextBlock = new TextBlock();
-        public static Storyboard ExtendPresenterSB = new Storyboard();
 
         public static Storyboard RefreshButtonIntoView_;
         public static Storyboard RefreshButtonOutOfView_;
@@ -105,7 +98,7 @@ namespace Core {
             //Fix navigating
             if (CreatePostControl.Visibility == Visibility.Visible) {
                 CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
-                CreatePostFill.Fill = new SolidColorBrush(Color.FromArgb(255, 52, 73, 94));
+                CreatePostFill.Fill = App.Current.Resources["HeaderLightBlue"] as SolidColorBrush;
                 CreatePostControl.Visibility = Visibility.Collapsed;
                 e.Handled = true;
             } else if (JustNavigatedBack) {
@@ -147,9 +140,11 @@ namespace Core {
                 NavigatedFromToast = true;
             }
 
+            ErrorFlyout = _ErrorFlyout;
+
             if (CreatePostControl.Visibility == Visibility.Collapsed) {
                 CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
-                CreatePostFill.Fill = new SolidColorBrush(Color.FromArgb(255, 52, 73, 94));
+                CreatePostFill.Fill = App.Current.Resources["HeaderLightBlue"] as SolidColorBrush;
             }
 
             if (SwitchedAccount) {
@@ -403,7 +398,7 @@ namespace Core {
 
             } else {
                 CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
-                CreatePostFill.Fill = new SolidColorBrush(Color.FromArgb(255, 52, 73, 94));
+                CreatePostFill.Fill = App.Current.Resources["HeaderLightBlue"] as SolidColorBrush;
                 CreatePostControl.Visibility = Visibility.Collapsed;
             }
         }
@@ -413,8 +408,10 @@ namespace Core {
         }
 
         private async void SpotlightTags_Loaded(object sender, RoutedEventArgs e) {
-            if (RequestHandler.CanRequestData())
-                SpotlightTags.ItemsSource = await RequestHandler.RetrieveSpotlight();
+            if (SpotlightTags.ItemsSource == null || sender == null) {
+                if (RequestHandler.CanRequestData())
+                    SpotlightTags.ItemsSource = await RequestHandler.RetrieveSpotlight();
+            }
         }
 
         private void SearchText_KeyDown(object sender, KeyRoutedEventArgs e) {

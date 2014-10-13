@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:Control="using:Core.Utils.Controls"
     xmlns:CommonControl="using:API.Utils"
-    mc:Ignorable="d" Background="{StaticResource HeaderDarkBlue}">
+    mc:Ignorable="d" Background="{ThemeResource HeaderDarkBlue}">
 
     <Page.Resources>
         <Storyboard x:Name="FadeInLogoImage">

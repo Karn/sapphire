@@ -1,4 +1,5 @@
 ﻿using API.Content;
+using API.Data;
 using Core.Common;
 using System;
 using System.Collections.Generic;
@@ -53,6 +54,9 @@ namespace Core.Pages {
                 RemoveAdsButton.IsTapEnabled = false;
                 RemoveAdsButton.Background = new SolidColorBrush(Color.FromArgb(255, 51, 63, 74));
             }
+
+            if (Config.SelectedTheme == "Dark")
+                ThemeSwitch.IsOn = true;
         }
 
         /// <summary>
@@ -128,6 +132,14 @@ namespace Core.Pages {
 
         private async void ReviewButton_Click(object sender, RoutedEventArgs e) {
             await Launcher.LaunchUriAsync(new Uri("ms-windows-store:reviewapp?appid=d9b787e4-616a-40ea-bdb4-c81523cb0733"));
+        }
+
+        private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e) {
+            if (((ToggleSwitch)sender).IsOn) {
+                Config.SelectedTheme = "Dark";
+            } else {
+                Config.SelectedTheme = "Light";
+            }
         }
 
     }

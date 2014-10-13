@@ -6,20 +6,22 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Core.Utils.Controls"
+    xmlns:CommonControl="using:API.Utils"
     mc:Ignorable="d"
     Background="{StaticResource StandardGray}">
+    <Grid>
+        <CommonControl:ErrorFlyout Grid.RowSpan="2" x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
+        <StackPanel x:Name="LayoutRoot" DataContext="{Binding}">
+            <Grid Height="125" Background="{ThemeResource HeaderLightBlue}">
+                <Image Source="{Binding Path=theme.header_image_focused}" Stretch="UniformToFill" VerticalAlignment="Center" Opacity="0.7"/>
+                <Border Margin="13, 0, 0, -45" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="96" Width="96" BorderThickness="0.5" BorderBrush="White">
+                    <Image Source="{Binding Path=avatar}"/>
+                </Border>
+            </Grid>
+            <TextBlock Text="{Binding title}" Margin="126, -50, 10, 4" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
+            <TextBlock Text="{Binding description}" Margin="126, 4, 10, 4" Foreground="{ThemeResource LightText}" FontSize="18" Height="47" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxLines="2"/>
 
-    <StackPanel x:Name="LayoutRoot" DataContext="{Binding}">
-        <Grid Height="125" Background="{StaticResource HeaderLightBlue}">
-            <Image Source="{Binding Path=theme.header_image_focused}" Stretch="UniformToFill" VerticalAlignment="Center" Opacity="0.7"/>
-            <Border Margin="13, 0, 0, -45" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="96" Width="96" BorderThickness="0.5" BorderBrush="White">
-                <Image Source="{Binding Path=avatar}"/>
-            </Border>
-        </Grid>
-        <TextBlock Text="{Binding title}" Margin="126, -50, 10, 4" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
-        <TextBlock Text="{Binding description}" Margin="126, 4, 10, 4" Foreground="{StaticResource HeaderLightBlue}" FontSize="18" Height="47" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxLines="2"/>
-        
-        <controls:PostView x:Name="Posts" Loaded="Posts_Loaded" Height="457"/>
-
-    </StackPanel>
+            <controls:PostView x:Name="Posts" Loaded="Posts_Loaded" Height="457"/>
+        </StackPanel>
+    </Grid>
 </Page>

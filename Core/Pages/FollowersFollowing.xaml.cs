@@ -32,6 +32,7 @@ namespace Core.Pages {
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
+            MainPage.ErrorFlyout = _ErrorFlyout;
         }
 
         public async void SetItemSource() {
@@ -85,6 +86,7 @@ namespace Core.Pages {
             if (List.Items == null || List.Items.Count == 0) {
                 SetItemSource();
             }
+
         }
 
         /// <summary>
@@ -149,6 +151,12 @@ namespace Core.Pages {
             if (sv.VerticalOffset + 50 > sv.ExtentHeight - sv.ActualHeight) {
                 SetItemSource();
             }
+        }
+
+        private void StackPanel_Tapped(object sender, TappedRoutedEventArgs e) {
+            var frame = Window.Current.Content as Frame;
+            if (!frame.Navigate(typeof(Pages.BlogDetails), ((StackPanel)sender).Tag.ToString().Split(' ')[0]))
+                throw new Exception("Navigation Failed");
         }
     }
 }

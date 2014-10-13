@@ -8,18 +8,19 @@
     mc:Ignorable="d"
     xmlns:ufc="using:Core.Utils"
     xmlns:converter="using:Core.Utils.Converters"
-    Background="{StaticResource HeaderLightBlue}">
+    xmlns:CommonControl="using:API.Utils"
+    Background="{ThemeResource HeaderLightBlue}">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource LightGray}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
+        <CommonControl:ErrorFlyout Grid.RowSpan="2" x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
         <!-- TitlePanel -->
-        <StackPanel Grid.Row="0" Margin="0" Background="{StaticResource HeaderLightBlue}">
-            <Grid Height="50" Margin="0, 25, 0, 0" Background="{StaticResource HeaderLightBlue}">
-                <TextBlock x:Name="PageTitle" Margin="12, 0, 0, 0" FontSize="38" HorizontalAlignment="Left" VerticalAlignment="Center" TextLineBounds="Tight" FontFamily="Segoe WP" FontWeight="Thin" CharacterSpacing="-25"/>
+        <StackPanel Grid.Row="0" Margin="0" Background="{ThemeResource HeaderLightBlue}">
+            <Grid Height="50" Margin="0, 25, 0, 0" Background="{ThemeResource HeaderLightBlue}">
+                <TextBlock x:Name="PageTitle" Foreground="{ThemeResource LightText}" Margin="12, 0, 0, 0" FontSize="38" HorizontalAlignment="Left" VerticalAlignment="Center" TextLineBounds="Tight" FontFamily="Segoe WP" FontWeight="Thin" CharacterSpacing="-25"/>
             </Grid>
         </StackPanel>
 
@@ -42,12 +43,12 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Tag="{Binding Name}" Tapped="StackPanel_Tapped">
                         <Image Source="{Binding Path=avatar}" Width="90" Height="90" HorizontalAlignment="Left"/>
                         <StackPanel Width="300">
                             <TextBlock x:Name="UserName" Text="{Binding Name}" Margin="10, 0" FontSize="33" FontWeight="Light" Foreground="{StaticResource Blue}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
                             <Button Tag="{Binding Name}" Visibility="{Binding IsFollowing, Converter={StaticResource FollowingToVisibility}}" x:Name="FollowButton" Tapped="FollowUnfollowButton_Tapped" Content="follow" Margin="10, 0" BorderBrush="#FF529ecc" Foreground="#FFFFFFFF" Background="#FF529ecc" BorderThickness="1.0" Style="{StaticResource ButtonStyle}" Padding="3" FontSize="18" Height="45" MinHeight="0" MinWidth="120"/>
-                            <Button Tag="{Binding Name}" Visibility="{Binding IsFollowing, Converter={StaticResource NotFollowingToVisibility}}" x:Name="UnfollowButton" Tapped="FollowUnfollowButton_Tapped" Content="unfollow" Margin="10, 0" BorderBrush="{StaticResource HeaderLightBlue}" Foreground="{StaticResource HeaderLightBlue}" Background="#00529ecc" BorderThickness="1.0" Style="{StaticResource ButtonStyle}" Padding="3" FontSize="18" Height="45" MinHeight="0" MinWidth="120"/>
+                            <Button Tag="{Binding Name}" Visibility="{Binding IsFollowing, Converter={StaticResource NotFollowingToVisibility}}" x:Name="UnfollowButton" Tapped="FollowUnfollowButton_Tapped" Content="unfollow" Margin="10, 0" BorderBrush="{ThemeResource HeaderLightBlue}" Foreground="{ThemeResource HeaderLightBlue}" Background="#00529ecc" BorderThickness="1.0" Style="{StaticResource ButtonStyle}" Padding="3" FontSize="18" Height="45" MinHeight="0" MinWidth="120"/>
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>
