@@ -27,12 +27,6 @@ using Windows.Networking.BackgroundTransfer;
 namespace Core.Utils.Controls {
     public sealed partial class PostView : UserControl {
 
-        private static bool EnableAds {
-            get {
-                return (string.IsNullOrEmpty(UserData.EnableAds) ? true : (UserData.EnableAds.Contains("T") ? true : false));
-            }
-        }
-
         private ScrollViewer sv;
 
         private ObservableCollection<API.Content.Post> PostItems = new ObservableCollection<API.Content.Post>();
@@ -259,25 +253,25 @@ namespace Core.Utils.Controls {
             }
         }
 
-        private void AppBarButton_Click(object sender, RoutedEventArgs e) {
-            //var url = ((AppBarButton)sender).Tag.ToString();
-            //Debug.WriteLine(url);
-            //var view = ((GifView)((Grid)((AppBarButton)sender).Parent).Children.Last());
-            //view.LoadGIF(url);
-            //view.Visibility = Visibility.Visible;
-
-            //((AppBarButton)sender).Visibility = Visibility.Collapsed;
-
-        }
-
-        private void Image_ImageOpened(object sender, RoutedEventArgs e) {
-            try {
-                var button = ((HyperlinkButton)((Grid)((Image)sender).Parent).Children.ElementAt(1));
-                button.IsEnabled = true;
-            } catch (Exception ex) {
-                DebugHandler.ErrorLog.Add("Failed to open an image: " + ex);
+        private async void AppBarButton_Click(object sender, RoutedEventArgs e) {
+            var _GIFPlaceHolder = ((Image)((Grid)((AppBarButton)sender).Parent).FindName("GIFPlaceHolder"));
+            var _GIF = ((Image)((Grid)((AppBarButton)sender).Parent).FindName("GIF"));
+            
+            Debug.WriteLine("Source:" + XamlAnimatedGif.AnimationBehavior.GetSourceUri(_GIF));
+            
+            if (_GIFPlaceHolder.Visibility == Visibility.Visible) {
+                var path = await FileToTempAsync(new Uri(_GIFPlaceHolder.Tag.ToString()));
+                Debug.WriteLine(path);
+                _GIF.SetValue(XamlAnimatedGif.AnimationBehavior.SourceUriProperty, path);
+                _GIFPlaceHolder.Visibility = Visibility.Collapsed;
             }
+
+            var animator = XamlAnimatedGif.AnimationBehavior.GetAnimator(_GIF);
+            animator.Play();
+
+            ((AppBarButton)sender).Visibility = Visibility.Collapsed;
         }
+
 
         private void scrollViewer_Loaded(object sender, RoutedEventArgs e) {
             scrollViewer.ChangeView(null, 60.0, null);
@@ -370,9 +364,44 @@ namespace Core.Utils.Controls {
                 MainPage.ErrorFlyout.DisplayMessage("Image saved.");
                 return true;
             } catch (Exception e) {
-                Debug.WriteLine("Unable to save photo: " + e.Message);
+                MainPage.ErrorFlyout.DisplayMessage("Unable to save photo: " + e.Message);
                 return false;
             }
+        }
+
+        private async Task<Uri> FileToTempAsync(Uri fileUri) {
+            Debug.WriteLine("Saving..");
+            // create the blank file in specified folder
+            try {
+                var StorageFolder = await ApplicationData.Current.TemporaryFolder.CreateFolderAsync("Gifs", CreationCollisionOption.OpenIfExists);
+
+                var file = await StorageFolder.CreateFileAsync(fileUri.ToString().Split('/').Last(), CreationCollisionOption.ReplaceExisting);
+
+                // create the downloader instance and prepare for downloading the file
+                var backgroundDownloader = new BackgroundDownloader();
+                var downloadOperation = backgroundDownloader.CreateDownload(fileUri, file);
+
+                // start the download operation asynchronously
+                var result = await downloadOperation.StartAsync();
+                //var frame =  
+                Debug.WriteLine(file.Path);
+                MainPage.ErrorFlyout.DisplayMessage("Image saved.");
+                return new Uri("ms-appdata:///temp/Gifs/" + fileUri.ToString().Split('/').Last());
+            } catch (Exception e) {
+                //MainPage.ErrorFlyout.DisplayMessage("Unable to save photo: " + e.Message);
+                return new Uri("");
+            }
+        }
+
+        private void PlayerControl_Loaded(object sender, RoutedEventArgs e) {
+            ((AudioPlayer)sender).LoadControl();
+        }
+
+        private void GIF_Tapped(object sender, TappedRoutedEventArgs e) {
+            var animator = XamlAnimatedGif.AnimationBehavior.GetAnimator((Image)sender);
+            animator.Pause();
+            var button = ((AppBarButton)((Grid)((Image)sender).Parent).FindName("PlayButton"));
+            button.Visibility = Visibility.Visible;
         }
     }
 }

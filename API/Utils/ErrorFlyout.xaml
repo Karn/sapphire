@@ -32,9 +32,9 @@
         		<CompositeTransform/>
         	</Border.RenderTransform>
             <Grid Height="70" VerticalAlignment="Bottom">
-                <Image HorizontalAlignment="Left" Source="Warning-Message.png" Width="30" Height="30" Margin="15, 0"  Stretch="UniformToFill"/>
+                <Image HorizontalAlignment="Left" Source="BadgeLogo.png" Width="30" Height="30" Margin="15, 0"  Stretch="UniformToFill"/>
                 <StackPanel Margin="60, 0, 20, 0" MaxHeight="50" VerticalAlignment="Center">
-                    <TextBlock x:Name="Message" MinHeight="0" Text="Error Message" FontSize="20" TextLineBounds="Tight"  VerticalAlignment="Center" TextWrapping="Wrap" Style="{StaticResource HeaderTextStyle}"/>
+                    <TextBlock Opacity="0.8" x:Name="Message" MinHeight="0" Text="Error Message" FontSize="20" TextLineBounds="Tight"  VerticalAlignment="Center" TextWrapping="Wrap" Style="{StaticResource HeaderTextStyle}"/>
                 </StackPanel>
             </Grid>
         </Border>

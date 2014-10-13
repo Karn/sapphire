@@ -9,6 +9,7 @@
     xmlns:controls="using:Core.Utils.Controls"
     xmlns:util="using:Core.Utils"
     xmlns:ad="using:AdDuplex.Universal.Controls.WinPhone.XAML"
+    xmlns:gif="using:XamlAnimatedGif"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="380">
@@ -122,15 +123,16 @@
             <StackPanel Background="{ThemeResource PostBG}" Margin="0, 4">
                 <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                 <Grid>
-                    <Image MinHeight="150" Source="{Binding path_to_low_res_pic}" ImageOpened="Image_ImageOpened"/>
-                    <HyperlinkButton HorizontalAlignment="Stretch" Margin="10, 0" Width="50" Height="50" FontSize="20" MinHeight="10" BorderThickness="0" Foreground="#FF529ECC" NavigateUri="{Binding path_to_low_res_pic}">
+                    <Image x:Name="GIFPlaceHolder" Tag="{Binding path_to_low_res_pic}" MinHeight="150" Source="{Binding path_to_low_res_pic}"/>
+                    <!--<HyperlinkButton HorizontalAlignment="Stretch" Margin="10, 0" Width="50" Height="50" FontSize="20" MinHeight="10" BorderThickness="0" Foreground="#FF529ECC" NavigateUri="{Binding path_to_low_res_pic}">
                         <HyperlinkButton.Background>
                             <ImageBrush Stretch="UniformToFill" ImageSource="ms-appx:///Assets/Play.png"/>
                         </HyperlinkButton.Background>
-                    </HyperlinkButton>
+                    </HyperlinkButton>-->
+                    <Image x:Name="GIF" gif:AnimationBehavior.AutoStart="False" Width="380" MinHeight="150" Height="auto" Tapped="GIF_Tapped"/>
                     <!--<controls:AnimationImage ImageUrl="/Assets/18.gif" Width="100" Height="100"/>-->
                     <!--<controls:GifImage Width="380" MinHeight="150" Loaded="GifImage_Loaded"/>-->
-                    <!--<AppBarButton Icon="Play" Click="AppBarButton_Click" IsEnabled="False" Tag="{Binding path_to_low_res_pic}" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+                    <AppBarButton x:Name="PlayButton" Icon="Play" Click="AppBarButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <!--<control:GifView x:Name="Gif" Visibility="Collapsed" Width="380"/>-->
                 </Grid>
                 <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
@@ -199,6 +201,7 @@
                             <MediaElement x:Name="Media" AutoPlay="False" Source="{Binding audio_url}" AudioCategory="ForegroundOnlyMedia"/>
                             <AppBarToggleButton VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10" Icon="Play" Click="PlayMedia"/>
                         </Grid>-->
+                <!--<controls:AudioPlayer x:Name="PlayerControl" Source="{Binding}" Loaded="PlayerControl_Loaded"/>-->
                 <Image Source="ms-appx:///Assets/AudioPlaceholder.png"/>
                 <!--<StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
                             <TextBlock Text="Audio posts are not yet supported" Foreground="{ThemeResource HeaderLightBlue}" TextWrapping="Wrap" Style="{StaticResource HeaderTextStyle}"/>

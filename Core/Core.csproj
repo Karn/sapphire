@@ -130,6 +130,9 @@
     <Compile Include="Utils\Controls\AnimationImage.xaml.cs">
       <DependentUpon>AnimationImage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\Controls\AudioPlayer.xaml.cs">
+      <DependentUpon>AudioPlayer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\Controls\NewPostDialog.xaml.cs">
       <DependentUpon>NewPostDialog.xaml</DependentUpon>
     </Compile>
@@ -208,12 +211,14 @@
     <Content Include="Assets\Resources\Dark\Delete.png" />
     <Content Include="Assets\Resources\Dark\Liked.png" />
     <Content Include="Assets\Resources\Dark\Likes.png" />
+    <Content Include="Assets\Resources\Dark\More.png" />
     <Content Include="Assets\Resources\Dark\Reblog.png" />
     <Content Include="Assets\Resources\Dark\Reblogged.png" />
     <Content Include="Assets\Resources\Light\Blog.png" />
     <Content Include="Assets\Resources\Light\Delete.png" />
     <Content Include="Assets\Resources\Light\Liked.png" />
     <Content Include="Assets\Resources\Light\Likes.png" />
+    <Content Include="Assets\Resources\Light\More.png" />
     <Content Include="Assets\Resources\Light\Reblog.png" />
     <Content Include="Assets\Resources\Light\Reblogged.png" />
     <Content Include="Assets\Share.png" />
@@ -302,6 +307,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Utils\Controls\AudioPlayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Utils\Controls\NewPostDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -319,6 +328,9 @@
   <ItemGroup>
     <Reference Include="MarkedUp">
       <HintPath>..\packages\MarkedUp.1.3.9\lib\portable-netcore451+wpa81\MarkedUp.winmd</HintPath>
+    </Reference>
+    <Reference Include="XamlAnimatedGif">
+      <HintPath>..\packages\XamlAnimatedGif.1.0.0-alpha\lib\portable-win81+wpa81\XamlAnimatedGif.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup />

@@ -72,7 +72,7 @@ namespace Core.Utils.Controls {
         #endregion
 
         #region Private Methods
-        private async void LoadImage() {
+        private async Task LoadImage() {
             if (String.IsNullOrEmpty(ImageUrl)) {
                 return;
             }
@@ -97,8 +97,14 @@ namespace Core.Utils.Controls {
 
                         //  Extract the pixel data and fill the WriteableBitmap with them
                         var bitmapTransform = new BitmapTransform();
-                        var pixelDataProvider = await frame.GetPixelDataAsync(BitmapPixelFormat.Bgra8, decoder.BitmapAlphaMode, bitmapTransform, ExifOrientationMode.IgnoreExifOrientation, ColorManagementMode.DoNotColorManage);
-                        var pixels = pixelDataProvider.DetachPixelData();
+                        //var pixelDataProvider = await frame.GetPixelDataAsync(BitmapPixelFormat.Bgra8, decoder.BitmapAlphaMode, bitmapTransform, ExifOrientationMode.IgnoreExifOrientation, ColorManagementMode.DoNotColorManage);
+                        var pixelData = await frame.GetPixelDataAsync(
+                BitmapPixelFormat.Bgra8,
+                BitmapAlphaMode.Straight,
+                new BitmapTransform(),
+                ExifOrientationMode.RespectExifOrientation,
+                ColorManagementMode.DoNotColorManage);
+                        var pixels = pixelData.DetachPixelData();
 
                         if (firstFrame == null) {
                             firstFrame = pixels;

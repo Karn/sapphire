@@ -75,7 +75,7 @@ namespace API {
                             Debug.WriteLine(b.Name);
                             b.following = parsedData.response.user.following.ToString();
                             b.likes = parsedData.response.user.likes;
-
+                            
                             UserData.UserBlogs.Add(b);
                             if (UserData.CurrentBlog == null && b.primary)
                                 UserData.CurrentBlog = b;
@@ -84,10 +84,10 @@ namespace API {
                         }
                         return true;
                     } catch (Exception e) {
-                        Utils.DebugHandler.ErrorLog.Add("[Info.cs]: Failed to deserialse userdata: " + e.ToString());
+                        DebugHandler.ErrorLog.Add("[Info.cs]: Failed to deserialse userdata: " + e.ToString());
                     }
                 }
-                Utils.DebugHandler.ErrorLog.Add("[Info.cs]: Response failed.");
+                DebugHandler.ErrorLog.Add("[Info.cs]: Response failed.");
             }
             return false;
         }
