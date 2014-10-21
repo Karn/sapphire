@@ -6,9 +6,11 @@ using Core.Common;
 using Core.Utils.Controls;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Resources;
 using Windows.Phone.UI.Input;
+using Windows.Storage;
 using Windows.System;
 using Windows.UI;
 using Windows.UI.Notifications;
@@ -94,7 +96,7 @@ namespace Core {
             HeaderAnimateIn.Begin();
         }
 
-        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e) {
+        private async void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e) {
             //Fix navigating
             if (CreatePostControl.Visibility == Visibility.Visible) {
                 CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
@@ -110,6 +112,7 @@ namespace Core {
                 e.Handled = true;
                 return;
             } else {
+                await (await ApplicationData.Current.TemporaryFolder.GetFolderAsync("Gifs")).DeleteAsync();
                 API.Data.DataStoreHandler.SaveAllSettings();
                 Application.Current.Exit();
             }
@@ -338,8 +341,10 @@ namespace Core {
         private void AccountDetails_Tapped(object sender, TappedRoutedEventArgs e) {
             switch (((StackPanel)sender).Tag.ToString()) {
                 case "Posts":
-                    if (!Frame.Navigate(typeof(Pages.PostsPage), "http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts")) {
-                        Debug.WriteLine("Failed to Navigate");
+                    if (UserData.CurrentBlog != null) {
+                        if (!Frame.Navigate(typeof(Pages.PostsPage), "http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts")) {
+                            Debug.WriteLine("Failed to Navigate");
+                        }
                     }
                     break;
                 case "Likes":

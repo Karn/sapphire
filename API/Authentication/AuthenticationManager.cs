@@ -176,25 +176,6 @@ namespace API.Authentication {
             return false;
         }
 
-        public async Task<string> XAuthPostData(string url, string postData) {
-            try {
-                HttpClient httpClient = new HttpClient();
-                httpClient.MaxResponseContentBufferSize = int.MaxValue;
-                httpClient.DefaultRequestHeaders.ExpectContinue = false;
-                HttpRequestMessage requestMsg = new HttpRequestMessage();
-
-                requestMsg.Content = new StringContent(postData);
-                requestMsg.Method = new HttpMethod("POST");
-                requestMsg.RequestUri = new Uri(url, UriKind.Absolute);
-                requestMsg.Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
-
-                var response = await httpClient.SendAsync(requestMsg);
-                return await response.Content.ReadAsStringAsync();
-
-            } catch (Exception Err) {
-                return null;
-            }
-        }
         #endregion
 
 

@@ -75,7 +75,7 @@ namespace API {
                             Debug.WriteLine(b.Name);
                             b.following = parsedData.response.user.following.ToString();
                             b.likes = parsedData.response.user.likes;
-                            
+
                             UserData.UserBlogs.Add(b);
                             if (UserData.CurrentBlog == null && b.primary)
                                 UserData.CurrentBlog = b;
@@ -251,6 +251,7 @@ namespace API {
         }
 
         public static async Task<List<Content.Post>> RetrievePosts(string url, string lastPostID = "", string optionalParams = "") {
+            var LoadedPosts = new List<Content.Post>();
             if (CanRequestData()) {
                 DebugHandler.Log("Retreiving posts", TAG);
                 string result = string.Empty;
@@ -282,7 +283,7 @@ namespace API {
 
                 if (!string.IsNullOrEmpty(result) && result.Contains("200")) {
                     Utils.DebugHandler.ErrorLog.Add("[Client.cs]: Response OK.");
-                    var LoadedPosts = new List<Content.Post>();
+
                     try {
                         var PostList = new List<API.Content.Post>();
 
@@ -330,7 +331,8 @@ namespace API {
                     DebugHandler.ErrorLog.Add("[Client.cs]: Authorization failed: " + Uri.EscapeDataString(result));
                 }
             }
-            return null;
+            LoadedPosts.Add(new Post() { type = "nocontent" });
+            return LoadedPosts;
         }
 
         public static async Task<ObservableCollection<Content.Post>> RetrievePost(string post_id) {

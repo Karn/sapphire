@@ -7,10 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     xmlns:controls="using:Core.Utils.Controls"
-    xmlns:CommonControl="using:API.Utils"
-    Background="{StaticResource Blue}">
+    xmlns:CommonControl="using:API.Utils">
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource LightGray}">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource StandardGray}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

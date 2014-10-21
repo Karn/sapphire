@@ -42,6 +42,7 @@
                         <MenuFlyout>
                             <MenuFlyoutItem Click="OtherOptionsButton_Click" Text="Save to phone" Tag="{Binding path_to_low_res_pic}" Visibility="{Binding IsPhoto, Converter={StaticResource BooleanToVisisbilityConverter}}"/>
                             <MenuFlyoutItem Click="OtherOptionsButton_Click" Text="Share" Tag="{Binding post_url}"/>
+                            <MenuFlyoutItem Click="OtherOptionsButton_Click" Text="Open in browser" Tag="{Binding post_url}"/>
                         </MenuFlyout>
                     </Button.Flyout>
                 </Button>
@@ -57,7 +58,6 @@
                             <DataTemplate>
                                 <StackPanel Width="390" HorizontalAlignment="Stretch" Orientation="Horizontal">
                                     <Image Width="45" Height="45" Margin="5" Source="{Binding Path=avatar}"/>
-                                    <!--<Image Width="18" Height="18" Margin="-20 ,35, 0, 0" Source="ms-appx:///Assets/AReblog.png" />-->
                                     <StackPanel Orientation="Horizontal" Margin="10" Tapped="GoToBlog">
                                         <TextBlock MaxWidth="235" FontSize="15" TextWrapping="Wrap" Foreground="{ThemeResource DarkText}" TextTrimming="CharacterEllipsis">
                                         <Run Text="{Binding blog_name}"/>
@@ -110,6 +110,7 @@
                 <ContentPresenter VerticalAlignment="Bottom" ContentTemplate="{StaticResource BottomContainer}"/>
             </StackPanel>
         </DataTemplate>
+
         <DataTemplate x:Key="Photo">
             <StackPanel Background="{ThemeResource PostBG}" Margin="0, 4">
                 <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
@@ -123,17 +124,9 @@
             <StackPanel Background="{ThemeResource PostBG}" Margin="0, 4">
                 <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                 <Grid>
-                    <Image x:Name="GIFPlaceHolder" Tag="{Binding path_to_low_res_pic}" MinHeight="150" Source="{Binding path_to_low_res_pic}"/>
-                    <!--<HyperlinkButton HorizontalAlignment="Stretch" Margin="10, 0" Width="50" Height="50" FontSize="20" MinHeight="10" BorderThickness="0" Foreground="#FF529ECC" NavigateUri="{Binding path_to_low_res_pic}">
-                        <HyperlinkButton.Background>
-                            <ImageBrush Stretch="UniformToFill" ImageSource="ms-appx:///Assets/Play.png"/>
-                        </HyperlinkButton.Background>
-                    </HyperlinkButton>-->
+                    <Image x:Name="GIFPlaceHolder" Tag="{Binding path_to_low_res_pic}" MinHeight="150" Source="{Binding path_to_low_res_pic}" ImageOpened="GIF_Loaded"/>
                     <Image x:Name="GIF" gif:AnimationBehavior.AutoStart="False" Width="380" MinHeight="150" Height="auto" Tapped="GIF_Tapped"/>
-                    <!--<controls:AnimationImage ImageUrl="/Assets/18.gif" Width="100" Height="100"/>-->
-                    <!--<controls:GifImage Width="380" MinHeight="150" Loaded="GifImage_Loaded"/>-->
-                    <AppBarButton x:Name="PlayButton" Icon="Play" Click="AppBarButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <!--<control:GifView x:Name="Gif" Visibility="Collapsed" Width="380"/>-->
+                    <AppBarButton x:Name="PlayButton" IsEnabled="False" Tag="Download" Icon="Download" Click="AppBarButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
                 <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
             </StackPanel>
@@ -141,7 +134,7 @@
         <DataTemplate x:Key="Photoset">
             <StackPanel Background="{ThemeResource PostBG}" Margin="0, 4">
                 <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
-                <StackPanel  MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
+                <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
                     <ListView ItemsSource="{Binding photos}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -158,7 +151,7 @@
                 <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                 <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
                     <TextBlock Text="{Binding text}" Margin="10, 0, 10, 0" FontSize="28" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
-                    <TextBlock Text="{Binding source, Converter={StaticResource ToPlainText}}" Margin="10, 5, 10, 10" FontSize="22" FontWeight="Light" Foreground="#FF2D3F53" TextWrapping="WrapWholeWords"/>
+                    <TextBlock Text="{Binding source, Converter={StaticResource ToPlainText}}" Margin="10, 5, 10, 10" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
                 </StackPanel>
                 <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
             </StackPanel>
@@ -185,7 +178,7 @@
         </DataTemplate>
         <DataTemplate x:Key="Audio">
             <StackPanel Margin="0, 4" Background="{ThemeResource PostBG}">
-                <!--<ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>-->
+                <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                 <!--<Grid MinHeight="150">
                             <Grid.Background>
                                 <ImageBrush ImageSource="{Binding album_art}" Stretch="UniformToFill" Opacity="0.5"/>
@@ -204,9 +197,9 @@
                 <!--<controls:AudioPlayer x:Name="PlayerControl" Source="{Binding}" Loaded="PlayerControl_Loaded"/>-->
                 <Image Source="ms-appx:///Assets/AudioPlaceholder.png"/>
                 <!--<StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
-                            <TextBlock Text="Audio posts are not yet supported" Foreground="{ThemeResource HeaderLightBlue}" TextWrapping="Wrap" Style="{StaticResource HeaderTextStyle}"/>
-                        </StackPanel>
-                        <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>-->
+                    <TextBlock Text="Audio posts are not yet supported" Foreground="{ThemeResource HeaderLightBlue}" TextWrapping="Wrap" Style="{StaticResource HeaderTextStyle}"/>
+                </StackPanel>-->
+                <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
             </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="Video">
@@ -242,18 +235,13 @@
                     <TextBlock Margin="5" Text="Advertisement" HorizontalAlignment="Center" Tapped="GoToBlog" MaxWidth="284" Foreground="{ThemeResource DarkText}" FontSize="26" VerticalAlignment="Top" TextTrimming="CharacterEllipsis" FontWeight="SemiLight" TextLineBounds="Tight"/>
                 </StackPanel>
                 <ad:AdControl x:Name="adDuplexAd" AppId="113363" IsTest="False" />
-                <!--<UI:AdControl 
-                            AdUnitId="186342"
-                            ApplicationId="1ecac887-7afa-4052-9459-58cac3a7d57f"
-                            Height="63"
-                            Width="380"
-                            HorizontalAlignment="Center"
-                            Foreground="{ThemeResource HeaderLightBlue}"
-                            Background="White"
-                            IsAutoRefreshEnabled="True"
-                            VerticalAlignment="Top"
-                            ErrorOccurred="AdControl_ErrorOccurred"/>-->
             </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="NothingToShow">
+            <Grid VerticalAlignment="Top" Height="60" Margin="10, 0" HorizontalAlignment="Center">
+                <TextBlock Text="There is nothing yet to show" Margin="15, 0, 0, 0" FontSize="22" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" VerticalAlignment="Center" TextLineBounds="Tight" FontFamily="Segoe WP" FontWeight="Thin" CharacterSpacing="-25" Opacity="0.2"/>
+            </Grid>
         </DataTemplate>
 
         <converters:PostTemplateSelector x:Key="PostTemplate"
@@ -265,35 +253,13 @@
                                         LinkTemplate="{StaticResource Link}"
                                         ChatTemplate="{StaticResource Chat}"
                                         AudioTemplate="{StaticResource Audio}"
-                                        VideoTemplate="{StaticResource Video}"
-                                        AnswerTemplate="{StaticResource Answer}"
-                                        AdvertTemplate="{StaticResource Advert}"/>
+                                         VideoTemplate="{StaticResource Video}"
+                                         AnswerTemplate="{StaticResource Answer}"
+                                         AdvertTemplate="{StaticResource Advert}"
+                                         NoContentTemplate="{StaticResource NothingToShow}"/>
 
     </UserControl.Resources>
 
-    <!--<ListView x:Name="Posts" Margin="-10, 0, -10, 0" ItemsSource="{Binding}" ItemTemplateSelector="{StaticResource PostTemplate}" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" ShowsScrollingPlaceholders="True" HorizontalContentAlignment="Stretch">
-        <ListView.Resources>
-            <ControlTemplate x:Key="ListViewControlTemplate1" TargetType="ListView">
-                <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
-                    <ScrollViewer x:Name="ScrollViewer" IsDeferredScrollingEnabled="True" ViewChanging="ScrollViewer_ViewChanging" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}" IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" TabNavigation="{TemplateBinding TabNavigation}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
-                        <ItemsPresenter HeaderTemplate="{TemplateBinding HeaderTemplate}" Header="{TemplateBinding Header}" HeaderTransitions="{TemplateBinding HeaderTransitions}" Padding="{TemplateBinding Padding}"/>
-                    </ScrollViewer>
-                </Border>
-            </ControlTemplate>
-        </ListView.Resources>
-        <ListView.ItemContainerStyle>
-            <StaticResource ResourceKey="ListViewItemContainerStyle"/>
-        </ListView.ItemContainerStyle>
-        <ListView.Header>
-            <StackPanel x:Name="PullToRefresh" Orientation="Horizontal" Height="100">
-                <ProgressRing IsActive="True" Height="50" Width="50" Background="{x:Null}" Foreground="{ThemeResource HeaderDarkBlue}"/>
-                <TextBlock x:Name="PullStatusIndicator" Text="Pull to refresh.." Margin="15, 0, 0, 0" FontSize="22" Foreground="{ThemeResource HeaderDarkBlue}" HorizontalAlignment="Left" VerticalAlignment="Center" TextLineBounds="Tight" FontFamily="Segoe WP" FontWeight="Thin" CharacterSpacing="-25"/>
-            </StackPanel>
-        </ListView.Header>
-        <ListView.Template>
-            <StaticResource ResourceKey="ListViewControlTemplate1"/>
-        </ListView.Template>
-    </ListView>-->
     <ScrollViewer x:Name="scrollViewer"
                   HorizontalScrollMode="Disabled"
                   Loaded="scrollViewer_Loaded"
@@ -319,13 +285,13 @@
                 <TextBlock x:Name="textBlock1" Text="Pull to refresh.." Margin="15, 0, 0, 0" FontSize="22" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" VerticalAlignment="Center" TextLineBounds="Tight" FontFamily="Segoe WP" FontWeight="Thin" CharacterSpacing="-25"/>
                 <TextBlock x:Name="textBlock2" VerticalAlignment="Center" Text="Release to refresh.." Margin="15, 0, 0, 0" FontSize="22" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" TextLineBounds="Tight" FontFamily="Segoe WP" FontWeight="Thin" CharacterSpacing="-25"/>
             </Grid>
-            <ListView Grid.Row="1" x:Name="Posts"  IncrementalLoadingTrigger="Edge" Margin="0" ItemsSource="{Binding}" ItemTemplateSelector="{StaticResource PostTemplate}" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" ShowsScrollingPlaceholders="True" HorizontalContentAlignment="Stretch" Width="380" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListView Grid.Row="1" x:Name="Posts"  IncrementalLoadingTrigger="Edge" Margin="0" ItemsSource="{Binding}" ItemTemplateSelector="{StaticResource PostTemplate}" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" ShowsScrollingPlaceholders="True" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemContainerStyle>
                     <StaticResource ResourceKey="ListViewItemContainerStyle"/>
                 </ListView.ItemContainerStyle>
             </ListView>
             <Grid Grid.Row="2" VerticalAlignment="Top" Height="60" Margin="10, 0" HorizontalAlignment="Center">
-                <TextBlock Text="Pull to load next page.." Margin="15, 0, 0, 0" FontSize="22" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" VerticalAlignment="Center" TextLineBounds="Tight" FontFamily="Segoe WP" FontWeight="Thin" CharacterSpacing="-25"/>
+                <TextBlock x:Name="BottomPull" Text="Pull to load next page.." Margin="15, 0, 0, 0" FontSize="22" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" VerticalAlignment="Center" TextLineBounds="Tight" FontFamily="Segoe WP" FontWeight="Thin" CharacterSpacing="-25"/>
             </Grid>
         </Grid>
     </ScrollViewer>

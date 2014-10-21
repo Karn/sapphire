@@ -157,12 +157,20 @@ namespace API.Content {
             }
         }
 
-        public static string EnableAds {
+        public static Dictionary<string, string> RetrieveNotificationIds {
+            //try {
+            //    UserDataStore.Values["LAST_NOTIFICATION"] = JsonConvert.SerializeObject(FavBlogs, Formatting.Indented);
+            //    Debug.WriteLine("Updated Fav List");
+
+            //} catch (Exception e) {
+            //    Debug.WriteLine("Failed to update fav list. " + e.Message);
+            //}
+
             get {
-                return UserDataStore.Values["ENABLE_ADS"].ToString();
+                return JsonConvert.DeserializeObject<Dictionary<string, string>>(UserDataStore.Values["LAST_NOTIFICATION"].ToString());
             }
             set {
-                UserDataStore.Values["ENABLE_ADS"] = value;
+                UserDataStore.Values["LAST_NOTIFICATION"] = JsonConvert.SerializeObject(value);
             }
         }
     }

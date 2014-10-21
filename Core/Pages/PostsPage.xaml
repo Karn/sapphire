@@ -8,8 +8,7 @@
     xmlns:converter="using:Core.Utils.Converters"
     xmlns:controls="using:Core.Utils.Controls"
     xmlns:CommonControl="using:API.Utils"
-    mc:Ignorable="d"
-    Background="{StaticResource Blue}">
+    mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource StandardGray}">
         <Grid.RowDefinitions>
@@ -25,8 +24,6 @@
         </StackPanel>
 
         <!--TODO: Content should be placed within the following grid-->
-        <Grid Grid.Row="1">
-            <controls:PostView x:Name="PostList" Loaded="PostList_Loaded"/>
-        </Grid>
+        <controls:PostView x:Name="PostList" Grid.Row="1" Loaded="PostList_Loaded"/>
     </Grid>
 </Page>

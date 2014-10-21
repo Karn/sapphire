@@ -20,6 +20,7 @@ namespace Core.Utils.Converters {
         public DataTemplate VideoTemplate { get; set; }
         public DataTemplate AnswerTemplate { get; set; }
         public DataTemplate AdvertTemplate { get; set; }
+        public DataTemplate NoContentTemplate { get; set; }
 
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container) {
             //return base.SelectTemplateCore(item, container);
@@ -28,9 +29,9 @@ namespace Core.Utils.Converters {
                     return TextTemplate;
                 else if (listItem.type == "photo")
                     return PhotoTemplate;
-                else if (listItem.type == "gif") {
+                else if (listItem.type == "gif")
                     return GifTemplate;
-                } else if (listItem.type == "photoset")
+                else if (listItem.type == "photoset")
                     return PhotoSetTemplate;
                 else if (listItem.type == "quote")
                     return QuoteTemplate;
@@ -45,7 +46,9 @@ namespace Core.Utils.Converters {
                 else if (listItem.type == "answer")
                     return AnswerTemplate;
                 else if (listItem.type == "advert")
-                    return AdvertTemplate;     
+                    return AdvertTemplate;
+                else if (listItem.type == "nocontent")
+                    return NoContentTemplate;
 
             return base.SelectTemplateCore(item, container);
         }

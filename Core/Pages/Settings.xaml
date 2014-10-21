@@ -34,23 +34,31 @@
                 </StackPanel>-->
                 <StackPanel Height="500" HorizontalAlignment="Stretch" Margin="0">
                     <TextBlock Margin="7, 0" Text="Like this app?" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                    <TextBlock Margin="7, 0, 7, 10" Text="It's always nice to hear what the users think about the app so be sure to review the app and let me know what you think!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
+                    <TextBlock Margin="7, 5, 7, 10" Text="It's always nice to hear what the users think about the app so be sure to review the app and let me know what you think!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
+                    <TextBlock Margin="7, -2, 7, 10" Text="If you did leave a reply with a question or suggestion please check the emails associated with your Microsoft Account to see if I've gotten back to you!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
                     <Button x:Name="ReviewButton" Content="Rate and review!" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="ReviewButton_Click"/>
 
                     <TextBlock Margin="7, 0" Text="In app advertisements" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                    <TextBlock Margin="7, 0, 7, 10" Text="If you'd like to remove the adversitements you can click the button below to upgrade to the ad free version. (P.s you're awesome if you do! ...and even if you dont!)" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
+                    <TextBlock Margin="7, 5, 7, 10" Text="If you'd like to remove the adversitements you can click the button below to upgrade to the ad free version. (P.s you're awesome if you do! ...and even if you dont!)" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
                     <Button x:Name="RemoveAdsButton" Content="Remove these dumb ads please" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="RemoveAds_Click"/>
                     
                 </StackPanel>
             </PivotItem>
             <PivotItem Margin="10, 0">
                 <PivotItem.Header>
-                    <TextBlock Text="toggles" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe WP" CharacterSpacing="-25" Foreground="{ThemeResource HeaderLightBlue}"/>
+                    <TextBlock Text="options" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe WP" CharacterSpacing="-25" Foreground="{ThemeResource HeaderLightBlue}"/>
                 </PivotItem.Header>
 
                 <StackPanel Height="500" HorizontalAlignment="Stretch" Margin="0">
                     <TextBlock Margin="7, 0" Text="Dark theme" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                     <ToggleSwitch x:Name="ThemeSwitch" Style="{StaticResource Switch}" Header="Requires a manual restart." OffContent="Disabled" OnContent="Enabled" Toggled="ToggleSwitch_Toggled"/>
+                    
+                    <TextBlock Margin="7, 0" Text="Manage notifications" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                    <TextBlock Margin="7, 5, 7, 5" Text="Select what notifications you recieve from your blogs" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
+                    <Button x:Name="ManageNotificationsButton" Content="Manage" HorizontalAlignment="Stretch" Margin="10, -5" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="RemoveAds_Click"/>
+
+                    <!--<ToggleSwitch x:Name="ThemeSwitch" Style="{StaticResource Switch}" Header="Requires a manual restart." OffContent="Disabled" OnContent="Enabled" Toggled="ToggleSwitch_Toggled"/>-->
+
                     <!--<TextBlock Margin="7, 0" Text="Refresh button" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                     <TextBlock Margin="7, 0, 7, 10" Text="If you prefer to use a refresh button rather than the pull to refresh gesture, select the toggle below." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>-->
 

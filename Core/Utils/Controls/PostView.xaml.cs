@@ -254,22 +254,40 @@ namespace Core.Utils.Controls {
         }
 
         private async void AppBarButton_Click(object sender, RoutedEventArgs e) {
+
             var _GIFPlaceHolder = ((Image)((Grid)((AppBarButton)sender).Parent).FindName("GIFPlaceHolder"));
             var _GIF = ((Image)((Grid)((AppBarButton)sender).Parent).FindName("GIF"));
-            
-            Debug.WriteLine("Source:" + XamlAnimatedGif.AnimationBehavior.GetSourceUri(_GIF));
-            
-            if (_GIFPlaceHolder.Visibility == Visibility.Visible) {
-                var path = await FileToTempAsync(new Uri(_GIFPlaceHolder.Tag.ToString()));
-                Debug.WriteLine(path);
-                _GIF.SetValue(XamlAnimatedGif.AnimationBehavior.SourceUriProperty, path);
-                _GIFPlaceHolder.Visibility = Visibility.Collapsed;
+
+            if (((AppBarButton)sender).Tag.ToString() == "Download") {
+                ((AppBarButton)sender).Icon = new SymbolIcon(Symbol.Play);
+                ((AppBarButton)sender).Tag = "Play";
+                ((AppBarButton)sender).IsEnabled = false;
+                await AnimateImg(_GIFPlaceHolder, _GIF);
+                ((AppBarButton)sender).IsEnabled = true;
+            } else {
+                var animator = XamlAnimatedGif.AnimationBehavior.GetAnimator(_GIF);
+                animator.Play();
+                ((AppBarButton)sender).Visibility = Visibility.Collapsed;
             }
+        }
 
-            var animator = XamlAnimatedGif.AnimationBehavior.GetAnimator(_GIF);
-            animator.Play();
+        async Task AnimateImg(Image _GIFPlaceHolder, Image _GIF) {
+            try {
+                Debug.WriteLine("Source:" + XamlAnimatedGif.AnimationBehavior.GetSourceUri(_GIF));
 
-            ((AppBarButton)sender).Visibility = Visibility.Collapsed;
+                if (_GIFPlaceHolder.Visibility == Visibility.Visible) {
+                    var path = await FileToTempAsync(new Uri(_GIFPlaceHolder.Tag.ToString()));
+
+                    _GIF.SetValue(XamlAnimatedGif.AnimationBehavior.SourceUriProperty, path);
+
+                    _GIFPlaceHolder.Visibility = Visibility.Collapsed;
+                }
+
+                //var animator = XamlAnimatedGif.AnimationBehavior.GetAnimator(_GIF);
+                //animator.Play();
+            } catch (Exception ex) {
+                Debug.WriteLine(ex.Data);
+            }
         }
 
 
@@ -292,41 +310,46 @@ namespace Core.Utils.Controls {
         bool _isPullRefresh = false;
         bool _updating = false;
         private void scrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e) {
-            if (sv == null)
-                sv = sender as ScrollViewer;
+            if (!IsSinglePost) {
+                if (sv == null)
+                    sv = sender as ScrollViewer;
 
-            if (!_updating) {
-                _updating = true;
-                if (sv.VerticalOffset == 0.0) {
-                    textBlock1.Opacity = 0.7;
-                    textBlock2.Visibility = Visibility.Visible;
-                    textBlock1.Visibility = Visibility.Collapsed;
-                } else {
-                    textBlock1.Opacity = 0.3;
-                    textBlock2.Visibility = Visibility.Collapsed;
-                    textBlock1.Visibility = Visibility.Visible;
-                }
-
-                if (sv.VerticalOffset != 0.0 && sv.VerticalOffset != 120)
-                    _isPullRefresh = true;
-
-                if (!e.IsIntermediate) {
-                    if (sv.VerticalOffset == 0.0 && _isPullRefresh) {
-                        //Refresh the feed
-                        //offset = 0;
-                        Debug.WriteLine("Refreshing feed.");
-                        LastPostID = "";
-                        PostItems.Clear();
-                        LoadPosts(true);
-                    } else if (sv.VerticalOffset == 120.0 && _isPullRefresh) {
-                        Debug.WriteLine("Loading more items to feed. " + LastPostID);
-                        LoadPosts(true);
+                if (!_updating) {
+                    _updating = true;
+                    if (sv.VerticalOffset == 0.0) {
+                        textBlock1.Opacity = 0.7;
+                        textBlock2.Visibility = Visibility.Visible;
+                        textBlock1.Visibility = Visibility.Collapsed;
+                    } else {
+                        textBlock1.Opacity = 0.3;
+                        textBlock2.Visibility = Visibility.Collapsed;
+                        textBlock1.Visibility = Visibility.Visible;
                     }
-                    //_isPullRefresh = false;
-                    sv.ChangeView(null, 60.0, null);
-                }
 
-                _updating = false;
+                    if (sv.VerticalOffset != 0.0 && sv.VerticalOffset != 120)
+                        _isPullRefresh = true;
+
+                    if (!e.IsIntermediate) {
+                        if (sv.VerticalOffset == 0.0 && _isPullRefresh) {
+                            //Refresh the feed
+                            //offset = 0;
+                            Debug.WriteLine("Refreshing feed.");
+                            LastPostID = "";
+                            PostItems.Clear();
+                            LoadPosts(true);
+                        } else if (sv.VerticalOffset == 120.0 && _isPullRefresh) {
+                            Debug.WriteLine("Loading more items to feed. " + LastPostID);
+                            LoadPosts(true);
+                        }
+                        //_isPullRefresh = false;
+                        sv.ChangeView(null, 60.0, null);
+                    }
+
+                    _updating = false;
+                }
+            } else {
+                ((Grid)textBlock1.Parent).Visibility = Visibility.Collapsed;
+                ((Grid)BottomPull.Parent).Visibility = Visibility.Collapsed;
             }
         }
 
@@ -342,6 +365,8 @@ namespace Core.Utils.Controls {
                     Debug.WriteLine(ShareURI);
                     DataTransferManager.GetForCurrentView().DataRequested += PostView_DataRequested;
                     DataTransferManager.ShowShareUI();
+                } else if (selectedItem.Text.ToString().ToLowerInvariant() == "Open in browser".ToLowerInvariant()) {
+                    await Windows.System.Launcher.LaunchUriAsync(new Uri(selectedItem.Tag.ToString()));
                 }
             }
         }
@@ -385,7 +410,7 @@ namespace Core.Utils.Controls {
                 var result = await downloadOperation.StartAsync();
                 //var frame =  
                 Debug.WriteLine(file.Path);
-                MainPage.ErrorFlyout.DisplayMessage("Image saved.");
+                //MainPage.ErrorFlyout.DisplayMessage("Image saved.");
                 return new Uri("ms-appdata:///temp/Gifs/" + fileUri.ToString().Split('/').Last());
             } catch (Exception e) {
                 //MainPage.ErrorFlyout.DisplayMessage("Unable to save photo: " + e.Message);
@@ -402,6 +427,11 @@ namespace Core.Utils.Controls {
             animator.Pause();
             var button = ((AppBarButton)((Grid)((Image)sender).Parent).FindName("PlayButton"));
             button.Visibility = Visibility.Visible;
+        }
+
+        private void GIF_Loaded(object sender, RoutedEventArgs e) {
+            var button = ((AppBarButton)((Grid)((Image)sender).Parent).FindName("PlayButton"));
+            button.IsEnabled = true;
         }
     }
 }

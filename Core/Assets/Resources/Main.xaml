@@ -8,6 +8,7 @@
 
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Default">
+            
             <SolidColorBrush x:Key="LightText" Color="#FFEEF1F4"/>
             <SolidColorBrush x:Key="DarkText" Color="#FF2D3F53"/>
             <SolidColorBrush x:Key="HeaderLightBlue" Color="#FF34495E"/>
@@ -43,7 +44,10 @@
             <BitmapImage x:Key="MoreButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/More.png"/>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
-    
+
+    <!-- Common Resources -->
+    <BitmapImage x:Key="DefaultAvatar" UriSource="ms-appx:///Assets/DefaultAvatar.png" />
+
     <converter:FollowingToVisibility x:Key="FollowingToVisibility"/>
     <converter:NotFollowingToVisibility x:Key="NotFollowingToVisibility"/>
     <converter:RelativeDate x:Key="RelativeDate"/>

@@ -125,7 +125,7 @@
                         <Grid Height="175" Background="{ThemeResource HeaderLightBlue}">
                             <Image Source="{Binding Path=theme.header_image_focused}" Stretch="UniformToFill" VerticalAlignment="Center" Opacity="0.7"/>
                             <Border Margin="13, 0, 0, -45" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="96" Width="96" BorderThickness="0.5" BorderBrush="White">
-                                <Image Source="{Binding Path=avatar}"/>
+                                <Image Source="{Binding Path=avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
                             </Border>
                         </Grid>
                         <TextBlock Text="{Binding title}" Margin="126, -50, 10, 4" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
