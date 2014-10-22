@@ -77,8 +77,6 @@ namespace API {
 
                 string signature = AuthenticationManager.Utils.UrlEncode(AuthenticationManager.Utils.GetSignature(sigBaseString, Config.ConsumerSecretKey, Config.OAuthTokenSecret)).Replace("+", "%20").Replace("/", "%2F");
 
-                DebugHandler.ErrorLog.Add("Encoded signature: " + signature);
-
                 string data = "oauth_consumer_key=\"" + Config.ConsumerKey +
                               "\", oauth_nonce=\"" + nonce +
                               "\", oauth_signature=\"" + signature +
@@ -86,16 +84,17 @@ namespace API {
                               "\", oauth_token=\"" + Config.OAuthToken +
                               "\", oauth_verifier=\"" + Config.OAuthVerifier +
                               "\", oauth_version=\"1.0\"";
+
                 requestMsg.Headers.Authorization = new AuthenticationHeaderValue("OAuth", data);
                 requestMsg.Headers.IfModifiedSince = DateTime.UtcNow;
 
                 var response = await httpClient.SendAsync(requestMsg);
                 var text = await response.Content.ReadAsStringAsync();
 
-                Debug.WriteLine("[API REQUEST] (" + urlWithParams + "): " + text);
+               DebugHandler.Info("[API REQUEST] (" + urlWithParams + "): " + text);
                 return text.ToString();
             } catch (Exception Err) {
-                DebugHandler.ErrorLog.Add("Unable to make POST request: " + Err.StackTrace);
+                DebugHandler.Error("Unable to make POST request.", Err.StackTrace.ToString());
             }
             return "";
         }
@@ -129,8 +128,6 @@ namespace API {
                     Config.ConsumerSecretKey,
                     Config.OAuthTokenSecret)).Replace("+", "%20").Replace("/", "%2F");
 
-                DebugHandler.ErrorLog.Add("Encoded signature: " + signature);
-
                 string data = "oauth_consumer_key=\"" + Config.ConsumerKey +
                               "\", oauth_nonce=\"" + nonce +
                               "\", oauth_signature=\"" + signature +
@@ -148,7 +145,7 @@ namespace API {
                 Debug.WriteLine("[API POST] (" + url + "): " + text);
                 return text.ToString();
             } catch (Exception Err) {
-                DebugHandler.ErrorLog.Add("Unable to make POST request: " + Err.StackTrace);
+                DebugHandler.Error("Unable to make POST request. ", Err.StackTrace);
             }
             return null;
         }

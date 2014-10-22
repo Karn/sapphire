@@ -1,5 +1,6 @@
 ﻿using API;
 using API.Data;
+using API.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -30,11 +31,10 @@ namespace Core.Utils.Controls {
                 MainPage.sb.ProgressIndicator.Text = "Loading activity...";
                 await MainPage.sb.ProgressIndicator.ShowAsync();
                 GroupData(await RequestHandler.RetrieveActivity());
-                Debug.WriteLine(Config.LastNotification);
                 await MainPage.sb.ProgressIndicator.HideAsync();
                 ContentLoaded = true;
             } catch (Exception e) {
-                API.Utils.DebugHandler.ErrorLog.Add("Error loading activity feed. " + e.Source);
+                DebugHandler.Error("Error loading activity feed. ", e.StackTrace);
             }
         }
 

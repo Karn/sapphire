@@ -100,10 +100,13 @@
     <Compile Include="Utils\ErrorFlyout.xaml.cs">
       <DependentUpon>ErrorFlyout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils\ErrorHandler.cs" />
+    <Compile Include="Utils\DebugHandler.cs" />
     <Compile Include="Utils\NotificationHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="MarkedUp">
+      <HintPath>..\packages\MarkedUp.1.3.9\lib\portable-netcore451+wpa81\MarkedUp.winmd</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>

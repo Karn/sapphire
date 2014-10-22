@@ -51,7 +51,7 @@
                     <TextBlock x:Name="PageTitle" Text="Sapphire" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
                     <StackPanel Orientation="Horizontal" Margin="5, 0" HorizontalAlignment="Right" VerticalAlignment="Center">
                         <GridView x:Name="Navigation" ScrollViewer.VerticalScrollMode="Disabled" Height="35" Margin="0, 0, 0, 3" SelectionChanged="Navigation_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Source="Assets/Navigation/Dashboard.png" x:Name="DashboardIcon" Height="30" Width="35" Opacity=".5"/>
+                            <Image Source="Assets/Navigation/Dashboard.png" x:Name="DashboardIcon" Height="30" Width="35" Opacity=".5" DoubleTapped="DashboardIcon_DoubleTapped"/>
                             <Image Source="Assets/Navigation/Activity.png" x:Name="ActivityIcon" Height="30" Width="35" Opacity=".5"/>
                             <Image Source="Assets/Navigation/Account.png" x:Name="AccountIcon" Height="30" Width="35" Opacity=".5"/>
                             <Image Source="Assets/Navigation/Search.png" x:Name="SearchIcon" Height="30" Width="35" Opacity=".5"/>

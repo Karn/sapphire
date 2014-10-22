@@ -27,21 +27,21 @@
                 <PivotItem.Header>
                     <TextBlock Text="general" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe WP" CharacterSpacing="-25" Foreground="{ThemeResource HeaderLightBlue}"/>
                 </PivotItem.Header>
-                
+
                 <!--<StackPanel>
                     <TextBlock Margin="7, 0" Text="Notifications" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                     <TextBlock Margin="7, 0, 7, 10" Text="Would you like to enable notifications?" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
                 </StackPanel>-->
-                <StackPanel Height="500" HorizontalAlignment="Stretch" Margin="0">
+                <StackPanel HorizontalAlignment="Stretch" Margin="0">
                     <TextBlock Margin="7, 0" Text="Like this app?" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                     <TextBlock Margin="7, 5, 7, 10" Text="It's always nice to hear what the users think about the app so be sure to review the app and let me know what you think!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
-                    <TextBlock Margin="7, -2, 7, 10" Text="If you did leave a reply with a question or suggestion please check the emails associated with your Microsoft Account to see if I've gotten back to you!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
+                    <TextBlock Margin="7, 5, 7, 10" Text="If you did leave a reply with a question or suggestion please check the emails associated with your Microsoft Account to see if I've gotten back to you!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
                     <Button x:Name="ReviewButton" Content="Rate and review!" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="ReviewButton_Click"/>
 
                     <TextBlock Margin="7, 0" Text="In app advertisements" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                     <TextBlock Margin="7, 5, 7, 10" Text="If you'd like to remove the adversitements you can click the button below to upgrade to the ad free version. (P.s you're awesome if you do! ...and even if you dont!)" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
                     <Button x:Name="RemoveAdsButton" Content="Remove these dumb ads please" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="RemoveAds_Click"/>
-                    
+
                 </StackPanel>
             </PivotItem>
             <PivotItem Margin="10, 0">
@@ -49,13 +49,17 @@
                     <TextBlock Text="options" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe WP" CharacterSpacing="-25" Foreground="{ThemeResource HeaderLightBlue}"/>
                 </PivotItem.Header>
 
-                <StackPanel Height="500" HorizontalAlignment="Stretch" Margin="0">
+                <StackPanel HorizontalAlignment="Stretch" Margin="0">
                     <TextBlock Margin="7, 0" Text="Dark theme" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                     <ToggleSwitch x:Name="ThemeSwitch" Style="{StaticResource Switch}" Header="Requires a manual restart." OffContent="Disabled" OnContent="Enabled" Toggled="ToggleSwitch_Toggled"/>
-                    
-                    <TextBlock Margin="7, 0" Text="Manage notifications" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+
+                    <TextBlock Margin="7, 0" Text="Notifications" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                    <ToggleSwitch x:Name="EnableNotifications" Style="{StaticResource Switch}" Header="Enable notifications for your account." OffContent="Disabled" OnContent="Enabled" Toggled="EnableNotifications_Toggled"/>
+
+
+                    <!--<TextBlock Margin="7, 0" Text="Manage notifications" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                     <TextBlock Margin="7, 5, 7, 5" Text="Select what notifications you recieve from your blogs" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
-                    <Button x:Name="ManageNotificationsButton" Content="Manage" HorizontalAlignment="Stretch" Margin="10, -5" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="RemoveAds_Click"/>
+                    <Button x:Name="ManageNotificationsButton" Content="Manage" HorizontalAlignment="Stretch" Margin="10, -5" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="RemoveAds_Click"/>-->
 
                     <!--<ToggleSwitch x:Name="ThemeSwitch" Style="{StaticResource Switch}" Header="Requires a manual restart." OffContent="Disabled" OnContent="Enabled" Toggled="ToggleSwitch_Toggled"/>-->
 
@@ -68,29 +72,33 @@
                 <PivotItem.Header>
                     <TextBlock Text="about" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe WP" CharacterSpacing="-25" Foreground="{ThemeResource HeaderLightBlue}"/>
                 </PivotItem.Header>
-                <ListView Height="515" IsTapEnabled="False" HorizontalAlignment="Stretch">
-                    <StackPanel VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                        <Image Source="ms-appx:///Assets/LoginLogo_Dark.png"  Width="150" Height="150" Margin="10, 0" HorizontalAlignment="Center"/>
+                <!--<ListView IsTapEnabled="False" HorizontalAlignment="Stretch">-->
+                <!--<StackPanel VerticalAlignment="Top" HorizontalAlignment="Stretch">-->
+                <ScrollViewer>
+                    <StackPanel HorizontalAlignment="Stretch" Margin="0">
+                            <Image Source="ms-appx:///Assets/Logo_Dark.png" Height="150" Margin="10, 0" HorizontalAlignment="Center"/>
                         <!--<TextBlock Width="200" TextAlignment="Center" Text="Thank you for participating in the BETA. Please remember to leave feedback and suggestions." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}"/>-->
+                        <!--</StackPanel>-->
+
+                        <TextBlock Margin="7, 0" Text="Legal" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="7, 0, 7, 10" Text="It is important to note that this application ('Sapphire') is a 3rd party client for Tumblr and is in no way affiliated, endorsed or advocated for by Yahoo! Inc. Content that is retrieved via the Tumblr APIs is property of its respective owners and is not a reflection of the developer ('Karn, Awefull'). Additionally, you agree that the developer is not liable for any issues that may occur whilst using this application." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
+
+                        <TextBlock Margin="7, 0" Text="Support + Feedback" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="7, 0, 7, 10" Text="If you come across a bug, or something that you feel needs improving, feel free to use the links below to get in touch!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
+
+                        <HyperlinkButton x:Name="Blog" Content="Blog" HorizontalAlignment="Left" Margin="10, 0" FontSize="20" MinHeight="10" BorderThickness="0" Foreground="#FF529ECC" NavigateUri="http://sapphireapp.tumblr.com"/>
+                        <HyperlinkButton x:Name="Reddit" Content="/r/Sapphire" HorizontalAlignment="Left" Margin="10, 0" FontSize="20" MinHeight="10" Foreground="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" NavigateUri="http://reddit.com/r/sapphire"/>
+                        <HyperlinkButton x:Name="Bugs" Content="Bug Reports" HorizontalAlignment="Left" Margin="10, 0" FontSize="20" MinHeight="10" Foreground="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" NavigateUri="https://docs.google.com/forms/d/1tSgf5EAccvv3qOF-x15I43zXQ_Z321HbcxTQBpTdBng/viewform"/>
+                        <HyperlinkButton x:Name="Follow" Content="@KarnSaheb" HorizontalAlignment="Left" Margin="10, 0" FontSize="20" MinHeight="10" Foreground="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" NavigateUri="http://twitter.com/KarnSaheb"/>
                     </StackPanel>
+                </ScrollViewer>
 
-                    <TextBlock Margin="7, 0" Text="Legal" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                    <TextBlock Margin="7, 0, 7, 10" Text="It is important to note that this application ('Sapphire') is a 3rd party client for Tumblr and is in no way affiliated, endorsed or advocated for by Yahoo! Inc. Content that is retrieved via the Tumblr APIs is property of its respective owners and is not a reflection of the developer ('Karn, Awefull'). Additionally, you agree that the developer is not liable for any issues that may occur whilst using this application." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
-
-                    <TextBlock Margin="7, 0" Text="Support + Feedback" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                    <TextBlock Margin="7, 0, 7, 10" Text="If you come across a bug, or something that you feel needs improving, feel free to use the links below to get in touch!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
-
-                    <HyperlinkButton x:Name="Blog" Content="Blog" HorizontalAlignment="Stretch" Margin="10, 0" FontSize="20" MinHeight="10" BorderThickness="0" Foreground="#FF529ECC" NavigateUri="http://sapphireapp.tumblr.com"/>
-                    <HyperlinkButton x:Name="Reddit" Content="/r/Sapphire" HorizontalAlignment="Stretch" Margin="10, 0" FontSize="20" MinHeight="10" Foreground="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" NavigateUri="http://reddit.com/r/sapphire"/>
-                    <HyperlinkButton x:Name="Bugs" Content="Bug Reports" HorizontalAlignment="Stretch" Margin="10, 0" FontSize="20" MinHeight="10" Foreground="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" NavigateUri="https://docs.google.com/forms/d/1tSgf5EAccvv3qOF-x15I43zXQ_Z321HbcxTQBpTdBng/viewform"/>
-                    <HyperlinkButton x:Name="Follow" Content="@KarnSaheb" HorizontalAlignment="Stretch" Margin="10, 0" FontSize="20" MinHeight="10" Foreground="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" NavigateUri="http://twitter.com/KarnSaheb"/>
-
-                </ListView>
+                <!--</ListView>-->
             </PivotItem>
         </Pivot>
 
         <!--TODO: Content should be placed within the following grid-->
-        <ScrollViewer Visibility="Collapsed">
+        <!--<ScrollViewer Visibility="Collapsed">
             <StackPanel Margin="10, 10, 10, 10">
                 <Border BorderThickness="0, 0, 0, 2" Margin="0, 0, 0, 5" BorderBrush="{ThemeResource HeaderLightBlue}">
                     <TextBlock Grid.Column="0" Text="Preferences" Margin="0, 5" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center" TextLineBounds="Tight" FontFamily="Segoe WP" FontWeight="Thin" CharacterSpacing="-25" Foreground="{ThemeResource HeaderLightBlue}"/>
@@ -113,6 +121,6 @@
                     <TextBlock Text="let me know if these blogs are updated via notifications" FontSize="16" FontWeight="Light" Foreground="{ThemeResource HeaderLightBlue}" TextWrapping="WrapWholeWords" VerticalAlignment="Center"/>
                 </StackPanel>
             </StackPanel>
-        </ScrollViewer>
+        </ScrollViewer>-->
     </Grid>
 </Page>

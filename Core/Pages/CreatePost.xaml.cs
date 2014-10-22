@@ -1,6 +1,8 @@
 ﻿using API.Authentication;
 using API.Content;
+using API.Utils;
 using Core.Common;
+using Core.Utils.Misc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -148,8 +150,13 @@ namespace Core.Pages {
                 tags = tags.Replace(" #", ", ");
                 tags = AuthenticationManager.Utils.UrlEncode(tags.Substring(1, tags.Length - 1));
             }
-            API.Content.CreatePost.Text(AuthenticationManager.Utils.UrlEncode(title), AuthenticationManager.Utils.UrlEncode(body), tags);
-            Frame.GoBack();
+            try {
+                API.Content.CreatePost.Text(AuthenticationManager.Utils.UrlEncode(title), AuthenticationManager.Utils.UrlEncode(body), tags);
+                Frame.GoBack();
+            } catch (Exception ex) {
+                MainPage.ErrorFlyout.DisplayMessage("Failed to create text post");
+                DebugHandler.Log("Failed to create text post.");
+            }
         }
 
         private void Post_Photo(object sender, RoutedEventArgs e) {
@@ -220,7 +227,6 @@ namespace Core.Pages {
                 PhotoView.Source = bitmapImage;
             } else {
                 //OutputTextBlock.Text = "Operation cancelled."; 
-
             }
         }
 

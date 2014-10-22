@@ -1,132 +1,126 @@
 ﻿using API;
 using API.Content;
-using API.Authentication;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
-using API.Data;
 
 namespace BackgroundUtilities {
 
     public sealed class NotificationHandler : IBackgroundTask {
 
+        Dictionary<string, int> NotificationDictionary = new Dictionary<string, int>();
+        Dictionary<string, List<Activity.Notification>> NotificationCounts = new Dictionary<string, List<Activity.Notification>>();
+
         public async void Run(IBackgroundTaskInstance taskInstance) {
 
             BackgroundTaskDeferral _deferral = taskInstance.GetDeferral();
             UserData.LoadData();
-            //if (string.IsNullOrEmpty(UserData.AreNotificationsEnabled) ? true : (UserData.AreNotificationsEnabled.Contains("T") ? true : false))
-            await RetrieveNotifications();
+
+            var x = UserData.RetrieveNotificationIds;
+            if (x != null) {
+                NotificationDictionary = UserData.RetrieveNotificationIds;
+                Debug.WriteLine(NotificationDictionary.Keys.Count);
+            } else {
+                Debug.WriteLine("nodata");
+            }
+            if (UserData.AreNotificationsEnabled)
+                await RetrieveNotifications();
 
             _deferral.Complete();
         }
 
         private async Task RetrieveNotifications() {
+            Debug.WriteLine("Last notification: " + UserData.NotificationIDs);
 
-            Debug.WriteLine(Config.LastNotification);
-            var LastNotification = Config.LastNotification;
-            Debug.WriteLine("Last notification: " + LastNotification);
+            try {
+                string Response = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/user/notifications");
 
-            var Notifications = new ObservableCollection<API.Content.Activity.Notification>();
+                if (Response.Contains("200")) {
+                    var activity = JsonConvert.DeserializeObject<Responses.GetActivity>(Response);
 
-            string Response = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/user/notifications");
+                    try {
+                        var blogs = activity.response.blogs;
+                        foreach (var b in blogs) {
+                            Debug.WriteLine("Blog: " + b.blog_name);
+                            if (!NotificationDictionary.ContainsKey(b.blog_name)) {
+                                NotificationDictionary.Add(b.blog_name, 0);
+                            }
+                            if (!NotificationCounts.ContainsKey(b.blog_name)) {
+                                NotificationCounts.Add(b.blog_name, new List<Activity.Notification>());
+                            }
+                            foreach (var n in b.notifications) {
+                                if (n.timestamp > NotificationDictionary[b.blog_name]) {
+                                    NotificationCounts[b.blog_name].Add(n);
+                                }
+                            }
+                        }
 
-            if (Response.Contains("200")) {
-                var activity = JsonConvert.DeserializeObject<Responses.GetActivity>(Response);
-
-                try {
-                    var b = activity.response.blogs.First();
-                    foreach (var n in b.notifications) {
-                        if (n.timestamp > LastNotification)
-                            Notifications.Add(n);
+                        foreach (var count in NotificationCounts) {
+                            NotificationDictionary[count.Key] = count.Value.First().timestamp;
+                        }
+                    } catch (Exception e) {
+                        Debug.WriteLine("Failed to serialize. " + e.ToString());
                     }
-                    if (Notifications.Count > 0)
-                        Config.LastNotification = Notifications.First().timestamp;
-                    Debug.WriteLine("Count: " + Notifications.Count);
-                    Debug.WriteLine("Last notification: " + Config.LastNotification);
-                } catch (Exception e) {
-                    Debug.WriteLine("Failed to serialize. " + e.Message);
+                }
+
+                UserData.RetrieveNotificationIds = NotificationDictionary;
+                DisplayNotification();
+            } catch (Exception e) {
+                Debug.WriteLine("Error: " + e.Source);
+            }
+        }
+
+        private void DisplayNotification() {
+            Debug.WriteLine("Displaying notifications.");
+            int totalCount = 0;
+            foreach (var n in NotificationCounts) {
+                if (n.Value.Count > 0) {
+                    //Later add the avatar of the blog that recieved the notification
+                    ToastTemplateType toastTemplate = ToastTemplateType.ToastText02;
+                    XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+                    XmlNodeList textElements = toastXml.GetElementsByTagName("text");
+                    textElements[0].AppendChild(toastXml.CreateTextNode(n.Key));
+                    textElements[1].AppendChild(toastXml.CreateTextNode("You have " + n.Value.Count + " new " + (n.Value.Count == 1 ? "notification." : "notifications.")));
+                    totalCount += n.Value.Count;
+                    IXmlNode toastNode = toastXml.SelectSingleNode("/toast");
+                    ((XmlElement)toastNode).SetAttribute("launch", "{\"type\":\"toast\"}");
+
+                    ToastNotification x = new ToastNotification(toastXml);
+                    x.SuppressPopup = true;
+                    ToastNotificationManager.CreateToastNotifier().Show(x);
                 }
             }
 
-            if (Notifications.Count == 0)
-                return;
+            ////Update Tile
+            //TileTemplateType tileTemplate = TileTemplateType.TileSquare150x150IconWithBadge;
+            //XmlDocument tileXml = TileUpdateManager.GetTemplateContent(tileTemplate);
+            //XmlNodeList tileAttributes = tileXml.GetElementsByTagName("binding");
+            //((XmlElement)tileAttributes[0]).SetAttribute("branding", "none");
+            ////Add an image for notification
+            //XmlNodeList tileImageAttributes = tileXml.GetElementsByTagName("image");
 
-            DisplayNotification(Notifications.Count);
+            //((XmlElement)tileImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/LiveTileMed.png");
+            //((XmlElement)tileImageAttributes[0]).SetAttribute("alt", "");
+
+
+            //TileNotification tileNotification = new TileNotification(tileXml);
+            //TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotification);
+            ////TileUpdateManager.CreateTileUpdaterForApplication().Clear();
+
+
+            ////Display count
+            //XmlDocument badgeXml = BadgeUpdateManager.GetTemplateContent(BadgeTemplateType.BadgeNumber);
+            //XmlElement badgeElement = (XmlElement)badgeXml.SelectSingleNode("/badge");
+            //badgeElement.SetAttribute("value", totalCount.ToString());
+
+            //BadgeNotification badge = new BadgeNotification(badgeXml);
+            //BadgeUpdateManager.CreateBadgeUpdaterForApplication().Update(badge);
         }
-
-        private void DisplayNotification(int notificationCount) {
-            Debug.WriteLine("Displaying " + notificationCount + " notifications.");
-
-            //Later add the avatar of the blog that recieved the notification
-            ToastTemplateType toastTemplate = ToastTemplateType.ToastText02;
-            XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
-            XmlNodeList textElements = toastXml.GetElementsByTagName("text");
-            textElements[0].AppendChild(toastXml.CreateTextNode("You have " + (notificationCount > 5 ? "5+" : notificationCount.ToString()) + " new notification" + (notificationCount == 1 ? "" : "s") + "!"));
-            textElements[1].AppendChild(toastXml.CreateTextNode(""));
-
-            IXmlNode toastNode = toastXml.SelectSingleNode("/toast");
-            ((XmlElement)toastNode).SetAttribute("launch", "{\"type\":\"toast\"}");
-
-            ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
-
-            //Update Tile
-            TileTemplateType tileTemplate = TileTemplateType.TileSquare150x150IconWithBadge;
-            XmlDocument tileXml = TileUpdateManager.GetTemplateContent(tileTemplate);
-            XmlNodeList tileAttributes = tileXml.GetElementsByTagName("binding");
-            ((XmlElement)tileAttributes[0]).SetAttribute("branding", "none");
-            //Add an image for notification
-            XmlNodeList tileImageAttributes = tileXml.GetElementsByTagName("image");
-
-            ((XmlElement)tileImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/LiveTileMed.png");
-            ((XmlElement)tileImageAttributes[0]).SetAttribute("alt", "");
-
-
-            TileNotification tileNotification = new TileNotification(tileXml);
-            TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotification);
-            //TileUpdateManager.CreateTileUpdaterForApplication().Clear();
-
-
-            //Display count
-            XmlDocument badgeXml = BadgeUpdateManager.GetTemplateContent(BadgeTemplateType.BadgeNumber);
-            XmlElement badgeElement = (XmlElement)badgeXml.SelectSingleNode("/badge");
-            badgeElement.SetAttribute("value", notificationCount.ToString());
-
-            BadgeNotification badge = new BadgeNotification(badgeXml);
-            BadgeUpdateManager.CreateBadgeUpdaterForApplication().Update(badge);
-        }
-
-        //private static void UpdateTile() {
-        //    // Create a tile update manager for the specified syndication feed.
-        //    var updater = TileUpdateManager.CreateTileUpdaterForApplication();
-        //    updater.EnableNotificationQueue(true);
-        //    updater.Clear();
-
-        //    // Keep track of the number feed items that get tile notifications. 
-        //    int itemCount = 0;
-
-        //    // Create a tile notification for each feed item.
-        //    foreach (var item in feed.Items) {
-        //        XmlDocument tileXml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWideText03);
-
-        //        var title = item.Title;
-        //        string titleText = title.Text == null ? String.Empty : title.Text;
-        //        tileXml.GetElementsByTagName(textElementName)[0].InnerText = titleText;
-
-        //        // Create a new tile notification. 
-        //        updater.Update(new TileNotification(tileXml));
-
-        //        // Don't create more than 5 notifications.
-        //        if (itemCount++ > 5) break;
-        //    }
-        //}
-
-
     }
 }

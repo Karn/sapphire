@@ -12,14 +12,17 @@ namespace API.Content
 
         public static async void Text(string title, string body, string tags)
         {
+            try {
+                var parameterString = "type=text&body=" + body;
+                if (!string.IsNullOrEmpty(title))
+                    parameterString += "&title=" + title;
+                if (!string.IsNullOrEmpty(tags))
+                    parameterString += "&tags=" + tags;
 
-            var parameterString = "type=text&body=" + body;
-            if (!string.IsNullOrEmpty(title))
-                parameterString += "&title=" + title;
-            if (!string.IsNullOrEmpty(tags))
-                parameterString += "&tags=" + tags;
+                await RequestHandler.CreatePost(parameterString);
+            } catch (Exception e) {
 
-            await RequestHandler.CreatePost(parameterString);
+            }
         }
 
         public static async void Photo(string caption, string source, object data)

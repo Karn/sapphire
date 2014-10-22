@@ -109,7 +109,7 @@ namespace Core.Utils.Controls {
                             PostItems.Add(new Post { type = "advert" });
                         Posts.ItemsSource = PostItems;
                     } catch (Exception e) {
-                        DebugHandler.ErrorLog.Add("Error awaiting posts: " + DateTime.UtcNow.TimeOfDay + ". Ex: " + e);
+                        DebugHandler.Error("Error awaiting posts. ", e.StackTrace);
                         MainPage.ErrorFlyout.DisplayMessage("Load failed due to exception." + e.Message);
                     }
 
@@ -137,7 +137,7 @@ namespace Core.Utils.Controls {
         }
 
         public void ScrollToTop() {
-            sv.ChangeView(null, 0, null, false);
+            sv.ChangeView(null, 60.0, null, false);
         }
 
         private void GoToBlog(object sender, TappedRoutedEventArgs e) {
@@ -167,7 +167,7 @@ namespace Core.Utils.Controls {
                 } else
                     MainPage.ErrorFlyout.DisplayMessage("Failed to like post.");
             } catch (Exception ex) {
-                DebugHandler.ErrorLog.Add("Failed to reblog post: " + ex.ToString());
+                DebugHandler.Error("Failed to reblog post. ", ex.StackTrace);
                 MainPage.ErrorFlyout.DisplayMessage("Failed to reblog post.");
             }
         }
@@ -192,8 +192,7 @@ namespace Core.Utils.Controls {
                 } else
                     MainPage.ErrorFlyout.DisplayMessage("Failed to reblog post.");
             } catch (Exception ex) {
-                DebugHandler.ErrorLog.Add("Failed to reblog post: " + ex.ToString());
-                MainPage.ErrorFlyout.DisplayMessage("Failed to reblog post.");
+                DebugHandler.Error("Failed to reblog post", ex.StackTrace);
             }
         }
 
@@ -341,7 +340,7 @@ namespace Core.Utils.Controls {
                             Debug.WriteLine("Loading more items to feed. " + LastPostID);
                             LoadPosts(true);
                         }
-                        //_isPullRefresh = false;
+                        _isPullRefresh = false;
                         sv.ChangeView(null, 60.0, null);
                     }
 

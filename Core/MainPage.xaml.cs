@@ -4,8 +4,10 @@ using API.Data;
 using API.Utils;
 using Core.Common;
 using Core.Utils.Controls;
+using Core.Utils.Misc;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Resources;
@@ -86,8 +88,8 @@ namespace Core {
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 
             //if (!string.IsNullOrEmpty(UserData.AreNotificationsEnabled) && UserData.AreNotificationsEnabled == "True")
-            RegisterBackgroundTask();
-
+            if (UserData.AreNotificationsEnabled)
+                RegisterBackgroundTask();
         }
 
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e) {
@@ -112,7 +114,11 @@ namespace Core {
                 e.Handled = true;
                 return;
             } else {
-                await (await ApplicationData.Current.TemporaryFolder.GetFolderAsync("Gifs")).DeleteAsync();
+                try {
+                    await (await ApplicationData.Current.TemporaryFolder.GetFolderAsync("Gifs")).DeleteAsync();
+                } catch (FileNotFoundException ex) {
+                    DebugHandler.Log("No File of to delete.");
+                }
                 API.Data.DataStoreHandler.SaveAllSettings();
                 Application.Current.Exit();
             }
@@ -288,12 +294,6 @@ namespace Core {
         }
 
         private void ManageAccountButton_Click(object sender, RoutedEventArgs e) {
-            //DataStoreHandler.ClearSettings();
-            //AccountPivot.DataContext = null;
-
-            //if (!Frame.Navigate(typeof(Pages.xAuthLogin))) {
-            //    Debug.WriteLine("Failed to Navigate");
-            //}
             if (!Frame.Navigate(typeof(Pages.AccountManager))) {
                 Debug.WriteLine("Failed to Navigate");
             }
@@ -384,8 +384,7 @@ namespace Core {
                     if (!ActivityPosts.ContentLoaded)
                         ActivityPosts.LoadPosts();
                 } catch (Exception e) {
-                    DebugHandler.ErrorLog.Add("Failed to load UsedData. Ex: " + e);
-                    Debug.WriteLine("UserData Load failed");
+                    DebugHandler.Error("Failed to load account data", e.StackTrace);
                 }
                 RefreshButton.IsEnabled = true;
                 await sb.ProgressIndicator.HideAsync();
@@ -434,6 +433,10 @@ namespace Core {
             if (!Frame.Navigate(typeof(Pages.Search), "http://api.tumblr.com/v2/tagged?tag=" + ((Border)sender).Tag)) {
                 Debug.WriteLine("Failed to Navigate");
             }
+        }
+
+        private void DashboardIcon_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e) {
+            Posts.ScrollToTop();
         }
 
     }

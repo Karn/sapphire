@@ -57,6 +57,8 @@ namespace Core.Pages {
 
             if (Config.SelectedTheme == "Dark")
                 ThemeSwitch.IsOn = true;
+            EnableNotifications.IsOn = UserData.AreNotificationsEnabled;
+            
         }
 
         /// <summary>
@@ -139,6 +141,14 @@ namespace Core.Pages {
                 Config.SelectedTheme = "Dark";
             } else {
                 Config.SelectedTheme = "Light";
+            }
+        }
+
+        private void EnableNotifications_Toggled(object sender, RoutedEventArgs e) {
+            if (((ToggleSwitch)sender).IsOn) {
+                UserData.AreNotificationsEnabled = true;
+            } else {
+                UserData.AreNotificationsEnabled = false;
             }
         }
 

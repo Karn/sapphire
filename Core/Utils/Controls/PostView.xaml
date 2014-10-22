@@ -285,7 +285,7 @@
                 <TextBlock x:Name="textBlock1" Text="Pull to refresh.." Margin="15, 0, 0, 0" FontSize="22" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" VerticalAlignment="Center" TextLineBounds="Tight" FontFamily="Segoe WP" FontWeight="Thin" CharacterSpacing="-25"/>
                 <TextBlock x:Name="textBlock2" VerticalAlignment="Center" Text="Release to refresh.." Margin="15, 0, 0, 0" FontSize="22" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" TextLineBounds="Tight" FontFamily="Segoe WP" FontWeight="Thin" CharacterSpacing="-25"/>
             </Grid>
-            <ListView Grid.Row="1" x:Name="Posts"  IncrementalLoadingTrigger="Edge" Margin="0" ItemsSource="{Binding}" ItemTemplateSelector="{StaticResource PostTemplate}" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" ShowsScrollingPlaceholders="True" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListView Grid.Row="1" x:Name="Posts" IncrementalLoadingTrigger="Edge" Margin="0" ItemsSource="{Binding}" ItemTemplateSelector="{StaticResource PostTemplate}" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" ShowsScrollingPlaceholders="True" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemContainerStyle>
                     <StaticResource ResourceKey="ListViewItemContainerStyle"/>
                 </ListView.ItemContainerStyle>

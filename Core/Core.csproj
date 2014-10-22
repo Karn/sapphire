@@ -186,6 +186,7 @@
     <Content Include="Assets\LoginLogo.png" />
     <Content Include="Assets\LoginLogo_Dark.png" />
     <Content Include="Assets\Logo.scale-240.png" />
+    <Content Include="Assets\Logo_Dark.png" />
     <Content Include="Assets\Messages.png" />
     <Content Include="Assets\Navigation-Down.png" />
     <Content Include="Assets\Navigation\Account.png" />

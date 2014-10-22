@@ -19,11 +19,15 @@
         <CommonControl:ErrorFlyout Grid.RowSpan="2" x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
         <StackPanel Grid.Row="0" Margin="0" Background="{ThemeResource HeaderLightBlue}">
             <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource HeaderLightBlue}">
-                <TextBlock x:Name="PageTitle" Foreground="{ThemeResource LightText}" Text="Account(s)" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
+                <TextBlock x:Name="PageTitle" Foreground="{ThemeResource LightText}" Text="Notification hub" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
             </Grid>
         </StackPanel>
 
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.Row="1" Margin="10">
+            <TextBlock Margin="7, 0" Text="Enable notifications?" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+            <ToggleSwitch x:Name="ToggleNotifications" Style="{StaticResource Switch}" Header="Would you like to recieve toast and tile notifications?" OffContent="Disabled" OnContent="Enabled"/>
+
+            <StackPanel x:Name="NotificationOptions"/>
             <!--TODO: Content should be placed within the following grid-->
             <ListView x:Name="List" ItemsSource="{Binding}" HorizontalAlignment="Center" Margin="0, 2, 0, 0">
                 <ListView.ItemTemplate>
@@ -42,7 +46,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button x:Name="AddAccount" Content="Add account" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="AddAccount_Click"/>
+            <Button x:Name="AddAccount" Content="Add account" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55"/>
         </StackPanel>
     </Grid>
 </Page>

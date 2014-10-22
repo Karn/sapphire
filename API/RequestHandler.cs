@@ -57,12 +57,11 @@ namespace API {
 
         public static async Task<bool> RetrieveAccountInformation() {
             if (RequestHandler.CanRequestData()) {
-                DebugHandler.Log("Retrieving account information", TAG);
+                //DebugHandler.Log("Retrieving account information", TAG);
 
                 string requestResult = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/user/info");
 
                 if (requestResult.Contains("200")) {
-                    DebugHandler.Log("Account information retrieved", TAG);
                     try {
                         var parsedData = JsonConvert.DeserializeObject<Responses.GetInfo>(requestResult);
 
@@ -84,10 +83,10 @@ namespace API {
                         }
                         return true;
                     } catch (Exception e) {
-                        DebugHandler.ErrorLog.Add("[Info.cs]: Failed to deserialse userdata: " + e.ToString());
+                        DebugHandler.Error("Failed to deserialse userdata.", e.StackTrace);
                     }
                 }
-                DebugHandler.ErrorLog.Add("[Info.cs]: Response failed.");
+                DebugHandler.Error("Userdata response failed.", requestResult);
             }
             return false;
         }
@@ -162,11 +161,11 @@ namespace API {
         /// </summary>
         /// <returns>List of blogs</returns>
         public static async Task<List<Blog>> RetrieveFollowers(int offset) {
-            DebugHandler.Log("Retrieving followers", TAG);
-            string requestResult = await RequestBuilder.GetAPI("http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/followers", "offset=" + offset);
+            //DebugHandler.Log("Retrieving followers", TAG);
+            var requestResult = await RequestBuilder.GetAPI("http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/followers", "offset=" + offset);
 
             if (requestResult.Contains("200")) {
-                DebugHandler.Log("Followers retrieved", TAG);
+                //DebugHandler.Log("Followers retrieved", TAG);
                 var parsedData = JsonConvert.DeserializeObject<Responses.GetFollowers>(requestResult);
                 try {
                     List<Blog> converted = new List<Blog>();
@@ -178,10 +177,10 @@ namespace API {
                     }
                     return converted;
                 } catch (Exception e) {
-                    Utils.DebugHandler.ErrorLog.Add("[Client.cs]: Failed to deserialize followers list. Result: " + e.StackTrace);
+                    DebugHandler.Error("Failed to deserialize followers list.", e.StackTrace);
                 }
             }
-            DebugHandler.ErrorLog.Add("[Client.cs]: Authorization failed: " + Uri.EscapeDataString(requestResult));
+            //DebugHandler.ErrorLog.Add("[Client.cs]: Authorization failed: " + Uri.EscapeDataString(requestResult));
             return new List<Blog>();
         }
 
@@ -190,11 +189,11 @@ namespace API {
         /// </summary>
         /// <returns>List of blogs</returns>
         public static async Task<List<Blog>> RetrieveFollowing(int offset) {
-            DebugHandler.Log("Retrieving Following", TAG);
+            //DebugHandler.Log("Retrieving Following", TAG);
             string requestResult = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/user/following", "offset=" + offset);
 
             if (requestResult.Contains("200")) {
-                Utils.DebugHandler.ErrorLog.Add("[Client.cs]: Response OK.");
+                DebugHandler.Info("Response OK.", "Client");
                 Responses.GetFollowing following = JsonConvert.DeserializeObject<Responses.GetFollowing>(requestResult);
                 try {
                     List<Blog> loadedBlogs = new List<Blog>();
@@ -206,10 +205,10 @@ namespace API {
 
                     return loadedBlogs;
                 } catch (Exception e) {
-                    Utils.DebugHandler.ErrorLog.Add("[Client.cs]: Failed to deserialize following list. Result: " + e.StackTrace);
+                    DebugHandler.Error("[Client.cs]: Failed to deserialize following list.", e.StackTrace);
                 }
             }
-            DebugHandler.ErrorLog.Add("[Client.cs]: Authorization failed: " + Uri.EscapeDataString(requestResult));
+            DebugHandler.Error("[Client.cs]: Authorization failed: ", requestResult);
             return new List<Blog>();
         }
 
@@ -225,35 +224,39 @@ namespace API {
                 try {
                     Responses.GetActivity activity = JsonConvert.DeserializeObject<Responses.GetActivity>(Response);
                     var Notifications = new List<Content.Activity.Notification>();
+                    var NotificationDictionary = UserData.RetrieveNotificationIds;
 
                     foreach (var b in activity.response.blogs) {
                         if (UserData.CurrentBlog != null) {
                             if (b.blog_name.ToLower() == UserData.CurrentBlog.Name.ToLower()) {
+                                if (!NotificationDictionary.ContainsKey(b.blog_name)) {
+                                    NotificationDictionary.Add(b.blog_name, 0);
+                                }
                                 foreach (var n in b.notifications) {
                                     n.date = new System.DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(n.timestamp).ToString("yyyy'-'MM'-'dd");
                                     Notifications.Add(n);
                                 }
-                                //Config.LastNotification = Notifications.First().timestamp;
+                                NotificationDictionary[b.blog_name] = Notifications.First().timestamp;
                             }
                         } else {
                             Debug.WriteLine("No current blog set");
                         }
                     }
+
+                    UserData.RetrieveNotificationIds = NotificationDictionary;
                     return Notifications;
                 } catch (Exception e) {
-                    Debug.WriteLine("[Client.cs]: Unable to serialize activity data. Result: " + e.StackTrace);
-                    Utils.DebugHandler.ErrorLog.Add("[Client.cs]: Unable to serialize activity data. Result: " + e.StackTrace);
+                    DebugHandler.Error("Unable to serialize activity data.", e.StackTrace);
                 }
             }
-
-            DebugHandler.ErrorLog.Add("[Client.cs]: Authorization failed: " + Uri.EscapeDataString(Response));
+            DebugHandler.Error("[Client.cs]: Authorization failed: ", Response);
             return new List<Content.Activity.Notification>();
         }
 
         public static async Task<List<Content.Post>> RetrievePosts(string url, string lastPostID = "", string optionalParams = "") {
             var LoadedPosts = new List<Content.Post>();
             if (CanRequestData()) {
-                DebugHandler.Log("Retreiving posts", TAG);
+                //DebugHandler.Log("Retreiving posts", TAG);
                 string result = string.Empty;
                 Debug.WriteLine(url);
                 //Segment API calls
@@ -282,7 +285,7 @@ namespace API {
                 }
 
                 if (!string.IsNullOrEmpty(result) && result.Contains("200")) {
-                    Utils.DebugHandler.ErrorLog.Add("[Client.cs]: Response OK.");
+                    DebugHandler.Info("[Client.cs]: Response OK.");
 
                     try {
                         var PostList = new List<API.Content.Post>();
@@ -321,14 +324,14 @@ namespace API {
                             LoadedPosts.Add(p);
                         }
                         if (LoadedPosts.Count == 0) {
-                            DebugHandler.ErrorLog.Add("[Client.cs]: Failed to add loaded posts.");
+                            DebugHandler.Error("[Client.cs]: Failed to add loaded posts.", "");
                         }
                         return LoadedPosts;
                     } catch (Exception e) {
-                        DebugHandler.ErrorLog.Add("[Client.cs]: Unable to serialize post data. Result: " + e.StackTrace);
+                        DebugHandler.Error("[Client.cs]: Unable to serialize post data.", e.StackTrace);
                     }
                 } else {
-                    DebugHandler.ErrorLog.Add("[Client.cs]: Authorization failed: " + Uri.EscapeDataString(result));
+                    DebugHandler.Error("[Client.cs]: Authorization failed. ", result);
                 }
             }
             LoadedPosts.Add(new Post() { type = "nocontent" });
@@ -368,28 +371,27 @@ namespace API {
                     }
                     return LoadedPosts;
                 } catch (Exception e) {
-                    Utils.DebugHandler.ErrorLog.Add("[Client.cs]: Unable to serialize post data. Result: " + e.StackTrace);
+                    DebugHandler.Error("[Client.cs]: Unable to serialize post data.", e.StackTrace);
                 }
             }
-            DebugHandler.ErrorLog.Add("[Client.cs]: Authorization failed: " + result);
+            DebugHandler.Error("[Client.cs]: Authorization failed. ", result);
             return new ObservableCollection<Content.Post>();
         }
 
         public static async Task<Content.Blog> GetBlog(string name) {
-            Utils.DebugHandler.ErrorLog.Add("[Client.cs]: Retrieving blog...");
+            DebugHandler.Info("[Client.cs]: Retrieving blog...");
             string UserInfoURI = "http://api.tumblr.com/v2/blog/" + name + ".tumblr.com/info?api_key=" + Config.APIKey;
 
             var response = await WebClient.GetAsync(new Uri(UserInfoURI));
             var result = await response.Content.ReadAsStringAsync();
             Debug.WriteLine(result);
             if (result.Contains("200")) {
-                Utils.DebugHandler.ErrorLog.Add("[Client.cs]: Response OK.");
                 Content.Responses.GetBlog blogInfo = JsonConvert.DeserializeObject<Content.Responses.GetBlog>(result);
 
                 return blogInfo.response.blog;
             }
             var x = result.Split(',');
-            DebugHandler.ErrorLog.Add("[Client.cs]: Authorization failed: " + Uri.EscapeDataString(result));
+            DebugHandler.Error("[Client.cs]: Authorization failed. ", result);
             return new Content.Blog();
         }
 
@@ -400,7 +402,6 @@ namespace API {
             var result = await response.Content.ReadAsStringAsync();
 
             if (result.Contains("200")) {
-                Utils.DebugHandler.ErrorLog.Add("[Client.cs]: Response OK.");
                 Content.Responses.GetSearch SearchResult = JsonConvert.DeserializeObject<Content.Responses.GetSearch>(result);
 
                 return SearchResult.response.blogs;
@@ -416,7 +417,6 @@ namespace API {
             var result = await response.Content.ReadAsStringAsync();
 
             if (result.Contains("200")) {
-                Utils.DebugHandler.ErrorLog.Add("[Client.cs]: Response OK.");
                 Content.Responses.GetSpotlight spotlight = JsonConvert.DeserializeObject<Content.Responses.GetSpotlight>(result);
                 return spotlight.response;
             }
@@ -424,10 +424,13 @@ namespace API {
             return new List<Responses.SpotlightResponse>();
         }
 
-        public static async Task CreatePost(string parameters) {
+        public static async Task<bool> CreatePost(string parameters) {
             if (!string.IsNullOrEmpty(parameters)) {
                 string result = await RequestBuilder.PostAPI("http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/post", parameters);
+                if (result.Contains("201"))
+                    return true;
             }
+            return false;
         }
     }
 }

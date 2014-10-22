@@ -27,7 +27,7 @@ namespace API.Content {
                                                    "LIKES",
                                                    "USER_MENTIONS",
                                                    "ENABLE_ADS",
-                                                   "LAST_NOTIFICATION"
+                                                   "NotificationIds"
                                                };
 
         public static void CreateDataContainer() {
@@ -103,12 +103,14 @@ namespace API.Content {
         }
 
 
-        public static string AreNotificationsEnabled {
+        public static bool AreNotificationsEnabled {
             get {
-                return UserDataStore.Values["NOTIFICATIONS_ENABLED"].ToString();
+                if (!string.IsNullOrEmpty(UserDataStore.Values["NOTIFICATIONS_ENABLED"].ToString()))
+                    return UserDataStore.Values["NOTIFICATIONS_ENABLED"].ToString().Contains("T") ? true : false;
+                return true;
             }
             set {
-                UserDataStore.Values["NOTIFICATIONS_ENABLED"] = value;
+                UserDataStore.Values["NOTIFICATIONS_ENABLED"] = value ? "True" : "False";
             }
         }
 
@@ -157,7 +159,18 @@ namespace API.Content {
             }
         }
 
-        public static Dictionary<string, string> RetrieveNotificationIds {
+        public static int NotificationIDs {
+            get {
+                if (!string.IsNullOrEmpty(UserDataStore.Values["NotificationIds"].ToString()))
+                    return int.Parse(UserDataStore.Values["NotificationIds"].ToString());
+                return 0;
+            }
+            set {
+                UserDataStore.Values["NotificationIds"] = value.ToString();
+            }
+        }
+
+        public static Dictionary<string, int> RetrieveNotificationIds {
             //try {
             //    UserDataStore.Values["LAST_NOTIFICATION"] = JsonConvert.SerializeObject(FavBlogs, Formatting.Indented);
             //    Debug.WriteLine("Updated Fav List");
@@ -167,7 +180,9 @@ namespace API.Content {
             //}
 
             get {
-                return JsonConvert.DeserializeObject<Dictionary<string, string>>(UserDataStore.Values["LAST_NOTIFICATION"].ToString());
+                if (!string.IsNullOrEmpty(UserDataStore.Values["NotificationIds"].ToString()))
+                    return JsonConvert.DeserializeObject<Dictionary<string, int>>(UserDataStore.Values["LAST_NOTIFICATION"].ToString());
+                return new Dictionary<string, int>();
             }
             set {
                 UserDataStore.Values["LAST_NOTIFICATION"] = JsonConvert.SerializeObject(value);

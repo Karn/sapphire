@@ -36,8 +36,10 @@
 
         <!-- TitlePanel -->
         <CommonControl:ErrorFlyout x:Name="ErrorFlyout" VerticalAlignment="Top"/>
-        
-        <Image x:Name="LogoImage" Margin="60, 40, 60, 30" Source="ms-appx:///Assets/LoginLogo.png" Opacity="0"/>
+        <StackPanel x:Name="LogoImage" Opacity="0">
+            <Image Margin="60, 40, 60, 30" Source="ms-appx:///Assets/Logo.png"/>
+            <TextBlock Margin="7, -65, 7, 0" Text="Sapphire" TextWrapping="Wrap" Foreground="{ThemeResource LightText}" FontSize="75" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal" HorizontalAlignment="Center"/>
+        </StackPanel>
         <Border Grid.Row="1">
             <StackPanel Margin="10, 50" Grid.Row="1" VerticalAlignment="Top">
                 <StackPanel Orientation="Horizontal" Margin="10, 4" Background="#33FFFFFF" MaxHeight="40">
