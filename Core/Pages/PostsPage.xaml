@@ -24,6 +24,6 @@
         </StackPanel>
 
         <!--TODO: Content should be placed within the following grid-->
-        <controls:PostView x:Name="PostList" Grid.Row="1" Loaded="PostList_Loaded"/>
+        <controls:PostView x:Name="PostList" Grid.Row="1" Margin="0" AffectHeader="False" Loaded="PostList_Loaded"/>
     </Grid>
 </Page>

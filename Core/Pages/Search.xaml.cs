@@ -67,8 +67,6 @@ namespace Core.Pages {
             var y = x[1].Split('&');
             tagkey = y[0].Substring(4);
             PageTitle.Text = "Tagged: " + tagkey;
-
-            PostList.offset = 0;
         }
 
         /// <summary>
@@ -107,8 +105,8 @@ namespace Core.Pages {
 
         #endregion
 
-        private void PostList_Loaded(object sender, RoutedEventArgs e) {
-            PostList.LoadPosts();
+        private async void PostList_Loaded(object sender, RoutedEventArgs e) {
+            await PostList.LoadPosts();
         }
 
         private void Image_Tapped(object sender, TappedRoutedEventArgs e) {

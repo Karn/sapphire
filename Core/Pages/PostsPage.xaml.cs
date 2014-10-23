@@ -26,6 +26,8 @@ namespace Core.Pages {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
+        bool loaded = false;
+
         public PostsPage() {
             this.InitializeComponent();
 
@@ -67,9 +69,8 @@ namespace Core.Pages {
             } else if (PostList.URL.Contains("/tagged")) {
                 var x = PostList.URL.Split('?');
                 var y = x[1].Split('&');
-                PageTitle.Text = "Tagged: " + y[0].Substring(4);
+                PageTitle.Text = "Tagged: " + Uri.UnescapeDataString(y[0].Substring(4));
             }
-            PostList.offset = 0;
 
             MainPage.ErrorFlyout = _ErrorFlyout;
         }
@@ -110,8 +111,11 @@ namespace Core.Pages {
 
         #endregion
 
-        private void PostList_Loaded(object sender, RoutedEventArgs e) {
-            PostList.LoadPosts();
+        private async void PostList_Loaded(object sender, RoutedEventArgs e) {
+            if (!loaded) {
+                await PostList.LoadPosts(true);
+                loaded = true;
+            }
         }
 
         private void Image_Tapped(object sender, TappedRoutedEventArgs e) {

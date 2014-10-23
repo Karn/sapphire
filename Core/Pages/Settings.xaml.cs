@@ -58,7 +58,8 @@ namespace Core.Pages {
             if (Config.SelectedTheme == "Dark")
                 ThemeSwitch.IsOn = true;
             EnableNotifications.IsOn = UserData.AreNotificationsEnabled;
-            
+
+            MainPage.ErrorFlyout = _ErrorFlyout;
         }
 
         /// <summary>
@@ -149,6 +150,20 @@ namespace Core.Pages {
                 UserData.AreNotificationsEnabled = true;
             } else {
                 UserData.AreNotificationsEnabled = false;
+            }
+        }
+
+        private async void ClearCacheButton_Click(object sender, RoutedEventArgs e) {
+            try {
+                var x = await(await ApplicationData.Current.TemporaryFolder.GetFolderAsync("Gifs")).GetFilesAsync();
+                foreach (var y in x) {
+                    await y.DeleteAsync();
+                }
+                MainPage.ErrorFlyout.DisplayMessage("Folder has been cleared.");
+                ((Button)sender).IsTapEnabled = false;
+            } catch (FileNotFoundException ex) {
+                MainPage.ErrorFlyout.DisplayMessage("Nothing to delete.");
+                ((Button)sender).IsTapEnabled = false;
             }
         }
 

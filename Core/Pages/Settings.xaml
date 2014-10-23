@@ -56,6 +56,9 @@
                     <TextBlock Margin="7, 0" Text="Notifications" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                     <ToggleSwitch x:Name="EnableNotifications" Style="{StaticResource Switch}" Header="Enable notifications for your account." OffContent="Disabled" OnContent="Enabled" Toggled="EnableNotifications_Toggled"/>
 
+                    <TextBlock Margin="7, 0" Text="Temporary data" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                    <TextBlock Margin="7, 5, 7, 10" Text="Downloaded gifs are stored in a temporary folder. It is reccommended you clear this ever so often." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
+                    <Button x:Name="ClearCacheButton" Content="Clear cache" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="ClearCacheButton_Click"/>
 
                     <!--<TextBlock Margin="7, 0" Text="Manage notifications" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                     <TextBlock Margin="7, 5, 7, 5" Text="Select what notifications you recieve from your blogs" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>

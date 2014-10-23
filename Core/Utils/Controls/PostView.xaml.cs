@@ -31,10 +31,7 @@ namespace Core.Utils.Controls {
 
         private ObservableCollection<API.Content.Post> PostItems = new ObservableCollection<API.Content.Post>();
 
-        public int offset = 0;
         private bool AlreadyHasContent;
-
-        public static bool isAnimating;
 
         public static ImageBrush RebloggedBrush = new ImageBrush { ImageSource = App.Current.Resources["RebloggedAsset"] as BitmapImage };
         public static ImageBrush LikeBrush = new ImageBrush { ImageSource = App.Current.Resources["LikeAsset"] as BitmapImage };
@@ -42,7 +39,7 @@ namespace Core.Utils.Controls {
 
         public bool IsSinglePost;
 
-        public string LastPostID { get; set; }
+        public string LastPostID;
 
         public bool PostsLoading;
 
@@ -80,8 +77,8 @@ namespace Core.Utils.Controls {
             }
         }
 
-        public async void LoadPosts(bool EnforceContentLoad = false) {
-            if ((EnforceContentLoad || !AlreadyHasContent)) {
+        public async Task LoadPosts(bool EnforceContentLoad = false) {
+            if (EnforceContentLoad || !AlreadyHasContent) {
                 if (!PostsLoading) {
                     PostsLoading = true;
 
@@ -102,15 +99,18 @@ namespace Core.Utils.Controls {
                             }
 
                             LastPostID = PostItems.Last().id;
+                            DebugHandler.Info(LastPostID);
                         } else {
                             MainPage.ErrorFlyout.DisplayMessage("Unable to deserialize posts.");
                         }
                         if (Utils.IAPHander.ShowAds && posts.Count > 5)
                             PostItems.Add(new Post { type = "advert" });
+
                         Posts.ItemsSource = PostItems;
+
                     } catch (Exception e) {
                         DebugHandler.Error("Error awaiting posts. ", e.StackTrace);
-                        MainPage.ErrorFlyout.DisplayMessage("Load failed due to exception." + e.Message);
+                        MainPage.ErrorFlyout.DisplayMessage("Load failed due to exception.");
                     }
 
                     await MainPage.sb.ProgressIndicator.HideAsync();
@@ -294,10 +294,10 @@ namespace Core.Utils.Controls {
             scrollViewer.ChangeView(null, 60.0, null);
         }
 
-        public void RefeshPosts() {
+        public async void RefeshPosts() {
             LastPostID = "";
             PostItems.Clear();
-            LoadPosts(true);
+            await LoadPosts();
         }
 
         private void scrollViewer_SizeChanged(object sender, SizeChangedEventArgs e) {
@@ -308,7 +308,7 @@ namespace Core.Utils.Controls {
 
         bool _isPullRefresh = false;
         bool _updating = false;
-        private void scrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e) {
+        private async void scrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e) {
             if (!IsSinglePost) {
                 if (sv == null)
                     sv = sender as ScrollViewer;
@@ -330,18 +330,17 @@ namespace Core.Utils.Controls {
 
                     if (!e.IsIntermediate) {
                         if (sv.VerticalOffset == 0.0 && _isPullRefresh) {
-                            //Refresh the feed
-                            //offset = 0;
                             Debug.WriteLine("Refreshing feed.");
                             LastPostID = "";
                             PostItems.Clear();
-                            LoadPosts(true);
+                            await LoadPosts(true);
+                            sv.ChangeView(null, 60.0, null);
                         } else if (sv.VerticalOffset == 120.0 && _isPullRefresh) {
                             Debug.WriteLine("Loading more items to feed. " + LastPostID);
-                            LoadPosts(true);
+                            await LoadPosts(true);
+                            sv.ChangeView(null, 60.0, null);
                         }
-                        _isPullRefresh = false;
-                        sv.ChangeView(null, 60.0, null);
+                        //_isPullRefresh = false;
                     }
 
                     _updating = false;

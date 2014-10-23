@@ -98,7 +98,7 @@ namespace Core {
             HeaderAnimateIn.Begin();
         }
 
-        private async void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e) {
+        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e) {
             //Fix navigating
             if (CreatePostControl.Visibility == Visibility.Visible) {
                 CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
@@ -114,11 +114,6 @@ namespace Core {
                 e.Handled = true;
                 return;
             } else {
-                try {
-                    await (await ApplicationData.Current.TemporaryFolder.GetFolderAsync("Gifs")).DeleteAsync();
-                } catch (FileNotFoundException ex) {
-                    DebugHandler.Log("No File of to delete.");
-                }
                 API.Data.DataStoreHandler.SaveAllSettings();
                 Application.Current.Exit();
             }
@@ -366,11 +361,11 @@ namespace Core {
         }
 
 
-        public void Posts_Loaded(object sender, RoutedEventArgs e) {
+        public async void Posts_Loaded(object sender, RoutedEventArgs e) {
             if (UserData.CurrentBlog == null)
                 SetAccountData();
 
-            Posts.LoadPosts();
+            await Posts.LoadPosts();
         }
 
         private async void SetAccountData() {
@@ -407,10 +402,6 @@ namespace Core {
             }
         }
 
-        private void GoToTop_Click(object sender, RoutedEventArgs e) {
-            Posts.ScrollToTop();
-        }
-
         private async void SpotlightTags_Loaded(object sender, RoutedEventArgs e) {
             if (SpotlightTags.ItemsSource == null || sender == null) {
                 if (RequestHandler.CanRequestData())
@@ -423,14 +414,14 @@ namespace Core {
                 e.Handled = true;
                 var x = SearchText.Text;
                 SearchText.Text = "";
-                if (!Frame.Navigate(typeof(Pages.Search), "http://api.tumblr.com/v2/tagged?tag=" + Uri.EscapeUriString(x))) {
+                if (!Frame.Navigate(typeof(Pages.PostsPage), "http://api.tumblr.com/v2/tagged?tag=" + Uri.EscapeUriString(x))) {
                     Debug.WriteLine("Failed to Navigate");
                 }
             }
         }
 
         private void SpotlightTagItem_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (!Frame.Navigate(typeof(Pages.Search), "http://api.tumblr.com/v2/tagged?tag=" + ((Border)sender).Tag)) {
+            if (!Frame.Navigate(typeof(Pages.PostsPage), "http://api.tumblr.com/v2/tagged?tag=" + ((Border)sender).Tag)) {
                 Debug.WriteLine("Failed to Navigate");
             }
         }

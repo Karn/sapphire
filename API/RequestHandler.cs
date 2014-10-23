@@ -266,13 +266,16 @@ namespace API {
                     else
                         result = await RequestBuilder.GetAPI(url, "before_id=" + lastPostID);
                 } else if (url.Contains("/tagged")) {
+                    var searchTag = url.Split('?')[1];
+                    var newUrl = url.Split('?')[0].Replace("?", "");
                     if (string.IsNullOrEmpty(lastPostID))
-                        result = url + "&api_key=" + Config.ConsumerKey;
+                        newUrl = newUrl + "?api_key=9AisC3GeljzjAQEOblZrqKb58psfs8qr93p8uFvPx3j0sK0KHz&" + searchTag;
                     else
-                        result = url + "&before_id=" + lastPostID + "&api_key=" + Config.ConsumerKey;
-
-                    var response = await WebClient.GetAsync(new Uri(result));
+                        newUrl = newUrl + "?api_key=9AisC3GeljzjAQEOblZrqKb58psfs8qr93p8uFvPx3j0sK0KHz&" + searchTag + "&before=" + lastPostID;
+                    Debug.WriteLine(newUrl);
+                    var response = await WebClient.GetAsync(new Uri(newUrl));
                     result = await response.Content.ReadAsStringAsync();
+                    Debug.WriteLine(result);
                 } else {
                     string URI = string.Empty;
                     if (string.IsNullOrEmpty(lastPostID))

@@ -108,9 +108,9 @@ namespace Core.Pages {
 
         #endregion
 
-        private void Posts_Loaded(object sender, RoutedEventArgs e) {
+        private async void Posts_Loaded(object sender, RoutedEventArgs e) {
             Posts.URL = "http://api.tumblr.com/v2/blog/" + blogName + ".tumblr.com/posts";
-            Posts.LoadPosts();
+            await Posts.LoadPosts();
         }
     }
 }

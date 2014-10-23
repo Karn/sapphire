@@ -219,9 +219,9 @@ namespace Core.Utils.Controls {
             storyboard.Children.Add(anim);
         }
 
-        private static void ImageUrlPropertyChanged(object sender, DependencyPropertyChangedEventArgs args) {
+        private static async void ImageUrlPropertyChanged(object sender, DependencyPropertyChangedEventArgs args) {
             var control = (AnimationImage)sender;
-            control.LoadImage();
+            await control.LoadImage();
         }
         #endregion
 
