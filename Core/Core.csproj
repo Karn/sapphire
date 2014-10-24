@@ -161,6 +161,7 @@
     <Compile Include="Utils\Misc\DateKeyGroup.cs" />
     <Compile Include="Utils\Misc\ErrorStrings.cs" />
     <Compile Include="Utils\Misc\IAPHander.cs" />
+    <Compile Include="Utils\Misc\ItemsToShow.cs" />
     <Compile Include="Utils\Misc\ThemeResources.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -330,11 +331,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="AdDuplex.WinPhone.Extension, Version=8.5.0.5">
-      <Name>AdDuplex SDK for Windows Phone 8.1 %28XAML%29</Name>
-    </SDKReference>
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="MarkedUp">
       <HintPath>..\packages\MarkedUp.1.3.9\lib\portable-netcore451+wpa81\MarkedUp.winmd</HintPath>
     </Reference>
@@ -342,7 +338,14 @@
       <HintPath>..\packages\XamlAnimatedGif.1.0.0-alpha\lib\portable-win81+wpa81\XamlAnimatedGif.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <SDKReference Include="AdDuplex.WinPhone.Extension, Version=8.5.0.5">
+      <Name>AdDuplex SDK for Windows Phone 8.1 %28XAML%29</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.Advertising.Mobile.Display, Version=8.1">
+      <Name>Microsoft Advertising SDK for Windows Phone 8.1 %28XAML%29</Name>
+    </SDKReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>

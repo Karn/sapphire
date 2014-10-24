@@ -172,11 +172,15 @@
                     </StackPanel>
                 </PivotItem>
                 <PivotItem x:Name="SearchPivot" Margin="0">
-                    <StackPanel Margin="10" VerticalAlignment="Top">
+                    <Grid Margin="10, 10, 10, 54" VerticalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
                         <TextBox x:Name="SearchText" KeyDown="SearchText_KeyDown" Margin="10" BorderThickness="0.5" PlaceholderText="Search..." BorderBrush="{ThemeResource HeaderLightBlue}"/>
-                        <GridView x:Name="SpotlightTags" Height="439" Loaded="SpotlightTags_Loaded" ItemsSource="{Binding}" ScrollViewer.VerticalScrollMode="Enabled">
+                        <GridView x:Name="SpotlightTags" Grid.Row="1" Loaded="SpotlightTags_Loaded" ItemsSource="{Binding}" ScrollViewer.VerticalScrollMode="Enabled">
                             <GridView.Header>
-                                <TextBlock Foreground="{ThemeResource HeaderLightBlue}" Text="Trending tags" FontSize="24" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
+                                <TextBlock Foreground="{ThemeResource DarkText}" Text="Trending tags" FontSize="24" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
                             </GridView.Header>
                             <GridView.ItemTemplate>
                                 <DataTemplate>
@@ -191,7 +195,7 @@
                                 </DataTemplate>
                             </GridView.ItemTemplate>
                         </GridView>
-                    </StackPanel>
+                    </Grid>
                 </PivotItem>
             </Pivot>
         </Grid>

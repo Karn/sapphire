@@ -1199,7 +1199,7 @@
                                                 <ContentPresenter x:Name="SwitchCurtainBounds">
                                                     <ContentPresenter x:Name="SwitchCurtainClip">
                                                         <Rectangle x:Name="SwitchCurtain"
-                                                               Fill="{ThemeResource StandardGray}"
+                                                               Fill="{StaticResource DarkText}"
                                                                Width="44">
                                                             <Rectangle.RenderTransform>
                                                                 <TranslateTransform x:Name="CurtainTranslateTransform" X="-44" />

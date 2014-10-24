@@ -414,14 +414,14 @@ namespace Core {
                 e.Handled = true;
                 var x = SearchText.Text;
                 SearchText.Text = "";
-                if (!Frame.Navigate(typeof(Pages.PostsPage), "http://api.tumblr.com/v2/tagged?tag=" + Uri.EscapeUriString(x))) {
+                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + Uri.EscapeUriString(x))) {
                     Debug.WriteLine("Failed to Navigate");
                 }
             }
         }
 
         private void SpotlightTagItem_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (!Frame.Navigate(typeof(Pages.PostsPage), "http://api.tumblr.com/v2/tagged?tag=" + ((Border)sender).Tag)) {
+            if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + ((Border)sender).Tag)) {
                 Debug.WriteLine("Failed to Navigate");
             }
         }

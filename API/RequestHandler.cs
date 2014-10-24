@@ -260,18 +260,23 @@ namespace API {
                 string result = string.Empty;
                 Debug.WriteLine(url);
                 //Segment API calls
-                if (url.Contains("/user") || url.Contains("/submission")) {
+                if (url.Contains("/user/dashboard") || url.Contains("/submission")) {
                     if (string.IsNullOrEmpty(lastPostID))
                         result = await RequestBuilder.GetAPI(url);
                     else
-                        result = await RequestBuilder.GetAPI(url, "before_id=" + lastPostID);
+                        result = await RequestBuilder.GetAPI(url, "max_id=" + lastPostID);
+                } else if (url.Contains("/user/likes")) {
+                    if (string.IsNullOrEmpty(lastPostID))
+                        result = await RequestBuilder.GetAPI(url);
+                    else
+                        result = await RequestBuilder.GetAPI(url, "offset=" + lastPostID);
                 } else if (url.Contains("/tagged")) {
                     var searchTag = url.Split('?')[1];
                     var newUrl = url.Split('?')[0].Replace("?", "");
                     if (string.IsNullOrEmpty(lastPostID))
-                        newUrl = newUrl + "?api_key=9AisC3GeljzjAQEOblZrqKb58psfs8qr93p8uFvPx3j0sK0KHz&" + searchTag;
+                        newUrl = newUrl + "?api_key=" + Config.ConsumerKey + "&" + searchTag;
                     else
-                        newUrl = newUrl + "?api_key=9AisC3GeljzjAQEOblZrqKb58psfs8qr93p8uFvPx3j0sK0KHz&" + searchTag + "&before=" + lastPostID;
+                        newUrl = newUrl + "?api_key=" + Config.ConsumerKey + "&" + searchTag + "&before=" + lastPostID;
                     Debug.WriteLine(newUrl);
                     var response = await WebClient.GetAsync(new Uri(newUrl));
                     result = await response.Content.ReadAsStringAsync();
@@ -281,15 +286,13 @@ namespace API {
                     if (string.IsNullOrEmpty(lastPostID))
                         URI = url + "?api_key=" + Config.ConsumerKey;
                     else
-                        URI = url + "?before_id=" + lastPostID + "&api_key=" + Config.ConsumerKey;
-
+                        URI = url + "?offset=" + lastPostID + "&api_key=" + Config.ConsumerKey;
+                    Debug.WriteLine(URI);
                     var response = await WebClient.GetAsync(new Uri(URI));
                     result = await response.Content.ReadAsStringAsync();
                 }
 
                 if (!string.IsNullOrEmpty(result) && result.Contains("200")) {
-                    DebugHandler.Info("[Client.cs]: Response OK.");
-
                     try {
                         var PostList = new List<API.Content.Post>();
 

@@ -1,4 +1,5 @@
 ﻿using API.Data;
+using API.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -411,10 +412,13 @@ namespace API.Authentication {
                     } else {
                         if (response == "Invalid xAuth credentials.")
                             return "Invalid email or password.";
+                        DebugHandler.Error("Error signing in. ", response, "Authentication");
                         return "Something went wrong.";
                     }
                 }
-                return "Failed";
+                if (!RequestHandler.CanRequestData())
+                    return "There is no connection.";
+                return "Please check your connection to ensure there is no proxy enabled.";
             }
         }
     }

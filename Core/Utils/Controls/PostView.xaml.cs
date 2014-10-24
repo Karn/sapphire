@@ -21,6 +21,7 @@ using Windows.UI.Xaml.Data;
 using API;
 using Windows.Storage;
 using Windows.Networking.BackgroundTransfer;
+using Core.Utils.Misc;
 
 // Use setter to set item source of posts
 
@@ -40,6 +41,7 @@ namespace Core.Utils.Controls {
         public bool IsSinglePost;
 
         public string LastPostID;
+        int offset = 0;
 
         public bool PostsLoading;
 
@@ -93,12 +95,20 @@ namespace Core.Utils.Controls {
                         else
                             posts = await RequestHandler.RetrievePosts(URL, LastPostID);
 
-                        if (posts != null) {
+                        if (posts.Count != 0) {
                             foreach (var x in posts) {
                                 PostItems.Add(x);
                             }
-
-                            LastPostID = PostItems.Last().id;
+                            if (posts.Last().type != "nocontent") {
+                                if (URL.Contains("/user/dashboard")) {
+                                    LastPostID = PostItems.Last().id;
+                                } else if (URL.Contains("/tagged")) {
+                                    LastPostID = PostItems.Last().timestamp;
+                                } else {
+                                    offset += 20;
+                                    LastPostID = offset.ToString();
+                                }
+                            }
                             DebugHandler.Info(LastPostID);
                         } else {
                             MainPage.ErrorFlyout.DisplayMessage("Unable to deserialize posts.");
@@ -430,6 +440,12 @@ namespace Core.Utils.Controls {
         private void GIF_Loaded(object sender, RoutedEventArgs e) {
             var button = ((AppBarButton)((Grid)((Image)sender).Parent).FindName("PlayButton"));
             button.IsEnabled = true;
+        }
+
+        private void AdControl_ErrorOccurred(object sender, Microsoft.Advertising.Mobile.Common.AdErrorEventArgs e) {
+            //DebugHandler.Error("Failed to load pubcenter advert.", e.Error.ToString(), "AdControl");
+            ((Microsoft.Advertising.Mobile.UI.AdControl)sender).Visibility = Visibility.Collapsed;
+            ((AdDuplex.Universal.Controls.WinPhone.XAML.AdControl)((Grid)((Microsoft.Advertising.Mobile.UI.AdControl)sender).Parent).FindName("adDuplexAd")).Visibility = Visibility.Visible;
         }
     }
 }

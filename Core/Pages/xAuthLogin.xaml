@@ -38,21 +38,21 @@
         <CommonControl:ErrorFlyout x:Name="ErrorFlyout" VerticalAlignment="Top"/>
         <StackPanel x:Name="LogoImage" Opacity="0">
             <Image Margin="60, 40, 60, 30" Source="ms-appx:///Assets/Logo.png"/>
-            <TextBlock Margin="7, -65, 7, 0" Text="Sapphire" TextWrapping="Wrap" Foreground="{ThemeResource LightText}" FontSize="75" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal" HorizontalAlignment="Center"/>
+            <!--<TextBlock Margin="7, -65, 7, 0" Text="Sapphire" TextWrapping="Wrap" Foreground="{ThemeResource LightText}" FontSize="75" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal" HorizontalAlignment="Center"/>-->
         </StackPanel>
         <Border Grid.Row="1">
             <StackPanel Margin="10, 50" Grid.Row="1" VerticalAlignment="Top">
                 <StackPanel Orientation="Horizontal" Margin="10, 4" Background="#33FFFFFF" MaxHeight="40">
                     <Image Margin="10" Source="ms-appx:///Assets/Navigation/Account.png"/>
                     <Rectangle Width="1" Margin="0, 5" Fill="White"/>
-                    <TextBox x:Name="Email" InputScope="EmailSmtpAddress" GotFocus="Email_GotFocus" LostFocus="Email_LostFocus" Width="390" PlaceholderText="email" BorderBrush="{x:Null}" BorderThickness="0" Margin="10, 1" Background="{x:Null}" Style="{StaticResource SearchBoxStyle}"/>
+                    <TextBox x:Name="Email" Foreground="{ThemeResource LightText}" InputScope="EmailSmtpAddress" GotFocus="Email_GotFocus" LostFocus="Email_LostFocus" Width="390" PlaceholderText="email" BorderBrush="{x:Null}" BorderThickness="0" Margin="10, 1" Background="{x:Null}" Style="{StaticResource SearchBoxStyle}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="10, 4" Background="#33FFFFFF" MaxHeight="40">
                     <Image Margin="10" Source="ms-appx:///Assets/Password.png"/>
                     <Rectangle Width="1" Margin="0, 5" Fill="White"/>
-                    <PasswordBox x:Name="Password" GotFocus="Email_GotFocus" LostFocus="Email_LostFocus" Width="390" PlaceholderText="password" BorderBrush="{x:Null}" BorderThickness="0" Margin="10, 1" Background="{x:Null}" Style="{StaticResource PasswordBoxStyle}"/>
+                    <PasswordBox x:Name="Password" Foreground="{ThemeResource LightText}" GotFocus="Email_GotFocus" LostFocus="Email_LostFocus" Width="390" PlaceholderText="password" BorderBrush="{x:Null}" BorderThickness="0" Margin="10, 1" Background="{x:Null}" Style="{StaticResource PasswordBoxStyle}"/>
                 </StackPanel>
-                <Button x:Name="LoginButton" GotFocus="Email_GotFocus" Click="Button_Click" HorizontalAlignment="Stretch" Margin="7, 0" Content="Connect" FontSize="20" MinHeight="10" Height="45" Background="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" Style="{StaticResource ButtonStyle}"/>
+                <Button x:Name="LoginButton" GotFocus="Email_GotFocus" Foreground="{ThemeResource LightText}" Click="Button_Click" HorizontalAlignment="Stretch" Margin="7, 0" Content="Connect" FontSize="20" MinHeight="10" Height="45" Background="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" Style="{StaticResource ButtonStyle}"/>
                 <TextBlock Text="Your details are not stored locally or sent to remote servers" Style="{StaticResource HeaderTextStyle}" Margin="0, 50, 0, 0" FontSize="14" TextAlignment="Center" TextWrapping="Wrap"/>
             </StackPanel>
         </Border>

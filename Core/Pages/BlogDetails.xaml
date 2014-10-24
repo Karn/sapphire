@@ -22,8 +22,8 @@
                     <Image Source="{Binding Path=avatar}"/>
                 </Border>
             </Grid>
-            <TextBlock Text="{Binding title}" Margin="126, -50, 10, 4" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
-            <TextBlock Text="{Binding description}" Margin="126, 4, 10, 4" Foreground="{ThemeResource LightText}" FontSize="18" Height="47" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxLines="2"/>
+            <TextBlock Text="{Binding title, FallbackValue=Blog}" Margin="126, -50, 10, 4" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
+            <TextBlock Text="{Binding description, FallbackValue=Description}" Margin="126, 4, 10, 4" Foreground="{ThemeResource DarkText}" FontSize="18" Height="47" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxLines="2"/>
         </StackPanel>
         <controls:PostView x:Name="Posts" Grid.Row="1" Loaded="Posts_Loaded"/>
     </Grid>

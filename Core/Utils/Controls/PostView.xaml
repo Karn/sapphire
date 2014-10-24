@@ -8,7 +8,8 @@
     xmlns:converters="using:Core.Utils.Converters"
     xmlns:controls="using:Core.Utils.Controls"
     xmlns:util="using:Core.Utils"
-    xmlns:ad="using:AdDuplex.Universal.Controls.WinPhone.XAML"
+    xmlns:pubCenter="using:Microsoft.Advertising.Mobile.UI"
+    xmlns:adduplex="using:AdDuplex.Universal.Controls.WinPhone.XAML"
     xmlns:gif="using:XamlAnimatedGif"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -234,7 +235,20 @@
                 <StackPanel Margin="0" Orientation="Horizontal">
                     <TextBlock Margin="5" Text="Advertisement" HorizontalAlignment="Center" Tapped="GoToBlog" MaxWidth="284" Foreground="{ThemeResource DarkText}" FontSize="26" VerticalAlignment="Top" TextTrimming="CharacterEllipsis" FontWeight="SemiLight" TextLineBounds="Tight"/>
                 </StackPanel>
-                <ad:AdControl x:Name="adDuplexAd" AppId="113363" IsTest="False" />
+                <Grid>
+                    <adduplex:AdControl x:Name="adDuplexAd" Visibility="Collapsed" AppId="113363" IsTest="False" />
+                    <pubCenter:AdControl
+                            AdUnitId="193114"
+                            ApplicationId="fbb9ce10-4d6b-479e-aa4d-be9a9c5deac7"
+                            Height="100"
+                            Width="380"
+                            HorizontalAlignment="Center"
+                            Foreground="{StaticResource HeaderLightBlue}"
+                            Background="{StaticResource PostBG}"
+                            IsAutoRefreshEnabled="True"
+                            VerticalAlignment="Top"
+                            ErrorOccurred="AdControl_ErrorOccurred"/>
+                </Grid>
             </StackPanel>
         </DataTemplate>
 
