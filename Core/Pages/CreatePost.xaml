@@ -53,7 +53,7 @@
                 <TextBlock Margin="7, 0" Text="Quote" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                 <TextBox x:Name="Quote_Quote" TextWrapping="Wrap" Height="295"/>
 
-                <TextBox Margin="0, 0" Grid.Row="1" TextWrapping="Wrap" KeyDown="TagBox_KeyDown" PlaceholderText="Tags"/>
+                <TextBox x:Name="Text_Tags" Margin="0, 0" Grid.Row="1" TextWrapping="Wrap" KeyDown="TagBox_KeyDown" PlaceholderText="Tags"/>
 
                 <Button Margin="0, -5, 0, 0" Padding="0" Width="200" Grid.Row="2" BorderThickness="0" Background="#FF529ECC" HorizontalAlignment="Center" Click="Post_Quote">
                     <Image Source="ms-appx:///Assets/NewPost/PostOK.png" Height="50"/>
@@ -69,7 +69,7 @@
                 <TextBox x:Name="Link_Url"/>
                 <TextBlock Margin="7, 0" Text="Description" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                 <TextBox x:Name="Link_Description" TextWrapping="Wrap" Height="210"/>
-                <TextBox Margin="0, 0" Grid.Row="1" TextWrapping="Wrap" KeyDown="TagBox_KeyDown" PlaceholderText="Tags"/>
+                <TextBox x:Name="Text_Tags" Margin="0, 0" Grid.Row="1" TextWrapping="Wrap" KeyDown="TagBox_KeyDown" PlaceholderText="Tags"/>
 
                 <Button Margin="0, -5, 0, 0" Padding="0" Width="200" Grid.Row="2" BorderThickness="0" Background="#FF529ECC" HorizontalAlignment="Center" Click="Post_Link">
                     <Image Source="ms-appx:///Assets/NewPost/PostOK.png" Height="50"/>
@@ -113,15 +113,15 @@
                 </ListView.ItemContainerStyle>
                 <StackPanel Margin="10" Width="380">
                     <TextBlock Margin="7, 0" Text="Image" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                    
-                    <Grid x:Name="Photo_Grid" Height="200" Width="200" HorizontalAlignment="Left" Tapped="Photo_Image_Tapped" Background="White">
-                        <Image Height="200" Width="200" HorizontalAlignment="Left" x:Name="Photo_Image" />
+                    <Grid x:Name="Photo_Grid" Tapped="Photo_Image_Tapped" Background="White">
+                        <Image Height="200" HorizontalAlignment="Stretch" x:Name="Photo_Image" />
                     </Grid>
 
                     <TextBlock Margin="7, 0" Text="Caption" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                     <TextBox x:Name="Text_Body" TextWrapping="Wrap" Height="150"/>
 
                     <!--<TextBox Margin="0, 0" Grid.Row="1" TextWrapping="Wrap" KeyDown="TagBox_KeyDown" PlaceholderText="Tags"/>-->
+                    <TextBox x:Name="Text_Tags" Margin="0, 0" Grid.Row="1" TextWrapping="Wrap" KeyDown="TagBox_KeyDown" PlaceholderText="Tags"/>
 
                     <Button Margin="0, -5, 0, 0" Padding="0" Width="200" Grid.Row="2" BorderThickness="0" Background="#FF529ECC" HorizontalAlignment="Center" Click="Post_Text">
                         <Image Source="ms-appx:///Assets/NewPost/PostOK.png" Height="50"/>

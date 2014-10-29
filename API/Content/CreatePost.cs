@@ -5,13 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace API.Content
-{
-    public class CreatePost
-    {
+namespace API.Content {
+    public class CreatePost {
 
-        public static async void Text(string title, string body, string tags)
-        {
+        public static async void Text(string title, string body, string tags) {
             try {
                 var parameterString = "type=text&body=" + body;
                 if (!string.IsNullOrEmpty(title))
@@ -25,8 +22,7 @@ namespace API.Content
             }
         }
 
-        public static async void Photo(string caption, string source, object data)
-        {
+        public static async void Photo(string caption, string source, object data) {
 
             var parameterString = "type=photo&";
             if (!string.IsNullOrEmpty(caption))
@@ -39,37 +35,36 @@ namespace API.Content
             await RequestHandler.CreatePost(parameterString);
         }
 
-        public static async void Quote(string quote, string source)
-        {
+        public static async void Quote(string quote, string source, string tags) {
 
             var parameterString = "type=quote&quote=" + quote;
             if (!string.IsNullOrEmpty(source))
                 parameterString += "&source=" + source;
+            if (!string.IsNullOrEmpty(tags))
+                parameterString += "&tags=" + tags;
 
             await RequestHandler.CreatePost(parameterString);
         }
 
-        public static async void Link(string title, string url, string description)
-        {
+        public static async void Link(string title, string url, string description, string tags) {
 
             var parameterString = "type=link&url=" + url;
             if (!string.IsNullOrEmpty(title))
                 parameterString += "&title=" + title;
             if (!string.IsNullOrEmpty(description))
                 parameterString += "&description=" + description;
+            if (!string.IsNullOrEmpty(tags))
+                parameterString += "&tags=" + tags;
 
             await RequestHandler.CreatePost(parameterString);
         }
 
 
-        public class Chat
-        {
+        public class Chat {
             string title { get; set; }
             string converstation { get; set; }
-            string parameterString
-            {
-                get
-                {
+            string parameterString {
+                get {
                     var x = "type=chat&conversation=" + converstation;
                     if (title != null && title != string.Empty)
                         x += "&title=" + title;
@@ -78,13 +73,11 @@ namespace API.Content
             }
         }
 
-        public class Audio
-        {
+        public class Audio {
 
         }
 
-        public class Video
-        {
+        public class Video {
 
         }
     }

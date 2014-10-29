@@ -57,12 +57,12 @@
         </Storyboard>
     </UserControl.Resources>
 
-    <Grid Margin="0" Background="#66000000">
+    <Grid Margin="0" Background="#D8000000">
 		<Grid VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="235" Width="104">
 			<Image x:Name="text" Tapped="PostType_Tapped" Source="ms-appx:///Assets/NewPost/Text.png" Stretch="Fill" Width="50" Height="50"/>
-			<Image x:Name="photo" Visibility="Collapsed" Margin="-2,-55,22,55" Tapped="PostType_Tapped" Source="ms-appx:///Assets/NewPost/Photo.png" Stretch="Fill" Width="50" Height="50"/>
-			<Image x:Name="quote" Visibility="Collapsed" Tapped="PostType_Tapped" Source="ms-appx:///Assets/NewPost/Quote.png" Stretch="Fill" Width="50" Height="50" Margin="-27,-110,47,110"/>
-			<Image x:Name="link" Visibility="Collapsed" Tapped="PostType_Tapped" Source="ms-appx:///Assets/NewPost/Link.png" Stretch="Fill" Width="50" Height="50" Margin="-51,-165,71,165"/>
+			<Image x:Name="photo" Visibility="Visible" Margin="-2,-55,22,55" Tapped="PostType_Tapped" Source="ms-appx:///Assets/NewPost/Photo.png" Stretch="Fill" Width="50" Height="50"/>
+			<Image x:Name="quote" Visibility="Visible" Tapped="PostType_Tapped" Source="ms-appx:///Assets/NewPost/Quote.png" Stretch="Fill" Width="50" Height="50" Margin="-27,-110,47,110"/>
+			<Image x:Name="link" Visibility="Visible" Tapped="PostType_Tapped" Source="ms-appx:///Assets/NewPost/Link.png" Stretch="Fill" Width="50" Height="50" Margin="-51,-165,71,165"/>
 			<Image x:Name="chat" Visibility="Collapsed" Tapped="PostType_Tapped" Source="ms-appx:///Assets/NewPost/Chat.png" Stretch="Fill" Width="50" Height="50" Margin="-77,-215,97,215"/>
 		</Grid>
     </Grid>

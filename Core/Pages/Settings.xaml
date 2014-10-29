@@ -56,6 +56,10 @@
                     <TextBlock Margin="7, 0" Text="Notifications" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                     <ToggleSwitch x:Name="EnableNotifications" Style="{StaticResource Switch}" Header="Enable notifications for your account." OffContent="Disabled" OnContent="Enabled" Toggled="EnableNotifications_Toggled"/>
 
+                    <TextBlock Margin="7, 0" Text="Single click reblog" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                    <ToggleSwitch x:Name="EnableOneClickReblog" Style="{StaticResource Switch}" Header="If you'd like to quickly reblog posts slect this option." OffContent="Disabled" OnContent="Enabled" Toggled="EnableOneClickReblog_Toggled"/>
+
+
                     <TextBlock Margin="7, 0" Text="Temporary data" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                     <TextBlock Margin="7, 5, 7, 10" Text="Downloaded gifs are stored in a temporary folder. It is reccommended you clear this ever so often." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
                     <Button x:Name="ClearCacheButton" Content="Clear cache" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="ClearCacheButton_Click"/>
@@ -99,31 +103,5 @@
                 <!--</ListView>-->
             </PivotItem>
         </Pivot>
-
-        <!--TODO: Content should be placed within the following grid-->
-        <!--<ScrollViewer Visibility="Collapsed">
-            <StackPanel Margin="10, 10, 10, 10">
-                <Border BorderThickness="0, 0, 0, 2" Margin="0, 0, 0, 5" BorderBrush="{ThemeResource HeaderLightBlue}">
-                    <TextBlock Grid.Column="0" Text="Preferences" Margin="0, 5" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center" TextLineBounds="Tight" FontFamily="Segoe WP" FontWeight="Thin" CharacterSpacing="-25" Foreground="{ThemeResource HeaderLightBlue}"/>
-                </Border>
-                <StackPanel>
-                    <TextBlock Text="notification frequency" FontSize="23" FontWeight="Light" Foreground="{StaticResource Blue}" TextWrapping="WrapWholeWords" VerticalAlignment="Center"/>
-                    <TextBlock Text="how often would you like to recieve your notifications?" FontSize="16" FontWeight="Light" Foreground="{ThemeResource HeaderLightBlue}" TextWrapping="WrapWholeWords" VerticalAlignment="Center"/>
-                    <ComboBox Foreground="{StaticResource Blue}" BorderBrush="{StaticResource Blue}" />
-                    <TextBlock Text="image resolution" FontSize="23" FontWeight="Light" Foreground="{StaticResource Blue}" TextWrapping="WrapWholeWords" VerticalAlignment="Center"/>
-                    <TextBlock Text="higher resolution images take longer to load and Tumblr does eat through internet/data usage." FontSize="16" FontWeight="Light" Foreground="{ThemeResource HeaderLightBlue}" TextWrapping="WrapWholeWords" VerticalAlignment="Center"/>
-                    <ComboBox Foreground="{StaticResource Blue}" BorderBrush="{StaticResource Blue}" />
-                    <TextBlock Text="infinite scroll" FontSize="23" FontWeight="Light" Foreground="{StaticResource Blue}" TextWrapping="WrapWholeWords" VerticalAlignment="Center"/>
-                    <ToggleSwitch Foreground="{StaticResource Blue}" />
-                </StackPanel>
-                <Border Margin="0, 0, 0, 10" BorderBrush="{StaticResource Blue}" BorderThickness="0,0,0,2" Padding="0,0,0,5" HorizontalAlignment="Left">
-                    <TextBlock Text="other" FontSize="33" FontWeight="Light" Foreground="{StaticResource Blue}" TextWrapping="WrapWholeWords" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                </Border>
-                <StackPanel>
-                    <TextBlock Text="alert me if these blogs are updated" FontSize="23" FontWeight="Light" Foreground="{StaticResource Blue}" TextWrapping="WrapWholeWords" VerticalAlignment="Center"/>
-                    <TextBlock Text="let me know if these blogs are updated via notifications" FontSize="16" FontWeight="Light" Foreground="{ThemeResource HeaderLightBlue}" TextWrapping="WrapWholeWords" VerticalAlignment="Center"/>
-                </StackPanel>
-            </StackPanel>
-        </ScrollViewer>-->
     </Grid>
 </Page>

@@ -89,9 +89,13 @@
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Common\RichTextBlockProperties.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ReblogPage.xaml.cs">
+      <DependentUpon>ReblogPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ManageNotifications.xaml.cs">
       <DependentUpon>ManageNotifications.xaml</DependentUpon>
@@ -262,6 +266,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\ReblogPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

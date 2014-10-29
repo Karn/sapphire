@@ -24,7 +24,7 @@ namespace BackgroundUtilities {
 
             var x = UserData.RetrieveNotificationIds;
             if (x != null) {
-                NotificationDictionary = UserData.RetrieveNotificationIds;
+                NotificationDictionary = x;
                 Debug.WriteLine(NotificationDictionary.Keys.Count);
             } else {
                 Debug.WriteLine("nodata");
@@ -36,7 +36,6 @@ namespace BackgroundUtilities {
         }
 
         private async Task RetrieveNotifications() {
-            Debug.WriteLine("Last notification: " + UserData.NotificationIDs);
 
             try {
                 string Response = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/user/notifications");
@@ -50,20 +49,22 @@ namespace BackgroundUtilities {
                             Debug.WriteLine("Blog: " + b.blog_name);
                             if (!NotificationDictionary.ContainsKey(b.blog_name)) {
                                 NotificationDictionary.Add(b.blog_name, 0);
+                                Debug.WriteLine("Added blog to dictionary.");
                             }
                             if (!NotificationCounts.ContainsKey(b.blog_name)) {
                                 NotificationCounts.Add(b.blog_name, new List<Activity.Notification>());
+                                Debug.WriteLine("Added blog to counts.");
                             }
                             foreach (var n in b.notifications) {
                                 if (n.timestamp > NotificationDictionary[b.blog_name]) {
                                     NotificationCounts[b.blog_name].Add(n);
+                                    Debug.WriteLine("Added notification w/ ts: " + n.timestamp);
                                 }
                             }
+                            if (NotificationCounts[b.blog_name].Count > 0)
+                                NotificationDictionary[b.blog_name] = NotificationCounts[b.blog_name].First().timestamp;
                         }
 
-                        foreach (var count in NotificationCounts) {
-                            NotificationDictionary[count.Key] = count.Value.First().timestamp;
-                        }
                     } catch (Exception e) {
                         Debug.WriteLine("Failed to serialize. " + e.ToString());
                     }

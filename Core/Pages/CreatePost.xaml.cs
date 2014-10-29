@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Windows.ApplicationModel.Activation;
+using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -148,7 +149,7 @@ namespace Core.Pages {
             var tags = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Text_Tags")).Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
-                tags = AuthenticationManager.Utils.UrlEncode(tags.Substring(1, tags.Length - 1));
+                tags = AuthenticationManager.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
             }
             try {
                 API.Content.CreatePost.Text(AuthenticationManager.Utils.UrlEncode(title), AuthenticationManager.Utils.UrlEncode(body), tags);
@@ -171,8 +172,18 @@ namespace Core.Pages {
             var quote = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Quote_Quote")).Text;
             var source = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Quote_Source")).Text;
 
-            API.Content.CreatePost.Quote(quote, source);
-            Frame.GoBack();
+            var tags = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Text_Tags")).Text;
+            if (!string.IsNullOrEmpty(tags)) {
+                tags = tags.Replace(" #", ", ");
+                tags = AuthenticationManager.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+            }
+            try {
+                API.Content.CreatePost.Quote(AuthenticationManager.Utils.UrlEncode(quote), AuthenticationManager.Utils.UrlEncode(source), tags);
+                Frame.GoBack();
+            } catch (Exception ex) {
+                MainPage.ErrorFlyout.DisplayMessage("Failed to create text post");
+                DebugHandler.Log("Failed to create text post.");
+            }
         }
 
         private void Post_Link(object sender, RoutedEventArgs e) {
@@ -180,21 +191,40 @@ namespace Core.Pages {
             var url = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Link_Url")).Text;
             var description = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Link_Description")).Text;
 
-            API.Content.CreatePost.Link(title, url, description);
-            Frame.GoBack();
+            var tags = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Text_Tags")).Text;
+            if (!string.IsNullOrEmpty(tags)) {
+                tags = tags.Replace(" #", ", ");
+                tags = AuthenticationManager.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+            }
+            try {
+                API.Content.CreatePost.Link(AuthenticationManager.Utils.UrlEncode(title), AuthenticationManager.Utils.UrlEncode(url), AuthenticationManager.Utils.UrlEncode(description), tags);
+                Frame.GoBack();
+            } catch (Exception ex) {
+                MainPage.ErrorFlyout.DisplayMessage("Failed to create text post");
+                DebugHandler.Log("Failed to create text post.");
+            }
         }
 
-        private void Photo_Image_Tapped(object sender, TappedRoutedEventArgs e) {
-            PhotoView = (Image)((Grid)(((StackPanel)((Grid)sender).Parent).FindName("Photo_Grid"))).FindName("Photo_Image");
+        private async void Photo_Image_Tapped(object sender, TappedRoutedEventArgs e) {
+            //PhotoView = (Image)((Grid)(((StackPanel)((Grid)sender).Parent).FindName("Photo_Grid"))).FindName("Photo_Image");
 
-            FileOpenPicker openPicker = new FileOpenPicker();
-            openPicker.ViewMode = PickerViewMode.Thumbnail;
-            openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-            openPicker.FileTypeFilter.Add(".jpg");
-            openPicker.FileTypeFilter.Add(".jpeg");
-            openPicker.FileTypeFilter.Add(".png");
+            var filePicker = new FileOpenPicker();
+            filePicker.FileTypeFilter.Add(".jpg");
+            filePicker.ViewMode = PickerViewMode.Thumbnail;
+            filePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            filePicker.SettingsIdentifier = "picker1";
+            filePicker.CommitButtonText = "Open File to Process";
 
-            openPicker.PickSingleFileAndContinue();
+            filePicker.PickSingleFileAndContinue();
+
+            //FileOpenPicker openPicker = new FileOpenPicker();
+            //openPicker.ViewMode = PickerViewMode.Thumbnail;
+            //openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            //openPicker.FileTypeFilter.Add(".jpg");
+            //openPicker.FileTypeFilter.Add(".jpeg");
+            //openPicker.FileTypeFilter.Add(".png");
+
+            //openPicker.PickSingleFileAndContinue();
             //if (file != null) {
             //    // Application now has read/write access to the picked file
             //    //OutputTextBlock.Text = "Picked photo: " + file.Name;
@@ -215,18 +245,13 @@ namespace Core.Pages {
             //}
         }
         public async void ContinueFileOpenPicker(FileOpenPickerContinuationEventArgs args) {
-            Debug.WriteLine("Entered");
             if (args.Files.Count > 0) {
-                //Application now has read/write access to the picked file
-                //OutputTextBlock.Text = "Picked photo: " + file.Name;
-                //using (IRandomAccessStream fileStream = await args.Files[0].OpenAsync(Windows.Storage.FileAccessMode.Read)) {
-                Debug.WriteLine(args.Files[0].Name);
-                var stream = await args.Files[0].OpenAsync(Windows.Storage.FileAccessMode.Read);
-                var bitmapImage = new BitmapImage();
-                await bitmapImage.SetSourceAsync(stream);
-                PhotoView.Source = bitmapImage;
+                StorageFile file = args.Files[0];
+
+                Debug.WriteLine(file.DisplayName);
+
             } else {
-                //OutputTextBlock.Text = "Operation cancelled."; 
+
             }
         }
 

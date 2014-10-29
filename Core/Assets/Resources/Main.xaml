@@ -48,6 +48,8 @@
     <!-- Common Resources -->
     <BitmapImage x:Key="DefaultAvatar" UriSource="ms-appx:///Assets/DefaultAvatar.png" />
 
+    <BitmapImage x:Key="AudioPlaceholder" UriSource="ms-appx:///Assets/AudioPlaceholder.png" />
+
     <converter:FollowingToVisibility x:Key="FollowingToVisibility"/>
     <converter:NotFollowingToVisibility x:Key="NotFollowingToVisibility"/>
     <converter:RelativeDate x:Key="RelativeDate"/>

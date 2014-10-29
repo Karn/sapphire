@@ -41,7 +41,7 @@ namespace Core.Utils.Converters {
 
         string FormatCaption(string caption) {
             string tab = "&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;";
-            caption = caption.Replace("<p>", "").Replace("</p>", "");;
+            caption = caption.Replace("<p>", "").Replace("</p>", ""); ;
             int x = 0;
             while (caption.Contains("<blockquote>")) {
                 caption = ReplaceFirst(caption, "<blockquote>", Repeat(tab, x));
@@ -68,8 +68,8 @@ namespace Core.Utils.Converters {
         }
 
         string Repeat(string val, int count) {
-            string y =string.Empty;
-            for (int x = 0; x < count; x++ ) {
+            string y = string.Empty;
+            for (int x = 0; x < count; x++) {
                 y += val;
             }
             return y;

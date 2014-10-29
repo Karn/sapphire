@@ -123,8 +123,8 @@ namespace API {
         /// <param name="id">The post's unique ID</param>
         /// <param name="reblogKey">The key used to handle reblogging/liking this post</param>
         /// <returns>Boolean to indicate if the request was completed</returns>
-        public async static Task<bool> ReblogPost(string id, string reblogKey) {
-            string requestResult = await RequestBuilder.PostAPI("http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/post/reblog", "id=" + id + "&reblog_key=" + reblogKey);
+        public async static Task<bool> ReblogPost(string id, string reblogKey, string caption = "", string tags = "") {
+            string requestResult = await RequestBuilder.PostAPI("http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/post/reblog", "id=" + id + "&reblog_key=" + reblogKey + (!string.IsNullOrEmpty(caption) ? "&comment=" + caption : "") + (!string.IsNullOrEmpty(caption) ? "&tags=" + tags : ""));
             if (requestResult.Contains("201"))
                 return true;
             return false;

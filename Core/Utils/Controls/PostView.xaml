@@ -23,7 +23,7 @@
         <converters:LikedToOpacity x:Key="LikedToOpacity"/>
         <converters:LikedToImage x:Key="LikedToImage"/>
         <converters:NotesToVisibilityConverter x:Key="NotesToVisibility"/>
-
+        
         <DataTemplate x:Key="TopContainer">
             <Grid Height="50" Width="Auto">
                 <StackPanel Orientation="Horizontal" Background="{ThemeResource Accent2}">
@@ -77,7 +77,10 @@
             <StackPanel>
                 <StackPanel Tag="{Binding}" Background="{ThemeResource PostBG}">
                     <TextBlock Visibility="{Binding caption, Converter={StaticResource CaptionConverter}}" Text="{Binding caption, Converter={StaticResource ToPlainText}}" Foreground="{ThemeResource DarkText}" FontSize="16" VerticalAlignment="Top" Margin="5" TextTrimming="CharacterEllipsis" TextWrapping="Wrap"/>
-                    <Grid Height="40" Background="{ThemeResource Accent2}">
+                    <!--<Grid Margin="10" Visibility="{Binding caption, Converter={StaticResource CaptionConverter}}">
+                        --><!--<RichTextBlock tools:Properties.Html="{Binding caption}"/>--><!--
+                    </Grid>-->
+                     <Grid Height="40" Background="{ThemeResource Accent2}">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <TextBlock x:Name="NoteInfo" Text="{Binding note_count}" Margin="10, 0, 0, 0" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                             <TextBlock Text=" notes" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -102,7 +105,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="Text">
-            <StackPanel Background="{ThemeResource PostBG}" Margin="0, 4">
+            <StackPanel Margin="0, 4" Background="{ThemeResource PostBG}">
                 <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                 <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
                     <TextBlock Text="{Binding title}" Margin="10, 0, 10, 0" FontSize="28" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="WrapWholeWords"/>
@@ -113,7 +116,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="Photo">
-            <StackPanel Background="{ThemeResource PostBG}" Margin="0, 4">
+            <StackPanel Margin="0, 4" Background="{ThemeResource PostBG}">
                 <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                 <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
                     <Image MinHeight="150" Source="{Binding path_to_low_res_pic}"/>
@@ -122,7 +125,7 @@
             </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="Gif">
-            <StackPanel Background="{ThemeResource PostBG}" Margin="0, 4">
+            <StackPanel Margin="0, 4" Background="{ThemeResource PostBG}">
                 <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                 <Grid>
                     <Image x:Name="GIFPlaceHolder" Tag="{Binding path_to_low_res_pic}" MinHeight="150" Source="{Binding path_to_low_res_pic}" ImageOpened="GIF_Loaded"/>
@@ -133,7 +136,7 @@
             </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="Photoset">
-            <StackPanel Background="{ThemeResource PostBG}" Margin="0, 4">
+            <StackPanel Margin="0, 4" Background="{ThemeResource PostBG}">
                 <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                 <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
                     <ListView ItemsSource="{Binding photos}">
@@ -196,10 +199,23 @@
                             <AppBarToggleButton VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10" Icon="Play" Click="PlayMedia"/>
                         </Grid>-->
                 <!--<controls:AudioPlayer x:Name="PlayerControl" Source="{Binding}" Loaded="PlayerControl_Loaded"/>-->
-                <Image Source="ms-appx:///Assets/AudioPlaceholder.png"/>
-                <!--<StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
-                    <TextBlock Text="Audio posts are not yet supported" Foreground="{ThemeResource HeaderLightBlue}" TextWrapping="Wrap" Style="{StaticResource HeaderTextStyle}"/>
-                </StackPanel>-->
+                <!--<Image Source="ms-appx:///Assets/AudioPlaceholder.png"/>-->
+                <StackPanel Orientation="Horizontal" Background="{ThemeResource PostBG}" Tag="{Binding audio_url}">
+                    <MediaElement x:Name="AudioPlayer" Tag="Stopped" AudioDeviceType="Multimedia" AutoPlay="False" Loaded="MediaElement_Loaded" AudioCategory="ForegroundOnlyMedia"/>
+                    <Image Source="{Binding album_art, FallbackValue={StaticResource AudioPlaceholder}}" Height="100" Width="100"/>
+                    <StackPanel>
+                        <TextBlock x:Name="Name" FontSize="24" Foreground="{ThemeResource DarkText}" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}">
+                            <Run Text="{Binding artist}"/>
+                            <Run Text="-"/>
+                            <Run Text="{Binding track_name, FallbackValue=Track_Name}"/>
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <AppBarButton x:Name="PlayButton" Click="PlayButton_Click" IsEnabled="False" RequestedTheme="Light" VerticalAlignment="Center" Icon="Play" IsCompact="True" Margin="10"/>
+                            <AppBarButton x:Name="StopButton" Click="StopButton_Click" IsEnabled="False" RequestedTheme="Light" VerticalAlignment="Center" Icon="Stop" IsCompact="True" Margin="10"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                </StackPanel>
                 <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
             </StackPanel>
         </DataTemplate>

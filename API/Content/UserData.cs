@@ -18,7 +18,6 @@ namespace API.Content {
 
         private static string[] settingNames = {
                                                    "LOGGED_IN",
-                                                   "ONE_CLICK_REBLOG",
                                                    "FAV_BLOGS",
                                                    "NOTIFICATIONS_ENABLED",
                                                    "NOTIFICATION_FREQUENCY",
@@ -27,7 +26,8 @@ namespace API.Content {
                                                    "LIKES",
                                                    "USER_MENTIONS",
                                                    "ENABLE_ADS",
-                                                   "NotificationIds"
+                                                   "NotificationIds",
+                                                   "OneClickReblog"
                                                };
 
         public static void CreateDataContainer() {
@@ -80,14 +80,6 @@ namespace API.Content {
             }
         }
 
-        public static bool OneClickReblog {
-            get {
-                return (UserDataStore.Values["ONE_CLICK_REBLOG"].ToString() == "True" ? true : false);
-            }
-            set {
-                UserDataStore.Values["LOGGED_IN"] = value;
-            }
-        }
         /// <summary>
         /// List of blogs that were viewed recently
         /// </summary>
@@ -180,12 +172,27 @@ namespace API.Content {
             //}
 
             get {
-                if (!string.IsNullOrEmpty(UserDataStore.Values["NotificationIds"].ToString()))
-                    return JsonConvert.DeserializeObject<Dictionary<string, int>>(UserDataStore.Values["LAST_NOTIFICATION"].ToString());
+                if (!string.IsNullOrEmpty(UserDataStore.Values["NotificationIds"].ToString())) {
+                    Debug.WriteLine(UserDataStore.Values["NotificationIds"].ToString());
+                    return JsonConvert.DeserializeObject<Dictionary<string, int>>(UserDataStore.Values["NotificationIds"].ToString());
+                } 
                 return new Dictionary<string, int>();
             }
             set {
-                UserDataStore.Values["LAST_NOTIFICATION"] = JsonConvert.SerializeObject(value);
+                var x = JsonConvert.SerializeObject(value);
+                Debug.WriteLine(x);
+                UserDataStore.Values["NotificationIds"] = x;
+            }
+        }
+
+        public static bool IsOneClickReblog {
+            get {
+                if (!string.IsNullOrEmpty(UserDataStore.Values["OneClickReblog"].ToString()))
+                    return UserDataStore.Values["OneClickReblog"].ToString().Contains("T") ? true : false;
+                return true;
+            }
+            set {
+                UserDataStore.Values["OneClickReblog"] = value ? "True" : "False";
             }
         }
     }

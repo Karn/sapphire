@@ -1,11 +1,16 @@
-﻿using API.Content;
-using API.Authentication;
+﻿using API;
+using API.Content;
 using API.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Networking.BackgroundTransfer;
+using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,15 +18,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using System.Linq;
-using Windows.UI.Popups;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.UI.Xaml.Data;
-using API;
-using Windows.Storage;
-using Windows.Networking.BackgroundTransfer;
-using Core.Utils.Misc;
+
 
 // Use setter to set item source of posts
 
@@ -183,27 +180,28 @@ namespace Core.Utils.Controls {
         }
 
         private async void ReblogButton_Click(object sender, RoutedEventArgs e) {
-            //if (!UserData.OneClickReblog)
-            //{
-            //    var frame = Window.Current.Content as Frame;
-            //    if (!frame.Navigate(typeof(Pages.CreatePost)))
-            //        throw new Exception("Navigation Failed");
-            //}
-            try {
-                var x = ((Button)sender);
-                var notes = ((TextBlock)((Grid)((StackPanel)x.Parent).Parent).FindName("NoteInfo"));
+            if (UserData.IsOneClickReblog) {
+                try {
+                    var x = ((Button)sender);
+                    var notes = ((TextBlock)((Grid)((StackPanel)x.Parent).Parent).FindName("NoteInfo"));
 
-                var id = x.Tag.ToString();
-                var reblogKey = ((StackPanel)x.Parent).Tag.ToString();
+                    var id = x.Tag.ToString();
+                    var reblogKey = ((StackPanel)x.Parent).Tag.ToString();
 
-                if (await RequestHandler.ReblogPost(id, reblogKey)) {
-                    x.Background = RebloggedBrush;
-                    notes.Text = (int.Parse(notes.Text) + 1).ToString();
-                } else
-                    MainPage.ErrorFlyout.DisplayMessage("Failed to reblog post.");
-            } catch (Exception ex) {
-                DebugHandler.Error("Failed to reblog post", ex.StackTrace);
+                    if (await RequestHandler.ReblogPost(id, reblogKey)) {
+                        x.Background = RebloggedBrush;
+                        notes.Text = (int.Parse(notes.Text) + 1).ToString();
+                    } else
+                        MainPage.ErrorFlyout.DisplayMessage("Failed to reblog post.");
+                } catch (Exception ex) {
+                    DebugHandler.Error("Failed to reblog post", ex.StackTrace);
+                }
+            } else {
+                var frame = Window.Current.Content as Frame;
+                if (!frame.Navigate(typeof(Pages.ReblogPage), ((Button)sender).Tag.ToString() + "," + ((StackPanel)((Button)sender).Parent).Tag.ToString()))
+                    throw new Exception("Navigation Failed");
             }
+
         }
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e) {
@@ -344,13 +342,13 @@ namespace Core.Utils.Controls {
                             LastPostID = "";
                             PostItems.Clear();
                             await LoadPosts(true);
-                            sv.ChangeView(null, 60.0, null);
                         } else if (sv.VerticalOffset == 120.0 && _isPullRefresh) {
                             Debug.WriteLine("Loading more items to feed. " + LastPostID);
                             await LoadPosts(true);
-                            sv.ChangeView(null, 60.0, null);
                         }
-                        //_isPullRefresh = false;
+
+                        sv.ChangeView(null, 60.0, null);
+                        _isPullRefresh = false;
                     }
 
                     _updating = false;
@@ -383,9 +381,9 @@ namespace Core.Utils.Controls {
             Debug.WriteLine("Saving..");
             // create the blank file in specified folder
             try {
-                var StorageFolder = await KnownFolders.PicturesLibrary.CreateFolderAsync("Sapphire", CreationCollisionOption.OpenIfExists);
+                var imageFolder = await KnownFolders.PicturesLibrary.CreateFolderAsync("Sapphire", CreationCollisionOption.OpenIfExists);
 
-                var file = await StorageFolder.CreateFileAsync(fileUri.ToString().Split('/').Last(), CreationCollisionOption.ReplaceExisting);
+                var file = await imageFolder.CreateFileAsync(fileUri.ToString().Split('/').Last(), CreationCollisionOption.ReplaceExisting);
 
                 // create the downloader instance and prepare for downloading the file
                 var backgroundDownloader = new BackgroundDownloader();
@@ -398,6 +396,7 @@ namespace Core.Utils.Controls {
                 return true;
             } catch (Exception e) {
                 MainPage.ErrorFlyout.DisplayMessage("Unable to save photo: " + e.Message);
+                DebugHandler.Error("Failed to save image to photo library.", e.StackTrace);
                 return false;
             }
         }
@@ -422,6 +421,7 @@ namespace Core.Utils.Controls {
                 return new Uri("ms-appdata:///temp/Gifs/" + fileUri.ToString().Split('/').Last());
             } catch (Exception e) {
                 //MainPage.ErrorFlyout.DisplayMessage("Unable to save photo: " + e.Message);
+                DebugHandler.Error("Failed to save image to temp storage.", e.StackTrace);
                 return new Uri("");
             }
         }
@@ -446,6 +446,40 @@ namespace Core.Utils.Controls {
             //DebugHandler.Error("Failed to load pubcenter advert.", e.Error.ToString(), "AdControl");
             ((Microsoft.Advertising.Mobile.UI.AdControl)sender).Visibility = Visibility.Collapsed;
             ((AdDuplex.Universal.Controls.WinPhone.XAML.AdControl)((Grid)((Microsoft.Advertising.Mobile.UI.AdControl)sender).Parent).FindName("adDuplexAd")).Visibility = Visibility.Visible;
+        }
+
+        private void MediaElement_Loaded(object sender, RoutedEventArgs e) {
+            if (((StackPanel)(((MediaElement)sender).Parent)).Tag != null) {
+                var url = ((StackPanel)(((MediaElement)sender).Parent)).Tag.ToString();
+                Debug.WriteLine(url);
+                string pathToFile = FileToTempAsync(new Uri(url)).ToString();
+                Debug.WriteLine(pathToFile);
+            }
+            ((AppBarButton)(((StackPanel)(((MediaElement)sender).Parent)).FindName("PlayButton"))).IsEnabled = true;
+            ((AppBarButton)(((StackPanel)(((MediaElement)sender).Parent)).FindName("StopButton"))).IsEnabled = true;
+        }
+
+        private void PlayButton_Click(object sender, RoutedEventArgs e) {
+            var audioPlayer = ((MediaElement)(((StackPanel)(((AppBarButton)sender).Parent)).FindName("AudioPlayer")));
+            if (audioPlayer.Tag.ToString() == "Stopped" || audioPlayer.Tag.ToString() == "Paused") {
+                audioPlayer.Play();
+                audioPlayer.Tag = "Playing";
+                Debug.WriteLine("Playing: " + audioPlayer.Source);
+                ((AppBarButton)sender).Icon = new SymbolIcon() { Symbol = Symbol.Pause };
+            } else {
+                audioPlayer.Pause();
+                audioPlayer.Tag = "Paused";
+                ((AppBarButton)sender).Icon = new SymbolIcon() { Symbol = Symbol.Play };
+            }
+
+        }
+
+        private void StopButton_Click(object sender, RoutedEventArgs e) {
+            var audioPlayer = ((MediaElement)(((StackPanel)(((AppBarButton)sender).Parent)).FindName("AudioPlayer")));
+            if (audioPlayer.Tag.ToString() == "Playing" || audioPlayer.Tag.ToString() == "Paused") {
+                audioPlayer.Stop();
+                ((AppBarButton)(((StackPanel)(((AppBarButton)sender).Parent)).FindName("PlayButton"))).Icon = new SymbolIcon() { Symbol = Symbol.Play };
+            }
         }
     }
 }

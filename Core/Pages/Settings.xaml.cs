@@ -58,6 +58,7 @@ namespace Core.Pages {
             if (Config.SelectedTheme == "Dark")
                 ThemeSwitch.IsOn = true;
             EnableNotifications.IsOn = UserData.AreNotificationsEnabled;
+            EnableOneClickReblog.IsOn = UserData.IsOneClickReblog;
 
             MainPage.ErrorFlyout = _ErrorFlyout;
         }
@@ -164,6 +165,14 @@ namespace Core.Pages {
             } catch (FileNotFoundException ex) {
                 MainPage.ErrorFlyout.DisplayMessage("Nothing to delete.");
                 ((Button)sender).IsTapEnabled = false;
+            }
+        }
+
+        private void EnableOneClickReblog_Toggled(object sender, RoutedEventArgs e) {
+            if (((ToggleSwitch)sender).IsOn) {
+                UserData.IsOneClickReblog = true;
+            } else {
+                UserData.IsOneClickReblog = false;
             }
         }
 

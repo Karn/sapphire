@@ -124,12 +124,21 @@
                     <StackPanel x:Name="AccountPivotContent" VerticalAlignment="Top">
                         <Grid Height="175" Background="{ThemeResource HeaderLightBlue}">
                             <Image Source="{Binding Path=theme.header_image_focused}" Stretch="UniformToFill" VerticalAlignment="Center" Opacity="0.7"/>
-                            <Border Margin="13, 0, 0, -45" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="96" Width="96" BorderThickness="0.5" BorderBrush="White">
+                            <StackPanel>
+                                <Ellipse Height="80" Width="80" VerticalAlignment="Top" Margin="0, 20, 0, 0">
+                                    <Ellipse.Fill>
+                                        <ImageBrush Stretch="Fill" ImageSource="{Binding Path=avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock Text="{Binding title, FallbackValue=BlogName}" TextTrimming="CharacterEllipsis" FontSize="28" Style="{StaticResource HeaderTextStyle}" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding url, FallbackValue=url}" TextTrimming="CharacterEllipsis" FontSize="20" Style="{StaticResource HeaderTextStyle}" HorizontalAlignment="Center"/>
+                            </StackPanel>
+
+                            <!--<Border Margin="13, 0, 0, -45" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="96" Width="96" BorderThickness="0.5" BorderBrush="White">
                                 <Image Source="{Binding Path=avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
-                            </Border>
+                            </Border>-->
                         </Grid>
-                        <TextBlock Text="{Binding title}" Margin="126, -50, 10, 4" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
-                        <TextBlock Text="{Binding description}" Margin="126, 4, 10, 4" Foreground="{ThemeResource DarkText}" FontSize="18" Height="47" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxLines="2"/>
+                        <!--<TextBlock Text="{Binding description}" Margin="126, 4, 10, 4" Foreground="{ThemeResource DarkText}" FontSize="18" Height="47" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxLines="2"/>-->
 
                         <StackPanel Height="55" Orientation="Horizontal" HorizontalAlignment="Center">
                             <StackPanel Tag="Following" Margin="0, 5, 0, 0" Tapped="AccountDetails_Tapped" Width="90">
