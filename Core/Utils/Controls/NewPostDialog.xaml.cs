@@ -30,9 +30,13 @@ namespace Core.Utils.Controls
 
         private void PostType_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            var frame = Window.Current.Content as Frame;
-            if (!frame.Navigate(typeof(Pages.CreatePost), (((Image)(e.OriginalSource)).Name).ToString()))
-                throw new Exception("Navigation Failed");
+            if ((((Image)(e.OriginalSource)).Name).ToString().ToLower() == "photo") {
+                MainPage.ErrorFlyout.DisplayMessage("Sorry, photo posts aren't quite ready yet!");
+            } else {
+                var frame = Window.Current.Content as Frame;
+                if (!frame.Navigate(typeof(Pages.CreatePost), (((Image)(e.OriginalSource)).Name).ToString()))
+                    throw new Exception("Navigation Failed");
+            }
         }
     }
 }

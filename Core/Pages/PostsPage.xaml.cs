@@ -1,4 +1,5 @@
-﻿using Core.Common;
+﻿using API;
+using Core.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,6 +15,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
@@ -26,7 +28,11 @@ namespace Core.Pages {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
+        public static ImageSource BlogsIcon = App.Current.Resources["BlogsIcon"] as BitmapImage;
+        public static ImageSource TagsIcon = App.Current.Resources["TagsIcon"] as BitmapImage;
+
         bool loaded = false;
+        string tag = "";
 
         public PostsPage() {
             this.InitializeComponent();
@@ -69,7 +75,9 @@ namespace Core.Pages {
             } else if (PostList.URL.Contains("/tagged")) {
                 var x = PostList.URL.Split('?');
                 var y = x[1].Split('&');
-                PageTitle.Text = "Tagged: " + Uri.UnescapeDataString(y[0].Substring(4));
+                tag = Uri.UnescapeDataString(y[0].Substring(4));
+                PageTitle.Text = "Search: " + tag;
+                Mode.Visibility = Visibility.Visible;
             }
 
             MainPage.ErrorFlyout = _ErrorFlyout;
@@ -120,6 +128,34 @@ namespace Core.Pages {
 
         private void Image_Tapped(object sender, TappedRoutedEventArgs e) {
             //PostList.ReloadPosts(); 
+        }
+
+        private async void Mode_Tapped(object sender, TappedRoutedEventArgs e) {
+            if (PostList.Visibility == Visibility.Visible) {
+                Mode.Source = TagsIcon;
+                ToTop.Visibility = Visibility.Visible;
+                PostList.Visibility = Visibility.Collapsed;
+                BlogSearch.Visibility = Visibility.Visible;
+                if (BlogSearch.ItemsSource == null) {
+                    if (RequestHandler.CanRequestData())
+                        BlogSearch.ItemsSource = await RequestHandler.RetrieveSearch(tag);
+                }
+            } else {
+                Mode.Source = BlogsIcon;
+                ToTop.Visibility = Visibility.Collapsed;
+                PostList.Visibility = Visibility.Visible;
+                BlogSearch.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void Border_Tapped(object sender, TappedRoutedEventArgs e) {
+            var frame = Window.Current.Content as Frame;
+            if (!frame.Navigate(typeof(Pages.BlogDetails), ((Border)sender).Tag.ToString().Split(' ')[0]))
+                throw new Exception("Navigation Failed");
+        }
+
+        private void ToTop_Tapped(object sender, TappedRoutedEventArgs e) {
+            PostList.ScrollToTop();
         }
     }
 }

@@ -149,5 +149,56 @@ namespace API {
             }
             return null;
         }
+
+        public static async Task<string> PostAPIWithData(string url, string parameters, string data) {
+
+            Debug.WriteLine(parameters);
+
+            string nonce = AuthenticationManager.Utils.GetNonce();
+            string timeStamp = AuthenticationManager.Utils.GetTimeStamp();
+
+            try {
+                HttpClient httpClient = new HttpClient();
+                httpClient.MaxResponseContentBufferSize = int.MaxValue;
+                httpClient.DefaultRequestHeaders.ExpectContinue = false;
+                HttpRequestMessage requestMsg = new HttpRequestMessage();
+                requestMsg.Method = new HttpMethod("POST");
+
+                var qParams = parameters;
+                //var urlWithParams = url + "?" + qParams;
+                // HttpClient uses full url 
+                requestMsg.RequestUri = new Uri(url);
+
+                string paramsBaseString = getParamsBaseString(qParams, nonce, timeStamp);
+
+                string sigBaseString = "POST&";
+                sigBaseString += AuthenticationManager.Utils.UrlEncode(url) + "&" + AuthenticationManager.Utils.UrlEncode(paramsBaseString);
+
+                //string signature = OAuthUtil.GetSignature(sigBaseString, Config.ConsumerSecretKey, Config.OAuthTokenSecret);
+                string signature = AuthenticationManager.Utils.UrlEncode(AuthenticationManager.Utils.GetSignature(sigBaseString,
+                    Config.ConsumerSecretKey,
+                    Config.OAuthTokenSecret)).Replace("+", "%20").Replace("/", "%2F");
+
+                string oauthdata = "oauth_consumer_key=\"" + Config.ConsumerKey +
+                              "\", oauth_nonce=\"" + nonce +
+                              "\", oauth_signature=\"" + signature +
+                              "\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\"" + timeStamp +
+                              "\", oauth_token=\"" + Config.OAuthToken +
+                              "\", oauth_verifier=\"" + Config.OAuthVerifier +
+                              "\", oauth_version=\"1.0\"";
+                requestMsg.Headers.Authorization = new AuthenticationHeaderValue("OAuth", oauthdata);
+                requestMsg.Content = new StringContent(parameters + "&data[0]=" + data);
+                requestMsg.Content.Headers.ContentType = new MediaTypeHeaderValue("multipart/form-data");
+
+                var response = await httpClient.SendAsync(requestMsg);
+                var text = await response.Content.ReadAsStringAsync();
+
+                Debug.WriteLine("[API POST] (" + url + "): " + text);
+                return text.ToString();
+            } catch (Exception Err) {
+                DebugHandler.Error("Unable to make POST with data request. ", Err.StackTrace);
+            }
+            return null;
+        }
     }
 }

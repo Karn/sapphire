@@ -36,6 +36,9 @@ namespace Core
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
+        /// 
+        public ContinuationManager ContinuationManager { get; private set; }
+
         public App()
         {
             this.InitializeComponent();
@@ -168,6 +171,30 @@ namespace Core
             var deferral = e.SuspendingOperation.GetDeferral();
             await SuspensionManager.SaveAsync();
             deferral.Complete();
+        }
+
+        protected async override void OnActivated(IActivatedEventArgs e) {
+            base.OnActivated(e);
+
+            ContinuationManager = new ContinuationManager();
+
+            //Frame rootFrame = CreateRootFrame();
+            //await RestoreStatusAsync(e.PreviousExecutionState);
+
+            //if (rootFrame.Content == null) {
+            //    rootFrame.Navigate(typeof(MainPage));
+            //}
+
+            var continuationEventArgs = e as IContinuationActivatedEventArgs;
+            if (continuationEventArgs != null) {
+                //Frame scenarioFrame = MainPage.Current.FindName("ScenarioFrame") as Frame;
+                //if (scenarioFrame != null) {
+                    // Call ContinuationManager to handle continuation activation
+                    ContinuationManager.Continue(continuationEventArgs);
+                //}
+            }
+
+            Window.Current.Activate();
         }
     }
 }

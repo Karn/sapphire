@@ -23,6 +23,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Shapes;
 
 // The Pivot Application template is documented at http://go.microsoft.com/fwlink/?LinkID=391641
 
@@ -53,6 +54,8 @@ namespace Core {
 
         public static NewPostDialog NPD;
 
+        public static Ellipse NewPostIndicator;
+
         public MainPage() {
             this.InitializeComponent();
 
@@ -72,6 +75,7 @@ namespace Core {
 
             //Initialize
             ErrorFlyout = _ErrorFlyout; //Mainpage error toast
+            NewPostIndicator = _NewPostIndicator;
 
             //UserData
             UserData.LoadData();
@@ -315,7 +319,7 @@ namespace Core {
             }
         }
 
-        private void RefreshButton_Click(object sender, RoutedEventArgs e) {
+        private async void RefreshButton_Click(object sender, RoutedEventArgs e) {
             switch (NavigationPivot.SelectedIndex) {
                 case 0:
                     break;
@@ -326,7 +330,8 @@ namespace Core {
                     SetAccountData();
                     break;
                 case 3:
-                    SpotlightTags_Loaded(null, null);
+                    if (RequestHandler.CanRequestData())
+                        SpotlightTags.ItemsSource = await RequestHandler.RetrieveSpotlight(true);
                     break;
                 default:
                     goto case 0;
@@ -429,6 +434,5 @@ namespace Core {
         private void DashboardIcon_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e) {
             Posts.ScrollToTop();
         }
-
     }
 }

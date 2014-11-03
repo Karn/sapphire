@@ -49,6 +49,9 @@
                     </Grid.RenderTransform>
 
                     <TextBlock x:Name="PageTitle" Text="Sapphire" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
+
+                    <Ellipse x:Name="_NewPostIndicator" Visibility="Collapsed" Width="6" Height="6" Margin="5, 40, 138, 0" Fill="{ThemeResource LightText}" HorizontalAlignment="Right"/>
+
                     <StackPanel Orientation="Horizontal" Margin="5, 0" HorizontalAlignment="Right" VerticalAlignment="Center">
                         <GridView x:Name="Navigation" ScrollViewer.VerticalScrollMode="Disabled" Height="35" Margin="0, 0, 0, 3" SelectionChanged="Navigation_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="Assets/Navigation/Dashboard.png" x:Name="DashboardIcon" Height="30" Width="35" Opacity=".5" DoubleTapped="DashboardIcon_DoubleTapped"/>
@@ -84,7 +87,7 @@
                             </Storyboard>-->
                             <Storyboard x:Name="CreateButtonIntoView">
                                 <DoubleAnimation Duration="0:0:0.2"
-                             To="50"
+                             To="55"
                              EnableDependentAnimation="True"
                              Storyboard.TargetProperty="Height"
                              Storyboard.TargetName="CreatePost">
@@ -101,13 +104,14 @@
                         </Grid.Resources>
                         <Control:PostView x:Name="Posts" Margin="0, 0, 0, 24" URL="https://api.tumblr.com/v2/user/dashboard" AffectHeader="True" Loaded="Posts_Loaded"/>
                         <Control:NewPostDialog x:Name="CreatePostControl" Visibility="Collapsed"/>
-                        <!--<Button x:Name="GoToTop" Visibility="Collapsed" ClickMode="Press" Click="GoToTop_Click" Height="0" Width="50" Margin="10, 38" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="0" MinHeight="0" Style="{StaticResource ButtonStyleNoBG}">
+
+                        <!--<Button x:Name="GoToTop" Visibility="Visible" ClickMode="Press" Click="GoToTop_Click" Height="55" Width="55" Margin="20, 48" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="0" MinHeight="0" Style="{StaticResource ButtonStyleNoBG}">
                             <Grid>
                                 <Ellipse Fill="{ThemeResource HeaderLightBlue}"/>
                                 <Image Source="Assets/Top.png" Margin="10"/>
                             </Grid>
                         </Button>-->
-                        <Button x:Name="CreatePost" Visibility="Visible" ClickMode="Press" Click="CreatePost_Click" Height="0" Width="50" Margin="10, 38" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="0" MinHeight="0" Style="{StaticResource ButtonStyleNoBG}">
+                        <Button x:Name="CreatePost" Visibility="Visible" ClickMode="Press" Click="CreatePost_Click" Height="55" Width="55" Margin="20, 48" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="0" MinHeight="0" Style="{StaticResource ButtonStyleNoBG}">
                             <Grid>
                                 <Ellipse x:Name="CreatePostFill" Stroke="{StaticResource DarkText}" StrokeThickness="0.1" Fill="{ThemeResource HeaderLightBlue}"/>
                                 <Image x:Name="CreatePostIcon" Source="Assets/New.png" Margin="10" RenderTransformOrigin="0.5,0.5" Canvas.ZIndex="50"/>

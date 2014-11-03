@@ -48,6 +48,9 @@
     <!-- Common Resources -->
     <BitmapImage x:Key="DefaultAvatar" UriSource="ms-appx:///Assets/DefaultAvatar.png" />
 
+    <BitmapImage x:Key="BlogsIcon" UriSource="ms-appx:///Assets/Navigation/Account.png" />
+    <BitmapImage x:Key="TagsIcon" UriSource="ms-appx:///Assets/Navigation/Tag.png" />
+
     <BitmapImage x:Key="AudioPlaceholder" UriSource="ms-appx:///Assets/AudioPlaceholder.png" />
 
     <converter:FollowingToVisibility x:Key="FollowingToVisibility"/>

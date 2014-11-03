@@ -7,12 +7,15 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 ﻿
@@ -23,10 +26,11 @@ namespace Core.Pages {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class CreatePost : Page {
+    public sealed partial class CreatePost : Page, IFileOpenPickerContinuable {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
+        StorageFile image;
         Image PhotoView;
 
         public CreatePost() {
@@ -160,13 +164,55 @@ namespace Core.Pages {
             }
         }
 
-        private void Post_Photo(object sender, RoutedEventArgs e) {
-            //var title = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Text_Title")).Text;
-            //var body = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Text_Body")).Text;
+        private async void Post_Photo(object sender, RoutedEventArgs e) {
+            var caption = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Photo_Caption")).Text;
+            var tags = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Photo_Tags")).Text;
+            if (!string.IsNullOrEmpty(tags)) {
+                tags = tags.Replace(" #", ", ");
+                tags = AuthenticationManager.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+            }
+
+            
+            try {
+                byte[] fileBytes = null;
+                using (IRandomAccessStreamWithContentType stream = await image.OpenReadAsync()) {
+                    fileBytes = new byte[stream.Size];
+                    using (DataReader reader = new DataReader(stream)) {
+                        await reader.LoadAsync((uint)stream.Size);
+                        reader.ReadBytes(fileBytes);
+                    }
+
+                }
+
+                var photoasstring = Convert.ToBase64String(fileBytes);
+                Debug.WriteLine(photoasstring);
+                API.Content.CreatePost.Photo(AuthenticationManager.Utils.UrlEncode(caption), "", AuthenticationManager.Utils.UrlEncode(photoasstring), tags);
+                Frame.GoBack();
+            } catch (Exception ex) {
+                MainPage.ErrorFlyout.DisplayMessage("Failed to create text post");
+                DebugHandler.Log("Failed to create text post.");
+            }
+            //var data = Convert.ToBase64String(photoAsByteArray);
 
             //APIContent.Content.CreatePost.Text(title, body);
-            //Frame.GoBack();
+            Frame.GoBack();
         }
+
+        public async Task<string> ReadFile(StorageFile file) {
+            byte[] fileBytes = null;
+            using (IRandomAccessStreamWithContentType stream = await file.OpenReadAsync()) {
+                fileBytes = new byte[stream.Size];
+                using (DataReader reader = new DataReader(stream)) {
+                    await reader.LoadAsync((uint)stream.Size);
+                    reader.ReadBytes(fileBytes);
+                }
+
+            }
+
+            return Convert.ToBase64String(fileBytes);
+        }
+
+
 
         private void Post_Quote(object sender, RoutedEventArgs e) {
             var quote = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Quote_Quote")).Text;
@@ -206,16 +252,22 @@ namespace Core.Pages {
         }
 
         private async void Photo_Image_Tapped(object sender, TappedRoutedEventArgs e) {
-            //PhotoView = (Image)((Grid)(((StackPanel)((Grid)sender).Parent).FindName("Photo_Grid"))).FindName("Photo_Image");
+            PhotoView = (Image)((Grid)(((StackPanel)((Grid)sender).Parent).FindName("Photo_Grid"))).FindName("Photo_Image");
 
             var filePicker = new FileOpenPicker();
             filePicker.FileTypeFilter.Add(".jpg");
+            filePicker.FileTypeFilter.Add(".jpeg");
+            filePicker.FileTypeFilter.Add(".png");
             filePicker.ViewMode = PickerViewMode.Thumbnail;
             filePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
             filePicker.SettingsIdentifier = "picker1";
             filePicker.CommitButtonText = "Open File to Process";
 
             filePicker.PickSingleFileAndContinue();
+            if (image == null) {
+                MainPage.ErrorFlyout.DisplayMessage("Failed to select image.");
+            }
+
 
             //FileOpenPicker openPicker = new FileOpenPicker();
             //openPicker.ViewMode = PickerViewMode.Thumbnail;
@@ -246,12 +298,16 @@ namespace Core.Pages {
         }
         public async void ContinueFileOpenPicker(FileOpenPickerContinuationEventArgs args) {
             if (args.Files.Count > 0) {
-                StorageFile file = args.Files[0];
+                image = args.Files[0];
+                Debug.WriteLine(image.Path);
+                //PhotoView.Source = new BitmapImage() { UriSource = new Uri(image.Path) };
+                using (IRandomAccessStream fileStream = await image.OpenAsync(Windows.Storage.FileAccessMode.Read)) {
+                    var photo = new BitmapImage();
+                    await photo.SetSourceAsync(fileStream);
 
-                Debug.WriteLine(file.DisplayName);
-
-            } else {
-
+                    PhotoView.Source = photo;
+                    PhotoView.Stretch = Stretch.UniformToFill;
+                }
             }
         }
 

@@ -153,9 +153,9 @@ namespace Core.Pages {
             }
         }
 
-        private void StackPanel_Tapped(object sender, TappedRoutedEventArgs e) {
+        private void Image_Tapped(object sender, TappedRoutedEventArgs e) {
             var frame = Window.Current.Content as Frame;
-            if (!frame.Navigate(typeof(Pages.BlogDetails), ((StackPanel)sender).Tag.ToString().Split(' ')[0]))
+            if (!frame.Navigate(typeof(Pages.BlogDetails), ((Image)sender).Tag.ToString().Split(' ')[0]))
                 throw new Exception("Navigation Failed");
         }
     }

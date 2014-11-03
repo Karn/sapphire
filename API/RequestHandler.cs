@@ -344,6 +344,27 @@ namespace API {
             return LoadedPosts;
         }
 
+        public static async Task<int> RetrieveNewPostCount(string postID = "") {
+
+            if (CanRequestData()) {
+                //DebugHandler.Log("Retreiving posts", TAG);
+                //Segment API calls
+
+                var result = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/user/dashboard", "after_id=" + postID);
+
+                if (!string.IsNullOrEmpty(result) && result.Contains("200")) {
+                    try {
+                        var posts = JsonConvert.DeserializeObject<Content.Responses.GetPosts>(result);
+                        return posts.response.posts.Count;
+
+                    } catch (Exception e) {
+                        DebugHandler.Error("[Client.cs]: Unable to serialize post data.", e.StackTrace);
+                    }
+                }
+            }
+            return 0;
+        }
+
         public static async Task<ObservableCollection<Content.Post>> RetrievePost(string post_id) {
             string UserInfoURI = "http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts?id=" + post_id + "&notes_info=true&api_key=" + Config.ConsumerKey;
             var response = await WebClient.GetAsync(new Uri(UserInfoURI));
@@ -402,7 +423,7 @@ namespace API {
         }
 
         public static async Task<List<Content.Blog>> RetrieveSearch(string tag) {
-            string UserInfoURI = "http://api.tumblr.com/v2/search/" + tag + "?api_key=" + Config.APIKey;
+            string UserInfoURI = "https://api.tumblr.com/v2/search/" + tag + "?api_key=" + Config.APIKey;
 
             var response = await WebClient.GetAsync(new Uri(UserInfoURI));
             var result = await response.Content.ReadAsStringAsync();
@@ -416,14 +437,22 @@ namespace API {
             return new List<Content.Blog>();
         }
 
-        public static async Task<List<Responses.SpotlightResponse>> RetrieveSpotlight() {
-            string requestString = "http://api.tumblr.com/v2/spotlight/directories?api_key=" + Config.APIKey;
+        public static async Task<List<Responses.SpotlightResponse>> RetrieveSpotlight(bool forceRefresh = false) {
+            if (string.IsNullOrEmpty(UserData.CachedSpotlight) || forceRefresh) {
+                string requestString = "http://api.tumblr.com/v2/spotlight/directories?api_key=" + Config.APIKey;
 
-            var response = await WebClient.GetAsync(new Uri(requestString));
-            var result = await response.Content.ReadAsStringAsync();
+                var response = await WebClient.GetAsync(new Uri(requestString));
+                var result = await response.Content.ReadAsStringAsync();
 
-            if (result.Contains("200")) {
-                Content.Responses.GetSpotlight spotlight = JsonConvert.DeserializeObject<Content.Responses.GetSpotlight>(result);
+                Debug.WriteLine(result);
+
+                if (result.Contains("200")) {
+                    UserData.CachedSpotlight = result;
+                    Content.Responses.GetSpotlight spotlight = JsonConvert.DeserializeObject<Content.Responses.GetSpotlight>(result);
+                    return spotlight.response;
+                }
+            } else {
+                Content.Responses.GetSpotlight spotlight = JsonConvert.DeserializeObject<Content.Responses.GetSpotlight>(UserData.CachedSpotlight);
                 return spotlight.response;
             }
 
@@ -433,6 +462,16 @@ namespace API {
         public static async Task<bool> CreatePost(string parameters) {
             if (!string.IsNullOrEmpty(parameters)) {
                 string result = await RequestBuilder.PostAPI("http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/post", parameters);
+                if (result.Contains("201"))
+                    return true;
+            }
+            return false;
+        }
+
+        public static async Task<bool> CreateMediaPost(string parameters, string media) {
+            Debug.WriteLine("media");
+            if (!string.IsNullOrEmpty(parameters)) {
+                string result = await RequestBuilder.PostAPIWithData("http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/post", parameters, media);
                 if (result.Contains("201"))
                     return true;
             }

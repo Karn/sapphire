@@ -27,7 +27,8 @@ namespace API.Content {
                                                    "USER_MENTIONS",
                                                    "ENABLE_ADS",
                                                    "NotificationIds",
-                                                   "OneClickReblog"
+                                                   "OneClickReblog",
+                                                   "CachedSpotlight"
                                                };
 
         public static void CreateDataContainer() {
@@ -175,7 +176,7 @@ namespace API.Content {
                 if (!string.IsNullOrEmpty(UserDataStore.Values["NotificationIds"].ToString())) {
                     Debug.WriteLine(UserDataStore.Values["NotificationIds"].ToString());
                     return JsonConvert.DeserializeObject<Dictionary<string, int>>(UserDataStore.Values["NotificationIds"].ToString());
-                } 
+                }
                 return new Dictionary<string, int>();
             }
             set {
@@ -193,6 +194,17 @@ namespace API.Content {
             }
             set {
                 UserDataStore.Values["OneClickReblog"] = value ? "True" : "False";
+            }
+        }
+
+        public static string CachedSpotlight {
+            get {
+                if (!string.IsNullOrEmpty(UserDataStore.Values["CachedSpotlight"].ToString()))
+                    return UserDataStore.Values["CachedSpotlight"].ToString();
+                return "";
+            }
+            set {
+                UserDataStore.Values["CachedSpotlight"] = value;
             }
         }
     }

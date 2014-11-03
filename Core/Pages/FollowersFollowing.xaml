@@ -43,8 +43,8 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Tag="{Binding Name}" Tapped="StackPanel_Tapped">
-                        <Image Source="{Binding Path=avatar}" Width="90" Height="90" HorizontalAlignment="Left"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding Path=avatar}" Width="90" Height="90" HorizontalAlignment="Left" Tag="{Binding Name}" Tapped="Image_Tapped"/>
                         <StackPanel Width="300">
                             <TextBlock x:Name="UserName" Text="{Binding Name}" Margin="10, 0" FontSize="33" FontWeight="Light" Foreground="{StaticResource Blue}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
                             <Button Tag="{Binding Name}" Visibility="{Binding IsFollowing, Converter={StaticResource FollowingToVisibility}}" x:Name="FollowButton" Tapped="FollowUnfollowButton_Tapped" Content="follow" Margin="10, 0" BorderBrush="#FF529ecc" Foreground="#FFFFFFFF" Background="#FF529ecc" BorderThickness="1.0" Style="{StaticResource ButtonStyle}" Padding="3" FontSize="18" Height="45" MinHeight="0" MinWidth="120"/>

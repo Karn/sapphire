@@ -86,10 +86,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\ContinuationManager.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Common\RelayCommand.cs" />
-    <Compile Include="Common\RichTextBlockProperties.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -201,6 +201,7 @@
     <Content Include="Assets\Navigation\NewPost.png" />
     <Content Include="Assets\Navigation\Recent.png" />
     <Content Include="Assets\Navigation\Search.png" />
+    <Content Include="Assets\Navigation\Tag.png" />
     <Content Include="Assets\New.png" />
     <Content Include="Assets\NewPost\Cancel.png" />
     <Content Include="Assets\NewPost\Chat.png" />
@@ -239,7 +240,6 @@
     <Content Include="Assets\DefaultAvatar.png" />
     <Content Include="Assets\VideoPlaceholder.png" />
     <Content Include="Assets\WideLogo.scale-240.png" />
-    <Content Include="Common\ReadMe.txt" />
     <None Include="Package.StoreAssociation.xml" />
     <None Include="packages.config" />
   </ItemGroup>

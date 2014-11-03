@@ -20,10 +20,34 @@
         <StackPanel Grid.Row="0" Margin="0" Background="{ThemeResource HeaderLightBlue}">
             <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource HeaderLightBlue}">
                 <TextBlock x:Name="PageTitle" Foreground="{ThemeResource LightText}" Text="Posts" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
-            </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0, 0, 15, 0">
+                   <Image x:Name="Mode" Tapped="Mode_Tapped" Visibility="Collapsed" Width="35" Height="30" Source="ms-appx:///Assets/Navigation/Account.png" />
+                   <Image x:Name="ToTop" Tapped="ToTop_Tapped" Width="35" Height="30" Source="ms-appx:///Assets/Top.png" />
+                </StackPanel>
+                </Grid>
         </StackPanel>
 
         <!--TODO: Content should be placed within the following grid-->
         <controls:PostView x:Name="PostList" Grid.Row="1" Margin="0" AffectHeader="False" Loaded="PostList_Loaded"/>
+        <ListView x:Name="BlogSearch" HorizontalAlignment="Stretch" Visibility="Collapsed" Grid.Row="1" ItemsSource="{Binding}" ScrollViewer.VerticalScrollMode="Enabled">
+            <!--<GridView.Header>
+                <TextBlock Foreground="{ThemeResource DarkText}" Text="Trending tags" FontSize="24" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
+            </GridView.Header>-->
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Tapped="Border_Tapped" Tag="{Binding Name}" Margin="4, 2" Height="112" BorderBrush="#0C000000" BorderThickness="1">
+                        <Grid>
+                            <Image Stretch="UniformToFill" Source="{Binding theme.header_image_focused}"/>
+                            <StackPanel VerticalAlignment="Top" Background="#33000000" Height="35">
+                                <TextBlock Margin="10, 5" Foreground="White" Text="{Binding Name}" FontSize="18" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
+                            </StackPanel>
+                            <Image HorizontalAlignment="Left" Margin="10, 40, 10, 0" Stretch="UniformToFill" Width="55" Height="55" Source="{Binding avatar}"/>
+                            <TextBlock Margin="75, 40, 15, 5" Foreground="White" Text="{Binding description}" FontSize="18" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
+
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

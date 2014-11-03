@@ -23,7 +23,7 @@
         <converters:LikedToOpacity x:Key="LikedToOpacity"/>
         <converters:LikedToImage x:Key="LikedToImage"/>
         <converters:NotesToVisibilityConverter x:Key="NotesToVisibility"/>
-        
+
         <DataTemplate x:Key="TopContainer">
             <Grid Height="50" Width="Auto">
                 <StackPanel Orientation="Horizontal" Background="{ThemeResource Accent2}">
@@ -78,9 +78,11 @@
                 <StackPanel Tag="{Binding}" Background="{ThemeResource PostBG}">
                     <TextBlock Visibility="{Binding caption, Converter={StaticResource CaptionConverter}}" Text="{Binding caption, Converter={StaticResource ToPlainText}}" Foreground="{ThemeResource DarkText}" FontSize="16" VerticalAlignment="Top" Margin="5" TextTrimming="CharacterEllipsis" TextWrapping="Wrap"/>
                     <!--<Grid Margin="10" Visibility="{Binding caption, Converter={StaticResource CaptionConverter}}">
-                        --><!--<RichTextBlock tools:Properties.Html="{Binding caption}"/>--><!--
+                        -->
+                    <!--<RichTextBlock tools:Properties.Html="{Binding caption}"/>-->
+                    <!--
                     </Grid>-->
-                     <Grid Height="40" Background="{ThemeResource Accent2}">
+                    <Grid Height="40" Background="{ThemeResource Accent2}">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <TextBlock x:Name="NoteInfo" Text="{Binding note_count}" Margin="10, 0, 0, 0" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                             <TextBlock Text=" notes" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -214,7 +216,6 @@
                             <AppBarButton x:Name="StopButton" Click="StopButton_Click" IsEnabled="False" RequestedTheme="Light" VerticalAlignment="Center" Icon="Stop" IsCompact="True" Margin="10"/>
                         </StackPanel>
                     </StackPanel>
-
                 </StackPanel>
                 <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
             </StackPanel>

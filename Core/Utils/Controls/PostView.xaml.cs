@@ -1,5 +1,6 @@
 ﻿using API;
 using API.Content;
+using API.Data;
 using API.Utils;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,8 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Networking.BackgroundTransfer;
@@ -37,7 +40,9 @@ namespace Core.Utils.Controls {
 
         public bool IsSinglePost;
 
+        public string FirstPostID;
         public string LastPostID;
+
         int offset = 0;
 
         public bool PostsLoading;
@@ -93,12 +98,14 @@ namespace Core.Utils.Controls {
                             posts = await RequestHandler.RetrievePosts(URL, LastPostID);
 
                         if (posts.Count != 0) {
+
                             foreach (var x in posts) {
                                 PostItems.Add(x);
                             }
                             if (posts.Last().type != "nocontent") {
                                 if (URL.Contains("/user/dashboard")) {
                                     LastPostID = PostItems.Last().id;
+                                    FirstPostID = PostItems.First().id;
                                 } else if (URL.Contains("/tagged")) {
                                     LastPostID = PostItems.Last().timestamp;
                                 } else {
@@ -124,8 +131,16 @@ namespace Core.Utils.Controls {
                     if (!AlreadyHasContent)
                         AlreadyHasContent = true;
 
-                    if (AffectHeader)
-                        MainPage.CreateButtonIntoView_.Begin();
+                    if (AffectHeader && (!string.IsNullOrEmpty(FirstPostID) && EnforceContentLoad)) {
+                        //Run new post notification task
+                        if (await RequestHandler.RetrieveNewPostCount(FirstPostID) > 0) {
+                            MainPage.NewPostIndicator.Visibility = Visibility.Visible;
+                        } else {
+                            MainPage.NewPostIndicator.Visibility = Visibility.Collapsed;
+                        }
+                    }
+
+
                     PostsLoading = false;
                 }
             }
@@ -144,7 +159,9 @@ namespace Core.Utils.Controls {
         }
 
         public void ScrollToTop() {
-            sv.ChangeView(null, 60.0, null, false);
+            Debug.WriteLine("Scrolling to top.");
+            //sv.ChangeView(null, 60.0, null);
+            Posts.ScrollIntoView(PostItems.First());
         }
 
         private void GoToBlog(object sender, TappedRoutedEventArgs e) {
@@ -448,11 +465,16 @@ namespace Core.Utils.Controls {
             ((AdDuplex.Universal.Controls.WinPhone.XAML.AdControl)((Grid)((Microsoft.Advertising.Mobile.UI.AdControl)sender).Parent).FindName("adDuplexAd")).Visibility = Visibility.Visible;
         }
 
-        private void MediaElement_Loaded(object sender, RoutedEventArgs e) {
+        private async void MediaElement_Loaded(object sender, RoutedEventArgs e) {
             if (((StackPanel)(((MediaElement)sender).Parent)).Tag != null) {
                 var url = ((StackPanel)(((MediaElement)sender).Parent)).Tag.ToString();
                 Debug.WriteLine(url);
                 string pathToFile = FileToTempAsync(new Uri(url)).ToString();
+
+                HttpClient WebClient = new HttpClient();
+                var response = await WebClient.GetAsync(new Uri(url + "?api_key=" + Config.ConsumerKey));
+                Debug.WriteLine(await response.Content.ReadAsStringAsync());
+
                 Debug.WriteLine(pathToFile);
             }
             ((AppBarButton)(((StackPanel)(((MediaElement)sender).Parent)).FindName("PlayButton"))).IsEnabled = true;

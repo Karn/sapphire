@@ -22,17 +22,17 @@ namespace API.Content {
             }
         }
 
-        public static async void Photo(string caption, string source, object data) {
+        public static async void Photo(string caption, string source, string data, string tags) {
 
-            var parameterString = "type=photo&";
+            var parameterString = "type=photo";
             if (!string.IsNullOrEmpty(caption))
-                parameterString += "&caption=" + source;
-            if (!string.IsNullOrEmpty(source))
+                parameterString += "&caption=" + caption;
+            if (!string.IsNullOrEmpty(source) && !string.IsNullOrEmpty(data))
                 parameterString += "&source=" + source;
-            else if (data != null)
-                parameterString += "&data=" + data.ToString();
+            if (!string.IsNullOrEmpty(tags))
+                parameterString += "&tags=" + tags;
 
-            await RequestHandler.CreatePost(parameterString);
+            await RequestHandler.CreateMediaPost(parameterString, data);
         }
 
         public static async void Quote(string quote, string source, string tags) {

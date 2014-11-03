@@ -1,11 +1,24 @@
-﻿using API.Authentication;
+﻿using API;
+using API.Authentication;
+using API.Content;
+using API.Utils;
 using Core.Common;
+using Core.Utils.Controls;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.Graphics.Display;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
@@ -14,18 +27,14 @@ namespace Core.Pages {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class Search : Page {
+    public sealed partial class ReblogPage : Page {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
-        private string tagkey;
+        string postID = "";
+        string reblogKey = "";
 
-        public static ImageSource BlogsBrush = new BitmapImage(new Uri("ms-appx:///Assets/Navigation/Account.png"));
-        public static ImageSource PostsBrush = new BitmapImage(new Uri("ms-appx:///Assets/Posts.png"));
-
-
-
-        public Search() {
+        public ReblogPage() {
             this.InitializeComponent();
 
             this.navigationHelper = new NavigationHelper(this);
@@ -62,11 +71,9 @@ namespace Core.Pages {
         /// a dictionary of state preserved by this page during an earlier
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
-            PostList.URL = e.NavigationParameter.ToString();
-            var x = PostList.URL.Split('?');
-            var y = x[1].Split('&');
-            tagkey = y[0].Substring(4);
-            PageTitle.Text = "Tagged: " + tagkey;
+            var x = e.NavigationParameter.ToString().Split(',');
+            postID = x[0].Replace(",", "");
+            reblogKey = x[1].Replace(",", "");
         }
 
         /// <summary>
@@ -105,32 +112,50 @@ namespace Core.Pages {
 
         #endregion
 
-        private async void PostList_Loaded(object sender, RoutedEventArgs e) {
-            await PostList.LoadPosts();
+        private void TagBox_KeyDown(object sender, KeyRoutedEventArgs e) {
+            if (e.Key == Windows.System.VirtualKey.Space) {
+                var x = ((TextBox)sender).Text.Split(' ');
+                var tags = string.Empty;
+                var tags2 = string.Empty;
+                foreach (var tag in x) {
+                    if (!tag.StartsWith("#"))
+                        tags += "#" + tag + " ";
+                    else {
+                        tags += tag + " ";
+                    }
+                }
+                ((TextBox)sender).Text = tags;
+                x = tags.Split(' ');
+            } else if (e.Key == Windows.System.VirtualKey.Back) {
+                var x = ((TextBox)sender).Text.Split(' ');
+                var tags = string.Empty;
+                for (int i = 0; i < x.Count() - 1; i++) {
+                    tags += x.ElementAt(i) + " ";
+                }
+
+                ((TextBox)sender).Text = tags;
+            }
+            ((TextBox)sender).Select(((TextBox)sender).Text.Length, 0);
         }
 
-        private void Image_Tapped(object sender, TappedRoutedEventArgs e) {
-            //PostList.ReloadPosts();
+        private async void Button_Click(object sender, RoutedEventArgs e) {
+            var caption = ((TextBox)((Grid)((Button)sender).Parent).FindName("Caption")).Text;
+            var tags = ((TextBox)((Grid)((Button)sender).Parent).FindName("Tags")).Text;
+            if (!string.IsNullOrEmpty(tags)) {
+                tags = tags.Replace(" #", ", ");
+                tags = AuthenticationManager.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+            }
+            try {
+                //API.Content.CreatePost.Text(AuthenticationManager.Utils.UrlEncode(title), AuthenticationManager.Utils.UrlEncode(body), tags);
+                if (await RequestHandler.ReblogPost(postID, reblogKey, AuthenticationManager.Utils.UrlEncode(caption), tags)) {
+                } else
+                    MainPage.ErrorFlyout.DisplayMessage("Failed to reblog post.");
+                Frame.GoBack();
+            } catch (Exception ex) {
+                MainPage.ErrorFlyout.DisplayMessage("Failed to create text post");
+                DebugHandler.Log("Failed to create text post.");
+            }
         }
 
-        private void Mode_Tapped(object sender, TappedRoutedEventArgs e) {
-
-        }
-
-        //private async void Mode_Tapped(object sender, TappedRoutedEventArgs e) {
-        //    if (PostList.Visibility == Visibility.Visible) {
-        //        if (!blogsLoaded) {
-        //            Blogs.ItemsSource = await Client.RetrieveSearch(tagkey);
-        //            blogsLoaded = true;
-        //        }
-        //        Blogs.Visibility = Visibility.Collapsed;
-        //        Mode.Source = PostsBrush;
-        //    } else {
-        //        PostList.Visibility = Visibility.Visible;
-        //        Blogs.Visibility = Visibility.Collapsed;
-        //        Mode.Source = BlogsBrush;
-        //    }
-
-        //}
     }
 }
