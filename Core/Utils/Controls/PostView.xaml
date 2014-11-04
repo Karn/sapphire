@@ -222,15 +222,9 @@
         </DataTemplate>
         <DataTemplate x:Key="Video">
             <StackPanel Margin="0, 4" Background="{ThemeResource PostBG}">
-                <!--<ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
-                        -->
-                <!--Content here-->
-                <!--
-                        <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
-                            <TextBlock MinHeight="150" Text="Video posts are not yet supported" Foreground="{ThemeResource HeaderLightBlue}" TextWrapping="Wrap" Style="{StaticResource HeaderTextStyle}"/>
-                        </StackPanel>
-                        <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>-->
+                <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                 <Image Source="ms-appx:///Assets/ViewPlaceholder.png"/>
+                <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
             </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="Answer">
