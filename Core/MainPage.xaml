@@ -54,10 +54,10 @@
 
                     <StackPanel Orientation="Horizontal" Margin="5, 0" HorizontalAlignment="Right" VerticalAlignment="Center">
                         <GridView x:Name="Navigation" ScrollViewer.VerticalScrollMode="Disabled" Height="35" Margin="0, 0, 0, 3" SelectionChanged="Navigation_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Source="Assets/Navigation/Dashboard.png" x:Name="DashboardIcon" Height="30" Width="35" Opacity=".5" DoubleTapped="DashboardIcon_DoubleTapped"/>
-                            <Image Source="Assets/Navigation/Activity.png" x:Name="ActivityIcon" Height="30" Width="35" Opacity=".5"/>
-                            <Image Source="Assets/Navigation/Account.png" x:Name="AccountIcon" Height="30" Width="35" Opacity=".5"/>
-                            <Image Source="Assets/Navigation/Search.png" x:Name="SearchIcon" Height="30" Width="35" Opacity=".5"/>
+                            <Image Source="Assets/Nav/Dashboard.png" x:Name="DashboardIcon" Height="30" Width="35" Opacity=".5" DoubleTapped="DashboardIcon_DoubleTapped"/>
+                            <Image Source="Assets/Nav/Activity.png" x:Name="ActivityIcon" Height="30" Width="35" Opacity=".5"/>
+                            <Image Source="Assets/Nav/Account.png" x:Name="AccountIcon" Height="30" Width="35" Opacity=".5"/>
+                            <Image Source="Assets/Nav/Search.png" x:Name="SearchIcon" Height="30" Width="35" Opacity=".5"/>
                         </GridView>
                     </StackPanel>
                 </Grid>
@@ -190,14 +190,14 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <TextBox x:Name="SearchText" KeyDown="SearchText_KeyDown" Margin="10" BorderThickness="0.5" PlaceholderText="Search..." BorderBrush="{ThemeResource HeaderLightBlue}"/>
-                        <GridView x:Name="SpotlightTags" Grid.Row="1" Loaded="SpotlightTags_Loaded" ItemsSource="{Binding}" ScrollViewer.VerticalScrollMode="Enabled">
-                            <GridView.Header>
-                                <TextBlock Foreground="{ThemeResource DarkText}" Text="Trending tags" FontSize="24" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
-                            </GridView.Header>
+                        <Grid>
+                          <TextBox x:Name="SearchText" KeyDown="SearchText_KeyDown" Margin="0, 5" PlaceholderText="Search..." Height="45" Padding="50, 8, 0, 0" VerticalContentAlignment="Center" Background="White" BorderThickness="0"/>
+                            <Image Source="Assets/Nav/Search_Dark.png" HorizontalAlignment="Left" Margin="7, 10" Height="30" Width="35" Opacity=".5"/>
+                        </Grid>
+                        <GridView x:Name="SpotlightTags" Grid.Row="1" Loaded="SpotlightTags_Loaded" Margin="0, 0, 0, 5" ItemsSource="{Binding}" ScrollViewer.VerticalScrollMode="Enabled">
                             <GridView.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Tapped="SpotlightTagItem_Tapped" Tag="{Binding tag}" Margin="5, 5, 0, 0" Width="112" Height="112" BorderBrush="#0C000000" BorderThickness="1">
+                                    <Border Tapped="SpotlightTagItem_Tapped" Tag="{Binding tag}" Margin="0, 0, 2, 2" Width="118" Height="118" BorderBrush="#0C000000" BorderThickness="1">
                                         <Grid>
                                             <Image Stretch="UniformToFill" Source="{Binding promo_image}"/>
                                             <StackPanel VerticalAlignment="Top" Background="#33000000" Height="35">

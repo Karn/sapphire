@@ -9,6 +9,9 @@
     xmlns:CommonControl="using:API.Utils"
     mc:Ignorable="d"
     Background="{StaticResource StandardGray}">
+
+
+
     <Grid x:Name="LayoutRoot" DataContext="{Binding}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -18,12 +21,15 @@
         <StackPanel Grid.Row="0">
             <Grid Height="125" Background="{ThemeResource HeaderLightBlue}">
                 <Image Source="{Binding Path=theme.header_image_focused}" Stretch="UniformToFill" VerticalAlignment="Center" Opacity="0.7"/>
-                <Border Margin="13, 0, 0, -45" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="96" Width="96" BorderThickness="0.5" BorderBrush="White">
-                    <Image Source="{Binding Path=avatar}"/>
+                <Button Tag="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{Binding followed, Converter={StaticResource FollowingToString}, FallbackValue=FOLLOW}" x:Name="FollowButton" Tapped="FollowUnfollowButton_Tapped" Margin="5, 20" Foreground="#FFFFFFFF" Background="#10000000" BorderThickness="0" Style="{StaticResource ButtonStyle}" Padding="3" FontSize="18" Height="35" MinHeight="0" MinWidth="120"/>
+                <!--<Button Tag="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="{Binding followed, Converter={StaticResource NotFollowingToVisibility}, FallbackValue=Collapsed}" x:Name="UnfollowButton" Tapped="FollowUnfollowButton_Tapped" Content="UNFOLLOW" Margin="5, 20" Foreground="#FFFFFFFF" Background="#10000000" BorderThickness="0" Style="{StaticResource ButtonStyle}" Padding="3" FontSize="18" Height="35" MinHeight="0" MinWidth="120"/>-->
+                <Border Margin="0, 20, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="75" Width="75" BorderThickness="0.5" BorderBrush="White">
+                    <Image Source="{Binding Path=avatar, FallbackValue={ThemeResource DefaultAvatar}}"/>
                 </Border>
             </Grid>
-            <TextBlock Text="{Binding title, FallbackValue=Blog}" Margin="126, -50, 10, 4" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
-            <TextBlock Text="{Binding description, FallbackValue=Description}" Margin="126, 4, 10, 4" Foreground="{ThemeResource DarkText}" FontSize="18" Height="47" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxLines="2"/>
+
+            <TextBlock Text="{Binding title, FallbackValue=Blog}" Margin="50, 5, 50, 0" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" Foreground="{ThemeResource DarkText}" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
+            <TextBlock Text="{Binding description, FallbackValue=Description}" Margin="10" HorizontalAlignment="Center" Foreground="{ThemeResource DarkText}" FontSize="18" MaxHeight="45" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxLines="2"/>
         </StackPanel>
         <controls:PostView x:Name="Posts" Grid.Row="1" Loaded="Posts_Loaded"/>
     </Grid>

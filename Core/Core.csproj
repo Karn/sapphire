@@ -151,6 +151,7 @@
     <Compile Include="Utils\Converters\CaptionConverter.cs" />
     <Compile Include="Utils\Converters\CreatePostTemplateSelector.cs" />
     <Compile Include="Utils\Converters\FollowingToBG.cs" />
+    <Compile Include="Utils\Converters\FollowingToString.cs" />
     <Compile Include="Utils\Converters\FollowingToVisibility.cs" />
     <Compile Include="Utils\Converters\HtmlToPlainText.cs" />
     <Compile Include="Utils\Converters\LikedToImage.cs" />
@@ -202,6 +203,12 @@
     <Content Include="Assets\Navigation\Recent.png" />
     <Content Include="Assets\Navigation\Search.png" />
     <Content Include="Assets\Navigation\Tag.png" />
+    <Content Include="Assets\Nav\Account.png" />
+    <Content Include="Assets\Nav\Activity.png" />
+    <Content Include="Assets\Nav\Dashboard.png" />
+    <Content Include="Assets\Nav\Search.png" />
+    <Content Include="Assets\Nav\Search_Dark.png" />
+    <Content Include="Assets\Nav\Tag.png" />
     <Content Include="Assets\New.png" />
     <Content Include="Assets\NewPost\Cancel.png" />
     <Content Include="Assets\NewPost\Chat.png" />
@@ -354,6 +361,7 @@
       <Name>Microsoft Advertising SDK for Windows Phone 8.1 %28XAML%29</Name>
     </SDKReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>

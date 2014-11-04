@@ -133,7 +133,7 @@ namespace Core.Pages {
         private async void Mode_Tapped(object sender, TappedRoutedEventArgs e) {
             if (PostList.Visibility == Visibility.Visible) {
                 Mode.Source = TagsIcon;
-                ToTop.Visibility = Visibility.Visible;
+                ToTop.Visibility = Visibility.Collapsed;
                 PostList.Visibility = Visibility.Collapsed;
                 BlogSearch.Visibility = Visibility.Visible;
                 if (BlogSearch.ItemsSource == null) {
@@ -142,7 +142,7 @@ namespace Core.Pages {
                 }
             } else {
                 Mode.Source = BlogsIcon;
-                ToTop.Visibility = Visibility.Collapsed;
+                ToTop.Visibility = Visibility.Visible;
                 PostList.Visibility = Visibility.Visible;
                 BlogSearch.Visibility = Visibility.Collapsed;
             }

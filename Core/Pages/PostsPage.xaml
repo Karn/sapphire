@@ -21,7 +21,7 @@
             <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource HeaderLightBlue}">
                 <TextBlock x:Name="PageTitle" Foreground="{ThemeResource LightText}" Text="Posts" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0, 0, 15, 0">
-                   <Image x:Name="Mode" Tapped="Mode_Tapped" Visibility="Collapsed" Width="35" Height="30" Source="ms-appx:///Assets/Navigation/Account.png" />
+                   <Image x:Name="Mode" Tapped="Mode_Tapped" Visibility="Collapsed" Width="35" Height="30" Source="ms-appx:///Assets/Nav/Account.png" />
                    <Image x:Name="ToTop" Tapped="ToTop_Tapped" Width="35" Height="30" Source="ms-appx:///Assets/Top.png" />
                 </StackPanel>
                 </Grid>

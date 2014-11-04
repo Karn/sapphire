@@ -1,23 +1,10 @@
-﻿using Core.Common;
-using API;
+﻿using API;
+using Core.Common;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Graphics.Display;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using API.Authentication;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -111,6 +98,19 @@ namespace Core.Pages {
         private async void Posts_Loaded(object sender, RoutedEventArgs e) {
             Posts.URL = "https://api.tumblr.com/v2/blog/" + blogName + ".tumblr.com/posts";
             await Posts.LoadPosts();
+        }
+
+        private async void FollowUnfollowButton_Tapped(object sender, TappedRoutedEventArgs e) {
+            var x = ((Button)sender);
+            if (x.Content.ToString().ToLower() == "follow") {
+                if (await RequestHandler.FollowUnfollow(true, x.Tag.ToString())) {
+                    x.Content = "UNFOLLOW";
+                }
+            } else if (x.Content.ToString().ToLower() == "unfollow") {
+                if (await RequestHandler.FollowUnfollow(false, x.Tag.ToString())) {
+                    x.Content = "FOLLOW";
+                }
+            }
         }
     }
 }

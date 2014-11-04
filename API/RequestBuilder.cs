@@ -65,7 +65,7 @@ namespace API {
                 requestMsg.Method = new HttpMethod("GET");
 
                 var qParams = string.IsNullOrEmpty(parameters) ? "" : parameters;
-                var urlWithParams = url + "?" + qParams;
+                var urlWithParams = url + (!string.IsNullOrEmpty(qParams) ? "?" + qParams : "");
 
                 // HttpClient uses full url 
                 requestMsg.RequestUri = new Uri(urlWithParams);

@@ -34,6 +34,7 @@ namespace API.Content {
         public Visibility ShareLikes { get; set; }
         public int likes { get; set; }
         public bool ask { get; set; }
+        public bool followed { get; set; }
         public string ask_page_title { get; set; }
         public bool ask_anon { get; set; }
         public bool is_nsfw { get; set; }

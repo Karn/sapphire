@@ -162,7 +162,7 @@ namespace API {
         /// <returns>List of blogs</returns>
         public static async Task<List<Blog>> RetrieveFollowers(int offset) {
             //DebugHandler.Log("Retrieving followers", TAG);
-            var requestResult = await RequestBuilder.GetAPI("http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/followers", "offset=" + offset);
+            var requestResult = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/followers", "offset=" + offset);
 
             if (requestResult.Contains("200")) {
                 //DebugHandler.Log("Followers retrieved", TAG);
@@ -366,7 +366,7 @@ namespace API {
         }
 
         public static async Task<ObservableCollection<Content.Post>> RetrievePost(string post_id) {
-            string UserInfoURI = "http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts?id=" + post_id + "&notes_info=true&api_key=" + Config.ConsumerKey;
+            string UserInfoURI = "https://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts?id=" + post_id + "&notes_info=true&api_key=" + Config.ConsumerKey;
             var response = await WebClient.GetAsync(new Uri(UserInfoURI));
             var result = await response.Content.ReadAsStringAsync();
 
@@ -407,10 +407,11 @@ namespace API {
 
         public static async Task<Content.Blog> GetBlog(string name) {
             DebugHandler.Info("[Client.cs]: Retrieving blog...");
-            string UserInfoURI = "http://api.tumblr.com/v2/blog/" + name + ".tumblr.com/info?api_key=" + Config.APIKey;
+            //string UserInfoURI = "http://api.tumblr.com/v2/blog/" + name + ".tumblr.com/info?api_key=" + Config.APIKey;
 
-            var response = await WebClient.GetAsync(new Uri(UserInfoURI));
-            var result = await response.Content.ReadAsStringAsync();
+            //var response = await WebClient.GetAsync(new Uri(UserInfoURI));
+            //var result = await response.Content.ReadAsStringAsync();
+            var result = await RequestBuilder.GetAPI("http://api.tumblr.com/v2/blog/" + name + ".tumblr.com/info", "api_key=" + Config.ConsumerKey);
             Debug.WriteLine(result);
             if (result.Contains("200")) {
                 Content.Responses.GetBlog blogInfo = JsonConvert.DeserializeObject<Content.Responses.GetBlog>(result);
