@@ -21,7 +21,8 @@ namespace API.Content {
         }
         public string url { get; set; }
         public string followers { get; set; }
-        public string following { get; set; }
+        public bool following { get; set; }
+        public int followingCount { get; set; }
         public bool IsFollowing { get; set; }
         public string posts { get; set; }
         public int updated { get; set; }

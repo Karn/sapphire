@@ -89,6 +89,11 @@
     </UserControl.Resources>
 
     <ListView x:Name="Notifications" Margin="2, 2" ItemsSource="{Binding Source={StaticResource csvNotifications}}" ItemTemplateSelector="{StaticResource ActivityListTemplate}" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" Loaded="Notifications_Loaded" Background="#00000000">
+        <ListView.ItemContainerTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </ListView.ItemContainerTransitions>
         <ListView.Resources>
             <ControlTemplate x:Key="ListViewControlTemplate1" TargetType="ListView">
                 <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">

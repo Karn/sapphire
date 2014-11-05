@@ -113,7 +113,7 @@ namespace Core
 
                 rootFrame.ContentTransitions = null;
                 rootFrame.Navigated += this.RootFrame_FirstNavigated;
-                //rootFrame.Background = App.Current.Resources["HeaderLightBlue"] as SolidColorBrush;
+                //rootFrame.Background = App.Current.Resources["HeaderLightBlue"] as SolidColorBrush
 
 
                 DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
@@ -175,6 +175,10 @@ namespace Core
 
         protected async override void OnActivated(IActivatedEventArgs e) {
             base.OnActivated(e);
+
+            DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
+            Windows.UI.ViewManagement.StatusBar.GetForCurrentView().BackgroundColor = Color.FromArgb(255, 40, 52, 64);
+            Windows.UI.ViewManagement.StatusBar.GetForCurrentView().ForegroundColor = Color.FromArgb(255, 255, 255, 255);
 
             ContinuationManager = new ContinuationManager();
 

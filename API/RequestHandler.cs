@@ -72,7 +72,7 @@ namespace API {
                         }
                         foreach (var b in parsedData.response.user.blogs) {
                             Debug.WriteLine(b.Name);
-                            b.following = parsedData.response.user.following.ToString();
+                            b.followingCount = parsedData.response.user.following;
                             b.likes = parsedData.response.user.likes;
 
                             UserData.UserBlogs.Add(b);
@@ -168,14 +168,7 @@ namespace API {
                 //DebugHandler.Log("Followers retrieved", TAG);
                 var parsedData = JsonConvert.DeserializeObject<Responses.GetFollowers>(requestResult);
                 try {
-                    List<Blog> converted = new List<Blog>();
-                    foreach (Blog.AltBlog x in parsedData.response.users) {
-                        Blog b = new Blog();
-                        b.Name = x.Name;
-                        b.IsFollowing = x.following;
-                        converted.Add(b);
-                    }
-                    return converted;
+                    return parsedData.response.users;
                 } catch (Exception e) {
                     DebugHandler.Error("Failed to deserialize followers list.", e.StackTrace);
                 }
@@ -194,16 +187,10 @@ namespace API {
 
             if (requestResult.Contains("200")) {
                 DebugHandler.Info("Response OK.", "Client");
-                Responses.GetFollowing following = JsonConvert.DeserializeObject<Responses.GetFollowing>(requestResult);
                 try {
-                    List<Blog> loadedBlogs = new List<Blog>();
-
-                    foreach (Blog b in following.response.blogs) {
-                        b.IsFollowing = true;
-                        loadedBlogs.Add(b);
-                    }
-
-                    return loadedBlogs;
+                    Responses.GetFollowing following = JsonConvert.DeserializeObject<Responses.GetFollowing>(requestResult);
+                
+                    return following.response.blogs;
                 } catch (Exception e) {
                     DebugHandler.Error("[Client.cs]: Failed to deserialize following list.", e.StackTrace);
                 }
@@ -424,17 +411,18 @@ namespace API {
         }
 
         public static async Task<List<Content.Blog>> RetrieveSearch(string tag) {
-            string UserInfoURI = "https://api.tumblr.com/v2/search/" + tag + "?api_key=" + Config.APIKey;
+            //string UserInfoURI = "https://api.tumblr.com/v2/search/" + tag + "?api_key=" + Config.APIKey;
 
-            var response = await WebClient.GetAsync(new Uri(UserInfoURI));
-            var result = await response.Content.ReadAsStringAsync();
+            //var response = await WebClient.GetAsync(new Uri(UserInfoURI));
+            //var result = await response.Content.ReadAsStringAsync();
 
+            var result = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/search/" + tag, "api_key=" + Config.ConsumerKey);
             if (result.Contains("200")) {
                 Content.Responses.GetSearch SearchResult = JsonConvert.DeserializeObject<Content.Responses.GetSearch>(result);
 
                 return SearchResult.response.blogs;
             }
-
+            Debug.WriteLine("Loading blog search...");
             return new List<Content.Blog>();
         }
 

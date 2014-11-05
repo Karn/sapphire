@@ -185,6 +185,7 @@
     <Content Include="Assets\BadgeLogo.scale-100.png" />
     <Content Include="Assets\BadgeLogo.scale-140.png" />
     <Content Include="Assets\BadgeLogo.scale-240.png" />
+    <Content Include="Assets\DefaultPattern.png" />
     <Content Include="Assets\Download.png" />
     <Content Include="Assets\Draft.png" />
     <Content Include="Assets\GifFrame.html" />
@@ -205,7 +206,11 @@
     <Content Include="Assets\Navigation\Tag.png" />
     <Content Include="Assets\Nav\Account.png" />
     <Content Include="Assets\Nav\Activity.png" />
+    <Content Include="Assets\Nav\Blogs.png" />
     <Content Include="Assets\Nav\Dashboard.png" />
+    <Content Include="Assets\Nav\Drafts.png" />
+    <Content Include="Assets\Nav\Inbox.png" />
+    <Content Include="Assets\Nav\Queue.png" />
     <Content Include="Assets\Nav\Search.png" />
     <Content Include="Assets\Nav\Search_Dark.png" />
     <Content Include="Assets\Nav\Tag.png" />

@@ -150,12 +150,25 @@ namespace Core.Pages {
 
         private void Border_Tapped(object sender, TappedRoutedEventArgs e) {
             var frame = Window.Current.Content as Frame;
-            if (!frame.Navigate(typeof(Pages.BlogDetails), ((Border)sender).Tag.ToString().Split(' ')[0]))
+            if (!frame.Navigate(typeof(Pages.BlogDetails), ((Image)sender).Tag.ToString().Split(' ')[0]))
                 throw new Exception("Navigation Failed");
         }
 
         private void ToTop_Tapped(object sender, TappedRoutedEventArgs e) {
             PostList.ScrollToTop();
+        }
+
+        private async void FollowUnfollowButton_Tapped(object sender, TappedRoutedEventArgs e) {
+            var x = ((Button)sender);
+            if (x.Content.ToString().ToLower() == "follow") {
+                if (await RequestHandler.FollowUnfollow(true, x.Tag.ToString())) {
+                    x.Content = "UNFOLLOW";
+                }
+            } else if (x.Content.ToString().ToLower() == "unfollow") {
+                if (await RequestHandler.FollowUnfollow(false, x.Tag.ToString())) {
+                    x.Content = "FOLLOW";
+                }
+            }
         }
     }
 }

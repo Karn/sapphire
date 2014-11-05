@@ -434,5 +434,11 @@ namespace Core {
         private void DashboardIcon_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e) {
             Posts.ScrollToTop();
         }
+
+        private void ManageBlogs_Tapped(object sender, TappedRoutedEventArgs e) {
+            if (!Frame.Navigate(typeof(Pages.Blogs)))
+                Debug.WriteLine("Failed to Navigate");
+
+        }
     }
 }

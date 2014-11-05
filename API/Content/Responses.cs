@@ -27,7 +27,7 @@ namespace API.Content {
 
         public class FollowersResponse {
             public int total_users { get; set; }
-            public List<Blog.AltBlog> users { get; set; }
+            public List<Blog> users { get; set; }
         }
 
         public class BlogResponse {

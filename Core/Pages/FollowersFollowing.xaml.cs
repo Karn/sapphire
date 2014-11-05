@@ -24,6 +24,7 @@ namespace Core.Pages {
         private int offset = 0;
         private static ScrollViewer sv;
         private static bool NewInstance;
+        public bool loading = false;
 
         public FollowersFollowing() {
             this.InitializeComponent();
@@ -51,6 +52,7 @@ namespace Core.Pages {
             }
             List.ItemsSource = BlogList;
             offset += 20;
+            loading = false;
             await MainPage.sb.ProgressIndicator.HideAsync();
         }
 
@@ -127,19 +129,32 @@ namespace Core.Pages {
         #endregion
 
         //Make this async to complete task
+        //private async void FollowUnfollowButton_Tapped(object sender, TappedRoutedEventArgs e) {
+        //    var x = ((Button)sender);
+        //    if (x.Content.ToString() == "follow") {
+        //        if (await RequestHandler.FollowUnfollow(true, x.Tag.ToString())) {
+        //            x.Content = "unfollow";
+        //            ((Button)((StackPanel)x.Parent).FindName("FollowButton")).Visibility = Visibility.Collapsed;
+        //            ((Button)((StackPanel)x.Parent).FindName("UnfollowButton")).Visibility = Visibility.Visible;
+        //        }
+        //    } else if (x.Content.ToString() == "unfollow") {
+        //        if (await RequestHandler.FollowUnfollow(false, x.Tag.ToString())) {
+        //            x.Content = "follow";
+        //            ((Button)((StackPanel)x.Parent).FindName("FollowButton")).Visibility = Visibility.Visible;
+        //            ((Button)((StackPanel)x.Parent).FindName("UnfollowButton")).Visibility = Visibility.Collapsed;
+        //        }
+        //    }
+        //}
+
         private async void FollowUnfollowButton_Tapped(object sender, TappedRoutedEventArgs e) {
             var x = ((Button)sender);
-            if (x.Content.ToString() == "follow") {
+            if (x.Content.ToString().ToLower() == "follow") {
                 if (await RequestHandler.FollowUnfollow(true, x.Tag.ToString())) {
-                    x.Content = "unfollow";
-                    ((Button)((StackPanel)x.Parent).FindName("FollowButton")).Visibility = Visibility.Collapsed;
-                    ((Button)((StackPanel)x.Parent).FindName("UnfollowButton")).Visibility = Visibility.Visible;
+                    x.Content = "UNFOLLOW";
                 }
-            } else if (x.Content.ToString() == "unfollow") {
+            } else if (x.Content.ToString().ToLower() == "unfollow") {
                 if (await RequestHandler.FollowUnfollow(false, x.Tag.ToString())) {
-                    x.Content = "follow";
-                    ((Button)((StackPanel)x.Parent).FindName("FollowButton")).Visibility = Visibility.Visible;
-                    ((Button)((StackPanel)x.Parent).FindName("UnfollowButton")).Visibility = Visibility.Collapsed;
+                    x.Content = "FOLLOW";
                 }
             }
         }
@@ -148,12 +163,21 @@ namespace Core.Pages {
             if (sv == null)
                 sv = (ScrollViewer)sender;
 
-            if (sv.VerticalOffset + 50 > sv.ExtentHeight - sv.ActualHeight) {
-                SetItemSource();
+            if (!loading) {
+                if (sv.VerticalOffset + 50 > sv.ExtentHeight - sv.ActualHeight) {
+                    loading = true;
+                    SetItemSource();
+                }
             }
         }
 
         private void Image_Tapped(object sender, TappedRoutedEventArgs e) {
+            var frame = Window.Current.Content as Frame;
+            if (!frame.Navigate(typeof(Pages.BlogDetails), ((Image)sender).Tag.ToString().Split(' ')[0]))
+                throw new Exception("Navigation Failed");
+        }
+
+        private void Border_Tapped(object sender, TappedRoutedEventArgs e) {
             var frame = Window.Current.Content as Frame;
             if (!frame.Navigate(typeof(Pages.BlogDetails), ((Image)sender).Tag.ToString().Split(' ')[0]))
                 throw new Exception("Navigation Failed");

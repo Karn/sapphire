@@ -19,8 +19,8 @@
         <CommonControl:ErrorFlyout Grid.RowSpan="2" x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
         <!-- TitlePanel -->
         <StackPanel Grid.Row="0" Margin="0" Background="{ThemeResource HeaderLightBlue}">
-            <Grid Height="50" Margin="0, 25, 0, 0" Background="{ThemeResource HeaderLightBlue}">
-                <TextBlock x:Name="PageTitle" Foreground="{ThemeResource LightText}" Margin="12, 0, 0, 0" FontSize="38" HorizontalAlignment="Left" VerticalAlignment="Center" TextLineBounds="Tight" FontFamily="Segoe WP" FontWeight="Thin" CharacterSpacing="-25"/>
+            <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource HeaderLightBlue}">
+                <TextBlock x:Name="PageTitle" Foreground="{ThemeResource LightText}" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
             </Grid>
         </StackPanel>
 
@@ -43,14 +43,17 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="{Binding Path=avatar}" Width="90" Height="90" HorizontalAlignment="Left" Tag="{Binding Name}" Tapped="Image_Tapped"/>
-                        <StackPanel Width="300">
-                            <TextBlock x:Name="UserName" Text="{Binding Name}" Margin="10, 0" FontSize="33" FontWeight="Light" Foreground="{StaticResource Blue}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
-                            <Button Tag="{Binding Name}" Visibility="{Binding IsFollowing, Converter={StaticResource FollowingToVisibility}}" x:Name="FollowButton" Tapped="FollowUnfollowButton_Tapped" Content="follow" Margin="10, 0" BorderBrush="#FF529ecc" Foreground="#FFFFFFFF" Background="#FF529ecc" BorderThickness="1.0" Style="{StaticResource ButtonStyle}" Padding="3" FontSize="18" Height="45" MinHeight="0" MinWidth="120"/>
-                            <Button Tag="{Binding Name}" Visibility="{Binding IsFollowing, Converter={StaticResource NotFollowingToVisibility}}" x:Name="UnfollowButton" Tapped="FollowUnfollowButton_Tapped" Content="unfollow" Margin="10, 0" BorderBrush="{ThemeResource HeaderLightBlue}" Foreground="{ThemeResource HeaderLightBlue}" Background="#00529ecc" BorderThickness="1.0" Style="{StaticResource ButtonStyle}" Padding="3" FontSize="18" Height="45" MinHeight="0" MinWidth="120"/>
-                        </StackPanel>
-                    </StackPanel>
+                    <Border MinWidth="380" HorizontalAlignment="Stretch" Margin="4, 2" Height="112" BorderBrush="#0C000000" BorderThickness="1">
+                        <Grid HorizontalAlignment="Stretch">
+                            <Image Stretch="UniformToFill" Source="{Binding theme.header_image_focused, FallbackValue={StaticResource DefaultPattern}}"/>
+                            <Grid VerticalAlignment="Top" Background="#66000000" Height="35">
+                                <TextBlock Margin="10, 5" HorizontalAlignment="Left" Foreground="White" Text="{Binding Name}" FontSize="18" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
+                                <Button Margin="5, 0" Tag="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{Binding following, Converter={StaticResource FollowingToString}, FallbackValue=FOLLOW}" x:Name="FollowButton" Tapped="FollowUnfollowButton_Tapped" BorderBrush="#66FFFFFF" BorderThickness="0.5" Foreground="#FFFFFFFF" Background="#10000000" Style="{StaticResource ButtonStyle}" Padding="3" FontSize="18" Height="35" MinHeight="0" MinWidth="120"/>
+                            </Grid>
+                            <Image Tag="{Binding Name}" Tapped="Border_Tapped" HorizontalAlignment="Left" Margin="10, 40, 10, 0" Stretch="UniformToFill" Width="55" Height="55" Source="{Binding avatar}"/>
+                            <TextBlock Margin="75, 40, 15, 5" Foreground="White" Text="{Binding description}" FontSize="18" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
