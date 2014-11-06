@@ -310,7 +310,7 @@
                 <TextBlock x:Name="textBlock1" Text="Pull to refresh.." Margin="15, 0, 0, 0" FontSize="22" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" VerticalAlignment="Center" TextLineBounds="Tight" FontFamily="Segoe WP" FontWeight="Thin" CharacterSpacing="-25"/>
                 <TextBlock x:Name="textBlock2" VerticalAlignment="Center" Text="Release to refresh.." Margin="15, 0, 0, 0" FontSize="22" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" TextLineBounds="Tight" FontFamily="Segoe WP" FontWeight="Thin" CharacterSpacing="-25"/>
             </Grid>
-            <ListView Grid.Row="1" x:Name="Posts" Margin="0" HorizontalAlignment="Stretch" ItemsSource="{Binding}" ItemTemplateSelector="{StaticResource PostTemplate}" ShowsScrollingPlaceholders="True" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListView Grid.Row="1" DataFetchSize="5" IncrementalLoadingTrigger="Edge" IncrementalLoadingThreshold="5" x:Name="Posts" Margin="0" HorizontalAlignment="Stretch" ItemsSource="{Binding}" ItemTemplateSelector="{StaticResource PostTemplate}" ShowsScrollingPlaceholders="True" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemContainerStyle>
                     <StaticResource ResourceKey="ListViewItemContainerStyle"/>
                 </ListView.ItemContainerStyle>
@@ -320,9 +320,9 @@
                     </TransitionCollection>
                 </ListView.ItemContainerTransitions>
             </ListView>
-            <Grid Grid.Row="2" VerticalAlignment="Top" Height="60" Margin="10, 0" HorizontalAlignment="Center">
+            <!--<Grid Grid.Row="2" VerticalAlignment="Top" Height="60" Margin="10, 0" HorizontalAlignment="Center">
                 <TextBlock x:Name="BottomPull" Text="Pull to load next page.." Margin="15, 0, 0, 0" FontSize="22" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" VerticalAlignment="Center" TextLineBounds="Tight" FontFamily="Segoe WP" FontWeight="Thin" CharacterSpacing="-25"/>
-            </Grid>
+            </Grid>-->
         </Grid>
     </ScrollViewer>
 </UserControl>

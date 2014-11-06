@@ -189,7 +189,8 @@ namespace API {
                 DebugHandler.Info("Response OK.", "Client");
                 try {
                     Responses.GetFollowing following = JsonConvert.DeserializeObject<Responses.GetFollowing>(requestResult);
-                
+                    foreach (var x in following.response.blogs)
+                        x.following = true;
                     return following.response.blogs;
                 } catch (Exception e) {
                     DebugHandler.Error("[Client.cs]: Failed to deserialize following list.", e.StackTrace);

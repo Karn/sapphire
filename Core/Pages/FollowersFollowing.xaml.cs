@@ -52,7 +52,6 @@ namespace Core.Pages {
             }
             List.ItemsSource = BlogList;
             offset += 20;
-            loading = false;
             await MainPage.sb.ProgressIndicator.HideAsync();
         }
 
@@ -163,11 +162,9 @@ namespace Core.Pages {
             if (sv == null)
                 sv = (ScrollViewer)sender;
 
-            if (!loading) {
-                if (sv.VerticalOffset + 50 > sv.ExtentHeight - sv.ActualHeight) {
-                    loading = true;
-                    SetItemSource();
-                }
+            if (sv.VerticalOffset + 50 > sv.ExtentHeight - sv.ActualHeight) {
+
+                SetItemSource();
             }
         }
 

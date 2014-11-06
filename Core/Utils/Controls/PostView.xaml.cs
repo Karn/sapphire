@@ -2,6 +2,7 @@
 using API.Content;
 using API.Data;
 using API.Utils;
+using Core.Utils.Misc;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -85,63 +86,15 @@ namespace Core.Utils.Controls {
             if (EnforceContentLoad || !AlreadyHasContent) {
                 if (!PostsLoading) {
                     PostsLoading = true;
-
                     MainPage.sb = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
                     MainPage.sb.ForegroundColor = Color.FromArgb(255, 255, 255, 255);
                     MainPage.sb.ProgressIndicator.Text = "Loading posts...";
                     await MainPage.sb.ProgressIndicator.ShowAsync();
-                    try {
-                        var posts = new List<Post>();
-                        if (string.IsNullOrEmpty(LastPostID))
-                            posts = await RequestHandler.RetrievePosts(URL);
-                        else
-                            posts = await RequestHandler.RetrievePosts(URL, LastPostID);
+                    Posts.ItemsSource = new IncrementalPostLoader(URL, offset);
 
-                        if (posts.Count != 0) {
-
-                            foreach (var x in posts) {
-                                PostItems.Add(x);
-                            }
-                            if (posts.Last().type != "nocontent") {
-                                if (URL.Contains("/user/dashboard")) {
-                                    LastPostID = PostItems.Last().id;
-                                    FirstPostID = PostItems.First().id;
-                                } else if (URL.Contains("/tagged")) {
-                                    LastPostID = PostItems.Last().timestamp;
-                                } else {
-                                    offset += 20;
-                                    LastPostID = offset.ToString();
-                                }
-                            }
-                            DebugHandler.Info(LastPostID);
-                        } else {
-                            MainPage.ErrorFlyout.DisplayMessage("Unable to deserialize posts.");
-                        }
-                        if (Utils.IAPHander.ShowAds && posts.Count > 5)
-                            PostItems.Add(new Post { type = "advert" });
-
-                        Posts.ItemsSource = PostItems;
-
-                    } catch (Exception e) {
-                        DebugHandler.Error("Error awaiting posts. ", e.StackTrace);
-                        MainPage.ErrorFlyout.DisplayMessage("Load failed due to exception.");
-                    }
-
-                    await MainPage.sb.ProgressIndicator.HideAsync();
                     if (!AlreadyHasContent)
                         AlreadyHasContent = true;
-
-                    if (AffectHeader && (!string.IsNullOrEmpty(FirstPostID) && EnforceContentLoad)) {
-                        //Run new post notification task
-                        if (await RequestHandler.RetrieveNewPostCount(FirstPostID) > 0) {
-                            MainPage.NewPostIndicator.Visibility = Visibility.Visible;
-                        } else {
-                            MainPage.NewPostIndicator.Visibility = Visibility.Collapsed;
-                        }
-                    }
-
-
-                    PostsLoading = false;
+                    await MainPage.sb.ProgressIndicator.HideAsync();
                 }
             }
         }
@@ -359,10 +312,11 @@ namespace Core.Utils.Controls {
                             LastPostID = "";
                             PostItems.Clear();
                             await LoadPosts(true);
-                        } else if (sv.VerticalOffset == 120.0 && _isPullRefresh) {
-                            Debug.WriteLine("Loading more items to feed. " + LastPostID);
-                            await LoadPosts(true);
                         }
+                        //else if (sv.VerticalOffset == 120.0 && _isPullRefresh) {
+                        //    Debug.WriteLine("Loading more items to feed. " + LastPostID);
+                        //    await LoadPosts(true);
+                        //}
 
                         sv.ChangeView(null, 60.0, null);
                         _isPullRefresh = false;
@@ -372,7 +326,7 @@ namespace Core.Utils.Controls {
                 }
             } else {
                 ((Grid)textBlock1.Parent).Visibility = Visibility.Collapsed;
-                ((Grid)BottomPull.Parent).Visibility = Visibility.Collapsed;
+                //((Grid)BottomPull.Parent).Visibility = Visibility.Collapsed;
             }
         }
 

@@ -166,6 +166,7 @@
     <Compile Include="Utils\Misc\DateKeyGroup.cs" />
     <Compile Include="Utils\Misc\ErrorStrings.cs" />
     <Compile Include="Utils\Misc\IAPHander.cs" />
+    <Compile Include="Utils\Misc\IncrementalPostLoader.cs" />
     <Compile Include="Utils\Misc\ItemsToShow.cs" />
     <Compile Include="Utils\Misc\ThemeResources.cs" />
   </ItemGroup>
