@@ -95,9 +95,9 @@ namespace Core.Pages {
 
         #endregion
 
-        private async void Posts_Loaded(object sender, RoutedEventArgs e) {
+        private void Posts_Loaded(object sender, RoutedEventArgs e) {
             Posts.URL = "https://api.tumblr.com/v2/blog/" + blogName + ".tumblr.com/posts";
-            await Posts.LoadPosts();
+            Posts.LoadPosts();
         }
 
         private async void FollowUnfollowButton_Tapped(object sender, TappedRoutedEventArgs e) {

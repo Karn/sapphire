@@ -106,7 +106,7 @@
 
                 <PivotItem x:Name="AccountPivot" Margin="0" DataContext="{Binding}">
                     <StackPanel x:Name="AccountPivotContent" VerticalAlignment="Top">
-                        <Grid Height="175" Background="{ThemeResource HeaderLightBlue}">
+                        <Grid Background="{ThemeResource HeaderLightBlue}">
                             <Grid.ChildrenTransitions>
                                 <TransitionCollection>
                                     <EntranceThemeTransition/>
@@ -119,12 +119,12 @@
                                         <ImageBrush Stretch="Fill" ImageSource="{Binding Path=avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
                                     </Ellipse.Fill>
                                 </Ellipse>
-                                <TextBlock Text="{Binding title, FallbackValue=BlogName}" TextTrimming="CharacterEllipsis" FontSize="28" Style="{StaticResource HeaderTextStyle}" HorizontalAlignment="Center"/>
-                                <TextBlock Text="{Binding url, FallbackValue=url}" TextTrimming="CharacterEllipsis" FontSize="20" Style="{StaticResource HeaderTextStyle}" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding title, FallbackValue=BlogName}"  TextAlignment="Center" TextTrimming="CharacterEllipsis" FontSize="28" Style="{StaticResource HeaderTextStyle}" HorizontalAlignment="Center"/>
+                                <HyperlinkButton Content="{Binding url, FallbackValue=url}" NavigateUri="{Binding url, FallbackValue=http://www.tumblr.com}" HorizontalAlignment="Center" FontSize="20" Foreground="#FFFFFFFF}"/>
+                                <TextBlock Text="{Binding description, FallbackValue=description}" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontSize="18" Style="{StaticResource HeaderTextStyle}" TextWrapping="Wrap" MaxHeight="45" HorizontalAlignment="Center"/>
                             </StackPanel>
                             <Image Source="Assets/Nav/Blogs.png" VerticalAlignment="Top" HorizontalAlignment="Right" Height="35" Width="35" Stretch="Uniform" Margin="10" Tapped="ManageBlogs_Tapped"/>
                         </Grid>
-                        <!--<TextBlock Text="{Binding description}" Margin="126, 4, 10, 4" Foreground="{ThemeResource DarkText}" FontSize="18" Height="47" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxLines="2"/>-->
                         <Grid Background="{ThemeResource Accent2}">
                             <Grid.ChildrenTransitions>
                                 <TransitionCollection>
@@ -150,16 +150,28 @@
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
-                        <StackPanel Visibility="Collapsed">
-                            <Image Source="Assets/Nav/Inbox.png" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35" Width="35" Stretch="Uniform" Margin="10" Tapped="ManageBlogs_Tapped"/>
-                            <Image Source="Assets/Nav/Drafts.png" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35" Width="35" Stretch="Uniform" Margin="10" Tapped="ManageBlogs_Tapped"/>
-                            <Image Source="Assets/Nav/Queue.png" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35" Width="35" Stretch="Uniform" Margin="10" Tapped="ManageBlogs_Tapped"/>
+                        <Grid Visibility="Visible" Margin="0, 10" Background="{ThemeResource Accent2}">
+                            <StackPanel Margin="10, 0">
+                                <StackPanel.ChildrenTransitions>
+                                    <TransitionCollection>
+                                        <EntranceThemeTransition/>
+                                    </TransitionCollection>
+                                </StackPanel.ChildrenTransitions>
+                                <StackPanel Orientation="Horizontal" Tag="Blogs" Tapped="Inbox_Tapped">
+                                    <Image x:Name="Inbox" Source="{ThemeResource InboxButtonAsset}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35" Width="35" Stretch="UniformToFill" Margin="10"/>
+                                    <TextBlock Text="Inbox" Foreground="{ThemeResource HeaderLightBlue}" FontFamily="Segoe WP" FontWeight="Thin" FontSize="24" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Tag="Blogs" Tapped="Drafts_Tapped">
+                                    <Image x:Name="Drafts" Source="{ThemeResource DraftsButtonAsset}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35" Width="35" Stretch="UniformToFill" Margin="10"/>
+                                    <TextBlock Text="Drafts" Foreground="{ThemeResource HeaderLightBlue}" FontFamily="Segoe WP" FontWeight="Thin" FontSize="24" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Tag="Blogs" Tapped="Queue_Tapped">
+                                    <Image x:Name="Queue" Source="{ThemeResource QueueButtonAsset}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35" Width="35" Stretch="UniformToFill" Margin="10"/>
+                                    <TextBlock Text="Queue" Foreground="{ThemeResource HeaderLightBlue}" FontFamily="Segoe WP" FontWeight="Thin" FontSize="24" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
 
-                        </StackPanel>
-                        <!--<StackPanel Orientation="Horizontal" Background="{ThemeResource Accent2}" Height="50" Tag="Blogs" Margin="4, 4, 4, 2" Tapped="AccountNavPanel_Tapped">
-                            <Image Source="{ThemeResource BlogButtonAsset}" Width="35" Height="35" Margin="10, 0, 25, 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <TextBlock Text="blogs" FontFamily="Segoe WP" FontWeight="Thin" Foreground="{ThemeResource DarkText}" FontSize="24" VerticalAlignment="Center"/>
-                        </StackPanel>-->
                         <!--<StackPanel Orientation="Horizontal" Background="#0C000000" Height="50" Margin="4, 2" Tag="Messages" Tapped="AccountNavPanel_Tapped">
                             <Image Source="Assets/Messages.png" Width="35" Height="35" Margin="10, 0, 25, 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                             <TextBlock Text="messages" FontFamily="Segoe WP" FontWeight="Thin" Foreground="#FF2D3F53" FontSize="24" VerticalAlignment="Center"/>
@@ -215,7 +227,7 @@
     </Grid>
 
     <Page.BottomAppBar>
-        <CommandBar x:Name="CommandBar" ClosedDisplayMode="Minimal" Background="{ThemeResource HeaderDarkBlue}" Foreground="{StaticResource LightGray}" BorderBrush="{x:Null}">
+        <CommandBar x:Name="CommandBar" Background="{ThemeResource HeaderDarkBlue}" ClosedDisplayMode="Minimal" Foreground="{StaticResource LightGray}">
             <AppBarButton x:Name="RefreshButton" Icon="Refresh" Label="refresh" Click="RefreshButton_Click"/>
             <CommandBar.SecondaryCommands>
                 <AppBarButton x:Name="SettingsButton" Label="settings" Click="SettingsButton_Click"/>

@@ -44,15 +44,6 @@ namespace Core.Utils.Controls {
             Notifications.Visibility = Visibility.Collapsed;
         }
 
-        private void ScrollViewer_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e) {
-            if (sv == null)
-                sv = (ScrollViewer)sender;
-
-            if (sv.VerticalOffset + 25 > sv.ExtentHeight - sv.ActualHeight) {
-                //loadingMorePosts();
-            }
-        }
-
         private void GoToBlog(object sender, TappedRoutedEventArgs e) {
             var frame = Window.Current.Content as Frame;
             if (!frame.Navigate(typeof(Pages.BlogDetails), ((Image)sender).Tag)) {
@@ -79,7 +70,7 @@ namespace Core.Utils.Controls {
         }
 
         private async void FollowIcon_Tapped(object sender, TappedRoutedEventArgs e) {
-            var x = ((Image)sender);
+            var x = ((Grid)sender);
             if (await RequestHandler.FollowUnfollow(true, x.Tag.ToString())) {
                 x.Visibility = Visibility.Collapsed;
             }

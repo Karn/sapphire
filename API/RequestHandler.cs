@@ -244,11 +244,9 @@ namespace API {
         public static async Task<List<Content.Post>> RetrievePosts(string url, string lastPostID = "", string optionalParams = "") {
             var LoadedPosts = new List<Content.Post>();
             if (CanRequestData()) {
-                //DebugHandler.Log("Retreiving posts", TAG);
                 string result = string.Empty;
                 Debug.WriteLine(url);
-                //Segment API calls
-                if (url.Contains("/user/dashboard") || url.Contains("/submission")) {
+                if (url.Contains("/user/dashboard") || url.Contains("/submission") || url.Contains("/draft") || url.Contains("/queue")) {
                     if (string.IsNullOrEmpty(lastPostID))
                         result = await RequestBuilder.GetAPI(url);
                     else

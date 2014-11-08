@@ -55,7 +55,10 @@
                             <Run Text="started following you." FontWeight="Light"/>
                         </TextBlock>
                     </StackPanel>
-                    <Image HorizontalAlignment="Right" Width="45" Height="45" Margin="5" Source="ms-appx:///Assets/AFollowing2.png" Stretch="UniformToFill" Tag="{Binding from_tumblelog_name}" Visibility="{Binding followed, Converter={StaticResource FollowingToVisibility}}" Tapped="FollowIcon_Tapped"/>
+                    <Grid HorizontalAlignment="Right" Width="45" Height="45" Margin="5" Background="{ThemeResource HeaderLightBlue}" Tag="{Binding from_tumblelog_name}" Visibility="{Binding followed, Converter={StaticResource FollowingToVisibility}}" Tapped="FollowIcon_Tapped">
+                        <Image x:Name="CreatePostIcon" Source="ms-appx:///Assets/New.png" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <!--<Image  Source="ms-appx:///Assets/AFollowing2.png" Stretch="UniformToFill" Tag="{Binding from_tumblelog_name}" Visibility="{Binding followed, Converter={StaticResource FollowingToVisibility}}" Tapped="FollowIcon_Tapped"/>-->
                 </StackPanel>
             </Border>
         </DataTemplate>
@@ -94,15 +97,6 @@
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </ListView.ItemContainerTransitions>
-        <ListView.Resources>
-            <ControlTemplate x:Key="ListViewControlTemplate1" TargetType="ListView">
-                <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
-                    <ScrollViewer x:Name="ScrollViewer" ViewChanging="ScrollViewer_ViewChanging" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}" IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" TabNavigation="{TemplateBinding TabNavigation}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
-                        <ItemsPresenter HeaderTemplate="{TemplateBinding HeaderTemplate}" Header="{TemplateBinding Header}" HeaderTransitions="{TemplateBinding HeaderTransitions}" Padding="{TemplateBinding Padding}"/>
-                    </ScrollViewer>
-                </Border>
-            </ControlTemplate>
-        </ListView.Resources>
         <ListView.ItemContainerStyle>
             <StaticResource ResourceKey="ListViewItemContainerStyle"/>
         </ListView.ItemContainerStyle>
@@ -110,18 +104,15 @@
             <GroupStyle HidesIfEmpty="True">
                 <GroupStyle.HeaderTemplate>
                     <DataTemplate>
-                        <Border Width="385" Height="35" Padding="0, 3" Background="{ThemeResource StandardGray}" BorderBrush="#33000000" BorderThickness="0, 0, 0, 0.5">
-                            <Grid>
-                                <TextBlock HorizontalAlignment="Left" FontSize="16" Margin="10, 2" Text="{Binding Key, Converter={StaticResource RelativeDate}}" Foreground="{ThemeResource DarkText}"/>
-                                <TextBlock HorizontalAlignment="Right" FontSize="16" Margin="15, 2" Text="{Binding Key, Converter={StaticResource ToPrettyDate}}" Foreground="{ThemeResource DarkText}"/>
+                        <Border Width="385" Height="35" Padding="0" Background="{ThemeResource Accent2}" BorderBrush="#33000000" BorderThickness="0, 0, 0, 0">
+                            <Grid Margin="0, 8, 0, 0" VerticalAlignment="Center">
+                                <TextBlock HorizontalAlignment="Left" FontSize="16" Margin="10, 2" Text="{Binding Key, Converter={StaticResource RelativeDate}}" Foreground="{ThemeResource DarkText}" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
+                                <TextBlock HorizontalAlignment="Right" FontSize="16" Margin="10, 2" Text="{Binding Key, Converter={StaticResource ToPrettyDate}}" Foreground="{ThemeResource DarkText}" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
                             </Grid>
                         </Border>
                     </DataTemplate>
                 </GroupStyle.HeaderTemplate>
             </GroupStyle>
         </ListView.GroupStyle>
-        <ListView.Template>
-            <StaticResource ResourceKey="ListViewControlTemplate1"/>
-        </ListView.Template>
     </ListView>
 </UserControl>

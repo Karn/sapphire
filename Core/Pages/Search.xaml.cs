@@ -105,8 +105,8 @@ namespace Core.Pages {
 
         #endregion
 
-        private async void PostList_Loaded(object sender, RoutedEventArgs e) {
-            await PostList.LoadPosts();
+        private void PostList_Loaded(object sender, RoutedEventArgs e) {
+            PostList.LoadPosts();
         }
 
         private void Image_Tapped(object sender, TappedRoutedEventArgs e) {

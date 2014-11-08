@@ -68,7 +68,7 @@ namespace Core.Utils.Controls {
             }
         }
 
-        public readonly DependencyProperty AffectHeaderProperty = DependencyProperty.Register("Url",
+        public readonly DependencyProperty AffectHeaderProperty = DependencyProperty.Register("HeaderProperty",
             typeof(bool),
             typeof(PostView),
             new PropertyMetadata(false));
@@ -82,19 +82,14 @@ namespace Core.Utils.Controls {
             }
         }
 
-        public async Task LoadPosts(bool EnforceContentLoad = false) {
+        public void LoadPosts(bool EnforceContentLoad = false) {
             if (EnforceContentLoad || !AlreadyHasContent) {
                 if (!PostsLoading) {
                     PostsLoading = true;
-                    MainPage.sb = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-                    MainPage.sb.ForegroundColor = Color.FromArgb(255, 255, 255, 255);
-                    MainPage.sb.ProgressIndicator.Text = "Loading posts...";
-                    await MainPage.sb.ProgressIndicator.ShowAsync();
                     Posts.ItemsSource = new IncrementalPostLoader(URL, offset);
 
                     if (!AlreadyHasContent)
                         AlreadyHasContent = true;
-                    await MainPage.sb.ProgressIndicator.HideAsync();
                 }
             }
         }
@@ -259,23 +254,19 @@ namespace Core.Utils.Controls {
 
                     _GIFPlaceHolder.Visibility = Visibility.Collapsed;
                 }
-
-                //var animator = XamlAnimatedGif.AnimationBehavior.GetAnimator(_GIF);
-                //animator.Play();
             } catch (Exception ex) {
                 Debug.WriteLine(ex.Data);
             }
         }
 
-
         private void scrollViewer_Loaded(object sender, RoutedEventArgs e) {
             scrollViewer.ChangeView(null, 60.0, null);
         }
 
-        public async void RefeshPosts() {
+        public void RefeshPosts() {
             LastPostID = "";
             PostItems.Clear();
-            await LoadPosts();
+            LoadPosts();
         }
 
         private void scrollViewer_SizeChanged(object sender, SizeChangedEventArgs e) {
@@ -286,7 +277,7 @@ namespace Core.Utils.Controls {
 
         bool _isPullRefresh = false;
         bool _updating = false;
-        private async void scrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e) {
+        private void scrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e) {
             if (!IsSinglePost) {
                 if (sv == null)
                     sv = sender as ScrollViewer;
@@ -311,12 +302,8 @@ namespace Core.Utils.Controls {
                             Debug.WriteLine("Refreshing feed.");
                             LastPostID = "";
                             PostItems.Clear();
-                            await LoadPosts(true);
+                            LoadPosts(true);
                         }
-                        //else if (sv.VerticalOffset == 120.0 && _isPullRefresh) {
-                        //    Debug.WriteLine("Loading more items to feed. " + LastPostID);
-                        //    await LoadPosts(true);
-                        //}
 
                         sv.ChangeView(null, 60.0, null);
                         _isPullRefresh = false;
@@ -326,7 +313,6 @@ namespace Core.Utils.Controls {
                 }
             } else {
                 ((Grid)textBlock1.Parent).Visibility = Visibility.Collapsed;
-                //((Grid)BottomPull.Parent).Visibility = Visibility.Collapsed;
             }
         }
 
@@ -397,10 +383,6 @@ namespace Core.Utils.Controls {
             }
         }
 
-        private void PlayerControl_Loaded(object sender, RoutedEventArgs e) {
-            ((AudioPlayer)sender).LoadControl();
-        }
-
         private void GIF_Tapped(object sender, TappedRoutedEventArgs e) {
             var animator = XamlAnimatedGif.AnimationBehavior.GetAnimator((Image)sender);
             animator.Pause();
@@ -414,25 +396,24 @@ namespace Core.Utils.Controls {
         }
 
         private void AdControl_ErrorOccurred(object sender, Microsoft.Advertising.Mobile.Common.AdErrorEventArgs e) {
-            //DebugHandler.Error("Failed to load pubcenter advert.", e.Error.ToString(), "AdControl");
             ((Microsoft.Advertising.Mobile.UI.AdControl)sender).Visibility = Visibility.Collapsed;
             ((AdDuplex.Universal.Controls.WinPhone.XAML.AdControl)((Grid)((Microsoft.Advertising.Mobile.UI.AdControl)sender).Parent).FindName("adDuplexAd")).Visibility = Visibility.Visible;
         }
 
         private async void MediaElement_Loaded(object sender, RoutedEventArgs e) {
-            if (((StackPanel)(((MediaElement)sender).Parent)).Tag != null) {
-                var url = ((StackPanel)(((MediaElement)sender).Parent)).Tag.ToString();
-                Debug.WriteLine(url);
-                string pathToFile = FileToTempAsync(new Uri(url)).ToString();
+            //if (((StackPanel)(((MediaElement)sender).Parent)).Tag != null) {
+            //    var url = ((StackPanel)(((MediaElement)sender).Parent)).Tag.ToString();
+            //    Debug.WriteLine(url);
+            //    string pathToFile = FileToTempAsync(new Uri(url)).ToString();
 
-                HttpClient WebClient = new HttpClient();
-                var response = await WebClient.GetAsync(new Uri(url + "?api_key=" + Config.ConsumerKey));
-                Debug.WriteLine(await response.Content.ReadAsStringAsync());
+            //    HttpClient WebClient = new HttpClient();
+            //    var response = await WebClient.GetAsync(new Uri(url + "?api_key=" + Config.ConsumerKey));
+            //    Debug.WriteLine(await response.Content.ReadAsStringAsync());
 
-                Debug.WriteLine(pathToFile);
-            }
-            ((AppBarButton)(((StackPanel)(((MediaElement)sender).Parent)).FindName("PlayButton"))).IsEnabled = true;
-            ((AppBarButton)(((StackPanel)(((MediaElement)sender).Parent)).FindName("StopButton"))).IsEnabled = true;
+            //    Debug.WriteLine(pathToFile);
+            //}
+            //((AppBarButton)(((StackPanel)(((MediaElement)sender).Parent)).FindName("PlayButton"))).IsEnabled = true;
+            //((AppBarButton)(((StackPanel)(((MediaElement)sender).Parent)).FindName("StopButton"))).IsEnabled = true;
         }
 
         private void PlayButton_Click(object sender, RoutedEventArgs e) {
@@ -449,7 +430,7 @@ namespace Core.Utils.Controls {
             }
 
         }
-
+        
         private void StopButton_Click(object sender, RoutedEventArgs e) {
             var audioPlayer = ((MediaElement)(((StackPanel)(((AppBarButton)sender).Parent)).FindName("AudioPlayer")));
             if (audioPlayer.Tag.ToString() == "Playing" || audioPlayer.Tag.ToString() == "Paused") {

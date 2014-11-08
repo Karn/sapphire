@@ -88,13 +88,13 @@
                             <TextBlock Text=" notes" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Tag="{Binding reblog_key}">
-                            <Button x:Name="ReblogButton" Tag="{Binding id}" Click="ReblogButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="45" MinHeight="45" MaxWidth="45" MaxHeight="45" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}">
+                            <Button x:Name="ReblogButton" Tag="{Binding id}" Click="ReblogButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="40" MinHeight="40" MaxWidth="40" MaxHeight="40" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}">
                                 <Button.Background>
                                     <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource ReblogAsset}"/>
                                 </Button.Background>
                             </Button>
-                            <ToggleButton x:Name="LikeButton" Style="{StaticResource LikeButtonStyle}" Tag="{Binding id}" Margin="5, 0" BorderBrush="White" BorderThickness="0" RequestedTheme="Dark" MinWidth="35" Width="35" MinHeight="50" MaxWidth="35" MaxHeight="50" HorizontalAlignment="Right" IsChecked="{Binding liked}" Click="LikeButton_Click" Loaded="LikeButton_Loaded" Padding="5,0"/>
-                            <Button x:Name="DeleteButton" Visibility="{Binding IsEditable}" Tag="{Binding}" Click="DeleteButton_Click" BorderBrush="White" BorderThickness="0" RequestedTheme="Dark" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}">
+                            <ToggleButton x:Name="LikeButton" Style="{StaticResource LikeButtonStyle}" Tag="{Binding id}" Margin="5, 0" BorderBrush="White" BorderThickness="0" MinWidth="35" Width="35" MinHeight="50" MaxWidth="35" MaxHeight="50" HorizontalAlignment="Right" IsChecked="{Binding liked}" Click="LikeButton_Click" Loaded="LikeButton_Loaded" Padding="10,0"/>
+                            <Button x:Name="DeleteButton" Visibility="{Binding IsEditable}" Tag="{Binding}" Click="DeleteButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}" Margin="-6, 0, 0, 0">
                                 <Button.Background>
                                     <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource DeleteButtonAsset}"/>
                                 </Button.Background>
@@ -320,9 +320,6 @@
                     </TransitionCollection>
                 </ListView.ItemContainerTransitions>
             </ListView>
-            <!--<Grid Grid.Row="2" VerticalAlignment="Top" Height="60" Margin="10, 0" HorizontalAlignment="Center">
-                <TextBlock x:Name="BottomPull" Text="Pull to load next page.." Margin="15, 0, 0, 0" FontSize="22" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" VerticalAlignment="Center" TextLineBounds="Tight" FontFamily="Segoe WP" FontWeight="Thin" CharacterSpacing="-25"/>
-            </Grid>-->
         </Grid>
     </ScrollViewer>
 </UserControl>

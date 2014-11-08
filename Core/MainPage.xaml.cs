@@ -339,38 +339,38 @@ namespace Core {
         }
 
         private void AccountDetails_Tapped(object sender, TappedRoutedEventArgs e) {
-            switch (((StackPanel)sender).Tag.ToString()) {
-                case "Posts":
-                    if (UserData.CurrentBlog != null) {
+            if (UserData.CurrentBlog != null) {
+                switch (((StackPanel)sender).Tag.ToString()) {
+                    case "Posts":
                         if (!Frame.Navigate(typeof(Pages.PostsPage), "http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts")) {
                             Debug.WriteLine("Failed to Navigate");
                         }
-                    }
-                    break;
-                case "Likes":
-                    if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/user/likes")) {
-                        Debug.WriteLine("Failed to Navigate");
-                    }
-                    break;
-                case "Followers":
-                    if (!Frame.Navigate(typeof(Pages.FollowersFollowing), "Followers")) {
-                        Debug.WriteLine("Failed to Navigate");
-                    }
-                    break;
-                case "Following":
-                    if (!Frame.Navigate(typeof(Pages.FollowersFollowing), "Following")) {
-                        Debug.WriteLine("Failed to Navigate");
-                    }
-                    break;
+                        break;
+                    case "Likes":
+                        if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/user/likes")) {
+                            Debug.WriteLine("Failed to Navigate");
+                        }
+                        break;
+                    case "Followers":
+                        if (!Frame.Navigate(typeof(Pages.FollowersFollowing), "Followers")) {
+                            Debug.WriteLine("Failed to Navigate");
+                        }
+                        break;
+                    case "Following":
+                        if (!Frame.Navigate(typeof(Pages.FollowersFollowing), "Following")) {
+                            Debug.WriteLine("Failed to Navigate");
+                        }
+                        break;
+                }
             }
         }
 
 
-        public async void Posts_Loaded(object sender, RoutedEventArgs e) {
+        public void Posts_Loaded(object sender, RoutedEventArgs e) {
             if (UserData.CurrentBlog == null)
                 SetAccountData();
 
-            await Posts.LoadPosts();
+            Posts.LoadPosts();
         }
 
         private async void SetAccountData() {
@@ -439,6 +439,30 @@ namespace Core {
             if (!Frame.Navigate(typeof(Pages.Blogs)))
                 Debug.WriteLine("Failed to Navigate");
 
+        }
+
+        private void Inbox_Tapped(object sender, TappedRoutedEventArgs e) {
+            if (UserData.CurrentBlog != null) {
+                if (!Frame.Navigate(typeof(Pages.PostsPage), "http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts/submission")) {
+                    Debug.WriteLine("Failed to Navigate");
+                }
+            }
+        }
+
+        private void Drafts_Tapped(object sender, TappedRoutedEventArgs e) {
+            if (UserData.CurrentBlog != null) {
+                if (!Frame.Navigate(typeof(Pages.PostsPage), "http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts/draft")) {
+                    Debug.WriteLine("Failed to Navigate");
+                }
+            }
+        }
+
+        private void Queue_Tapped(object sender, TappedRoutedEventArgs e) {
+            if (UserData.CurrentBlog != null) {
+                if (!Frame.Navigate(typeof(Pages.PostsPage), "http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts/queue")) {
+                    Debug.WriteLine("Failed to Navigate");
+                }
+            }
         }
     }
 }

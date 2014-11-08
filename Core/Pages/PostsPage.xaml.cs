@@ -78,6 +78,12 @@ namespace Core.Pages {
                 tag = Uri.UnescapeDataString(y[0].Substring(4));
                 PageTitle.Text = "Search: " + tag;
                 Mode.Visibility = Visibility.Visible;
+            } else if (PostList.URL.Contains("/submission")) {
+                PageTitle.Text = "Inbox";
+            } else if (PostList.URL.Contains("/draft")) {
+                PageTitle.Text = "Drafts";
+            } else if (PostList.URL.Contains("/queue")) {
+                PageTitle.Text = "Queue";
             }
 
             MainPage.ErrorFlyout = _ErrorFlyout;
@@ -119,9 +125,9 @@ namespace Core.Pages {
 
         #endregion
 
-        private async void PostList_Loaded(object sender, RoutedEventArgs e) {
+        private void PostList_Loaded(object sender, RoutedEventArgs e) {
             if (!loaded) {
-                await PostList.LoadPosts(true);
+                PostList.LoadPosts(true);
                 loaded = true;
             }
         }

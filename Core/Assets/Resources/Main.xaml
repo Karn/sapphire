@@ -4,7 +4,7 @@
     xmlns:local="using:Core.Assets.Resources"
     xmlns:converter="using:Core.Utils.Converters"
     xmlns:util="using:Core.Utils"
-    >
+    xmlns:control="using:Core.Utils.Converters">
 
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Default">
@@ -24,6 +24,11 @@
             <BitmapImage x:Key="DeleteButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Delete.png"/>
             <BitmapImage x:Key="BlogButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Blog.png"/>
             <BitmapImage x:Key="MoreButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/More.png"/>
+
+
+            <BitmapImage x:Key="InboxButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Inbox.png"/>
+            <BitmapImage x:Key="DraftsButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Drafts.png"/>
+            <BitmapImage x:Key="QueueButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Queue.png"/>
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="Dark">
@@ -42,6 +47,10 @@
             <BitmapImage x:Key="DeleteButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/Delete.png"/>
             <BitmapImage x:Key="BlogButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/Blog.png"/>
             <BitmapImage x:Key="MoreButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/More.png"/>
+
+            <BitmapImage x:Key="InboxButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/Inbox.png"/>
+            <BitmapImage x:Key="DraftsButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/Drafts.png"/>
+            <BitmapImage x:Key="QueueButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/Queue.png"/>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
@@ -67,6 +76,9 @@
 
     <!--Fonts-->
     <!--    Light Theme    -->
+
+    <!-- Default style for Windows.UI.Xaml.Controls.CommandBar -->
+    
     <Style x:Name="HeaderTextStyle" TargetType="TextBlock">
         <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}"/>
         <Setter Property="MinHeight" Value="{ThemeResource TextControlThemeMinHeight}"/>
