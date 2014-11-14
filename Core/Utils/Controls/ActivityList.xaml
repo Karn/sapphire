@@ -15,66 +15,113 @@
     <UserControl.Resources>
 
         <DataTemplate x:Key="reblog">
-            <Border Width="390" BorderBrush="#7F283440" Background="{Binding followed, Converter={StaticResource FollowingToBG}}" BorderThickness="0,0,0,0">
-                <StackPanel Width="390" HorizontalAlignment="Stretch" Orientation="Horizontal">
-                    <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar}"/>
-                    <Image Width="18" Height="18" Margin="-20 ,35, 0, 0" Source="ms-appx:///Assets/AReblog.png" />
-                    <StackPanel Orientation="Horizontal" Margin="10" Width="245">
-                        <TextBlock MaxWidth="240" FontSize="15" TextWrapping="Wrap" Foreground="{ThemeResource DarkText}" TextTrimming="CharacterEllipsis">
+            <Border BorderBrush="#7F283440" Background="{Binding followed, Converter={StaticResource FollowingToBG}}" BorderThickness="0,0,0,0">
+                <Border.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition/>
+                    </TransitionCollection>
+                </Border.Transitions>
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar}"/>
+                        <Image HorizontalAlignment="Right" Width="18" Height="18" Margin="0 ,35, 0, 0" Source="ms-appx:///Assets/AReblog.png" />
+                    </Grid>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10">
+                        <TextBlock FontSize="15" HorizontalAlignment="Left" TextWrapping="NoWrap" Foreground="{ThemeResource DarkText}" TextTrimming="CharacterEllipsis">
                             <Run Text="{Binding from_tumblelog_name}"/>
                             <Run Text="reblogged your post." FontWeight="Light"/>
                         </TextBlock>
                     </StackPanel>
-                    <Image Tapped="GoToPost" Tag="{Binding target_post_id}" HorizontalAlignment="Right" Width="45" Height="45" Margin="5" Source="{Binding Path=media_url}" Stretch="UniformToFill"/>
-                </StackPanel>
+                    <Image Grid.Column="2" Tapped="GoToPost" Tag="{Binding target_post_id}" HorizontalAlignment="Right" Width="45" Height="45" Margin="10, 5" Source="{Binding Path=media_url}" Stretch="UniformToFill"/>
+                </Grid>
             </Border>
         </DataTemplate>
         <DataTemplate x:Key="like">
-            <Border Width="390" BorderBrush="#7F283440" Background="{Binding followed, Converter={StaticResource FollowingToBG}}" BorderThickness="0,0,0,0">
-                <StackPanel Width="390" HorizontalAlignment="Stretch" Orientation="Horizontal">
-                    <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar}"/>
-                    <Image Width="18" Height="18" Margin="-20 ,35, 0, 0" Source="ms-appx:///Assets/ALiked.png" />
-                    <StackPanel Orientation="Horizontal" Margin="10" Width="245">
-                        <TextBlock MaxWidth="240" FontSize="15" TextWrapping="Wrap" Foreground="{ThemeResource DarkText}" TextTrimming="CharacterEllipsis">
+            <Border BorderBrush="#7F283440" Background="{Binding followed, Converter={StaticResource FollowingToBG}}" BorderThickness="0,0,0,0">
+                <Border.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition/>
+                    </TransitionCollection>
+                </Border.Transitions>
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar}"/>
+                        <Image HorizontalAlignment="Right" Width="18" Height="18" Margin="0 ,35, 0, 0" Source="ms-appx:///Assets/ALiked.png" />
+                    </Grid>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10">
+                        <TextBlock FontSize="15" HorizontalAlignment="Left" TextWrapping="NoWrap" Foreground="{ThemeResource DarkText}" TextTrimming="CharacterEllipsis">
                             <Run Text="{Binding from_tumblelog_name}"/>
                             <Run Text="liked your post." FontWeight="Light"/>
                         </TextBlock>
                     </StackPanel>
-                    <Image Tapped="GoToPost" Tag="{Binding target_post_id}" HorizontalAlignment="Right" Width="45" Height="45" Margin="5" Source="{Binding Path=media_url}" Stretch="UniformToFill"/>
-                </StackPanel>
+                    <Image Grid.Column="2" Tapped="GoToPost" Tag="{Binding target_post_id}" HorizontalAlignment="Right" Width="45" Height="45" Margin="10, 5" Source="{Binding Path=media_url}" Stretch="UniformToFill"/>
+                </Grid>
             </Border>
         </DataTemplate>
         <DataTemplate x:Key="follow">
-            <Border Width="390" BorderBrush="#7F283440" Background="{Binding followed, Converter={StaticResource FollowingToBG}}" BorderThickness="0,0,0,0">
-                <StackPanel Width="390" HorizontalAlignment="Stretch" Orientation="Horizontal">
-                    <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar}"/>
-                    <Image Width="18" Height="18" Margin="-20 ,35, 0, 0" Source="ms-appx:///Assets/AFollowing.png" />
-                    <StackPanel Orientation="Horizontal" Margin="10" Width="245">
-                        <TextBlock MaxWidth="240" FontSize="15" TextWrapping="Wrap" Foreground="{ThemeResource DarkText}" TextTrimming="CharacterEllipsis">
+            <Border BorderBrush="#7F283440" Background="{Binding followed, Converter={StaticResource FollowingToBG}}" BorderThickness="0,0,0,0">
+                <Border.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition/>
+                    </TransitionCollection>
+                </Border.Transitions>
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar}"/>
+                        <Image HorizontalAlignment="Right" Width="18" Height="18" Margin="0 ,35, 0, 0" Source="ms-appx:///Assets/AFollowing.png" />
+                    </Grid>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10" Width="245">
+                        <TextBlock HorizontalAlignment="Left" FontSize="15" TextWrapping="NoWrap" Foreground="{ThemeResource DarkText}" TextTrimming="CharacterEllipsis">
                             <Run Text="{Binding from_tumblelog_name}"/>
                             <Run Text="started following you." FontWeight="Light"/>
                         </TextBlock>
-                    </StackPanel>
-                    <Grid HorizontalAlignment="Right" Width="45" Height="45" Margin="5" Background="{ThemeResource HeaderLightBlue}" Tag="{Binding from_tumblelog_name}" Visibility="{Binding followed, Converter={StaticResource FollowingToVisibility}}" Tapped="FollowIcon_Tapped">
+                    </StackPanel >
+                    <Grid Grid.Column="2" HorizontalAlignment="Right" Width="45" Height="45" Margin="10, 5" Background="{ThemeResource HeaderLightBlue}" Tag="{Binding from_tumblelog_name}" Visibility="{Binding followed, Converter={StaticResource FollowingToVisibility}}" Tapped="FollowIcon_Tapped">
                         <Image x:Name="CreatePostIcon" Source="ms-appx:///Assets/New.png" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
-                    <!--<Image  Source="ms-appx:///Assets/AFollowing2.png" Stretch="UniformToFill" Tag="{Binding from_tumblelog_name}" Visibility="{Binding followed, Converter={StaticResource FollowingToVisibility}}" Tapped="FollowIcon_Tapped"/>-->
-                </StackPanel>
+                </Grid>
             </Border>
         </DataTemplate>
         <DataTemplate x:Key="user_mention">
-            <Border Width="390" BorderBrush="#7F283440" Background="{Binding followed, Converter={StaticResource FollowingToBG}}" BorderThickness="0,0,0,0">
-                <StackPanel Width="390" HorizontalAlignment="Stretch" Orientation="Horizontal">
-                    <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar}"/>
-                    <Image Width="18" Height="18" Margin="-20 ,35, 0, 0" Source="ms-appx:///Assets/AMention.png" />
-                    <StackPanel Orientation="Horizontal" Margin="10" Width="245">
-                        <TextBlock MaxWidth="240" FontSize="15" TextWrapping="Wrap" Foreground="{ThemeResource DarkText}" TextTrimming="CharacterEllipsis">
+            <Border BorderBrush="#7F283440" Background="{Binding followed, Converter={StaticResource FollowingToBG}}" BorderThickness="0,0,0,0">
+                <Border.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition/>
+                    </TransitionCollection>
+                </Border.Transitions>
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar}"/>
+                        <Image HorizontalAlignment="Right" Width="18" Height="18" Margin="0 ,35, 0, 0" Source="ms-appx:///Assets/AMention.png" />
+                    </Grid>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10" Width="245">
+                        <TextBlock FontSize="15" HorizontalAlignment="Left" TextWrapping="NoWrap" Foreground="{ThemeResource DarkText}" TextTrimming="CharacterEllipsis">
                             <Run Text="{Binding from_tumblelog_name}"/>
                             <Run Text="mentioned you in a post." FontWeight="Light"/>
                         </TextBlock>
                     </StackPanel>
-                    <Image HorizontalAlignment="Right" Width="45" Height="45" Margin="5" Source="ms-appx:///Assets/AFollowing2.png"  Stretch="UniformToFill"/>
-                </StackPanel>
+                    <Image Grid.Column="2" HorizontalAlignment="Right" Width="45" Height="45" Margin="10, 5" Source="ms-appx:///Assets/AFollowing2.png"  Stretch="UniformToFill"/>
+                </Grid>
             </Border>
         </DataTemplate>
 
@@ -91,12 +138,8 @@
         <CollectionViewSource x:Name="csvNotifications" IsSourceGrouped="True"/>
     </UserControl.Resources>
 
-    <ListView x:Name="Notifications" Margin="2, 2" ItemsSource="{Binding Source={StaticResource csvNotifications}}" ItemTemplateSelector="{StaticResource ActivityListTemplate}" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" Loaded="Notifications_Loaded" Background="#00000000">
-        <ListView.ItemContainerTransitions>
-            <TransitionCollection>
-                <EntranceThemeTransition/>
-            </TransitionCollection>
-        </ListView.ItemContainerTransitions>
+    <ListView x:Name="Notifications" Margin="0, 2" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Source={StaticResource csvNotifications}}" ItemTemplateSelector="{StaticResource ActivityListTemplate}" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" Loaded="Notifications_Loaded" Background="#00000000">
+
         <ListView.ItemContainerStyle>
             <StaticResource ResourceKey="ListViewItemContainerStyle"/>
         </ListView.ItemContainerStyle>
@@ -104,10 +147,10 @@
             <GroupStyle HidesIfEmpty="True">
                 <GroupStyle.HeaderTemplate>
                     <DataTemplate>
-                        <Border Width="385" Height="35" Padding="0" Background="{ThemeResource Accent2}" BorderBrush="#33000000" BorderThickness="0, 0, 0, 0">
-                            <Grid Margin="0, 8, 0, 0" VerticalAlignment="Center">
-                                <TextBlock HorizontalAlignment="Left" FontSize="16" Margin="10, 2" Text="{Binding Key, Converter={StaticResource RelativeDate}}" Foreground="{ThemeResource DarkText}" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
-                                <TextBlock HorizontalAlignment="Right" FontSize="16" Margin="10, 2" Text="{Binding Key, Converter={StaticResource ToPrettyDate}}" Foreground="{ThemeResource DarkText}" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
+                        <Border Height="35" Padding="0, 8, 0, 0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="{ThemeResource Accent2}" Loaded="Border_Loaded">
+                            <Grid HorizontalAlignment="Stretch">
+                                <TextBlock Grid.Row="0" HorizontalAlignment="Left" FontSize="16" Margin="10, 2" Text="{Binding Key, Converter={StaticResource RelativeDate}}" Foreground="{ThemeResource DarkText}" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
+                                <TextBlock Grid.Column="2" HorizontalAlignment="Right" FontSize="16" Margin="10, 2" Text="{Binding Key, Converter={StaticResource ToPrettyDate}}" Foreground="{ThemeResource DarkText}" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
                             </Grid>
                         </Border>
                     </DataTemplate>

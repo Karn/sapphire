@@ -269,6 +269,35 @@
     <SolidColorBrush x:Key="Blue" Color="#FF1C262F"/>
     <SolidColorBrush x:Key="LightGray" Color="#FFE5EAF0"/>
 
+    <Style x:Key="GroupItemStyle2" TargetType="GroupItem">
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GroupItem">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <ContentControl HorizontalContentAlignment="Stretch" x:Name="HeaderContent" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" Content="{TemplateBinding Content}" IsTabStop="False" Margin="{TemplateBinding Padding}" TabIndex="0"/>
+                            <ItemsControl x:Name="ItemsControl" IsTabStop="False" ItemsSource="{Binding GroupItems}" Grid.Row="1" TabIndex="1" TabNavigation="Once">
+                                <ItemsControl.ItemContainerTransitions>
+                                    <TransitionCollection>
+                                        <AddDeleteThemeTransition/>
+                                        <ContentThemeTransition/>
+                                        <ReorderThemeTransition/>
+                                        <EntranceThemeTransition IsStaggeringEnabled="False"/>
+                                    </TransitionCollection>
+                                </ItemsControl.ItemContainerTransitions>
+                            </ItemsControl>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--Styles-->
     <Style x:Name="SearchBoxStyle" TargetType="TextBox">
         <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}"/>

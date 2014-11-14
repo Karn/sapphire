@@ -342,7 +342,7 @@ namespace Core {
             if (UserData.CurrentBlog != null) {
                 switch (((StackPanel)sender).Tag.ToString()) {
                     case "Posts":
-                        if (!Frame.Navigate(typeof(Pages.PostsPage), "http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts")) {
+                        if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts")) {
                             Debug.WriteLine("Failed to Navigate");
                         }
                         break;
@@ -443,7 +443,7 @@ namespace Core {
 
         private void Inbox_Tapped(object sender, TappedRoutedEventArgs e) {
             if (UserData.CurrentBlog != null) {
-                if (!Frame.Navigate(typeof(Pages.PostsPage), "http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts/submission")) {
+                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts/submission")) {
                     Debug.WriteLine("Failed to Navigate");
                 }
             }
@@ -451,7 +451,7 @@ namespace Core {
 
         private void Drafts_Tapped(object sender, TappedRoutedEventArgs e) {
             if (UserData.CurrentBlog != null) {
-                if (!Frame.Navigate(typeof(Pages.PostsPage), "http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts/draft")) {
+                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts/draft")) {
                     Debug.WriteLine("Failed to Navigate");
                 }
             }
@@ -459,10 +459,16 @@ namespace Core {
 
         private void Queue_Tapped(object sender, TappedRoutedEventArgs e) {
             if (UserData.CurrentBlog != null) {
-                if (!Frame.Navigate(typeof(Pages.PostsPage), "http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts/queue")) {
+                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts/queue")) {
                     Debug.WriteLine("Failed to Navigate");
                 }
             }
+        }
+
+        private void Border_Loaded(object sender, RoutedEventArgs e) {
+            var dim = (Window.Current.Bounds.Width - 30) / 3;
+            ((Border)sender).Width = dim;
+            ((Border)sender).Height = dim;
         }
     }
 }

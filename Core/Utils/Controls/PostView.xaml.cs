@@ -31,8 +31,6 @@ namespace Core.Utils.Controls {
 
         private ScrollViewer sv;
 
-        private ObservableCollection<API.Content.Post> PostItems = new ObservableCollection<API.Content.Post>();
-
         private bool AlreadyHasContent;
 
         public static ImageBrush RebloggedBrush = new ImageBrush { ImageSource = App.Current.Resources["RebloggedAsset"] as BitmapImage };
@@ -86,10 +84,12 @@ namespace Core.Utils.Controls {
             if (EnforceContentLoad || !AlreadyHasContent) {
                 if (!PostsLoading) {
                     PostsLoading = true;
+                    offset = 0;
                     Posts.ItemsSource = new IncrementalPostLoader(URL, offset);
 
                     if (!AlreadyHasContent)
                         AlreadyHasContent = true;
+                    PostsLoading = false;
                 }
             }
         }
@@ -98,18 +98,14 @@ namespace Core.Utils.Controls {
             IsSinglePost = true;
             MainPage.sb.ProgressIndicator.Text = "Loading posts...";
             await MainPage.sb.ProgressIndicator.ShowAsync();
-            foreach (var x in await RequestHandler.RetrievePost(post_id)) {
-                Debug.WriteLine("Adding");
-                PostItems.Add(x);
-            }
-            Posts.ItemsSource = PostItems;
+            Posts.ItemsSource = await RequestHandler.RetrievePost(post_id);
             await MainPage.sb.ProgressIndicator.HideAsync();
         }
 
         public void ScrollToTop() {
             Debug.WriteLine("Scrolling to top.");
             //sv.ChangeView(null, 60.0, null);
-            Posts.ScrollIntoView(PostItems.First());
+            Posts.ScrollIntoView(Posts.Items.First());
         }
 
         private void GoToBlog(object sender, TappedRoutedEventArgs e) {
@@ -172,9 +168,11 @@ namespace Core.Utils.Controls {
         private async void DeleteButton_Click(object sender, RoutedEventArgs e) {
             var post = ((API.Content.Post)((Button)sender).Tag);
 
-            if (await RequestHandler.DeletePost(post.id))
-                PostItems.Remove(post);
-            else
+            if (await RequestHandler.DeletePost(post.id)) {
+                var items = Posts.ItemsSource as ObservableCollection<Post>;
+                items.Remove(post);
+                //Posts.ItemsSource = items;
+            } else
                 MainPage.ErrorFlyout.DisplayMessage("Failed to delete post.");
         }
 
@@ -265,7 +263,9 @@ namespace Core.Utils.Controls {
 
         public void RefeshPosts() {
             LastPostID = "";
-            PostItems.Clear();
+            FirstPostID = "";
+            var x = Posts.ItemsSource as ObservableCollection<Post>;
+            x.Clear();
             LoadPosts();
         }
 
@@ -301,7 +301,9 @@ namespace Core.Utils.Controls {
                         if (sv.VerticalOffset == 0.0 && _isPullRefresh) {
                             Debug.WriteLine("Refreshing feed.");
                             LastPostID = "";
-                            PostItems.Clear();
+                            FirstPostID = "";
+                            var x = Posts.ItemsSource as ObservableCollection<Post>;
+                            x.Clear();
                             LoadPosts(true);
                         }
 
@@ -430,7 +432,7 @@ namespace Core.Utils.Controls {
             }
 
         }
-        
+
         private void StopButton_Click(object sender, RoutedEventArgs e) {
             var audioPlayer = ((MediaElement)(((StackPanel)(((AppBarButton)sender).Parent)).FindName("AudioPlayer")));
             if (audioPlayer.Tag.ToString() == "Playing" || audioPlayer.Tag.ToString() == "Paused") {

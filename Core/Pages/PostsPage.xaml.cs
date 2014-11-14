@@ -76,7 +76,7 @@ namespace Core.Pages {
                 var x = PostList.URL.Split('?');
                 var y = x[1].Split('&');
                 tag = Uri.UnescapeDataString(y[0].Substring(4));
-                PageTitle.Text = "Search: " + tag;
+                PageTitle.Text = "Search: " + tag.Replace('+', ' ');
                 Mode.Visibility = Visibility.Visible;
             } else if (PostList.URL.Contains("/submission")) {
                 PageTitle.Text = "Inbox";

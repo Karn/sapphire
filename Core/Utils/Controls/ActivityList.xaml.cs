@@ -75,5 +75,9 @@ namespace Core.Utils.Controls {
                 x.Visibility = Visibility.Collapsed;
             }
         }
+
+        private void Border_Loaded(object sender, RoutedEventArgs e) {
+            ((Border)sender).Width = Window.Current.Bounds.Width;
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace API.Content {
     public class Responses {
@@ -49,7 +50,7 @@ namespace API.Content {
             public List<string> images { get; set; }
             public string promo_image {
                 get {
-                    return images.First();
+                    return images.ElementAt(new Random().Next(0, images.Count));
                 }
             }
         }

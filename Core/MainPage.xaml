@@ -101,18 +101,20 @@
                 </PivotItem>
 
                 <PivotItem x:Name="ActivityPivot" Margin="0">
-                    <Control:ActivityList x:Name="ActivityPosts" Margin="0, 0, 0, 54"/>
+                    <Control:ActivityList x:Name="ActivityPosts" HorizontalAlignment="Stretch" Margin="0, 0, 0, 54"/>
                 </PivotItem>
 
                 <PivotItem x:Name="AccountPivot" Margin="0" DataContext="{Binding}">
                     <StackPanel x:Name="AccountPivotContent" VerticalAlignment="Top">
-                        <Grid Background="{ThemeResource HeaderLightBlue}">
+                        <Grid>
+                            <Grid.Background>
+                                <ImageBrush ImageSource="{Binding Path=theme.header_image_focused, FallbackValue={ThemeResource DefaultPattern}}" Stretch="UniformToFill"/>
+                            </Grid.Background>
                             <Grid.ChildrenTransitions>
                                 <TransitionCollection>
                                     <EntranceThemeTransition/>
                                 </TransitionCollection>
                             </Grid.ChildrenTransitions>
-                            <Image Source="{Binding Path=theme.header_image_focused}" Stretch="UniformToFill" VerticalAlignment="Center"/>
                             <StackPanel>
                                 <Ellipse Height="80" Width="80" VerticalAlignment="Top" Margin="0, 20, 0, 0">
                                     <Ellipse.Fill>
@@ -172,18 +174,7 @@
                             </StackPanel>
                         </Grid>
 
-                        <!--<StackPanel Orientation="Horizontal" Background="#0C000000" Height="50" Margin="4, 2" Tag="Messages" Tapped="AccountNavPanel_Tapped">
-                            <Image Source="Assets/Messages.png" Width="35" Height="35" Margin="10, 0, 25, 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <TextBlock Text="messages" FontFamily="Segoe WP" FontWeight="Thin" Foreground="#FF2D3F53" FontSize="24" VerticalAlignment="Center"/>
-                        </StackPanel>-->
-                        <!--<StackPanel Orientation="Horizontal" Height="58" Background="#19283440" Margin="4, 2" Tag="Queue" Tapped="AccountNavPanel_Tapped">
-                            <Image Source="Assets/Queue.png" Width="35" Height="35" Margin="10, 0, 25, 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <TextBlock Text="queue" FontFamily="Segoe WP" FontWeight="Thin" Foreground="#FF2D3F53" FontSize="24" VerticalAlignment="Center"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Height="58" Background="#19283440" Margin="4, 2" Tag="Drafts" Tapped="AccountNavPanel_Tapped">
-                            <Image Source="Assets/Draft.png" Width="35" Height="35" Margin="10, 0, 25, 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <TextBlock Text="drafts" FontFamily="Segoe WP" FontWeight="Thin" Foreground="#FF2D3F53" FontSize="24" VerticalAlignment="Center"/>
-                        </StackPanel>-->
+
                     </StackPanel>
                 </PivotItem>
                 <PivotItem x:Name="SearchPivot" Margin="0">
@@ -204,12 +195,7 @@
                             </GridView.ItemContainerTransitions>
                             <GridView.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Tapped="SpotlightTagItem_Tapped" Tag="{Binding tag}" Margin="0, 0, 2, 2" Width="118" Height="118" BorderBrush="#0C000000" BorderThickness="1">
-                                        <Border.Transitions>
-                                            <TransitionCollection>
-                                                <EntranceThemeTransition/>
-                                            </TransitionCollection>
-                                        </Border.Transitions>
+                                    <Border Tapped="SpotlightTagItem_Tapped" Tag="{Binding tag}" Margin="0, 0, 2, 2" BorderBrush="#0C000000" BorderThickness="1" Loaded="Border_Loaded">
                                         <Grid>
                                             <Image Stretch="UniformToFill" Source="{Binding promo_image}"/>
                                             <StackPanel VerticalAlignment="Top" Background="#33000000" Height="35">

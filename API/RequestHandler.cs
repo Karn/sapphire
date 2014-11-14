@@ -268,14 +268,18 @@ namespace API {
                     result = await response.Content.ReadAsStringAsync();
                     Debug.WriteLine(result);
                 } else {
-                    string URI = string.Empty;
                     if (string.IsNullOrEmpty(lastPostID))
-                        URI = url + "?api_key=" + Config.ConsumerKey;
+                        result = await RequestBuilder.GetAPI(url, "api_key=" + Config.ConsumerKey);
                     else
-                        URI = url + "?offset=" + lastPostID + "&api_key=" + Config.ConsumerKey;
-                    Debug.WriteLine(URI);
-                    var response = await WebClient.GetAsync(new Uri(URI));
-                    result = await response.Content.ReadAsStringAsync();
+                        result = await RequestBuilder.GetAPI(url, "offset=" + lastPostID + "&api_key=" + Config.ConsumerKey);
+                    //string URI = string.Empty;
+                    //if (string.IsNullOrEmpty(lastPostID))
+                    //    URI = url + "?api_key=" + Config.ConsumerKey;
+                    //else
+                    //    URI = url + "?offset=" + lastPostID + "&api_key=" + Config.ConsumerKey;
+                    //Debug.WriteLine(URI);
+                    //var response = await WebClient.GetAsync(new Uri(URI));
+                    //result = await response.Content.ReadAsStringAsync();
                 }
 
                 if (!string.IsNullOrEmpty(result) && result.Contains("200")) {
