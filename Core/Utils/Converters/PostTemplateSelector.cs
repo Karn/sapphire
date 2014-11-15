@@ -19,38 +19,41 @@ namespace Core.Utils.Converters {
         public DataTemplate AudioTemplate { get; set; }
         public DataTemplate VideoTemplate { get; set; }
         public DataTemplate AnswerTemplate { get; set; }
+        public DataTemplate MailTemplate { get; set; }
         public DataTemplate AdvertTemplate { get; set; }
         public DataTemplate NoContentTemplate { get; set; }
 
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container) {
             //return base.SelectTemplateCore(item, container);
-                var listItem = item as API.Content.Post;
-                if (listItem != null) {
-                    if (listItem.type == "text")
-                        return TextTemplate;
-                    else if (listItem.type == "photo")
-                        return PhotoTemplate;
-                    else if (listItem.type == "gif")
-                        return GifTemplate;
-                    else if (listItem.type == "photoset")
-                        return PhotoSetTemplate;
-                    else if (listItem.type == "quote")
-                        return QuoteTemplate;
-                    else if (listItem.type == "link")
-                        return LinkTemplate;
-                    else if (listItem.type == "chat")
-                        return ChatTemplate;
-                    else if (listItem.type == "audio")
-                        return AudioTemplate;
-                    else if (listItem.type == "video")
-                        return VideoTemplate;
-                    else if (listItem.type == "answer")
-                        return AnswerTemplate;
-                    else if (listItem.type == "advert")
-                        return AdvertTemplate;
-                    else if (listItem.type == "nocontent")
-                        return NoContentTemplate;
-                }
+            var listItem = item as API.Content.Post;
+            if (listItem != null) {
+                if (listItem.type == "text")
+                    return TextTemplate;
+                else if (listItem.type == "photo")
+                    return PhotoTemplate;
+                else if (listItem.type == "gif")
+                    return GifTemplate;
+                else if (listItem.type == "photoset")
+                    return PhotoSetTemplate;
+                else if (listItem.type == "quote")
+                    return QuoteTemplate;
+                else if (listItem.type == "link")
+                    return LinkTemplate;
+                else if (listItem.type == "chat")
+                    return ChatTemplate;
+                else if (listItem.type == "audio")
+                    return AudioTemplate;
+                else if (listItem.type == "video")
+                    return VideoTemplate;
+                else if (listItem.type == "answer")
+                    return AnswerTemplate;
+                else if (listItem.type == "advert")
+                    return AdvertTemplate;
+                else if (listItem.type == "mail")
+                    return MailTemplate;
+                else if (listItem.type == "nocontent")
+                    return NoContentTemplate;
+            }
 
             return base.SelectTemplateCore(item, container);
         }

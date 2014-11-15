@@ -81,6 +81,11 @@ namespace API.Content {
             }
         }
         public string asking_name { get; set; }
+        public string asking_avatar {
+            get {
+                return "http://api.tumblr.com/v2/blog/" + asking_name + ".tumblr.com/avatar/96";
+            }
+        }
         public object asking_url { get; set; }
         public string question { get; set; }
         public string answer { get; set; }

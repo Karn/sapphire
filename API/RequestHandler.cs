@@ -295,6 +295,13 @@ namespace API {
                         } else {
                             var posts = JsonConvert.DeserializeObject<Content.Responses.GetPosts>(result);
                             PostList = posts.response.posts;
+                            if (url.Contains("/submission")) {
+                                foreach (var post in posts.response.posts) {
+                                    if (post.type == "answer")
+                                        post.body = post.question;
+                                    post.type = "mail";
+                                }
+                            }
                         }
 
                         foreach (var p in PostList) {

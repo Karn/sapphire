@@ -240,6 +240,7 @@
     <Content Include="Assets\Resources\Dark\Queue.png" />
     <Content Include="Assets\Resources\Dark\Reblog.png" />
     <Content Include="Assets\Resources\Dark\Reblogged.png" />
+    <Content Include="Assets\Resources\Dark\Reply.png" />
     <Content Include="Assets\Resources\Light\Blog.png" />
     <Content Include="Assets\Resources\Light\Delete.png" />
     <Content Include="Assets\Resources\Light\Drafts.png" />
@@ -250,6 +251,7 @@
     <Content Include="Assets\Resources\Light\Queue.png" />
     <Content Include="Assets\Resources\Light\Reblog.png" />
     <Content Include="Assets\Resources\Light\Reblogged.png" />
+    <Content Include="Assets\Resources\Light\Reply.png" />
     <Content Include="Assets\Share.png" />
     <Content Include="Assets\SmallLogo.scale-240.png" />
     <Content Include="Assets\SplashScreen.scale-240.png" />

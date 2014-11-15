@@ -19,6 +19,7 @@
             <SolidColorBrush x:Key="Accent2" Color="#FFf0f3f6"/>
             <BitmapImage x:Key="ReblogAsset" UriSource="ms-appx:///Assets/Resources/Light/Reblog.png"/>
             <BitmapImage x:Key="RebloggedAsset" UriSource="ms-appx:///Assets/Resources/Light/Reblogged.png"/>
+            <BitmapImage x:Key="ReplyAsset" UriSource="ms-appx:///Assets/Resources/Light/Reply.png"/>
             <BitmapImage x:Key="LikeAsset" UriSource="ms-appx:///Assets/Resources/Light/Likes.png"/>
             <BitmapImage x:Key="LikedAsset" UriSource="ms-appx:///Assets/Resources/Light/Liked.png"/>
             <BitmapImage x:Key="DeleteButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Delete.png"/>
@@ -42,6 +43,7 @@
             <SolidColorBrush x:Key="Accent2" Color="#FF29313b"/>
             <BitmapImage x:Key="ReblogAsset" UriSource="ms-appx:///Assets/Resources/Dark/Reblog.png"/>
             <BitmapImage x:Key="RebloggedAsset" UriSource="ms-appx:///Assets/Resources/Dark/Reblogged.png"/>
+            <BitmapImage x:Key="ReplyAsset" UriSource="ms-appx:///Assets/Resources/Dark/Reply.png"/>
             <BitmapImage x:Key="LikeAsset" UriSource="ms-appx:///Assets/Resources/Dark/Likes.png"/>
             <BitmapImage x:Key="LikedAsset" UriSource="ms-appx:///Assets/Resources/Dark/Liked.png"/>
             <BitmapImage x:Key="DeleteButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/Delete.png"/>
