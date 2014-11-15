@@ -57,8 +57,9 @@ namespace Core.Pages {
 
             if (Config.SelectedTheme == "Dark")
                 ThemeSwitch.IsOn = true;
-            EnableNotifications.IsOn = UserData.AreNotificationsEnabled;
-            EnableOneClickReblog.IsOn = UserData.IsOneClickReblog;
+            EnableNotifications.IsOn = UserData.RecieveNotifications;
+            EnableOneClickReblog.IsOn = UserData.OneClickReblog;
+            DisableTagsInPosts.IsOn = UserData.TagsInPosts;
 
             MainPage.ErrorFlyout = _ErrorFlyout;
         }
@@ -148,9 +149,9 @@ namespace Core.Pages {
 
         private void EnableNotifications_Toggled(object sender, RoutedEventArgs e) {
             if (((ToggleSwitch)sender).IsOn) {
-                UserData.AreNotificationsEnabled = true;
+                UserData.RecieveNotifications = true;
             } else {
-                UserData.AreNotificationsEnabled = false;
+                UserData.RecieveNotifications = false;
             }
         }
 
@@ -170,11 +171,18 @@ namespace Core.Pages {
 
         private void EnableOneClickReblog_Toggled(object sender, RoutedEventArgs e) {
             if (((ToggleSwitch)sender).IsOn) {
-                UserData.IsOneClickReblog = true;
+                UserData.OneClickReblog = true;
             } else {
-                UserData.IsOneClickReblog = false;
+                UserData.OneClickReblog = false;
             }
         }
 
+        private void DisableTagsInPosts_Toggled(object sender, RoutedEventArgs e) {
+            if (((ToggleSwitch)sender).IsOn) {
+                UserData.TagsInPosts = true;
+            } else {
+                UserData.TagsInPosts = false;
+            }
+        }
     }
 }

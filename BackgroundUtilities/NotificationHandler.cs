@@ -29,7 +29,7 @@ namespace BackgroundUtilities {
             } else {
                 Debug.WriteLine("nodata");
             }
-            if (UserData.AreNotificationsEnabled)
+            if (UserData.RecieveNotifications)
                 await RetrieveNotifications();
 
             _deferral.Complete();

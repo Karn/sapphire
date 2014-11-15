@@ -28,6 +28,7 @@ namespace API.Content {
                                                    "ENABLE_ADS",
                                                    "NotificationIds",
                                                    "OneClickReblog",
+                                                   "TagsInPosts",
                                                    "CachedSpotlight"
                                                };
 
@@ -96,7 +97,7 @@ namespace API.Content {
         }
 
 
-        public static bool AreNotificationsEnabled {
+        public static bool RecieveNotifications {
             get {
                 if (!string.IsNullOrEmpty(UserDataStore.Values["NOTIFICATIONS_ENABLED"].ToString()))
                     return UserDataStore.Values["NOTIFICATIONS_ENABLED"].ToString().Contains("T") ? true : false;
@@ -186,7 +187,7 @@ namespace API.Content {
             }
         }
 
-        public static bool IsOneClickReblog {
+        public static bool OneClickReblog {
             get {
                 if (!string.IsNullOrEmpty(UserDataStore.Values["OneClickReblog"].ToString()))
                     return UserDataStore.Values["OneClickReblog"].ToString().Contains("T") ? true : false;
@@ -194,6 +195,16 @@ namespace API.Content {
             }
             set {
                 UserDataStore.Values["OneClickReblog"] = value ? "True" : "False";
+            }
+        }
+        public static bool TagsInPosts {
+            get {
+                if (!string.IsNullOrEmpty(UserDataStore.Values["TagsInPosts"].ToString()))
+                    return UserDataStore.Values["TagsInPosts"].ToString().Contains("T") ? true : false;
+                return true;
+            }
+            set {
+                UserDataStore.Values["TagsInPosts"] = value ? "True" : "False";
             }
         }
 

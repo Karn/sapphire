@@ -49,31 +49,36 @@
                     <TextBlock Text="options" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe WP" CharacterSpacing="-25" Foreground="{ThemeResource HeaderLightBlue}"/>
                 </PivotItem.Header>
 
-                <StackPanel HorizontalAlignment="Stretch" Margin="0">
-                    <TextBlock Margin="7, 0" Text="Dark theme" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                    <ToggleSwitch x:Name="ThemeSwitch" Style="{StaticResource Switch}" Header="Requires a manual restart." OffContent="Disabled" OnContent="Enabled" Toggled="ToggleSwitch_Toggled"/>
+                <ScrollViewer>
+                    <StackPanel HorizontalAlignment="Stretch" Margin="0">
+                        <TextBlock Margin="5, 0" Text="Dark theme" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <ToggleSwitch x:Name="ThemeSwitch" Style="{StaticResource Switch}" Header="Requires a manual restart." OffContent="Disabled" OnContent="Enabled" Toggled="ToggleSwitch_Toggled"/>
 
-                    <TextBlock Margin="7, 0" Text="Notifications" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                    <ToggleSwitch x:Name="EnableNotifications" Style="{StaticResource Switch}" Header="Enable notifications for your account." OffContent="Disabled" OnContent="Enabled" Toggled="EnableNotifications_Toggled"/>
+                        <TextBlock Margin="5, 0" Text="Notifications" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <ToggleSwitch x:Name="EnableNotifications" Style="{StaticResource Switch}" Header="Enable notifications for your account." OffContent="Disabled" OnContent="Enabled" Toggled="EnableNotifications_Toggled"/>
 
-                    <TextBlock Margin="7, 0" Text="Single click reblog" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                    <ToggleSwitch x:Name="EnableOneClickReblog" Style="{StaticResource Switch}" Header="If you'd like to quickly reblog posts select this option." OffContent="Disabled" OnContent="Enabled" Toggled="EnableOneClickReblog_Toggled"/>
+                        <TextBlock Margin="5, 0" Text="Single click reblog" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <ToggleSwitch x:Name="EnableOneClickReblog" Style="{StaticResource Switch}" Header="If you'd like to quickly reblog posts select this option." OffContent="Disabled" OnContent="Enabled" Toggled="EnableOneClickReblog_Toggled"/>
+
+                        <TextBlock Margin="5, 0" Text="Tags in posts" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <ToggleSwitch x:Name="DisableTagsInPosts" Style="{StaticResource Switch}" Header="If tags in posts just aren't your thing." OffContent="Disabled" OnContent="Enabled" Toggled="DisableTagsInPosts_Toggled"/>
 
 
-                    <TextBlock Margin="7, 0" Text="Temporary data" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                    <TextBlock Margin="7, 5, 7, 10" Text="Downloaded gifs are stored in a temporary folder. It is reccommended you clear this ever so often." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Opacity="0.88" Style="{ThemeResource HeaderTextStyle}"/>
-                    <Button x:Name="ClearCacheButton" Content="Clear cache" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="ClearCacheButton_Click"/>
+                        <TextBlock Margin="5, 0" Text="Temporary data" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="7, 5, 7, 10" Text="Downloaded gifs are stored in a temporary folder. It is reccommended you clear this ever so often." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Opacity="0.88" Style="{ThemeResource HeaderTextStyle}"/>
+                        <Button x:Name="ClearCacheButton" Content="Clear cache" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="ClearCacheButton_Click"/>
 
-                    <!--<TextBlock Margin="7, 0" Text="Manage notifications" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <!--<TextBlock Margin="7, 0" Text="Manage notifications" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                     <TextBlock Margin="7, 5, 7, 5" Text="Select what notifications you recieve from your blogs" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
                     <Button x:Name="ManageNotificationsButton" Content="Manage" HorizontalAlignment="Stretch" Margin="10, -5" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="RemoveAds_Click"/>-->
 
-                    <!--<ToggleSwitch x:Name="ThemeSwitch" Style="{StaticResource Switch}" Header="Requires a manual restart." OffContent="Disabled" OnContent="Enabled" Toggled="ToggleSwitch_Toggled"/>-->
+                        <!--<ToggleSwitch x:Name="ThemeSwitch" Style="{StaticResource Switch}" Header="Requires a manual restart." OffContent="Disabled" OnContent="Enabled" Toggled="ToggleSwitch_Toggled"/>-->
 
-                    <!--<TextBlock Margin="7, 0" Text="Refresh button" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <!--<TextBlock Margin="7, 0" Text="Refresh button" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                     <TextBlock Margin="7, 0, 7, 10" Text="If you prefer to use a refresh button rather than the pull to refresh gesture, select the toggle below." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>-->
 
-                </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
             </PivotItem>
             <PivotItem Margin="10, 0">
                 <PivotItem.Header>
@@ -83,7 +88,7 @@
                 <!--<StackPanel VerticalAlignment="Top" HorizontalAlignment="Stretch">-->
                 <ScrollViewer>
                     <StackPanel HorizontalAlignment="Stretch" Margin="0">
-                            <Image Source="ms-appx:///Assets/Logo_Dark.png" Height="150" Margin="10, 0" HorizontalAlignment="Center"/>
+                        <Image Source="ms-appx:///Assets/Logo_Dark.png" Height="150" Margin="10, 0" HorizontalAlignment="Center"/>
                         <!--<TextBlock Width="200" TextAlignment="Center" Text="Thank you for participating in the BETA. Please remember to leave feedback and suggestions." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}"/>-->
                         <!--</StackPanel>-->
 

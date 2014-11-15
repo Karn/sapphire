@@ -11,6 +11,7 @@
     xmlns:pubCenter="using:Microsoft.Advertising.Mobile.UI"
     xmlns:adduplex="using:AdDuplex.Universal.Controls.WinPhone.XAML"
     xmlns:gif="using:XamlAnimatedGif"
+    xmlns:q42controls="using:Q42.WinRT.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="380">
@@ -75,13 +76,29 @@
 
         <DataTemplate x:Key="BottomContainer">
             <StackPanel>
-                <StackPanel Tag="{Binding}" Background="{ThemeResource PostBG}">
+                <StackPanel Tag="{Binding}" Background="{ThemeResource PostBG}" Loaded="BottomContainer_Loader">
                     <TextBlock Visibility="{Binding caption, Converter={StaticResource CaptionConverter}}" Text="{Binding caption, Converter={StaticResource ToPlainText}}" Foreground="{ThemeResource DarkText}" FontSize="16" VerticalAlignment="Top" Margin="5" TextTrimming="CharacterEllipsis" TextWrapping="Wrap"/>
                     <!--<Grid Margin="10" Visibility="{Binding caption, Converter={StaticResource CaptionConverter}}">
                         -->
                     <!--<RichTextBlock tools:Properties.Html="{Binding caption}"/>-->
                     <!--
                     </Grid>-->
+                    <!--<q42controls:WrapPanel Orientation="Horizontal" Tag="{Binding tags}" Loaded="WrapPanel_Loaded">
+                        -->
+                    <!--<HyperlinkButton Content="{Binding caption, Converter={StaticResource ToPlainText}}" Foreground="{ThemeResource DarkText}" FontSize="12" VerticalAlignment="Top" Margin="5"/>-->
+                    <!--
+
+                    </q42controls:WrapPanel>-->
+                    <GridView x:Name="TagPanel" Visibility="Collapsed" ItemsSource="{Binding tags}" >
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel HorizontalAlignment="Stretch" Background="#10000000" Height="16" Margin="0, 0, 2, 2" Loaded="TagPanel_Loaded" Tag="{Binding}" Tapped="Tag_Tapped">
+                                    <TextBlock Text="{Binding}" Foreground="{ThemeResource DarkText}" FontSize="12" VerticalAlignment="Center" Margin="5, 0" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+
                     <Grid Height="40" Background="{ThemeResource Accent2}">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <TextBlock x:Name="NoteInfo" Text="{Binding note_count}" Margin="10, 0, 0, 0" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -240,7 +257,7 @@
                 <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
             </StackPanel>
         </DataTemplate>
-        
+
         <DataTemplate x:Key="Mail">
             <StackPanel Margin="0, 4" Background="{ThemeResource PostBG}">
                 <!--<ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>-->
@@ -251,7 +268,7 @@
                         </Button>
                         <StackPanel Margin="5, 0">
                             <TextBlock Text="{Binding asking_name}" Margin="5, 5, 5, 0" Tapped="GoToBlog" Foreground="{ThemeResource DarkText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
-                            <TextBlock Text="asked:" Margin="5, -16, 5, 0" Foreground="{ThemeResource DarkText}" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis"/>
+                            <TextBlock Text="said:" Margin="5, -16, 5, 0" Foreground="{ThemeResource DarkText}" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -259,19 +276,19 @@
                     <TextBlock Text="{Binding body}" Margin="10, 5, 10, 40" FontSize="22" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="Wrap"/>
                 </StackPanel>
                 <Grid Height="40" Background="{ThemeResource Accent2}">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Tag="{Binding reblog_key}">
-                            <Button x:Name="ReblogButton" Visibility="Collapsed" Tag="{Binding id}" Click="ReblogButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="40" MinHeight="40" MaxWidth="40" MaxHeight="40" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}">
-                                <Button.Background>
-                                    <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource ReplyAsset}"/>
-                                </Button.Background>
-                            </Button>
-                            <Button x:Name="DeleteButton" Tag="{Binding}" Click="DeleteButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}" Margin="-6, 0, 0, 0">
-                                <Button.Background>
-                                    <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource DeleteButtonAsset}"/>
-                                </Button.Background>
-                            </Button>
-                        </StackPanel>
-                    </Grid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Tag="{Binding reblog_key}">
+                        <Button x:Name="ReblogButton" Visibility="Collapsed" Tag="{Binding id}" Click="ReblogButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="40" MinHeight="40" MaxWidth="40" MaxHeight="40" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}">
+                            <Button.Background>
+                                <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource ReplyAsset}"/>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="DeleteButton" Tag="{Binding}" Click="DeleteButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}" Margin="-6, 0, 0, 0">
+                            <Button.Background>
+                                <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource DeleteButtonAsset}"/>
+                            </Button.Background>
+                        </Button>
+                    </StackPanel>
+                </Grid>
                 <!--<ContentPresenter VerticalAlignment="Bottom" ContentTemplate="{StaticResource BottomContainer}"/>-->
             </StackPanel>
         </DataTemplate>

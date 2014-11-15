@@ -92,7 +92,7 @@ namespace Core {
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 
             //if (!string.IsNullOrEmpty(UserData.AreNotificationsEnabled) && UserData.AreNotificationsEnabled == "True")
-            if (UserData.AreNotificationsEnabled)
+            if (UserData.RecieveNotifications)
                 RegisterBackgroundTask();
         }
 

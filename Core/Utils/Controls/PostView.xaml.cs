@@ -141,7 +141,7 @@ namespace Core.Utils.Controls {
         }
 
         private async void ReblogButton_Click(object sender, RoutedEventArgs e) {
-            if (UserData.IsOneClickReblog) {
+            if (UserData.OneClickReblog) {
                 try {
                     var x = ((Button)sender);
                     var notes = ((TextBlock)((Grid)((StackPanel)x.Parent).Parent).FindName("NoteInfo"));
@@ -402,22 +402,6 @@ namespace Core.Utils.Controls {
             ((AdDuplex.Universal.Controls.WinPhone.XAML.AdControl)((Grid)((Microsoft.Advertising.Mobile.UI.AdControl)sender).Parent).FindName("adDuplexAd")).Visibility = Visibility.Visible;
         }
 
-        private async void MediaElement_Loaded(object sender, RoutedEventArgs e) {
-            //if (((StackPanel)(((MediaElement)sender).Parent)).Tag != null) {
-            //    var url = ((StackPanel)(((MediaElement)sender).Parent)).Tag.ToString();
-            //    Debug.WriteLine(url);
-            //    string pathToFile = FileToTempAsync(new Uri(url)).ToString();
-
-            //    HttpClient WebClient = new HttpClient();
-            //    var response = await WebClient.GetAsync(new Uri(url + "?api_key=" + Config.ConsumerKey));
-            //    Debug.WriteLine(await response.Content.ReadAsStringAsync());
-
-            //    Debug.WriteLine(pathToFile);
-            //}
-            //((AppBarButton)(((StackPanel)(((MediaElement)sender).Parent)).FindName("PlayButton"))).IsEnabled = true;
-            //((AppBarButton)(((StackPanel)(((MediaElement)sender).Parent)).FindName("StopButton"))).IsEnabled = true;
-        }
-
         private void PlayButton_Click(object sender, RoutedEventArgs e) {
             var audioPlayer = ((MediaElement)(((StackPanel)(((AppBarButton)sender).Parent)).FindName("AudioPlayer")));
             if (audioPlayer.Tag.ToString() == "Stopped" || audioPlayer.Tag.ToString() == "Paused") {
@@ -438,6 +422,22 @@ namespace Core.Utils.Controls {
             if (audioPlayer.Tag.ToString() == "Playing" || audioPlayer.Tag.ToString() == "Paused") {
                 audioPlayer.Stop();
                 ((AppBarButton)(((StackPanel)(((AppBarButton)sender).Parent)).FindName("PlayButton"))).Icon = new SymbolIcon() { Symbol = Symbol.Play };
+            }
+        }
+        private void TagPanel_Loaded(object sender, RoutedEventArgs e) {
+            ((StackPanel)sender).Width = (Window.Current.Bounds.Width - 12) / 5;
+        }
+
+        private void Tag_Tapped(object sender, TappedRoutedEventArgs e) {
+            var frame = Window.Current.Content as Frame;
+            if (!frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + ((StackPanel)sender).Tag.ToString())) {
+                Debug.WriteLine("Failed to Navigate");
+            }
+        }
+
+        private void BottomContainer_Loader(object sender, RoutedEventArgs e) {
+            if (UserData.TagsInPosts) {
+                ((GridView)((StackPanel)sender).FindName("TagPanel")).Visibility = Visibility.Visible;
             }
         }
     }
