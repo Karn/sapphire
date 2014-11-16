@@ -201,7 +201,7 @@ namespace API.Content {
             get {
                 if (!string.IsNullOrEmpty(UserDataStore.Values["TagsInPosts"].ToString()))
                     return UserDataStore.Values["TagsInPosts"].ToString().Contains("T") ? true : false;
-                return true;
+                return false;
             }
             set {
                 UserDataStore.Values["TagsInPosts"] = value ? "True" : "False";

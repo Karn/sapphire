@@ -27,31 +27,31 @@ namespace Core.Utils.Converters {
             //return base.SelectTemplateCore(item, container);
             var listItem = item as API.Content.Post;
             if (listItem != null) {
-                if (listItem.type == "text")
+                if (listItem.type.Contains("text"))
                     return TextTemplate;
-                else if (listItem.type == "photo")
+                else if (listItem.type.Contains("photo"))
                     return PhotoTemplate;
-                else if (listItem.type == "gif")
+                else if (listItem.type.Contains("gif"))
                     return GifTemplate;
-                else if (listItem.type == "photoset")
+                else if (listItem.type.Contains("photoset"))
                     return PhotoSetTemplate;
-                else if (listItem.type == "quote")
+                else if (listItem.type.Contains("quote"))
                     return QuoteTemplate;
-                else if (listItem.type == "link")
+                else if (listItem.type.Contains("link"))
                     return LinkTemplate;
-                else if (listItem.type == "chat")
+                else if (listItem.type.Contains("chat"))
                     return ChatTemplate;
-                else if (listItem.type == "audio")
+                else if (listItem.type.Contains("audio"))
                     return AudioTemplate;
-                else if (listItem.type == "video")
+                else if (listItem.type.Contains("video"))
                     return VideoTemplate;
-                else if (listItem.type == "answer")
+                else if (listItem.type.Contains("answer"))
                     return AnswerTemplate;
-                else if (listItem.type == "advert")
+                else if (listItem.type.Contains("advert"))
                     return AdvertTemplate;
-                else if (listItem.type == "mail")
+                else if (listItem.type.Contains("mail"))
                     return MailTemplate;
-                else if (listItem.type == "nocontent")
+                else if (listItem.type.Contains("nocontent"))
                     return NoContentTemplate;
             }
 

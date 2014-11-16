@@ -61,7 +61,7 @@ namespace API {
 
                 string requestResult = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/user/info");
 
-                if (requestResult.Contains("200")) {
+                if (requestResult.Contains("status\":200")) {
                     try {
                         var parsedData = JsonConvert.DeserializeObject<Responses.GetInfo>(requestResult);
 
@@ -99,7 +99,7 @@ namespace API {
         /// <returns>Boolean to indicate if the request was completed</returns>
         public static async Task<bool> LikePost(string id, string reblogKey) {
             string requestResult = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/user/like", "id=" + id + "&reblog_key=" + reblogKey);
-            if (requestResult.Contains("200"))
+            if (requestResult.Contains("status\":200"))
                 return true;
             return false;
         }
@@ -112,7 +112,7 @@ namespace API {
         /// <returns>Boolean to indicate if the request was completed</returns>
         public static async Task<bool> UnlikePost(string id, string reblogKey) {
             string requestResult = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/user/unlike", "id=" + id + "&reblog_key=" + reblogKey);
-            if (requestResult.Contains("200"))
+            if (requestResult.Contains("status\":200"))
                 return true;
             return false;
         }
@@ -125,7 +125,13 @@ namespace API {
         /// <returns>Boolean to indicate if the request was completed</returns>
         public async static Task<bool> ReblogPost(string id, string reblogKey, string caption = "", string tags = "") {
             string requestResult = await RequestBuilder.PostAPI("http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/post/reblog", "id=" + id + "&reblog_key=" + reblogKey + (!string.IsNullOrEmpty(caption) ? "&comment=" + caption : "") + (!string.IsNullOrEmpty(caption) ? "&tags=" + tags : ""));
-            if (requestResult.Contains("201"))
+            if (requestResult.Contains("status\":201"))
+                return true;
+            return false;
+        }
+        public async static Task<bool> PostDraft(string id) {
+            string requestResult = await RequestBuilder.PostAPI("http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/post/edit", "state=published&id=" + id);
+            if (requestResult.Contains("status\":200"))
                 return true;
             return false;
         }
@@ -138,7 +144,7 @@ namespace API {
         /// <returns>Boolean to indicate if the request was completed</returns>
         public async static Task<bool> DeletePost(string id) {
             string requestResult = await RequestBuilder.PostAPI("http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/post/delete", "id=" + id);
-            if (requestResult.Contains("200"))
+            if (requestResult.Contains("status\":200"))
                 return true;
             return false;
         }
@@ -151,7 +157,7 @@ namespace API {
         /// <returns></returns>
         public static async Task<bool> FollowUnfollow(bool follow, string blogName) {
             string requestResult = (follow ? await RequestBuilder.PostAPI("https://api.tumblr.com/v2/user/follow", "url=" + blogName + ".tumblr.com") : await RequestBuilder.PostAPI("https://api.tumblr.com/v2/user/unfollow", "url=" + blogName + ".tumblr.com"));
-            if (requestResult.Contains("200"))
+            if (requestResult.Contains("status\":200"))
                 return true;
             return false;
         }
@@ -164,7 +170,7 @@ namespace API {
             //DebugHandler.Log("Retrieving followers", TAG);
             var requestResult = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/followers", "offset=" + offset);
 
-            if (requestResult.Contains("200")) {
+            if (requestResult.Contains("status\":200")) {
                 //DebugHandler.Log("Followers retrieved", TAG);
                 var parsedData = JsonConvert.DeserializeObject<Responses.GetFollowers>(requestResult);
                 try {
@@ -185,7 +191,7 @@ namespace API {
             //DebugHandler.Log("Retrieving Following", TAG);
             string requestResult = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/user/following", "offset=" + offset);
 
-            if (requestResult.Contains("200")) {
+            if (requestResult.Contains("status\":200")) {
                 DebugHandler.Info("Response OK.", "Client");
                 try {
                     Responses.GetFollowing following = JsonConvert.DeserializeObject<Responses.GetFollowing>(requestResult);
@@ -208,7 +214,7 @@ namespace API {
         public static async Task<List<Content.Activity.Notification>> RetrieveActivity() {
 
             string Response = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/user/notifications");
-            if (Response.Contains("200")) {
+            if (Response.Contains("status\":200")) {
                 try {
                     Responses.GetActivity activity = JsonConvert.DeserializeObject<Responses.GetActivity>(Response);
                     var Notifications = new List<Content.Activity.Notification>();
@@ -274,7 +280,7 @@ namespace API {
                         result = await RequestBuilder.GetAPI(url, "offset=" + lastPostID + "&api_key=" + Config.ConsumerKey);
                 }
 
-                if (!string.IsNullOrEmpty(result) && result.Contains("200")) {
+                if (!string.IsNullOrEmpty(result) && result.Contains("status\":200")) {
                     try {
                         var PostList = new List<API.Content.Post>();
 
@@ -292,6 +298,10 @@ namespace API {
                                     if (post.type == "answer")
                                         post.body = post.question;
                                     post.type = "mail";
+                                }
+                            } else if (url.Contains("/draft") || url.Contains("/queue")) {
+                                foreach (var post in posts.response.posts) {
+                                    post.special_case = "draft";
                                 }
                             }
                         }
@@ -359,7 +369,7 @@ namespace API {
             var response = await WebClient.GetAsync(new Uri(UserInfoURI));
             var result = await response.Content.ReadAsStringAsync();
 
-            if (result.Contains("200")) {
+            if (result.Contains("status\":200")) {
                 try {
                     var LoadedPosts = new ObservableCollection<Content.Post>();
 
@@ -402,7 +412,7 @@ namespace API {
             //var result = await response.Content.ReadAsStringAsync();
             var result = await RequestBuilder.GetAPI("http://api.tumblr.com/v2/blog/" + name + ".tumblr.com/info", "api_key=" + Config.ConsumerKey);
             Debug.WriteLine(result);
-            if (result.Contains("200")) {
+            if (result.Contains("status\":200")) {
                 Content.Responses.GetBlog blogInfo = JsonConvert.DeserializeObject<Content.Responses.GetBlog>(result);
 
                 return blogInfo.response.blog;
@@ -419,7 +429,7 @@ namespace API {
             //var result = await response.Content.ReadAsStringAsync();
 
             var result = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/search/" + tag, "api_key=" + Config.ConsumerKey);
-            if (result.Contains("200")) {
+            if (result.Contains("status\":200")) {
                 Content.Responses.GetSearch SearchResult = JsonConvert.DeserializeObject<Content.Responses.GetSearch>(result);
 
                 return SearchResult.response.blogs;
@@ -437,7 +447,7 @@ namespace API {
 
                 Debug.WriteLine(result);
 
-                if (result.Contains("200")) {
+                if (result.Contains("status\":200")) {
                     UserData.CachedSpotlight = result;
                     Content.Responses.GetSpotlight spotlight = JsonConvert.DeserializeObject<Content.Responses.GetSpotlight>(result);
                     return spotlight.response;
@@ -453,7 +463,7 @@ namespace API {
         public static async Task<bool> CreatePost(string parameters) {
             if (!string.IsNullOrEmpty(parameters)) {
                 string result = await RequestBuilder.PostAPI("http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/post", parameters);
-                if (result.Contains("201"))
+                if (result.Contains("status\":201"))
                     return true;
             }
             return false;
@@ -463,7 +473,7 @@ namespace API {
             Debug.WriteLine("media");
             if (!string.IsNullOrEmpty(parameters)) {
                 string result = await RequestBuilder.PostAPIWithData("http://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/post", parameters, media);
-                if (result.Contains("201"))
+                if (result.Contains("status\":201"))
                     return true;
             }
             return false;

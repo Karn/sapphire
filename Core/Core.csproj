@@ -169,6 +169,7 @@
     <Compile Include="Utils\Misc\IncrementalPostLoader.cs" />
     <Compile Include="Utils\Misc\ItemsToShow.cs" />
     <Compile Include="Utils\Misc\ThemeResources.cs" />
+    <Compile Include="Utils\Misc\VariableGrid.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -231,6 +232,7 @@
     <Content Include="Assets\Queue.png" />
     <Content Include="Assets\Reload.png" />
     <Content Include="Assets\Resources\Dark\Blog.png" />
+    <Content Include="Assets\Resources\Dark\Check.png" />
     <Content Include="Assets\Resources\Dark\Delete.png" />
     <Content Include="Assets\Resources\Dark\Drafts.png" />
     <Content Include="Assets\Resources\Dark\Inbox.png" />
@@ -242,6 +244,7 @@
     <Content Include="Assets\Resources\Dark\Reblogged.png" />
     <Content Include="Assets\Resources\Dark\Reply.png" />
     <Content Include="Assets\Resources\Light\Blog.png" />
+    <Content Include="Assets\Resources\Light\Check.png" />
     <Content Include="Assets\Resources\Light\Delete.png" />
     <Content Include="Assets\Resources\Light\Drafts.png" />
     <Content Include="Assets\Resources\Light\Inbox.png" />

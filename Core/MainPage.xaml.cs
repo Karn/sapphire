@@ -214,7 +214,7 @@ namespace Core {
             // Windows Phone app must call this to use trigger types (see MSDN)
 
             foreach (var cur in BackgroundTaskRegistration.AllTasks) {
-                if (cur.Value.Name == "Push Notification Task") {
+                if (cur.Value.Name == "PushNotificationTask") {
                     Debug.WriteLine("Previous Task Found.");
                     return;
                 }
@@ -222,8 +222,8 @@ namespace Core {
             MarkedUp.AnalyticClient.SessionEvent("Registering Task");
             await BackgroundExecutionManager.RequestAccessAsync();
 
-            BackgroundTaskBuilder taskBuilder = new BackgroundTaskBuilder { Name = "Push Notification Task", TaskEntryPoint = "BackgroundUtilities.NotificationHandler" };
-            taskBuilder.SetTrigger(new TimeTrigger(15, true));
+            BackgroundTaskBuilder taskBuilder = new BackgroundTaskBuilder { Name = "PushNotificationTask", TaskEntryPoint = "BackgroundUtilities.NotificationHandler" };
+            taskBuilder.SetTrigger(new TimeTrigger(15, false));
             taskBuilder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
             BackgroundTaskRegistration myFirstTask = taskBuilder.Register();
         }

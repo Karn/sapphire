@@ -11,7 +11,7 @@
     xmlns:pubCenter="using:Microsoft.Advertising.Mobile.UI"
     xmlns:adduplex="using:AdDuplex.Universal.Controls.WinPhone.XAML"
     xmlns:gif="using:XamlAnimatedGif"
-    xmlns:q42controls="using:Q42.WinRT.Controls"
+    xmlns:misc="using:Core.Utils.Misc"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="380">
@@ -78,17 +78,6 @@
             <StackPanel>
                 <StackPanel Tag="{Binding}" Background="{ThemeResource PostBG}" Loaded="BottomContainer_Loader">
                     <TextBlock Visibility="{Binding caption, Converter={StaticResource CaptionConverter}}" Text="{Binding caption, Converter={StaticResource ToPlainText}}" Foreground="{ThemeResource DarkText}" FontSize="16" VerticalAlignment="Top" Margin="5" TextTrimming="CharacterEllipsis" TextWrapping="Wrap"/>
-                    <!--<Grid Margin="10" Visibility="{Binding caption, Converter={StaticResource CaptionConverter}}">
-                        -->
-                    <!--<RichTextBlock tools:Properties.Html="{Binding caption}"/>-->
-                    <!--
-                    </Grid>-->
-                    <!--<q42controls:WrapPanel Orientation="Horizontal" Tag="{Binding tags}" Loaded="WrapPanel_Loaded">
-                        -->
-                    <!--<HyperlinkButton Content="{Binding caption, Converter={StaticResource ToPlainText}}" Foreground="{ThemeResource DarkText}" FontSize="12" VerticalAlignment="Top" Margin="5"/>-->
-                    <!--
-
-                    </q42controls:WrapPanel>-->
                     <GridView x:Name="TagPanel" Visibility="Collapsed" ItemsSource="{Binding tags}" >
                         <GridView.ItemTemplate>
                             <DataTemplate>
@@ -99,12 +88,12 @@
                         </GridView.ItemTemplate>
                     </GridView>
 
-                    <Grid Height="40" Background="{ThemeResource Accent2}">
+                    <Grid Height="40" Background="{ThemeResource Accent2}" Tag="{Binding special_case}" Loaded="CommandPanel_Loaded">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <TextBlock x:Name="NoteInfo" Text="{Binding note_count}" Margin="10, 0, 0, 0" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                             <TextBlock Text=" notes" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Tag="{Binding reblog_key}">
+                        <StackPanel x:Name="NormalCommands" Orientation="Horizontal" HorizontalAlignment="Right" Tag="{Binding reblog_key}">
                             <Button x:Name="ReblogButton" Tag="{Binding id}" Click="ReblogButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="40" MinHeight="40" MaxWidth="40" MaxHeight="40" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}">
                                 <Button.Background>
                                     <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource ReblogAsset}"/>
@@ -112,6 +101,18 @@
                             </Button>
                             <ToggleButton x:Name="LikeButton" Style="{StaticResource LikeButtonStyle}" Tag="{Binding id}" Margin="5, 0" BorderBrush="White" BorderThickness="0" MinWidth="35" Width="35" MinHeight="50" MaxWidth="35" MaxHeight="50" HorizontalAlignment="Right" IsChecked="{Binding liked}" Click="LikeButton_Click" Loaded="LikeButton_Loaded" Padding="10,0"/>
                             <Button x:Name="DeleteButton" Visibility="{Binding IsEditable}" Tag="{Binding}" Click="DeleteButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}" Margin="-6, 0, 0, 0">
+                                <Button.Background>
+                                    <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource DeleteButtonAsset}"/>
+                                </Button.Background>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel x:Name="DraftCommands" Visibility="Collapsed" Orientation="Horizontal" HorizontalAlignment="Right" Tag="{Binding reblog_key}">
+                            <Button x:Name="PostButton" Tag="{Binding}" Click="PostDraftButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}">
+                                <Button.Background>
+                                    <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource PostButtonAsset}"/>
+                                </Button.Background>
+                            </Button>
+                            <Button x:Name="DeleteButton_" Visibility="{Binding IsEditable}" Tag="{Binding}" Click="DeleteButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}" Margin="-6, 0, 0, 0">
                                 <Button.Background>
                                     <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource DeleteButtonAsset}"/>
                                 </Button.Background>

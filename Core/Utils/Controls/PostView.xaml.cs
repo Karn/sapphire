@@ -114,6 +114,13 @@ namespace Core.Utils.Controls {
                 throw new Exception("Navigation Failed");
         }
 
+        private void LikeButton_Loaded(object sender, RoutedEventArgs e) {
+            if ((bool)(((ToggleButton)sender).IsChecked)) {
+                ((ToggleButton)sender).Background = LikeFullBrush;
+            } else {
+                ((ToggleButton)sender).Background = LikeBrush;
+            }
+        }
         private async void LikeButton_Click(object sender, RoutedEventArgs e) {
             try {
                 var x = ((ToggleButton)sender);
@@ -125,18 +132,23 @@ namespace Core.Utils.Controls {
                 bool result = ((bool)(x.IsChecked)) ? await RequestHandler.LikePost(id, reblogKey) : await RequestHandler.UnlikePost(id, reblogKey);
 
                 if (result) {
-                    if ((bool)(x.IsChecked)) {
-                        notes.Text = (int.Parse(notes.Text) + 1).ToString();
-                        x.Background = LikeFullBrush;
-                    } else {
-                        notes.Text = (int.Parse(notes.Text) - 1).ToString();
-                        x.Background = LikeBrush;
+                    try {
+                        if ((bool)(x.IsChecked)) {
+                            notes.Text = (int.Parse(notes.Text) + 1).ToString();
+                            x.Background = LikeFullBrush;
+                        } else {
+                            notes.Text = (int.Parse(notes.Text) - 1).ToString();
+                            x.Background = LikeBrush;
+                        }
+                    } catch (Exception ex2) {
+                        DebugHandler.Error("Failed to update note count. ", ex2.StackTrace);
                     }
-                } else
+                } else {
                     MainPage.ErrorFlyout.DisplayMessage("Failed to like post.");
+                }
             } catch (Exception ex) {
-                DebugHandler.Error("Failed to reblog post. ", ex.StackTrace);
-                MainPage.ErrorFlyout.DisplayMessage("Failed to reblog post.");
+                DebugHandler.Error("Failed to like post. ", ex.StackTrace);
+                MainPage.ErrorFlyout.DisplayMessage("Failed to like post.");
             }
         }
 
@@ -165,8 +177,20 @@ namespace Core.Utils.Controls {
 
         }
 
+        private async void PostDraftButton_Click(object sender, RoutedEventArgs e) {
+            var post = (API.Content.Post)((Button)sender).Tag;
+
+            if (await RequestHandler.PostDraft(post.id)) {
+                MainPage.ErrorFlyout.DisplayMessage("Created post.");
+                var items = Posts.ItemsSource as ObservableCollection<Post>;
+                items.Remove(post);
+            } else
+                MainPage.ErrorFlyout.DisplayMessage("Failed to create post.");
+
+        }
+
         private async void DeleteButton_Click(object sender, RoutedEventArgs e) {
-            var post = ((API.Content.Post)((Button)sender).Tag);
+            var post = (API.Content.Post)((Button)sender).Tag;
 
             if (await RequestHandler.DeletePost(post.id)) {
                 var items = Posts.ItemsSource as ObservableCollection<Post>;
@@ -202,14 +226,6 @@ namespace Core.Utils.Controls {
             dp.Properties.FileTypes.Add(extension);
 
             dp.SetWebLink(LinkToShare);
-        }
-
-        private void LikeButton_Loaded(object sender, RoutedEventArgs e) {
-            if ((bool)(((ToggleButton)sender).IsChecked)) {
-                ((ToggleButton)sender).Background = LikeFullBrush;
-            } else {
-                ((ToggleButton)sender).Background = LikeBrush;
-            }
         }
 
         private void PlayMedia(object sender, RoutedEventArgs e) {
@@ -349,8 +365,8 @@ namespace Core.Utils.Controls {
                 var downloadOperation = backgroundDownloader.CreateDownload(fileUri, file);
 
                 // start the download operation asynchronously
-                var result = await downloadOperation.StartAsync();
-                //var frame =  
+                await downloadOperation.StartAsync();
+
                 MainPage.ErrorFlyout.DisplayMessage("Image saved.");
                 return true;
             } catch (Exception e) {
@@ -438,6 +454,16 @@ namespace Core.Utils.Controls {
         private void BottomContainer_Loader(object sender, RoutedEventArgs e) {
             if (UserData.TagsInPosts) {
                 ((GridView)((StackPanel)sender).FindName("TagPanel")).Visibility = Visibility.Visible;
+            }
+        }
+
+        private void CommandPanel_Loaded(object sender, RoutedEventArgs e) {
+            var g = ((Grid)sender);
+            if (g.Tag != null) {
+                if (g.Tag.ToString() == "draft") {
+                    ((StackPanel)(g.FindName("NormalCommands"))).Visibility = Visibility.Collapsed;
+                    ((StackPanel)(g.FindName("DraftCommands"))).Visibility = Visibility.Visible;
+                }
             }
         }
     }

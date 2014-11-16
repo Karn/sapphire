@@ -10,7 +10,7 @@ namespace API.Content {
     public class Post {
         //Default properties
         public string blog_name { get; set; }
-        public Visibility IsEditable { 
+        public Visibility IsEditable {
             get {
                 if (UserData.CurrentBlog != null) {
                     if (blog_name == UserData.CurrentBlog.Name)
@@ -93,6 +93,8 @@ namespace API.Content {
         public SourceAttribution source_attribution { get; set; }
 
         private List<Note> _notes = new List<Note>();
+        public string special_case { get; set; }
+
         public List<Note> notes {
             get {
                 return _notes;
