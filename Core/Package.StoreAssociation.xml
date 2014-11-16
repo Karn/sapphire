@@ -195,7 +195,6 @@
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
-    <MainPackageIdentityName>16658Awefull.SapphireBETA</MainPackageIdentityName>
     <MainPackageIdentityName>16658Awefull.Sapphir</MainPackageIdentityName>
     <MainPackageIdentityName>16658Awefull.UservoiceHub</MainPackageIdentityName>
   </AccountPackageIdentityNames>
@@ -203,7 +202,7 @@
     <PackageInfo>
       <OsMinVersion>6.3.0.0</OsMinVersion>
       <PackageArchitecture>neutral</PackageArchitecture>
-      <PackageMaxArchitectureVersion>1.1.0.17</PackageMaxArchitectureVersion>
+      <PackageMaxArchitectureVersion>1.1.0.22</PackageMaxArchitectureVersion>
     </PackageInfo>
   </PackageInfoList>
 </StoreAssociation>

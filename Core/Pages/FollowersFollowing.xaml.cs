@@ -127,24 +127,6 @@ namespace Core.Pages {
 
         #endregion
 
-        //Make this async to complete task
-        //private async void FollowUnfollowButton_Tapped(object sender, TappedRoutedEventArgs e) {
-        //    var x = ((Button)sender);
-        //    if (x.Content.ToString() == "follow") {
-        //        if (await RequestHandler.FollowUnfollow(true, x.Tag.ToString())) {
-        //            x.Content = "unfollow";
-        //            ((Button)((StackPanel)x.Parent).FindName("FollowButton")).Visibility = Visibility.Collapsed;
-        //            ((Button)((StackPanel)x.Parent).FindName("UnfollowButton")).Visibility = Visibility.Visible;
-        //        }
-        //    } else if (x.Content.ToString() == "unfollow") {
-        //        if (await RequestHandler.FollowUnfollow(false, x.Tag.ToString())) {
-        //            x.Content = "follow";
-        //            ((Button)((StackPanel)x.Parent).FindName("FollowButton")).Visibility = Visibility.Visible;
-        //            ((Button)((StackPanel)x.Parent).FindName("UnfollowButton")).Visibility = Visibility.Collapsed;
-        //        }
-        //    }
-        //}
-
         private async void FollowUnfollowButton_Tapped(object sender, TappedRoutedEventArgs e) {
             var x = ((Button)sender);
             if (x.Content.ToString().ToLower() == "follow") {
@@ -178,6 +160,10 @@ namespace Core.Pages {
             var frame = Window.Current.Content as Frame;
             if (!frame.Navigate(typeof(Pages.BlogDetails), ((Image)sender).Tag.ToString().Split(' ')[0]))
                 throw new Exception("Navigation Failed");
+        }
+
+        private void Border_Tapped_1(object sender, TappedRoutedEventArgs e) {
+
         }
     }
 }

@@ -138,8 +138,7 @@
         <CollectionViewSource x:Name="csvNotifications" IsSourceGrouped="True"/>
     </UserControl.Resources>
 
-    <ListView x:Name="Notifications" Margin="0, 2" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Source={StaticResource csvNotifications}}" ItemTemplateSelector="{StaticResource ActivityListTemplate}" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" Loaded="Notifications_Loaded" Background="#00000000">
-
+    <ListView x:Name="Notifications" Margin="0, 2" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Source={StaticResource csvNotifications}}" ItemTemplateSelector="{StaticResource ActivityListTemplate}" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" Background="#00000000">
         <ListView.ItemContainerStyle>
             <StaticResource ResourceKey="ListViewItemContainerStyle"/>
         </ListView.ItemContainerStyle>

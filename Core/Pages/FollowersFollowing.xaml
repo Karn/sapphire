@@ -43,7 +43,7 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border MinWidth="380" HorizontalAlignment="Stretch" Margin="4, 2" Height="112" BorderBrush="#0C000000" BorderThickness="1">
+                    <Border MinWidth="380" HorizontalAlignment="Stretch" Margin="4, 2" Height="112" BorderBrush="#0C000000" BorderThickness="1" Tapped="Border_Tapped_1">
                         <Grid HorizontalAlignment="Stretch">
                             <Image Stretch="UniformToFill" Source="{Binding theme.header_image_focused, FallbackValue={StaticResource DefaultPattern}}"/>
                             <Grid VerticalAlignment="Top" Background="#66000000" Height="35">

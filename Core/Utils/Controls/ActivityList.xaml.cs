@@ -57,11 +57,6 @@ namespace Core.Utils.Controls {
             Notifications.Visibility = Visibility.Visible;
         }
 
-        private void Notifications_Loaded(object sender, RoutedEventArgs e) {
-            //if (Notifications.Items.Count != 0)
-                //Config.LastNotification = (Notifications.Items.First() as APIContent.Content.Activity.Notification).timestamp;
-        }
-
         private void GoToPost(object sender, TappedRoutedEventArgs e) {
             var frame = Window.Current.Content as Frame;
             if (!frame.Navigate(typeof(Pages.PostDetails), ((Image)sender).Tag)) {

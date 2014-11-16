@@ -94,6 +94,9 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\FollowersFollowing.xaml.cs">
+      <DependentUpon>FollowersFollowing.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ReblogPage.xaml.cs">
       <DependentUpon>ReblogPage.xaml</DependentUpon>
     </Compile>
@@ -111,9 +114,6 @@
     </Compile>
     <Compile Include="Pages\CreatePost.xaml.cs">
       <DependentUpon>CreatePost.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\FollowersFollowing.xaml.cs">
-      <DependentUpon>FollowersFollowing.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PostDetails.xaml.cs">
       <DependentUpon>PostDetails.xaml</DependentUpon>
@@ -293,6 +293,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\FollowersFollowing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\ReblogPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -314,10 +318,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\CreatePost.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\FollowersFollowing.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
