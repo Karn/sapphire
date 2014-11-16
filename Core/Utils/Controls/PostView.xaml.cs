@@ -353,9 +353,9 @@ namespace Core.Utils.Controls {
         }
 
         private async Task<bool> SaveFileAsync(Uri fileUri) {
-            Debug.WriteLine("Saving..");
-            // create the blank file in specified folder
             try {
+
+                // create the blank file in specified folder
                 var imageFolder = await KnownFolders.PicturesLibrary.CreateFolderAsync("Sapphire", CreationCollisionOption.OpenIfExists);
 
                 var file = await imageFolder.CreateFileAsync(fileUri.ToString().Split('/').Last(), CreationCollisionOption.ReplaceExisting);
@@ -465,6 +465,13 @@ namespace Core.Utils.Controls {
                     ((StackPanel)(g.FindName("DraftCommands"))).Visibility = Visibility.Visible;
                 }
             }
+        }
+
+        private void Caption_Tapped(object sender, TappedRoutedEventArgs e) {
+            if (((TextBlock)sender).MaxHeight == 300)
+                ((TextBlock)sender).MaxHeight = 9999;
+            else
+                ((TextBlock)sender).MaxHeight = 300;
         }
     }
 }

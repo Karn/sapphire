@@ -188,11 +188,11 @@
                             <Image Source="Assets/Nav/Search_Dark.png" HorizontalAlignment="Left" Margin="7, 10" Height="30" Width="35" Opacity=".5"/>
                         </Grid>
                         <GridView x:Name="SpotlightTags" Padding="0, 0, 0, 13" Grid.Row="1" Loaded="SpotlightTags_Loaded" Margin="0" ItemsSource="{Binding}" ScrollViewer.VerticalScrollMode="Enabled">
-                            <GridView.ItemContainerTransitions>
+                            <GridView.Transitions>
                                 <TransitionCollection>
                                     <EntranceThemeTransition/>
                                 </TransitionCollection>
-                            </GridView.ItemContainerTransitions>
+                            </GridView.Transitions>
                             <GridView.ItemTemplate>
                                 <DataTemplate>
                                     <Border Tapped="SpotlightTagItem_Tapped" Tag="{Binding tag}" Margin="0, 0, 2, 2" BorderBrush="#0C000000" BorderThickness="1" Loaded="Border_Loaded">
