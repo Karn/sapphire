@@ -1,15 +1,13 @@
-﻿using API.Content;
-using API.Authentication;
+﻿using APIWrapper.AuthenticationManager;
 using Core.Common;
 using System;
 using System.Net.NetworkInformation;
+using Windows.Phone.UI.Input;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using API.Data;
-using Windows.Phone.UI.Input;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -30,10 +28,10 @@ namespace Core.Pages {
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-            var applicationView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
-            applicationView.SetDesiredBoundsMode(Windows.UI.ViewManagement.ApplicationViewBoundsMode.UseCoreWindow);
+            var applicationView = ApplicationView.GetForCurrentView();
+            applicationView.SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
 
-            sb = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+            sb = StatusBar.GetForCurrentView();
             sb.ForegroundColor = Color.FromArgb(255, 255, 255, 255);
 
             FadeInLogoImage.Begin();
@@ -43,8 +41,7 @@ namespace Core.Pages {
 
         private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e) {
             //Fix navigating
-            if (Config.AccountTokens.Count == 0) {
-                API.Data.DataStoreHandler.SaveAllSettings();
+            if (Authentication.AuthenticatedTokens.Count == 0) {
                 Application.Current.Exit();
             }
             e.Handled = true;
@@ -125,12 +122,11 @@ namespace Core.Pages {
                 Password.IsEnabled = false;
                 LoginButton.IsEnabled = false;
 
-                string response = await AuthenticationManager.Authorize.XAuthAccessToken(Email.Text.ToString(), Password.Password.ToString());
+                string response = await APIWrapper.AuthenticationManager.Authentication.RequestAccessToken(Email.Text.ToString(), Password.Password.ToString());
                 await sb.ProgressIndicator.HideAsync();
 
-                if (response == "Okay") {
-                    if (Config.AccountTokens.Count == 1) {
-                        UserData.CreateDataContainer();
+                if (response == "OK") {
+                    if (Authentication.AuthenticatedTokens.Count == 1) {
                         if (!Frame.Navigate(typeof(MainPage))) {
                             throw new Exception();
                         }

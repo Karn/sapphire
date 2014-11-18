@@ -1,29 +1,12 @@
-﻿using API.Content;
-using API.Data;
+﻿using APIWrapper.Content;
 using Core.Common;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.Background;
-using Windows.ApplicationModel.DataTransfer;
-using Windows.ApplicationModel.Email;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Graphics.Display;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
@@ -55,11 +38,11 @@ namespace Core.Pages {
                 RemoveAdsButton.Background = new SolidColorBrush(Color.FromArgb(255, 51, 63, 74));
             }
 
-            if (Config.SelectedTheme == "Dark")
+            if (UserStore.SelectedTheme == "Dark")
                 ThemeSwitch.IsOn = true;
-            EnableNotifications.IsOn = UserData.RecieveNotifications;
-            EnableOneClickReblog.IsOn = UserData.OneClickReblog;
-            DisableTagsInPosts.IsOn = UserData.TagsInPosts;
+            EnableNotifications.IsOn = UserStore.NotificationsEnabled;
+            EnableOneClickReblog.IsOn = UserStore.OneClickReblog;
+            DisableTagsInPosts.IsOn = UserStore.TagsInPosts;
 
             MainPage.ErrorFlyout = _ErrorFlyout;
         }
@@ -141,17 +124,17 @@ namespace Core.Pages {
 
         private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e) {
             if (((ToggleSwitch)sender).IsOn) {
-                Config.SelectedTheme = "Dark";
+                UserStore.SelectedTheme = "Dark";
             } else {
-                Config.SelectedTheme = "Light";
+                UserStore.SelectedTheme = "Light";
             }
         }
 
         private void EnableNotifications_Toggled(object sender, RoutedEventArgs e) {
             if (((ToggleSwitch)sender).IsOn) {
-                UserData.RecieveNotifications = true;
+                UserStore.NotificationsEnabled = true;
             } else {
-                UserData.RecieveNotifications = false;
+                UserStore.NotificationsEnabled = false;
             }
         }
 
@@ -171,17 +154,17 @@ namespace Core.Pages {
 
         private void EnableOneClickReblog_Toggled(object sender, RoutedEventArgs e) {
             if (((ToggleSwitch)sender).IsOn) {
-                UserData.OneClickReblog = true;
+                UserStore.OneClickReblog = true;
             } else {
-                UserData.OneClickReblog = false;
+                UserStore.OneClickReblog = false;
             }
         }
 
         private void DisableTagsInPosts_Toggled(object sender, RoutedEventArgs e) {
             if (((ToggleSwitch)sender).IsOn) {
-                UserData.TagsInPosts = true;
+                UserStore.TagsInPosts = true;
             } else {
-                UserData.TagsInPosts = false;
+                UserStore.TagsInPosts = false;
             }
         }
     }

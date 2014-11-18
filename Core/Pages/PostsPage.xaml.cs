@@ -1,4 +1,5 @@
-﻿using API;
+﻿using APIWrapper;
+using APIWrapper.Client;
 using Core.Common;
 using System;
 using System.Collections.Generic;
@@ -143,8 +144,8 @@ namespace Core.Pages {
                 PostList.Visibility = Visibility.Collapsed;
                 BlogSearch.Visibility = Visibility.Visible;
                 if (BlogSearch.ItemsSource == null) {
-                    if (RequestHandler.CanRequestData())
-                        BlogSearch.ItemsSource = await RequestHandler.RetrieveSearch(tag);
+                    if (APIWrapper.AuthenticationManager.Authentication.Utils.NetworkAvailable())
+                        BlogSearch.ItemsSource = await CreateRequest.RetrieveSearch(tag);
                 }
             } else {
                 Mode.Source = BlogsIcon;
@@ -167,11 +168,11 @@ namespace Core.Pages {
         private async void FollowUnfollowButton_Tapped(object sender, TappedRoutedEventArgs e) {
             var x = ((Button)sender);
             if (x.Content.ToString().ToLower() == "follow") {
-                if (await RequestHandler.FollowUnfollow(true, x.Tag.ToString())) {
+                if (await CreateRequest.FollowUnfollow(true, x.Tag.ToString())) {
                     x.Content = "UNFOLLOW";
                 }
             } else if (x.Content.ToString().ToLower() == "unfollow") {
-                if (await RequestHandler.FollowUnfollow(false, x.Tag.ToString())) {
+                if (await CreateRequest.FollowUnfollow(false, x.Tag.ToString())) {
                     x.Content = "FOLLOW";
                 }
             }

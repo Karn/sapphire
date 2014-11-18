@@ -1,24 +1,12 @@
-﻿using API;
-using API.Authentication;
-using API.Content;
-using API.Utils;
+﻿using APIWrapper.Utils;
+using APIWrapper.AuthenticationManager;
+using APIWrapper.Client;
 using Core.Common;
-using Core.Utils.Controls;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Graphics.Display;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
@@ -143,11 +131,11 @@ namespace Core.Pages {
             var tags = ((TextBox)((Grid)((Button)sender).Parent).FindName("Tags")).Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
-                tags = AuthenticationManager.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+                tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
             }
             try {
                 //API.Content.CreatePost.Text(AuthenticationManager.Utils.UrlEncode(title), AuthenticationManager.Utils.UrlEncode(body), tags);
-                if (await RequestHandler.ReblogPost(postID, reblogKey, AuthenticationManager.Utils.UrlEncode(caption), tags)) {
+                if (await CreateRequest.ReblogPost(postID, reblogKey, Authentication.Utils.UrlEncode(caption), tags)) {
                 } else
                     MainPage.ErrorFlyout.DisplayMessage("Failed to reblog post.");
                 Frame.GoBack();

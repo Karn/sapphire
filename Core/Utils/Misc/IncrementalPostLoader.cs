@@ -1,15 +1,13 @@
-﻿using API;
-using API.Content;
-using API.Utils;
+﻿using APIWrapper;
+using APIWrapper.Utils;
+using APIWrapper.Client;
+using APIWrapper.Content.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Data;
@@ -35,8 +33,10 @@ namespace Core.Utils.Misc {
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count) {
             if (_IsRunning || !HasMoreItems) {
                 Debug.WriteLine("Still running.");
+#pragma warning disable CS1998
                 return AsyncInfo.Run(async c => {
-                    return new LoadMoreItemsResult() {
+#pragma warning restore CS1998
+    return new LoadMoreItemsResult() {
                         Count = 0
                     };
                 });
@@ -50,9 +50,9 @@ namespace Core.Utils.Misc {
 
                         var posts = new List<Post>();
                         if (string.IsNullOrEmpty(LastPostID))
-                            posts = await RequestHandler.RetrievePosts(URL);
+                            posts = await CreateRequest.RetrievePosts(URL);
                         else
-                            posts = await RequestHandler.RetrievePosts(URL, LastPostID);
+                            posts = await CreateRequest.RetrievePosts(URL, LastPostID);
 
                         if (posts.Count != 0) {
                             foreach (var post in posts) {
@@ -75,7 +75,7 @@ namespace Core.Utils.Misc {
                             MainPage.ErrorFlyout.DisplayMessage("Unable to find posts.");
                         }
 
-                        if (Utils.IAPHander.ShowAds && posts.Count > 5)
+                        if (IAPHander.ShowAds && posts.Count > 5)
                             this.Add(new Post { type = "advert" });
 
                         if (posts.Count < 20)

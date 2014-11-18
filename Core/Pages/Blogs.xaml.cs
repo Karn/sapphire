@@ -1,20 +1,8 @@
-﻿using API.Content;
+﻿using APIWrapper.Content;
+using APIWrapper.Content.Model;
 using Core.Common;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Graphics.Display;
-using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
@@ -34,7 +22,7 @@ namespace Core.Pages {
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-            List.ItemsSource = UserData.UserBlogs;
+            List.ItemsSource = UserStore.UserBlogs;
             MainPage.ErrorFlyout = _ErrorFlyout;
         }
 
@@ -105,7 +93,7 @@ namespace Core.Pages {
         #endregion
 
         private void SelectBlogButton_Tapped(object sender, TappedRoutedEventArgs e) {
-            UserData.CurrentBlog = ((Button)sender).Tag as API.Content.Blog;
+            UserStore.CurrentBlog = ((Button)sender).Tag as Blog;
             MainPage.SwitchedBlog = true;
             Frame.GoBack();
         }

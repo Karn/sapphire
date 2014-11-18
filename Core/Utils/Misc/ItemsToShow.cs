@@ -1,10 +1,9 @@
-﻿using API;
-using API.Content;
+﻿using APIWrapper.Client;
+using APIWrapper.Content.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -30,7 +29,7 @@ namespace Core.Utils.Misc {
 
             return Task.Run<LoadMoreItemsResult>(async () => {
 
-                foreach (var x in await RequestHandler.RetrievePosts(url, LastPostId)) {
+                foreach (var x in await CreateRequest.RetrievePosts(url, LastPostId)) {
                     this.Add(x);
                 }
                 LastPostId = this.Last().id;

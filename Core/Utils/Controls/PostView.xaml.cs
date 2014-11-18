@@ -1,21 +1,16 @@
-﻿using API;
-using API.Content;
-using API.Data;
-using API.Utils;
+﻿using APIWrapper.Utils;
+using APIWrapper.Client;
+using APIWrapper.Content;
+using APIWrapper.Content.Model;
 using Core.Utils.Misc;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -98,7 +93,7 @@ namespace Core.Utils.Controls {
             IsSinglePost = true;
             MainPage.sb.ProgressIndicator.Text = "Loading posts...";
             await MainPage.sb.ProgressIndicator.ShowAsync();
-            Posts.ItemsSource = await RequestHandler.RetrievePost(post_id);
+            Posts.ItemsSource = await CreateRequest.RetrievePost(post_id);
             await MainPage.sb.ProgressIndicator.HideAsync();
         }
 
@@ -129,7 +124,7 @@ namespace Core.Utils.Controls {
                 var id = x.Tag.ToString();
                 var reblogKey = ((StackPanel)(x).Parent).Tag.ToString();
 
-                bool result = ((bool)(x.IsChecked)) ? await RequestHandler.LikePost(id, reblogKey) : await RequestHandler.UnlikePost(id, reblogKey);
+                bool result = ((bool)(x.IsChecked)) ? await CreateRequest.LikePost(id, reblogKey) : await CreateRequest.UnlikePost(id, reblogKey);
 
                 if (result) {
                     try {
@@ -153,7 +148,7 @@ namespace Core.Utils.Controls {
         }
 
         private async void ReblogButton_Click(object sender, RoutedEventArgs e) {
-            if (UserData.OneClickReblog) {
+            if (UserStore.OneClickReblog) {
                 try {
                     var x = ((Button)sender);
                     var notes = ((TextBlock)((Grid)((StackPanel)x.Parent).Parent).FindName("NoteInfo"));
@@ -161,7 +156,7 @@ namespace Core.Utils.Controls {
                     var id = x.Tag.ToString();
                     var reblogKey = ((StackPanel)x.Parent).Tag.ToString();
 
-                    if (await RequestHandler.ReblogPost(id, reblogKey)) {
+                    if (await CreateRequest.ReblogPost(id, reblogKey)) {
                         x.Background = RebloggedBrush;
                         notes.Text = (int.Parse(notes.Text) + 1).ToString();
                     } else
@@ -178,9 +173,9 @@ namespace Core.Utils.Controls {
         }
 
         private async void PostDraftButton_Click(object sender, RoutedEventArgs e) {
-            var post = (API.Content.Post)((Button)sender).Tag;
+            var post = (Post)((Button)sender).Tag;
 
-            if (await RequestHandler.PostDraft(post.id)) {
+            if (await CreateRequest.PostDraft(post.id)) {
                 MainPage.ErrorFlyout.DisplayMessage("Created post.");
                 var items = Posts.ItemsSource as ObservableCollection<Post>;
                 items.Remove(post);
@@ -190,12 +185,11 @@ namespace Core.Utils.Controls {
         }
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e) {
-            var post = (API.Content.Post)((Button)sender).Tag;
+            var post = (Post)((Button)sender).Tag;
 
-            if (await RequestHandler.DeletePost(post.id)) {
+            if (await CreateRequest.DeletePost(post.id)) {
                 var items = Posts.ItemsSource as ObservableCollection<Post>;
                 items.Remove(post);
-                //Posts.ItemsSource = items;
             } else
                 MainPage.ErrorFlyout.DisplayMessage("Failed to delete post.");
         }
@@ -452,7 +446,7 @@ namespace Core.Utils.Controls {
         }
 
         private void BottomContainer_Loader(object sender, RoutedEventArgs e) {
-            if (UserData.TagsInPosts) {
+            if (UserStore.TagsInPosts) {
                 ((GridView)((StackPanel)sender).FindName("TagPanel")).Visibility = Visibility.Visible;
             }
         }

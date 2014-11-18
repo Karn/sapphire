@@ -1,30 +1,20 @@
-﻿using API.Data;
+﻿using APIWrapper.AuthenticationManager;
+using APIWrapper.Content;
 using Core.Common;
 using MarkedUp;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // The Pivot Application template is documented at http://go.microsoft.com/fwlink/?LinkID=391641
 
-namespace Core
-{
+namespace Core {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
@@ -44,7 +34,7 @@ namespace Core
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
 
-            if (Config.SelectedTheme == "Dark") {
+            if (UserStore.SelectedTheme == "Dark") {
                 RequestedTheme = ApplicationTheme.Dark;
             } else {
                 RequestedTheme = ApplicationTheme.Light;
@@ -131,9 +121,10 @@ namespace Core
                 Utils.IAPHander.UpdateInAppPurchases();
                 //Initialize Analytics
                 AnalyticClient.Initialize("95b1a985-187e-4062-a756-ffac679e4fe4");
-                Config.ReadLocalAccountStore();
+                new Authentication();
+                new UserStore();
 
-                if (Config.AccountTokens.Count != 0 && Config.AccountSecretTokens.Count != 0) {
+                if (Authentication.AuthenticatedTokens.Count != 0 && Authentication.AuthenticatedSecretTokens.Count != 0) {
                     if (!rootFrame.Navigate(typeof(MainPage), e.Arguments)) {
                         throw new Exception("Failed to create initial page");
                     }
@@ -173,7 +164,7 @@ namespace Core
             deferral.Complete();
         }
 
-        protected async override void OnActivated(IActivatedEventArgs e) {
+        protected override void OnActivated(IActivatedEventArgs e) {
             base.OnActivated(e);
 
             DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;

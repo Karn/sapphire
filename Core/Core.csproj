@@ -100,9 +100,6 @@
     <Compile Include="Pages\ReblogPage.xaml.cs">
       <DependentUpon>ReblogPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ManageNotifications.xaml.cs">
-      <DependentUpon>ManageNotifications.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\BlogDetails.xaml.cs">
       <DependentUpon>BlogDetails.xaml</DependentUpon>
     </Compile>
@@ -274,9 +271,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\API\API.csproj">
-      <Project>{4b7e8a57-8aec-4746-9cb7-d59ad4ccc3d0}</Project>
-      <Name>API</Name>
+    <ProjectReference Include="..\APIWrapper\APIWrapper.csproj">
+      <Project>{dce12972-e70b-4ed0-b5e7-ec2f6e9aa300}</Project>
+      <Name>APIWrapper</Name>
     </ProjectReference>
     <ProjectReference Include="..\BackgroundUtilities\BackgroundUtilities.csproj">
       <Project>{5774e968-17ff-421b-96a8-bc0a4701696d}</Project>
@@ -298,10 +295,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ReblogPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\ManageNotifications.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -369,12 +362,6 @@
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Q42.WinRT">
-      <HintPath>..\packages\Q42.WinRT.1.2.6.42\lib\portable-win81+wpa81\Q42.WinRT.dll</HintPath>
-    </Reference>
-    <Reference Include="Q42.WinRT.Portable">
-      <HintPath>..\packages\Q42.WinRT.Portable.1.2.3.42\lib\portable-net45+win+wpa81+wp80\Q42.WinRT.Portable.dll</HintPath>
     </Reference>
     <Reference Include="XamlAnimatedGif">
       <HintPath>..\packages\XamlAnimatedGif.1.0.0-alpha\lib\portable-win81+wpa81\XamlAnimatedGif.dll</HintPath>

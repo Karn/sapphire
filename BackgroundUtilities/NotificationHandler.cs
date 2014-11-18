@@ -1,5 +1,5 @@
-﻿using API;
-using API.Content;
+﻿using APIWrapper.Content;
+using APIWrapper.Content.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -20,16 +20,15 @@ namespace BackgroundUtilities {
         public async void Run(IBackgroundTaskInstance taskInstance) {
 
             BackgroundTaskDeferral _deferral = taskInstance.GetDeferral();
-            UserData.LoadData();
 
-            var x = UserData.RetrieveNotificationIds;
+            var x = UserStore.NotificationIDs;
             if (x != null) {
                 NotificationDictionary = x;
                 Debug.WriteLine(NotificationDictionary.Keys.Count);
             } else {
                 Debug.WriteLine("nodata");
             }
-            if (UserData.RecieveNotifications)
+            if (UserStore.NotificationsEnabled)
                 await RetrieveNotifications();
 
             _deferral.Complete();
@@ -38,7 +37,7 @@ namespace BackgroundUtilities {
         private async Task RetrieveNotifications() {
 
             try {
-                string Response = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/user/notifications");
+                string Response = await APIWrapper.Client.RequestBuilder.GetAPI("https://api.tumblr.com/v2/user/notifications");
 
                 if (Response.Contains("200")) {
                     var activity = JsonConvert.DeserializeObject<Responses.GetActivity>(Response);
@@ -70,7 +69,7 @@ namespace BackgroundUtilities {
                     }
                 }
 
-                UserData.RetrieveNotificationIds = NotificationDictionary;
+                UserStore.NotificationIDs = NotificationDictionary;
                 DisplayNotification();
             } catch (Exception e) {
                 Debug.WriteLine("Error: " + e.Source);

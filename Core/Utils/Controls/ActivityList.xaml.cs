@@ -1,9 +1,8 @@
-﻿using API;
-using API.Data;
-using API.Utils;
+﻿using APIWrapper.Client;
+using APIWrapper.Content.Model;
+using APIWrapper.Utils;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using Windows.UI;
@@ -18,7 +17,6 @@ namespace Core.Utils.Controls {
 
         private static HttpClient client = new HttpClient();
         public bool ContentLoaded;
-        private static ScrollViewer sv;
 
         public ActivityList() {
             this.InitializeComponent();
@@ -30,7 +28,7 @@ namespace Core.Utils.Controls {
                 MainPage.sb.ForegroundColor = Color.FromArgb(255, 255, 255, 255);
                 MainPage.sb.ProgressIndicator.Text = "Loading activity...";
                 await MainPage.sb.ProgressIndicator.ShowAsync();
-                GroupData(await RequestHandler.RetrieveActivity());
+                GroupData(await CreateRequest.RetrieveActivity());
                 await MainPage.sb.ProgressIndicator.HideAsync();
                 ContentLoaded = true;
             } catch (Exception e) {
@@ -51,7 +49,7 @@ namespace Core.Utils.Controls {
             }
         }
 
-        public void GroupData(List<API.Content.Activity.Notification> items) {
+        public void GroupData(List<Activity.Notification> items) {
             var result = from item in items group item by item.date into itemGroup orderby itemGroup.Key select itemGroup;
             csvNotifications.Source = result.Reverse();
             Notifications.Visibility = Visibility.Visible;
@@ -66,7 +64,7 @@ namespace Core.Utils.Controls {
 
         private async void FollowIcon_Tapped(object sender, TappedRoutedEventArgs e) {
             var x = ((Grid)sender);
-            if (await RequestHandler.FollowUnfollow(true, x.Tag.ToString())) {
+            if (await CreateRequest.FollowUnfollow(true, x.Tag.ToString())) {
                 x.Visibility = Visibility.Collapsed;
             }
         }

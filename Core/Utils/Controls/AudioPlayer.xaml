@@ -27,7 +27,7 @@
                 <AppBarButton Icon="Stop" />
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.ColumnSpan="2">
-                <TextBlock x:Name="Name" FontSize="24" Foreground="{ThemeResource DarkText}" Text="Artist Name" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
+                <TextBlock x:Name="SongName" FontSize="24" Foreground="{ThemeResource DarkText}" Text="Artist Name" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
                 <TextBlock x:Name="Song" FontSize="24" Foreground="{ThemeResource DarkText}" Text="Song Name" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
             </StackPanel>
         </Grid>

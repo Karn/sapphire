@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converter="using:Core.Utils.Converters"
     xmlns:controls="using:Core.Utils.Controls"
-    xmlns:CommonControl="using:API.Utils"
+    xmlns:CommonControl="using:APIWrapper.Utils"
     mc:Ignorable="d"
     Background="{StaticResource Blue}">
 

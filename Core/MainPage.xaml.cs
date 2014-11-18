@@ -1,21 +1,16 @@
-﻿using API;
-using API.Content;
-using API.Data;
-using API.Utils;
+﻿using APIWrapper;
+using APIWrapper.Utils;
+using APIWrapper.AuthenticationManager;
+using APIWrapper.Client;
+using APIWrapper.Content;
 using Core.Common;
 using Core.Utils.Controls;
-using Core.Utils.Misc;
 using System;
 using System.Diagnostics;
-using System.IO;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
-using Windows.ApplicationModel.Resources;
 using Windows.Phone.UI.Input;
-using Windows.Storage;
 using Windows.System;
 using Windows.UI;
-using Windows.UI.Notifications;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -77,10 +72,7 @@ namespace Core {
             ErrorFlyout = _ErrorFlyout; //Mainpage error toast
             NewPostIndicator = _NewPostIndicator;
 
-            //UserData
-            UserData.LoadData();
-
-            if (Config.AccountTokens.Count > 1) {
+            if (Authentication.AuthenticatedTokens.Count > 1) {
                 AccountManageButton.Label = "accounts";
             }
 
@@ -92,7 +84,7 @@ namespace Core {
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 
             //if (!string.IsNullOrEmpty(UserData.AreNotificationsEnabled) && UserData.AreNotificationsEnabled == "True")
-            if (UserData.RecieveNotifications)
+            if (UserStore.NotificationsEnabled)
                 RegisterBackgroundTask();
         }
 
@@ -118,7 +110,6 @@ namespace Core {
                 e.Handled = true;
                 return;
             } else {
-                API.Data.DataStoreHandler.SaveAllSettings();
                 Application.Current.Exit();
             }
         }
@@ -157,12 +148,12 @@ namespace Core {
 
             if (SwitchedAccount) {
                 NavigationPivot.SelectedIndex = 0;
-                RequestHandler.ReloadAccountData = true;
+                CreateRequest.ReloadAccountData = true;
                 SetAccountData();
                 Posts.RefeshPosts();
                 SwitchedAccount = false;
             } else if (SwitchedBlog) {
-                AccountPivot.DataContext = UserData.CurrentBlog;
+                AccountPivot.DataContext = UserStore.CurrentBlog;
                 ActivityPosts.ClearPosts();
                 ActivityPosts.LoadPosts();
                 SwitchedBlog = false;
@@ -330,8 +321,7 @@ namespace Core {
                     SetAccountData();
                     break;
                 case 3:
-                    if (RequestHandler.CanRequestData())
-                        SpotlightTags.ItemsSource = await RequestHandler.RetrieveSpotlight(true);
+                    SpotlightTags.ItemsSource = await CreateRequest.RetrieveSpotlight(true);
                     break;
                 default:
                     goto case 0;
@@ -339,10 +329,10 @@ namespace Core {
         }
 
         private void AccountDetails_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (UserData.CurrentBlog != null) {
+            if (UserStore.CurrentBlog != null) {
                 switch (((StackPanel)sender).Tag.ToString()) {
                     case "Posts":
-                        if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts")) {
+                        if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/posts")) {
                             Debug.WriteLine("Failed to Navigate");
                         }
                         break;
@@ -367,20 +357,20 @@ namespace Core {
 
 
         public void Posts_Loaded(object sender, RoutedEventArgs e) {
-            if (UserData.CurrentBlog == null)
+            if (UserStore.CurrentBlog == null)
                 SetAccountData();
 
             Posts.LoadPosts();
         }
 
         private async void SetAccountData() {
-            if (RequestHandler.CanRequestData()) {
+            if (APIWrapper.AuthenticationManager.Authentication.Utils.NetworkAvailable()) {
                 RefreshButton.IsEnabled = false;
                 sb.ProgressIndicator.Text = "Loading account data...";
                 await sb.ProgressIndicator.ShowAsync();
                 try {
                     Debug.WriteLine("Loading account data...");
-                    AccountPivot.DataContext = await RequestHandler.RetrieveAccountInformation() ? UserData.CurrentBlog : null;
+                    AccountPivot.DataContext = await CreateRequest.RetrieveAccountInformation() ? UserStore.CurrentBlog : null;
                     if (!ActivityPosts.ContentLoaded)
                         ActivityPosts.LoadPosts();
                 } catch (Exception e) {
@@ -409,8 +399,8 @@ namespace Core {
 
         private async void SpotlightTags_Loaded(object sender, RoutedEventArgs e) {
             if (SpotlightTags.ItemsSource == null || sender == null) {
-                if (RequestHandler.CanRequestData())
-                    SpotlightTags.ItemsSource = await RequestHandler.RetrieveSpotlight();
+                if (APIWrapper.AuthenticationManager.Authentication.Utils.NetworkAvailable())
+                    SpotlightTags.ItemsSource = await CreateRequest.RetrieveSpotlight();
             }
         }
 
@@ -442,24 +432,24 @@ namespace Core {
         }
 
         private void Inbox_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (UserData.CurrentBlog != null) {
-                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts/submission")) {
+            if (UserStore.CurrentBlog != null) {
+                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/posts/submission")) {
                     Debug.WriteLine("Failed to Navigate");
                 }
             }
         }
 
         private void Drafts_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (UserData.CurrentBlog != null) {
-                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts/draft")) {
+            if (UserStore.CurrentBlog != null) {
+                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/posts/draft")) {
                     Debug.WriteLine("Failed to Navigate");
                 }
             }
         }
 
         private void Queue_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (UserData.CurrentBlog != null) {
-                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserData.CurrentBlog.Name + ".tumblr.com/posts/queue")) {
+            if (UserStore.CurrentBlog != null) {
+                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/posts/queue")) {
                     Debug.WriteLine("Failed to Navigate");
                 }
             }

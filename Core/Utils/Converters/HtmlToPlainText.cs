@@ -1,11 +1,6 @@
-﻿using API;
-using API.Authentication;
+﻿using APIWrapper.Client;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
@@ -13,7 +8,7 @@ namespace Core.Utils.Converters {
     public sealed class HtmlToPlainText : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, string language) {
             if (value != null) {
-                value = RequestHandler.GetPlainTextFromHtml(value.ToString());
+                value = CreateRequest.GetPlainTextFromHtml(value.ToString());
             }
             return value;
         }

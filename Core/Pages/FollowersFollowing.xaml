@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     xmlns:ufc="using:Core.Utils"
     xmlns:converter="using:Core.Utils.Converters"
-    xmlns:CommonControl="using:API.Utils"
+    xmlns:CommonControl="using:APIWrapper.Utils"
     Background="{ThemeResource HeaderLightBlue}">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource LightGray}">

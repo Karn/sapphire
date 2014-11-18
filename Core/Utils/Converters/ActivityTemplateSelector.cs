@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using APIWrapper.Content.Model;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Core.Utils.Converters {
@@ -11,7 +12,7 @@ namespace Core.Utils.Converters {
 
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container) {
 
-            var listItem = item as API.Content.Activity.Notification;
+            var listItem = item as Activity.Notification;
             if (listItem.type == "reblog")
                 return ReblogTemplate;
             else if (listItem.type == "like")

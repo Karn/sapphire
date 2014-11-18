@@ -21,25 +21,22 @@ namespace Core.Utils.Converters {
         }
 
         static string GetPrettyDate(DateTime d) {
-            if (d != null) {
-                // 1.
-                // Get time span elapsed since the date.
-                TimeSpan s = DateTime.Now.Date.Subtract(d);
+            // 1.
+            // Get time span elapsed since the date.
+            TimeSpan s = DateTime.Now.Date.Subtract(d);
 
-                // 2.
-                // Get total number of days elapsed.
-                int dayDiff = (int)s.TotalDays;
+            // 2.
+            // Get total number of days elapsed.
+            int dayDiff = (int)s.TotalDays;
 
-                // 5.
-                // Handle same-day times.
-                if (dayDiff == 0 || dayDiff == -1) {
-                    return "today";
-                } else if (dayDiff == 1) {
-                    return "yesterday";
-                } else
-                    return dayDiff + " days ago";
-            }
-            return "";
+            // 5.
+            // Handle same-day times.
+            if (dayDiff == 0 || dayDiff == -1) {
+                return "today";
+            } else if (dayDiff == 1) {
+                return "yesterday";
+            } else
+                return dayDiff + " days ago";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language) {

@@ -1,13 +1,12 @@
-﻿using API.Content;
-using API.Authentication;
-using Core.Common;
+﻿using Core.Common;
 using System;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
-using API;
+using APIWrapper.Client;
+using APIWrapper.Content.Model;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -44,10 +43,10 @@ namespace Core.Pages {
             MainPage.sb.ProgressIndicator.Text = "Loading blogs...";
             await MainPage.sb.ProgressIndicator.ShowAsync();
             if (PageTitle.Text.ToString() == "Followers") {
-                foreach (var x in await RequestHandler.RetrieveFollowers(offset))
+                foreach (var x in await CreateRequest.RetrieveFollowers(offset))
                     BlogList.Add(x);
             } else if (PageTitle.Text.ToString() == "Following") {
-                foreach (var x in await RequestHandler.RetrieveFollowing(offset))
+                foreach (var x in await CreateRequest.RetrieveFollowing(offset))
                     BlogList.Add(x);
             }
             List.ItemsSource = BlogList;
@@ -130,11 +129,11 @@ namespace Core.Pages {
         private async void FollowUnfollowButton_Tapped(object sender, TappedRoutedEventArgs e) {
             var x = ((Button)sender);
             if (x.Content.ToString().ToLower() == "follow") {
-                if (await RequestHandler.FollowUnfollow(true, x.Tag.ToString())) {
+                if (await CreateRequest.FollowUnfollow(true, x.Tag.ToString())) {
                     x.Content = "UNFOLLOW";
                 }
             } else if (x.Content.ToString().ToLower() == "unfollow") {
-                if (await RequestHandler.FollowUnfollow(false, x.Tag.ToString())) {
+                if (await CreateRequest.FollowUnfollow(false, x.Tag.ToString())) {
                     x.Content = "FOLLOW";
                 }
             }

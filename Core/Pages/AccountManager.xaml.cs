@@ -1,23 +1,14 @@
-﻿using API.Content;
-using API.Data;
+﻿using APIWrapper.AuthenticationManager;
+using APIWrapper.Content;
 using Core.Common;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Graphics.Display;
 using Windows.Phone.UI.Input;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
@@ -39,7 +30,7 @@ namespace Core.Pages {
 
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 
-            List.ItemsSource = UserData.UserBlogs;
+            List.ItemsSource = UserStore.UserBlogs;
             MainPage.ErrorFlyout = _ErrorFlyout;
         }
 
@@ -79,7 +70,7 @@ namespace Core.Pages {
         /// a dictionary of state preserved by this page during an earlier
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
-            List.ItemsSource = Config.AccountTokens.Keys;
+            List.ItemsSource = Authentication.AuthenticatedTokens.Keys;
         }
 
         /// <summary>
@@ -119,16 +110,16 @@ namespace Core.Pages {
         #endregion
 
         private void SelectAccountButton_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (Config.SelectedAccount != ((Button)sender).Tag.ToString()) {
-                Config.SelectedAccount = ((Button)sender).Tag.ToString();
+            if (Authentication.SelectedAccount!= ((Button)sender).Tag.ToString()) {
+                Authentication.SelectedAccount = ((Button)sender).Tag.ToString();
 
                 string token = "";
-                Config.AccountTokens.TryGetValue(Config.SelectedAccount, out token);
-                Config.OAuthToken = token;
+                Authentication.AuthenticatedTokens.TryGetValue(Authentication.SelectedAccount, out token);
+                Authentication.Token = token;
 
                 string secrettoken = "";
-                Config.AccountSecretTokens.TryGetValue(Config.SelectedAccount, out secrettoken);
-                Config.OAuthTokenSecret = secrettoken;
+                Authentication.AuthenticatedSecretTokens.TryGetValue(Authentication.SelectedAccount, out secrettoken);
+                Authentication.TokenSecret = secrettoken;
 
                 MainPage.SwitchedAccount = true;
                 if (!Frame.Navigate(typeof(MainPage))) {
@@ -145,7 +136,7 @@ namespace Core.Pages {
             if (!Frame.Navigate(typeof(xAuthLogin))) {
                 throw new Exception();
             }
-            List.ItemsSource = Config.AccountTokens.Keys;
+            List.ItemsSource = Authentication.AuthenticatedTokens.Keys;
         }
 
         private void StackPanel_Holding(object sender, HoldingRoutedEventArgs e) {
@@ -158,33 +149,33 @@ namespace Core.Pages {
         private void RemoveButton_Click(object sender, RoutedEventArgs e) {
             var x = ((MenuFlyoutItem)sender).Tag.ToString();
 
-            Config.AccountTokens.Remove(x);
-            Config.AccountSecretTokens.Remove(x);
-            Debug.WriteLine(Config.AccountTokens.Count);
-            if (Config.AccountTokens.Count != 0) {
-                if (Config.SelectedAccount == x) {
-                    Config.SelectedAccount = Config.AccountTokens.Keys.First();
+            Authentication.AuthenticatedTokens.Remove(x);
+            Authentication.AuthenticatedSecretTokens.Remove(x);
+            Debug.WriteLine(Authentication.AuthenticatedTokens.Count);
+            if (Authentication.AuthenticatedTokens.Count != 0) {
+                if (Authentication.SelectedAccount == x) {
+                    Authentication.SelectedAccount = Authentication.AuthenticatedTokens.Keys.First();
 
                     string token = "";
-                    Config.AccountTokens.TryGetValue(Config.SelectedAccount, out token);
-                    Config.OAuthToken = token;
+                    Authentication.AuthenticatedTokens.TryGetValue(Authentication.SelectedAccount, out token);
+                    Authentication.Token = token;
 
                     string secrettoken = "";
-                    Config.AccountSecretTokens.TryGetValue(Config.SelectedAccount, out secrettoken);
-                    Config.OAuthTokenSecret = secrettoken;
+                    Authentication.AuthenticatedSecretTokens.TryGetValue(Authentication.SelectedAccount, out secrettoken);
+                    Authentication.TokenSecret = secrettoken;
 
                     MainPage.SwitchedAccount = true;
                 }
-                Config.SaveLocalAccountStore();
+                Authentication.SetAuthenticatedTokens();
             } else {
-                Config.SaveLocalAccountStore();
+                Authentication.SetAuthenticatedTokens();
                 if (!Frame.Navigate(typeof(xAuthLogin))) {
                     throw new Exception();
                 }
                 return;
             }
 
-            List.ItemsSource = Config.AccountTokens.Keys;
+            List.ItemsSource = Authentication.AuthenticatedTokens.Keys;
         }
     }
 }

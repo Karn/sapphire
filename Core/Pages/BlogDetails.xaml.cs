@@ -1,4 +1,5 @@
-﻿using API;
+﻿using APIWrapper;
+using APIWrapper.Client;
 using Core.Common;
 using System;
 using Windows.UI.Xaml;
@@ -56,7 +57,7 @@ namespace Core.Pages {
         /// session.  The state will be null the first time a page is visited.</param>
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
             blogName = e.NavigationParameter.ToString();
-            LayoutRoot.DataContext = await RequestHandler.GetBlog(blogName);
+            LayoutRoot.DataContext = await CreateRequest.GetBlog(blogName);
         }
 
         /// <summary>
@@ -103,11 +104,11 @@ namespace Core.Pages {
         private async void FollowUnfollowButton_Tapped(object sender, TappedRoutedEventArgs e) {
             var x = ((Button)sender);
             if (x.Content.ToString().ToLower() == "follow") {
-                if (await RequestHandler.FollowUnfollow(true, x.Tag.ToString())) {
+                if (await CreateRequest.FollowUnfollow(true, x.Tag.ToString())) {
                     x.Content = "UNFOLLOW";
                 }
             } else if (x.Content.ToString().ToLower() == "unfollow") {
-                if (await RequestHandler.FollowUnfollow(false, x.Tag.ToString())) {
+                if (await CreateRequest.FollowUnfollow(false, x.Tag.ToString())) {
                     x.Content = "FOLLOW";
                 }
             }

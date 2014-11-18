@@ -1,5 +1,4 @@
-﻿using API.Authentication;
-using Core.Common;
+﻿using Core.Common;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

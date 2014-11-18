@@ -1,4 +1,5 @@
-﻿using System;
+﻿using APIWrapper.Content.Model;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Core.Utils.Converters {
 
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container) {
             //return base.SelectTemplateCore(item, container);
-                var listItem = item as API.Content.Post;
+                var listItem = item as Post;
 
                 if (listItem.type == "answer")
                     return AnswerTemplate;

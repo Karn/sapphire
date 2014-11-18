@@ -1,6 +1,5 @@
-﻿using API.Authentication;
-using API.Content;
-using API.Utils;
+﻿using APIWrapper.Content.Model;
+using APIWrapper.Utils;
 using Core.Common;
 using Core.Utils.Misc;
 using System;
@@ -18,7 +17,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-﻿
+using APIWrapper.Content;
+using APIWrapper.AuthenticationManager;
+
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -116,7 +117,7 @@ namespace Core.Pages {
         #endregion
 
         private void SelectBlogButton_Tapped(object sender, TappedRoutedEventArgs e) {
-            UserData.CurrentBlog = ((Button)sender).Tag as API.Content.Blog;
+            UserStore.CurrentBlog = ((Button)sender).Tag as Blog;
             MainPage.SwitchedBlog = true;
             Frame.GoBack();
         }
@@ -153,10 +154,10 @@ namespace Core.Pages {
             var tags = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Text_Tags")).Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
-                tags = AuthenticationManager.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+                tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
             }
             try {
-                API.Content.CreatePost.Text(AuthenticationManager.Utils.UrlEncode(title), AuthenticationManager.Utils.UrlEncode(body), tags);
+                APIWrapper.Content.Model.CreatePost.Text(Authentication.Utils.UrlEncode(title), Authentication.Utils.UrlEncode(body), tags);
                 Frame.GoBack();
             } catch (Exception ex) {
                 MainPage.ErrorFlyout.DisplayMessage("Failed to create text post");
@@ -169,7 +170,7 @@ namespace Core.Pages {
             var tags = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Photo_Tags")).Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
-                tags = AuthenticationManager.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+                tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
             }
 
             
@@ -186,7 +187,7 @@ namespace Core.Pages {
 
                 var photoasstring = Convert.ToBase64String(fileBytes);
                 Debug.WriteLine(photoasstring);
-                API.Content.CreatePost.Photo(AuthenticationManager.Utils.UrlEncode(caption), "", AuthenticationManager.Utils.UrlEncode(photoasstring), tags);
+                APIWrapper.Content.Model.CreatePost.Photo(Authentication.Utils.UrlEncode(caption), "", Authentication.Utils.UrlEncode(photoasstring), tags);
                 Frame.GoBack();
             } catch (Exception ex) {
                 MainPage.ErrorFlyout.DisplayMessage("Failed to create text post");
@@ -221,10 +222,10 @@ namespace Core.Pages {
             var tags = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Text_Tags")).Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
-                tags = AuthenticationManager.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+                tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
             }
             try {
-                API.Content.CreatePost.Quote(AuthenticationManager.Utils.UrlEncode(quote), AuthenticationManager.Utils.UrlEncode(source), tags);
+                APIWrapper.Content.Model.CreatePost.Quote(Authentication.Utils.UrlEncode(quote), Authentication.Utils.UrlEncode(source), tags);
                 Frame.GoBack();
             } catch (Exception ex) {
                 MainPage.ErrorFlyout.DisplayMessage("Failed to create text post");
@@ -240,10 +241,10 @@ namespace Core.Pages {
             var tags = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Text_Tags")).Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
-                tags = AuthenticationManager.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+                tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
             }
             try {
-                API.Content.CreatePost.Link(AuthenticationManager.Utils.UrlEncode(title), AuthenticationManager.Utils.UrlEncode(url), AuthenticationManager.Utils.UrlEncode(description), tags);
+                APIWrapper.Content.Model.CreatePost.Link(Authentication.Utils.UrlEncode(title), Authentication.Utils.UrlEncode(url), Authentication.Utils.UrlEncode(description), tags);
                 Frame.GoBack();
             } catch (Exception ex) {
                 MainPage.ErrorFlyout.DisplayMessage("Failed to create text post");
@@ -267,41 +268,13 @@ namespace Core.Pages {
             if (image == null) {
                 MainPage.ErrorFlyout.DisplayMessage("Failed to select image.");
             }
-
-
-            //FileOpenPicker openPicker = new FileOpenPicker();
-            //openPicker.ViewMode = PickerViewMode.Thumbnail;
-            //openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
-            //openPicker.FileTypeFilter.Add(".jpg");
-            //openPicker.FileTypeFilter.Add(".jpeg");
-            //openPicker.FileTypeFilter.Add(".png");
-
-            //openPicker.PickSingleFileAndContinue();
-            //if (file != null) {
-            //    // Application now has read/write access to the picked file
-            //    //OutputTextBlock.Text = "Picked photo: " + file.Name;
-            //    using (IRandomAccessStream fileStream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read)) {
-            //        // Set the image source to the selected bitmap 
-            //        photo = new BitmapImage();
-            //        photo.DecodePixelHeight = 200;
-            //        photo.DecodePixelWidth = 200;
-
-            //        await photo.SetSourceAsync(fileStream);
-
-            //        var PhotoView = ((Image)(((StackPanel)((Button)sender).Parent).FindName("Photo_Image")));
-            //        PhotoView.Source = photo;
-            //    } 
-
-            //} else {
-            //    //  OutputTextBlock.Text = "Operation cancelled.";
-            //}
         }
+
         public async void ContinueFileOpenPicker(FileOpenPickerContinuationEventArgs args) {
             if (args.Files.Count > 0) {
                 image = args.Files[0];
                 Debug.WriteLine(image.Path);
-                //PhotoView.Source = new BitmapImage() { UriSource = new Uri(image.Path) };
-                using (IRandomAccessStream fileStream = await image.OpenAsync(Windows.Storage.FileAccessMode.Read)) {
+                using (IRandomAccessStream fileStream = await image.OpenAsync(FileAccessMode.Read)) {
                     var photo = new BitmapImage();
                     await photo.SetSourceAsync(fileStream);
 
