@@ -18,13 +18,13 @@ using Windows.UI.Popups;
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace APIWrapper.Utils {
-    public sealed partial class ErrorFlyout : UserControl {
+    public sealed partial class AlertDialog : UserControl {
 
         private static List<string> ErrorQueue = new List<string>();
         
         public static bool IsAnimating;
 
-        public ErrorFlyout() {
+        public AlertDialog() {
             this.InitializeComponent();
         }
 

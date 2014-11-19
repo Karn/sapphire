@@ -34,7 +34,7 @@
     </Page.Transitions>
 
     <Grid x:Name="LayoutRoot" Loaded="LayoutRoot_Loaded">
-        <CommonControl:ErrorFlyout x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
+        <CommonControl:AlertDialog x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

@@ -35,7 +35,7 @@
         </Grid.RowDefinitions>
 
         <!-- TitlePanel -->
-        <CommonControl:ErrorFlyout x:Name="ErrorFlyout" VerticalAlignment="Top"/>
+        <CommonControl:AlertDialog x:Name="ErrorFlyout" VerticalAlignment="Top"/>
         <StackPanel x:Name="LogoImage" Opacity="0">
             <Image Margin="60, 40, 60, 30" Source="ms-appx:///Assets/Logo.png"/>
             <!--<TextBlock Margin="7, -65, 7, 0" Text="Sapphire" TextWrapping="Wrap" Foreground="{ThemeResource LightText}" FontSize="75" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal" HorizontalAlignment="Center"/>-->

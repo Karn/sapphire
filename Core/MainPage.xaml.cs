@@ -25,7 +25,7 @@ using Windows.UI.Xaml.Shapes;
 namespace Core {
     public sealed partial class MainPage : Page {
 
-        public static ErrorFlyout ErrorFlyout;
+        public static AlertDialog ErrorFlyout;
 
         public static Storyboard RefreshButtonIntoView_;
         public static Storyboard RefreshButtonOutOfView_;

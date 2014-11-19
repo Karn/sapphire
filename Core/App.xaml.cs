@@ -1,4 +1,5 @@
-﻿using APIWrapper.AuthenticationManager;
+﻿using AdDuplex.Universal.Controls.WinPhone.XAML.Tracking;
+using APIWrapper.AuthenticationManager;
 using APIWrapper.Content;
 using Core.Common;
 using MarkedUp;
@@ -103,24 +104,16 @@ namespace Core {
 
                 rootFrame.ContentTransitions = null;
                 rootFrame.Navigated += this.RootFrame_FirstNavigated;
-                //rootFrame.Background = App.Current.Resources["HeaderLightBlue"] as SolidColorBrush
-
 
                 DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
                 Windows.UI.ViewManagement.StatusBar.GetForCurrentView().BackgroundColor = Color.FromArgb(255, 40, 52, 64);
                 Windows.UI.ViewManagement.StatusBar.GetForCurrentView().ForegroundColor = Color.FromArgb(255, 255, 255, 255);
 
-                // When the navigation stack isn't restored navigate to the first page,
-                // configuring the new page by passing required information as a navigation
-                // parameter.
-                //if (!rootFrame.Navigate(typeof(PivotPage), e.Arguments))
-                //{
-                //    throw new Exception("Failed to create initial page");
-                //}
                 //Initialize In app puchase handler
                 Utils.IAPHander.UpdateInAppPurchases();
                 //Initialize Analytics
                 AnalyticClient.Initialize("95b1a985-187e-4062-a756-ffac679e4fe4");
+                AdDuplexTrackingSDK.StartTracking("d9b787e4-616a-40ea-bdb4-c81523cb0733");
                 new Authentication();
                 new UserStore();
 
