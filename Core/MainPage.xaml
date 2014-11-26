@@ -42,15 +42,13 @@
             </Grid.RowDefinitions>
 
             <StackPanel x:Name="HeaderContainer">
-                <Border Canvas.ZIndex="99999" Height="26" Background="{ThemeResource HeaderDarkBlue}" VerticalAlignment="Top"/>
+                <Border Canvas.ZIndex="99" Height="26" Background="{ThemeResource HeaderDarkBlue}" VerticalAlignment="Top"/>
                 <Grid x:Name="HeaderContent" Background="{ThemeResource HeaderLightBlue}" Height="56" Margin="0, -1, 0, 0" RenderTransformOrigin="0.5,0.5">
                     <Grid.RenderTransform>
                         <CompositeTransform TranslateY="0"/>
                     </Grid.RenderTransform>
 
                     <TextBlock x:Name="PageTitle" Text="Sapphire" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
-
-                    <Ellipse x:Name="_NewPostIndicator" Visibility="Collapsed" Width="6" Height="6" Margin="5, 40, 138, 0" Fill="{ThemeResource LightText}" HorizontalAlignment="Right"/>
 
                     <StackPanel Orientation="Horizontal" Margin="5, 0" HorizontalAlignment="Right" VerticalAlignment="Center">
                         <GridView x:Name="Navigation" ScrollViewer.VerticalScrollMode="Disabled" Height="35" Margin="0, 0, 0, 3" SelectionChanged="Navigation_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -68,30 +66,20 @@
                 </Grid>
             </StackPanel>
 
-            <Pivot Grid.Row="1" x:Name="NavigationPivot" SelectionChanged="NavigationPivot_SelectionChanged" Margin="0, -40, 0, 0" Background="{StaticResource StandardGray}" Canvas.ZIndex="-1">
+            <Pivot x:Name="NavigationPivot" Grid.Row="1" 
+                   SelectionChanged="NavigationPivot_SelectionChanged"
+                   Margin="0, -40, 0, 0" Canvas.ZIndex="-1"
+                   Background="{StaticResource StandardGray}">
                 <PivotItem x:Name="DashboardPivot" Margin="0" HorizontalContentAlignment="Stretch">
                     <Grid>
-                        <Grid.Resources>
-                            <Storyboard x:Name="CreateButtonIntoView">
-                                <DoubleAnimation Duration="0:0:0.2"
-                             To="55"
-                             EnableDependentAnimation="True"
-                             Storyboard.TargetProperty="Height"
-                             Storyboard.TargetName="CreatePost">
-                                </DoubleAnimation>
-                            </Storyboard>
-                            <Storyboard x:Name="CreateButtonOutOfView">
-                                <DoubleAnimation Duration="0:0:0.2"
-                             To="0"
-                             EnableDependentAnimation="True"
-                             Storyboard.TargetProperty="Height"
-                             Storyboard.TargetName="CreatePost">
-                                </DoubleAnimation>
-                            </Storyboard>
-                        </Grid.Resources>
                         <Control:PostView x:Name="Posts" Margin="0, 0, 0, 24" URL="https://api.tumblr.com/v2/user/dashboard" AffectHeader="True" Loaded="Posts_Loaded"/>
                         <Control:NewPostDialog x:Name="CreatePostControl" Visibility="Collapsed"/>
-                        <Button x:Name="CreatePost" Visibility="Visible" ClickMode="Press" Click="CreatePost_Click" Height="55" Width="55" Margin="20, 48" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="0" MinHeight="0" Style="{StaticResource ButtonStyleNoBG}">
+                        <Button x:Name="CreatePost" ClickMode="Press" Click="CreatePost_Click" Height="55" Width="55" Margin="20, 48" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="0" MinHeight="0" Style="{StaticResource ButtonStyleNoBG}">
+                            <Button.Transitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition/>
+                                </TransitionCollection>
+                            </Button.Transitions>
                             <Grid>
                                 <Ellipse x:Name="CreatePostFill" Stroke="{StaticResource DarkText}" StrokeThickness="0.1" Fill="{ThemeResource HeaderLightBlue}"/>
                                 <Image x:Name="CreatePostIcon" Source="Assets/New.png" Margin="10" RenderTransformOrigin="0.5,0.5" Canvas.ZIndex="50"/>
@@ -161,33 +149,23 @@
                                 </StackPanel.ChildrenTransitions>
                                 <StackPanel Orientation="Horizontal" Tag="Blogs" Tapped="Inbox_Tapped">
                                     <Image x:Name="Inbox" Source="{ThemeResource InboxButtonAsset}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35" Width="35" Stretch="UniformToFill" Margin="10"/>
-                                    <TextBlock Text="Inbox" Foreground="{ThemeResource HeaderLightBlue}" FontFamily="Segoe WP" FontWeight="Thin" FontSize="24" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Inbox" Foreground="{ThemeResource DarkText}" FontFamily="Segoe WP" FontWeight="Thin" FontSize="24" VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Tag="Blogs" Tapped="Drafts_Tapped">
                                     <Image x:Name="Drafts" Source="{ThemeResource DraftsButtonAsset}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35" Width="35" Stretch="UniformToFill" Margin="10"/>
-                                    <TextBlock Text="Drafts" Foreground="{ThemeResource HeaderLightBlue}" FontFamily="Segoe WP" FontWeight="Thin" FontSize="24" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Drafts" Foreground="{ThemeResource DarkText}" FontFamily="Segoe WP" FontWeight="Thin" FontSize="24" VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Tag="Blogs" Tapped="Queue_Tapped">
                                     <Image x:Name="Queue" Source="{ThemeResource QueueButtonAsset}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35" Width="35" Stretch="UniformToFill" Margin="10"/>
-                                    <TextBlock Text="Queue" Foreground="{ThemeResource HeaderLightBlue}" FontFamily="Segoe WP" FontWeight="Thin" FontSize="24" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Queue" Foreground="{ThemeResource DarkText}" FontFamily="Segoe WP" FontWeight="Thin" FontSize="24" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
-
-
                     </StackPanel>
                 </PivotItem>
-                <PivotItem x:Name="SearchPivot" Margin="0">
-                    <Grid Margin="10, 10, 10, 54" VerticalAlignment="Stretch">
-                        <Grid.Transitions>
-                            <TransitionCollection>
-                                <EntranceThemeTransition/>
-                            </TransitionCollection>
-                        </Grid.Transitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                
+                <PivotItem x:Name="SearchPivot" Margin="0" VerticalContentAlignment="Stretch">
+                    <StackPanel Margin="10, 10, 10, 54" VerticalAlignment="Stretch">
                         <Grid>
                             <TextBox x:Name="SearchText" KeyDown="SearchText_KeyDown" Margin="0, 5" PlaceholderText="Search..." Height="45" Padding="50, 8, 0, 0" VerticalContentAlignment="Center" Background="White" BorderThickness="0"/>
                             <Image Source="Assets/Nav/Search_Dark.png" HorizontalAlignment="Left" Margin="7, 10" Height="30" Width="35" Opacity=".5"/>
@@ -206,8 +184,9 @@
                                 </DataTemplate>
                             </GridView.ItemTemplate>
                         </GridView>
-                    </Grid>
+                    </StackPanel>
                 </PivotItem>
+                
             </Pivot>
         </Grid>
     </Grid>

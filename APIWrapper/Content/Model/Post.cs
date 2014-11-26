@@ -1,10 +1,5 @@
-﻿using APIWrapper.Content;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
 namespace APIWrapper.Content.Model {
@@ -58,6 +53,7 @@ namespace APIWrapper.Content.Model {
         public int thumbnail_height { get; set; }
         public object player { get; set; }
         public string video_type { get; set; }
+        public string video_url { get; set; }
         public string artist { get; set; }
         public string album { get; set; }
         public int? year { get; set; }

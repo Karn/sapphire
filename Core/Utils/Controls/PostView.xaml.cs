@@ -32,6 +32,10 @@ namespace Core.Utils.Controls {
         public static ImageBrush LikeBrush = new ImageBrush { ImageSource = App.Current.Resources["LikeAsset"] as BitmapImage };
         public static ImageBrush LikeFullBrush = new ImageBrush { ImageSource = App.Current.Resources["LikedAsset"] as BitmapImage };
 
+        public static ImageSource PlayIcon = App.Current.Resources["PlayIcon"] as BitmapImage;
+        public static ImageSource PauseIcon = App.Current.Resources["PauseIcon"] as BitmapImage;
+
+
         public bool IsSinglePost;
 
         public string FirstPostID;
@@ -222,17 +226,6 @@ namespace Core.Utils.Controls {
             dp.SetWebLink(LinkToShare);
         }
 
-        private void PlayMedia(object sender, RoutedEventArgs e) {
-            var Media = ((MediaElement)((StackPanel)((AppBarToggleButton)sender).Parent).FindName("Media"));
-            if (Media.CurrentState != MediaElementState.Playing) {
-                Media.Play();
-                Debug.WriteLine("Playing");
-            } else {
-                Media.Pause();
-                Debug.WriteLine("Paused");
-            }
-        }
-
         private async void AppBarButton_Click(object sender, RoutedEventArgs e) {
 
             var _GIFPlaceHolder = ((Image)((Grid)((AppBarButton)sender).Parent).FindName("GIFPlaceHolder"));
@@ -296,11 +289,9 @@ namespace Core.Utils.Controls {
                     _updating = true;
                     if (sv.VerticalOffset == 0.0) {
                         textBlock1.Opacity = 0.7;
-                        textBlock2.Visibility = Visibility.Visible;
                         textBlock1.Visibility = Visibility.Collapsed;
                     } else {
                         textBlock1.Opacity = 0.3;
-                        textBlock2.Visibility = Visibility.Collapsed;
                         textBlock1.Visibility = Visibility.Visible;
                     }
 
@@ -466,6 +457,24 @@ namespace Core.Utils.Controls {
                 ((TextBlock)sender).MaxHeight = 9999;
             else
                 ((TextBlock)sender).MaxHeight = 300;
+        }
+
+        private void WebView_Loaded(object sender, RoutedEventArgs e) {
+            if (((WebView)sender).Tag != null)
+                ((WebView)sender).NavigateToString(((WebView)sender).Tag.ToString());
+        }
+
+        private async void DirectURIVideoElement_Loaded(object sender, RoutedEventArgs e) {
+            if (((MediaElement)sender).Tag != null) {
+                var x = ((MediaElement)sender).Tag.ToString().Split('=');
+                Debug.WriteLine(x[1]);
+                var url = await YouTube.GetVideoUriAsync(x[1], YouTubeQuality.QualityMedium);
+
+                if (url != null) {
+                    ((MediaElement)sender).Source = url.Uri;
+                }
+                ((MediaElement)sender).Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

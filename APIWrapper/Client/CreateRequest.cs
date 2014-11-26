@@ -293,6 +293,9 @@ namespace APIWrapper.Client {
                                 }
                                 if (p.photos.Count > 1)
                                     p.type = "photoset";
+                            } else if (p.type == "video") {
+                                if (p.video_type == "youtube")
+                                    p.type = "youtube";
                             }
 
                             //Parse images here

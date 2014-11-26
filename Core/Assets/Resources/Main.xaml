@@ -67,6 +67,9 @@
     <BitmapImage x:Key="TagsIcon" UriSource="ms-appx:///Assets/Nav/Tag.png" />
 
     <BitmapImage x:Key="AudioPlaceholder" UriSource="ms-appx:///Assets/AudioPlaceholder.png" />
+    
+    <BitmapImage x:Key="PlayIcon" UriSource="ms-appx:///Assets/PlayIcon.png" />
+    <BitmapImage x:Key="PauseIcon" UriSource="ms-appx:///Assets/PauseIcon.png" />
 
     <converter:FollowingToString x:Key="FollowingToString"/>
     <converter:FollowingToVisibility x:Key="FollowingToVisibility"/>
@@ -791,6 +794,7 @@
     <x:Double x:Key="ListViewItemDisabledThemeOpacity">0.4</x:Double>
     <x:Double x:Key="ListViewItemContentTranslateX">40.5</x:Double>
     <x:Double x:Key="ListViewItemReorderHintThemeOffset">32</x:Double>
+    
     <Style x:Key="ListViewItemContainerStyle" TargetType="ListViewItem">
         <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
         <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>

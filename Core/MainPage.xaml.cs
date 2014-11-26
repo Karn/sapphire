@@ -60,30 +60,24 @@ namespace Core {
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-            var applicationView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
-            applicationView.SetDesiredBoundsMode(Windows.UI.ViewManagement.ApplicationViewBoundsMode.UseCoreWindow);
+            ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
 
             if (sb == null) {
-                sb = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+                sb = StatusBar.GetForCurrentView();
                 sb.ForegroundColor = Color.FromArgb(255, 255, 255, 255);
             }
 
             //Initialize
             ErrorFlyout = _ErrorFlyout; //Mainpage error toast
-            NewPostIndicator = _NewPostIndicator;
 
             if (Authentication.AuthenticatedTokens.Count > 1) {
                 AccountManageButton.Label = "accounts";
             }
 
-            CreateButtonIntoView_ = CreateButtonIntoView;
-            CreateButtonOutOfView_ = CreateButtonOutOfView;
-
             NPD = CreatePostControl;
 
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 
-            //if (!string.IsNullOrEmpty(UserData.AreNotificationsEnabled) && UserData.AreNotificationsEnabled == "True")
             if (UserStore.NotificationsEnabled)
                 RegisterBackgroundTask();
         }
@@ -253,8 +247,6 @@ namespace Core {
                     ActivityIcon.Opacity = 1.0;
                     SearchIcon.Opacity = 0.5;
                     NavigationPivot.SelectedIndex = 1;
-                    //TileUpdateManager.CreateTileUpdaterForApplication().Clear();
-                    //BadgeUpdateManager.CreateBadgeUpdaterForApplication().Clear();
                     break;
                 case 2:
                     PageTitle.Text = "Account";
@@ -286,27 +278,6 @@ namespace Core {
         private void ManageAccountButton_Click(object sender, RoutedEventArgs e) {
             if (!Frame.Navigate(typeof(Pages.AccountManager))) {
                 Debug.WriteLine("Failed to Navigate");
-            }
-        }
-
-        private void AccountNavPanel_Tapped(object sender, TappedRoutedEventArgs e) {
-            switch (((StackPanel)sender).Tag.ToString()) {
-                case "Blogs": //Blogs
-                    if (!Frame.Navigate(typeof(Pages.Blogs)))
-                        Debug.WriteLine("Failed to Navigate");
-                    break;
-                case "Messages": //Messages
-                    //if (!Frame.Navigate(typeof(Pages.Messages)))
-                    //    throw new Exception(this.resourceLoader.GetString("NavigationFailedExceptionMessage"));
-                    break;
-                case "Queue": //Followers
-                    //if (!Frame.Navigate(typeof(Pages.Queue)))
-                    //    throw new Exception(this.resourceLoader.GetString("NavigationFailedExceptionMessage"));
-                    break;
-                case "Drafts": //Following
-                    //if (!Frame.Navigate(typeof(Pages.Drafts)))
-                    //    throw new Exception(this.resourceLoader.GetString("NavigationFailedExceptionMessage"));
-                    break;
             }
         }
 
@@ -354,7 +325,6 @@ namespace Core {
                 }
             }
         }
-
 
         public void Posts_Loaded(object sender, RoutedEventArgs e) {
             if (UserStore.CurrentBlog == null)

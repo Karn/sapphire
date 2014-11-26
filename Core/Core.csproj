@@ -167,6 +167,8 @@
     <Compile Include="Utils\Misc\ItemsToShow.cs" />
     <Compile Include="Utils\Misc\ThemeResources.cs" />
     <Compile Include="Utils\Misc\VariableGrid.cs" />
+    <Compile Include="Utils\Misc\YouTubeQuality.cs" />
+    <Compile Include="Utils\Misc\YoutubeUri.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -223,7 +225,9 @@
     <Content Include="Assets\NewPost\Text.png" />
     <Content Include="Assets\NewPost\Videos.png" />
     <Content Include="Assets\Password.png" />
+    <Content Include="Assets\PauseIcon.png" />
     <Content Include="Assets\Play.png" />
+    <Content Include="Assets\PlayIcon.png" />
     <Content Include="Assets\PostOK.png" />
     <Content Include="Assets\Posts.png" />
     <Content Include="Assets\Queue.png" />
