@@ -17,12 +17,15 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using System.IO;
 
 
 // Use setter to set item source of posts
 
 namespace Core.Utils.Controls {
     public sealed partial class PostView : UserControl {
+
+        private static string TAG = "PostView";
 
         private ScrollViewer sv;
 
@@ -143,11 +146,11 @@ namespace Core.Utils.Controls {
                         DebugHandler.Error("Failed to update note count. ", ex2.StackTrace);
                     }
                 } else {
-                    MainPage.ErrorFlyout.DisplayMessage("Failed to like post.");
+                    MainPage.AlertFlyout.DisplayMessage("Failed to like post.");
                 }
             } catch (Exception ex) {
                 DebugHandler.Error("Failed to like post. ", ex.StackTrace);
-                MainPage.ErrorFlyout.DisplayMessage("Failed to like post.");
+                MainPage.AlertFlyout.DisplayMessage("Failed to like post.");
             }
         }
 
@@ -164,7 +167,7 @@ namespace Core.Utils.Controls {
                         x.Background = RebloggedBrush;
                         notes.Text = (int.Parse(notes.Text) + 1).ToString();
                     } else
-                        MainPage.ErrorFlyout.DisplayMessage("Failed to reblog post.");
+                        MainPage.AlertFlyout.DisplayMessage("Failed to reblog post.");
                 } catch (Exception ex) {
                     DebugHandler.Error("Failed to reblog post", ex.StackTrace);
                 }
@@ -180,11 +183,11 @@ namespace Core.Utils.Controls {
             var post = (Post)((Button)sender).Tag;
 
             if (await CreateRequest.PostDraft(post.id)) {
-                MainPage.ErrorFlyout.DisplayMessage("Created post.");
+                MainPage.AlertFlyout.DisplayMessage("Created post.");
                 var items = Posts.ItemsSource as ObservableCollection<Post>;
                 items.Remove(post);
             } else
-                MainPage.ErrorFlyout.DisplayMessage("Failed to create post.");
+                MainPage.AlertFlyout.DisplayMessage("Failed to create post.");
 
         }
 
@@ -195,7 +198,7 @@ namespace Core.Utils.Controls {
                 var items = Posts.ItemsSource as ObservableCollection<Post>;
                 items.Remove(post);
             } else
-                MainPage.ErrorFlyout.DisplayMessage("Failed to delete post.");
+                MainPage.AlertFlyout.DisplayMessage("Failed to delete post.");
         }
 
         private void PostDetail_Tapped(object sender, TappedRoutedEventArgs e) {
@@ -343,20 +346,22 @@ namespace Core.Utils.Controls {
                 // create the blank file in specified folder
                 var imageFolder = await KnownFolders.PicturesLibrary.CreateFolderAsync("Sapphire", CreationCollisionOption.OpenIfExists);
 
-                var file = await imageFolder.CreateFileAsync(fileUri.ToString().Split('/').Last(), CreationCollisionOption.ReplaceExisting);
+                var path = DateTime.Now.ToFileTimeUtc().ToString() + Path.GetExtension(fileUri.ToString());
+
+                var file = await imageFolder.CreateFileAsync(path, CreationCollisionOption.ReplaceExisting);
 
                 // create the downloader instance and prepare for downloading the file
                 var backgroundDownloader = new BackgroundDownloader();
+                backgroundDownloader.CostPolicy = BackgroundTransferCostPolicy.Always;
                 var downloadOperation = backgroundDownloader.CreateDownload(fileUri, file);
-
                 // start the download operation asynchronously
                 await downloadOperation.StartAsync();
-
-                MainPage.ErrorFlyout.DisplayMessage("Image saved.");
+                
+                MainPage.AlertFlyout.DisplayMessage("Image saved.");
                 return true;
-            } catch (Exception e) {
-                MainPage.ErrorFlyout.DisplayMessage("Unable to save photo: " + e.Message);
-                DebugHandler.Error("Failed to save image to photo library.", e.StackTrace);
+            } catch (Exception ex) {
+                MainPage.AlertFlyout.DisplayMessage("Unable to save photo.");
+                DiagnosticsManager.LogException(ex, TAG, "Unable to save media to photos folder.");
                 return false;
             }
         }

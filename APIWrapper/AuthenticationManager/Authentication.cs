@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using APIWrapper.Utils;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,6 +13,8 @@ namespace APIWrapper.AuthenticationManager {
 
     public class Authentication {
 
+        private static string TAG = "Authentication";
+
         //OAuth URI Endpoints
         private static readonly string RequestTokenURI = "http://www.tumblr.com/oauth/request_token";
         private static readonly string AuthorizationURI = "http://www.tumblr.com/oauth/authorize";
@@ -23,7 +26,7 @@ namespace APIWrapper.AuthenticationManager {
         //Keys
         public static readonly string ConsumerKey = "BUHsuO5U9DF42uJtc8QTZlOmnUaJmBJGuU1efURxeklbdiLn9L";
         public static readonly string ConsumerSecretKey = "olOu3aRBCdqCuMFm8fmzNjMAWmICADSIuXWTnVSFng1ZcLU1cV";
-        
+
         #region OTHER KEYS
         //["API_KEY"] = "4HL5w2Uht9FwOQZbsmUFFB8lrXUW2D4krfG24BvcF4Sijj3Bgd";
         //["API_SECRET_KEY"] = "kIXPU2gyaZ9EYWpuNX5FbCc9jQmhVuD40Ca7trnSr7PkDdYxLE";
@@ -71,7 +74,9 @@ namespace APIWrapper.AuthenticationManager {
         //Current account
         public static string SelectedAccount {
             get {
-                return LocalSettings.Values["SelectedAccount"].ToString();
+                if (LocalSettings.Values["SelectedAccount"] != null)
+                    return LocalSettings.Values["SelectedAccount"].ToString();
+                return "";
             }
             set {
                 LocalSettings.Values["SelectedAccount"] = value;
@@ -92,12 +97,18 @@ namespace APIWrapper.AuthenticationManager {
         //Retreive locally stored tokens
         private static void GetAuthenticatedTokens() {
             try {
-                AuthenticatedTokens = JsonConvert.DeserializeObject<Dictionary<string, string>>(LocalSettings.Values["AccountTokens"].ToString());
-                AuthenticatedSecretTokens = JsonConvert.DeserializeObject<Dictionary<string, string>>(LocalSettings.Values["AccountSecretTokens"].ToString());
-            } catch {
-                Debug.WriteLine("[Authentication]: Cannot load from storage; Assigning default values.");
+                if (LocalSettings.Values["AccountTokens"] != null)
+                    AuthenticatedTokens = JsonConvert.DeserializeObject<Dictionary<string, string>>(LocalSettings.Values["AccountTokens"].ToString());
+                else
+                    AuthenticatedTokens = new Dictionary<string, string>();
+                if (LocalSettings.Values["AccountSecretTokens"] != null)
+                    AuthenticatedSecretTokens = JsonConvert.DeserializeObject<Dictionary<string, string>>(LocalSettings.Values["AccountSecretTokens"].ToString());
+                else
+                    AuthenticatedSecretTokens = new Dictionary<string, string>();
+            } catch (Exception ex) {
                 AuthenticatedTokens = new Dictionary<string, string>();
                 AuthenticatedSecretTokens = new Dictionary<string, string>();
+                DiagnosticsManager.LogException(ex, TAG, "Cannot load from storage; Assigned default values.");
             }
         }
 
@@ -106,9 +117,8 @@ namespace APIWrapper.AuthenticationManager {
             try {
                 LocalSettings.Values["AccountTokens"] = JsonConvert.SerializeObject(AuthenticatedTokens);
                 LocalSettings.Values["AccountSecretTokens"] = JsonConvert.SerializeObject(AuthenticatedSecretTokens);
-                Debug.WriteLine("[Authentication]: Saved to storage.");
-            } catch {
-                Debug.WriteLine("[Authentication]: Cannot save to storage; Assigning default values.");
+            } catch (Exception ex) {
+                DiagnosticsManager.LogException(ex, TAG, "Cannot save to storage.");
             }
         }
 
@@ -129,10 +139,12 @@ namespace APIWrapper.AuthenticationManager {
                 {"x_auth_username", Uri.EscapeDataString(userName)}
             }.Select(kv => kv.Key + "=" + kv.Value).Aggregate((i, j) => i + "&" + j);
 
-                var signatureString = "POST&" + Uri.EscapeDataString(SecureAccessTokenURI) + "&" + Uri.EscapeDataString(signatureParameters);
+                var signatureString = "POST&" + Uri.EscapeDataString(SecureAccessTokenURI) + "&" + 
+                    Uri.EscapeDataString(signatureParameters);
                 var signature = Utils.GenerateSignature(signatureString, ConsumerSecretKey);
 
-                var response = await Utils.PostAuthenticationData(SecureAccessTokenURI, signatureParameters + "&oauth_signature=" + Uri.EscapeDataString(signature));
+                var response = await Utils.PostAuthenticationData(SecureAccessTokenURI, 
+                    signatureParameters + "&oauth_signature=" + Uri.EscapeDataString(signature));
 
                 Debug.WriteLine("Access Token Response: " + response);
 
@@ -148,14 +160,12 @@ namespace APIWrapper.AuthenticationManager {
                         Token = accessToken[1];
                         SelectedAccount = userName;
                     }
-                    Debug.WriteLine("Access Token: " + Token);
 
                     //Add secret token to secret token dictionary
                     AuthenticatedSecretTokens.Add(userName, accessTokenSecret[1]);
                     if (AuthenticatedSecretTokens.Count == 1) {
                         TokenSecret = accessTokenSecret[1];
                     }
-                    Debug.WriteLine("OAuth Access Token: " + TokenSecret);
 
                     SetAuthenticatedTokens();
                     return "OK";
@@ -165,10 +175,7 @@ namespace APIWrapper.AuthenticationManager {
             } else {
                 return "No Network";
             }
-
-            return null;
+            return "Error";
         }
-
-
     }
 }

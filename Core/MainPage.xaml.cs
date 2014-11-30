@@ -1,8 +1,7 @@
-﻿using APIWrapper;
-using APIWrapper.Utils;
-using APIWrapper.AuthenticationManager;
+﻿using APIWrapper.AuthenticationManager;
 using APIWrapper.Client;
 using APIWrapper.Content;
+using APIWrapper.Utils;
 using Core.Common;
 using Core.Utils.Controls;
 using System;
@@ -25,7 +24,9 @@ using Windows.UI.Xaml.Shapes;
 namespace Core {
     public sealed partial class MainPage : Page {
 
-        public static AlertDialog ErrorFlyout;
+        public static string TAG = "MainPage";
+
+        public static AlertDialog AlertFlyout;
 
         public static Storyboard RefreshButtonIntoView_;
         public static Storyboard RefreshButtonOutOfView_;
@@ -68,9 +69,9 @@ namespace Core {
             }
 
             //Initialize
-            ErrorFlyout = _ErrorFlyout; //Mainpage error toast
+            AlertFlyout = _ErrorFlyout; //Mainpage error toast
 
-            if (Authentication.AuthenticatedTokens.Count > 1) {
+            if (Authentication.AuthenticatedTokens != null && Authentication.AuthenticatedTokens.Count > 1) {
                 AccountManageButton.Label = "accounts";
             }
 
@@ -83,9 +84,12 @@ namespace Core {
         }
 
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e) {
-            //Animate
-            //Header
             HeaderAnimateIn.Begin();
+            if (!UserStore.EnableStatusBarBG)
+                StatusBarBG.Background = App.Current.Resources["HeaderLightBlue"] as SolidColorBrush;
+            else
+                StatusBarBG.Background = App.Current.Resources["HeaderDarkBlue"] as SolidColorBrush;
+
         }
 
         private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e) {
@@ -128,12 +132,13 @@ namespace Core {
         /// session. The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
             if (e.NavigationParameter != null && !string.IsNullOrEmpty(e.NavigationParameter.ToString()) && !NavigatedFromToast) {
+                //Handle accounts switch to the one described in the toast
                 Posts_Loaded(null, null);
                 NavigationPivot.SelectedIndex = 1;
                 NavigatedFromToast = true;
             }
 
-            ErrorFlyout = _ErrorFlyout;
+            AlertFlyout = _ErrorFlyout;
 
             if (CreatePostControl.Visibility == Visibility.Collapsed) {
                 CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
@@ -200,11 +205,10 @@ namespace Core {
 
             foreach (var cur in BackgroundTaskRegistration.AllTasks) {
                 if (cur.Value.Name == "PushNotificationTask") {
-                    Debug.WriteLine("Previous Task Found.");
+                    DiagnosticsManager.LogException(null, TAG, "Previous task found.");
                     return;
                 }
             }
-            MarkedUp.AnalyticClient.SessionEvent("Registering Task");
             await BackgroundExecutionManager.RequestAccessAsync();
 
             BackgroundTaskBuilder taskBuilder = new BackgroundTaskBuilder { Name = "PushNotificationTask", TaskEntryPoint = "BackgroundUtilities.NotificationHandler" };
@@ -271,13 +275,13 @@ namespace Core {
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e) {
             if (!Frame.Navigate(typeof(Pages.Settings))) {
-                Debug.WriteLine("Failed to Navigate");
+                DiagnosticsManager.LogException(null, TAG, "Failed to navigate to Settings.");
             }
         }
 
         private void ManageAccountButton_Click(object sender, RoutedEventArgs e) {
             if (!Frame.Navigate(typeof(Pages.AccountManager))) {
-                Debug.WriteLine("Failed to Navigate");
+                DiagnosticsManager.LogException(null, TAG, "Failed to navigate to AccountManager.");
             }
         }
 
@@ -304,22 +308,22 @@ namespace Core {
                 switch (((StackPanel)sender).Tag.ToString()) {
                     case "Posts":
                         if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/posts")) {
-                            Debug.WriteLine("Failed to Navigate");
+                            DiagnosticsManager.LogException(null, TAG, "Failed to navigate to current blogs posts.");
                         }
                         break;
                     case "Likes":
                         if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/user/likes")) {
-                            Debug.WriteLine("Failed to Navigate");
+                            DiagnosticsManager.LogException(null, TAG, "Failed to navigate to current blogs likes.");
                         }
                         break;
                     case "Followers":
                         if (!Frame.Navigate(typeof(Pages.FollowersFollowing), "Followers")) {
-                            Debug.WriteLine("Failed to Navigate");
+                            DiagnosticsManager.LogException(null, TAG, "Failed to navigate to Followers.");
                         }
                         break;
                     case "Following":
                         if (!Frame.Navigate(typeof(Pages.FollowersFollowing), "Following")) {
-                            Debug.WriteLine("Failed to Navigate");
+                            DiagnosticsManager.LogException(null, TAG, "Failed to navigate to Following.");
                         }
                         break;
                 }
@@ -338,18 +342,14 @@ namespace Core {
                 RefreshButton.IsEnabled = false;
                 sb.ProgressIndicator.Text = "Loading account data...";
                 await sb.ProgressIndicator.ShowAsync();
-                try {
-                    Debug.WriteLine("Loading account data...");
-                    AccountPivot.DataContext = await CreateRequest.RetrieveAccountInformation() ? UserStore.CurrentBlog : null;
-                    if (!ActivityPosts.ContentLoaded)
-                        ActivityPosts.LoadPosts();
-                } catch (Exception e) {
-                    DebugHandler.Error("Failed to load account data", e.StackTrace);
-                }
+                Debug.WriteLine("Loading account data...");
+                AccountPivot.DataContext = await CreateRequest.RetrieveAccountInformation() ? UserStore.CurrentBlog : null;
+                if (!ActivityPosts.ContentLoaded)
+                    ActivityPosts.LoadPosts();
                 RefreshButton.IsEnabled = true;
                 await sb.ProgressIndicator.HideAsync();
             } else {
-                ErrorFlyout.DisplayMessage("Unable to load Account information.");
+                AlertFlyout.DisplayMessage("Unable to retrieve account details. Check your network connection.");
             }
         }
 
@@ -380,14 +380,14 @@ namespace Core {
                 var x = SearchText.Text;
                 SearchText.Text = "";
                 if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + Uri.EscapeUriString(x))) {
-                    Debug.WriteLine("Failed to Navigate");
+                    DiagnosticsManager.LogException(null, TAG, "Failed to navigate to search page.");
                 }
             }
         }
 
         private void SpotlightTagItem_Tapped(object sender, TappedRoutedEventArgs e) {
             if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + ((Border)sender).Tag)) {
-                Debug.WriteLine("Failed to Navigate");
+                DiagnosticsManager.LogException(null, TAG, "Failed to navigate to search page via tag.");
             }
         }
 
@@ -397,14 +397,13 @@ namespace Core {
 
         private void ManageBlogs_Tapped(object sender, TappedRoutedEventArgs e) {
             if (!Frame.Navigate(typeof(Pages.Blogs)))
-                Debug.WriteLine("Failed to Navigate");
-
+                DiagnosticsManager.LogException(null, TAG, "Failed to navigate to blog selection.");
         }
 
         private void Inbox_Tapped(object sender, TappedRoutedEventArgs e) {
             if (UserStore.CurrentBlog != null) {
                 if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/posts/submission")) {
-                    Debug.WriteLine("Failed to Navigate");
+                    DiagnosticsManager.LogException(null, TAG, "Failed to navigate to inbox.");
                 }
             }
         }
@@ -412,7 +411,7 @@ namespace Core {
         private void Drafts_Tapped(object sender, TappedRoutedEventArgs e) {
             if (UserStore.CurrentBlog != null) {
                 if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/posts/draft")) {
-                    Debug.WriteLine("Failed to Navigate");
+                    DiagnosticsManager.LogException(null, TAG, "Failed to navigate to drafts.");
                 }
             }
         }
@@ -420,7 +419,7 @@ namespace Core {
         private void Queue_Tapped(object sender, TappedRoutedEventArgs e) {
             if (UserStore.CurrentBlog != null) {
                 if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/posts/queue")) {
-                    Debug.WriteLine("Failed to Navigate");
+                    DiagnosticsManager.LogException(null, TAG, "Failed to navigate to queue.");
                 }
             }
         }

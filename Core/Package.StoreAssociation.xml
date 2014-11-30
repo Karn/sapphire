@@ -190,19 +190,19 @@
       <ReservedName>Sappһire</ReservedName>
       <ReservedName>Sapphire for Tumblr</ReservedName>
       <ReservedName>Carbon</ReservedName>
-      <ReservedName>Sapphiré</ReservedName>
-      <ReservedName>Sapphíre</ReservedName>
+      <ReservedName>Sapphire.</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
     <MainPackageIdentityName>16658Awefull.Sapphir</MainPackageIdentityName>
+    <MainPackageIdentityName>16658Awefull.Snapy</MainPackageIdentityName>
     <MainPackageIdentityName>16658Awefull.UservoiceHub</MainPackageIdentityName>
   </AccountPackageIdentityNames>
   <PackageInfoList LandingUrl="https://dev.windowsphone.com/AppSubmission/AssociationLanding?windowsProductId=06db7209-108c-4b88-8490-de85f235d093">
     <PackageInfo>
       <OsMinVersion>6.3.0.0</OsMinVersion>
       <PackageArchitecture>neutral</PackageArchitecture>
-      <PackageMaxArchitectureVersion>1.1.0.22</PackageMaxArchitectureVersion>
+      <PackageMaxArchitectureVersion>1.1.4.14</PackageMaxArchitectureVersion>
     </PackageInfo>
   </PackageInfoList>
 </StoreAssociation>

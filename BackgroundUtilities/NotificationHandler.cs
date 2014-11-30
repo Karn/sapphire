@@ -1,5 +1,6 @@
 ﻿using APIWrapper.Content;
 using APIWrapper.Content.Model;
+using APIWrapper.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace BackgroundUtilities {
 
     public sealed class NotificationHandler : IBackgroundTask {
 
+        private static string TAG = "NotificationHandler";
+
         Dictionary<string, int> NotificationDictionary = new Dictionary<string, int>();
         Dictionary<string, List<Activity.Notification>> NotificationCounts = new Dictionary<string, List<Activity.Notification>>();
 
@@ -21,13 +24,10 @@ namespace BackgroundUtilities {
 
             BackgroundTaskDeferral _deferral = taskInstance.GetDeferral();
 
+            new UserStore();
             var x = UserStore.NotificationIDs;
-            if (x != null) {
+            if (x != null)
                 NotificationDictionary = x;
-                Debug.WriteLine(NotificationDictionary.Keys.Count);
-            } else {
-                Debug.WriteLine("nodata");
-            }
             if (UserStore.NotificationsEnabled)
                 await RetrieveNotifications();
 
@@ -42,37 +42,25 @@ namespace BackgroundUtilities {
                 if (Response.Contains("200")) {
                     var activity = JsonConvert.DeserializeObject<Responses.GetActivity>(Response);
 
-                    try {
-                        var blogs = activity.response.blogs;
-                        foreach (var b in blogs) {
-                            Debug.WriteLine("Blog: " + b.blog_name);
-                            if (!NotificationDictionary.ContainsKey(b.blog_name)) {
-                                NotificationDictionary.Add(b.blog_name, 0);
-                                Debug.WriteLine("Added blog to dictionary.");
-                            }
-                            if (!NotificationCounts.ContainsKey(b.blog_name)) {
-                                NotificationCounts.Add(b.blog_name, new List<Activity.Notification>());
-                                Debug.WriteLine("Added blog to counts.");
-                            }
-                            foreach (var n in b.notifications) {
-                                if (n.timestamp > NotificationDictionary[b.blog_name]) {
-                                    NotificationCounts[b.blog_name].Add(n);
-                                    Debug.WriteLine("Added notification w/ ts: " + n.timestamp);
-                                }
-                            }
-                            if (NotificationCounts[b.blog_name].Count > 0)
-                                NotificationDictionary[b.blog_name] = NotificationCounts[b.blog_name].First().timestamp;
+                    var blogs = activity.response.blogs;
+                    foreach (var b in blogs) {
+                        if (!NotificationDictionary.ContainsKey(b.blog_name))
+                            NotificationDictionary.Add(b.blog_name, 0);
+                        if (!NotificationCounts.ContainsKey(b.blog_name))
+                            NotificationCounts.Add(b.blog_name, new List<Activity.Notification>());
+                        foreach (var n in b.notifications) {
+                            if (n.timestamp > NotificationDictionary[b.blog_name])
+                                NotificationCounts[b.blog_name].Add(n);
                         }
-
-                    } catch (Exception e) {
-                        Debug.WriteLine("Failed to serialize. " + e.ToString());
+                        if (NotificationCounts[b.blog_name].Count > 0)
+                            NotificationDictionary[b.blog_name] = NotificationCounts[b.blog_name].First().timestamp;
                     }
                 }
 
                 UserStore.NotificationIDs = NotificationDictionary;
                 DisplayNotification();
-            } catch (Exception e) {
-                Debug.WriteLine("Error: " + e.Source);
+            } catch (Exception ex) {
+                DiagnosticsManager.LogException(ex, TAG, "Failed to serialize activity for notifications.");
             }
         }
 
@@ -96,31 +84,6 @@ namespace BackgroundUtilities {
                     ToastNotificationManager.CreateToastNotifier().Show(x);
                 }
             }
-
-            ////Update Tile
-            //TileTemplateType tileTemplate = TileTemplateType.TileSquare150x150IconWithBadge;
-            //XmlDocument tileXml = TileUpdateManager.GetTemplateContent(tileTemplate);
-            //XmlNodeList tileAttributes = tileXml.GetElementsByTagName("binding");
-            //((XmlElement)tileAttributes[0]).SetAttribute("branding", "none");
-            ////Add an image for notification
-            //XmlNodeList tileImageAttributes = tileXml.GetElementsByTagName("image");
-
-            //((XmlElement)tileImageAttributes[0]).SetAttribute("src", "ms-appx:///Assets/LiveTileMed.png");
-            //((XmlElement)tileImageAttributes[0]).SetAttribute("alt", "");
-
-
-            //TileNotification tileNotification = new TileNotification(tileXml);
-            //TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotification);
-            ////TileUpdateManager.CreateTileUpdaterForApplication().Clear();
-
-
-            ////Display count
-            //XmlDocument badgeXml = BadgeUpdateManager.GetTemplateContent(BadgeTemplateType.BadgeNumber);
-            //XmlElement badgeElement = (XmlElement)badgeXml.SelectSingleNode("/badge");
-            //badgeElement.SetAttribute("value", totalCount.ToString());
-
-            //BadgeNotification badge = new BadgeNotification(badgeXml);
-            //BadgeUpdateManager.CreateBadgeUpdaterForApplication().Update(badge);
         }
     }
 }

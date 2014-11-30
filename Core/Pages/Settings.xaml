@@ -28,21 +28,20 @@
                     <TextBlock Text="general" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe WP" CharacterSpacing="-25" Foreground="{ThemeResource HeaderLightBlue}"/>
                 </PivotItem.Header>
 
-                <!--<StackPanel>
-                    <TextBlock Margin="7, 0" Text="Notifications" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                    <TextBlock Margin="7, 0, 7, 10" Text="Would you like to enable notifications?" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
-                </StackPanel>-->
-                <StackPanel HorizontalAlignment="Stretch" Margin="0">
-                    <TextBlock Margin="7, 0" Text="Like this app?" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                    <TextBlock Margin="7, 5, 7, 10" Text="It's always nice to hear what the users think about the app so be sure to review the app and let me know what you think!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
-                    <TextBlock Margin="7, 5, 7, 10" Text="If you did leave a review with a question or suggestion please check the emails associated with your Microsoft Account to see if I've gotten back to you!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
-                    <Button x:Name="ReviewButton" Content="Rate and review!" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="ReviewButton_Click"/>
+                <ScrollViewer>
+                    <StackPanel HorizontalAlignment="Stretch" Margin="0">
+                        <TextBlock Margin="7, 0" Text="Like this app?" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="7, 5, 7, 10" Text="It's always nice to hear what the users think about the app so be sure to review the app and let me know what you think!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
+                        <TextBlock Margin="7, 5, 7, 10" Text="If you did leave a review with a question or suggestion please check the emails associated with your Microsoft Account to see if I've gotten back to you!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
+                        <Button x:Name="ReviewButton" Content="Rate and review!" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="ReviewButton_Click"/>
 
-                    <TextBlock Margin="7, 0" Text="In app advertisements" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                    <TextBlock Margin="7, 5, 7, 10" Text="If you'd like to remove the adversitements you can click the button below to upgrade to the ad free version. (P.s you're awesome if you do! ...and even if you dont!)" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
-                    <Button x:Name="RemoveAdsButton" Content="Remove these dumb ads please" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="RemoveAds_Click"/>
+                        <TextBlock Margin="7, 0" Text="In app advertisements" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="7, 5, 7, 10" Text="If you'd like to remove the adversitements you can click the button below to upgrade to the ad free version. (P.s you're awesome if you do! ...and even if you dont!)" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
+                        <Button x:Name="RemoveAdsButton" Content="Remove these dumb ads please" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="RemoveAds_Click"/>
 
-                </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+
             </PivotItem>
             <PivotItem Margin="10, 0">
                 <PivotItem.Header>
@@ -51,31 +50,29 @@
 
                 <ScrollViewer>
                     <StackPanel HorizontalAlignment="Stretch" Margin="0">
-                        <TextBlock Margin="5, 0" Text="Dark theme" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="7, 0" Text="UX improvement team" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="7, 5, 7, -5" Text="Diagnostics/crash analytics are important to indentifying problems and correcting issus. However, if you aren't comfortable participating, you can quickly disable the feature below." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
+                        <ToggleSwitch x:Name="AnalyticsSwitch" Style="{StaticResource Switch}" Header="" OffContent="Disabled" OnContent="Enabled" Toggled="AnalyticsSwitch_Toggled"/>
+
+                        <TextBlock Margin="5, 0" Text="Dark theme" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                         <ToggleSwitch x:Name="ThemeSwitch" Style="{StaticResource Switch}" Header="Requires a manual restart." OffContent="Disabled" OnContent="Enabled" Toggled="ToggleSwitch_Toggled"/>
 
-                        <TextBlock Margin="5, 0" Text="Notifications" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                        <ToggleSwitch x:Name="EnableNotifications" Style="{StaticResource Switch}" Header="Enable notifications for your account." OffContent="Disabled" OnContent="Enabled" Toggled="EnableNotifications_Toggled"/>
+                        <TextBlock Margin="5, 0" Text="Notifications" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <ToggleSwitch x:Name="EnableNotifications" Style="{StaticResource Switch}" Header="Toggle notifications for your account." OffContent="Disabled" OnContent="Enabled" Toggled="EnableNotifications_Toggled"/>
 
-                        <TextBlock Margin="5, 0" Text="Single click reblog" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="5, 0" Text="Status bar background" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <ToggleSwitch x:Name="StatusBarBGToggle" Style="{StaticResource Switch}" Header="Show/Hide the darker statusbar background." OffContent="Disabled" OnContent="Enabled" Toggled="StatusBarBGToggle_Toggled"/>
+
+                        <TextBlock Margin="5, 0" Text="Single click reblog" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                         <ToggleSwitch x:Name="EnableOneClickReblog" Style="{StaticResource Switch}" Header="If you'd like to quickly reblog posts select this option." OffContent="Disabled" OnContent="Enabled" Toggled="EnableOneClickReblog_Toggled"/>
 
-                        <TextBlock Margin="5, 0" Text="Tags in posts" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="5, 0" Text="Tags in posts" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                         <ToggleSwitch x:Name="DisableTagsInPosts" Style="{StaticResource Switch}" Header="If tags in posts just aren't your thing." OffContent="Disabled" OnContent="Enabled" Toggled="DisableTagsInPosts_Toggled"/>
 
 
-                        <TextBlock Margin="5, 0" Text="Temporary data" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="5, 0" Text="Temporary data" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                         <TextBlock Margin="7, 5, 7, 10" Text="Downloaded gifs are stored in a temporary folder. It is reccommended you clear this ever so often." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Opacity="0.88" Style="{ThemeResource HeaderTextStyle}"/>
                         <Button x:Name="ClearCacheButton" Content="Clear cache" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="ClearCacheButton_Click"/>
-
-                        <!--<TextBlock Margin="7, 0" Text="Manage notifications" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                    <TextBlock Margin="7, 5, 7, 5" Text="Select what notifications you recieve from your blogs" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
-                    <Button x:Name="ManageNotificationsButton" Content="Manage" HorizontalAlignment="Stretch" Margin="10, -5" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="RemoveAds_Click"/>-->
-
-                        <!--<ToggleSwitch x:Name="ThemeSwitch" Style="{StaticResource Switch}" Header="Requires a manual restart." OffContent="Disabled" OnContent="Enabled" Toggled="ToggleSwitch_Toggled"/>-->
-
-                        <!--<TextBlock Margin="7, 0" Text="Refresh button" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                    <TextBlock Margin="7, 0, 7, 10" Text="If you prefer to use a refresh button rather than the pull to refresh gesture, select the toggle below." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>-->
 
                     </StackPanel>
                 </ScrollViewer>
@@ -89,13 +86,17 @@
                 <ScrollViewer>
                     <StackPanel HorizontalAlignment="Stretch" Margin="0">
                         <Image Source="ms-appx:///Assets/Logo_Dark.png" Height="150" Margin="10, 0" HorizontalAlignment="Center"/>
-                        <!--<TextBlock Width="200" TextAlignment="Center" Text="Thank you for participating in the BETA. Please remember to leave feedback and suggestions." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}"/>-->
+                        <!--<TextBlock Width="200" TextAlignment="Center" Text="Thank you for participating in the BETA. Please remember to leave feedback and suggestions." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}"/>-->
                         <!--</StackPanel>-->
 
-                        <TextBlock Margin="7, 0" Text="Legal" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="7, 0" Text="Legal" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                         <TextBlock Margin="7, 0, 7, 10" Text="It is important to note that this application ('Sapphire') is a 3rd party client for Tumblr and is in no way affiliated, endorsed or advocated for by Yahoo! Inc. Content that is retrieved via the Tumblr APIs is property of its respective owners and is not a reflection of the developer ('Karn, Awefull'). Additionally, you agree that the developer is not liable for any issues that may occur whilst using this application." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
 
-                        <TextBlock Margin="7, 0" Text="Support + Feedback" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="7, 0" Text="Privacy" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="7, 0, 7, 10" Text="Your privacy is very imortant. Check out the apps privacy policy." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
+                        <HyperlinkButton x:Name="PrivacyButton" Margin="10, 0, 10, 10" Content="open privacy policy" HorizontalAlignment="Stretch" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="35" FontWeight="Bold" NavigateUri="http://www.awefull.ca/karn/?p=236"/>
+
+                        <TextBlock Margin="7, 0" Text="Support + Feedback" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                         <TextBlock Margin="7, 0, 7, 10" Text="If you come across a bug, or something that you feel needs improving, feel free to use the links below to get in touch!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
 
                         <HyperlinkButton x:Name="Blog" Content="Blog" HorizontalAlignment="Left" Margin="10, 0" FontSize="20" MinHeight="10" BorderThickness="0" Foreground="#FF529ECC" NavigateUri="http://sapphireapp.tumblr.com"/>

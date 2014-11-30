@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using APIWrapper.Utils;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -6,6 +8,8 @@ using Windows.Storage;
 
 namespace APIWrapper.Content {
     public class UserStore {
+
+        public static string TAG = "UserStore";
 
         public static Model.Blog CurrentBlog;
         public static ObservableCollection<Model.Blog> UserBlogs = new ObservableCollection<Model.Blog>();
@@ -16,7 +20,7 @@ namespace APIWrapper.Content {
         private static readonly string[] SettingNames = {
             "NotificationsEnabled", "EnableAds", "NotificationIds",
             "OneClickReblog", "TagsInPosts", "CachedSpotlight", "CachedAccountData",
-            "Theme"
+            "Theme", "EnableAnalytics", "StatusBarBG"
         };
 
         public UserStore() {
@@ -30,7 +34,7 @@ namespace APIWrapper.Content {
 
         public static string SelectedTheme {
             get {
-                if (Settings.Values["Theme"] != null)
+                if (!string.IsNullOrEmpty(Settings.Values["Theme"].ToString()))
                     return Settings.Values["Theme"].ToString();
                 return "Light";
             }
@@ -52,9 +56,15 @@ namespace APIWrapper.Content {
 
         public static Dictionary<string, int> NotificationIDs {
             get {
-                if (!string.IsNullOrEmpty(Settings.Values["NotificationIds"].ToString()))
-                    return JsonConvert.DeserializeObject<Dictionary<string, int>>(Settings.Values["NotificationIds"].ToString());
-                return new Dictionary<string, int>();
+                try {
+                    if (!string.IsNullOrEmpty(Settings.Values["NotificationIds"].ToString()))
+                        return JsonConvert.DeserializeObject<Dictionary<string, int>>(Settings.Values["NotificationIds"].ToString());
+                    return new Dictionary<string, int>();
+                } catch (Exception ex) {
+                    DiagnosticsManager.LogException(ex, TAG, "Failed to load notification ids.");
+                    return new Dictionary<string, int>();
+                }
+
             }
             set {
                 Settings.Values["NotificationIds"] = JsonConvert.SerializeObject(value);
@@ -93,6 +103,27 @@ namespace APIWrapper.Content {
             }
         }
 
+        public static bool EnableAnalytics {
+            get {
+                if (!string.IsNullOrEmpty(Settings.Values["EnableAnalytics"].ToString()))
+                    return Settings.Values["EnableAnalytics"].ToString().Contains("T") ? true : false;
+                return true;
+            }
+            set {
+                Settings.Values["EnableAnalytics"] = value ? "True" : "False";
+            }
+        }
+
+        public static bool EnableStatusBarBG {
+            get {
+                if (!string.IsNullOrEmpty(Settings.Values["StatusBarBG"].ToString()))
+                    return Settings.Values["StatusBarBG"].ToString().Contains("T") ? true : false;
+                return true;
+            }
+            set {
+                Settings.Values["StatusBarBG"] = value ? "True" : "False";
+            }
+        }
 
     }
 }

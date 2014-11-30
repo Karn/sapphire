@@ -41,9 +41,9 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <StackPanel x:Name="HeaderContainer">
-                <Border Canvas.ZIndex="99" Height="26" Background="{ThemeResource HeaderDarkBlue}" VerticalAlignment="Top"/>
-                <Grid x:Name="HeaderContent" Background="{ThemeResource HeaderLightBlue}" Height="56" Margin="0, -1, 0, 0" RenderTransformOrigin="0.5,0.5">
+            <StackPanel x:Name="HeaderContainer" Background="{ThemeResource HeaderLightBlue}">
+                <Border x:Name="StatusBarBG" Canvas.ZIndex="99" Height="26" Background="{ThemeResource HeaderDarkBlue}" VerticalAlignment="Top"/>
+                <Grid x:Name="HeaderContent" Height="56" Margin="0, -1, 0, 0" RenderTransformOrigin="0.5,0.5">
                     <Grid.RenderTransform>
                         <CompositeTransform TranslateY="0"/>
                     </Grid.RenderTransform>
@@ -165,12 +165,16 @@
                 </PivotItem>
                 
                 <PivotItem x:Name="SearchPivot" Margin="0" VerticalContentAlignment="Stretch">
-                    <StackPanel Margin="10, 10, 10, 54" VerticalAlignment="Stretch">
-                        <Grid>
+                    <Grid Margin="10, 10, 10, 54" VerticalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
                             <TextBox x:Name="SearchText" KeyDown="SearchText_KeyDown" Margin="0, 5" PlaceholderText="Search..." Height="45" Padding="50, 8, 0, 0" VerticalContentAlignment="Center" Background="White" BorderThickness="0"/>
                             <Image Source="Assets/Nav/Search_Dark.png" HorizontalAlignment="Left" Margin="7, 10" Height="30" Width="35" Opacity=".5"/>
                         </Grid>
-                        <GridView x:Name="SpotlightTags" Padding="0, 0, 0, 13" Grid.Row="1" Loaded="SpotlightTags_Loaded" Margin="0" ItemsSource="{Binding}" ScrollViewer.VerticalScrollMode="Enabled">
+                        <GridView x:Name="SpotlightTags" Grid.Row="1" Padding="0, 0, 0, 13" Loaded="SpotlightTags_Loaded" ItemsSource="{Binding}" ScrollViewer.VerticalScrollMode="Enabled" VerticalAlignment="Stretch">
                             <GridView.ItemTemplate>
                                 <DataTemplate>
                                     <Border Tapped="SpotlightTagItem_Tapped" Tag="{Binding tag}" Margin="0, 0, 2, 2" BorderBrush="#0C000000" BorderThickness="1" Loaded="Border_Loaded">
@@ -184,7 +188,7 @@
                                 </DataTemplate>
                             </GridView.ItemTemplate>
                         </GridView>
-                    </StackPanel>
+                    </Grid>
                 </PivotItem>
                 
             </Pivot>

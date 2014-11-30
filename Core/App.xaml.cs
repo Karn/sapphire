@@ -2,7 +2,6 @@
 using APIWrapper.AuthenticationManager;
 using APIWrapper.Content;
 using Core.Common;
-using MarkedUp;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -109,15 +108,16 @@ namespace Core {
                 Windows.UI.ViewManagement.StatusBar.GetForCurrentView().BackgroundColor = Color.FromArgb(255, 40, 52, 64);
                 Windows.UI.ViewManagement.StatusBar.GetForCurrentView().ForegroundColor = Color.FromArgb(255, 255, 255, 255);
 
+                new UserStore();
+
                 //Initialize In app puchase handler
                 Utils.IAPHander.UpdateInAppPurchases();
                 //Initialize Analytics
-                AnalyticClient.Initialize("95b1a985-187e-4062-a756-ffac679e4fe4");
                 AdDuplexTrackingSDK.StartTracking("d9b787e4-616a-40ea-bdb4-c81523cb0733");
-                new Authentication();
-                new UserStore();
 
+                new Authentication();
                 if (Authentication.AuthenticatedTokens.Count != 0 && Authentication.AuthenticatedSecretTokens.Count != 0) {
+                    new APIWrapper.Utils.DiagnosticsManager(Current);
                     if (!rootFrame.Navigate(typeof(MainPage), e.Arguments)) {
                         throw new Exception("Failed to create initial page");
                     }

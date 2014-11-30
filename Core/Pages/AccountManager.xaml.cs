@@ -31,7 +31,7 @@ namespace Core.Pages {
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 
             List.ItemsSource = UserStore.UserBlogs;
-            MainPage.ErrorFlyout = _ErrorFlyout;
+            MainPage.AlertFlyout = _ErrorFlyout;
         }
 
         private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e) {

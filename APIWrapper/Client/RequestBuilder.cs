@@ -1,4 +1,5 @@
 ﻿using APIWrapper.AuthenticationManager;
+using APIWrapper.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace APIWrapper.Client {
     public class RequestBuilder {
+
+        public static string TAG = "RequestBuilder";
 
         private static string GenerateParameterString(string additionalParameters, string nonce, string timeStamp) {
             // these parameters are required in every request api 
@@ -77,8 +80,8 @@ namespace APIWrapper.Client {
 
                 Debug.WriteLine("[API REQUEST] (" + urlWithParams + "): " + text);
                 return text.ToString();
-            } catch (Exception e) {
-                Debug.WriteLine("Unable to make GET request." + e.StackTrace);
+            } catch (Exception ex) {
+                DiagnosticsManager.LogException(ex, TAG, "Unable to make GET request.");
             }
             return "";
         }
@@ -124,8 +127,8 @@ namespace APIWrapper.Client {
 
                 Debug.WriteLine("[API POST] (" + url + "): " + text);
                 return text.ToString();
-            } catch (Exception e) {
-                Debug.WriteLine("Unable to make GET request." + e.StackTrace);
+            } catch (Exception ex) {
+                DiagnosticsManager.LogException(ex, TAG, "Unable to make POST request.");
             }
             return null;
         }

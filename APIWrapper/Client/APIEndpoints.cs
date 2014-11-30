@@ -20,7 +20,7 @@ namespace APIWrapper.Client {
         public static readonly string UnfollowUser = APIURI + "/user/unfollow";
         public static readonly string Blog = APIURI + "/blog/";
         public static readonly string Search = APIURI + "/search/";
-        public static readonly string Spotlight = "spotlight/directories?api_key=" + Authentication.ConsumerKey;
+        public static readonly string Spotlight = APIURI + "/spotlight/directories?api_key=" + Authentication.ConsumerKey;
         public static readonly string Following = APIURI + "/user/following";
         public static readonly string Followers = APIURI + "/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/followers";
         public static readonly string Post = APIURI + "/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/post";

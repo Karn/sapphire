@@ -1,4 +1,5 @@
-﻿using System;
+﻿using APIWrapper.Utils;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -13,6 +14,8 @@ using Windows.Storage.Streams;
 
 namespace APIWrapper.AuthenticationManager {
     public class AuthenticationUtilities {
+
+        private string TAG = "AuthenticationUtilities";
 
         public bool NetworkAvailable() {
             if (NetworkInterface.GetIsNetworkAvailable()) {
@@ -77,9 +80,8 @@ namespace APIWrapper.AuthenticationManager {
 
                 var response = await httpClient.SendAsync(requestMsg);
                 return await response.Content.ReadAsStringAsync();
-
-            } catch (Exception PostAuthenticationException) {
-                Debug.WriteLine(PostAuthenticationException.StackTrace);
+            } catch (Exception ex) {
+                DiagnosticsManager.LogException(ex, TAG, "Cannot load from storage; Assigned default values.");
                 return null;
             }
         }

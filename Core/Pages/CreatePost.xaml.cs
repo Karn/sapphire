@@ -41,7 +41,7 @@ namespace Core.Pages {
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-            MainPage.ErrorFlyout = _ErrorFlyout;
+            MainPage.AlertFlyout = _ErrorFlyout;
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace Core.Pages {
                 APIWrapper.Content.Model.CreatePost.Text(Authentication.Utils.UrlEncode(title), Authentication.Utils.UrlEncode(body), tags);
                 Frame.GoBack();
             } catch (Exception ex) {
-                MainPage.ErrorFlyout.DisplayMessage("Failed to create text post");
+                MainPage.AlertFlyout.DisplayMessage("Failed to create text post");
                 DebugHandler.Log("Failed to create text post.");
             }
         }
@@ -190,7 +190,7 @@ namespace Core.Pages {
                 APIWrapper.Content.Model.CreatePost.Photo(Authentication.Utils.UrlEncode(caption), "", Authentication.Utils.UrlEncode(photoasstring), tags);
                 Frame.GoBack();
             } catch (Exception ex) {
-                MainPage.ErrorFlyout.DisplayMessage("Failed to create text post");
+                MainPage.AlertFlyout.DisplayMessage("Failed to create text post");
                 DebugHandler.Log("Failed to create text post.");
             }
             //var data = Convert.ToBase64String(photoAsByteArray);
@@ -228,7 +228,7 @@ namespace Core.Pages {
                 APIWrapper.Content.Model.CreatePost.Quote(Authentication.Utils.UrlEncode(quote), Authentication.Utils.UrlEncode(source), tags);
                 Frame.GoBack();
             } catch (Exception ex) {
-                MainPage.ErrorFlyout.DisplayMessage("Failed to create text post");
+                MainPage.AlertFlyout.DisplayMessage("Failed to create text post");
                 DebugHandler.Log("Failed to create text post.");
             }
         }
@@ -247,7 +247,7 @@ namespace Core.Pages {
                 APIWrapper.Content.Model.CreatePost.Link(Authentication.Utils.UrlEncode(title), Authentication.Utils.UrlEncode(url), Authentication.Utils.UrlEncode(description), tags);
                 Frame.GoBack();
             } catch (Exception ex) {
-                MainPage.ErrorFlyout.DisplayMessage("Failed to create text post");
+                MainPage.AlertFlyout.DisplayMessage("Failed to create text post");
                 DebugHandler.Log("Failed to create text post.");
             }
         }
@@ -266,7 +266,7 @@ namespace Core.Pages {
 
             filePicker.PickSingleFileAndContinue();
             if (image == null) {
-                MainPage.ErrorFlyout.DisplayMessage("Failed to select image.");
+                MainPage.AlertFlyout.DisplayMessage("Failed to select image.");
             }
         }
 

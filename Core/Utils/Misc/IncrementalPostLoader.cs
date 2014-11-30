@@ -72,7 +72,7 @@ namespace Core.Utils.Misc {
                             }
                             DebugHandler.Info(LastPostID);
                         } else {
-                            MainPage.ErrorFlyout.DisplayMessage("Unable to find posts.");
+                            MainPage.AlertFlyout.DisplayMessage("Unable to find posts.");
                         }
 
                         if (IAPHander.ShowAds && posts.Count > 5)
@@ -89,7 +89,7 @@ namespace Core.Utils.Misc {
                     });
                 } catch (Exception e) {
                     DebugHandler.Error("Error awaiting posts. ", e.StackTrace);
-                    MainPage.ErrorFlyout.DisplayMessage("Load failed due to exception.");
+                    MainPage.AlertFlyout.DisplayMessage("Load failed due to exception.");
                     throw new Exception();
                 }
             }

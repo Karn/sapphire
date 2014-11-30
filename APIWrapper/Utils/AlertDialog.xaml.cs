@@ -32,7 +32,7 @@ namespace APIWrapper.Utils {
             if (!IsAnimating) {
                 IsAnimating = true;
                 Message.Text = message;
-                Debug.WriteLine("[ERROR MSG]: " + message);
+                Debug.WriteLine("[MSG]: " + message);
                 Display.Begin();
             } else {
                 if (ErrorQueue.Count < 5) {

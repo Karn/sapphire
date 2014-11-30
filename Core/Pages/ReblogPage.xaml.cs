@@ -29,7 +29,7 @@ namespace Core.Pages {
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-            MainPage.ErrorFlyout = _ErrorFlyout;
+            MainPage.AlertFlyout = _ErrorFlyout;
         }
 
         /// <summary>
@@ -137,10 +137,10 @@ namespace Core.Pages {
                 //API.Content.CreatePost.Text(AuthenticationManager.Utils.UrlEncode(title), AuthenticationManager.Utils.UrlEncode(body), tags);
                 if (await CreateRequest.ReblogPost(postID, reblogKey, Authentication.Utils.UrlEncode(caption), tags)) {
                 } else
-                    MainPage.ErrorFlyout.DisplayMessage("Failed to reblog post.");
+                    MainPage.AlertFlyout.DisplayMessage("Failed to reblog post.");
                 Frame.GoBack();
             } catch (Exception ex) {
-                MainPage.ErrorFlyout.DisplayMessage("Failed to create text post");
+                MainPage.AlertFlyout.DisplayMessage("Failed to create text post");
                 DebugHandler.Log("Failed to create text post.");
             }
         }

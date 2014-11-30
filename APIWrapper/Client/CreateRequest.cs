@@ -1,5 +1,6 @@
 ﻿using APIWrapper.Content;
 using APIWrapper.Content.Model;
+using APIWrapper.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ using System.Threading.Tasks;
 
 namespace APIWrapper.Client {
     public class CreateRequest {
+
+        private static string TAG = "CreateRequest";
 
         private static HttpClient WebClient = new HttpClient();
 
@@ -69,11 +72,11 @@ namespace APIWrapper.Client {
                             UserStore.CurrentBlog = b;
                     }
                     return true;
-                } catch (Exception e) {
-                    Debug.WriteLine("Failed to deserialse UserStore." + e.StackTrace);
+                } catch (Exception ex) {
+                    DiagnosticsManager.LogException(ex, TAG, "Failed to serailize account information.");
                 }
             }
-            Debug.WriteLine("UserStore response failed." + requestResult);
+            DiagnosticsManager.LogException(null, TAG, "Unable to retreive account information.");
             return false;
         }
 
@@ -158,7 +161,6 @@ namespace APIWrapper.Client {
                 var parsedData = JsonConvert.DeserializeObject<Responses.GetFollowers>(requestResult);
                 return parsedData.response.users;
             }
-            //DebugHandler.ErrorLog.Add("[Client.cs]: Authorization failed: " + Uri.EscapeDataString(requestResult));
             return new List<Blog>();
         }
 
@@ -170,16 +172,11 @@ namespace APIWrapper.Client {
             var requestResult = await RequestBuilder.GetAPI(APIEndpoints.Following, "offset=" + offset);
 
             if (requestResult.Contains("status\":200")) {
-                try {
-                    var following = JsonConvert.DeserializeObject<Responses.GetFollowing>(requestResult);
-                    foreach (var x in following.response.blogs)
-                        x.following = true;
-                    return following.response.blogs;
-                } catch (Exception e) {
-                    //DebugHandler.Error("[Client.cs]: Failed to deserialize following list.", e.StackTrace);
-                }
+                var following = JsonConvert.DeserializeObject<Responses.GetFollowing>(requestResult);
+                foreach (var x in following.response.blogs)
+                    x.following = true;
+                return following.response.blogs;
             }
-            //DebugHandler.Error("[Client.cs]: Authorization failed: ", requestResult);
             return new List<Blog>();
         }
 
@@ -190,10 +187,10 @@ namespace APIWrapper.Client {
         /// <returns></returns>
         public static async Task<List<Activity.Notification>> RetrieveActivity() {
 
-            string Response = await RequestBuilder.GetAPI(APIEndpoints.Notifications);
-            if (Response.Contains("status\":200")) {
+            string response = await RequestBuilder.GetAPI(APIEndpoints.Notifications);
+            if (response.Contains("status\":200")) {
                 try {
-                    Responses.GetActivity activity = JsonConvert.DeserializeObject<Responses.GetActivity>(Response);
+                    Responses.GetActivity activity = JsonConvert.DeserializeObject<Responses.GetActivity>(response);
                     var Notifications = new List<APIWrapper.Content.Model.Activity.Notification>();
                     var NotificationDictionary = UserStore.NotificationIDs;
 
@@ -216,11 +213,11 @@ namespace APIWrapper.Client {
 
                     UserStore.NotificationIDs = NotificationDictionary;
                     return Notifications;
-                } catch (Exception e) {
-                    //DebugHandler.Error("Unable to serialize activity data.", e.StackTrace);
+                } catch (Exception ex) {
+                    DiagnosticsManager.LogException(ex, TAG, "Failed to serailize blog activity.");
                 }
             }
-            //DebugHandler.Error("[Client.cs]: Authorization failed: ", Response);
+            DiagnosticsManager.LogException(null, TAG, "Failed to serailize account information.");
             return new List<Activity.Notification>();
         }
 
@@ -288,8 +285,6 @@ namespace APIWrapper.Client {
                                 p.path_to_low_res_pic = p.photos.First().alt_sizes.First().url;
                                 if (p.path_to_low_res_pic.Contains(".gif")) {
                                     p.type = "gif";
-                                    var x = p.photos.First<Photo>().alt_sizes.First<Photo.AltSize>();
-                                    p.pic_height = (x.height / x.width) * 380;
                                 }
                                 if (p.photos.Count > 1)
                                     p.type = "photoset";
@@ -312,34 +307,15 @@ namespace APIWrapper.Client {
                             //DebugHandler.Error("[Client.cs]: Failed to add loaded posts.", "");
                         }
                         return LoadedPosts;
-                    } catch (Exception e) {
-                        //DebugHandler.Error("[Client.cs]: Unable to serialize post data.", e.StackTrace);
+                    } catch (Exception ex) {
+                        DiagnosticsManager.LogException(ex, TAG, "Failed to serailize posts.");
                     }
                 } else {
-                    //DebugHandler.Error("[Client.cs]: Authorization failed. ", result);
+                    DiagnosticsManager.LogException(null, TAG, "Failed to retrieve posts.");
                 }
             }
             LoadedPosts.Add(new Post() { type = "nocontent" });
             return LoadedPosts;
-        }
-
-        public static async Task<int> RetrieveNewPostCount(string postID = "") {
-
-            if (AuthenticationManager.Authentication.Utils.NetworkAvailable()) {
-
-                var result = await RequestBuilder.GetAPI(APIEndpoints.Dashboard, "after_id=" + postID);
-
-                if (!string.IsNullOrEmpty(result) && result.Contains("200")) {
-                    try {
-                        var posts = JsonConvert.DeserializeObject<Responses.GetPosts>(result);
-                        return posts.response.posts.Count;
-
-                    } catch (Exception e) {
-                        //DebugHandler.Error("[Client.cs]: Unable to serialize post data.", e.StackTrace);
-                    }
-                }
-            }
-            return 0;
         }
 
         public static async Task<ObservableCollection<Post>> RetrievePost(string post_id) {
@@ -353,57 +329,51 @@ namespace APIWrapper.Client {
 
                     var posts = JsonConvert.DeserializeObject<Responses.GetPosts>(result);
 
-                    Debug.WriteLine(posts.response.posts.ElementAt(0).note_count);
-
                     foreach (var p in posts.response.posts) {
                         if (p.type == "photo") {
-                            p.path_to_low_res_pic = p.photos.First<Photo>().alt_sizes.First<Photo.AltSize>().url;
+                            p.path_to_low_res_pic = p.photos.First().alt_sizes.First().url;
                             if (p.path_to_low_res_pic.Contains(".gif")) {
-                                var x = p.photos.First<Photo>().alt_sizes.First<Photo.AltSize>();
                                 p.type = "gif";
-                                p.pic_height = (x.height / x.width) * 380;
                             }
-                            if (p.photos.Count > 1) {
+                            if (p.photos.Count > 1)
                                 p.type = "photoset";
-                            }
+                        } else if (p.type == "video") {
+                            if (p.video_type == "youtube")
+                                p.type = "youtube";
                         }
-                        if (p.body != null)
+
+                        //Parse images here
+                        if (!string.IsNullOrEmpty(p.title))
+                            p.title = CreateRequest.GetPlainTextFromHtml(p.title);
+                        if (!string.IsNullOrEmpty(p.body))
                             p.body = CreateRequest.GetPlainTextFromHtml(p.body);
-                        if (p.answer != null)
+                        if (!string.IsNullOrEmpty(p.answer))
                             p.answer = CreateRequest.GetPlainTextFromHtml(p.answer);
+
                         LoadedPosts.Add(p);
                     }
                     return LoadedPosts;
-                } catch (Exception e) {
-                    //DebugHandler.Error("[Client.cs]: Unable to serialize post data.", e.StackTrace);
+                } catch (Exception ex) {
+                    DiagnosticsManager.LogException(ex, TAG, "Failed to serailize single post.");
                 }
             }
-            //DebugHandler.Error("[Client.cs]: Authorization failed. ", result);
+            DiagnosticsManager.LogException(null, TAG, "Failed to retrieve single post.");
             return new ObservableCollection<Post>();
         }
 
         public static async Task<Blog> GetBlog(string name) {
-            //DebugHandler.Info("[Client.cs]: Retrieving blog...");
             var result = await RequestBuilder.GetAPI(APIEndpoints.Blog + name + ".tumblr.com/info", "api_key=" + APIWrapper.AuthenticationManager.Authentication.ConsumerKey);
-            Debug.WriteLine(result);
             if (result.Contains("status\":200")) {
-                Responses.GetBlog blogInfo = JsonConvert.DeserializeObject<Responses.GetBlog>(result);
-
-                return blogInfo.response.blog;
+                return JsonConvert.DeserializeObject<Responses.GetBlog>(result).response.blog;
             }
-            var x = result.Split(',');
-            //DebugHandler.Error("[Client.cs]: Authorization failed. ", result);
             return new Blog();
         }
 
         public static async Task<List<Blog>> RetrieveSearch(string tag) {
             var result = await RequestBuilder.GetAPI(APIEndpoints.Search + tag, "api_key=" + APIWrapper.AuthenticationManager.Authentication.ConsumerKey);
             if (result.Contains("status\":200")) {
-                Responses.GetSearch SearchResult = JsonConvert.DeserializeObject<Responses.GetSearch>(result);
-
-                return SearchResult.response.blogs;
+                return JsonConvert.DeserializeObject<Responses.GetSearch>(result).response.blogs;
             }
-            Debug.WriteLine("Loading blog search...");
             return new List<Blog>();
         }
 
@@ -416,8 +386,7 @@ namespace APIWrapper.Client {
 
                 if (result.Contains("status\":200")) {
                     UserStore.CachedSpotlight = result;
-                    Responses.GetSpotlight spotlight = JsonConvert.DeserializeObject<Responses.GetSpotlight>(result);
-                    return spotlight.response;
+                    return JsonConvert.DeserializeObject<Responses.GetSpotlight>(result).response;
                 }
             } else {
                 Responses.GetSpotlight spotlight = JsonConvert.DeserializeObject<Responses.GetSpotlight>(UserStore.CachedSpotlight);

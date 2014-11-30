@@ -1,4 +1,5 @@
 ﻿using APIWrapper.Content;
+using APIWrapper.Utils;
 using Core.Common;
 using System;
 using System.IO;
@@ -38,13 +39,7 @@ namespace Core.Pages {
                 RemoveAdsButton.Background = new SolidColorBrush(Color.FromArgb(255, 51, 63, 74));
             }
 
-            if (UserStore.SelectedTheme == "Dark")
-                ThemeSwitch.IsOn = true;
-            EnableNotifications.IsOn = UserStore.NotificationsEnabled;
-            EnableOneClickReblog.IsOn = UserStore.OneClickReblog;
-            DisableTagsInPosts.IsOn = UserStore.TagsInPosts;
-
-            MainPage.ErrorFlyout = _ErrorFlyout;
+            MainPage.AlertFlyout = _ErrorFlyout;
         }
 
         /// <summary>
@@ -74,6 +69,13 @@ namespace Core.Pages {
         /// a dictionary of state preserved by this page during an earlier
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
+            if (UserStore.SelectedTheme == "Dark")
+                ThemeSwitch.IsOn = true;
+            EnableNotifications.IsOn = UserStore.NotificationsEnabled;
+            EnableOneClickReblog.IsOn = UserStore.OneClickReblog;
+            DisableTagsInPosts.IsOn = UserStore.TagsInPosts;
+            AnalyticsSwitch.IsOn = UserStore.EnableAnalytics;
+            StatusBarBGToggle.IsOn = UserStore.EnableStatusBarBG;
         }
 
         /// <summary>
@@ -140,14 +142,14 @@ namespace Core.Pages {
 
         private async void ClearCacheButton_Click(object sender, RoutedEventArgs e) {
             try {
-                var x = await(await ApplicationData.Current.TemporaryFolder.GetFolderAsync("Gifs")).GetFilesAsync();
+                var x = await (await ApplicationData.Current.TemporaryFolder.GetFolderAsync("Gifs")).GetFilesAsync();
                 foreach (var y in x) {
                     await y.DeleteAsync();
                 }
-                MainPage.ErrorFlyout.DisplayMessage("Folder has been cleared.");
+                MainPage.AlertFlyout.DisplayMessage("Folder has been cleared.");
                 ((Button)sender).IsTapEnabled = false;
             } catch (FileNotFoundException ex) {
-                MainPage.ErrorFlyout.DisplayMessage("Nothing to delete.");
+                MainPage.AlertFlyout.DisplayMessage("Nothing to delete.");
                 ((Button)sender).IsTapEnabled = false;
             }
         }
@@ -165,6 +167,23 @@ namespace Core.Pages {
                 UserStore.TagsInPosts = true;
             } else {
                 UserStore.TagsInPosts = false;
+            }
+        }
+
+        private void AnalyticsSwitch_Toggled(object sender, RoutedEventArgs e) {
+            if (((ToggleSwitch)sender).IsOn) {
+                UserStore.EnableAnalytics = true;
+                DiagnosticsManager.EnableDiagnostics();
+            } else {
+                UserStore.EnableAnalytics = false;
+            }
+        }
+
+        private void StatusBarBGToggle_Toggled(object sender, RoutedEventArgs e) {
+            if (((ToggleSwitch)sender).IsOn) {
+                UserStore.EnableStatusBarBG = true;
+            } else {
+                UserStore.EnableStatusBarBG = false;
             }
         }
     }

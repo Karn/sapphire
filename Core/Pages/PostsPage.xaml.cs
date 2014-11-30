@@ -87,7 +87,7 @@ namespace Core.Pages {
                 PageTitle.Text = "Queue";
             }
 
-            MainPage.ErrorFlyout = _ErrorFlyout;
+            MainPage.AlertFlyout = _ErrorFlyout;
         }
 
         /// <summary>
