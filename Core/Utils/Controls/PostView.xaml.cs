@@ -230,37 +230,40 @@ namespace Core.Utils.Controls {
         }
 
         private async void AppBarButton_Click(object sender, RoutedEventArgs e) {
+            ((AppBarButton)sender).Focus(FocusState.Programmatic);
 
-            var _GIFPlaceHolder = ((Image)((Grid)((AppBarButton)sender).Parent).FindName("GIFPlaceHolder"));
-            var _GIF = ((Image)((Grid)((AppBarButton)sender).Parent).FindName("GIF"));
+            var grid = (Grid)((AppBarButton)sender).Parent;
 
-            if (((AppBarButton)sender).Tag.ToString() == "Download") {
-                ((AppBarButton)sender).Icon = new SymbolIcon(Symbol.Play);
-                ((AppBarButton)sender).Tag = "Play";
-                ((AppBarButton)sender).IsEnabled = false;
-                await AnimateImg(_GIFPlaceHolder, _GIF);
-                ((AppBarButton)sender).IsEnabled = true;
+            var player = ((MediaElement)grid.FindName("Player"));
+
+            if (((AppBarButton)sender).Tag.ToString() == "stopped") {
+                if (player.Tag != null && player.Source == null) {
+                    var mp4 = await CreateRequest.GenerateMP4FromGIF(player.Tag.ToString());
+                    player.Source = new Uri(mp4);
+                } else {
+                    player.AutoPlay = true;
+                    player.Play();
+                }
+
+                ((AppBarButton)sender).Icon = new SymbolIcon { Symbol = Symbol.Pause };
+                ((AppBarButton)sender).Tag = "playing";
             } else {
-                var animator = XamlAnimatedGif.AnimationBehavior.GetAnimator(_GIF);
-                animator.Play();
-                ((AppBarButton)sender).Visibility = Visibility.Collapsed;
+                player.AutoPlay = false;
+                player.Stop();
+                ((AppBarButton)sender).Icon = new SymbolIcon { Symbol = Symbol.Play };
+                ((AppBarButton)sender).Tag = "stopped";
             }
         }
 
-        async Task AnimateImg(Image _GIFPlaceHolder, Image _GIF) {
-            try {
-                Debug.WriteLine("Source:" + XamlAnimatedGif.AnimationBehavior.GetSourceUri(_GIF));
+        private void PlayButton_LostFocus(object sender, RoutedEventArgs e) {
+            var grid = (Grid)((AppBarButton)sender).Parent;
 
-                if (_GIFPlaceHolder.Visibility == Visibility.Visible) {
-                    var path = await FileToTempAsync(new Uri(_GIFPlaceHolder.Tag.ToString()));
+            var player = ((MediaElement)grid.FindName("Player"));
 
-                    _GIF.SetValue(XamlAnimatedGif.AnimationBehavior.SourceUriProperty, path);
-
-                    _GIFPlaceHolder.Visibility = Visibility.Collapsed;
-                }
-            } catch (Exception ex) {
-                Debug.WriteLine(ex.Data);
-            }
+            player.AutoPlay = false;
+            player.Stop();
+            ((AppBarButton)sender).Icon = new SymbolIcon { Symbol = Symbol.Play };
+            ((AppBarButton)sender).Tag = "stopped";
         }
 
         private void scrollViewer_Loaded(object sender, RoutedEventArgs e) {
@@ -356,7 +359,7 @@ namespace Core.Utils.Controls {
                 var downloadOperation = backgroundDownloader.CreateDownload(fileUri, file);
                 // start the download operation asynchronously
                 await downloadOperation.StartAsync();
-                
+
                 MainPage.AlertFlyout.DisplayMessage("Image saved.");
                 return true;
             } catch (Exception ex) {

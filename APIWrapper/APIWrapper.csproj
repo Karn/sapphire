@@ -43,6 +43,7 @@
     <Compile Include="Client\APIEndpoints.cs" />
     <Compile Include="Client\RequestBuilder.cs" />
     <Compile Include="Client\CreateRequest.cs" />
+    <Compile Include="Content\Model\GfyCat.cs" />
     <Compile Include="Content\Model\Activity.cs" />
     <Compile Include="Content\Model\Blog.cs" />
     <Compile Include="Content\Model\CreatePost.cs" />

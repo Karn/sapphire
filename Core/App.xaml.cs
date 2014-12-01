@@ -39,6 +39,7 @@ namespace Core {
             } else {
                 RequestedTheme = ApplicationTheme.Light;
             }
+
         }
 
         /// <summary>

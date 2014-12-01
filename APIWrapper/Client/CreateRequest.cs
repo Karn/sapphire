@@ -414,5 +414,12 @@ namespace APIWrapper.Client {
             //}
             return false;
         }
+
+        public static async Task<string> GenerateMP4FromGIF(string gif) {
+            var response = await WebClient.GetAsync(new Uri("http://upload.gfycat.com/transcode?fetchUrl=" + gif));
+            var result = await response.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<GfyCat>(result).mp4Url;
+        }
     }
 }

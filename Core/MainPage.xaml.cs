@@ -89,7 +89,6 @@ namespace Core {
                 StatusBarBG.Background = App.Current.Resources["HeaderLightBlue"] as SolidColorBrush;
             else
                 StatusBarBG.Background = App.Current.Resources["HeaderDarkBlue"] as SolidColorBrush;
-
         }
 
         private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e) {

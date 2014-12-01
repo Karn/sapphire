@@ -153,10 +153,9 @@
         <DataTemplate x:Key="Gif">
             <StackPanel Margin="0, 4" Background="{ThemeResource PostBG}">
                 <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
-                <Grid>
-                    <Image x:Name="GIFPlaceHolder" Tag="{Binding path_to_low_res_pic}" MinHeight="150" Source="{Binding path_to_low_res_pic}" ImageOpened="GIF_Loaded"/>
-                    <Image x:Name="GIF" gif:AnimationBehavior.AutoStart="False" Width="380" MinHeight="150" Height="auto" Tapped="GIF_Tapped"/>
-                    <AppBarButton x:Name="PlayButton" IsEnabled="False" Tag="Download" Icon="Download" Click="AppBarButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Grid Background="Black">
+                    <MediaElement x:Name="Player" MinHeight="100" Stretch="UniformToFill" PosterSource="{Binding path_to_low_res_pic}" Tag="{Binding path_to_low_res_pic}" IsTapEnabled="False" IsRightTapEnabled="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False" IsLooping="True" AutoPlay="True"/>
+                    <AppBarButton x:Name="PlayButton" Tag="stopped" Icon="Play" Click="AppBarButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" IsCompact="True" Foreground="White" BorderBrush="White" Background="#CC252525" LostFocus="PlayButton_LostFocus" RequestedTheme="Dark"/>
                 </Grid>
                 <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
             </StackPanel>
