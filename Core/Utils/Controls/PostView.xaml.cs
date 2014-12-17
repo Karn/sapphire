@@ -98,15 +98,10 @@ namespace Core.Utils.Controls {
 
         public async void LoadSpecificPost(string post_id) {
             IsSinglePost = true;
-            MainPage.sb.ProgressIndicator.Text = "Loading posts...";
-            await MainPage.sb.ProgressIndicator.ShowAsync();
             Posts.ItemsSource = await CreateRequest.RetrievePost(post_id);
-            await MainPage.sb.ProgressIndicator.HideAsync();
         }
 
         public void ScrollToTop() {
-            Debug.WriteLine("Scrolling to top.");
-            //sv.ChangeView(null, 60.0, null);
             Posts.ScrollIntoView(Posts.Items.First());
         }
 
@@ -125,6 +120,7 @@ namespace Core.Utils.Controls {
         }
         private async void LikeButton_Click(object sender, RoutedEventArgs e) {
             try {
+                App.DisplayStatus("Liking post...");
                 var x = ((ToggleButton)sender);
                 var notes = ((TextBlock)((Grid)((StackPanel)x.Parent).Parent).FindName("NoteInfo"));
 
@@ -143,20 +139,22 @@ namespace Core.Utils.Controls {
                             x.Background = LikeBrush;
                         }
                     } catch (Exception ex2) {
-                        DebugHandler.Error("Failed to update note count. ", ex2.StackTrace);
+                        DiagnosticsManager.LogException(ex2, TAG, "Failed to update note count.");
                     }
                 } else {
-                    MainPage.AlertFlyout.DisplayMessage("Failed to like post.");
+                    MainPage.AlertFlyout.DisplayMessage("Unable to like post.");
                 }
+                App.HideStatus();
             } catch (Exception ex) {
-                DebugHandler.Error("Failed to like post. ", ex.StackTrace);
-                MainPage.AlertFlyout.DisplayMessage("Failed to like post.");
+                DiagnosticsManager.LogException(ex, TAG, "Unable to like post.");
+                MainPage.AlertFlyout.DisplayMessage("Unable to like post.");
             }
         }
 
         private async void ReblogButton_Click(object sender, RoutedEventArgs e) {
             if (UserStore.OneClickReblog) {
                 try {
+                    App.DisplayStatus("Reblogging post...");
                     var x = ((Button)sender);
                     var notes = ((TextBlock)((Grid)((StackPanel)x.Parent).Parent).FindName("NoteInfo"));
 
@@ -168,8 +166,9 @@ namespace Core.Utils.Controls {
                         notes.Text = (int.Parse(notes.Text) + 1).ToString();
                     } else
                         MainPage.AlertFlyout.DisplayMessage("Failed to reblog post.");
+                    App.HideStatus();
                 } catch (Exception ex) {
-                    DebugHandler.Error("Failed to reblog post", ex.StackTrace);
+                    DiagnosticsManager.LogException(ex, TAG, "Failed to reblog post");
                 }
             } else {
                 var frame = Window.Current.Content as Frame;
@@ -188,10 +187,10 @@ namespace Core.Utils.Controls {
                 items.Remove(post);
             } else
                 MainPage.AlertFlyout.DisplayMessage("Failed to create post.");
-
         }
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e) {
+            App.DisplayStatus("Deleting post...");
             var post = (Post)((Button)sender).Tag;
 
             if (await CreateRequest.DeletePost(post.id)) {
@@ -199,6 +198,7 @@ namespace Core.Utils.Controls {
                 items.Remove(post);
             } else
                 MainPage.AlertFlyout.DisplayMessage("Failed to delete post.");
+            App.HideStatus();
         }
 
         private void PostDetail_Tapped(object sender, TappedRoutedEventArgs e) {
@@ -220,7 +220,7 @@ namespace Core.Utils.Controls {
 
         void PostView_DataRequested(DataTransferManager sender, DataRequestedEventArgs args) {
             var LinkToShare = new Uri(ShareURI, UriKind.Absolute);
-            string extension = System.IO.Path.GetExtension(LinkToShare.AbsolutePath);
+            string extension = Path.GetExtension(LinkToShare.AbsolutePath);
 
             DataPackage dp = args.Request.Data;
             dp.Properties.Title = "Look at this post on Tumblr!";
@@ -230,28 +230,35 @@ namespace Core.Utils.Controls {
         }
 
         private async void AppBarButton_Click(object sender, RoutedEventArgs e) {
-            ((AppBarButton)sender).Focus(FocusState.Programmatic);
+            try {
+                ((AppBarButton)sender).Focus(FocusState.Programmatic);
 
-            var grid = (Grid)((AppBarButton)sender).Parent;
+                var grid = (Grid)((AppBarButton)sender).Parent;
 
-            var player = ((MediaElement)grid.FindName("Player"));
+                var player = ((MediaElement)grid.FindName("Player"));
 
-            if (((AppBarButton)sender).Tag.ToString() == "stopped") {
-                if (player.Tag != null && player.Source == null) {
-                    var mp4 = await CreateRequest.GenerateMP4FromGIF(player.Tag.ToString());
-                    player.Source = new Uri(mp4);
+                if (((AppBarButton)sender).Tag.ToString() == "stopped") {
+                    if (player.Tag != null && player.Source == null) {
+                        App.DisplayStatus("Downloading GIF...");
+                        var mp4 = await CreateRequest.GenerateMP4FromGIF(player.Tag.ToString());
+                        player.Source = new Uri(mp4);
+                        App.HideStatus();
+                    } else {
+                        player.AutoPlay = true;
+                        player.Play();
+                    }
+
+                    ((AppBarButton)sender).Icon = new SymbolIcon { Symbol = Symbol.Pause };
+                    ((AppBarButton)sender).Tag = "playing";
                 } else {
-                    player.AutoPlay = true;
-                    player.Play();
+                    player.AutoPlay = false;
+                    player.Stop();
+                    ((AppBarButton)sender).Icon = new SymbolIcon { Symbol = Symbol.Play };
+                    ((AppBarButton)sender).Tag = "stopped";
                 }
-
-                ((AppBarButton)sender).Icon = new SymbolIcon { Symbol = Symbol.Pause };
-                ((AppBarButton)sender).Tag = "playing";
-            } else {
-                player.AutoPlay = false;
-                player.Stop();
-                ((AppBarButton)sender).Icon = new SymbolIcon { Symbol = Symbol.Play };
-                ((AppBarButton)sender).Tag = "stopped";
+            } catch (Exception ex) {
+                DiagnosticsManager.LogException(ex, TAG, "Failed to load GIF.");
+                MainPage.AlertFlyout.DisplayMessage("Unable to load animated Image.");
             }
         }
 
@@ -369,43 +376,6 @@ namespace Core.Utils.Controls {
             }
         }
 
-        private async Task<Uri> FileToTempAsync(Uri fileUri) {
-            Debug.WriteLine("Saving..");
-            // create the blank file in specified folder
-            try {
-                var StorageFolder = await ApplicationData.Current.TemporaryFolder.CreateFolderAsync("Gifs", CreationCollisionOption.OpenIfExists);
-
-                var file = await StorageFolder.CreateFileAsync(fileUri.ToString().Split('/').Last(), CreationCollisionOption.ReplaceExisting);
-
-                // create the downloader instance and prepare for downloading the file
-                var backgroundDownloader = new BackgroundDownloader();
-                var downloadOperation = backgroundDownloader.CreateDownload(fileUri, file);
-
-                // start the download operation asynchronously
-                var result = await downloadOperation.StartAsync();
-                //var frame =  
-                Debug.WriteLine(file.Path);
-                //MainPage.ErrorFlyout.DisplayMessage("Image saved.");
-                return new Uri("ms-appdata:///temp/Gifs/" + fileUri.ToString().Split('/').Last());
-            } catch (Exception e) {
-                //MainPage.ErrorFlyout.DisplayMessage("Unable to save photo: " + e.Message);
-                DebugHandler.Error("Failed to save image to temp storage.", e.StackTrace);
-                return new Uri("");
-            }
-        }
-
-        private void GIF_Tapped(object sender, TappedRoutedEventArgs e) {
-            var animator = XamlAnimatedGif.AnimationBehavior.GetAnimator((Image)sender);
-            animator.Pause();
-            var button = ((AppBarButton)((Grid)((Image)sender).Parent).FindName("PlayButton"));
-            button.Visibility = Visibility.Visible;
-        }
-
-        private void GIF_Loaded(object sender, RoutedEventArgs e) {
-            var button = ((AppBarButton)((Grid)((Image)sender).Parent).FindName("PlayButton"));
-            button.IsEnabled = true;
-        }
-
         private void AdControl_ErrorOccurred(object sender, Microsoft.Advertising.Mobile.Common.AdErrorEventArgs e) {
             ((Microsoft.Advertising.Mobile.UI.AdControl)sender).Visibility = Visibility.Collapsed;
             ((AdDuplex.Universal.Controls.WinPhone.XAML.AdControl)((Grid)((Microsoft.Advertising.Mobile.UI.AdControl)sender).Parent).FindName("adDuplexAd")).Visibility = Visibility.Visible;
@@ -472,17 +442,17 @@ namespace Core.Utils.Controls {
                 ((WebView)sender).NavigateToString(((WebView)sender).Tag.ToString());
         }
 
-        private async void DirectURIVideoElement_Loaded(object sender, RoutedEventArgs e) {
-            if (((MediaElement)sender).Tag != null) {
-                var x = ((MediaElement)sender).Tag.ToString().Split('=');
-                Debug.WriteLine(x[1]);
-                var url = await YouTube.GetVideoUriAsync(x[1], YouTubeQuality.QualityMedium);
+        //private async void DirectURIVideoElement_Loaded(object sender, RoutedEventArgs e) {
+        //if (((MediaElement)sender).Tag != null) {
+        //    var x = ((MediaElement)sender).Tag.ToString().Split('=');
+        //    Debug.WriteLine(x[1]);
+        //    var url = await YouTube.GetVideoUriAsync(x[1], YouTubeQuality.QualityMedium);
 
-                if (url != null) {
-                    ((MediaElement)sender).Source = url.Uri;
-                }
-                ((MediaElement)sender).Visibility = Visibility.Collapsed;
-            }
-        }
+        //    if (url != null) {
+        //        ((MediaElement)sender).Source = url.Uri;
+        //    }
+        //    ((MediaElement)sender).Visibility = Visibility.Collapsed;
+        //}
+        //}
     }
 }

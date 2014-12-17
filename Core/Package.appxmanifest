@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="16658Awefull.Spphire" Publisher="CN=B36F1956-9DEC-4300-89F6-8B539E1FE65D" Version="1.1.4.17" />
+  <Identity Name="16658Awefull.Spphire" Publisher="CN=B36F1956-9DEC-4300-89F6-8B539E1FE65D" Version="1.1.4.20" />
   <mp:PhoneIdentity PhoneProductId="58033d27-5a32-4a56-b046-5533cd80de3d" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Sapphire.</DisplayName>

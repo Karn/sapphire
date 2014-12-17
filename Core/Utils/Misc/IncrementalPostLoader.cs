@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 namespace Core.Utils.Misc {
     public class IncrementalPostLoader : ObservableCollection<Post>, ISupportIncrementalLoading {
 
+        private static string TAG = "IncrementalPostLoader";
         public string URL { get; set; }
 
         public bool HasMoreItems { get; set; }
@@ -36,7 +37,7 @@ namespace Core.Utils.Misc {
 #pragma warning disable CS1998
                 return AsyncInfo.Run(async c => {
 #pragma warning restore CS1998
-    return new LoadMoreItemsResult() {
+                    return new LoadMoreItemsResult() {
                         Count = 0
                     };
                 });
@@ -44,9 +45,7 @@ namespace Core.Utils.Misc {
                 _IsRunning = true;
                 try {
                     return AsyncInfo.Run(async c => {
-                        var statusBar = StatusBar.GetForCurrentView();
-                        statusBar.ProgressIndicator.Text = "Loading posts...";
-                        await statusBar.ProgressIndicator.ShowAsync();
+                        App.DisplayStatus("Loading posts.");
 
                         var posts = new List<Post>();
                         if (string.IsNullOrEmpty(LastPostID))
@@ -70,7 +69,6 @@ namespace Core.Utils.Misc {
                                     LastPostID = offset.ToString();
                                 }
                             }
-                            DebugHandler.Info(LastPostID);
                         } else {
                             MainPage.AlertFlyout.DisplayMessage("Unable to find posts.");
                         }
@@ -82,13 +80,13 @@ namespace Core.Utils.Misc {
                             HasMoreItems = false;
 
                         _IsRunning = false;
-                        await statusBar.ProgressIndicator.HideAsync();
+                        App.HideStatus();
                         return new LoadMoreItemsResult() {
                             Count = (uint)posts.Count
                         };
                     });
-                } catch (Exception e) {
-                    DebugHandler.Error("Error awaiting posts. ", e.StackTrace);
+                } catch (Exception ex) {
+                    DiagnosticsManager.LogException(ex, TAG, "Load failed due to exception.");
                     MainPage.AlertFlyout.DisplayMessage("Load failed due to exception.");
                     throw new Exception();
                 }

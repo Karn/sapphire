@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Input;
 namespace Core.Utils.Controls {
     public sealed partial class ActivityList : UserControl {
 
+        private static string TAG = "ActivityList";
+
         private static HttpClient client = new HttpClient();
         public bool ContentLoaded;
 
@@ -24,21 +26,17 @@ namespace Core.Utils.Controls {
 
         public async void LoadPosts() {
             try {
-                MainPage.sb = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-                MainPage.sb.ForegroundColor = Color.FromArgb(255, 255, 255, 255);
-                MainPage.sb.ProgressIndicator.Text = "Loading activity...";
-                await MainPage.sb.ProgressIndicator.ShowAsync();
+                App.DisplayStatus("Loading activity...");
                 GroupData(await CreateRequest.RetrieveActivity());
-                await MainPage.sb.ProgressIndicator.HideAsync();
+                App.HideStatus();
                 ContentLoaded = true;
-            } catch (Exception e) {
-                DebugHandler.Error("Error loading activity feed. ", e.StackTrace);
+            } catch (Exception ex) {
+                DiagnosticsManager.LogException(ex, TAG, "Error loading activity feed. ");
             }
         }
 
         public void ClearPosts()
         {
-            //GroupData(new ObservableCollection<APIContent.Content.Activity.Notification>());
             Notifications.Visibility = Visibility.Collapsed;
         }
 

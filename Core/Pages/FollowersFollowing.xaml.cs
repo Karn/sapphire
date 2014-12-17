@@ -40,8 +40,7 @@ namespace Core.Pages {
                 BlogList.Clear();
                 NewInstance = true;
             }
-            MainPage.sb.ProgressIndicator.Text = "Loading blogs...";
-            await MainPage.sb.ProgressIndicator.ShowAsync();
+            App.DisplayStatus("Loading blogs...");
             if (PageTitle.Text.ToString() == "Followers") {
                 foreach (var x in await CreateRequest.RetrieveFollowers(offset))
                     BlogList.Add(x);
@@ -51,7 +50,7 @@ namespace Core.Pages {
             }
             List.ItemsSource = BlogList;
             offset += 20;
-            await MainPage.sb.ProgressIndicator.HideAsync();
+            App.HideStatus();
         }
 
         /// <summary>

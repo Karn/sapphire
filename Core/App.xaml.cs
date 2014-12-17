@@ -7,6 +7,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Graphics.Display;
 using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
@@ -18,9 +19,10 @@ namespace Core {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    public sealed partial class App : Application
-    {
+    public sealed partial class App : Application {
         private TransitionCollection transitions;
+
+        static StatusBar statusBar = StatusBar.GetForCurrentView();
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -29,16 +31,18 @@ namespace Core {
         /// 
         public ContinuationManager ContinuationManager { get; private set; }
 
-        public App()
-        {
+        public App() {
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
+
+            new UserStore();
 
             if (UserStore.SelectedTheme == "Dark") {
                 RequestedTheme = ApplicationTheme.Dark;
             } else {
                 RequestedTheme = ApplicationTheme.Light;
             }
+
 
         }
 
@@ -48,11 +52,9 @@ namespace Core {
         /// search results, and so forth.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override async void OnLaunched(LaunchActivatedEventArgs e)
-        {
+        protected override async void OnLaunched(LaunchActivatedEventArgs e) {
 #if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
+            if (System.Diagnostics.Debugger.IsAttached) {
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
@@ -61,8 +63,7 @@ namespace Core {
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active.
-            if (rootFrame == null)
-            {
+            if (rootFrame == null) {
                 // Create a Frame to act as the navigation context and navigate to the first page.
                 rootFrame = new Frame();
 
@@ -72,15 +73,11 @@ namespace Core {
                 // TODO: Change this value to a cache size that is appropriate for your application.
                 rootFrame.CacheSize = 1;
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
+                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated) {
                     // Restore the saved session state only when appropriate.
-                    try
-                    {
+                    try {
                         await SuspensionManager.RestoreAsync();
-                    }
-                    catch (SuspensionManagerException)
-                    {
+                    } catch (SuspensionManagerException) {
                         // Something went wrong restoring state.
                         // Assume there is no state and continue.
                     }
@@ -90,14 +87,11 @@ namespace Core {
                 Window.Current.Content = rootFrame;
             }
 
-            if (rootFrame.Content == null)
-            {
+            if (rootFrame.Content == null) {
                 // Removes the turnstile navigation for startup.
-                if (rootFrame.ContentTransitions != null)
-                {
+                if (rootFrame.ContentTransitions != null) {
                     this.transitions = new TransitionCollection();
-                    foreach (var c in rootFrame.ContentTransitions)
-                    {
+                    foreach (var c in rootFrame.ContentTransitions) {
                         this.transitions.Add(c);
                     }
                 }
@@ -106,15 +100,12 @@ namespace Core {
                 rootFrame.Navigated += this.RootFrame_FirstNavigated;
 
                 DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
-                Windows.UI.ViewManagement.StatusBar.GetForCurrentView().BackgroundColor = Color.FromArgb(255, 40, 52, 64);
-                Windows.UI.ViewManagement.StatusBar.GetForCurrentView().ForegroundColor = Color.FromArgb(255, 255, 255, 255);
-
-                new UserStore();
+                StatusBar.GetForCurrentView().BackgroundColor = Color.FromArgb(255, 40, 52, 64);
+                StatusBar.GetForCurrentView().ForegroundColor = Color.FromArgb(255, 255, 255, 255);
 
                 //Initialize In app puchase handler
                 Utils.IAPHander.UpdateInAppPurchases();
                 //Initialize Analytics
-                AdDuplexTrackingSDK.StartTracking("d9b787e4-616a-40ea-bdb4-c81523cb0733");
 
                 new Authentication();
                 if (Authentication.AuthenticatedTokens.Count != 0 && Authentication.AuthenticatedSecretTokens.Count != 0) {
@@ -137,8 +128,7 @@ namespace Core {
         /// <summary>
         /// Restores the content transitions after the app has launched.
         /// </summary>
-        private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
-        {
+        private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e) {
             var rootFrame = sender as Frame;
             rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
             rootFrame.Navigated -= this.RootFrame_FirstNavigated;
@@ -151,8 +141,7 @@ namespace Core {
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
-        private async void OnSuspending(object sender, SuspendingEventArgs e)
-        {
+        private async void OnSuspending(object sender, SuspendingEventArgs e) {
             var deferral = e.SuspendingOperation.GetDeferral();
             await SuspensionManager.SaveAsync();
             deferral.Complete();
@@ -162,8 +151,8 @@ namespace Core {
             base.OnActivated(e);
 
             DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
-            Windows.UI.ViewManagement.StatusBar.GetForCurrentView().BackgroundColor = Color.FromArgb(255, 40, 52, 64);
-            Windows.UI.ViewManagement.StatusBar.GetForCurrentView().ForegroundColor = Color.FromArgb(255, 255, 255, 255);
+            StatusBar.GetForCurrentView().BackgroundColor = Color.FromArgb(255, 40, 52, 64);
+            StatusBar.GetForCurrentView().ForegroundColor = Color.FromArgb(255, 255, 255, 255);
 
             ContinuationManager = new ContinuationManager();
 
@@ -178,12 +167,21 @@ namespace Core {
             if (continuationEventArgs != null) {
                 //Frame scenarioFrame = MainPage.Current.FindName("ScenarioFrame") as Frame;
                 //if (scenarioFrame != null) {
-                    // Call ContinuationManager to handle continuation activation
-                    ContinuationManager.Continue(continuationEventArgs);
+                // Call ContinuationManager to handle continuation activation
+                ContinuationManager.Continue(continuationEventArgs);
                 //}
             }
 
             Window.Current.Activate();
+        }
+
+        public static async void DisplayStatus(string message = "") {
+            statusBar.ProgressIndicator.Text = message;
+            await statusBar.ProgressIndicator.ShowAsync();
+        }
+
+        public static async void HideStatus() {
+            await statusBar.ProgressIndicator.HideAsync();
         }
     }
 }

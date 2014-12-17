@@ -19,8 +19,6 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 
-// The Pivot Application template is documented at http://go.microsoft.com/fwlink/?LinkID=391641
-
 namespace Core {
     public sealed partial class MainPage : Page {
 
@@ -28,16 +26,7 @@ namespace Core {
 
         public static AlertDialog AlertFlyout;
 
-        public static Storyboard RefreshButtonIntoView_;
-        public static Storyboard RefreshButtonOutOfView_;
-
-        public static Storyboard CreateButtonIntoView_;
-        public static Storyboard CreateButtonOutOfView_;
-
-        public static bool IsAnimating = false;
-
         private readonly NavigationHelper navigationHelper;
-        public static StatusBar sb;
 
         public static FlyoutPresenter _LRPresenter;
         public static StackPanel MainPagePresenter;
@@ -62,11 +51,6 @@ namespace Core {
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
             ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
-
-            if (sb == null) {
-                sb = StatusBar.GetForCurrentView();
-                sb.ForegroundColor = Color.FromArgb(255, 255, 255, 255);
-            }
 
             //Initialize
             AlertFlyout = _ErrorFlyout; //Mainpage error toast
@@ -337,16 +321,15 @@ namespace Core {
         }
 
         private async void SetAccountData() {
-            if (APIWrapper.AuthenticationManager.Authentication.Utils.NetworkAvailable()) {
+            if (Authentication.Utils.NetworkAvailable()) {
+                App.DisplayStatus("Loading account data...");
                 RefreshButton.IsEnabled = false;
-                sb.ProgressIndicator.Text = "Loading account data...";
-                await sb.ProgressIndicator.ShowAsync();
                 Debug.WriteLine("Loading account data...");
                 AccountPivot.DataContext = await CreateRequest.RetrieveAccountInformation() ? UserStore.CurrentBlog : null;
                 if (!ActivityPosts.ContentLoaded)
                     ActivityPosts.LoadPosts();
                 RefreshButton.IsEnabled = true;
-                await sb.ProgressIndicator.HideAsync();
+                App.HideStatus();
             } else {
                 AlertFlyout.DisplayMessage("Unable to retrieve account details. Check your network connection.");
             }
@@ -368,7 +351,7 @@ namespace Core {
 
         private async void SpotlightTags_Loaded(object sender, RoutedEventArgs e) {
             if (SpotlightTags.ItemsSource == null || sender == null) {
-                if (APIWrapper.AuthenticationManager.Authentication.Utils.NetworkAvailable())
+                if (Authentication.Utils.NetworkAvailable())
                     SpotlightTags.ItemsSource = await CreateRequest.RetrieveSpotlight();
             }
         }

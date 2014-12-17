@@ -166,9 +166,6 @@
     <Compile Include="Utils\Misc\IncrementalPostLoader.cs" />
     <Compile Include="Utils\Misc\ItemsToShow.cs" />
     <Compile Include="Utils\Misc\ThemeResources.cs" />
-    <Compile Include="Utils\Misc\VariableGrid.cs" />
-    <Compile Include="Utils\Misc\YouTubeQuality.cs" />
-    <Compile Include="Utils\Misc\YoutubeUri.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -363,9 +360,6 @@
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="XamlAnimatedGif">
-      <HintPath>..\packages\XamlAnimatedGif.1.0.0-alpha\lib\portable-win81+wpa81\XamlAnimatedGif.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -18,7 +18,7 @@ namespace APIWrapper.Content.Model {
             }
         }
 
-        public static async void Photo(string caption, string source, string data, string tags) {
+        public static void Photo(string caption, string source, string data, string tags) {
 
             var parameterString = "type=photo";
             if (!string.IsNullOrEmpty(caption))
@@ -28,7 +28,7 @@ namespace APIWrapper.Content.Model {
             if (!string.IsNullOrEmpty(tags))
                 parameterString += "&tags=" + tags;
 
-            await CreateRequest.CreateMediaPost(parameterString, data);
+            //await CreateRequest.CreateMediaPost(parameterString, data);
         }
 
         public static async void Quote(string quote, string source, string tags) {

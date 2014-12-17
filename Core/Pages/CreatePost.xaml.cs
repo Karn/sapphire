@@ -24,10 +24,10 @@ using APIWrapper.AuthenticationManager;
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
 namespace Core.Pages {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class CreatePost : Page, IFileOpenPickerContinuable {
+
+        private static string TAG = "CreatePost";
+
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
@@ -160,8 +160,8 @@ namespace Core.Pages {
                 APIWrapper.Content.Model.CreatePost.Text(Authentication.Utils.UrlEncode(title), Authentication.Utils.UrlEncode(body), tags);
                 Frame.GoBack();
             } catch (Exception ex) {
-                MainPage.AlertFlyout.DisplayMessage("Failed to create text post");
-                DebugHandler.Log("Failed to create text post.");
+                DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
+                MainPage.AlertFlyout.DisplayMessage("Failed to create post");
             }
         }
 
@@ -173,7 +173,7 @@ namespace Core.Pages {
                 tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
             }
 
-            
+
             try {
                 byte[] fileBytes = null;
                 using (IRandomAccessStreamWithContentType stream = await image.OpenReadAsync()) {
@@ -190,8 +190,8 @@ namespace Core.Pages {
                 APIWrapper.Content.Model.CreatePost.Photo(Authentication.Utils.UrlEncode(caption), "", Authentication.Utils.UrlEncode(photoasstring), tags);
                 Frame.GoBack();
             } catch (Exception ex) {
-                MainPage.AlertFlyout.DisplayMessage("Failed to create text post");
-                DebugHandler.Log("Failed to create text post.");
+                MainPage.AlertFlyout.DisplayMessage("Failed to create post");
+                DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
             }
             //var data = Convert.ToBase64String(photoAsByteArray);
 
@@ -228,8 +228,8 @@ namespace Core.Pages {
                 APIWrapper.Content.Model.CreatePost.Quote(Authentication.Utils.UrlEncode(quote), Authentication.Utils.UrlEncode(source), tags);
                 Frame.GoBack();
             } catch (Exception ex) {
-                MainPage.AlertFlyout.DisplayMessage("Failed to create text post");
-                DebugHandler.Log("Failed to create text post.");
+                MainPage.AlertFlyout.DisplayMessage("Failed to create post");
+                DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
             }
         }
 
@@ -247,12 +247,12 @@ namespace Core.Pages {
                 APIWrapper.Content.Model.CreatePost.Link(Authentication.Utils.UrlEncode(title), Authentication.Utils.UrlEncode(url), Authentication.Utils.UrlEncode(description), tags);
                 Frame.GoBack();
             } catch (Exception ex) {
-                MainPage.AlertFlyout.DisplayMessage("Failed to create text post");
-                DebugHandler.Log("Failed to create text post.");
+                MainPage.AlertFlyout.DisplayMessage("Failed to create post");
+                DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
             }
         }
 
-        private async void Photo_Image_Tapped(object sender, TappedRoutedEventArgs e) {
+        private void Photo_Image_Tapped(object sender, TappedRoutedEventArgs e) {
             PhotoView = (Image)((Grid)(((StackPanel)((Grid)sender).Parent).FindName("Photo_Grid"))).FindName("Photo_Image");
 
             var filePicker = new FileOpenPicker();

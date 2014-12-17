@@ -16,6 +16,9 @@ namespace Core.Pages {
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class ReblogPage : Page {
+
+        private static string TAG = "ReblogPage";
+
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
@@ -140,8 +143,8 @@ namespace Core.Pages {
                     MainPage.AlertFlyout.DisplayMessage("Failed to reblog post.");
                 Frame.GoBack();
             } catch (Exception ex) {
-                MainPage.AlertFlyout.DisplayMessage("Failed to create text post");
-                DebugHandler.Log("Failed to create text post.");
+                MainPage.AlertFlyout.DisplayMessage("Failed to create post");
+                DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
             }
         }
 

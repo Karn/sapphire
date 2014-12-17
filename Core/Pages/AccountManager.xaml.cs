@@ -70,6 +70,9 @@ namespace Core.Pages {
         /// a dictionary of state preserved by this page during an earlier
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
+            if (Authentication.AuthenticatedTokens != null && Authentication.AuthenticatedTokens.Count > 1) {
+                PageTitle.Text = "Accounts";
+            }
             List.ItemsSource = Authentication.AuthenticatedTokens.Keys;
         }
 

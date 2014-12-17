@@ -1,5 +1,4 @@
-﻿using APIWrapper.Utils;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,116 +13,114 @@ namespace APIWrapper.Content {
         public static Model.Blog CurrentBlog;
         public static ObservableCollection<Model.Blog> UserBlogs = new ObservableCollection<Model.Blog>();
 
-        private static ApplicationDataContainer Settings = ApplicationData.Current.RoamingSettings;
+        private static ApplicationDataContainer Settings = ApplicationData.Current.LocalSettings;
 
-        //Appication settings
-        private static readonly string[] SettingNames = {
-            "NotificationsEnabled", "EnableAds", "NotificationIds",
-            "OneClickReblog", "TagsInPosts", "CachedSpotlight", "CachedAccountData",
-            "Theme", "EnableAnalytics", "StatusBarBG"
-        };
 
         public UserStore() {
-            foreach (var name in SettingNames) {
-                if (Settings.Values[name] == null) {
-                    Debug.WriteLine("Creating Setting: " + name);
-                    Settings.Values[name] = "";
-                }
+            if (Settings.Values["Theme"] != null) {
+                Settings.Values.Clear();
+                Debug.WriteLine("Cleared Settings.");
             }
         }
 
         public static string SelectedTheme {
             get {
-                if (!string.IsNullOrEmpty(Settings.Values["Theme"].ToString()))
-                    return Settings.Values["Theme"].ToString();
+                if (Settings.Values["_Theme"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_Theme"].ToString())) {
+                    return Settings.Values["_Theme"].ToString();
+                }
                 return "Light";
             }
             set {
-                Settings.Values["Theme"] = value;
+                Settings.Values["_Theme"] = value;
             }
         }
 
         public static bool NotificationsEnabled {
             get {
-                if (!string.IsNullOrEmpty(Settings.Values["NotificationsEnabled"].ToString()))
-                    return Settings.Values["NotificationsEnabled"].ToString().Contains("T") ? true : false;
+                if (Settings.Values["_NotificationsEnabled"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_NotificationsEnabled"].ToString())) {
+                    return Settings.Values["_NotificationsEnabled"].ToString().Contains("T") ? true : false;
+                }
                 return true;
             }
             set {
-                Settings.Values["NotificationsEnabled"] = value ? "True" : "False";
+                Settings.Values["_NotificationsEnabled"] = value ? "True" : "False";
             }
         }
 
         public static Dictionary<string, int> NotificationIDs {
             get {
                 try {
-                    if (!string.IsNullOrEmpty(Settings.Values["NotificationIds"].ToString()))
-                        return JsonConvert.DeserializeObject<Dictionary<string, int>>(Settings.Values["NotificationIds"].ToString());
-                    return new Dictionary<string, int>();
+                    if (Settings.Values["_NotificationIds"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_NotificationIds"].ToString())) {
+                        return JsonConvert.DeserializeObject<Dictionary<string, int>>(Settings.Values["_NotificationIds"].ToString());
+                    }
                 } catch (Exception ex) {
-                    DiagnosticsManager.LogException(ex, TAG, "Failed to load notification ids.");
-                    return new Dictionary<string, int>();
                 }
-
+                return new Dictionary<string, int>();
             }
             set {
-                Settings.Values["NotificationIds"] = JsonConvert.SerializeObject(value);
+                Settings.Values["_NotificationIds"] = JsonConvert.SerializeObject(value);
             }
         }
 
         public static bool OneClickReblog {
             get {
-                if (!string.IsNullOrEmpty(Settings.Values["OneClickReblog"].ToString()))
-                    return Settings.Values["OneClickReblog"].ToString().Contains("T") ? true : false;
+                if (Settings.Values["_OneClickReblog"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_OneClickReblog"].ToString())) {
+                    return Settings.Values["_OneClickReblog"].ToString().Contains("T") ? true : false;
+                }
                 return true;
             }
             set {
-                Settings.Values["OneClickReblog"] = value ? "True" : "False";
+                Settings.Values["_OneClickReblog"] = value ? "True" : "False";
             }
         }
         public static bool TagsInPosts {
             get {
-                if (!string.IsNullOrEmpty(Settings.Values["TagsInPosts"].ToString()))
-                    return Settings.Values["TagsInPosts"].ToString().Contains("T") ? true : false;
+                if (Settings.Values["_TagsInPosts"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_TagsInPosts"].ToString())) {
+                    return Settings.Values["_TagsInPosts"].ToString().Contains("T") ? true : false;
+                }
                 return false;
             }
             set {
-                Settings.Values["TagsInPosts"] = value ? "True" : "False";
+                Settings.Values["_TagsInPosts"] = value ? "True" : "False";
             }
         }
 
         public static string CachedSpotlight {
             get {
-                if (!string.IsNullOrEmpty(Settings.Values["CachedSpotlight"].ToString()))
-                    return Settings.Values["CachedSpotlight"].ToString();
+                if (Settings.Values["_CachedSpotlight"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_CachedSpotlight"].ToString())) {
+                    return Settings.Values["_CachedSpotlight"].ToString();
+                }
                 return "";
             }
             set {
-                Settings.Values["CachedSpotlight"] = value;
+                Settings.Values["_CachedSpotlight"] = value;
             }
         }
 
         public static bool EnableAnalytics {
             get {
-                if (!string.IsNullOrEmpty(Settings.Values["EnableAnalytics"].ToString()))
-                    return Settings.Values["EnableAnalytics"].ToString().Contains("T") ? true : false;
+                if (Settings.Values["_EnableAnalytics"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_EnableAnalytics"].ToString())) {
+                    return Settings.Values["_EnableAnalytics"].ToString().Contains("T") ? true : false;
+                }
                 return true;
             }
             set {
-                Settings.Values["EnableAnalytics"] = value ? "True" : "False";
+                Settings.Values["_EnableAnalytics"] = value ? "True" : "False";
             }
         }
 
         public static bool EnableStatusBarBG {
             get {
-                if (!string.IsNullOrEmpty(Settings.Values["StatusBarBG"].ToString()))
-                    return Settings.Values["StatusBarBG"].ToString().Contains("T") ? true : false;
+                if (Settings.Values["_StatusBarBG"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_StatusBarBG"].ToString())) {
+                    return Settings.Values["_StatusBarBG"].ToString().Contains("T") ? true : false;
+                }
                 return true;
             }
             set {
-                Settings.Values["StatusBarBG"] = value ? "True" : "False";
+                Settings.Values["_StatusBarBG"] = value ? "True" : "False";
             }
         }
 
     }
 }
+

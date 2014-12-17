@@ -405,7 +405,7 @@ namespace APIWrapper.Client {
             return false;
         }
 
-        public static async Task<bool> CreateMediaPost(string parameters, string media) {
+        public static bool CreateMediaPost(string parameters, string media) {
             Debug.WriteLine("media");
             //if (!string.IsNullOrEmpty(parameters)) {
             //    string result = await RequestBuilder.PostAPIWithData("http://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/post", parameters, media);
