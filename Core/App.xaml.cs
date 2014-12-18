@@ -1,5 +1,4 @@
-﻿using AdDuplex.Universal.Controls.WinPhone.XAML.Tracking;
-using APIWrapper.AuthenticationManager;
+﻿using APIWrapper.AuthenticationManager;
 using APIWrapper.Content;
 using Core.Common;
 using System;
@@ -22,7 +21,7 @@ namespace Core {
     public sealed partial class App : Application {
         private TransitionCollection transitions;
 
-        static StatusBar statusBar = StatusBar.GetForCurrentView();
+        static StatusBar statusBar;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -42,8 +41,6 @@ namespace Core {
             } else {
                 RequestedTheme = ApplicationTheme.Light;
             }
-
-
         }
 
         /// <summary>
@@ -100,16 +97,16 @@ namespace Core {
                 rootFrame.Navigated += this.RootFrame_FirstNavigated;
 
                 DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
-                StatusBar.GetForCurrentView().BackgroundColor = Color.FromArgb(255, 40, 52, 64);
-                StatusBar.GetForCurrentView().ForegroundColor = Color.FromArgb(255, 255, 255, 255);
 
-                //Initialize In app puchase handler
-                Utils.IAPHander.UpdateInAppPurchases();
-                //Initialize Analytics
+                statusBar = StatusBar.GetForCurrentView();
+                statusBar.BackgroundColor = Color.FromArgb(255, 40, 52, 64);
+                statusBar.ForegroundColor = Color.FromArgb(255, 255, 255, 255);
 
+                new Utils.AppLicenseHandler();
                 new Authentication();
+
                 if (Authentication.AuthenticatedTokens.Count != 0 && Authentication.AuthenticatedSecretTokens.Count != 0) {
-                    new APIWrapper.Utils.DiagnosticsManager(Current);
+                    //new APIWrapper.Utils.DiagnosticsManager(Current);
                     if (!rootFrame.Navigate(typeof(MainPage), e.Arguments)) {
                         throw new Exception("Failed to create initial page");
                     }

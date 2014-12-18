@@ -1,11 +1,12 @@
-﻿using APIWrapper.Utils;
-using APIWrapper.Client;
+﻿using APIWrapper.Client;
 using APIWrapper.Content;
 using APIWrapper.Content.Model;
+using APIWrapper.Utils;
 using Core.Utils.Misc;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
@@ -17,7 +18,6 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using System.IO;
 
 
 // Use setter to set item source of posts
@@ -376,11 +376,6 @@ namespace Core.Utils.Controls {
             }
         }
 
-        private void AdControl_ErrorOccurred(object sender, Microsoft.Advertising.Mobile.Common.AdErrorEventArgs e) {
-            ((Microsoft.Advertising.Mobile.UI.AdControl)sender).Visibility = Visibility.Collapsed;
-            ((AdDuplex.Universal.Controls.WinPhone.XAML.AdControl)((Grid)((Microsoft.Advertising.Mobile.UI.AdControl)sender).Parent).FindName("adDuplexAd")).Visibility = Visibility.Visible;
-        }
-
         private void PlayButton_Click(object sender, RoutedEventArgs e) {
             var audioPlayer = ((MediaElement)(((StackPanel)(((AppBarButton)sender).Parent)).FindName("AudioPlayer")));
             if (audioPlayer.Tag.ToString() == "Stopped" || audioPlayer.Tag.ToString() == "Paused") {
@@ -442,17 +437,16 @@ namespace Core.Utils.Controls {
                 ((WebView)sender).NavigateToString(((WebView)sender).Tag.ToString());
         }
 
-        //private async void DirectURIVideoElement_Loaded(object sender, RoutedEventArgs e) {
-        //if (((MediaElement)sender).Tag != null) {
-        //    var x = ((MediaElement)sender).Tag.ToString().Split('=');
-        //    Debug.WriteLine(x[1]);
-        //    var url = await YouTube.GetVideoUriAsync(x[1], YouTubeQuality.QualityMedium);
+        private void MediatedAdControl_AdSdkError(object sender, Microsoft.AdMediator.Core.Events.AdFailedEventArgs e) {
+            Debug.WriteLine("Failed to load ad: {0}", e.ToString());
+        }
 
-        //    if (url != null) {
-        //        ((MediaElement)sender).Source = url.Uri;
-        //    }
-        //    ((MediaElement)sender).Visibility = Visibility.Collapsed;
-        //}
-        //}
+        private void MediatedAdControl_AdMediatorError(object sender, Microsoft.AdMediator.Core.Events.AdMediatorFailedEventArgs e) {
+            Debug.WriteLine("Failed to load ad: {0}", e.ToString());
+        }
+
+        private void MediatedAdControl_AdSdkEvent(object sender, Microsoft.AdMediator.Core.Events.AdSdkEventArgs e) {
+
+        }
     }
 }

@@ -65,6 +65,19 @@ namespace Core {
 
             if (UserStore.NotificationsEnabled)
                 RegisterBackgroundTask();
+
+            LoadFullFeatures();
+        }
+
+        public void LoadFullFeatures() {
+#if DEBUG
+            if (Debugger.IsAttached) {
+                Favs_List.Visibility = Visibility.Visible;
+            }
+#endif
+            if (!Utils.AppLicenseHandler.IsTrial) {
+                Favs_List.Visibility = Visibility.Visible;
+            }
         }
 
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e) {
@@ -402,6 +415,14 @@ namespace Core {
             if (UserStore.CurrentBlog != null) {
                 if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/posts/queue")) {
                     DiagnosticsManager.LogException(null, TAG, "Failed to navigate to queue.");
+                }
+            }
+        }
+
+        private void Favs_List_Tapped(object sender, TappedRoutedEventArgs e) {
+            if (UserStore.CurrentBlog != null) {
+                if (!Frame.Navigate(typeof(Pages.FavBlogs))) {
+                    DiagnosticsManager.LogException(null, TAG, "Failed to navigate to favorite blogs.");
                 }
             }
         }

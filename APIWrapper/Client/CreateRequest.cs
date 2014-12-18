@@ -23,13 +23,16 @@ namespace APIWrapper.Client {
         public static bool ReloadAccountData = false;
 
         public static string GetPlainTextFromHtml(string htmlString) {
-            string htmlTagPattern = "<.*?>";
-            var regexCss = new Regex("(\\<script(.+?)\\</script\\>)|(\\<style(.+?)\\</style\\>)", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-            htmlString = regexCss.Replace(htmlString, string.Empty);
-            htmlString = Regex.Replace(htmlString, htmlTagPattern, string.Empty);
-            htmlString = Regex.Replace(htmlString, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
-            htmlString = htmlString.Replace("&nbsp;", string.Empty);
-            return System.Net.WebUtility.HtmlDecode(htmlString); ;
+            if (htmlString != null) {
+                string htmlTagPattern = "<.*?>";
+                var regexCss = new Regex("(\\<script(.+?)\\</script\\>)|(\\<style(.+?)\\</style\\>)", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+                htmlString = regexCss.Replace(htmlString, string.Empty);
+                htmlString = Regex.Replace(htmlString, htmlTagPattern, string.Empty);
+                htmlString = Regex.Replace(htmlString, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
+                htmlString = htmlString.Replace("&nbsp;", string.Empty);
+                return System.Net.WebUtility.HtmlDecode(htmlString);
+            }
+            return htmlString;
         }
 
         public static string UrlEncode(string value) {

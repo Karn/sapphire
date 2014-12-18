@@ -73,7 +73,7 @@ namespace Core.Utils.Misc {
                             MainPage.AlertFlyout.DisplayMessage("Unable to find posts.");
                         }
 
-                        if (IAPHander.ShowAds && posts.Count > 5)
+                        if (AppLicenseHandler.IsTrial && posts.Count > 5)
                             this.Add(new Post { type = "advert" });
 
                         if (posts.Count < 20)

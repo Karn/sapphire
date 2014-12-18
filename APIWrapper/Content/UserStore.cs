@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Windows.Storage;
+using System.Linq;
 
 namespace APIWrapper.Content {
     public class UserStore {
@@ -13,6 +14,8 @@ namespace APIWrapper.Content {
         public static Model.Blog CurrentBlog;
         public static ObservableCollection<Model.Blog> UserBlogs = new ObservableCollection<Model.Blog>();
 
+        private static ObservableCollection<Model.Blog> FavBlogs;
+
         private static ApplicationDataContainer Settings = ApplicationData.Current.LocalSettings;
 
 
@@ -20,6 +23,31 @@ namespace APIWrapper.Content {
             if (Settings.Values["Theme"] != null) {
                 Settings.Values.Clear();
                 Debug.WriteLine("Cleared Settings.");
+            }
+
+        }
+
+        public static void AddFav(string name) {
+            try {
+                if (!FavBlogs.Any(b => b.Name == name)) {
+                    FavBlogs.Insert(0, new Model.Blog { Name = name });
+                    if (FavBlogs.Count > 7) {
+                        FavBlogs.Remove(FavBlogs.Last());
+                    }
+                    FavBlogList = FavBlogs;
+                }
+            } catch (Exception ex) {
+                Utils.DiagnosticsManager.LogException(ex, TAG, "Failed to add blog to favorites.");
+            }
+        }
+        public static void RemoveFav(string name) {
+            try {
+                if (FavBlogs.Any(b => b.Name == name)) {
+                    FavBlogs.Remove(FavBlogs.Where(x => x.Name == name).First());
+                    FavBlogList = FavBlogs;
+                }
+            } catch (Exception ex) {
+                Utils.DiagnosticsManager.LogException(ex, TAG, "Failed to remove blog from favorites.");
             }
         }
 
@@ -118,6 +146,21 @@ namespace APIWrapper.Content {
             }
             set {
                 Settings.Values["_StatusBarBG"] = value ? "True" : "False";
+            }
+        }
+
+        public static ObservableCollection<Model.Blog> FavBlogList {
+            get {
+                if (FavBlogs == null) {
+                    if (Settings.Values["_FavBlogList"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_FavBlogList"].ToString()))
+                        FavBlogs = JsonConvert.DeserializeObject<ObservableCollection<Model.Blog>>(Settings.Values["_FavBlogList"].ToString());
+                    else
+                        FavBlogs = new ObservableCollection<Model.Blog>();
+                }
+                return FavBlogs;
+            }
+            set {
+                Settings.Values["_FavBlogList"] = JsonConvert.SerializeObject(FavBlogs);
             }
         }
 

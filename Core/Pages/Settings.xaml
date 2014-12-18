@@ -35,9 +35,15 @@
                         <TextBlock Margin="7, 5, 7, 10" Text="If you did leave a review with a question or suggestion please check the emails associated with your Microsoft Account to see if I've gotten back to you!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
                         <Button x:Name="ReviewButton" Content="Rate and review!" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="ReviewButton_Click"/>
 
-                        <TextBlock Margin="7, 0" Text="In app advertisements" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                        <TextBlock Margin="7, 5, 7, 10" Text="If you'd like to remove the adversitements you can click the button below to upgrade to the ad free version. (P.s you're awesome if you do! ...and even if you dont!)" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
-                        <Button x:Name="RemoveAdsButton" Content="Remove these dumb ads please" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="RemoveAds_Click"/>
+                        <TextBlock Margin="7, 0" Text="Get the full version" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="7, 5, 7, 10" Text="You can get additional features by purchasing the full version of the app! For those that removed ads before you automatically have the full version!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
+                        <TextBlock Margin="7, 0, 7, -10" Text="Current features in upgrade" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}" TextLineBounds="Tight" Height="0"/>
+                            
+                        <ListView Padding="0" Margin="0" Height="23">
+                            <TextBlock Margin="7, 0, 7, 0" Text="- No advertisements" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}" TextLineBounds="Tight" Height="0"/>
+                            <!--<TextBlock Margin="7, -20, 7, 0" Text="No advertisements" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}" TextLineBounds="Tight" Height="0"/>-->
+                        </ListView>
+                        <Button x:Name="RemoveAdsButton" Content="Purchase the app!" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="RemoveAds_Click"/>
 
                     </StackPanel>
                 </ScrollViewer>
@@ -99,9 +105,8 @@
                         <TextBlock Margin="7, 0" Text="Support + Feedback" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                         <TextBlock Margin="7, 0, 7, 10" Text="If you come across a bug, or something that you feel needs improving, feel free to use the links below to get in touch!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
 
-                        <HyperlinkButton x:Name="Blog" Content="Blog" HorizontalAlignment="Left" Margin="10, 0" FontSize="20" MinHeight="10" BorderThickness="0" Foreground="#FF529ECC" NavigateUri="http://sapphireapp.tumblr.com"/>
                         <HyperlinkButton x:Name="Reddit" Content="/r/Sapphire" HorizontalAlignment="Left" Margin="10, 0" FontSize="20" MinHeight="10" Foreground="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" NavigateUri="http://reddit.com/r/sapphire"/>
-                        <HyperlinkButton x:Name="Bugs" Content="Bug Reports" HorizontalAlignment="Left" Margin="10, 0" FontSize="20" MinHeight="10" Foreground="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" NavigateUri="https://docs.google.com/forms/d/1tSgf5EAccvv3qOF-x15I43zXQ_Z321HbcxTQBpTdBng/viewform"/>
+                        <HyperlinkButton x:Name="Email" Content="Send me an email" HorizontalAlignment="Left" Margin="10, 0" FontSize="20" MinHeight="10" Foreground="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" NavigateUri="mailto:sapphire@awefull.ca"/>
                         <HyperlinkButton x:Name="Follow" Content="@KarnSaheb" HorizontalAlignment="Left" Margin="10, 0" FontSize="20" MinHeight="10" Foreground="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" NavigateUri="http://twitter.com/KarnSaheb"/>
                     </StackPanel>
                 </ScrollViewer>

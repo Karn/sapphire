@@ -8,7 +8,7 @@
 
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Default">
-            
+
             <SolidColorBrush x:Key="LightText" Color="#FFEEF1F4"/>
             <SolidColorBrush x:Key="DarkText" Color="#FF2D3F53"/>
             <SolidColorBrush x:Key="HeaderLightBlue" Color="#FF34495E"/>
@@ -22,6 +22,8 @@
             <BitmapImage x:Key="ReplyAsset" UriSource="ms-appx:///Assets/Resources/Light/Reply.png"/>
             <BitmapImage x:Key="LikeAsset" UriSource="ms-appx:///Assets/Resources/Light/Likes.png"/>
             <BitmapImage x:Key="LikedAsset" UriSource="ms-appx:///Assets/Resources/Light/Liked.png"/>
+            <BitmapImage x:Key="FavAsset" UriSource="ms-appx:///Assets/Resources/Light/Star.png"/>
+            <BitmapImage x:Key="UnfavAsset" UriSource="ms-appx:///Assets/Resources/Light/Unstar.png"/>
             <BitmapImage x:Key="DeleteButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Delete.png"/>
             <BitmapImage x:Key="PostButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Check.png"/>
             <BitmapImage x:Key="BlogButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Blog.png"/>
@@ -47,6 +49,8 @@
             <BitmapImage x:Key="ReplyAsset" UriSource="ms-appx:///Assets/Resources/Dark/Reply.png"/>
             <BitmapImage x:Key="LikeAsset" UriSource="ms-appx:///Assets/Resources/Dark/Likes.png"/>
             <BitmapImage x:Key="LikedAsset" UriSource="ms-appx:///Assets/Resources/Dark/Liked.png"/>
+            <BitmapImage x:Key="FavAsset" UriSource="ms-appx:///Assets/Resources/Dark/Star.png"/>
+            <BitmapImage x:Key="UnfavAsset" UriSource="ms-appx:///Assets/Resources/Dark/Unstar.png"/>
             <BitmapImage x:Key="PostButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/Check.png"/>
             <BitmapImage x:Key="DeleteButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/Delete.png"/>
             <BitmapImage x:Key="BlogButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/Blog.png"/>
@@ -58,6 +62,10 @@
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
+
+    <BitmapImage x:Key="DefaultFavAsset" UriSource="ms-appx:///Assets/Resources/Dark/Star.png"/>
+    <BitmapImage x:Key="DefaultUnfavAsset" UriSource="ms-appx:///Assets/Resources/Dark/Unstar.png"/>
+
     <!-- Common Resources -->
     <BitmapImage x:Key="DefaultAvatar" UriSource="ms-appx:///Assets/DefaultAvatar.png" />
 
@@ -67,7 +75,7 @@
     <BitmapImage x:Key="TagsIcon" UriSource="ms-appx:///Assets/Nav/Tag.png" />
 
     <BitmapImage x:Key="AudioPlaceholder" UriSource="ms-appx:///Assets/AudioPlaceholder.png" />
-    
+
     <BitmapImage x:Key="PlayIcon" UriSource="ms-appx:///Assets/PlayIcon.png" />
     <BitmapImage x:Key="PauseIcon" UriSource="ms-appx:///Assets/PauseIcon.png" />
 
@@ -77,6 +85,7 @@
     <converter:RelativeDate x:Key="RelativeDate"/>
     <converter:ToPrettyDate x:Key="ToPrettyDate"/>
     <converter:FollowingToBG x:Key="FollowingToBG"/>
+    <converter:NameToFavBrush x:Key="NameToFav"/>
 
     <!--Colors-->
     <!--    Light Theme    -->
@@ -85,7 +94,7 @@
     <!--    Light Theme    -->
 
     <!-- Default style for Windows.UI.Xaml.Controls.CommandBar -->
-    
+
     <Style x:Name="HeaderTextStyle" TargetType="TextBlock">
         <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}"/>
         <Setter Property="MinHeight" Value="{ThemeResource TextControlThemeMinHeight}"/>
@@ -794,7 +803,7 @@
     <x:Double x:Key="ListViewItemDisabledThemeOpacity">0.4</x:Double>
     <x:Double x:Key="ListViewItemContentTranslateX">40.5</x:Double>
     <x:Double x:Key="ListViewItemReorderHintThemeOffset">32</x:Double>
-    
+
     <Style x:Key="ListViewItemContainerStyle" TargetType="ListViewItem">
         <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
         <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>

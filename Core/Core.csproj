@@ -94,6 +94,9 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\FavBlogs.xaml.cs">
+      <DependentUpon>FavBlogs.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\FollowersFollowing.xaml.cs">
       <DependentUpon>FollowersFollowing.xaml</DependentUpon>
     </Compile>
@@ -144,6 +147,7 @@
       <DependentUpon>PostView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\Converters\ActivityTemplateSelector.cs" />
+    <Compile Include="Utils\Converters\NameToFavBrush.cs" />
     <Compile Include="Utils\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Utils\Converters\CaptionConverter.cs" />
     <Compile Include="Utils\Converters\CreatePostTemplateSelector.cs" />
@@ -162,7 +166,7 @@
     <Compile Include="Utils\Converters\ToPrettyDate.cs" />
     <Compile Include="Utils\Misc\DateKeyGroup.cs" />
     <Compile Include="Utils\Misc\ErrorStrings.cs" />
-    <Compile Include="Utils\Misc\IAPHander.cs" />
+    <Compile Include="Utils\Misc\AppLicenseHandler.cs" />
     <Compile Include="Utils\Misc\IncrementalPostLoader.cs" />
     <Compile Include="Utils\Misc\ItemsToShow.cs" />
     <Compile Include="Utils\Misc\ThemeResources.cs" />
@@ -206,9 +210,6 @@
     <Content Include="Assets\Nav\Activity.png" />
     <Content Include="Assets\Nav\Blogs.png" />
     <Content Include="Assets\Nav\Dashboard.png" />
-    <Content Include="Assets\Nav\Drafts.png" />
-    <Content Include="Assets\Nav\Inbox.png" />
-    <Content Include="Assets\Nav\Queue.png" />
     <Content Include="Assets\Nav\Search.png" />
     <Content Include="Assets\Nav\Search_Dark.png" />
     <Content Include="Assets\Nav\Tag.png" />
@@ -241,6 +242,8 @@
     <Content Include="Assets\Resources\Dark\Reblog.png" />
     <Content Include="Assets\Resources\Dark\Reblogged.png" />
     <Content Include="Assets\Resources\Dark\Reply.png" />
+    <Content Include="Assets\Resources\Dark\Star.png" />
+    <Content Include="Assets\Resources\Dark\Unstar.png" />
     <Content Include="Assets\Resources\Light\Blog.png" />
     <Content Include="Assets\Resources\Light\Check.png" />
     <Content Include="Assets\Resources\Light\Delete.png" />
@@ -253,6 +256,8 @@
     <Content Include="Assets\Resources\Light\Reblog.png" />
     <Content Include="Assets\Resources\Light\Reblogged.png" />
     <Content Include="Assets\Resources\Light\Reply.png" />
+    <Content Include="Assets\Resources\Light\Star.png" />
+    <Content Include="Assets\Resources\Light\Unstar.png" />
     <Content Include="Assets\Share.png" />
     <Content Include="Assets\SmallLogo.scale-240.png" />
     <Content Include="Assets\SplashScreen.scale-240.png" />
@@ -262,6 +267,7 @@
     <Content Include="Assets\DefaultAvatar.png" />
     <Content Include="Assets\VideoPlaceholder.png" />
     <Content Include="Assets\WideLogo.scale-240.png" />
+    <Content Include="AdMediator.config" />
     <None Include="Package.StoreAssociation.xml" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -288,6 +294,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\FavBlogs.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -357,20 +367,37 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="AdDuplex.Universal.Controls.WinPhone.XAML">
+      <HintPath>..\packages\AdDuplexWinPhone81.8.5.0.5\lib\portable-win81+wpa81\AdDuplex.Universal.Controls.WinPhone.XAML.winmd</HintPath>
+    </Reference>
+    <Reference Include="AdDuplex.Universal.WinPhone.WinRT">
+      <HintPath>..\packages\AdDuplexWinPhone81.8.5.0.5\lib\portable-win81+wpa81\AdDuplex.Universal.WinPhone.WinRT.winmd</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AdMediator.WindowsPhone81.AdDuplex">
+      <HintPath>..\packages\Microsoft.AdMediator.WindowsPhone81.AdDuplex.1.0.11\lib\wpa\Microsoft.AdMediator.WindowsPhone81.AdDuplex.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AdMediator.WindowsPhone81.MicrosoftAdvertising">
+      <HintPath>..\packages\Microsoft.AdMediator.WindowsPhone81.MicrosoftAdvertising.1.0.12\lib\wpa\Microsoft.AdMediator.WindowsPhone81.MicrosoftAdvertising.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Advertising.Mobile.Common">
+      <HintPath>..\packages\Microsoft.Advertising.WindowsPhone.Xaml81.8.1.40505.0\lib\wpa81\Microsoft.Advertising.Mobile.Common.winmd</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Advertising.Mobile.Display">
+      <HintPath>..\packages\Microsoft.Advertising.WindowsPhone.Xaml81.8.1.40505.0\lib\wpa81\Microsoft.Advertising.Mobile.Display.winmd</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Advertising.Mobile.UI">
+      <HintPath>..\packages\Microsoft.Advertising.WindowsPhone.Xaml81.8.1.40505.0\lib\wpa81\Microsoft.Advertising.Mobile.UI.winmd</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="AdDuplex.WinPhone.Extension, Version=8.5.0.5">
-      <Name>AdDuplex SDK for Windows Phone 8.1 %28XAML%29</Name>
-    </SDKReference>
-    <SDKReference Include="Microsoft.Advertising.Mobile.Display, Version=8.1">
-      <Name>Microsoft Advertising SDK for Windows Phone 8.1 %28XAML%29</Name>
+    <SDKReference Include="Microsoft.AdMediator81, Version=1.0">
+      <Name>Microsoft.AdMediator81</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>

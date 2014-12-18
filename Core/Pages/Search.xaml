@@ -21,7 +21,7 @@
         <StackPanel Grid.Row="0" Margin="0" Background="{ThemeResource HeaderLightBlue}">
             <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource HeaderLightBlue}">
                 <TextBlock x:Name="PageTitle" Foreground="{ThemeResource LightText}" Text="Posts" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
-                </Grid>
+            </Grid>
         </StackPanel>
 
         <controls:PostView x:Name="PostList" Grid.Row="1" Loaded="PostList_Loaded"/>

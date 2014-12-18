@@ -33,7 +33,7 @@ namespace Core.Pages {
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-            if (!Utils.IAPHander.ShowAds) {
+            if (!Utils.AppLicenseHandler.IsTrial) {
                 RemoveAdsButton.Content = "Ads have been removed! Thanks!";
                 RemoveAdsButton.IsTapEnabled = false;
                 RemoveAdsButton.Background = new SolidColorBrush(Color.FromArgb(255, 51, 63, 74));
@@ -116,8 +116,8 @@ namespace Core.Pages {
         #endregion
 
         private async void RemoveAds_Click(object sender, RoutedEventArgs e) {
-            if (Utils.IAPHander.ShowAds)
-                await Utils.IAPHander.RemoveAds();
+            if (Utils.AppLicenseHandler.IsTrial)
+                await Utils.AppLicenseHandler.RemoveAds();
         }
 
         private async void ReviewButton_Click(object sender, RoutedEventArgs e) {

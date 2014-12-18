@@ -18,7 +18,7 @@ namespace APIWrapper.Content.Model {
             public string from_tumblelog_name { get; set; }
             public string from_tumblelog_avatar {
                 get {
-                    return "http://api.tumblr.com/v2/blog/" + from_tumblelog_name + ".tumblr.com/avatar/128";
+                    return "http://api.tumblr.com/v2/blog/" + from_tumblelog_name + ".tumblr.com/avatar/96";
                 }
             }
             public int before { get; set; }
