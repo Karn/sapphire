@@ -79,6 +79,7 @@
     <BitmapImage x:Key="PlayIcon" UriSource="ms-appx:///Assets/PlayIcon.png" />
     <BitmapImage x:Key="PauseIcon" UriSource="ms-appx:///Assets/PauseIcon.png" />
 
+    <converter:IsFullVersion x:Key="IsFullVersion"/>
     <converter:FollowingToString x:Key="FollowingToString"/>
     <converter:FollowingToVisibility x:Key="FollowingToVisibility"/>
     <converter:NotFollowingToVisibility x:Key="NotFollowingToVisibility"/>

@@ -129,24 +129,44 @@ namespace Core.Pages {
             ((TextBox)sender).Select(((TextBox)sender).Text.Length, 0);
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e) {
-            var caption = ((TextBox)((Grid)((Button)sender).Parent).FindName("Caption")).Text;
-            var tags = ((TextBox)((Grid)((Button)sender).Parent).FindName("Tags")).Text;
+        private async void PostButton_Tapped(object sender, TappedRoutedEventArgs e) {
+
+
+            var tags = Tags.Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
                 tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
             }
             try {
-                //API.Content.CreatePost.Text(AuthenticationManager.Utils.UrlEncode(title), AuthenticationManager.Utils.UrlEncode(body), tags);
-                if (await CreateRequest.ReblogPost(postID, reblogKey, Authentication.Utils.UrlEncode(caption), tags)) {
-                } else
-                    MainPage.AlertFlyout.DisplayMessage("Failed to reblog post.");
+                var status = "";
+                if (((Image)sender).Tag != null) {
+                    if (((Image)sender).Tag.ToString() == "queue") {
+                        if (string.IsNullOrWhiteSpace(PublishOn.Text)) {
+                            MainPage.AlertFlyout.DisplayMessage("Please enter a time to publish the post on.");
+                            return;
+                        } else {
+                            status = "&state=queue&publish_on=" + Authentication.Utils.UrlEncode(PublishOn.Text);
+                        }
+                    } else if (((Image)sender).Tag.ToString() == "draft") {
+                        status = "&state=draft";
+                    }
+                }
+                if (await CreateRequest.ReblogPost(postID, reblogKey, Authentication.Utils.UrlEncode(Caption.Text), tags, status)) {
+                    MainPage.AlertFlyout.DisplayMessage("Created.");
+                } else {
+                    if (((Image)sender).Tag.ToString() == "queue") {
+                        MainPage.AlertFlyout.DisplayMessage("Failed to add post to queue. Remember to use the same format as on the site!");
+                    } else if (((Image)sender).Tag.ToString() == "draft") {
+                        MainPage.AlertFlyout.DisplayMessage("Failed to add post to drafts.");
+                    } else
+                        MainPage.AlertFlyout.DisplayMessage("Failed to reblog post.");
+                    return;
+                }
                 Frame.GoBack();
             } catch (Exception ex) {
                 MainPage.AlertFlyout.DisplayMessage("Failed to create post");
                 DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
             }
         }
-
     }
 }

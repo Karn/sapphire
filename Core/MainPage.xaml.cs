@@ -66,7 +66,7 @@ namespace Core {
             if (UserStore.NotificationsEnabled)
                 RegisterBackgroundTask();
 
-            LoadFullFeatures();
+            //LoadFullFeatures();
         }
 
         public void LoadFullFeatures() {

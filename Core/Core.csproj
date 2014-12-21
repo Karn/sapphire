@@ -147,6 +147,7 @@
       <DependentUpon>PostView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\Converters\ActivityTemplateSelector.cs" />
+    <Compile Include="Utils\Converters\IsFullVersion.cs" />
     <Compile Include="Utils\Converters\NameToFavBrush.cs" />
     <Compile Include="Utils\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Utils\Converters\CaptionConverter.cs" />
@@ -210,6 +211,7 @@
     <Content Include="Assets\Nav\Activity.png" />
     <Content Include="Assets\Nav\Blogs.png" />
     <Content Include="Assets\Nav\Dashboard.png" />
+    <Content Include="Assets\Nav\Queue_Dark.png" />
     <Content Include="Assets\Nav\Search.png" />
     <Content Include="Assets\Nav\Search_Dark.png" />
     <Content Include="Assets\Nav\Tag.png" />
@@ -233,7 +235,6 @@
     <Content Include="Assets\Posts.png" />
     <Content Include="Assets\Queue.png" />
     <Content Include="Assets\Reload.png" />
-    <Content Include="Assets\Resources\Dark\Blog.png" />
     <Content Include="Assets\Resources\Dark\Check.png" />
     <Content Include="Assets\Resources\Dark\Delete.png" />
     <Content Include="Assets\Resources\Dark\Drafts.png" />
@@ -247,7 +248,10 @@
     <Content Include="Assets\Resources\Dark\Reply.png" />
     <Content Include="Assets\Resources\Dark\Star.png" />
     <Content Include="Assets\Resources\Dark\Unstar.png" />
-    <Content Include="Assets\Resources\Light\Blog.png" />
+    <Content Include="Assets\Resources\Default\AddDraft.png" />
+    <Content Include="Assets\Resources\Default\Drafts.png" />
+    <Content Include="Assets\Resources\Default\Queue.png" />
+    <Content Include="Assets\Resources\Default\QueuePost.png" />
     <Content Include="Assets\Resources\Light\Check.png" />
     <Content Include="Assets\Resources\Light\Delete.png" />
     <Content Include="Assets\Resources\Light\Drafts.png" />

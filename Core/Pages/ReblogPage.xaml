@@ -25,7 +25,7 @@
 
         <!--TODO: Content should be placed within the following grid-->
 
-        <Grid Grid.Row="1" VerticalAlignment="Stretch">
+        <!--<Grid Grid.Row="1" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
@@ -40,6 +40,53 @@
             <Button Grid.Row="3" Margin="0, -5, 0, 0" Padding="0" MinWidth="200" BorderThickness="0" Background="#FF529ECC" HorizontalAlignment="Center" Click="Button_Click">
                 <Image Source="ms-appx:///Assets/NewPost/PostOK.png" Height="50"/>
             </Button>
+        </Grid>-->
+
+        <Grid Grid.Row="1" Margin="5, 0" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Margin="0, -35, 15, 0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Image x:Name="ReblogPostButton"
+                       Tapped="PostButton_Tapped"
+                       Width="35" Height="30" 
+                       Source="ms-appx:///Assets/NewPost/PostOK.png"/>
+                <Image x:Name="AddToDraftsButton" Width="35" Height="30" Tag="draft"
+                       Visibility="{Binding ElementName=PageTitle, Converter={StaticResource IsFullVersion},
+                    FallbackValue=Visible}" Tapped="PostButton_Tapped" Margin="5, 0"
+                       Source="ms-appx:///Assets/Resources/Default/AddDraft.png"/>
+                <Image x:Name="AddToQueueButton" Width="35" Height="30" Tag="queue"
+                       Visibility="{Binding ElementName=PageTitle, Converter={StaticResource IsFullVersion},
+                    FallbackValue=Collapsed}" Tapped="PostButton_Tapped"
+                       Source="ms-appx:///Assets/Resources/Default/QueuePost.png"/>
+            </StackPanel>
+
+            <TextBox x:Name="Caption" Grid.Row="0" Margin="0, 5, 0, 0"
+                             PlaceholderText="Caption" Padding="10, 8" Background="White"
+                             BorderThickness="0" HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch" IsSpellCheckEnabled="True"
+                             IsTextPredictionEnabled="True" TextWrapping="Wrap"/>
+
+            <Grid Grid.Row="1" Margin="0, -3, 0, 0">
+                <TextBox x:Name="Tags" Margin="0, 5" KeyDown="TagBox_KeyDown"
+                             PlaceholderText="Tags" Height="45" Padding="50, 8, 0, 0"
+                             VerticalContentAlignment="Center" Background="White"
+                             BorderThickness="0"/>
+                <Image Source="ms-appx:///Assets/Nav/Tag_Dark.png"
+                           HorizontalAlignment="Left" Margin="7, 10" Height="30"
+                           Width="35" Opacity=".5"/>
+            </Grid>
+            <Grid Grid.Row="2" Margin="0, -8, 0, 0" >
+                <TextBox x:Name="PublishOn" Margin="0, 5" PlaceholderText="Publish on.."
+                         Height="45" Padding="50, 8, 0, 0" BorderThickness="0"
+                         VerticalContentAlignment="Center" Background="White"/>
+                <Image Source="ms-appx:///Assets/Nav/Queue_Dark.png"
+                           HorizontalAlignment="Left" Margin="7, 10" Height="30"
+                           Width="35" Opacity=".5"/>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

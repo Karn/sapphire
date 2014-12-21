@@ -136,14 +136,5 @@ namespace Core.Pages {
                 }
             }
         }
-
-        private void Fav_Loaded(object sender, RoutedEventArgs e) {
-            if (((Image)sender).Tag != null) {
-                if (UserStore.FavBlogList.Any(b => b.Name == ((Image)sender).Tag.ToString()))
-                    ((Image)sender).Source = FavImage;
-                else
-                    ((Image)sender).Source = UnfavImage;
-            }
-        }
     }
 }

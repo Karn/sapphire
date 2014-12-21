@@ -154,7 +154,7 @@
                                     <Image x:Name="Queue" Source="{ThemeResource QueueButtonAsset}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35" Width="35" Stretch="UniformToFill" Margin="10"/>
                                     <TextBlock Text="Queue" Foreground="{ThemeResource DarkText}" FontFamily="Segoe WP" FontWeight="Thin" FontSize="24" VerticalAlignment="Center"/>
                                 </StackPanel>
-                                <StackPanel x:Name="Favs_List" Orientation="Horizontal" Visibility="Collapsed" Tag="Blogs" Tapped="Favs_List_Tapped">
+                                <StackPanel x:Name="Favs_List" Orientation="Horizontal" Visibility="{Binding Converter={StaticResource IsFullVersion}, FallbackValue=Collapsed}" Tag="Blogs" Tapped="Favs_List_Tapped">
                                     <Image x:Name="Favs" Source="{ThemeResource FavAsset}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35" Width="35" Stretch="UniformToFill" Margin="10"/>
                                     <TextBlock Text="Favorite Blogs" Foreground="{ThemeResource DarkText}" FontFamily="Segoe WP" FontWeight="Thin" FontSize="24" VerticalAlignment="Center"/>
                                 </StackPanel>

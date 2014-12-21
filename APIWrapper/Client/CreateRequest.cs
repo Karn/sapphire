@@ -116,8 +116,8 @@ namespace APIWrapper.Client {
         /// <param name="id">The post's unique ID</param>
         /// <param name="reblogKey">The key used to handle reblogging/liking this post</param>
         /// <returns>Boolean to indicate if the request was completed</returns>
-        public async static Task<bool> ReblogPost(string id, string reblogKey, string caption = "", string tags = "") {
-            var requestResult = await RequestBuilder.PostAPI(APIEndpoints.ReblogPost, "id=" + id + "&reblog_key=" + reblogKey + (!string.IsNullOrEmpty(caption) ? "&comment=" + caption : "") + (!string.IsNullOrEmpty(caption) ? "&tags=" + tags : ""));
+        public async static Task<bool> ReblogPost(string id, string reblogKey, string caption = "", string tags = "", string additionalParameters = "") {
+            var requestResult = await RequestBuilder.PostAPI(APIEndpoints.ReblogPost, "id=" + id + "&reblog_key=" + reblogKey + (!string.IsNullOrEmpty(caption) ? "&comment=" + caption : "") + (!string.IsNullOrEmpty(caption) ? "&tags=" + tags : "") + (!string.IsNullOrEmpty(additionalParameters) ? additionalParameters : ""));
             if (requestResult.Contains("status\":201"))
                 return true;
             return false;
