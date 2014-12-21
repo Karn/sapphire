@@ -73,9 +73,9 @@ namespace Core.Pages {
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
             string type = e.NavigationParameter.ToString();
             Debug.WriteLine(type);
-            var x = new List<string>();
-            x.Add(type);
-            Type.ItemsSource = x;
+            //var x = new List<string>();
+            //x.Add(type);
+            Type.DataContext = type;
             PageTitle.Text = PageTitle.Text.ToString() + ": " + type;
             MainPage.NPD.Visibility = Visibility.Collapsed;
         }
@@ -116,12 +116,6 @@ namespace Core.Pages {
 
         #endregion
 
-        private void SelectBlogButton_Tapped(object sender, TappedRoutedEventArgs e) {
-            UserStore.CurrentBlog = ((Button)sender).Tag as Blog;
-            MainPage.SwitchedBlog = true;
-            Frame.GoBack();
-        }
-
         private void TagBox_KeyDown(object sender, KeyRoutedEventArgs e) {
             if (e.Key == Windows.System.VirtualKey.Space) {
                 var x = ((TextBox)sender).Text.Split(' ');
@@ -148,23 +142,6 @@ namespace Core.Pages {
             ((TextBox)sender).Select(((TextBox)sender).Text.Length, 0);
         }
 
-        private void Post_Text(object sender, RoutedEventArgs e) {
-            var title = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Text_Title")).Text;
-            var body = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Text_Body")).Text;
-            var tags = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Text_Tags")).Text;
-            if (!string.IsNullOrEmpty(tags)) {
-                tags = tags.Replace(" #", ", ");
-                tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
-            }
-            try {
-                APIWrapper.Content.Model.CreatePost.Text(Authentication.Utils.UrlEncode(title), Authentication.Utils.UrlEncode(body), tags);
-                Frame.GoBack();
-            } catch (Exception ex) {
-                DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
-                MainPage.AlertFlyout.DisplayMessage("Failed to create post");
-            }
-        }
-
         private async void Post_Photo(object sender, RoutedEventArgs e) {
             var caption = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Photo_Caption")).Text;
             var tags = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Photo_Tags")).Text;
@@ -172,7 +149,6 @@ namespace Core.Pages {
                 tags = tags.Replace(" #", ", ");
                 tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
             }
-
 
             try {
                 byte[] fileBytes = null;
@@ -253,7 +229,8 @@ namespace Core.Pages {
         }
 
         private void Photo_Image_Tapped(object sender, TappedRoutedEventArgs e) {
-            PhotoView = (Image)((Grid)(((StackPanel)((Grid)sender).Parent).FindName("Photo_Grid"))).FindName("Photo_Image");
+            PhotoView = (Image)((Grid)sender).FindName("Photo_Image");
+            //PhotoView = (Image)((Grid)(((Grid)sender).Parent).FindName("Photo_Grid")).FindName("Photo_Image");
 
             var filePicker = new FileOpenPicker();
             filePicker.FileTypeFilter.Add(".jpg");
@@ -284,5 +261,60 @@ namespace Core.Pages {
             }
         }
 
+        private void PostTextButton_Tapped(object sender, TappedRoutedEventArgs e) {
+            var title = ((TextBox)((Grid)((Image)sender).Parent).FindName("Title")).Text;
+            var body = ((TextBox)((Grid)((Image)sender).Parent).FindName("Body")).Text;
+            var tags = ((TextBox)((Grid)((Image)sender).Parent).FindName("Tags")).Text;
+            if (!string.IsNullOrEmpty(tags)) {
+                tags = tags.Replace(" #", ", ");
+                tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+            }
+            try {
+                APIWrapper.Content.Model.CreatePost.Text(Authentication.Utils.UrlEncode(title), Authentication.Utils.UrlEncode(body), tags);
+                Frame.GoBack();
+            } catch (Exception ex) {
+                DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
+                MainPage.AlertFlyout.DisplayMessage("Failed to create post");
+            }
+        }
+
+        private void PostQuoteButton_Tapped(object sender, TappedRoutedEventArgs e) {
+            var quote = ((TextBox)((Grid)((Image)sender).Parent).FindName("Quote")).Text;
+            var source = ((TextBox)((Grid)((Image)sender).Parent).FindName("Source")).Text;
+            var tags = ((TextBox)((Grid)((Image)sender).Parent).FindName("Tags")).Text;
+            if (!string.IsNullOrEmpty(tags)) {
+                tags = tags.Replace(" #", ", ");
+                tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+            }
+            try {
+                APIWrapper.Content.Model.CreatePost.Quote(Authentication.Utils.UrlEncode(quote), Authentication.Utils.UrlEncode(source), tags);
+                Frame.GoBack();
+            } catch (Exception ex) {
+                MainPage.AlertFlyout.DisplayMessage("Failed to create post");
+                DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
+            }
+        }
+
+        private void PostPhotoButton_Tapped(object sender, TappedRoutedEventArgs e) {
+
+        }
+
+        private void PostLinkButton_Tapped(object sender, TappedRoutedEventArgs e) {
+            var title = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Title")).Text;
+            var url = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Link")).Text;
+            var description = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Description")).Text;
+            var tags = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Tags")).Text;
+            if (!string.IsNullOrEmpty(tags)) {
+                tags = tags.Replace(" #", ", ");
+                tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+            }
+            try {
+                APIWrapper.Content.Model.CreatePost.Link(Authentication.Utils.UrlEncode(title), Authentication.Utils.UrlEncode(url), Authentication.Utils.UrlEncode(description), tags);
+                Frame.GoBack();
+            } catch (Exception ex) {
+                MainPage.AlertFlyout.DisplayMessage("Failed to create post");
+                DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
+            }
+        }
     }
 }

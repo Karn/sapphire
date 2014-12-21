@@ -74,12 +74,7 @@
                     <Grid>
                         <Control:PostView x:Name="Posts" Margin="0, 0, 0, 24" URL="https://api.tumblr.com/v2/user/dashboard" AffectHeader="True" Loaded="Posts_Loaded"/>
                         <Control:NewPostDialog x:Name="CreatePostControl" Visibility="Collapsed"/>
-                        <Button x:Name="CreatePost" ClickMode="Press" Click="CreatePost_Click" Height="55" Width="55" Margin="20, 48" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="0" MinHeight="0" Style="{StaticResource ButtonStyleNoBG}">
-                            <Button.Transitions>
-                                <TransitionCollection>
-                                    <EntranceThemeTransition/>
-                                </TransitionCollection>
-                            </Button.Transitions>
+                        <Button x:Name="CreatePost" Click="CreatePost_Click" LostFocus="CreatePost_LostFocus" Height="55" Width="55" Margin="20, 48" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="0" MinHeight="0" Style="{StaticResource ButtonStyleNoBG}">
                             <Grid>
                                 <Ellipse x:Name="CreatePostFill" Stroke="{StaticResource DarkText}" StrokeThickness="0.1" Fill="{ThemeResource HeaderLightBlue}"/>
                                 <Image x:Name="CreatePostIcon" Source="Assets/New.png" Margin="10" RenderTransformOrigin="0.5,0.5" Canvas.ZIndex="50"/>

@@ -19,13 +19,13 @@
         </Grid.RowDefinitions>
         <CommonControl:AlertDialog Grid.RowSpan="2" x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
         <StackPanel Grid.Row="0">
-            <Grid Height="125" Background="{ThemeResource HeaderLightBlue}">
-                <Image Source="{Binding Path=theme.header_image_focused, FallbackValue={StaticResource DefaultPattern}}" Stretch="UniformToFill" VerticalAlignment="Center" Opacity="0.7"/>
+            <Grid Height="175" Background="{ThemeResource HeaderLightBlue}">
+                <Image Source="{Binding theme.header_image_focused, FallbackValue={StaticResource DefaultPattern}}" Stretch="UniformToFill" VerticalAlignment="Center" Opacity="0.7"/>
                 <Image x:Name="Fav" Loaded="Fav_Loaded" Tag="{Binding Name}" Tapped="Fav_Tapped" RequestedTheme="Dark" Width="35" Height="30" Source="{Binding Name, Converter={StaticResource NameToFav}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 30"/>
                     
-                <Button Tag="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{Binding followed, Converter={StaticResource FollowingToString}, FallbackValue=FOLLOW}" x:Name="FollowButton" Tapped="FollowUnfollowButton_Tapped" Margin="5, 30" Foreground="{StaticResource HeaderLightBlue}" Background="#FFFFFF" BorderThickness="0" Style="{StaticResource ButtonStyle}" Padding="3" FontSize="18" Height="35" MinHeight="0" MinWidth="120"/>
+                <Button x:Name="FollowButton" Tag="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{Binding followed, Converter={StaticResource FollowingToString}, FallbackValue=FOLLOW}" Tapped="FollowUnfollowButton_Tapped" Margin="5, 30" Foreground="{StaticResource HeaderLightBlue}" Background="#FFFFFF" BorderThickness="0" Style="{StaticResource ButtonStyle}" Padding="3" FontSize="18" Height="35" MinHeight="0" MinWidth="120"/>
                 <Border Margin="0, 20, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="75" Width="75" BorderThickness="0.5" BorderBrush="White">
-                    <Image Source="{Binding Path=avatar, FallbackValue={ThemeResource DefaultAvatar}}"/>
+                    <Image Source="{Binding avatar, FallbackValue={ThemeResource DefaultAvatar}}"/>
                 </Border>
             </Grid>
 

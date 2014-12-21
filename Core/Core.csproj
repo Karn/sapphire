@@ -213,6 +213,7 @@
     <Content Include="Assets\Nav\Search.png" />
     <Content Include="Assets\Nav\Search_Dark.png" />
     <Content Include="Assets\Nav\Tag.png" />
+    <Content Include="Assets\Nav\Tag_Dark.png" />
     <Content Include="Assets\New.png" />
     <Content Include="Assets\NewPost\Cancel.png" />
     <Content Include="Assets\NewPost\Chat.png" />
@@ -224,6 +225,8 @@
     <Content Include="Assets\NewPost\Videos.png" />
     <Content Include="Assets\Password.png" />
     <Content Include="Assets\PauseIcon.png" />
+    <Content Include="Assets\Placeholders\ActivityPost.png" />
+    <Content Include="Assets\Placeholders\UploadImage.png" />
     <Content Include="Assets\Play.png" />
     <Content Include="Assets\PlayIcon.png" />
     <Content Include="Assets\PostOK.png" />

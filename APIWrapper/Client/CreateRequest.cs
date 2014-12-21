@@ -1,4 +1,5 @@
-﻿using APIWrapper.Content;
+﻿using APIWrapper.AuthenticationManager;
+using APIWrapper.Content;
 using APIWrapper.Content.Model;
 using APIWrapper.Utils;
 using Newtonsoft.Json;
@@ -204,7 +205,7 @@ namespace APIWrapper.Client {
                                     NotificationDictionary.Add(b.blog_name, 0);
                                 }
                                 foreach (var n in b.notifications) {
-                                    n.date = new System.DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(n.timestamp).ToString("yyyy'-'MM'-'dd");
+                                    n.date = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(n.timestamp).ToString("yyyy'-'MM'-'dd");
                                     Notifications.Add(n);
                                 }
                                 NotificationDictionary[b.blog_name] = Notifications.First().timestamp;
@@ -243,18 +244,18 @@ namespace APIWrapper.Client {
                     var searchTag = url.Split('?')[1];
                     var newUrl = url.Split('?')[0].Replace("?", "");
                     if (string.IsNullOrEmpty(lastPostID))
-                        newUrl = newUrl + "?api_key=" + APIWrapper.AuthenticationManager.Authentication.ConsumerKey + "&" + searchTag;
+                        newUrl = newUrl + "?api_key=" + Authentication.ConsumerKey + "&" + searchTag;
                     else
-                        newUrl = newUrl + "?api_key=" + APIWrapper.AuthenticationManager.Authentication.ConsumerKey + "&" + searchTag + "&before=" + lastPostID;
+                        newUrl = newUrl + "?api_key=" + Authentication.ConsumerKey + "&" + searchTag + "&before=" + lastPostID;
                     Debug.WriteLine(newUrl);
                     var response = await WebClient.GetAsync(new Uri(newUrl));
                     result = await response.Content.ReadAsStringAsync();
                     Debug.WriteLine(result);
                 } else {
                     if (string.IsNullOrEmpty(lastPostID))
-                        result = await RequestBuilder.GetAPI(url, "api_key=" + APIWrapper.AuthenticationManager.Authentication.ConsumerKey);
+                        result = await RequestBuilder.GetAPI(url, "api_key=" + Authentication.ConsumerKey);
                     else
-                        result = await RequestBuilder.GetAPI(url, "offset=" + lastPostID + "&api_key=" + APIWrapper.AuthenticationManager.Authentication.ConsumerKey);
+                        result = await RequestBuilder.GetAPI(url, "offset=" + lastPostID + "&api_key=" + Authentication.ConsumerKey);
                 }
 
                 if (!string.IsNullOrEmpty(result) && result.Contains("status\":200")) {
@@ -285,8 +286,7 @@ namespace APIWrapper.Client {
 
                         foreach (var p in PostList) {
                             if (p.type == "photo") {
-                                p.path_to_low_res_pic = p.photos.First().alt_sizes.First().url;
-                                if (p.path_to_low_res_pic.Contains(".gif")) {
+                                if (p.path_to_low_res_pic.url.Contains(".gif")) {
                                     p.type = "gif";
                                 }
                                 if (p.photos.Count > 1)
@@ -334,8 +334,7 @@ namespace APIWrapper.Client {
 
                     foreach (var p in posts.response.posts) {
                         if (p.type == "photo") {
-                            p.path_to_low_res_pic = p.photos.First().alt_sizes.First().url;
-                            if (p.path_to_low_res_pic.Contains(".gif")) {
+                            if (p.path_to_low_res_pic.url.Contains(".gif")) {
                                 p.type = "gif";
                             }
                             if (p.photos.Count > 1)

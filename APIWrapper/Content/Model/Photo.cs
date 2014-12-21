@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Windows.UI.Xaml;
 
 namespace APIWrapper.Content.Model {
     public class Photo {
@@ -13,6 +10,11 @@ namespace APIWrapper.Content.Model {
         public class AltSize {
             public int width { get; set; }
             public int height { get; set; }
+            public int scaled_height {
+                get {
+                    return (int)((height / width) * (Window.Current.Bounds.Height));
+                }
+            }
             public string url { get; set; }
         }
 

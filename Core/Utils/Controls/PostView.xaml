@@ -38,7 +38,7 @@
                         <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource MoreButtonAsset}"/>
                     </Button.Background>
                     <Button.Flyout>
-                        <MenuFlyout>
+                        <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutStyle}">
                             <MenuFlyoutItem Click="OtherOptionsButton_Click" Text="Save to phone" Tag="{Binding path_to_low_res_pic}" Visibility="{Binding IsPhoto, Converter={StaticResource BooleanToVisisbilityConverter}}"/>
                             <MenuFlyoutItem Click="OtherOptionsButton_Click" Text="Share" Tag="{Binding post_url}"/>
                             <MenuFlyoutItem Click="OtherOptionsButton_Click" Text="Open in browser" Tag="{Binding post_url}"/>
@@ -142,7 +142,7 @@
             <StackPanel Margin="0, 4" Background="{ThemeResource PostBG}">
                 <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                 <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
-                    <Image MinHeight="150" Source="{Binding path_to_low_res_pic}"/>
+                    <Image MinHeight="150" Source="{Binding path_to_low_res_pic.url}"/>
                 </StackPanel>
                 <ContentPresenter VerticalAlignment="Bottom" ContentTemplate="{StaticResource BottomContainer}"/>
             </StackPanel>
@@ -151,7 +151,7 @@
             <StackPanel Margin="0, 4" Background="{ThemeResource PostBG}">
                 <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                 <Grid Background="Black">
-                    <MediaElement x:Name="Player" MinHeight="100" Stretch="UniformToFill" PosterSource="{Binding path_to_low_res_pic}" Tag="{Binding path_to_low_res_pic}" IsTapEnabled="False" IsRightTapEnabled="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False" IsLooping="True" AutoPlay="True"/>
+                    <MediaElement x:Name="Player" MinHeight="100" Stretch="UniformToFill" PosterSource="{Binding path_to_low_res_pic.url}" Tag="{Binding path_to_low_res_pic.url}" IsTapEnabled="False" IsRightTapEnabled="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False" IsLooping="True" AutoPlay="True"/>
                     <AppBarButton x:Name="PlayButton" Tag="stopped" Icon="Play" Click="AppBarButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" IsCompact="True" Foreground="White" BorderBrush="White" Background="#CC252525" LostFocus="PlayButton_LostFocus" RequestedTheme="Dark"/>
                 </Grid>
                 <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
@@ -303,7 +303,7 @@
                         HorizontalAlignment="Stretch"
                         AdSdkEvent="MediatedAdControl_AdSdkEvent"
                         />
-                
+
                     <!--<ac:AdMediatorControl
                         x:Name="MediatedAdControl"
                         Background="{ThemeResource HeaderLightBlue}"

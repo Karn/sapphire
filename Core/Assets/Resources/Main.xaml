@@ -68,8 +68,8 @@
 
     <!-- Common Resources -->
     <BitmapImage x:Key="DefaultAvatar" UriSource="ms-appx:///Assets/DefaultAvatar.png" />
-
     <BitmapImage x:Key="DefaultPattern" UriSource="ms-appx:///Assets/DefaultPattern.png" />
+    <BitmapImage x:Key="ActivityPostPlaceholder" UriSource="ms-appx:///Assets/Placeholders/ActivityPost.png" />
 
     <BitmapImage x:Key="BlogsIcon" UriSource="ms-appx:///Assets/Nav/Account.png" />
     <BitmapImage x:Key="TagsIcon" UriSource="ms-appx:///Assets/Nav/Tag.png" />
@@ -280,6 +280,49 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style x:Name="MenuFlyoutStyle" TargetType="MenuFlyoutPresenter">
+    <Setter Property="Background" Value="{ThemeResource StandardGray}" />
+    <Setter Property="Foreground" Value="{ThemeResource LightText}" />
+        
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="10" />
+    <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+    <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="False" />
+    <Setter Property="ScrollViewer.IsVerticalRailEnabled" Value="False" />
+    <Setter Property="ScrollViewer.ZoomMode" Value="Disabled" />
+    <!--<Setter Property="MinWidth" Value="{ThemeResource FlyoutThemeMinWidth}" />
+    <Setter Property="MaxWidth" Value="{ThemeResource FlyoutThemeMaxWidth}" />
+    <Setter Property="MinHeight" Value="{ThemeResource FlyoutThemeMinHeight}" />
+    <Setter Property="MaxHeight" Value="{ThemeResource FlyoutThemeMaxHeight}" />-->
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="MenuFlyoutPresenter">
+                <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                    <ScrollViewer Padding="{TemplateBinding Padding}"
+                                  HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                                  HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                  VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                                  VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                  IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                                  IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+                                  ZoomMode="Disabled"
+                                  AutomationProperties.AccessibilityView="Raw">
+                        <ItemsPresenter />
+                    </ScrollViewer>
+                </Border>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
+
+
 
     <!--Colors-->
     <SolidColorBrush x:Key="Blue" Color="#FF1C262F"/>

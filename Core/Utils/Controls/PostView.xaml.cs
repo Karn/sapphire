@@ -448,5 +448,13 @@ namespace Core.Utils.Controls {
         private void MediatedAdControl_AdSdkEvent(object sender, Microsoft.AdMediator.Core.Events.AdSdkEventArgs e) {
 
         }
+
+        private void OtherOptionsButton_Tapped(object sender, TappedRoutedEventArgs e) {
+            FrameworkElement element = sender as FrameworkElement;
+            if (element == null) return;
+
+            // If the menu was attached properly, we just need to call this handy method
+            FlyoutBase.ShowAttachedFlyout(element);
+        }
     }
 }

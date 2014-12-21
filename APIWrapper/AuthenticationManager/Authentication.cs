@@ -135,15 +135,15 @@ namespace APIWrapper.AuthenticationManager {
                 {"oauth_timestamp", timeStamp},
                 {"oauth_version", "1.0"},
                 {"x_auth_mode", "client_auth"},
-                {"x_auth_password", Utils.UrlEncode(Uri.EscapeDataString(password))},
+                {"x_auth_password", Uri.EscapeDataString(password)},
                 {"x_auth_username", Uri.EscapeDataString(userName)}
             }.Select(kv => kv.Key + "=" + kv.Value).Aggregate((i, j) => i + "&" + j);
 
-                var signatureString = "POST&" + Uri.EscapeDataString(SecureAccessTokenURI) + "&" + 
+                var signatureString = "POST&" + Uri.EscapeDataString(SecureAccessTokenURI) + "&" +
                     Uri.EscapeDataString(signatureParameters);
                 var signature = Utils.GenerateSignature(signatureString, ConsumerSecretKey);
 
-                var response = await Utils.PostAuthenticationData(SecureAccessTokenURI, 
+                var response = await Utils.PostAuthenticationData(SecureAccessTokenURI,
                     signatureParameters + "&oauth_signature=" + Uri.EscapeDataString(signature));
 
                 Debug.WriteLine("Access Token Response: " + response);

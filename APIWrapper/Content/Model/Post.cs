@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Windows.UI.Xaml;
 
 namespace APIWrapper.Content.Model {
@@ -70,8 +71,11 @@ namespace APIWrapper.Content.Model {
         public string description { get; set; }
         public string text { get; set; }
         public string source { get; set; }
-        public string path_to_low_res_pic { get; set; }
-        public int pic_height { get; set; }
+        public Photo.AltSize path_to_low_res_pic {
+            get {
+                return photos.First().alt_sizes.First();
+            }
+        }
         public bool IsPhoto {
             get {
                 return type == "photo";

@@ -16,30 +16,31 @@ using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Core.Utils.Controls
-{
-    public sealed partial class NewPostDialog : UserControl
-    {
-        public NewPostDialog()
-        {
+namespace Core.Utils.Controls {
+    public sealed partial class NewPostDialog : UserControl {
+        public NewPostDialog() {
             this.InitializeComponent();
         }
 
         public void AnimateIn() {
-            //Storyboard1.Begin();
-            Transition.Clear();
-            Transition.Add(new EntranceThemeTransition());
+            ToggleVisibility.Begin();
+        }
+        public void AnimateOut() {
+            ToggleVisibilityOut.Begin();
         }
 
-        private void PostType_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            if ((((Image)(e.OriginalSource)).Name).ToString().ToLower() == "photo") {
-                MainPage.AlertFlyout.DisplayMessage("Sorry, photo posts aren't quite ready yet!");
-            } else {
-                var frame = Window.Current.Content as Frame;
-                if (!frame.Navigate(typeof(Pages.CreatePost), (((Image)(e.OriginalSource)).Name).ToString()))
-                    throw new Exception("Navigation Failed");
-            }
+        private void PostType_Tapped(object sender, TappedRoutedEventArgs e) {
+            //if ((((Image)(e.OriginalSource)).Name).ToString().ToLower() == "photo") {
+            //    MainPage.AlertFlyout.DisplayMessage("Sorry, photo posts aren't quite ready yet!");
+            //} else {
+            var frame = Window.Current.Content as Frame;
+            if (!frame.Navigate(typeof(Pages.CreatePost), (((Image)(e.OriginalSource)).Name).ToString()))
+                throw new Exception("Navigation Failed");
+            //}
+        }
+
+        private void ToggleVisibilityOut_Completed(object sender, object e) {
+            this.Visibility = Visibility.Collapsed;
         }
     }
 }

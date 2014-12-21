@@ -32,7 +32,6 @@
                     <StackPanel HorizontalAlignment="Stretch" Margin="0">
                         <TextBlock Margin="7, 0" Text="Like this app?" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                         <TextBlock Margin="7, 5, 7, 10" Text="It's always nice to hear what the users think about the app so be sure to review the app and let me know what you think!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
-                        <TextBlock Margin="7, 5, 7, 10" Text="If you did leave a review with a question or suggestion please check the emails associated with your Microsoft Account to see if I've gotten back to you!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
                         <Button x:Name="ReviewButton" Content="Rate and review!" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="ReviewButton_Click"/>
 
                         <TextBlock Margin="7, 0" Text="Get the full version" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>

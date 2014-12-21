@@ -349,17 +349,22 @@ namespace Core {
         }
 
         public void CreatePost_Click(object sender, RoutedEventArgs e) {
+            ((Button)sender).Focus(FocusState.Pointer);
             if (CreatePostControl.Visibility == Visibility.Collapsed) {
                 CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 45 };
                 CreatePostFill.Fill = new SolidColorBrush(Color.FromArgb(255, 207, 73, 73));
                 CreatePostControl.Visibility = Visibility.Visible;
                 CreatePostControl.AnimateIn();
-
             } else {
-                CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
-                CreatePostFill.Fill = App.Current.Resources["HeaderLightBlue"] as SolidColorBrush;
-                CreatePostControl.Visibility = Visibility.Collapsed;
+                CreatePost_LostFocus(null, null);
             }
+        }
+
+        private void CreatePost_LostFocus(object sender, RoutedEventArgs e) {
+            CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
+            CreatePostFill.Fill = App.Current.Resources["HeaderLightBlue"] as SolidColorBrush;
+            CreatePostControl.AnimateOut();
+            //CreatePostControl.Visibility = Visibility.Collapsed;
         }
 
         private async void SpotlightTags_Loaded(object sender, RoutedEventArgs e) {

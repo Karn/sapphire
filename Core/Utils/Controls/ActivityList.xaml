@@ -28,7 +28,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar}"/>
+                        <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
                         <Image HorizontalAlignment="Right" Width="18" Height="18" Margin="0 ,35, 0, 0" Source="ms-appx:///Assets/AReblog.png" />
                     </Grid>
                     <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10">
@@ -37,12 +37,12 @@
                             <Run Text="reblogged your post." FontWeight="Light"/>
                         </TextBlock>
                     </StackPanel>
-                    <Image Grid.Column="2" Tapped="GoToPost" Tag="{Binding target_post_id}" HorizontalAlignment="Right" Width="45" Height="45" Margin="10, 5" Source="{Binding Path=media_url}" Stretch="UniformToFill"/>
+                    <Image Grid.Column="2" Tapped="GoToPost" Tag="{Binding target_post_id}" HorizontalAlignment="Right" Width="45" Height="45" Margin="10, 5" Source="{Binding media_url, FallbackValue={StaticResource ActivityPostPlaceholder}}" Stretch="UniformToFill"/>
                 </Grid>
             </Border>
         </DataTemplate>
         <DataTemplate x:Key="like">
-            <Border BorderBrush="#7F283440" Background="{Binding followed, Converter={StaticResource FollowingToBG}}" BorderThickness="0,0,0,0">
+            <Border BorderBrush="#7F283440" Background="{Binding followed, Converter={StaticResource FollowingToBG}}" BorderThickness="0">
                 <Border.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition/>
@@ -55,7 +55,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar}"/>
+                        <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
                         <Image HorizontalAlignment="Right" Width="18" Height="18" Margin="0 ,35, 0, 0" Source="ms-appx:///Assets/ALiked.png" />
                     </Grid>
                     <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10">
@@ -64,7 +64,7 @@
                             <Run Text="liked your post." FontWeight="Light"/>
                         </TextBlock>
                     </StackPanel>
-                    <Image Grid.Column="2" Tapped="GoToPost" Tag="{Binding target_post_id}" HorizontalAlignment="Right" Width="45" Height="45" Margin="10, 5" Source="{Binding Path=media_url}" Stretch="UniformToFill"/>
+                    <Image Grid.Column="2" Tapped="GoToPost" Tag="{Binding target_post_id}" HorizontalAlignment="Right" Width="45" Height="45" Margin="10, 5" Source="{Binding media_url}" Stretch="UniformToFill"/>
                 </Grid>
             </Border>
         </DataTemplate>
@@ -82,7 +82,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar}"/>
+                        <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
                         <Image HorizontalAlignment="Right" Width="18" Height="18" Margin="0 ,35, 0, 0" Source="ms-appx:///Assets/AFollowing.png" />
                     </Grid>
                     <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10" Width="245">
@@ -111,7 +111,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar}"/>
+                        <Image Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
                         <Image HorizontalAlignment="Right" Width="18" Height="18" Margin="0 ,35, 0, 0" Source="ms-appx:///Assets/AMention.png" />
                     </Grid>
                     <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10" Width="245">
