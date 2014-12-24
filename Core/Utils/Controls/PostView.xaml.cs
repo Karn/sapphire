@@ -181,6 +181,11 @@ namespace Core.Utils.Controls {
             }
 
         }
+        private void ReplyButton_Click(object sender, RoutedEventArgs e) {
+            var frame = Window.Current.Content as Frame;
+            if (!frame.Navigate(typeof(Pages.ReblogPage), "Reply: " + ((Button)sender).Tag.ToString() + "," + ((StackPanel)((Button)sender).Parent).Tag.ToString()))
+                throw new Exception("Navigation Failed");
+        }
 
         private async void PostDraftButton_Click(object sender, RoutedEventArgs e) {
             var post = (Post)((Button)sender).Tag;

@@ -236,6 +236,7 @@
     <Content Include="Assets\PlayIcon.png" />
     <Content Include="Assets\PostOK.png" />
     <Content Include="Assets\Posts.png" />
+    <Content Include="Assets\PostShadow.png" />
     <Content Include="Assets\Queue.png" />
     <Content Include="Assets\Reload.png" />
     <Content Include="Assets\Resources\Dark\Check.png" />

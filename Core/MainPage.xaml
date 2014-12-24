@@ -10,7 +10,7 @@
     xmlns:CommonControl="using:APIWrapper.Utils"
     xmlns:common="using:Core"
     mc:Ignorable="d"
-    Background="#FFf0f3f6">
+    Background="#FFf1f1f1">
 
     <Page.Resources>
         <Storyboard x:Name="HeaderAnimateIn">

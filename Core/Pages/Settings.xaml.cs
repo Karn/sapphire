@@ -172,5 +172,9 @@ namespace Core.Pages {
                 UserStore.EnableStatusBarBG = false;
             }
         }
+
+        private async void ShareOnTwitter_Click(object sender, RoutedEventArgs e) {
+            await Launcher.LaunchUriAsync(new Uri("http://twitter.com/intent/tweet?text=%23SapphireApp+is+an+awesome+%26+beautiful+Tumblr+app+for+WP8.1.+It+has+activity%2C+notifications+%2B+more%21+Download+now+at+http%3A%2F%2Ft.co%2FP4dyvc4LZ0"));
+        }
     }
 }

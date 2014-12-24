@@ -1,4 +1,5 @@
 ﻿using APIWrapper;
+using APIWrapper.AuthenticationManager;
 using APIWrapper.Client;
 using APIWrapper.Content;
 using Core.Common;
@@ -135,9 +136,11 @@ namespace Core.Pages {
         }
 
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e) {
-            //var frame = Window.Current.Content as Frame;
-            //if (!frame.Navigate(typeof(Pages.PostsPage), "")
-            //    throw new Exception("Navigation Failed");
+            if (((TextBlock)sender).Tag != null) {
+                var frame = Window.Current.Content as Frame;
+                if (!frame.Navigate(typeof(PostsPage), "https://api.tumblr.com/v2/blog/" + ((TextBlock)sender).Tag.ToString() + ".tumblr.com/likes"))
+                    throw new Exception("Navigation Failed");
+            }
         }
 
         private void Flyout_Loaded(object sender, RoutedEventArgs e) {

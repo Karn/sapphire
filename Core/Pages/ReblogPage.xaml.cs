@@ -19,6 +19,8 @@ namespace Core.Pages {
 
         private static string TAG = "ReblogPage";
 
+        private bool IsReply = false;
+
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
@@ -62,7 +64,16 @@ namespace Core.Pages {
         /// a dictionary of state preserved by this page during an earlier
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
-            var x = e.NavigationParameter.ToString().Split(',');
+            var args = e.NavigationParameter.ToString();
+            if (e.NavigationParameter.ToString().Contains("Reply:")) {
+                PageTitle.Text = "Reply";
+                IsReply = true;
+                AddToDraftsButton.Visibility = Visibility.Collapsed;
+                AddToQueueButton.Visibility = Visibility.Collapsed;
+                PublishBox.Visibility = Visibility.Collapsed;
+                args = e.NavigationParameter.ToString().Substring(7);
+            }
+            var x = args.Split(',');
             postID = x[0].Replace(",", "");
             reblogKey = x[1].Replace(",", "");
         }
@@ -151,16 +162,22 @@ namespace Core.Pages {
                         status = "&state=draft";
                     }
                 }
-                if (await CreateRequest.ReblogPost(postID, reblogKey, Authentication.Utils.UrlEncode(Caption.Text), tags, status)) {
-                    MainPage.AlertFlyout.DisplayMessage("Created.");
+                if (IsReply) {
+
                 } else {
-                    if (((Image)sender).Tag.ToString() == "queue") {
-                        MainPage.AlertFlyout.DisplayMessage("Failed to add post to queue. Remember to use the same format as on the site!");
-                    } else if (((Image)sender).Tag.ToString() == "draft") {
-                        MainPage.AlertFlyout.DisplayMessage("Failed to add post to drafts.");
-                    } else
-                        MainPage.AlertFlyout.DisplayMessage("Failed to reblog post.");
-                    return;
+                    if (await CreateRequest.ReblogPost(postID, reblogKey, Authentication.Utils.UrlEncode(Caption.Text), tags, status)) {
+                        MainPage.AlertFlyout.DisplayMessage("Created.");
+                    } else {
+                        if (((Image)sender).Tag != null) {
+                            if (((Image)sender).Tag.ToString() == "queue") {
+                                MainPage.AlertFlyout.DisplayMessage("Failed to add post to queue. Remember to use the same format as on the site!");
+                            } else if (((Image)sender).Tag.ToString() == "draft") {
+                                MainPage.AlertFlyout.DisplayMessage("Failed to add post to drafts.");
+                            } else
+                                MainPage.AlertFlyout.DisplayMessage("Failed to reblog post.");
+                        }
+                        return;
+                    }
                 }
                 Frame.GoBack();
             } catch (Exception ex) {

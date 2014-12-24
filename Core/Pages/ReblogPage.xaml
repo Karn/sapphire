@@ -24,24 +24,6 @@
         </StackPanel>
 
         <!--TODO: Content should be placed within the following grid-->
-
-        <!--<Grid Grid.Row="1" VerticalAlignment="Stretch">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Margin="10, 10, 10, -7" Text="Add Caption" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-            <TextBox Grid.Row="1" x:Name="Caption" TextWrapping="Wrap" Margin="10" VerticalAlignment="Stretch"/>
-
-            <TextBox Grid.Row="2" x:Name="Tags" Margin="10" TextWrapping="Wrap" KeyDown="TagBox_KeyDown" PlaceholderText="Tags" VerticalAlignment="Stretch"/>
-
-            <Button Grid.Row="3" Margin="0, -5, 0, 0" Padding="0" MinWidth="200" BorderThickness="0" Background="#FF529ECC" HorizontalAlignment="Center" Click="Button_Click">
-                <Image Source="ms-appx:///Assets/NewPost/PostOK.png" Height="50"/>
-            </Button>
-        </Grid>-->
-
         <Grid Grid.Row="1" Margin="5, 0" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -79,7 +61,7 @@
                            HorizontalAlignment="Left" Margin="7, 10" Height="30"
                            Width="35" Opacity=".5"/>
             </Grid>
-            <Grid Grid.Row="2" Margin="0, -8, 0, 0" >
+            <Grid x:Name="PublishBox" Grid.Row="2" Margin="0, -8, 0, 0" >
                 <TextBox x:Name="PublishOn" Margin="0, 5" PlaceholderText="Publish on.."
                          Height="45" Padding="50, 8, 0, 0" BorderThickness="0"
                          VerticalContentAlignment="Center" Background="White"/>

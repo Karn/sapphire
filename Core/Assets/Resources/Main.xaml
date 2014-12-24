@@ -13,7 +13,7 @@
             <SolidColorBrush x:Key="DarkText" Color="#FF2D3F53"/>
             <SolidColorBrush x:Key="HeaderLightBlue" Color="#FF34495E"/>
             <SolidColorBrush x:Key="HeaderDarkBlue" Color="#FF293A4A"/>
-            <SolidColorBrush x:Key="StandardGray" Color="#FFe6ecf2"/>
+            <SolidColorBrush x:Key="StandardGray" Color="#FFF1F1F1"/>
             <SolidColorBrush x:Key="PostBG" Color="#FFFFFFFF"/>
 
             <SolidColorBrush x:Key="Accent2" Color="#FFf0f3f6"/>
@@ -107,6 +107,7 @@
         <Setter Property="FontSize" Value="30" />
         <Setter Property="CharacterSpacing" Value="-25"/>
     </Style>
+    
     <SolidColorBrush x:Key="LightGray" Color="#FFE5EAF0"/>
 
     <Style x:Name="PasswordBoxStyle" TargetType="PasswordBox">
@@ -280,61 +281,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style x:Key="MenuFlyout2" TargetType="FlyoutPresenter">
-        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-        <Setter Property="IsTabStop" Value="False"/>
-        <Setter Property="Background" Value="{ThemeResource HeaderLightBlue}"/>
-        <Setter Property="Foreground" Value="{ThemeResource HeaderLightBlue}"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="Margin" Value="0, 75, 0, 0"/>
-        <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Auto" />
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
-        <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto" />
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-        <Setter Property="ScrollViewer.ZoomMode" Value="Disabled" />
-    </Style>
-
-
-    <Style x:Name="MenuFlyoutStyle" TargetType="MenuFlyoutPresenter">
-        <Setter Property="RequestedTheme" Value="Light"/>
-        <Setter Property="Background" Value="{ThemeResource StandardGray}" />
-        <Setter Property="Foreground" Value="{ThemeResource LightText}" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Padding" Value="10" />
-        <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled" />
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
-        <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto" />
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-        <Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="False" />
-        <Setter Property="ScrollViewer.IsVerticalRailEnabled" Value="False" />
-        <Setter Property="ScrollViewer.ZoomMode" Value="Disabled" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="MenuFlyoutPresenter">
-                    <Border Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}">
-                        <ScrollViewer Padding="{TemplateBinding Padding}"
-                                  HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
-                                  HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                  VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
-                                  VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
-                                  IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
-                                  IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
-                                  ZoomMode="Disabled"
-                                  AutomationProperties.AccessibilityView="Raw">
-                            <ItemsPresenter />
-                        </ScrollViewer>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-
 
     <!--Colors-->
     <SolidColorBrush x:Key="Blue" Color="#FF1C262F"/>
@@ -532,9 +478,6 @@
         </Setter>
     </Style>
 
-
-    <!-- Default style for Windows.UI.Xaml.Controls.ToggleSwitch -->
-
     <Style x:Key="ButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="{ThemeResource ButtonBackgroundThemeBrush}"/>
         <Setter Property="Foreground" Value="{ThemeResource ButtonForegroundThemeBrush}"/>
@@ -700,41 +643,13 @@
         </Setter>
     </Style>
 
-    <Style x:Key="NoNetwork" TargetType="FlyoutPresenter">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="FlyoutPresenter">
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="No network found"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    <Thickness x:Key="PhoneBorderThickness">2.5</Thickness>
-    <FontFamily x:Key="PhoneFontFamilyNormal">Segoe WP</FontFamily>
-    <FontWeight x:Key="PhoneButtonFontWeight">Semibold</FontWeight>
-    <x:Double x:Key="TextStyleLargeFontSize">18.14</x:Double>
-    <Thickness x:Key="PhoneButtonContentPadding">9.5,0,9.5,3.5</Thickness>
-    <x:Double x:Key="PhoneButtonMinHeight">57.5</x:Double>
-    <x:Double x:Key="PhoneButtonMinWidth">109</x:Double>
-    <Thickness x:Key="PhoneTouchTargetOverhang">0,9.5</Thickness>
-
     <Style x:Key="LikeButtonStyle" TargetType="ToggleButton">
         <Setter Property="Background">
             <Setter.Value>
                 <ImageBrush Stretch="Uniform" ImageSource="{ThemeResource LikeAsset}"/>
             </Setter.Value>
         </Setter>
-        <Setter Property="BorderBrush" Value="{ThemeResource PhoneForegroundBrush}"/>
-        <Setter Property="Foreground" Value="{ThemeResource PhoneForegroundBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="FontFamily" Value="{ThemeResource PhoneFontFamilyNormal}"/>
-        <Setter Property="FontWeight" Value="{ThemeResource PhoneButtonFontWeight}"/>
-        <Setter Property="FontSize" Value="{ThemeResource TextStyleLargeFontSize}"/>
-        <Setter Property="Padding" Value="{ThemeResource PhoneButtonContentPadding}"/>
         <Setter Property="MinHeight" Value="0"/>
         <Setter Property="MinWidth" Value="0"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -827,17 +742,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <FontFamily x:Key="ContentControlThemeFontFamily">Segoe WP</FontFamily>
-    <x:Double x:Key="ControlContentThemeFontSize">12</x:Double>
-    <Thickness x:Key="ListViewItemMargin">0</Thickness>
-    <SolidColorBrush x:Key="CheckBoxBackgroundThemeBrush" Color="Transparent"/>
-    <x:Double x:Key="CheckBoxBorderThemeThickness">2.5</x:Double>
-    <x:Double x:Key="ListViewItemContentOffsetX">-40.5</x:Double>
-    <Thickness x:Key="ListViewItemMultiselectCheckBoxMargin">0,9.5,0,0</Thickness>
-    <Thickness x:Key="GridViewItemMultiselectBorderThickness">2.5</Thickness>
-    <x:Double x:Key="ListViewItemDisabledThemeOpacity">0.4</x:Double>
-    <x:Double x:Key="ListViewItemContentTranslateX">40.5</x:Double>
-    <x:Double x:Key="ListViewItemReorderHintThemeOffset">32</x:Double>
 
     <Style x:Key="ListViewItemContainerStyle" TargetType="ListViewItem">
         <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
@@ -1050,7 +954,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
-        <Setter Property="FontWeight" Value="Thin" />
+        <Setter Property="FontWeight" Value="Light" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="CharacterSpacing" Value="-25"/>
         <Setter Property="MinWidth" Value="154" />
@@ -1233,22 +1137,22 @@
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
-                            <!--<VisualStateGroup x:Name="FocusStates">
-                                    <VisualState x:Name="Focused">
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetName="FocusVisualWhite"
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="FocusVisualWhite"
                                                      Storyboard.TargetProperty="Opacity"
                                                      To="1"
                                                      Duration="0" />
-                                            <DoubleAnimation Storyboard.TargetName="FocusVisualBlack"
+                                        <DoubleAnimation Storyboard.TargetName="FocusVisualBlack"
                                                      Storyboard.TargetProperty="Opacity"
                                                      To="1"
                                                      Duration="0" />
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Unfocused" />
-                                    <VisualState x:Name="PointerFocused" />
-                                </VisualStateGroup>-->
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused" />
+                                <VisualState x:Name="PointerFocused" />
+                            </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Grid>
                             <Grid.RowDefinitions>

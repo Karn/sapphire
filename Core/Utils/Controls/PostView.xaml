@@ -61,18 +61,6 @@
                         </Flyout>
                     </FlyoutBase.AttachedFlyout>
                 </Button>
-                <!--<Button x:Name="OtherOptionsButton" Padding="0" BorderThickness="0" MinWidth="0" MaxHeight="0" Tag="{Binding}" Height="35" Width="35" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10, 0" Opacity="0.5">
-                    <Button.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource MoreButtonAsset}"/>
-                    </Button.Background>
-                    <Button.Flyout>
-                        <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutStyle}">
-                            <MenuFlyoutItem Click="OtherOptionsButton_Click" Text="Save to phone" Tag="{Binding path_to_low_res_pic}" Visibility="{Binding IsPhoto, Converter={StaticResource BooleanToVisisbilityConverter}}"/>
-                            <MenuFlyoutItem Click="OtherOptionsButton_Click" Text="Share" Tag="{Binding post_url}"/>
-                            <MenuFlyoutItem Click="OtherOptionsButton_Click" Text="Open in browser" Tag="{Binding post_url}"/>
-                        </MenuFlyout>
-                    </Button.Flyout>
-                </Button>-->
             </Grid>
         </DataTemplate>
 
@@ -156,177 +144,221 @@
         </DataTemplate>
 
         <DataTemplate x:Key="Text">
-            <StackPanel Margin="0, 4" Background="{ThemeResource PostBG}">
-                <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
-                <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
-                    <TextBlock Text="{Binding title}" Margin="10, 0, 10, 0" FontSize="28" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="WrapWholeWords"/>
-                    <TextBlock Text="{Binding body}" Margin="10, 5, 10, 40" FontSize="22" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="Wrap"/>
+            <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
+
+                <StackPanel Background="{ThemeResource PostBG}">
+                    <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
+                    <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
+                        <TextBlock Text="{Binding title}" Margin="10, 0, 10, 0" FontSize="28" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="WrapWholeWords"/>
+                        <TextBlock Text="{Binding body}" Margin="10, 5, 10, 40" FontSize="22" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="Wrap"/>
+                    </StackPanel>
+                    <ContentPresenter VerticalAlignment="Bottom" ContentTemplate="{StaticResource BottomContainer}"/>
                 </StackPanel>
-                <ContentPresenter VerticalAlignment="Bottom" ContentTemplate="{StaticResource BottomContainer}"/>
-            </StackPanel>
+            </Border>
         </DataTemplate>
 
         <DataTemplate x:Key="Photo">
-            <StackPanel Margin="0, 4" Background="{ThemeResource PostBG}">
-                <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
-                <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
-                    <Image MinHeight="150" Source="{Binding path_to_low_res_pic.url}"/>
+            <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
+                <StackPanel Background="{ThemeResource PostBG}">
+                    <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
+                    <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
+                        <Image MinHeight="150" Source="{Binding path_to_low_res_pic.url}"/>
+                    </StackPanel>
+                    <ContentPresenter VerticalAlignment="Bottom" ContentTemplate="{StaticResource BottomContainer}"/>
                 </StackPanel>
-                <ContentPresenter VerticalAlignment="Bottom" ContentTemplate="{StaticResource BottomContainer}"/>
-            </StackPanel>
+            </Border>
         </DataTemplate>
         <DataTemplate x:Key="Gif">
-            <StackPanel Margin="0, 4" Background="{ThemeResource PostBG}">
-                <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
-                <Grid Background="Black">
-                    <MediaElement x:Name="Player" MinHeight="100" Stretch="UniformToFill" PosterSource="{Binding path_to_low_res_pic.url}" Tag="{Binding path_to_low_res_pic.url}" IsTapEnabled="False" IsRightTapEnabled="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False" IsLooping="True" AutoPlay="True"/>
-                    <AppBarButton x:Name="PlayButton" Tag="stopped" Icon="Play" Click="AppBarButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" IsCompact="True" Foreground="White" BorderBrush="White" Background="#CC252525" LostFocus="PlayButton_LostFocus" RequestedTheme="Dark"/>
-                </Grid>
-                <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
-            </StackPanel>
+            <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
+                <StackPanel Background="{ThemeResource PostBG}">
+                    <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
+                    <Grid Background="Black">
+                        <MediaElement x:Name="Player" MinHeight="100" Stretch="UniformToFill" PosterSource="{Binding path_to_low_res_pic.url}" Tag="{Binding path_to_low_res_pic.url}" IsTapEnabled="False" IsRightTapEnabled="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False" IsLooping="True" AutoPlay="True"/>
+                        <AppBarButton x:Name="PlayButton" Tag="stopped" Icon="Play" Click="AppBarButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" IsCompact="True" Foreground="White" BorderBrush="White" Background="#CC252525" LostFocus="PlayButton_LostFocus" RequestedTheme="Dark"/>
+                    </Grid>
+                    <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
+                </StackPanel>
+            </Border>
         </DataTemplate>
         <DataTemplate x:Key="Photoset">
-            <StackPanel Margin="0, 4" Background="{ThemeResource PostBG}">
-                <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
-                <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
-                    <ListView ItemsSource="{Binding photos}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Image HorizontalAlignment="Stretch" Margin="0, 0, 0, 2" Stretch="UniformToFill" Source="{Binding original_size.url}"/>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+            <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
+
+
+                <StackPanel Background="{ThemeResource PostBG}">
+                    <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
+                    <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
+                        <ListView ItemsSource="{Binding photos}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Image HorizontalAlignment="Stretch" Margin="0, 0, 0, 2" Stretch="UniformToFill" Source="{Binding original_size.url}"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+                    <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
                 </StackPanel>
-                <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
-            </StackPanel>
+            </Border>
         </DataTemplate>
         <DataTemplate x:Key="Quote">
-            <StackPanel Margin="0, 4" Background="{ThemeResource PostBG}">
-                <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
-                <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
-                    <TextBlock Text="{Binding text}" Margin="10, 0, 10, 0" FontSize="28" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
-                    <TextBlock Text="{Binding source, Converter={StaticResource ToPlainText}}" Margin="10, 5, 10, 10" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+            <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
+
+
+                <StackPanel Background="{ThemeResource PostBG}">
+                    <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
+                    <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
+                        <TextBlock Text="{Binding text}" Margin="10, 0, 10, 0" FontSize="28" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                        <TextBlock Text="{Binding source, Converter={StaticResource ToPlainText}}" Margin="10, 5, 10, 10" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                    </StackPanel>
+                    <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
                 </StackPanel>
-                <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
-            </StackPanel>
+            </Border>
         </DataTemplate>
         <DataTemplate x:Key="Link">
-            <StackPanel Margin="0, 4" Background="{ThemeResource PostBG}">
-                <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
-                <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
-                    <TextBlock Text="{Binding title}" Margin="10, 0, 10, 0" FontSize="28" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
-                    <TextBlock Text="{Binding description, Converter={StaticResource ToPlainText}}" Margin="10, 5, 10, 10" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+            <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
+
+
+                <StackPanel Background="{ThemeResource PostBG}">
+                    <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
+                    <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
+                        <TextBlock Text="{Binding title}" Margin="10, 0, 10, 0" FontSize="28" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                        <TextBlock Text="{Binding description, Converter={StaticResource ToPlainText}}" Margin="10, 5, 10, 10" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                    </StackPanel>
+                    <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
                 </StackPanel>
-                <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
-            </StackPanel>
+            </Border>
         </DataTemplate>
         <DataTemplate x:Key="Chat">
-            <StackPanel Margin="0, 4" Background="{ThemeResource PostBG}">
-                <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
-                <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
-                    <TextBlock Text="{Binding body}" Margin="10, 0, 10, 0" FontSize="{StaticResource PhonePivotLockedTranslation}" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
-                    <TextBlock Text="{Binding description}" Margin="10, 5, 10, 10" FontSize="30" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+            <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
+
+
+                <StackPanel Background="{ThemeResource PostBG}">
+                    <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
+                    <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
+                        <TextBlock Text="{Binding body}" Margin="10, 0, 10, 0" FontSize="{StaticResource PhonePivotLockedTranslation}" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                        <TextBlock Text="{Binding description}" Margin="10, 5, 10, 10" FontSize="30" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                    </StackPanel>
+                    <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
                 </StackPanel>
-                <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
-            </StackPanel>
+            </Border>
         </DataTemplate>
         <DataTemplate x:Key="Audio">
-            <StackPanel Margin="0, 4" Background="{ThemeResource PostBG}">
-                <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
-                <StackPanel Orientation="Horizontal" Background="{ThemeResource PostBG}" Tag="{Binding audio_url}">
-                    <Image Source="{Binding album_art, FallbackValue={StaticResource AudioPlaceholder}}" Height="100" Width="100"/>
-                    <StackPanel>
-                        <TextBlock x:Name="Name" FontSize="24" Foreground="{ThemeResource DarkText}" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}">
+            <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
+
+
+                <StackPanel Background="{ThemeResource PostBG}">
+                    <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
+                    <StackPanel Orientation="Horizontal" Background="{ThemeResource PostBG}" Tag="{Binding audio_url}">
+                        <Image Source="{Binding album_art, FallbackValue={StaticResource AudioPlaceholder}}" Height="100" Width="100"/>
+                        <StackPanel>
+                            <TextBlock x:Name="Name" FontSize="24" Foreground="{ThemeResource DarkText}" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}">
                             <Run Text="{Binding artist}"/>
                             <Run Text="-"/>
                             <Run Text="{Binding track_name, FallbackValue=Track_Name}"/>
-                        </TextBlock>
-                        <StackPanel Orientation="Horizontal">
-                            <AppBarButton x:Name="PlayButton" Click="PlayButton_Click" IsEnabled="False" RequestedTheme="Light" VerticalAlignment="Center" Icon="Play" IsCompact="True" Margin="10"/>
-                            <AppBarButton x:Name="StopButton" Click="StopButton_Click" IsEnabled="False" RequestedTheme="Light" VerticalAlignment="Center" Icon="Stop" IsCompact="True" Margin="10"/>
+                            </TextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                <AppBarButton x:Name="PlayButton" Click="PlayButton_Click" IsEnabled="False" RequestedTheme="Light" VerticalAlignment="Center" Icon="Play" IsCompact="True" Margin="10"/>
+                                <AppBarButton x:Name="StopButton" Click="StopButton_Click" IsEnabled="False" RequestedTheme="Light" VerticalAlignment="Center" Icon="Stop" IsCompact="True" Margin="10"/>
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
+                    <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
                 </StackPanel>
-                <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
-            </StackPanel>
+            </Border>
         </DataTemplate>
         <DataTemplate x:Key="Video">
-            <StackPanel Margin="0, 4" Background="{StaticResource PostBG}">
-                <ContentPresenter x:Name="TopContainer" ContentTemplate="{StaticResource TopContainer}"/>
-                <Grid Background="Black">
-                    <MediaElement MinHeight="100" x:Name="DirectURIVideoElement" PosterSource="{Binding thumbnail_url}" AreTransportControlsEnabled="True" Stretch="UniformToFill" Source="{Binding video_url}" AutoPlay="False" IsTapEnabled="False" IsRightTapEnabled="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False"/>
-                </Grid>
-                <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
-            </StackPanel>
+            <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
 
+
+                <StackPanel Background="{StaticResource PostBG}">
+                    <ContentPresenter x:Name="TopContainer" ContentTemplate="{StaticResource TopContainer}"/>
+                    <Grid Background="Black">
+                        <MediaElement MinHeight="100" x:Name="DirectURIVideoElement" PosterSource="{Binding thumbnail_url}" AreTransportControlsEnabled="True" Stretch="UniformToFill" Source="{Binding video_url}" AutoPlay="False" IsTapEnabled="False" IsRightTapEnabled="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False"/>
+                    </Grid>
+                    <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
+                </StackPanel>
+            </Border>
         </DataTemplate>
         <DataTemplate x:Key="YoutubeVideo">
-            <StackPanel Margin="0, 4" Background="{StaticResource PostBG}">
-                <ContentPresenter x:Name="TopContainer" ContentTemplate="{StaticResource TopContainer}"/>
-                <TextBlock Text="This is a youtube video please use the post menu to open in browser." Margin="10, 0, 10, 0" FontSize="28" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
-                <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
-            </StackPanel>
+            <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
 
+
+                <StackPanel Background="{StaticResource PostBG}">
+                    <ContentPresenter x:Name="TopContainer" ContentTemplate="{StaticResource TopContainer}"/>
+                    <TextBlock Text="This is a youtube video please use the post menu to open in browser." Margin="10, 0, 10, 0" FontSize="28" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                    <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
+                </StackPanel>
+            </Border>
         </DataTemplate>
         <DataTemplate x:Key="Answer">
-            <StackPanel Margin="0, 4" Background="{StaticResource PostBG}">
-                <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
-                <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
-                    <Grid>
-                        <Button HorizontalAlignment="Left" VerticalAlignment="Top" BorderThickness="0" MinWidth="0" MinHeight="0" UseLayoutRounding="True" Padding="0" Margin="0" Style="{StaticResource ButtonStyle}">
-                            <Image Source="{Binding asking_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="UniformToFill" Height="50" Width="50"/>
-                        </Button>
-                        <StackPanel Margin="55, 3, 5, 5" Background="#33DCDCDC">
-                            <TextBlock Text="{Binding asking_name, FallbackValue=Name}" Margin="10, 2" FontSize="22" TextLineBounds="Tight" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="NoWrap"/>
-                            <TextBlock Text="{Binding question, FallbackValue=Question}" Margin="10, 0, 10, 2" FontSize="18" TextLineBounds="TrimToBaseline" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
-                        </StackPanel>
-                    </Grid>
-                    <TextBlock Text="{Binding answer, FallbackValue=Answer}" Margin="10, 0, 10, 40" FontSize="18" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+            <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
+
+
+                <StackPanel Background="{StaticResource PostBG}">
+                    <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
+                    <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
+                        <Grid>
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" BorderThickness="0" MinWidth="0" MinHeight="0" UseLayoutRounding="True" Padding="0" Margin="0" Style="{StaticResource ButtonStyle}">
+                                <Image Source="{Binding asking_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="UniformToFill" Height="50" Width="50"/>
+                            </Button>
+                            <StackPanel Margin="55, 3, 5, 5" Background="#33DCDCDC">
+                                <TextBlock Text="{Binding asking_name, FallbackValue=Name}" Margin="10, 2" FontSize="22" TextLineBounds="Tight" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="NoWrap"/>
+                                <TextBlock Text="{Binding question, FallbackValue=Question}" Margin="10, 0, 10, 2" FontSize="18" TextLineBounds="TrimToBaseline" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                            </StackPanel>
+                        </Grid>
+                        <TextBlock Text="{Binding answer, FallbackValue=Answer}" Margin="10, 0, 10, 40" FontSize="18" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                    </StackPanel>
+                    <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
                 </StackPanel>
-                <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
-            </StackPanel>
+            </Border>
         </DataTemplate>
 
         <DataTemplate x:Key="Mail">
-            <StackPanel Margin="0, 4" Background="{ThemeResource PostBG}">
-                <Grid Height="50" Width="Auto" Background="{ThemeResource Accent2}">
-                    <StackPanel Orientation="Horizontal" >
-                        <Button HorizontalAlignment="Left" VerticalAlignment="Top" BorderThickness="0" MinWidth="0" MinHeight="0" UseLayoutRounding="True" Padding="0" Margin="-3" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Style="{StaticResource ButtonStyle}">
-                            <Image Source="{Binding asking_avatar}" Stretch="UniformToFill" Height="50" Width="50"/>
-                        </Button>
-                        <StackPanel Margin="5, 0">
-                            <TextBlock Text="{Binding asking_name}" Margin="5, 5, 5, 0" Tapped="GoToBlog" Foreground="{ThemeResource DarkText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
-                            <TextBlock Text="said:" Margin="5, -16, 5, 0" Foreground="{ThemeResource DarkText}" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis"/>
+            <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
+
+
+                <StackPanel Background="{ThemeResource PostBG}">
+                    <Grid Height="50" Width="Auto" Background="{ThemeResource Accent2}">
+                        <StackPanel Orientation="Horizontal" >
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" BorderThickness="0" MinWidth="0" MinHeight="0" UseLayoutRounding="True" Padding="0" Margin="-3" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Style="{StaticResource ButtonStyle}">
+                                <Image Source="{Binding asking_avatar}" Stretch="UniformToFill" Height="50" Width="50"/>
+                            </Button>
+                            <StackPanel Margin="5, 0">
+                                <TextBlock Text="{Binding asking_name}" Margin="5, 5, 5, 0" Tapped="GoToBlog" Foreground="{ThemeResource DarkText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
+                                <TextBlock Text="said:" Margin="5, -16, 5, 0" Foreground="{ThemeResource DarkText}" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis"/>
+                            </StackPanel>
                         </StackPanel>
+                    </Grid>
+                    <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
+                        <TextBlock Text="{Binding body}" Margin="10, 5, 10, 40" FontSize="22" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="Wrap"/>
                     </StackPanel>
-                </Grid>
-                <StackPanel MinHeight="150" Tag="{Binding id}" Tapped="PostDetail_Tapped">
-                    <TextBlock Text="{Binding body}" Margin="10, 5, 10, 40" FontSize="22" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="Wrap"/>
+                    <Grid Height="40" Background="{ThemeResource Accent2}">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Tag="{Binding reblog_key}">
+                            <Button x:Name="ReplyButton" Tag="{Binding id}" Click="ReplyButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="40" MinHeight="40" MaxWidth="40" MaxHeight="40" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}">
+                                <Button.Background>
+                                    <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource ReplyAsset}"/>
+                                </Button.Background>
+                            </Button>
+                            <Button x:Name="DeleteButton" Tag="{Binding}" Click="DeleteButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}" Margin="-6, 0, 0, 0">
+                                <Button.Background>
+                                    <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource DeleteButtonAsset}"/>
+                                </Button.Background>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
                 </StackPanel>
-                <Grid Height="40" Background="{ThemeResource Accent2}">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Tag="{Binding reblog_key}">
-                        <Button x:Name="ReblogButton" Visibility="Collapsed" Tag="{Binding id}" Click="ReblogButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="40" MinHeight="40" MaxWidth="40" MaxHeight="40" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}">
-                            <Button.Background>
-                                <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource ReplyAsset}"/>
-                            </Button.Background>
-                        </Button>
-                        <Button x:Name="DeleteButton" Tag="{Binding}" Click="DeleteButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}" Margin="-6, 0, 0, 0">
-                            <Button.Background>
-                                <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource DeleteButtonAsset}"/>
-                            </Button.Background>
-                        </Button>
-                    </StackPanel>
-                </Grid>
-            </StackPanel>
+            </Border>
         </DataTemplate>
 
         <DataTemplate x:Key="Advert">
-            <StackPanel MinHeight="40" Margin="0, 4" MinWidth="380" Background="{ThemeResource Accent2}">
-                <StackPanel Margin="0" Orientation="Horizontal">
-                    <TextBlock Margin="5" Text="Advertisement" HorizontalAlignment="Center" Tapped="GoToBlog" MaxWidth="284" Foreground="{ThemeResource DarkText}" FontSize="26" VerticalAlignment="Top" TextTrimming="CharacterEllipsis" FontWeight="SemiLight" TextLineBounds="Tight"/>
-                </StackPanel>
-                <Grid>
-                    <WindowsPhone81:AdMediatorControl
+            <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
+
+
+                <StackPanel MinHeight="40" Margin="6" MinWidth="380" Background="{ThemeResource Accent2}">
+                    <StackPanel Margin="0" Orientation="Horizontal">
+                        <TextBlock Margin="5" Text="Advertisement" HorizontalAlignment="Center" Tapped="GoToBlog" MaxWidth="284" Foreground="{ThemeResource DarkText}" FontSize="26" VerticalAlignment="Top" TextTrimming="CharacterEllipsis" FontWeight="SemiLight" TextLineBounds="Tight"/>
+                    </StackPanel>
+                    <Grid>
+                        <WindowsPhone81:AdMediatorControl
                         x:Name="AdMediator_8D72AF"
                         Id="AdMediator-Id-08EC04B6-3C0D-4157-B23E-4DDEFC54CC26"
                         Background="{ThemeResource HeaderLightBlue}"
@@ -336,8 +368,9 @@
                         HorizontalAlignment="Stretch"
                         AdSdkEvent="MediatedAdControl_AdSdkEvent"
                         />
-                </Grid>
-            </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
         </DataTemplate>
 
         <DataTemplate x:Key="NothingToShow">
@@ -371,7 +404,7 @@
                   VerticalScrollBarVisibility="Hidden"
                   ViewChanged="scrollViewer_ViewChanged"
                   ZoomMode="Disabled"
-                  Margin="0"
+                  Margin="-2, 0"
                   VerticalAlignment="Top"
                   HorizontalAlignment="Stretch"
                   HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
@@ -386,7 +419,7 @@
             <Grid Grid.Row="0" VerticalAlignment="Top" Height="60" Margin="10, 0" HorizontalAlignment="Center">
                 <TextBlock x:Name="textBlock1" Text="Pull to refresh.." Margin="15, 0, 0, 0" FontSize="22" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" VerticalAlignment="Center" TextLineBounds="Tight" FontFamily="Segoe WP" FontWeight="Thin" CharacterSpacing="-25"/>
             </Grid>
-            <ListView x:Name="Posts" Grid.Row="1" Margin="0"
+            <ListView x:Name="Posts" Grid.Row="1" Margin="0" Padding="0, 4"
                       DataFetchSize="5" IncrementalLoadingTrigger="Edge" 
                       IncrementalLoadingThreshold="5" 
                       HorizontalAlignment="Stretch" 
