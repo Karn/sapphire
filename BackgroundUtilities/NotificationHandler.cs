@@ -77,7 +77,7 @@ namespace BackgroundUtilities {
                     textElements[1].AppendChild(toastXml.CreateTextNode("You have " + n.Value.Count + " new " + (n.Value.Count == 1 ? "notification." : "notifications.")));
                     totalCount += n.Value.Count;
                     IXmlNode toastNode = toastXml.SelectSingleNode("/toast");
-                    ((XmlElement)toastNode).SetAttribute("launch", "{\"type\":\"toast\"}");
+                    ((XmlElement)toastNode).SetAttribute("launch", "Account: " + n.Key.ToString());
 
                     ToastNotification x = new ToastNotification(toastXml);
                     x.SuppressPopup = true;

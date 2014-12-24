@@ -52,7 +52,7 @@ namespace APIWrapper.Client {
             return sb.ToString();
         }
 
-        public static async Task<bool> RetrieveAccountInformation() {
+        public static async Task<bool> RetrieveAccountInformation(string account = "") {
             string requestResult = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/user/info");
 
             if (requestResult.Contains("status\":200")) {
@@ -70,10 +70,15 @@ namespace APIWrapper.Client {
                         b.likes = parsedData.response.user.likes;
 
                         UserStore.UserBlogs.Add(b);
-                        if (UserStore.CurrentBlog == null && b.primary)
-                            UserStore.CurrentBlog = b;
-                        else if (b.Name == UserStore.CurrentBlog.Name)
-                            UserStore.CurrentBlog = b;
+                        if (string.IsNullOrWhiteSpace(account)) {
+                            if (UserStore.CurrentBlog == null && b.primary)
+                                UserStore.CurrentBlog = b;
+                            else if (b.Name == UserStore.CurrentBlog.Name)
+                                UserStore.CurrentBlog = b;
+                        } else {
+                            if (b.Name == account)
+                                UserStore.CurrentBlog = b;
+                        }
                     }
                     return true;
                 } catch (Exception ex) {
@@ -364,7 +369,7 @@ namespace APIWrapper.Client {
         }
 
         public static async Task<Blog> GetBlog(string name) {
-            var result = await RequestBuilder.GetAPI(APIEndpoints.Blog + name + ".tumblr.com/info", "api_key=" + APIWrapper.AuthenticationManager.Authentication.ConsumerKey);
+            var result = await RequestBuilder.GetAPI(APIEndpoints.Blog + name + ".tumblr.com/info", "api_key=" + Authentication.ConsumerKey);
             if (result.Contains("status\":200")) {
                 return JsonConvert.DeserializeObject<Responses.GetBlog>(result).response.blog;
             }
@@ -372,7 +377,7 @@ namespace APIWrapper.Client {
         }
 
         public static async Task<List<Blog>> RetrieveSearch(string tag) {
-            var result = await RequestBuilder.GetAPI(APIEndpoints.Search + tag, "api_key=" + APIWrapper.AuthenticationManager.Authentication.ConsumerKey);
+            var result = await RequestBuilder.GetAPI(APIEndpoints.Search + tag, "api_key=" + Authentication.ConsumerKey);
             if (result.Contains("status\":200")) {
                 return JsonConvert.DeserializeObject<Responses.GetSearch>(result).response.blogs;
             }

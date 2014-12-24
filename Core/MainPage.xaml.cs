@@ -65,19 +65,6 @@ namespace Core {
 
             if (UserStore.NotificationsEnabled)
                 RegisterBackgroundTask();
-
-            //LoadFullFeatures();
-        }
-
-        public void LoadFullFeatures() {
-#if DEBUG
-            if (Debugger.IsAttached) {
-                Favs_List.Visibility = Visibility.Visible;
-            }
-#endif
-            if (!Utils.AppLicenseHandler.IsTrial) {
-                Favs_List.Visibility = Visibility.Visible;
-            }
         }
 
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e) {
@@ -103,8 +90,6 @@ namespace Core {
                 NavigationPivot.SelectedIndex = 0;
                 e.Handled = true;
                 return;
-            } else {
-                Application.Current.Exit();
             }
         }
 
@@ -129,9 +114,13 @@ namespace Core {
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
             if (e.NavigationParameter != null && !string.IsNullOrEmpty(e.NavigationParameter.ToString()) && !NavigatedFromToast) {
                 //Handle accounts switch to the one described in the toast
-                Posts_Loaded(null, null);
-                NavigationPivot.SelectedIndex = 1;
-                NavigatedFromToast = true;
+                if (e.NavigationParameter.ToString().Contains("Account:")) {
+                    var s = e.NavigationParameter.ToString().Split(' ');
+                    SetAccountData(s[1]);
+                    Posts_Loaded(null, null);
+                    NavigationPivot.SelectedIndex = 1;
+                    NavigatedFromToast = true;
+                }
             }
 
             AlertFlyout = _ErrorFlyout;
@@ -333,12 +322,12 @@ namespace Core {
             Posts.LoadPosts();
         }
 
-        private async void SetAccountData() {
+        private async void SetAccountData(string account = "") {
             if (Authentication.Utils.NetworkAvailable()) {
                 App.DisplayStatus("Loading account data...");
                 RefreshButton.IsEnabled = false;
                 Debug.WriteLine("Loading account data...");
-                AccountPivot.DataContext = await CreateRequest.RetrieveAccountInformation() ? UserStore.CurrentBlog : null;
+                AccountPivot.DataContext = await CreateRequest.RetrieveAccountInformation(account) ? UserStore.CurrentBlog : null;
                 if (!ActivityPosts.ContentLoaded)
                     ActivityPosts.LoadPosts();
                 RefreshButton.IsEnabled = true;

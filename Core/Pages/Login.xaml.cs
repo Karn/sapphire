@@ -15,13 +15,13 @@ namespace Core.Pages {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class xAuthLogin : Page {
+    public sealed partial class Login : Page {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
         private StatusBar sb;
 
-        public xAuthLogin() {
+        public Login() {
             this.InitializeComponent();
 
             this.navigationHelper = new NavigationHelper(this);
@@ -33,8 +33,6 @@ namespace Core.Pages {
 
             sb = StatusBar.GetForCurrentView();
             sb.ForegroundColor = Color.FromArgb(255, 255, 255, 255);
-
-            FadeInLogoImage.Begin();
 
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
         }
@@ -76,6 +74,13 @@ namespace Core.Pages {
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
             Frame.BackStack.Clear();
+            if (e.NavigationParameter != null) {
+                StartBox.Visibility = Visibility.Visible;
+                LoginBox.Visibility = Visibility.Collapsed;
+            } else {
+                StartBox.Visibility = Visibility.Collapsed;
+                LoginBox.Visibility = Visibility.Visible;
+            }
         }
 
         /// <summary>
@@ -148,11 +153,17 @@ namespace Core.Pages {
 
         private void Email_GotFocus(object sender, RoutedEventArgs e) {
             LogoImage.Visibility = Visibility.Collapsed;
+            LoginBox.VerticalAlignment = VerticalAlignment.Top;
         }
 
         private void Email_LostFocus(object sender, RoutedEventArgs e) {
             LogoImage.Visibility = Visibility.Visible;
+            LoginBox.VerticalAlignment = VerticalAlignment.Bottom;
         }
 
+        private void Start_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e) {
+            StartBox.Visibility = Visibility.Collapsed;
+            LoginBox.Visibility = Visibility.Visible;
+        }
     }
 }

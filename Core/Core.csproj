@@ -127,18 +127,18 @@
     <Compile Include="Pages\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\xAuthLogin.xaml.cs">
-      <DependentUpon>xAuthLogin.xaml</DependentUpon>
+    <Compile Include="Pages\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Controls\ActivityList.xaml.cs">
       <DependentUpon>ActivityList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils\Controls\AnimationImage.xaml.cs">
-      <DependentUpon>AnimationImage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Utils\Controls\AudioPlayer.xaml.cs">
       <DependentUpon>AudioPlayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Controls\ContextMenu.xaml.cs">
+      <DependentUpon>ContextMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\Controls\NewPostDialog.xaml.cs">
       <DependentUpon>NewPostDialog.xaml</DependentUpon>
@@ -196,10 +196,10 @@
     <Content Include="Assets\LoginLogo.png" />
     <Content Include="Assets\LoginLogo_Dark.png" />
     <Content Include="Assets\Logo.scale-240.png" />
+    <Content Include="Assets\Logosmall.png" />
     <Content Include="Assets\Logo_Dark.png" />
     <Content Include="Assets\Messages.png" />
     <Content Include="Assets\Navigation-Down.png" />
-    <Content Include="Assets\Navigation\Account.png" />
     <Content Include="Assets\Navigation\Activity - Copy.png" />
     <Content Include="Assets\Navigation\Activity.png" />
     <Content Include="Assets\Navigation\Dashboard.png" />
@@ -207,6 +207,7 @@
     <Content Include="Assets\Navigation\Recent.png" />
     <Content Include="Assets\Navigation\Search.png" />
     <Content Include="Assets\Navigation\Tag.png" />
+    <Content Include="Assets\Nav\About.png" />
     <Content Include="Assets\Nav\Account.png" />
     <Content Include="Assets\Nav\Activity.png" />
     <Content Include="Assets\Nav\Blogs.png" />
@@ -228,6 +229,8 @@
     <Content Include="Assets\Password.png" />
     <Content Include="Assets\PauseIcon.png" />
     <Content Include="Assets\Placeholders\ActivityPost.png" />
+    <Content Include="Assets\Placeholders\Login.jpg" />
+    <Content Include="Assets\Placeholders\LoginVideo.mp4" />
     <Content Include="Assets\Placeholders\UploadImage.png" />
     <Content Include="Assets\Play.png" />
     <Content Include="Assets\PlayIcon.png" />
@@ -275,6 +278,7 @@
     <Content Include="Assets\VideoPlaceholder.png" />
     <Content Include="Assets\WideLogo.scale-240.png" />
     <Content Include="AdMediator.config" />
+    <Content Include="StoreManifest.xml" />
     <None Include="Package.StoreAssociation.xml" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -348,7 +352,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\xAuthLogin.xaml">
+    <Page Include="Pages\Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -356,11 +360,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Utils\Controls\AnimationImage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Utils\Controls\AudioPlayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utils\Controls\ContextMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -84,6 +84,8 @@ namespace APIWrapper.Content.Model {
         public string asking_name { get; set; }
         public string asking_avatar {
             get {
+                if (asking_name == "Anonymous")
+                    return "https://secure.assets.tumblr.com/images/anonymous_avatar_96.gif";
                 return "http://api.tumblr.com/v2/blog/" + asking_name + ".tumblr.com/avatar/96";
             }
         }

@@ -1,9 +1,7 @@
-﻿using APIWrapper.Content.Model;
+﻿using APIWrapper.AuthenticationManager;
 using APIWrapper.Utils;
 using Core.Common;
-using Core.Utils.Misc;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,8 +15,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using APIWrapper.Content;
-using APIWrapper.AuthenticationManager;
 
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556

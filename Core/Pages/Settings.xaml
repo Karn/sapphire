@@ -17,15 +17,16 @@
         </Grid.RowDefinitions>
         <!-- TitlePanel -->
         <CommonControl:AlertDialog Grid.RowSpan="2" x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
-        <StackPanel Grid.Row="0" Margin="0" Background="{ThemeResource HeaderLightBlue}">
+        <Grid Grid.Row="0" Margin="0" Background="{ThemeResource HeaderLightBlue}">
             <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource HeaderLightBlue}">
                 <TextBlock x:Name="PageTitle" Foreground="{ThemeResource LightText}" Text="Settings" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
             </Grid>
-        </StackPanel>
+        </Grid>
         <Pivot Grid.Row="1" Margin="0, -25, 0, 0">
             <PivotItem Margin="10, 0">
                 <PivotItem.Header>
                     <TextBlock Text="general" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe WP" CharacterSpacing="-25" Foreground="{ThemeResource HeaderLightBlue}"/>
+
                 </PivotItem.Header>
 
                 <ScrollViewer>
@@ -34,10 +35,14 @@
                         <TextBlock Margin="7, 5, 7, 10" Text="It's always nice to hear what the users think about the app so be sure to review the app and let me know what you think!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
                         <Button x:Name="ReviewButton" Content="Rate and review!" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="ReviewButton_Click"/>
 
+                        <TextBlock Margin="7, 0" Text="Spread the word!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="7, 5, 7, 10" Text="Tell your friends about Sapphire. by sharing a short message on your twitter timeline. Alternatively use the #SapphireApp hashtag to describe your experience with the app." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
+                        <HyperlinkButton x:Name="ShareOnTwitter" Margin="10, 0, 10, 10" Content="Tweet about Sapphire" HorizontalAlignment="Stretch" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="35" FontWeight="Bold" NavigateUri="http://twitter.com/intent/tweet?text=%23SapphireApp+is+an+awesome+%26+beautiful+Tumblr+app+for+WP8.1.+It+has+activity%2C+notifications+%2B+more%21+Download+now+at+http%3A%2F%2Ft.co%2FP4dyvc4LZ0"/>
+
                         <TextBlock Margin="7, 0" Text="Get the full version" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                         <TextBlock Margin="7, 5, 7, 10" Text="You can get additional features by purchasing the full version of the app! For those that removed ads before you automatically have the full version!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
                         <TextBlock Margin="7, 0, 7, -10" Text="Current features in upgrade" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}" TextLineBounds="Tight" Height="0"/>
-                            
+
                         <ListView Padding="0" Margin="0" Height="23">
                             <TextBlock Margin="7, 0, 7, 0" Text="- No advertisements" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}" TextLineBounds="Tight" Height="0"/>
                             <!--<TextBlock Margin="7, -20, 7, 0" Text="No advertisements" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}" TextLineBounds="Tight" Height="0"/>-->
@@ -73,12 +78,6 @@
 
                         <TextBlock Margin="5, 0" Text="Tags in posts" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                         <ToggleSwitch x:Name="DisableTagsInPosts" Style="{StaticResource Switch}" Header="If tags in posts just aren't your thing." OffContent="Disabled" OnContent="Enabled" Toggled="DisableTagsInPosts_Toggled"/>
-
-
-                        <TextBlock Margin="5, 0" Text="Temporary data" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                        <TextBlock Margin="7, 5, 7, 10" Text="Downloaded gifs are stored in a temporary folder. It is reccommended you clear this ever so often." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Opacity="0.88" Style="{ThemeResource HeaderTextStyle}"/>
-                        <Button x:Name="ClearCacheButton" Content="Clear cache" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="ClearCacheButton_Click"/>
-
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
@@ -106,7 +105,7 @@
 
                         <HyperlinkButton x:Name="Reddit" Content="/r/Sapphire" HorizontalAlignment="Left" Margin="10, 0" FontSize="20" MinHeight="10" Foreground="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" NavigateUri="http://reddit.com/r/sapphire"/>
                         <HyperlinkButton x:Name="Email" Content="Send me an email" HorizontalAlignment="Left" Margin="10, 0" FontSize="20" MinHeight="10" Foreground="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" NavigateUri="mailto:sapphire@awefull.ca"/>
-                        <HyperlinkButton x:Name="Follow" Content="@KarnSaheb" HorizontalAlignment="Left" Margin="10, 0" FontSize="20" MinHeight="10" Foreground="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" NavigateUri="http://twitter.com/KarnSaheb"/>
+                        <HyperlinkButton x:Name="Follow" Content="@KarnSaheb" HorizontalAlignment="Left" Margin="10, 0" FontSize="20" MinHeight="10" Foreground="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" NavigateUri="http://twitter.com/intent/follow?screen_name=KarnSaheb"/>
                     </StackPanel>
                 </ScrollViewer>
 

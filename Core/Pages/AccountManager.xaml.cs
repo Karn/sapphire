@@ -136,7 +136,7 @@ namespace Core.Pages {
         }
 
         private void AddAccount_Click(object sender, RoutedEventArgs e) {
-            if (!Frame.Navigate(typeof(xAuthLogin))) {
+            if (!Frame.Navigate(typeof(Login))) {
                 throw new Exception();
             }
             List.ItemsSource = Authentication.AuthenticatedTokens.Keys;
@@ -172,7 +172,7 @@ namespace Core.Pages {
                 Authentication.SetAuthenticatedTokens();
             } else {
                 Authentication.SetAuthenticatedTokens();
-                if (!Frame.Navigate(typeof(xAuthLogin))) {
+                if (!Frame.Navigate(typeof(Login))) {
                     throw new Exception();
                 }
                 return;

@@ -140,20 +140,6 @@ namespace Core.Pages {
             }
         }
 
-        private async void ClearCacheButton_Click(object sender, RoutedEventArgs e) {
-            try {
-                var x = await (await ApplicationData.Current.TemporaryFolder.GetFolderAsync("Gifs")).GetFilesAsync();
-                foreach (var y in x) {
-                    await y.DeleteAsync();
-                }
-                MainPage.AlertFlyout.DisplayMessage("Folder has been cleared.");
-                ((Button)sender).IsTapEnabled = false;
-            } catch (FileNotFoundException ex) {
-                MainPage.AlertFlyout.DisplayMessage("Nothing to delete.");
-                ((Button)sender).IsTapEnabled = false;
-            }
-        }
-
         private void EnableOneClickReblog_Toggled(object sender, RoutedEventArgs e) {
             if (((ToggleSwitch)sender).IsOn) {
                 UserStore.OneClickReblog = true;

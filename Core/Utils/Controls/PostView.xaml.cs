@@ -8,10 +8,12 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -26,6 +28,8 @@ namespace Core.Utils.Controls {
     public sealed partial class PostView : UserControl {
 
         private static string TAG = "PostView";
+
+        private static object options;
 
         private ScrollViewer sv;
 
@@ -332,42 +336,22 @@ namespace Core.Utils.Controls {
             }
         }
 
-        private async void OtherOptionsButton_Click(object sender, RoutedEventArgs e) {
-            MenuFlyoutItem selectedItem = sender as MenuFlyoutItem;
-
-            if (selectedItem != null) {
-                if (selectedItem.Text.ToString().ToLowerInvariant() == "Save to phone".ToLowerInvariant()) {
-                    Debug.WriteLine("Trying to save :" + selectedItem.Tag.ToString());
-                    Debug.WriteLine(await SaveFileAsync(new Uri(selectedItem.Tag.ToString())));
-                } else if (selectedItem.Text.ToString().ToLowerInvariant() == "Share".ToLowerInvariant()) {
-                    ShareURI = selectedItem.Tag.ToString();
-                    Debug.WriteLine(ShareURI);
-                    DataTransferManager.GetForCurrentView().DataRequested += PostView_DataRequested;
-                    DataTransferManager.ShowShareUI();
-                } else if (selectedItem.Text.ToString().ToLowerInvariant() == "Open in browser".ToLowerInvariant()) {
-                    await Windows.System.Launcher.LaunchUriAsync(new Uri(selectedItem.Tag.ToString()));
-                }
-            }
-        }
-
         private async Task<bool> SaveFileAsync(Uri fileUri) {
             try {
-
+                App.DisplayStatus("Downloading image...");
                 // create the blank file in specified folder
                 var imageFolder = await KnownFolders.PicturesLibrary.CreateFolderAsync("Sapphire", CreationCollisionOption.OpenIfExists);
-
-                var path = DateTime.Now.ToFileTimeUtc().ToString() + Path.GetExtension(fileUri.ToString());
-
+                var path = Path.GetRandomFileName().ToLower() + Path.GetExtension(fileUri.ToString());
+                Debug.WriteLine(path);
                 var file = await imageFolder.CreateFileAsync(path, CreationCollisionOption.ReplaceExisting);
 
                 // create the downloader instance and prepare for downloading the file
-                var backgroundDownloader = new BackgroundDownloader();
-                backgroundDownloader.CostPolicy = BackgroundTransferCostPolicy.Always;
+                var backgroundDownloader = new BackgroundDownloader() { CostPolicy = BackgroundTransferCostPolicy.Always, Method = "GET" };
                 var downloadOperation = backgroundDownloader.CreateDownload(fileUri, file);
-                // start the download operation asynchronously
                 await downloadOperation.StartAsync();
 
                 MainPage.AlertFlyout.DisplayMessage("Image saved.");
+                App.HideStatus();
                 return true;
             } catch (Exception ex) {
                 MainPage.AlertFlyout.DisplayMessage("Unable to save photo.");
@@ -450,11 +434,41 @@ namespace Core.Utils.Controls {
         }
 
         private void OtherOptionsButton_Tapped(object sender, TappedRoutedEventArgs e) {
+            options = sender;
             FrameworkElement element = sender as FrameworkElement;
             if (element == null) return;
 
             // If the menu was attached properly, we just need to call this handy method
             FlyoutBase.ShowAttachedFlyout(element);
+        }
+
+        private void Grid_Tapped(object sender, TappedRoutedEventArgs e) {
+            FrameworkElement element = options as FrameworkElement;
+            if (element == null) return;
+
+            // If the menu was attached properly, we just need to call this handy method
+            var f = FlyoutBase.GetAttachedFlyout(element);
+            f.Hide();
+        }
+
+        private async void OtherOptions_Tapped(object sender, TappedRoutedEventArgs e) {
+            var selectedItem = sender as TextBlock;
+
+            if (selectedItem != null) {
+                if (selectedItem.Text.ToString().ToLowerInvariant() == "Save to phone".ToLowerInvariant()) {
+                    Debug.WriteLine("Trying to save :" + selectedItem.Tag.ToString());
+                    var saved = await SaveFileAsync(new Uri(selectedItem.Tag.ToString()));
+                    Debug.WriteLine(saved);
+                } else if (selectedItem.Text.ToString().ToLowerInvariant() == "Share".ToLowerInvariant()) {
+                    ShareURI = selectedItem.Tag.ToString();
+                    Debug.WriteLine(ShareURI);
+                    DataTransferManager.GetForCurrentView().DataRequested += PostView_DataRequested;
+                    DataTransferManager.ShowShareUI();
+                } else if (selectedItem.Text.ToString().ToLowerInvariant() == "Open in browser".ToLowerInvariant()) {
+                    await Windows.System.Launcher.LaunchUriAsync(new Uri(selectedItem.Tag.ToString()));
+                }
+                Grid_Tapped(null, null);
+            }
         }
     }
 }

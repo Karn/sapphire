@@ -9,7 +9,7 @@
     xmlns:control="using:Core.Utils.Controls"
     xmlns:CommonControl="using:APIWrapper.Utils"
     mc:Ignorable="d"
-    Background="{StaticResource Blue}">
+    Background="{ThemeResource HeaderLightBlue}">
 
     <UserControl.Resources>
 

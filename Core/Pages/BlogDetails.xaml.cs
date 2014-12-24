@@ -65,9 +65,6 @@ namespace Core.Pages {
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
             blogName = e.NavigationParameter.ToString();
             LayoutRoot.DataContext = await CreateRequest.GetBlog(blogName);
-            if (!Utils.AppLicenseHandler.IsTrial) {
-                Fav.Visibility = Visibility.Visible;
-            }
         }
 
         /// <summary>
@@ -125,14 +122,31 @@ namespace Core.Pages {
         }
 
         private void Fav_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (((Image)sender).Tag != null) {
-                var name = ((Image)sender).Tag.ToString();
+            if (((TextBlock)sender).Tag != null) {
+                var name = ((TextBlock)sender).Tag.ToString();
                 if (UserStore.FavBlogList.Any(b => b.Name == name)) {
                     UserStore.RemoveFav(name);
-                    ((Image)sender).Source = UnfavImage;
+                    ((TextBlock)sender).Text = "add to favorites";
                 } else {
                     UserStore.AddFav(name);
-                    ((Image)sender).Source = FavImage;
+                    ((TextBlock)sender).Text = "remove from favorites";
+                }
+            }
+        }
+
+        private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e) {
+            //var frame = Window.Current.Content as Frame;
+            //if (!frame.Navigate(typeof(Pages.PostsPage), "")
+            //    throw new Exception("Navigation Failed");
+        }
+
+        private void Flyout_Loaded(object sender, RoutedEventArgs e) {
+            if (((StackPanel)sender).Tag != null) {
+                var name = ((StackPanel)sender).Tag.ToString();
+                if (UserStore.FavBlogList.Any(b => b.Name == name)) {
+                    ((TextBlock)((StackPanel)sender).FindName("fav")).Text = "remove from favorites";
+                } else {
+                    ((TextBlock)((StackPanel)sender).FindName("fav")).Text = "add to favorites";
                 }
             }
         }

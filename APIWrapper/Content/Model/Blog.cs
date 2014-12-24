@@ -33,7 +33,7 @@ namespace APIWrapper.Content.Model {
                 return "http://api.tumblr.com/v2/blog/" + Name + ".tumblr.com/avatar/128";
             }
         }
-        public Visibility ShareLikes { get; set; }
+        public bool share_likes { get; set; }
         public int likes { get; set; }
         public bool ask { get; set; }
         public bool followed { get; set; }
