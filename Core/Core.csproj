@@ -252,6 +252,7 @@
     <Content Include="Assets\Resources\Dark\Reply.png" />
     <Content Include="Assets\Resources\Dark\Star.png" />
     <Content Include="Assets\Resources\Dark\Unstar.png" />
+    <Content Include="Assets\Resources\Dark\UserOptions.png" />
     <Content Include="Assets\Resources\Default\AddDraft.png" />
     <Content Include="Assets\Resources\Default\Drafts.png" />
     <Content Include="Assets\Resources\Default\Queue.png" />
@@ -269,6 +270,7 @@
     <Content Include="Assets\Resources\Light\Reply.png" />
     <Content Include="Assets\Resources\Light\Star.png" />
     <Content Include="Assets\Resources\Light\Unstar.png" />
+    <Content Include="Assets\Resources\Light\UserOptions.png" />
     <Content Include="Assets\Share.png" />
     <Content Include="Assets\SmallLogo.scale-240.png" />
     <Content Include="Assets\SplashScreen.scale-240.png" />

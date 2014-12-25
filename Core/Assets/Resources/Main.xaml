@@ -28,8 +28,7 @@
             <BitmapImage x:Key="PostButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Check.png"/>
             <BitmapImage x:Key="BlogButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Blog.png"/>
             <BitmapImage x:Key="MoreButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/More.png"/>
-
-
+            <BitmapImage x:Key="UserOptionsButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/UserOptions.png"/>
             <BitmapImage x:Key="InboxButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Inbox.png"/>
             <BitmapImage x:Key="DraftsButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Drafts.png"/>
             <BitmapImage x:Key="QueueButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Queue.png"/>
@@ -55,7 +54,7 @@
             <BitmapImage x:Key="DeleteButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/Delete.png"/>
             <BitmapImage x:Key="BlogButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/Blog.png"/>
             <BitmapImage x:Key="MoreButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/More.png"/>
-
+            <BitmapImage x:Key="UserOptionsButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/UserOptions.png"/>
             <BitmapImage x:Key="InboxButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/Inbox.png"/>
             <BitmapImage x:Key="DraftsButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/Drafts.png"/>
             <BitmapImage x:Key="QueueButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/Queue.png"/>

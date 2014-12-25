@@ -105,8 +105,10 @@ namespace Core.Pages {
         #endregion
 
         private void Posts_Loaded(object sender, RoutedEventArgs e) {
-            Posts.URL = "https://api.tumblr.com/v2/blog/" + blogName + ".tumblr.com/posts";
-            Posts.LoadPosts();
+            if (string.IsNullOrWhiteSpace(Posts.LastPostID) || !Posts.URL.Contains(blogName)) {
+                Posts.URL = "https://api.tumblr.com/v2/blog/" + blogName + ".tumblr.com/posts";
+                Posts.LoadPosts();
+            }
         }
 
         private async void FollowUnfollowButton_Tapped(object sender, TappedRoutedEventArgs e) {

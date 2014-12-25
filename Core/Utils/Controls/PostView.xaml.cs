@@ -109,10 +109,18 @@ namespace Core.Utils.Controls {
             Posts.ScrollIntoView(Posts.Items.First());
         }
 
+        //private void GoToBlog(object sender, TappedRoutedEventArgs e) {
+        //    var frame = Window.Current.Content as Frame;
+        //    if (!frame.Navigate(typeof(Pages.BlogDetails), ((TextBlock)(e.OriginalSource)).Text.Split(' ')[0]))
+        //        throw new Exception("Navigation Failed");
+        //}
+
         private void GoToBlog(object sender, TappedRoutedEventArgs e) {
-            var frame = Window.Current.Content as Frame;
-            if (!frame.Navigate(typeof(Pages.BlogDetails), ((TextBlock)(e.OriginalSource)).Text.Split(' ')[0]))
-                throw new Exception("Navigation Failed");
+            if (((FrameworkElement)sender).Tag != null) {
+                var frame = Window.Current.Content as Frame;
+                if (!frame.Navigate(typeof(Pages.BlogDetails), ((FrameworkElement)sender).Tag.ToString()))
+                    throw new Exception("NavFail");
+            }
         }
 
         private void LikeButton_Loaded(object sender, RoutedEventArgs e) {

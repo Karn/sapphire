@@ -35,15 +35,15 @@ namespace Core.Utils.Controls {
             }
         }
 
-        public void ClearPosts()
-        {
+        public void ClearPosts() {
             Notifications.Visibility = Visibility.Collapsed;
         }
 
         private void GoToBlog(object sender, TappedRoutedEventArgs e) {
-            var frame = Window.Current.Content as Frame;
-            if (!frame.Navigate(typeof(Pages.BlogDetails), ((Image)sender).Tag)) {
-                throw new Exception("NavFail");
+            if (((FrameworkElement)sender).Tag != null) {
+                var frame = Window.Current.Content as Frame;
+                if (!frame.Navigate(typeof(Pages.BlogDetails), ((FrameworkElement)sender).Tag.ToString()))
+                    throw new Exception("NavFail");
             }
         }
 

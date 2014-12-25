@@ -24,9 +24,10 @@
                     FallbackValue={StaticResource DefaultPattern}}"
                        Stretch="UniformToFill" VerticalAlignment="Center"
                        Opacity="0.7"/>
-                <Button x:Name="OtherOptionsButton" Padding="0" BorderThickness="0" MinWidth="0" MaxHeight="0" Tag="{Binding}" Height="35" Width="35" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5, 20" RequestedTheme="Dark">
+                <Button x:Name="OtherOptionsButton" Padding="0" BorderThickness="0" MinWidth="0" MaxHeight="0" Tag="{Binding}" Height="35" Width="35" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15, 20" RequestedTheme="Dark" Visibility="{Binding Converter={StaticResource IsFullVersion},
+                    FallbackValue=Visible}">
                     <Button.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource MoreButtonAsset}"/>
+                        <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource UserOptionsButtonAsset}"/>
                     </Button.Background>
                     <Button.Flyout>
                         <Flyout>
@@ -43,14 +44,6 @@
                         </Flyout>
                     </Button.Flyout>
                 </Button>
-                <!--<Image x:Name="Fav" Tag="{Binding Name}" Margin="10, 30"
-                       Tapped="Fav_Tapped" RequestedTheme="Dark" Width="35" 
-                       Height="30" Source="{Binding Name, 
-                    Converter={StaticResource NameToFav}}"
-                       HorizontalAlignment="Left" VerticalAlignment="Top"
-                       Visibility="{Binding Converter={StaticResource IsFullVersion},
-                    FallbackValue=Collapsed}"
-                       />-->
 
                 <Button x:Name="FollowButton" Tag="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{Binding followed, Converter={StaticResource FollowingToString}, FallbackValue=FOLLOW}" Tapped="FollowUnfollowButton_Tapped" Margin="5, 30" Foreground="{StaticResource HeaderLightBlue}" Background="#FFFFFF" BorderThickness="0" Style="{StaticResource ButtonStyle}" Padding="3" FontSize="18" Height="35" MinHeight="0" MinWidth="120"/>
                 <Border Margin="0, 20, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="75" Width="75" BorderThickness="0.5" BorderBrush="White">

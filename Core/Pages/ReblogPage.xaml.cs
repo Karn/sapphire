@@ -163,7 +163,19 @@ namespace Core.Pages {
                     }
                 }
                 if (IsReply) {
-
+                    if (await CreateRequest.ReblogPost(postID, reblogKey, "", tags, "reply_text=" + Authentication.Utils.UrlEncode(Caption.Text))) {
+                        MainPage.AlertFlyout.DisplayMessage("Created.");
+                    } else {
+                        if (((Image)sender).Tag != null) {
+                            if (((Image)sender).Tag.ToString() == "queue") {
+                                MainPage.AlertFlyout.DisplayMessage("Failed to add post to queue. Remember to use the same format as on the site!");
+                            } else if (((Image)sender).Tag.ToString() == "draft") {
+                                MainPage.AlertFlyout.DisplayMessage("Failed to add post to drafts.");
+                            } else
+                                MainPage.AlertFlyout.DisplayMessage("Failed to reblog post.");
+                        }
+                        return;
+                    }
                 } else {
                     if (await CreateRequest.ReblogPost(postID, reblogKey, Authentication.Utils.UrlEncode(Caption.Text), tags, status)) {
                         MainPage.AlertFlyout.DisplayMessage("Created.");
