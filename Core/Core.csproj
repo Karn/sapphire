@@ -121,9 +121,6 @@
     <Compile Include="Pages\PostsPage.xaml.cs">
       <DependentUpon>PostsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Search.xaml.cs">
-      <DependentUpon>Search.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
@@ -131,11 +128,8 @@
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\Controls\ActivityList.xaml.cs">
-      <DependentUpon>ActivityList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Utils\Controls\AudioPlayer.xaml.cs">
-      <DependentUpon>AudioPlayer.xaml</DependentUpon>
+    <Compile Include="Utils\Controls\ActivityFeedControl.xaml.cs">
+      <DependentUpon>ActivityFeedControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\Controls\ContextMenu.xaml.cs">
       <DependentUpon>ContextMenu.xaml</DependentUpon>
@@ -143,8 +137,8 @@
     <Compile Include="Utils\Controls\NewPostDialog.xaml.cs">
       <DependentUpon>NewPostDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils\Controls\PostView.xaml.cs">
-      <DependentUpon>PostView.xaml</DependentUpon>
+    <Compile Include="Utils\Controls\PostFeedControl.xaml.cs">
+      <DependentUpon>PostFeedControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\Converters\ActivityTemplateSelector.cs" />
     <Compile Include="Utils\Converters\IsFullVersion.cs" />
@@ -178,7 +172,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\18.gif" />
     <Content Include="Assets\AFollowing.png" />
     <Content Include="Assets\AFollowing2.png" />
     <Content Include="Assets\ALiked.png" />
@@ -189,29 +182,15 @@
     <Content Include="Assets\BadgeLogo.scale-140.png" />
     <Content Include="Assets\BadgeLogo.scale-240.png" />
     <Content Include="Assets\DefaultPattern.png" />
-    <Content Include="Assets\Download.png" />
-    <Content Include="Assets\Draft.png" />
-    <Content Include="Assets\GifFrame.html" />
-    <Content Include="Assets\LikeAnim.png" />
     <Content Include="Assets\LoginLogo.png" />
-    <Content Include="Assets\LoginLogo_Dark.png" />
     <Content Include="Assets\Logo.scale-240.png" />
-    <Content Include="Assets\Logosmall.png" />
     <Content Include="Assets\Logo_Dark.png" />
-    <Content Include="Assets\Messages.png" />
-    <Content Include="Assets\Navigation-Down.png" />
-    <Content Include="Assets\Navigation\Activity - Copy.png" />
-    <Content Include="Assets\Navigation\Activity.png" />
-    <Content Include="Assets\Navigation\Dashboard.png" />
-    <Content Include="Assets\Navigation\NewPost.png" />
-    <Content Include="Assets\Navigation\Recent.png" />
-    <Content Include="Assets\Navigation\Search.png" />
-    <Content Include="Assets\Navigation\Tag.png" />
     <Content Include="Assets\Nav\About.png" />
     <Content Include="Assets\Nav\Account.png" />
     <Content Include="Assets\Nav\Activity.png" />
     <Content Include="Assets\Nav\Blogs.png" />
     <Content Include="Assets\Nav\Dashboard.png" />
+    <Content Include="Assets\Nav\Password.png" />
     <Content Include="Assets\Nav\Queue_Dark.png" />
     <Content Include="Assets\Nav\Search.png" />
     <Content Include="Assets\Nav\Search_Dark.png" />
@@ -226,7 +205,6 @@
     <Content Include="Assets\NewPost\Quote.png" />
     <Content Include="Assets\NewPost\Text.png" />
     <Content Include="Assets\NewPost\Videos.png" />
-    <Content Include="Assets\Password.png" />
     <Content Include="Assets\PauseIcon.png" />
     <Content Include="Assets\Placeholders\ActivityPost.png" />
     <Content Include="Assets\Placeholders\Login.jpg" />
@@ -235,10 +213,6 @@
     <Content Include="Assets\Play.png" />
     <Content Include="Assets\PlayIcon.png" />
     <Content Include="Assets\PostOK.png" />
-    <Content Include="Assets\Posts.png" />
-    <Content Include="Assets\PostShadow.png" />
-    <Content Include="Assets\Queue.png" />
-    <Content Include="Assets\Reload.png" />
     <Content Include="Assets\Resources\Dark\Check.png" />
     <Content Include="Assets\Resources\Dark\Delete.png" />
     <Content Include="Assets\Resources\Dark\Drafts.png" />
@@ -251,7 +225,6 @@
     <Content Include="Assets\Resources\Dark\Reblogged.png" />
     <Content Include="Assets\Resources\Dark\Reply.png" />
     <Content Include="Assets\Resources\Dark\Star.png" />
-    <Content Include="Assets\Resources\Dark\Unstar.png" />
     <Content Include="Assets\Resources\Dark\UserOptions.png" />
     <Content Include="Assets\Resources\Default\AddDraft.png" />
     <Content Include="Assets\Resources\Default\Drafts.png" />
@@ -269,16 +242,13 @@
     <Content Include="Assets\Resources\Light\Reblogged.png" />
     <Content Include="Assets\Resources\Light\Reply.png" />
     <Content Include="Assets\Resources\Light\Star.png" />
-    <Content Include="Assets\Resources\Light\Unstar.png" />
     <Content Include="Assets\Resources\Light\UserOptions.png" />
-    <Content Include="Assets\Share.png" />
     <Content Include="Assets\SmallLogo.scale-240.png" />
     <Content Include="Assets\SplashScreen.scale-240.png" />
     <Content Include="Assets\Square71x71Logo.scale-240.png" />
     <Content Include="Assets\StoreLogo.scale-240.png" />
     <Content Include="Assets\Top.png" />
     <Content Include="Assets\DefaultAvatar.png" />
-    <Content Include="Assets\VideoPlaceholder.png" />
     <Content Include="Assets\WideLogo.scale-240.png" />
     <Content Include="AdMediator.config" />
     <Content Include="StoreManifest.xml" />
@@ -347,10 +317,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\Search.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Pages\Settings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -359,11 +325,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Utils\Controls\ActivityList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Utils\Controls\AudioPlayer.xaml">
+    <Page Include="Utils\Controls\ActivityFeedControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -375,7 +337,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Utils\Controls\PostView.xaml">
+    <Page Include="Utils\Controls\PostFeedControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -19,9 +19,24 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Image x:Name="PostTextButton" Tapped="PostTextButton_Tapped" HorizontalAlignment="Right" Width="35" Height="30" Source="ms-appx:///Assets/NewPost/PostOK.png" Margin="0, -100, 15, 0"/>
+                <StackPanel Margin="0, -35, 15, 0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <Image x:Name="ReblogPostButton"
+                       Tapped="PostTextButton_Tapped"
+                       Width="35" Height="30" 
+                       Source="ms-appx:///Assets/NewPost/PostOK.png"/>
+                    <Image x:Name="AddToDraftsButton" Width="35" Height="30" Tag="draft"
+                       Visibility="{Binding ElementName=PageTitle, Converter={StaticResource IsFullVersion},
+                    FallbackValue=Visible}" Tapped="PostTextButton_Tapped" Margin="5, 0"
+                       Source="ms-appx:///Assets/Resources/Default/AddDraft.png"/>
+                    <Image x:Name="AddToQueueButton" Width="35" Height="30" Tag="queue"
+                       Visibility="{Binding ElementName=PageTitle, Converter={StaticResource IsFullVersion},
+                    FallbackValue=Collapsed}" Tapped="PostTextButton_Tapped"
+                       Source="ms-appx:///Assets/Resources/Default/QueuePost.png"/>
+                </StackPanel>
+                <!--<Image x:Name="PostTextButton" Tapped="PostTextButton_Tapped" HorizontalAlignment="Right" Width="35" Height="30" Source="ms-appx:///Assets/NewPost/PostOK.png" Margin="0, -100, 15, 0"/>-->
 
                 <TextBox x:Name="Title" Grid.Row="0" Margin="0, 5"
                          PlaceholderText="Title" Height="45" Padding="10, 8"
@@ -43,6 +58,14 @@
                            HorizontalAlignment="Left" Margin="7, 10" Height="30"
                            Width="35" Opacity=".5"/>
                 </Grid>
+                <Grid x:Name="PublishBox" Grid.Row="3" Margin="0, -8, 0, 0" >
+                    <TextBox x:Name="PublishOn" Margin="0, 5" PlaceholderText="Publish on.."
+                         Height="45" Padding="50, 8, 0, 0" BorderThickness="0"
+                         VerticalContentAlignment="Center" Background="White"/>
+                    <Image Source="ms-appx:///Assets/Nav/Queue_Dark.png"
+                           HorizontalAlignment="Left" Margin="7, 10" Height="30"
+                           Width="35" Opacity=".5"/>
+                </Grid>
             </Grid>
         </DataTemplate>
 
@@ -60,7 +83,7 @@
                     <Image Height="300" HorizontalAlignment="Stretch" Opacity="0.1" Source="ms-appx:///Assets/Placeholders/UploadImage.png" Stretch="None"/>
                     <Image Height="300" HorizontalAlignment="Stretch" x:Name="Photo_Image" Source=""/>
                 </Grid>
-                
+
                 <TextBox x:Name="Caption" Grid.Row="1" Margin="0, -3, 0, 0"
                              PlaceholderText="Caption" Padding="10, 8" Background="White"
                              BorderThickness="0" HorizontalAlignment="Stretch"
@@ -85,9 +108,24 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Image x:Name="PostQuoteButton" VerticalAlignment="Top" Tapped="PostQuoteButton_Tapped" HorizontalAlignment="Right" Width="35" Height="30" Source="ms-appx:///Assets/NewPost/PostOK.png" Margin="0, -35, 15, 0"/>
+                <StackPanel Margin="0, -35, 15, 0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <Image x:Name="ReblogPostButton"
+                       Tapped="PostQuoteButton_Tapped"
+                       Width="35" Height="30" 
+                       Source="ms-appx:///Assets/NewPost/PostOK.png"/>
+                    <Image x:Name="AddToDraftsButton" Width="35" Height="30" Tag="draft"
+                       Visibility="{Binding ElementName=PageTitle, Converter={StaticResource IsFullVersion},
+                    FallbackValue=Visible}" Tapped="PostQuoteButton_Tapped" Margin="5, 0"
+                       Source="ms-appx:///Assets/Resources/Default/AddDraft.png"/>
+                    <Image x:Name="AddToQueueButton" Width="35" Height="30" Tag="queue"
+                       Visibility="{Binding ElementName=PageTitle, Converter={StaticResource IsFullVersion},
+                    FallbackValue=Collapsed}" Tapped="PostQuoteButton_Tapped"
+                       Source="ms-appx:///Assets/Resources/Default/QueuePost.png"/>
+                </StackPanel>
+                <!--<Image x:Name="PostQuoteButton" VerticalAlignment="Top" Tapped="PostQuoteButton_Tapped" HorizontalAlignment="Right" Width="35" Height="30" Source="ms-appx:///Assets/NewPost/PostOK.png" Margin="0, -35, 15, 0"/>-->
 
                 <TextBox x:Name="Quote" Grid.Row="0" Margin="0, 5"
                              PlaceholderText="Quote" Padding="10, 8" Background="White"
@@ -109,6 +147,14 @@
                            HorizontalAlignment="Left" Margin="7, 10" Height="30"
                            Width="35" Opacity=".5"/>
                 </Grid>
+                <Grid x:Name="PublishBox" Grid.Row="3" Margin="0, -8, 0, 0" >
+                    <TextBox x:Name="PublishOn" Margin="0, 5" PlaceholderText="Publish on.."
+                         Height="45" Padding="50, 8, 0, 0" BorderThickness="0"
+                         VerticalContentAlignment="Center" Background="White"/>
+                    <Image Source="ms-appx:///Assets/Nav/Queue_Dark.png"
+                           HorizontalAlignment="Left" Margin="7, 10" Height="30"
+                           Width="35" Opacity=".5"/>
+                </Grid>
             </Grid>
         </DataTemplate>
 
@@ -119,15 +165,30 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Image x:Name="PostLinkButton" Tapped="PostLinkButton_Tapped" HorizontalAlignment="Right" Width="35" Height="30" Source="ms-appx:///Assets/NewPost/PostOK.png" Margin="0, -100, 15, 0"/>
+                <StackPanel Margin="0, -35, 15, 0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <Image x:Name="ReblogPostButton"
+                       Tapped="PostLinkButton_Tapped"
+                       Width="35" Height="30" 
+                       Source="ms-appx:///Assets/NewPost/PostOK.png"/>
+                    <Image x:Name="AddToDraftsButton" Width="35" Height="30" Tag="draft"
+                       Visibility="{Binding ElementName=PageTitle, Converter={StaticResource IsFullVersion},
+                    FallbackValue=Visible}" Tapped="PostLinkButton_Tapped" Margin="5, 0"
+                       Source="ms-appx:///Assets/Resources/Default/AddDraft.png"/>
+                    <Image x:Name="AddToQueueButton" Width="35" Height="30" Tag="queue"
+                       Visibility="{Binding ElementName=PageTitle, Converter={StaticResource IsFullVersion},
+                    FallbackValue=Collapsed}" Tapped="PostLinkButton_Tapped"
+                       Source="ms-appx:///Assets/Resources/Default/QueuePost.png"/>
+                </StackPanel>
+                <!--<Image x:Name="PostLinkButton" Tapped="PostLinkButton_Tapped" HorizontalAlignment="Right" Width="35" Height="30" Source="ms-appx:///Assets/NewPost/PostOK.png" Margin="0, -100, 15, 0"/>-->
 
                 <TextBox x:Name="Title" Grid.Row="0" Margin="0, 5"
                          PlaceholderText="Title" Height="45" Padding="10, 8"
                          VerticalContentAlignment="Center" Background="White"
                          BorderThickness="0"/>
-                
+
                 <TextBox x:Name="Link" Grid.Row="1" Margin="0, -3, 0, 0"
                          PlaceholderText="Link" Height="45" Padding="10, 8"
                          VerticalContentAlignment="Center" Background="White"
@@ -145,6 +206,14 @@
                              VerticalContentAlignment="Center" Background="White"
                              BorderThickness="0"/>
                     <Image Source="ms-appx:///Assets/Nav/Tag_Dark.png"
+                           HorizontalAlignment="Left" Margin="7, 10" Height="30"
+                           Width="35" Opacity=".5"/>
+                </Grid>
+                <Grid x:Name="PublishBox" Grid.Row="4" Margin="0, -8, 0, 0" >
+                    <TextBox x:Name="PublishOn" Margin="0, 5" PlaceholderText="Publish on.."
+                         Height="45" Padding="50, 8, 0, 0" BorderThickness="0"
+                         VerticalContentAlignment="Center" Background="White"/>
+                    <Image Source="ms-appx:///Assets/Nav/Queue_Dark.png"
                            HorizontalAlignment="Left" Margin="7, 10" Height="30"
                            Width="35" Opacity=".5"/>
                 </Grid>
@@ -194,7 +263,7 @@
                          PlaceholderText="Title" Height="45" Padding="10, 8"
                          VerticalContentAlignment="Center" Background="White"
                          BorderThickness="0"/>
-                
+
                 <TextBox x:Name="Link" Grid.Row="1" Margin="0, -3, 0, 0"
                          PlaceholderText="Link" Height="45" Padding="10, 8"
                          VerticalContentAlignment="Center" Background="White"

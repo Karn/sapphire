@@ -19,10 +19,8 @@ namespace Core.Pages {
 
         private string tagkey;
 
-        public static ImageSource BlogsBrush = new BitmapImage(new Uri("ms-appx:///Assets/Navigation/Account.png"));
+        public static ImageSource BlogsBrush = new BitmapImage(new Uri("ms-appx:///Assets/Nav/Account.png"));
         public static ImageSource PostsBrush = new BitmapImage(new Uri("ms-appx:///Assets/Posts.png"));
-
-
 
         public Search() {
             this.InitializeComponent();

@@ -13,14 +13,14 @@ using Windows.UI.Xaml.Input;
 // Use setter to set item source of posts
 
 namespace Core.Utils.Controls {
-    public sealed partial class ActivityList : UserControl {
+    public sealed partial class ActivityFeedControl : UserControl {
 
         private static string TAG = "ActivityList";
 
         private static HttpClient client = new HttpClient();
         public bool ContentLoaded;
 
-        public ActivityList() {
+        public ActivityFeedControl() {
             this.InitializeComponent();
         }
 

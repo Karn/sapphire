@@ -8,12 +8,10 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
-using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,7 +23,7 @@ using Windows.UI.Xaml.Media.Imaging;
 // Use setter to set item source of posts
 
 namespace Core.Utils.Controls {
-    public sealed partial class PostView : UserControl {
+    public sealed partial class PostFeedControl : UserControl {
 
         private static string TAG = "PostView";
 
@@ -54,13 +52,13 @@ namespace Core.Utils.Controls {
 
         private string ShareURI;
 
-        public PostView() {
+        public PostFeedControl() {
             this.InitializeComponent();
         }
 
         public readonly DependencyProperty URLProperty = DependencyProperty.Register("Url",
             typeof(string),
-            typeof(PostView),
+            typeof(PostFeedControl),
             new PropertyMetadata(string.Empty));
 
         public string URL {
@@ -74,7 +72,7 @@ namespace Core.Utils.Controls {
 
         public readonly DependencyProperty AffectHeaderProperty = DependencyProperty.Register("HeaderProperty",
             typeof(bool),
-            typeof(PostView),
+            typeof(PostFeedControl),
             new PropertyMetadata(false));
 
         public bool AffectHeader {

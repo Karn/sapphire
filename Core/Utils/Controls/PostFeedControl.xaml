@@ -1,5 +1,5 @@
 ﻿<UserControl xmlns:WindowsPhone81="using:Microsoft.AdMediator.WindowsPhone81" 
-    x:Class="Core.Utils.Controls.PostView"
+    x:Class="Core.Utils.Controls.PostFeedControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Core.Utils.Controls"
@@ -244,7 +244,7 @@
                 <StackPanel Background="{ThemeResource PostBG}">
                     <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                     <StackPanel Orientation="Horizontal" Background="{ThemeResource PostBG}" Tag="{Binding audio_url}">
-                        <Image Source="{Binding album_art, FallbackValue={StaticResource AudioPlaceholder}}" Height="100" Width="100"/>
+                        <Image Source="{Binding album_art}" Height="100" Width="100"/>
                         <StackPanel>
                             <TextBlock x:Name="Name" FontSize="24" Foreground="{ThemeResource DarkText}" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}">
                             <Run Text="{Binding artist}"/>
@@ -329,7 +329,7 @@
                     </StackPanel>
                     <Grid Height="40" Background="{ThemeResource Accent2}">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Tag="{Binding reblog_key}">
-                            <Button x:Name="ReplyButton" Tag="{Binding id}" Click="ReplyButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="40" MinHeight="40" MaxWidth="40" MaxHeight="40" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}">
+                            <Button x:Name="ReplyButton" Visibility="Collapsed" Tag="{Binding id}" Click="ReplyButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="40" MinHeight="40" MaxWidth="40" MaxHeight="40" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}">
                                 <Button.Background>
                                     <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource ReplyAsset}"/>
                                 </Button.Background>
@@ -347,9 +347,7 @@
 
         <DataTemplate x:Key="Advert">
             <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
-
-
-                <StackPanel MinHeight="40" Margin="6" MinWidth="380" Background="{ThemeResource Accent2}">
+                <StackPanel MinHeight="40" MinWidth="380" Background="{ThemeResource Accent2}">
                     <StackPanel Margin="0" Orientation="Horizontal">
                         <TextBlock Margin="5" Text="Advertisement" HorizontalAlignment="Center" MaxWidth="284" Foreground="{ThemeResource DarkText}" FontSize="26" VerticalAlignment="Top" TextTrimming="CharacterEllipsis" FontWeight="SemiLight" TextLineBounds="Tight"/>
                     </StackPanel>

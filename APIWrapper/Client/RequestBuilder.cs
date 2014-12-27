@@ -7,6 +7,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.Storage.Streams;
 
 namespace APIWrapper.Client {
     public class RequestBuilder {
@@ -42,14 +44,14 @@ namespace APIWrapper.Client {
             return ret;
         }
 
-        public static async Task<string> GetAPI(string url, string parameters = null) {
+        public static async Task<string> GetAPI(string url, string parameters = null, string lastRequest = "") {
             string nonce = Authentication.Utils.GetNonce();
             string timeStamp = Authentication.Utils.GetTimeStamp();
 
             try {
-                HttpClient httpClient = new HttpClient();
-                httpClient.MaxResponseContentBufferSize = int.MaxValue;
-                httpClient.DefaultRequestHeaders.ExpectContinue = false;
+                var RequestClient = new HttpClient();
+                RequestClient.MaxResponseContentBufferSize = int.MaxValue;
+                RequestClient.DefaultRequestHeaders.ExpectContinue = false;
                 HttpRequestMessage requestMsg = new HttpRequestMessage();
                 requestMsg.Method = new HttpMethod("GET");
 
@@ -62,7 +64,7 @@ namespace APIWrapper.Client {
 
                 string signatureString = "GET&" + Authentication.Utils.UrlEncode(url) + "&" + Authentication.Utils.UrlEncode(signatureParameters);
 
-                string signature = Authentication.Utils.UrlEncode(Authentication.Utils.GenerateSignature(signatureString, Authentication.ConsumerSecretKey, APIWrapper.AuthenticationManager.Authentication.TokenSecret)).Replace("+", "%20").Replace("/", "%2F");
+                string signature = Authentication.Utils.UrlEncode(Authentication.Utils.GenerateSignature(signatureString, Authentication.ConsumerSecretKey, Authentication.TokenSecret)).Replace("+", "%20").Replace("/", "%2F");
 
                 var data = "oauth_consumer_key=\"" + Authentication.ConsumerKey +
                     "\", oauth_nonce=\"" + nonce +
@@ -73,9 +75,9 @@ namespace APIWrapper.Client {
                     "\", oauth_version=\"1.0\"";
 
                 requestMsg.Headers.Authorization = new AuthenticationHeaderValue("OAuth", data);
-                requestMsg.Headers.IfModifiedSince = DateTime.UtcNow;
+                requestMsg.Headers.IfModifiedSince = !string.IsNullOrEmpty(lastRequest) ? DateTime.Parse(lastRequest) : DateTime.UtcNow;
 
-                var response = await httpClient.SendAsync(requestMsg);
+                var response = await RequestClient.SendAsync(requestMsg);
                 var text = await response.Content.ReadAsStringAsync();
 
                 Debug.WriteLine("[API REQUEST] (" + urlWithParams + "): " + text);
@@ -92,9 +94,9 @@ namespace APIWrapper.Client {
             string timeStamp = Authentication.Utils.GetTimeStamp();
 
             try {
-                HttpClient httpClient = new HttpClient();
-                httpClient.MaxResponseContentBufferSize = int.MaxValue;
-                httpClient.DefaultRequestHeaders.ExpectContinue = false;
+                var RequestClient = new HttpClient();
+                RequestClient.MaxResponseContentBufferSize = int.MaxValue;
+                RequestClient.DefaultRequestHeaders.ExpectContinue = false;
                 HttpRequestMessage requestMsg = new HttpRequestMessage();
                 requestMsg.Method = new HttpMethod("POST");
 
@@ -122,12 +124,79 @@ namespace APIWrapper.Client {
                 requestMsg.Content = new StringContent(parameters);
                 requestMsg.Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 
-                var response = await httpClient.SendAsync(requestMsg);
+                var response = await RequestClient.SendAsync(requestMsg);
                 var text = await response.Content.ReadAsStringAsync();
 
                 Debug.WriteLine("[API POST] (" + url + "): " + text);
                 return text.ToString();
             } catch (Exception ex) {
+                DiagnosticsManager.LogException(ex, TAG, "Unable to make POST request.");
+            }
+            return null;
+        }
+
+        public static async Task<string> PostWithMediaAPI(string url, string parameters, StorageFile media) {
+
+
+            string nonce = Authentication.Utils.GetNonce();
+            string timeStamp = Authentication.Utils.GetTimeStamp();
+
+            try {
+                var RequestClient = new HttpClient();
+                RequestClient.MaxResponseContentBufferSize = int.MaxValue;
+                RequestClient.DefaultRequestHeaders.ExpectContinue = false;
+                HttpRequestMessage requestMsg = new HttpRequestMessage();
+                requestMsg.Method = new HttpMethod("POST");
+
+                var urlWithParams = url + "?" + parameters;
+                requestMsg.RequestUri = new Uri(url);
+
+                string paramsBaseString = GenerateParameterString(parameters, nonce, timeStamp);
+
+                string sigBaseString = "POST&" + Authentication.Utils.UrlEncode(url) + "&" + Authentication.Utils.UrlEncode(paramsBaseString);
+
+                string signature = Authentication.Utils.UrlEncode(Authentication.Utils.GenerateSignature(sigBaseString,
+                    Authentication.ConsumerSecretKey,
+                    Authentication.TokenSecret)).Replace("+", "%20").Replace("/", "%2F");
+
+                string data = "oauth_consumer_key=\"" + Authentication.ConsumerKey +
+                              "\", oauth_nonce=\"" + nonce +
+                              "\", oauth_signature=\"" + signature +
+                              "\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\"" + timeStamp +
+                              "\", oauth_token=\"" + Authentication.Token +
+                              "\", oauth_verifier=\"" + Authentication.TokenVerifier +
+                              "\", oauth_version=\"1.0\"";
+
+                //requestMsg.Headers.Authorization = new AuthenticationHeaderValue("OAuth", data);
+                //requestMsg.Content.Headers.ContentType = new MediaTypeHeaderValue("multipart/form-data");
+                requestMsg.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data");
+
+                //LOAD MEDIA
+                byte[] fileBytes = new byte[1];
+                //using (IRandomAccessStreamWithContentType stream = await media.OpenReadAsync()) {
+                //    fileBytes = new byte[stream.Size];
+
+                //    using (DataReader reader = new DataReader(stream)) {
+                //        await reader.LoadAsync((uint)stream.Size);
+                //        reader.ReadBytes(fileBytes);
+                //    }
+                //}
+
+                var requestContent = new MultipartFormDataContent();
+                var imageContent = new ByteArrayContent(fileBytes);
+                imageContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+
+                requestContent.Add(imageContent, "data[0]", "1.jpg");
+
+                requestMsg.Content = requestContent;
+
+                var response = await RequestClient.SendAsync(requestMsg);
+                var text = await response.Content.ReadAsStringAsync();
+
+                Debug.WriteLine("[API POST] (" + url + "): " + text);
+                return text.ToString();
+            } catch (Exception ex) {
+                Debug.WriteLine(ex.Data);
                 DiagnosticsManager.LogException(ex, TAG, "Unable to make POST request.");
             }
             return null;

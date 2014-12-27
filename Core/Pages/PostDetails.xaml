@@ -23,6 +23,6 @@
         </StackPanel>
 
         <!--TODO: Content should be placed within the following grid-->
-        <controls:PostView x:Name="Details" Grid.Row="1" Loaded="Details_Loaded"/>
+        <controls:PostFeedControl x:Name="Details" Grid.Row="1" Loaded="Details_Loaded"/>
     </Grid>
 </Page>

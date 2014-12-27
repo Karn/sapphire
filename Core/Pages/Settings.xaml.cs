@@ -34,7 +34,7 @@ namespace Core.Pages {
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
             if (!Utils.AppLicenseHandler.IsTrial) {
-                RemoveAdsButton.Content = "Ads have been removed! Thanks!";
+                RemoveAdsButton.Content = "Added additional features. Thank you! ";
                 RemoveAdsButton.IsTapEnabled = false;
                 RemoveAdsButton.Background = new SolidColorBrush(Color.FromArgb(255, 51, 63, 74));
             }

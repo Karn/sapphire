@@ -54,6 +54,6 @@
             <TextBlock Text="{Binding title, FallbackValue=Blog}" Margin="50, 5, 50, 0" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" Foreground="{ThemeResource DarkText}" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
             <TextBlock Text="{Binding description, FallbackValue=Description}" Margin="10" HorizontalAlignment="Center" Foreground="{ThemeResource DarkText}" FontSize="18" MaxHeight="45" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxLines="2"/>
         </StackPanel>
-        <controls:PostView x:Name="Posts" Grid.Row="1" Loaded="Posts_Loaded"/>
+        <controls:PostFeedControl x:Name="Posts" Grid.Row="1" Loaded="Posts_Loaded"/>
     </Grid>
 </Page>

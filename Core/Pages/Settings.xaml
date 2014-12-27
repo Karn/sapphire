@@ -39,7 +39,7 @@
                         <Button x:Name="ShareOnTwitter" Content="Tweet about Sapphire" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="ShareOnTwitter_Click"/>
 
                         <TextBlock Margin="7, 0" Text="Get the full version" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                        <TextBlock Margin="7, 5, 7, 10" Text="You can get additional features by purchasing the full version of the app! For those that removed ads before you automatically have the full version!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
+                        <TextBlock Margin="7, 5, 7, 10" Text="You can get additional features by purchasing the full version of the app! Current additional features include, ablility to save posts as drafts/queue, viewing user likes, and adding blog to list of favorites for quick access." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
 
                         <Button x:Name="RemoveAdsButton" Content="Purchase the app!" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="RemoveAds_Click"/>
 

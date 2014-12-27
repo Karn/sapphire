@@ -23,6 +23,8 @@ namespace APIWrapper.Client {
 
         public static bool ReloadAccountData = false;
 
+        public static string lastAccountRefresh = "";
+
         public static string GetPlainTextFromHtml(string htmlString) {
             if (htmlString != null) {
                 string htmlTagPattern = "<.*?>";
@@ -53,7 +55,7 @@ namespace APIWrapper.Client {
         }
 
         public static async Task<bool> RetrieveAccountInformation(string account = "") {
-            string requestResult = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/user/info");
+            string requestResult = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/user/info", null, lastAccountRefresh);
 
             if (requestResult.Contains("status\":200")) {
                 try {
@@ -80,6 +82,7 @@ namespace APIWrapper.Client {
                                 UserStore.CurrentBlog = b;
                         }
                     }
+                    lastAccountRefresh = DateTime.UtcNow.ToString();
                     return true;
                 } catch (Exception ex) {
                     DiagnosticsManager.LogException(ex, TAG, "Failed to serailize account information.");

@@ -23,7 +23,6 @@
             <BitmapImage x:Key="LikeAsset" UriSource="ms-appx:///Assets/Resources/Light/Likes.png"/>
             <BitmapImage x:Key="LikedAsset" UriSource="ms-appx:///Assets/Resources/Light/Liked.png"/>
             <BitmapImage x:Key="FavAsset" UriSource="ms-appx:///Assets/Resources/Light/Star.png"/>
-            <BitmapImage x:Key="UnfavAsset" UriSource="ms-appx:///Assets/Resources/Light/Unstar.png"/>
             <BitmapImage x:Key="DeleteButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Delete.png"/>
             <BitmapImage x:Key="PostButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Check.png"/>
             <BitmapImage x:Key="BlogButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Blog.png"/>
@@ -49,7 +48,6 @@
             <BitmapImage x:Key="LikeAsset" UriSource="ms-appx:///Assets/Resources/Dark/Likes.png"/>
             <BitmapImage x:Key="LikedAsset" UriSource="ms-appx:///Assets/Resources/Dark/Liked.png"/>
             <BitmapImage x:Key="FavAsset" UriSource="ms-appx:///Assets/Resources/Dark/Star.png"/>
-            <BitmapImage x:Key="UnfavAsset" UriSource="ms-appx:///Assets/Resources/Dark/Unstar.png"/>
             <BitmapImage x:Key="PostButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/Check.png"/>
             <BitmapImage x:Key="DeleteButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/Delete.png"/>
             <BitmapImage x:Key="BlogButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/Blog.png"/>
@@ -61,10 +59,6 @@
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
-
-    <BitmapImage x:Key="DefaultFavAsset" UriSource="ms-appx:///Assets/Resources/Dark/Star.png"/>
-    <BitmapImage x:Key="DefaultUnfavAsset" UriSource="ms-appx:///Assets/Resources/Dark/Unstar.png"/>
-
     <!-- Common Resources -->
     <BitmapImage x:Key="DefaultAvatar" UriSource="ms-appx:///Assets/DefaultAvatar.png" />
     <BitmapImage x:Key="DefaultPattern" UriSource="ms-appx:///Assets/DefaultPattern.png" />
@@ -72,8 +66,6 @@
 
     <BitmapImage x:Key="BlogsIcon" UriSource="ms-appx:///Assets/Nav/Account.png" />
     <BitmapImage x:Key="TagsIcon" UriSource="ms-appx:///Assets/Nav/Tag.png" />
-
-    <BitmapImage x:Key="AudioPlaceholder" UriSource="ms-appx:///Assets/AudioPlaceholder.png" />
 
     <BitmapImage x:Key="PlayIcon" UriSource="ms-appx:///Assets/PlayIcon.png" />
     <BitmapImage x:Key="PauseIcon" UriSource="ms-appx:///Assets/PauseIcon.png" />
@@ -106,7 +98,7 @@
         <Setter Property="FontSize" Value="30" />
         <Setter Property="CharacterSpacing" Value="-25"/>
     </Style>
-    
+
     <SolidColorBrush x:Key="LightGray" Color="#FFE5EAF0"/>
 
     <Style x:Name="PasswordBoxStyle" TargetType="PasswordBox">
