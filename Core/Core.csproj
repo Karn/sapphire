@@ -374,6 +374,7 @@
       <Name>Microsoft.AdMediator81</Name>
     </SDKReference>
   </ItemGroup>
+  <Import Project="..\Core.Shared\Core.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>

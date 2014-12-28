@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace APIWrapper.Client {
-    internal class APIEndpoints {
+    internal class Endpoints {
 
         private static readonly string APIURI = "https://api.tumblr.com/v2";
 

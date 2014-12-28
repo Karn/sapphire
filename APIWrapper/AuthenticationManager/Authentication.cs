@@ -172,6 +172,7 @@ namespace APIWrapper.AuthenticationManager {
                 } else if (response == "Invalid xAuth credentials.") {
                     return "We were unable to sign you in. Please check your username/password.";
                 }
+                Debug.WriteLine(response);
             } else {
                 return "No Network";
             }

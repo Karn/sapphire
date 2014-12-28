@@ -66,6 +66,15 @@ namespace APIWrapper.AuthenticationManager {
             return CryptographicBuffer.EncodeToBase64String(SignatureBuffer);
         }
 
+        public string GenerateSignature(string signatureBaseString) {
+            IBuffer KeyMaterial = CryptographicBuffer.ConvertStringToBinary(Authentication.ConsumerSecretKey + "&" + Authentication.TokenSecret, BinaryStringEncoding.Utf8);
+            MacAlgorithmProvider HmacSha1Provider = MacAlgorithmProvider.OpenAlgorithm("HMAC_SHA1");
+            CryptographicKey MacKey = HmacSha1Provider.CreateKey(KeyMaterial);
+            IBuffer DataToBeSigned = CryptographicBuffer.ConvertStringToBinary(signatureBaseString, BinaryStringEncoding.Utf8);
+            IBuffer SignatureBuffer = CryptographicEngine.Sign(MacKey, DataToBeSigned);
+            return CryptographicBuffer.EncodeToBase64String(SignatureBuffer);
+        }
+
         public async Task<string> PostAuthenticationData(string url, string postData) {
             try {
                 HttpClient httpClient = new HttpClient();

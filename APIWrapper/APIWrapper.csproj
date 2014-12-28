@@ -41,9 +41,9 @@
   <ItemGroup>
     <Compile Include="AuthenticationManager\Authentication.cs" />
     <Compile Include="AuthenticationManager\AuthenticationUtilities.cs" />
-    <Compile Include="Client\APIEndpoints.cs" />
-    <Compile Include="Client\RequestBuilder.cs" />
+    <Compile Include="Client\Endpoints.cs" />
     <Compile Include="Client\CreateRequest.cs" />
+    <Compile Include="Client\RequestHandler.cs" />
     <Compile Include="Content\Model\GfyCat.cs" />
     <Compile Include="Content\Model\Activity.cs" />
     <Compile Include="Content\Model\Blog.cs" />

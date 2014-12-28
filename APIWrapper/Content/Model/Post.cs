@@ -96,7 +96,6 @@ namespace APIWrapper.Content.Model {
         public SourceAttribution source_attribution { get; set; }
 
         private List<Note> _notes = new List<Note>();
-        public string special_case { get; set; }
 
         public List<Note> notes {
             get {
@@ -106,6 +105,8 @@ namespace APIWrapper.Content.Model {
                 _notes = value;
             }
         }
+
+        public string special_case { get; internal set; }
 
         public class Note {
             public string timestamp { get; set; }

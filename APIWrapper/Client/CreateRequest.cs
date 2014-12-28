@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -17,7 +18,7 @@ using System.Threading.Tasks;
 namespace APIWrapper.Client {
     public class CreateRequest {
 
-        private static string TAG = "CreateRequest";
+        private static string TAG = "Request";
 
         private static HttpClient WebClient = new HttpClient();
 
@@ -55,11 +56,11 @@ namespace APIWrapper.Client {
         }
 
         public static async Task<bool> RetrieveAccountInformation(string account = "") {
-            string requestResult = await RequestBuilder.GetAPI("https://api.tumblr.com/v2/user/info", null, lastAccountRefresh);
+            var requestResult = await RequestHandler.GET("https://api.tumblr.com/v2/user/info");
 
-            if (requestResult.Contains("status\":200")) {
+            if (requestResult.StatusCode == HttpStatusCode.OK) {
                 try {
-                    var parsedData = JsonConvert.DeserializeObject<Responses.GetInfo>(requestResult);
+                    var parsedData = JsonConvert.DeserializeObject<Responses.GetInfo>(await requestResult.Content.ReadAsStringAsync());
 
                     UserStore.UserBlogs.Clear();
                     if (ReloadAccountData) {
@@ -99,10 +100,9 @@ namespace APIWrapper.Client {
         /// <param name="reblogKey">The key used to handle reblogging/liking this post</param>
         /// <returns>Boolean to indicate if the request was completed</returns>
         public static async Task<bool> LikePost(string id, string reblogKey) {
-            var requestResult = await RequestBuilder.GetAPI(APIEndpoints.LikePost, "id=" + id + "&reblog_key=" + reblogKey);
-            if (requestResult.Contains("status\":200"))
-                return true;
-            return false;
+            return (await RequestHandler.GET(Endpoints.LikePost,
+                string.Format("id={0}&reblog_key={1}", id, reblogKey)
+                )).StatusCode == HttpStatusCode.OK;
         }
 
         /// <summary>
@@ -112,10 +112,20 @@ namespace APIWrapper.Client {
         /// <param name="reblogKey">The key used to handle reblogging/liking this post</param>
         /// <returns>Boolean to indicate if the request was completed</returns>
         public static async Task<bool> UnlikePost(string id, string reblogKey) {
-            var requestResult = await RequestBuilder.GetAPI(APIEndpoints.UnlikePost, "id=" + id + "&reblog_key=" + reblogKey);
-            if (requestResult.Contains("status\":200"))
-                return true;
-            return false;
+            return (await RequestHandler.GET(Endpoints.UnlikePost,
+                string.Format("id={0}&reblog_key={1}", id, reblogKey)
+                )).StatusCode == HttpStatusCode.OK;
+        }
+
+        public static async Task<bool> CreatePost(string parameters) {
+            return (await RequestHandler.POST(Endpoints.Post,
+               parameters)).StatusCode == HttpStatusCode.Created;
+            //if (!string.IsNullOrEmpty(parameters)) {
+            //    string result = await RequestBuilder.PostAPI(APIEndpoints.Post, parameters);
+            //    if (result.Contains("status\":201"))
+            //        return true;
+            //}
+            //return false;
         }
 
         /// <summary>
@@ -125,16 +135,19 @@ namespace APIWrapper.Client {
         /// <param name="reblogKey">The key used to handle reblogging/liking this post</param>
         /// <returns>Boolean to indicate if the request was completed</returns>
         public async static Task<bool> ReblogPost(string id, string reblogKey, string caption = "", string tags = "", string additionalParameters = "") {
-            var requestResult = await RequestBuilder.PostAPI(APIEndpoints.ReblogPost, "id=" + id + "&reblog_key=" + reblogKey + (!string.IsNullOrEmpty(caption) ? "&comment=" + caption : "") + (!string.IsNullOrEmpty(caption) ? "&tags=" + tags : "") + (!string.IsNullOrEmpty(additionalParameters) ? additionalParameters : ""));
-            if (requestResult.Contains("status\":201"))
-                return true;
-            return false;
+            return (await RequestHandler.POST(Endpoints.ReblogPost,
+                (string.Format("id={0}&reblog_key={1}", id, reblogKey) +
+                (!string.IsNullOrEmpty(caption) ? "&comment=" + caption : "") +
+                (!string.IsNullOrEmpty(tags) ? "&tags=" + tags : "") +
+                (!string.IsNullOrEmpty(additionalParameters) ? additionalParameters : "")
+                ))).StatusCode == HttpStatusCode.Created;
+
         }
+
         public async static Task<bool> PostDraft(string id) {
-            var requestResult = await RequestBuilder.PostAPI(APIEndpoints.EditPost, "state=published&id=" + id);
-            if (requestResult.Contains("status\":200"))
-                return true;
-            return false;
+            return (await RequestHandler.POST(Endpoints.EditPost,
+                string.Format("state=published&id={0}", id)
+                )).StatusCode == HttpStatusCode.Created;
         }
 
         /// <summary>
@@ -143,10 +156,9 @@ namespace APIWrapper.Client {
         /// <param name="id">The post's unique ID</param>
         /// <returns>Boolean to indicate if the request was completed</returns>
         public async static Task<bool> DeletePost(string id) {
-            string requestResult = await RequestBuilder.PostAPI(APIEndpoints.DeletePost, "id=" + id);
-            if (requestResult.Contains("status\":200"))
-                return true;
-            return false;
+            return (await RequestHandler.POST(Endpoints.DeletePost,
+                string.Format("state=published&id={0}", id)
+                )).StatusCode == HttpStatusCode.OK;
         }
 
         /// <summary>
@@ -156,10 +168,10 @@ namespace APIWrapper.Client {
         /// <param name="blogName">The name of the blog that is affectd by the API call</param>
         /// <returns></returns>
         public static async Task<bool> FollowUnfollow(bool follow, string blogName) {
-            string requestResult = (follow ? await RequestBuilder.PostAPI(APIEndpoints.FollowUser, "url=" + blogName + ".tumblr.com") : await RequestBuilder.PostAPI(APIEndpoints.UnfollowUser, "url=" + blogName + ".tumblr.com"));
-            if (requestResult.Contains("status\":200"))
-                return true;
-            return false;
+            return (follow ? await RequestHandler.POST(Endpoints.FollowUser,
+                string.Format("url={0}.tumblr.com", blogName)) : await RequestHandler.POST(Endpoints.UnfollowUser,
+                string.Format("url={0}.tumblr.com", blogName))
+                ).StatusCode == HttpStatusCode.OK;
         }
 
         /// <summary>
@@ -167,29 +179,21 @@ namespace APIWrapper.Client {
         /// </summary>
         /// <returns>List of blogs</returns>
         public static async Task<List<Blog>> RetrieveFollowers(int offset) {
-            var requestResult = await RequestBuilder.GetAPI(APIEndpoints.Followers, "offset=" + offset);
-
-            if (requestResult.Contains("status\":200")) {
-                var parsedData = JsonConvert.DeserializeObject<Responses.GetFollowers>(requestResult);
-                return parsedData.response.users;
-            }
-            return new List<Blog>();
+            var requestResult = await RequestHandler.GET(Endpoints.Followers, string.Format("offset={0}", offset));
+            return (requestResult.StatusCode == HttpStatusCode.OK) ?
+                JsonConvert.DeserializeObject<Responses.GetFollowers>(await requestResult.Content.ReadAsStringAsync())
+                .response.users : new List<Blog>();
         }
 
         /// <summary>
-        /// Metho to retrieve blogs that are being followed
+        /// Method to retrieve blogs that are being followed
         /// </summary>
         /// <returns>List of blogs</returns>
         public static async Task<List<Blog>> RetrieveFollowing(int offset) {
-            var requestResult = await RequestBuilder.GetAPI(APIEndpoints.Following, "offset=" + offset);
-
-            if (requestResult.Contains("status\":200")) {
-                var following = JsonConvert.DeserializeObject<Responses.GetFollowing>(requestResult);
-                foreach (var x in following.response.blogs)
-                    x.following = true;
-                return following.response.blogs;
-            }
-            return new List<Blog>();
+            var requestResult = await RequestHandler.GET(Endpoints.Following, string.Format("offset={0}", offset));
+            return (requestResult.StatusCode == HttpStatusCode.OK) ?
+                JsonConvert.DeserializeObject<Responses.GetFollowing>(await requestResult.Content.ReadAsStringAsync())
+                .response.blogs : new List<Blog>();
         }
 
 
@@ -199,11 +203,11 @@ namespace APIWrapper.Client {
         /// <returns></returns>
         public static async Task<List<Activity.Notification>> RetrieveActivity() {
 
-            string response = await RequestBuilder.GetAPI(APIEndpoints.Notifications);
-            if (response.Contains("status\":200")) {
+            var result = await RequestHandler.GET(Endpoints.Notifications);
+            if (result.StatusCode == HttpStatusCode.OK) {
                 try {
-                    Responses.GetActivity activity = JsonConvert.DeserializeObject<Responses.GetActivity>(response);
-                    var Notifications = new List<APIWrapper.Content.Model.Activity.Notification>();
+                    Responses.GetActivity activity = JsonConvert.DeserializeObject<Responses.GetActivity>(await result.Content.ReadAsStringAsync());
+                    var Notifications = new List<Activity.Notification>();
                     var NotificationDictionary = UserStore.NotificationIDs;
 
                     foreach (var b in activity.response.blogs) {
@@ -234,50 +238,39 @@ namespace APIWrapper.Client {
         }
 
         public static async Task<List<Post>> RetrievePosts(string url, string lastPostID = "", string optionalParams = "") {
-            var LoadedPosts = new List<Post>();
-            if (AuthenticationManager.Authentication.Utils.NetworkAvailable()) {
-                string result = string.Empty;
-                Debug.WriteLine(url);
+            if (Authentication.Utils.NetworkAvailable()) {
+                var result = new HttpResponseMessage();
                 if (url.Contains("/user/dashboard") || url.Contains("/submission") || url.Contains("/draft") || url.Contains("/queue")) {
-                    if (string.IsNullOrEmpty(lastPostID))
-                        result = await RequestBuilder.GetAPI(url);
-                    else
-                        result = await RequestBuilder.GetAPI(url, "max_id=" + lastPostID);
+                    result = string.IsNullOrEmpty(lastPostID) ?
+                        result = await RequestHandler.GET(url) : await RequestHandler.GET(url, "max_id=" + lastPostID);
                 } else if (url.Contains("/user/likes")) {
-                    if (string.IsNullOrEmpty(lastPostID))
-                        result = await RequestBuilder.GetAPI(url);
-                    else
-                        result = await RequestBuilder.GetAPI(url, "offset=" + lastPostID);
+                    result = string.IsNullOrEmpty(lastPostID) ?
+                        await RequestHandler.GET(url) : await RequestHandler.GET(url, "offset=" + lastPostID);
                 } else if (url.Contains("/tagged")) {
                     var searchTag = url.Split('?')[1];
                     var newUrl = url.Split('?')[0].Replace("?", "");
-                    if (string.IsNullOrEmpty(lastPostID))
-                        newUrl = newUrl + "?api_key=" + Authentication.ConsumerKey + "&" + searchTag;
-                    else
-                        newUrl = newUrl + "?api_key=" + Authentication.ConsumerKey + "&" + searchTag + "&before=" + lastPostID;
-                    Debug.WriteLine(newUrl);
-                    var response = await WebClient.GetAsync(new Uri(newUrl));
-                    result = await response.Content.ReadAsStringAsync();
-                    Debug.WriteLine(result);
+                    newUrl = string.IsNullOrEmpty(lastPostID) ?
+                        newUrl + "?api_key=" + Authentication.ConsumerKey + "&" + searchTag :
+                        newUrl + "?api_key=" + Authentication.ConsumerKey + "&" + searchTag + "&before=" + lastPostID;
+
+                    result = await WebClient.GetAsync(new Uri(newUrl));
                 } else {
                     if (string.IsNullOrEmpty(lastPostID))
-                        result = await RequestBuilder.GetAPI(url, "api_key=" + Authentication.ConsumerKey);
+                        result = await RequestHandler.GET(url, "api_key=" + Authentication.ConsumerKey);
                     else
-                        result = await RequestBuilder.GetAPI(url, "offset=" + lastPostID + "&api_key=" + Authentication.ConsumerKey);
+                        result = await RequestHandler.GET(url, "offset=" + lastPostID + "&api_key=" + Authentication.ConsumerKey);
                 }
 
-                if (!string.IsNullOrEmpty(result) && result.Contains("status\":200")) {
+                if (result.StatusCode == HttpStatusCode.OK) {
                     try {
                         var PostList = new List<Post>();
-
+                        var resultAsString = await result.Content.ReadAsStringAsync();
                         if (url.Contains("/likes")) {
-                            var posts = JsonConvert.DeserializeObject<Responses.GetLikes>(result);
-                            PostList = posts.response.liked_posts;
+                            PostList = JsonConvert.DeserializeObject<Responses.GetLikes>(resultAsString).response.liked_posts;
                         } else if (url.Contains("/tagged")) {
-                            var posts = JsonConvert.DeserializeObject<Responses.GetTagged>(result);
-                            PostList = posts.response;
+                            PostList = JsonConvert.DeserializeObject<Responses.GetTagged>(resultAsString).response;
                         } else {
-                            var posts = JsonConvert.DeserializeObject<Responses.GetPosts>(result);
+                            var posts = JsonConvert.DeserializeObject<Responses.GetPosts>(resultAsString);
                             PostList = posts.response.posts;
                             if (url.Contains("/submission")) {
                                 foreach (var post in posts.response.posts) {
@@ -286,9 +279,8 @@ namespace APIWrapper.Client {
                                     post.type = "mail";
                                 }
                             } else if (url.Contains("/draft") || url.Contains("/queue")) {
-                                foreach (var post in posts.response.posts) {
+                                foreach (var post in posts.response.posts)
                                     post.special_case = "draft";
-                                }
                             }
                         }
 
@@ -312,12 +304,8 @@ namespace APIWrapper.Client {
                             if (!string.IsNullOrEmpty(p.answer))
                                 p.answer = CreateRequest.GetPlainTextFromHtml(p.answer);
 
-                            LoadedPosts.Add(p);
                         }
-                        if (LoadedPosts.Count == 0) {
-                            //DebugHandler.Error("[Client.cs]: Failed to add loaded posts.", "");
-                        }
-                        return LoadedPosts;
+                        return PostList;
                     } catch (Exception ex) {
                         DiagnosticsManager.LogException(ex, TAG, "Failed to serailize posts.");
                     }
@@ -325,12 +313,13 @@ namespace APIWrapper.Client {
                     DiagnosticsManager.LogException(null, TAG, "Failed to retrieve posts.");
                 }
             }
-            LoadedPosts.Add(new Post() { type = "nocontent" });
-            return LoadedPosts;
+            return new List<Post>() { new Post() { type = "nocontent" } };
         }
 
         public static async Task<ObservableCollection<Post>> RetrievePost(string post_id) {
-            string UserInfoURI = "https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/posts?id=" + post_id + "&notes_info=true&api_key=" + APIWrapper.AuthenticationManager.Authentication.ConsumerKey;
+            string UserInfoURI = string.Format(
+                "https://api.tumblr.com/v2/blog/{0}.tumblr.com/posts?id={1}&notes_info=true&api_key={2}",
+                UserStore.CurrentBlog.Name, post_id, Authentication.ConsumerKey);
             var response = await WebClient.GetAsync(new Uri(UserInfoURI));
             var result = await response.Content.ReadAsStringAsync();
 
@@ -372,24 +361,33 @@ namespace APIWrapper.Client {
         }
 
         public static async Task<Blog> GetBlog(string name) {
-            var result = await RequestBuilder.GetAPI(APIEndpoints.Blog + name + ".tumblr.com/info", "api_key=" + Authentication.ConsumerKey);
-            if (result.Contains("status\":200")) {
-                return JsonConvert.DeserializeObject<Responses.GetBlog>(result).response.blog;
-            }
-            return new Blog();
+
+            //var result = await RequestBuilder.GetAPI(APIEndpoints.Blog + name + ".tumblr.com/info", "api_key=" + Authentication.ConsumerKey);
+            //if (result.Contains("status\":200")) {
+            //    return JsonConvert.DeserializeObject<Responses.GetBlog>(result).response.blog;
+            //}
+            //return new Blog();
+            var requestResult = await RequestHandler.GET(string.Format(Endpoints.Blog + "{0}.tumblr.com/info", name), "api_key=" + Authentication.ConsumerKey);
+            return (requestResult.StatusCode == HttpStatusCode.OK) ?
+                JsonConvert.DeserializeObject<Responses.GetBlog>(await requestResult.Content.ReadAsStringAsync())
+                .response.blog : new Blog();
         }
 
         public static async Task<List<Blog>> RetrieveSearch(string tag) {
-            var result = await RequestBuilder.GetAPI(APIEndpoints.Search + tag, "api_key=" + Authentication.ConsumerKey);
-            if (result.Contains("status\":200")) {
-                return JsonConvert.DeserializeObject<Responses.GetSearch>(result).response.blogs;
-            }
-            return new List<Blog>();
+            //var result = await RequestBuilder.GetAPI(APIEndpoints.Search + tag, "api_key=" + Authentication.ConsumerKey);
+            //if (result.Contains("status\":200")) {
+            //    return JsonConvert.DeserializeObject<Responses.GetSearch>(result).response.blogs;
+            //}
+            //return new List<Blog>();
+            var requestResult = await RequestHandler.GET(Endpoints.Search + tag, "api_key=" + Authentication.ConsumerKey);
+            return (requestResult.StatusCode == HttpStatusCode.OK) ?
+                JsonConvert.DeserializeObject<Responses.GetSearch>(await requestResult.Content.ReadAsStringAsync())
+                .response.blogs : new List<Blog>();
         }
 
         public static async Task<List<Responses.SpotlightResponse>> RetrieveSpotlight(bool forceRefresh = false) {
             if (string.IsNullOrEmpty(UserStore.CachedSpotlight) || forceRefresh) {
-                var response = await WebClient.GetAsync(new Uri(APIEndpoints.Spotlight));
+                var response = await WebClient.GetAsync(new Uri(Endpoints.Spotlight));
                 var result = await response.Content.ReadAsStringAsync();
 
                 Debug.WriteLine(result);
@@ -404,25 +402,6 @@ namespace APIWrapper.Client {
             }
 
             return new List<Responses.SpotlightResponse>();
-        }
-
-        public static async Task<bool> CreatePost(string parameters) {
-            if (!string.IsNullOrEmpty(parameters)) {
-                string result = await RequestBuilder.PostAPI(APIEndpoints.Post, parameters);
-                if (result.Contains("status\":201"))
-                    return true;
-            }
-            return false;
-        }
-
-        public static bool CreateMediaPost(string parameters, string media) {
-            Debug.WriteLine("media");
-            //if (!string.IsNullOrEmpty(parameters)) {
-            //    string result = await RequestBuilder.PostAPIWithData("http://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/post", parameters, media);
-            //    if (result.Contains("status\":201"))
-            //        return true;
-            //}
-            return false;
         }
 
         public static async Task<string> GenerateMP4FromGIF(string gif) {

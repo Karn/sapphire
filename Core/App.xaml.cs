@@ -105,7 +105,7 @@ namespace Core {
 
                 new Utils.AppLicenseHandler();
                 new Authentication();
-                new RequestBuilder();
+
                 if (Authentication.AuthenticatedTokens.Count != 0 && Authentication.AuthenticatedSecretTokens.Count != 0) {
                     new APIWrapper.Utils.DiagnosticsManager(Current);
                     if (!rootFrame.Navigate(typeof(MainPage), e.Arguments)) {

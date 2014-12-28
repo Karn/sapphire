@@ -45,8 +45,10 @@ namespace Core.Pages {
                 foreach (var x in await CreateRequest.RetrieveFollowers(offset))
                     BlogList.Add(x);
             } else if (PageTitle.Text.ToString() == "Following") {
-                foreach (var x in await CreateRequest.RetrieveFollowing(offset))
+                foreach (var x in await CreateRequest.RetrieveFollowing(offset)) {
+                    x.following = true;
                     BlogList.Add(x);
+                }
             }
             List.ItemsSource = BlogList;
             offset += 20;

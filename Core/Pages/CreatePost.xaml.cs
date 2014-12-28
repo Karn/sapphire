@@ -246,9 +246,10 @@ namespace Core.Pages {
             //}
 
             try {
+                Debug.WriteLine("Trying to post");
                 if (image != null) {
-                    string result = await RequestBuilder.PostWithMediaAPI("http://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/post", "", image);
-                    Debug.WriteLine(result);
+                    var result = await RequestHandler.POST("http://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/post", image);
+                    Debug.WriteLine(await result.Content.ReadAsStringAsync());
                 }
             } catch (Exception ex) {
                 MainPage.AlertFlyout.DisplayMessage("Failed to create post");

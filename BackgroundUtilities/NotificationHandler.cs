@@ -37,10 +37,10 @@ namespace BackgroundUtilities {
         private async Task RetrieveNotifications() {
 
             try {
-                string Response = await APIWrapper.Client.RequestBuilder.GetAPI("https://api.tumblr.com/v2/user/notifications");
+                var Response = await APIWrapper.Client.RequestHandler.GET("https://api.tumblr.com/v2/user/notifications");
 
-                if (Response.Contains("200")) {
-                    var activity = JsonConvert.DeserializeObject<Responses.GetActivity>(Response);
+                if (Response.StatusCode == System.Net.HttpStatusCode.OK) {
+                    var activity = JsonConvert.DeserializeObject<Responses.GetActivity>(await Response.Content.ReadAsStringAsync());
 
                     var blogs = activity.response.blogs;
                     foreach (var b in blogs) {

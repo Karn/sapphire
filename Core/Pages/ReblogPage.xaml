@@ -38,7 +38,7 @@
                        Source="ms-appx:///Assets/NewPost/PostOK.png"/>
                 <Image x:Name="AddToDraftsButton" Width="35" Height="30" Tag="draft"
                        Visibility="{Binding ElementName=PageTitle, Converter={StaticResource IsFullVersion},
-                    FallbackValue=Visible}" Tapped="PostButton_Tapped" Margin="5, 0"
+                    FallbackValue=Collapsed}" Tapped="PostButton_Tapped" Margin="5, 0"
                        Source="ms-appx:///Assets/Resources/Default/AddDraft.png"/>
                 <Image x:Name="AddToQueueButton" Width="35" Height="30" Tag="queue"
                        Visibility="{Binding ElementName=PageTitle, Converter={StaticResource IsFullVersion},
@@ -61,7 +61,8 @@
                            HorizontalAlignment="Left" Margin="7, 10" Height="30"
                            Width="35" Opacity=".5"/>
             </Grid>
-            <Grid x:Name="PublishBox" Grid.Row="2" Margin="0, -8, 0, 0" >
+            <Grid x:Name="PublishBox" Grid.Row="2" Margin="0, -8, 0, 0" Visibility="{Binding ElementName=PageTitle, Converter={StaticResource IsFullVersion},
+                    FallbackValue=Collapsed}">
                 <TextBox x:Name="PublishOn" Margin="0, 5" PlaceholderText="Publish on.."
                          Height="45" Padding="50, 8, 0, 0" BorderThickness="0"
                          VerticalContentAlignment="Center" Background="White"/>

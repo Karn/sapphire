@@ -64,12 +64,13 @@ namespace APIWrapper.Client {
 
                 string signatureString = "GET&" + Authentication.Utils.UrlEncode(url) + "&" + Authentication.Utils.UrlEncode(signatureParameters);
 
-                string signature = Authentication.Utils.UrlEncode(Authentication.Utils.GenerateSignature(signatureString, Authentication.ConsumerSecretKey, Authentication.TokenSecret)).Replace("+", "%20").Replace("/", "%2F");
+                string signature = Authentication.Utils.UrlEncode(Authentication.Utils.GenerateSignature(signatureString, Authentication.ConsumerSecretKey, Authentication.TokenSecret));
 
                 var data = "oauth_consumer_key=\"" + Authentication.ConsumerKey +
                     "\", oauth_nonce=\"" + nonce +
                     "\", oauth_signature=\"" + signature +
-                    "\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\"" + timeStamp +
+                    "\", oauth_signature_method=\"HMAC-SHA1" +
+                    "\", oauth_timestamp=\"" + timeStamp +
                     "\", oauth_token=\"" + Authentication.Token +
                     "\", oauth_verifier=\"" + Authentication.TokenVerifier +
                     "\", oauth_version=\"1.0\"";
