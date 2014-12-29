@@ -6,6 +6,7 @@ using Core.Common;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.Storage;
@@ -174,6 +175,8 @@ namespace Core.Pages {
         }
 
         private void PostTextButton_Tapped(object sender, TappedRoutedEventArgs e) {
+            App.DisplayStatus("Creating text post...");
+            Type.IsEnabled = false;
             var g = (Grid)((StackPanel)((Image)sender).Parent).Parent;
             var title = ((TextBox)g.FindName("Title")).Text;
             var body = ((TextBox)g.FindName("Body")).Text;
@@ -203,9 +206,14 @@ namespace Core.Pages {
                 DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
                 MainPage.AlertFlyout.DisplayMessage("Failed to create post");
             }
+            Type.IsEnabled = true;
+            App.HideStatus();
         }
 
         private void PostQuoteButton_Tapped(object sender, TappedRoutedEventArgs e) {
+            App.DisplayStatus("Publishing quote...");
+            Type.IsEnabled = false;
+
             var g = (Grid)((StackPanel)((Image)sender).Parent).Parent;
             var quote = ((TextBox)g.FindName("Quote")).Text;
             var source = ((TextBox)g.FindName("Source")).Text;
@@ -235,30 +243,62 @@ namespace Core.Pages {
                 MainPage.AlertFlyout.DisplayMessage("Failed to create post");
                 DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
             }
+            Type.IsEnabled = true;
+            App.HideStatus();
         }
 
         private async void PostPhotoButton_Tapped(object sender, TappedRoutedEventArgs e) {
-            //var caption = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Photo_Caption")).Text;
-            //var tags = ((TextBox)((StackPanel)((Button)sender).Parent).FindName("Photo_Tags")).Text;
-            //if (!string.IsNullOrEmpty(tags)) {
-            //    tags = tags.Replace(" #", ", ");
-            //    tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
-            //}
+            App.DisplayStatus("Uploading photo...");
+            Type.IsEnabled = false;
+            var g = (Grid)((StackPanel)((Image)sender).Parent).Parent;
+
+            string parameters = "type=photo";
+
+            var caption = ((TextBox)g.FindName("Caption")).Text;
+            parameters += !string.IsNullOrWhiteSpace(caption) ? "&caption=" + caption : "";
+            var tags = ((TextBox)g.FindName("Tags")).Text;
+            if (!string.IsNullOrEmpty(tags)) {
+                tags = tags.Replace(" #", ", ");
+                tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+                parameters += "&tags=" + tags;
+            }
 
             try {
-                Debug.WriteLine("Trying to post");
+                var status = "";
+                if (((Image)sender).Tag != null) {
+                    if (((Image)sender).Tag.ToString() == "queue") {
+                        var publishOn = ((TextBox)g.FindName("PublishOn")).Text;
+                        if (string.IsNullOrWhiteSpace(publishOn)) {
+                            MainPage.AlertFlyout.DisplayMessage("Please enter a time to publish the post on.");
+                            return;
+                        } else {
+                            status = "&state=queue&publish_on=" + Authentication.Utils.UrlEncode(publishOn);
+                        }
+                    } else if (((Image)sender).Tag.ToString() == "draft") {
+                        status = "&state=draft";
+                    }
+                }
+                parameters += status;
                 if (image != null) {
-                    var result = await RequestHandler.POST("http://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/post", image);
-                    Debug.WriteLine(await result.Content.ReadAsStringAsync());
+                    var result = await RequestHandler.POST("http://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/post", image, parameters);
+                    if (result.StatusCode == HttpStatusCode.Created) {
+                        Type.IsEnabled = true;
+                        App.HideStatus();
+                        Frame.GoBack();
+                    } else
+                        MainPage.AlertFlyout.DisplayMessage(result.ReasonPhrase);
                 }
             } catch (Exception ex) {
                 MainPage.AlertFlyout.DisplayMessage("Failed to create post");
                 DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
             }
-            Frame.GoBack();
+            Type.IsEnabled = true;
+            App.HideStatus();
         }
 
         private void PostLinkButton_Tapped(object sender, TappedRoutedEventArgs e) {
+            App.DisplayStatus("Sharing link...");
+            Type.IsEnabled = false;
             var g = (Grid)((StackPanel)((Image)sender).Parent).Parent;
             var title = ((TextBox)g.FindName("Title")).Text;
             var url = ((TextBox)g.FindName("Link")).Text;
@@ -289,6 +329,8 @@ namespace Core.Pages {
                 MainPage.AlertFlyout.DisplayMessage("Failed to create post");
                 DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
             }
+            Type.IsEnabled = true;
+            App.HideStatus();
         }
     }
 }
