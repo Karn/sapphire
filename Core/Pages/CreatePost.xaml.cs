@@ -144,7 +144,6 @@ namespace Core.Pages {
 
         private void Photo_Image_Tapped(object sender, TappedRoutedEventArgs e) {
             PhotoView = (Image)((Grid)sender).FindName("Photo_Image");
-            //PhotoView = (Image)((Grid)(((Grid)sender).Parent).FindName("Photo_Grid")).FindName("Photo_Image");
 
             var filePicker = new FileOpenPicker();
             filePicker.FileTypeFilter.Add(".jpg");
@@ -259,7 +258,7 @@ namespace Core.Pages {
             var tags = ((TextBox)g.FindName("Tags")).Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
-                tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+                tags = tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1);
                 parameters += "&tags=" + tags;
             }
 
@@ -272,7 +271,7 @@ namespace Core.Pages {
                             MainPage.AlertFlyout.DisplayMessage("Please enter a time to publish the post on.");
                             return;
                         } else {
-                            status = "&state=queue&publish_on=" + Authentication.Utils.UrlEncode(publishOn);
+                            status = "&state=queue&publish_on=" + publishOn;
                         }
                     } else if (((Image)sender).Tag.ToString() == "draft") {
                         status = "&state=draft";
@@ -281,6 +280,7 @@ namespace Core.Pages {
                 parameters += status;
                 if (image != null) {
                     var result = await RequestHandler.POST("https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/post", image, parameters);
+                    Debug.WriteLine(await result.Content.ReadAsStringAsync());
                     if (result.StatusCode == HttpStatusCode.Created) {
                         Type.IsEnabled = true;
                         App.HideStatus();

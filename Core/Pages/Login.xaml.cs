@@ -152,13 +152,13 @@ namespace Core.Pages {
         }
 
         private void Email_GotFocus(object sender, RoutedEventArgs e) {
-            LogoImage.Visibility = Visibility.Collapsed;
+            LogoImage.Height = 150;
             LoginBox.VerticalAlignment = VerticalAlignment.Top;
         }
 
         private void Email_LostFocus(object sender, RoutedEventArgs e) {
-            LogoImage.Visibility = Visibility.Visible;
-            LoginBox.VerticalAlignment = VerticalAlignment.Bottom;
+            //LogoImage.Visibility = Visibility.Visible;
+            //LoginBox.VerticalAlignment = VerticalAlignment.Bottom;
         }
 
         private void Start_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e) {
