@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Windows.UI.Xaml;
 
 namespace APIWrapper.Content.Model {
@@ -6,6 +7,12 @@ namespace APIWrapper.Content.Model {
         public string caption { get; set; }
         public List<AltSize> alt_sizes { get; set; }
         public OriginalSize original_size { get; set; }
+
+        public AltSize path_to_low_res_pic {
+            get {
+                return alt_sizes.First();
+            }
+        }
 
         public class AltSize {
             public int width { get; set; }

@@ -120,11 +120,6 @@ namespace APIWrapper.Client {
         public static async Task<bool> CreatePost(string parameters) {
             return (await RequestHandler.POST(Endpoints.Post,
                parameters)).StatusCode == HttpStatusCode.Created;
-            //if (!string.IsNullOrEmpty(parameters)) {
-            //    string result = await RequestBuilder.PostAPI(APIEndpoints.Post, parameters);
-            //    if (result.Contains("status\":201"))
-            //        return true;
-            //}
             //return false;
         }
 
@@ -361,12 +356,6 @@ namespace APIWrapper.Client {
         }
 
         public static async Task<Blog> GetBlog(string name) {
-
-            //var result = await RequestBuilder.GetAPI(APIEndpoints.Blog + name + ".tumblr.com/info", "api_key=" + Authentication.ConsumerKey);
-            //if (result.Contains("status\":200")) {
-            //    return JsonConvert.DeserializeObject<Responses.GetBlog>(result).response.blog;
-            //}
-            //return new Blog();
             var requestResult = await RequestHandler.GET(string.Format(Endpoints.Blog + "{0}.tumblr.com/info", name), "api_key=" + Authentication.ConsumerKey);
             return (requestResult.StatusCode == HttpStatusCode.OK) ?
                 JsonConvert.DeserializeObject<Responses.GetBlog>(await requestResult.Content.ReadAsStringAsync())
@@ -374,11 +363,6 @@ namespace APIWrapper.Client {
         }
 
         public static async Task<List<Blog>> RetrieveSearch(string tag) {
-            //var result = await RequestBuilder.GetAPI(APIEndpoints.Search + tag, "api_key=" + Authentication.ConsumerKey);
-            //if (result.Contains("status\":200")) {
-            //    return JsonConvert.DeserializeObject<Responses.GetSearch>(result).response.blogs;
-            //}
-            //return new List<Blog>();
             var requestResult = await RequestHandler.GET(Endpoints.Search + tag, "api_key=" + Authentication.ConsumerKey);
             return (requestResult.StatusCode == HttpStatusCode.OK) ?
                 JsonConvert.DeserializeObject<Responses.GetSearch>(await requestResult.Content.ReadAsStringAsync())
@@ -400,6 +384,15 @@ namespace APIWrapper.Client {
                 Responses.GetSpotlight spotlight = JsonConvert.DeserializeObject<Responses.GetSpotlight>(UserStore.CachedSpotlight);
                 return spotlight.response;
             }
+
+            return new List<Responses.SpotlightResponse>();
+        }
+
+        public static async Task<List<Responses.SpotlightResponse>> TagDiscovery(bool forceRefresh = false) {
+            var response = await WebClient.GetAsync(new Uri(Endpoints.TagDiscovery));
+            var result = await response.Content.ReadAsStringAsync();
+
+            Debug.WriteLine(result);
 
             return new List<Responses.SpotlightResponse>();
         }

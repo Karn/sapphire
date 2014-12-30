@@ -20,12 +20,8 @@ namespace Core.Pages {
     /// </summary>
     public sealed partial class BlogDetails : Page {
         private NavigationHelper navigationHelper;
-        private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
-        public static ImageSource FavImage = App.Current.Resources["DefaultFavAsset"] as BitmapImage;
-        public static ImageSource UnfavImage = App.Current.Resources["DefaultUnfavAsset"] as BitmapImage;
-
-        string blogName;
+        private string blogName;
 
         public BlogDetails() {
             this.InitializeComponent();
@@ -42,14 +38,6 @@ namespace Core.Pages {
         /// </summary>
         public NavigationHelper NavigationHelper {
             get { return this.navigationHelper; }
-        }
-
-        /// <summary>
-        /// Gets the view model for this <see cref="Page"/>.
-        /// This can be changed to a strongly typed view model.
-        /// </summary>
-        public ObservableDictionary DefaultViewModel {
-            get { return this.defaultViewModel; }
         }
 
         /// <summary>
@@ -113,15 +101,18 @@ namespace Core.Pages {
 
         private async void FollowUnfollowButton_Tapped(object sender, TappedRoutedEventArgs e) {
             var x = ((Button)sender);
-            if (x.Content.ToString().ToLower() == "follow") {
+            if (x.Content.ToString().ToLower() == "+") {
+                App.DisplayStatus("Following user...");
                 if (await CreateRequest.FollowUnfollow(true, x.Tag.ToString())) {
-                    x.Content = "UNFOLLOW";
+                    x.Content = "-";
                 }
-            } else if (x.Content.ToString().ToLower() == "unfollow") {
+            } else if (x.Content.ToString().ToLower() == "-") {
+                App.DisplayStatus("Unfollowing user...");
                 if (await CreateRequest.FollowUnfollow(false, x.Tag.ToString())) {
-                    x.Content = "FOLLOW";
+                    x.Content = "+";
                 }
             }
+            App.HideStatus();
         }
 
         private void Fav_Tapped(object sender, TappedRoutedEventArgs e) {

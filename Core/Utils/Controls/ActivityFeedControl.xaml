@@ -65,12 +65,10 @@
                     <Image  Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
                     <Image HorizontalAlignment="Right" Width="18" Height="18" Margin="0 ,35, 0, 0" Source="ms-appx:///Assets/AFollowing.png" />
                 </Grid>
-                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10" Width="245">
-                    <TextBlock Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" HorizontalAlignment="Left" FontSize="15" TextWrapping="NoWrap" Foreground="{ThemeResource DarkText}" TextTrimming="CharacterEllipsis">
+                <TextBlock Grid.Column="1" Margin="10" Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" HorizontalAlignment="Left" FontSize="15" TextWrapping="NoWrap" Foreground="{ThemeResource DarkText}" TextTrimming="CharacterEllipsis">
                             <Run Text="{Binding from_tumblelog_name}"/>
                             <Run Text="started following you." FontWeight="Light"/>
-                    </TextBlock>
-                </StackPanel >
+                </TextBlock>
                 <Grid Grid.Column="2" HorizontalAlignment="Right" Width="45" Height="45" Margin="10, 5" Background="{ThemeResource HeaderLightBlue}" Tag="{Binding from_tumblelog_name}" Visibility="{Binding followed, Converter={StaticResource FollowingToVisibility}}" Tapped="FollowIcon_Tapped">
                     <Image x:Name="CreatePostIcon" Source="ms-appx:///Assets/New.png" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Grid>

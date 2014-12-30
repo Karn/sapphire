@@ -280,7 +280,7 @@ namespace Core.Pages {
                 }
                 parameters += status;
                 if (image != null) {
-                    var result = await RequestHandler.POST("http://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/post", image, parameters);
+                    var result = await RequestHandler.POST("https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/post", image, parameters);
                     if (result.StatusCode == HttpStatusCode.Created) {
                         Type.IsEnabled = true;
                         App.HideStatus();

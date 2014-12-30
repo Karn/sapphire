@@ -10,50 +10,49 @@
     mc:Ignorable="d"
     Background="{StaticResource StandardGray}">
 
-
-
     <Grid x:Name="LayoutRoot" DataContext="{Binding}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <CommonControl:AlertDialog Grid.RowSpan="2" x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
-        <StackPanel Grid.Row="0">
-            <Grid Height="175" Background="{ThemeResource HeaderLightBlue}">
-                <Image Source="{Binding theme.header_image_focused,
-                    FallbackValue={StaticResource DefaultPattern}}"
-                       Stretch="UniformToFill" VerticalAlignment="Center"
-                       Opacity="0.7"/>
-                <Button x:Name="OtherOptionsButton" Padding="0" BorderThickness="0" MinWidth="0" MaxHeight="0" Tag="{Binding}" Height="35" Width="35" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15, 20" RequestedTheme="Dark" Visibility="{Binding Converter={StaticResource IsFullVersion},
+        <Grid Grid.Row="0" Height="75" Background="{ThemeResource HeaderLightBlue}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="{Binding theme.header_image_focused,
+                FallbackValue={StaticResource DefaultPattern}}"
+                   Stretch="UniformToFill" Grid.ColumnSpan="3"
+                   VerticalAlignment="Center"
+                   Opacity="0.7"/>
+            <Button x:Name="OtherOptionsButton" Padding="0" BorderThickness="0" MinWidth="0" MaxHeight="0" Tag="{Binding}" Height="35" Width="35" VerticalAlignment="Top" HorizontalAlignment="Left" VerticalContentAlignment="Top" Margin="15, 20, 15, 0" RequestedTheme="Dark" Visibility="{Binding Converter={StaticResource IsFullVersion},
                     FallbackValue=Visible}">
-                    <Button.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource UserOptionsButtonAsset}"/>
-                    </Button.Background>
-                    <Button.Flyout>
-                        <Flyout>
-                            <Flyout.FlyoutPresenterStyle>
-                                <Style TargetType="FlyoutPresenter">
-                                    <Setter Property="Margin" Value="0, 50, 0, 0"/>
-                                    <Setter Property="Background" Value="Transparent"/>
-                                </Style>
-                            </Flyout.FlyoutPresenterStyle>
-                            <StackPanel Tag="{Binding Name}" Background="{ThemeResource HeaderLightBlue}" RequestedTheme="{Binding ElementName=FollowButton, Path=RequestedTheme}" Loaded="Flyout_Loaded">
-                                <TextBlock x:Name="fav" Text="add to favorites" Tag="{Binding Name}" Tapped="Fav_Tapped" Margin="20, 25, 0, 15" Foreground="{ThemeResource LightText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
-                                <TextBlock Text="view likes" Tag="{Binding Name}" Visibility="{Binding share_likes, Converter={StaticResource BoolToVisibility}, FallbackValue=Collapsed}" Tapped="TextBlock_Tapped" Margin="20, 0, 20, 8" Foreground="{ThemeResource LightText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
-                            </StackPanel>
-                        </Flyout>
-                    </Button.Flyout>
-                </Button>
+                <Button.Background>
+                    <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource UserOptionsButtonAsset}"/>
+                </Button.Background>
+                <Button.Flyout>
+                    <Flyout>
+                        <Flyout.FlyoutPresenterStyle>
+                            <Style TargetType="FlyoutPresenter">
+                                <Setter Property="Margin" Value="0, 50, 0, 0"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Style>
+                        </Flyout.FlyoutPresenterStyle>
+                        <StackPanel Tag="{Binding Name}" Background="{ThemeResource HeaderLightBlue}" RequestedTheme="{Binding ElementName=FollowButton, Path=RequestedTheme}" Loaded="Flyout_Loaded">
+                            <TextBlock x:Name="fav" Text="add to favorites" Tag="{Binding Name}" Tapped="Fav_Tapped" Margin="20, 25, 0, 15" Foreground="{ThemeResource LightText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
+                            <TextBlock Text="view likes" Tag="{Binding Name}" Visibility="{Binding share_likes, Converter={StaticResource BoolToVisibility}, FallbackValue=Collapsed}" Tapped="TextBlock_Tapped" Margin="20, 0, 20, 8" Foreground="{ThemeResource LightText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+            <TextBlock Grid.Column="1" Text="{Binding title, FallbackValue=Blog}" Margin="0, 29, 0, 0" HorizontalAlignment="Center" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Foreground="{ThemeResource DarkText}" FontWeight="Light" FontSize="26" Style="{StaticResource HeaderTextStyle}" RequestedTheme="Dark"/>
+            <Button x:Name="FollowButton" Grid.Column="2" Tag="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{Binding followed, Converter={StaticResource FollowingToString}}" Tapped="FollowUnfollowButton_Tapped" Margin="15, 30, 15, 0" Foreground="{StaticResource HeaderLightBlue}" Background="#FFFFFF" BorderThickness="0" Style="{StaticResource ButtonStyle}" Padding="3, -20" FontSize="30" Height="40" MinHeight="0" MinWidth="40"/>
+        </Grid>
 
-                <Button x:Name="FollowButton" Tag="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{Binding followed, Converter={StaticResource FollowingToString}, FallbackValue=FOLLOW}" Tapped="FollowUnfollowButton_Tapped" Margin="5, 30" Foreground="{StaticResource HeaderLightBlue}" Background="#FFFFFF" BorderThickness="0" Style="{StaticResource ButtonStyle}" Padding="3" FontSize="18" Height="35" MinHeight="0" MinWidth="120"/>
-                <Border Margin="0, 20, 0, 0" VerticalAlignment="Center" HorizontalAlignment="Center" Height="75" Width="75" BorderThickness="0.5" BorderBrush="White">
-                    <Image Source="{Binding avatar, FallbackValue={ThemeResource DefaultAvatar}}"/>
-                </Border>
-            </Grid>
-
-            <TextBlock Text="{Binding title, FallbackValue=Blog}" Margin="50, 5, 50, 0" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" Foreground="{ThemeResource DarkText}" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
-            <TextBlock Text="{Binding description, FallbackValue=Description}" Margin="10" HorizontalAlignment="Center" Foreground="{ThemeResource DarkText}" FontSize="18" MaxHeight="45" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxLines="2"/>
-        </StackPanel>
+        <!--<TextBlock Text="{Binding title, FallbackValue=Blog}" Margin="50, 5, 50, 0" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" Foreground="{ThemeResource DarkText}" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
+            <TextBlock Text="{Binding description, FallbackValue=Description}" Margin="10" HorizontalAlignment="Center" Foreground="{ThemeResource DarkText}" FontSize="18" MaxHeight="45" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxLines="2"/>-->
         <controls:PostFeedControl x:Name="Posts" Grid.Row="1" Loaded="Posts_Loaded"/>
     </Grid>
 </Page>

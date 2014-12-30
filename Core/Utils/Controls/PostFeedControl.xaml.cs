@@ -210,15 +210,6 @@ namespace Core.Utils.Controls {
             App.HideStatus();
         }
 
-        private void PostDetail_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (!IsSinglePost) {
-                var frame = Window.Current.Content as Frame;
-                if (!frame.Navigate(typeof(Pages.PostDetails), ((StackPanel)sender).Tag)) {
-                    Debug.WriteLine("Failed to Navigate");
-                }
-            }
-        }
-
         private void ShareButton_Tapped(object sender, TappedRoutedEventArgs e) {
             ShareURI = ((string)((Image)sender).Tag);
             Debug.WriteLine(ShareURI);
@@ -310,11 +301,9 @@ namespace Core.Utils.Controls {
                 if (!_updating) {
                     _updating = true;
                     if (sv.VerticalOffset == 0.0) {
-                        textBlock1.Opacity = 0.7;
-                        textBlock1.Visibility = Visibility.Collapsed;
+                        textBlock1.Text = "Release to refresh";
                     } else {
-                        textBlock1.Opacity = 0.3;
-                        textBlock1.Visibility = Visibility.Visible;
+                        textBlock1.Text = "Pull to refresh";
                     }
 
                     if (sv.VerticalOffset != 0.0 && sv.VerticalOffset != 120)
@@ -464,6 +453,13 @@ namespace Core.Utils.Controls {
                     Debug.WriteLine("Trying to save :" + selectedItem.Tag.ToString());
                     var saved = await SaveFileAsync(new Uri(selectedItem.Tag.ToString()));
                     Debug.WriteLine(saved);
+                } else if (selectedItem.Text.ToString().ToLowerInvariant() == "Post details".ToLowerInvariant()) {
+                    if (!IsSinglePost) {
+                        var frame = Window.Current.Content as Frame;
+                        if (!frame.Navigate(typeof(Pages.PostDetails), selectedItem.Tag.ToString())) {
+                            Debug.WriteLine("Failed to Navigate");
+                        }
+                    }
                 } else if (selectedItem.Text.ToString().ToLowerInvariant() == "Share".ToLowerInvariant()) {
                     ShareURI = selectedItem.Tag.ToString();
                     Debug.WriteLine(ShareURI);
@@ -474,6 +470,16 @@ namespace Core.Utils.Controls {
                 }
                 Grid_Tapped(null, null);
             }
+        }
+
+        private void Image_Holding(object sender, HoldingRoutedEventArgs e) {
+            Debug.WriteLine("Tapped.");
+            options = sender;
+            FrameworkElement element = options as FrameworkElement;
+            if (element == null) return;
+
+            // If the menu was attached properly, we just need to call this handy method
+            FlyoutBase.ShowAttachedFlyout(element);
         }
     }
 }

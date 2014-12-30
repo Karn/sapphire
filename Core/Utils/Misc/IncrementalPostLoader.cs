@@ -45,7 +45,7 @@ namespace Core.Utils.Misc {
                 _IsRunning = true;
                 try {
                     return AsyncInfo.Run(async c => {
-                        App.DisplayStatus("Loading posts.");
+                        App.DisplayStatus("Loading posts...");
 
                         var posts = new List<Post>();
                         if (string.IsNullOrEmpty(LastPostID))
