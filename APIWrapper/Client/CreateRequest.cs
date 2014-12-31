@@ -232,7 +232,7 @@ namespace APIWrapper.Client {
             return new List<Activity.Notification>();
         }
 
-        public static async Task<List<Post>> RetrievePosts(string url, string lastPostID = "", string optionalParams = "") {
+        public static async Task<List<Post>> RetrievePosts(string url, string lastPostID = "") {
             if (Authentication.Utils.NetworkAvailable()) {
                 var result = new HttpResponseMessage();
                 if (url.Contains("/user/dashboard") || url.Contains("/submission") || url.Contains("/draft") || url.Contains("/queue")) {

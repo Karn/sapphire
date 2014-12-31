@@ -95,23 +95,10 @@
 
         <DataTemplate x:Key="BottomContainer">
             <StackPanel>
-                <StackPanel Tag="{Binding}" Background="{ThemeResource PostBG}" Loaded="BottomContainer_Loader">
-                    <TextBlock Visibility="{Binding caption, Converter={StaticResource CaptionConverter}}" Text="{Binding caption, Converter={StaticResource ToPlainText}}" Foreground="{ThemeResource DarkText}" FontSize="16" VerticalAlignment="Top" Margin="5" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxHeight="300" Tapped="Caption_Tapped"/>
-                    <GridView x:Name="TagPanel" Visibility="Collapsed" ItemsSource="{Binding tags}" >
-                        <GridView.ItemContainerStyle>
-                            <Style TargetType="GridViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                <Setter Property="VerticalContentAlignment" Value="Stretch" />
-                            </Style>
-                        </GridView.ItemContainerStyle>
-                        <GridView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel HorizontalAlignment="Stretch" Background="#10000000" Height="16" Margin="0, 0, 2, 2" Loaded="TagPanel_Loaded" Tag="{Binding}" Tapped="Tag_Tapped">
-                                    <TextBlock Text="{Binding}" Foreground="{ThemeResource DarkText}" FontSize="12" VerticalAlignment="Center" Margin="5, 0" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridView.ItemTemplate>
-                    </GridView>
+                <StackPanel Tag="{Binding}" Background="{ThemeResource PostBG}">
+                    <!--<TextBlock Visibility="{Binding caption, Converter={StaticResource CaptionConverter}}" Text="{Binding caption, Converter={StaticResource ToPlainText}}" Foreground="{ThemeResource DarkText}" FontSize="16" VerticalAlignment="Top" Margin="5" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxHeight="300" Tapped="Caption_Tapped"/>-->
+                    <TextBlock Visibility="{Binding caption, Converter={StaticResource CaptionConverter}}" misc:CaptionFormatter.Text="{Binding caption}" Foreground="{ThemeResource DarkText}" FontSize="16" VerticalAlignment="Top" Margin="5" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxHeight="300" Tapped="Caption_Tapped"/>
+                    <TextBlock Visibility="{Binding tags_as_str, Converter={StaticResource TagsEnabled}}" misc:TagLinks.Text="{Binding tags_as_str}" FontSize="16" VerticalAlignment="Top" Margin="5" TextWrapping="Wrap"/>
 
                     <Grid Height="40" Background="{ThemeResource Accent2}" Tag="{Binding special_case}" Loaded="CommandPanel_Loaded">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
@@ -139,12 +126,11 @@
 
         <DataTemplate x:Key="Text">
             <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
-
                 <StackPanel Background="{ThemeResource PostBG}">
                     <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                     <StackPanel MinHeight="150">
-                        <TextBlock Text="{Binding title}" Margin="10, 0, 10, 0" FontSize="22" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="WrapWholeWords"/>
-                        <TextBlock Text="{Binding body}" Margin="10, 5, 10, 40" FontSize="18" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding title}" Visibility="{Binding title, Converter={StaticResource CaptionConverter}}" Margin="10, 0, 10, 0" FontSize="22" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="WrapWholeWords"/>
+                        <TextBlock Text="{Binding body}" Visibility="{Binding body, Converter={StaticResource CaptionConverter}}" Margin="10, 5, 10, 10" FontSize="18" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="Wrap"/>
                     </StackPanel>
                     <ContentPresenter VerticalAlignment="Bottom" ContentTemplate="{StaticResource BottomContainer}"/>
                 </StackPanel>
@@ -212,8 +198,8 @@
                 <StackPanel Background="{ThemeResource PostBG}">
                     <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                     <StackPanel MinHeight="150">
-                        <TextBlock Text="{Binding title}" Margin="10, 0, 10, 0" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
-                        <TextBlock Text="{Binding description, Converter={StaticResource ToPlainText}}" Margin="10, 5, 10, 10" FontSize="18" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                        <TextBlock Text="{Binding title}" Visibility="{Binding title, Converter={StaticResource CaptionConverter}}" Margin="10, 0, 10, 0" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                        <TextBlock Text="{Binding description, Converter={StaticResource ToPlainText}}" Visibility="{Binding description, Converter={StaticResource CaptionConverter}}" Margin="10, 5, 10, 10" FontSize="18" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
                     </StackPanel>
                     <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
                 </StackPanel>

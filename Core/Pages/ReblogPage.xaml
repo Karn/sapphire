@@ -56,7 +56,7 @@
                 <TextBox x:Name="Tags" Margin="0, 5" KeyDown="TagBox_KeyDown"
                              PlaceholderText="Tags" Height="45" Padding="50, 8, 0, 0"
                              VerticalContentAlignment="Center" Background="White"
-                             BorderThickness="0"/>
+                             BorderThickness="0" LostFocus="Tags_LostFocus"/>
                 <Image Source="ms-appx:///Assets/Nav/Tag_Dark.png"
                            HorizontalAlignment="Left" Margin="7, 10" Height="30"
                            Width="35" Opacity=".5"/>

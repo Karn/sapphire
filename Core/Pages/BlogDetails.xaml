@@ -28,7 +28,7 @@
                    VerticalAlignment="Center"
                    Opacity="0.7"/>
             <Button x:Name="OtherOptionsButton" Padding="0" BorderThickness="0" MinWidth="0" MaxHeight="0" Tag="{Binding}" Height="35" Width="35" VerticalAlignment="Top" HorizontalAlignment="Left" VerticalContentAlignment="Top" Margin="15, 20, 15, 0" RequestedTheme="Dark" Visibility="{Binding Converter={StaticResource IsFullVersion},
-                    FallbackValue=Visible}">
+                    FallbackValue=Collapsed}">
                 <Button.Background>
                     <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource UserOptionsButtonAsset}"/>
                 </Button.Background>

@@ -387,12 +387,6 @@ namespace Core.Utils.Controls {
             }
         }
 
-        private void BottomContainer_Loader(object sender, RoutedEventArgs e) {
-            if (UserStore.TagsInPosts) {
-                ((GridView)((StackPanel)sender).FindName("TagPanel")).Visibility = Visibility.Visible;
-            }
-        }
-
         private void CommandPanel_Loaded(object sender, RoutedEventArgs e) {
             var g = ((Grid)sender);
             if (g.Tag != null) {

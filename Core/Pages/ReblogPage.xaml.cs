@@ -115,34 +115,40 @@ namespace Core.Pages {
         #endregion
 
         private void TagBox_KeyDown(object sender, KeyRoutedEventArgs e) {
-            if (e.Key == Windows.System.VirtualKey.Space) {
-                var x = ((TextBox)sender).Text.Split(' ');
-                var tags = string.Empty;
-                var tags2 = string.Empty;
-                foreach (var tag in x) {
-                    if (!tag.StartsWith("#"))
-                        tags += "#" + tag + " ";
-                    else {
-                        tags += tag + " ";
-                    }
+            var tagBox = ((TextBox)sender);
+            if (e.Key.ToString() == "188") {
+                var tags = tagBox.Text.Split(',');
+                var converted = "";
+                foreach (var tag in tags) {
+                    converted += string.Format("#{0}, ", tag.Trim('#', ',', ' '));
                 }
-                ((TextBox)sender).Text = tags;
-                x = tags.Split(' ');
+                tagBox.Text = converted.TrimEnd(' ');
             } else if (e.Key == Windows.System.VirtualKey.Back) {
-                var x = ((TextBox)sender).Text.Split(' ');
-                var tags = string.Empty;
-                for (int i = 0; i < x.Count() - 1; i++) {
-                    tags += x.ElementAt(i) + " ";
+                if (!"#, ".Contains(tagBox.Text.Last().ToString())) {
+                    var tags = ((TextBox)sender).Text.Split(',');
+                    var converted = "";
+                    for (var i = 0; i < tags.Count() - 1; i++) {
+                        converted += string.Format("#{0}, ", tags[i].Trim('#', ',', ' '));
+                    }
+                    tagBox.Text = converted.TrimEnd(' ');
                 }
-
-                ((TextBox)sender).Text = tags;
             }
+
             ((TextBox)sender).Select(((TextBox)sender).Text.Length, 0);
         }
 
+        private void Tags_LostFocus(object sender, RoutedEventArgs e) {
+            var tagBox = ((TextBox)sender);
+            var tags = tagBox.Text.Split(',');
+            var converted = "";
+            foreach (var tag in tags) {
+                converted += string.Format("#{0}, ", tag.Trim('#', ',', ' '));
+            }
+            tagBox.Text = converted.TrimEnd(' ');
+            ((TextBox)sender).Text = ((TextBox)sender).Text.TrimEnd('#', ',', ' ');
+        }
+
         private async void PostButton_Tapped(object sender, TappedRoutedEventArgs e) {
-
-
             var tags = Tags.Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
@@ -158,9 +164,8 @@ namespace Core.Pages {
                         } else {
                             status = "&state=queue&publish_on=" + Authentication.Utils.UrlEncode(PublishOn.Text);
                         }
-                    } else if (((Image)sender).Tag.ToString() == "draft") {
+                    } else if (((Image)sender).Tag.ToString() == "draft")
                         status = "&state=draft";
-                    }
                 }
                 if (IsReply) {
                     if (await CreateRequest.ReblogPost(postID, reblogKey, "", tags, "reply_text=" + Authentication.Utils.UrlEncode(Caption.Text))) {

@@ -7,7 +7,6 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -72,11 +71,8 @@ namespace Core.Pages {
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
             string type = e.NavigationParameter.ToString();
             Debug.WriteLine(type);
-            //var x = new List<string>();
-            //x.Add(type);
             Type.DataContext = type;
             PageTitle.Text = PageTitle.Text.ToString() + ": " + type;
-            MainPage.NPD.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -116,31 +112,38 @@ namespace Core.Pages {
         #endregion
 
         private void TagBox_KeyDown(object sender, KeyRoutedEventArgs e) {
-            if (e.Key == Windows.System.VirtualKey.Space) {
-                var x = ((TextBox)sender).Text.Split(' ');
-                var tags = string.Empty;
-                var tags2 = string.Empty;
-                foreach (var tag in x) {
-                    if (!tag.StartsWith("#"))
-                        tags += "#" + tag + " ";
-                    else {
-                        tags += tag + " ";
-                    }
+            var tagBox = ((TextBox)sender);
+            if (e.Key.ToString() == "188") {
+                var tags = tagBox.Text.Split(',');
+                var converted = "";
+                foreach (var tag in tags) {
+                    converted += string.Format("#{0}, ", tag.Trim('#', ',', ' '));
                 }
-                ((TextBox)sender).Text = tags;
-                x = tags.Split(' ');
+                tagBox.Text = converted.TrimEnd(' ');
             } else if (e.Key == Windows.System.VirtualKey.Back) {
-                var x = ((TextBox)sender).Text.Split(' ');
-                var tags = string.Empty;
-                for (int i = 0; i < x.Count() - 1; i++) {
-                    tags += x.ElementAt(i) + " ";
+                if (!"#, ".Contains(tagBox.Text.Last().ToString())) {
+                    var tags = ((TextBox)sender).Text.Split(',');
+                    var converted = "";
+                    for (var i = 0; i < tags.Count() - 1; i++) {
+                        converted += string.Format("#{0}, ", tags[i].Trim('#', ',', ' '));
+                    }
+                    tagBox.Text = converted.TrimEnd(' ');
                 }
-
-                ((TextBox)sender).Text = tags;
             }
+
             ((TextBox)sender).Select(((TextBox)sender).Text.Length, 0);
         }
 
+        private void Tags_LostFocus(object sender, RoutedEventArgs e) {
+            var tagBox = ((TextBox)sender);
+            var tags = tagBox.Text.Split(',');
+            var converted = "";
+            foreach (var tag in tags) {
+                converted += string.Format("#{0}, ", tag.Trim('#', ',', ' '));
+            }
+            tagBox.Text = converted.TrimEnd(' ');
+            ((TextBox)sender).Text = ((TextBox)sender).Text.TrimEnd('#', ',', ' ');
+        }
 
         private void Photo_Image_Tapped(object sender, TappedRoutedEventArgs e) {
             PhotoView = (Image)((Grid)sender).FindName("Photo_Image");
@@ -162,8 +165,9 @@ namespace Core.Pages {
                 image = args.Files[0];
                 Debug.WriteLine(image.Path);
                 using (IRandomAccessStream fileStream = await image.OpenAsync(FileAccessMode.Read)) {
+                    var x = await image.GetThumbnailAsync(Windows.Storage.FileProperties.ThumbnailMode.PicturesView);
                     var photo = new BitmapImage();
-                    await photo.SetSourceAsync(fileStream);
+                    photo.SetSource(x);
 
                     PhotoView.Source = photo;
                     PhotoView.Stretch = Stretch.UniformToFill;

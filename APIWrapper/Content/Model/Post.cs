@@ -29,6 +29,15 @@ namespace APIWrapper.Content.Model {
         public string format { get; set; }
         public string reblog_key { get; set; }
         public string[] tags { get; set; }
+        public string tags_as_str {
+            get {
+                var converted = "";
+                foreach (var tag in tags) {
+                    converted += string.Format("#{0} ", tag);
+                }
+                return converted.TrimEnd(' ');
+            }
+        }
         public string source_url { get; set; }
         public string source_title { get; set; }
         public bool liked { get; set; }

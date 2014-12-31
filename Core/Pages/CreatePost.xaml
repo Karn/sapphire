@@ -53,7 +53,7 @@
                     <TextBox x:Name="Tags" Margin="0, 5" KeyDown="TagBox_KeyDown"
                              PlaceholderText="Tags" Height="45" Padding="50, 8, 0, 0"
                              VerticalContentAlignment="Center" Background="White"
-                             BorderThickness="0"/>
+                             BorderThickness="0" LostFocus="Tags_LostFocus"/>
                     <Image Source="ms-appx:///Assets/Nav/Tag_Dark.png"
                            HorizontalAlignment="Left" Margin="7, 10" Height="30"
                            Width="35" Opacity=".5"/>
@@ -96,7 +96,7 @@
 
                 <Grid x:Name="Photo_Grid" Margin="0, 5" Tapped="Photo_Image_Tapped" Background="White">
                     <Image Height="300" HorizontalAlignment="Stretch" Opacity="0.1" Source="ms-appx:///Assets/Placeholders/UploadImage.png" Stretch="None"/>
-                    <Image Height="300" HorizontalAlignment="Stretch" x:Name="Photo_Image" Source=""/>
+                    <Image Height="300" HorizontalAlignment="Stretch" VerticalAlignment="Center" x:Name="Photo_Image" />
                 </Grid>
 
                 <TextBox x:Name="Caption" Grid.Row="1" Margin="0, -3, 0, 0"
@@ -109,7 +109,7 @@
                     <TextBox x:Name="Tags" Margin="0, 5" KeyDown="TagBox_KeyDown"
                              PlaceholderText="Tags" Height="45" Padding="50, 8, 0, 0"
                              VerticalContentAlignment="Center" Background="White"
-                             BorderThickness="0"/>
+                             BorderThickness="0" LostFocus="Tags_LostFocus"/>
                     <Image Source="ms-appx:///Assets/Nav/Tag_Dark.png"
                            HorizontalAlignment="Left" Margin="7, 10" Height="30"
                            Width="35" Opacity=".5"/>
@@ -164,7 +164,7 @@
                     <TextBox x:Name="Tags" Margin="0, 5" KeyDown="TagBox_KeyDown"
                              PlaceholderText="Tags" Height="45" Padding="50, 8, 0, 0"
                              VerticalContentAlignment="Center" Background="White"
-                             BorderThickness="0"/>
+                             BorderThickness="0" LostFocus="Tags_LostFocus"/>
                     <Image Source="ms-appx:///Assets/Nav/Tag_Dark.png"
                            HorizontalAlignment="Left" Margin="7, 10" Height="30"
                            Width="35" Opacity=".5"/>
@@ -229,7 +229,7 @@
                              BorderThickness="0"/>
                     <Image Source="ms-appx:///Assets/Nav/Tag_Dark.png"
                            HorizontalAlignment="Left" Margin="7, 10" Height="30"
-                           Width="35" Opacity=".5"/>
+                           Width="35" Opacity=".5" LostFocus="Tags_LostFocus"/>
                 </Grid>
                 <Grid x:Name="PublishBox" Grid.Row="4" Margin="0, -8, 0, 0" Visibility="{Binding ElementName=PageTitle, Converter={StaticResource IsFullVersion},
                     FallbackValue=Collapsed}">
