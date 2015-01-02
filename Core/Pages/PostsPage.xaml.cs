@@ -145,7 +145,7 @@ namespace Core.Pages {
                 BlogSearch.Visibility = Visibility.Visible;
                 if (BlogSearch.ItemsSource == null) {
                     if (APIWrapper.AuthenticationManager.Authentication.Utils.NetworkAvailable())
-                        BlogSearch.ItemsSource = await CreateRequest.RetrieveSearch(tag);
+                        BlogSearch.ItemsSource = await CreateRequest.BlogSearch(tag);
                 }
             } else {
                 Mode.Source = BlogsIcon;

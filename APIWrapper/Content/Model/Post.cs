@@ -82,7 +82,11 @@ namespace APIWrapper.Content.Model {
         public string source { get; set; }
         public Photo.AltSize path_to_low_res_pic {
             get {
-                return photos.First().alt_sizes.First();
+                try {
+                    return photos.First().alt_sizes.First();
+                } catch {
+                    return new Photo.AltSize();
+                }
             }
         }
         public bool IsPhoto {

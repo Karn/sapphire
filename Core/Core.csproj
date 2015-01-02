@@ -141,6 +141,7 @@
       <DependentUpon>PostFeedControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\Converters\ActivityTemplateSelector.cs" />
+    <Compile Include="Utils\Converters\FollowingToSign.cs" />
     <Compile Include="Utils\Converters\TagsEnabled.cs" />
     <Compile Include="Utils\Converters\IsFullVersion.cs" />
     <Compile Include="Utils\Converters\NameToFavBrush.cs" />
@@ -160,10 +161,9 @@
     <Compile Include="Utils\Converters\RelativeDate.cs" />
     <Compile Include="Utils\Converters\RelativeTime.cs" />
     <Compile Include="Utils\Converters\ToPrettyDate.cs" />
+    <Compile Include="Utils\Misc\TextFormatter.cs" />
     <Compile Include="Utils\Misc\DateKeyGroup.cs" />
-    <Compile Include="Utils\Misc\ErrorStrings.cs" />
     <Compile Include="Utils\Misc\AppLicenseHandler.cs" />
-    <Compile Include="Utils\Misc\HtmlToMarkdown.cs" />
     <Compile Include="Utils\Misc\IncrementalPostLoader.cs" />
     <Compile Include="Utils\Misc\CaptionFormatter.cs" />
     <Compile Include="Utils\Misc\TagLinks.cs" />

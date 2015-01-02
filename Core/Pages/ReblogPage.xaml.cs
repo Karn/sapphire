@@ -156,20 +156,28 @@ namespace Core.Pages {
             }
             try {
                 var status = "";
+                App.DisplayStatus("Reblogging post...");
+                ReplyFeilds.IsEnabled = false;
                 if (((Image)sender).Tag != null) {
                     if (((Image)sender).Tag.ToString() == "queue") {
                         if (string.IsNullOrWhiteSpace(PublishOn.Text)) {
                             MainPage.AlertFlyout.DisplayMessage("Please enter a time to publish the post on.");
                             return;
                         } else {
+                            App.DisplayStatus("Adding to queue...");
                             status = "&state=queue&publish_on=" + Authentication.Utils.UrlEncode(PublishOn.Text);
                         }
-                    } else if (((Image)sender).Tag.ToString() == "draft")
+                    } else if (((Image)sender).Tag.ToString() == "draft") {
+                        App.DisplayStatus("Adding to drafts...");
                         status = "&state=draft";
+                    }
                 }
                 if (IsReply) {
                     if (await CreateRequest.ReblogPost(postID, reblogKey, "", tags, "reply_text=" + Authentication.Utils.UrlEncode(Caption.Text))) {
                         MainPage.AlertFlyout.DisplayMessage("Created.");
+                        ReplyFeilds.IsEnabled = true;
+                        App.HideStatus();
+                        Frame.GoBack();
                     } else {
                         if (((Image)sender).Tag != null) {
                             if (((Image)sender).Tag.ToString() == "queue") {
@@ -184,6 +192,9 @@ namespace Core.Pages {
                 } else {
                     if (await CreateRequest.ReblogPost(postID, reblogKey, Authentication.Utils.UrlEncode(Caption.Text), tags, status)) {
                         MainPage.AlertFlyout.DisplayMessage("Created.");
+                        ReplyFeilds.IsEnabled = true;
+                        App.HideStatus();
+                        Frame.GoBack();
                     } else {
                         if (((Image)sender).Tag != null) {
                             if (((Image)sender).Tag.ToString() == "queue") {
@@ -196,8 +207,10 @@ namespace Core.Pages {
                         return;
                     }
                 }
-                Frame.GoBack();
+                App.HideStatus();
+                ReplyFeilds.IsEnabled = false;
             } catch (Exception ex) {
+                App.HideStatus();
                 MainPage.AlertFlyout.DisplayMessage("Failed to create post");
                 DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
             }

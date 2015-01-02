@@ -3,12 +3,12 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
 namespace Core.Utils.Converters {
-    public sealed class FollowingToString : IValueConverter {
+    public sealed class FollowingToSign : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, string language) {
             if ((bool)value) {
-                return "UNFOLLOW";
+                return "-";
             }
-            return "FOLLOW";
+            return "+";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language) {

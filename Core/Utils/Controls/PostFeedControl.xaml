@@ -118,6 +118,18 @@
                                 </Button.Background>
                             </Button>
                         </StackPanel>
+                        <StackPanel x:Name="DraftCommands" Visibility="Collapsed" Orientation="Horizontal" HorizontalAlignment="Right" Tag="{Binding reblog_key}">
+                            <Button x:Name="PostButton" Tag="{Binding}" Click="PostDraftButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}">
+                                <Button.Background>
+                                    <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource PostButtonAsset}"/>
+                                </Button.Background>
+                            </Button>
+                            <Button x:Name="DeleteButton_" Tag="{Binding}" Click="DeleteButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}" Margin="-6, 0, 0, 0">
+                                <Button.Background>
+                                    <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource DeleteButtonAsset}"/>
+                                </Button.Background>
+                            </Button>
+                        </StackPanel>
                     </Grid>
                 </StackPanel>
                 <ContentPresenter VerticalAlignment="Bottom" Visibility="{Binding notes, Converter={StaticResource NotesToVisibility}, FallbackValue=Collapsed}" ContentTemplate="{StaticResource NotesContainer}"/>
@@ -129,8 +141,8 @@
                 <StackPanel Background="{ThemeResource PostBG}">
                     <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                     <StackPanel MinHeight="150">
-                        <TextBlock Text="{Binding title}" Visibility="{Binding title, Converter={StaticResource CaptionConverter}}" Margin="10, 0, 10, 0" FontSize="22" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="WrapWholeWords"/>
-                        <TextBlock Text="{Binding body}" Visibility="{Binding body, Converter={StaticResource CaptionConverter}}" Margin="10, 5, 10, 10" FontSize="18" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="Wrap"/>
+                        <TextBlock misc:TextFormatter.Text="{Binding title}" Visibility="{Binding title, Converter={StaticResource CaptionConverter}}" Margin="10, 0, 10, 0" FontSize="22" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="WrapWholeWords"/>
+                        <TextBlock misc:TextFormatter.Text="{Binding body}" Visibility="{Binding body, Converter={StaticResource CaptionConverter}}" Margin="10, 5, 10, 10" FontSize="18" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="Wrap"/>
                     </StackPanel>
                     <ContentPresenter VerticalAlignment="Bottom" ContentTemplate="{StaticResource BottomContainer}"/>
                 </StackPanel>
@@ -181,12 +193,10 @@
         </DataTemplate>
         <DataTemplate x:Key="Quote">
             <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
-
-
                 <StackPanel Background="{ThemeResource PostBG}">
                     <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                     <StackPanel MinHeight="150">
-                        <TextBlock Text="{Binding text}" Margin="10, 0, 10, 0" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                        <TextBlock Text="{Binding text, Converter={StaticResource ToPlainText}}" Margin="10, 0, 10, 0" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
                         <TextBlock Text="{Binding source, Converter={StaticResource ToPlainText}}" Margin="10, 5, 10, 10" FontSize="18" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
                     </StackPanel>
                     <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
@@ -198,7 +208,7 @@
                 <StackPanel Background="{ThemeResource PostBG}">
                     <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                     <StackPanel MinHeight="150">
-                        <TextBlock Text="{Binding title}" Visibility="{Binding title, Converter={StaticResource CaptionConverter}}" Margin="10, 0, 10, 0" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                        <TextBlock Text="{Binding title, Converter={StaticResource ToPlainText}}" Visibility="{Binding title, Converter={StaticResource CaptionConverter}}" Margin="10, 0, 10, 0" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
                         <TextBlock Text="{Binding description, Converter={StaticResource ToPlainText}}" Visibility="{Binding description, Converter={StaticResource CaptionConverter}}" Margin="10, 5, 10, 10" FontSize="18" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
                     </StackPanel>
                     <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
@@ -261,8 +271,6 @@
         </DataTemplate>
         <DataTemplate x:Key="Answer">
             <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
-
-
                 <StackPanel Background="{StaticResource PostBG}">
                     <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                     <StackPanel MinHeight="150">
@@ -275,7 +283,7 @@
                                 <TextBlock Text="{Binding question, FallbackValue=Question}" Margin="10, 0, 10, 2" FontSize="18" TextLineBounds="TrimToBaseline" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
                             </StackPanel>
                         </Grid>
-                        <TextBlock Text="{Binding answer, FallbackValue=Answer}" Margin="10, 0, 10, 40" FontSize="18" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                        <TextBlock misc:TextFormatter.Text="{Binding answer}" Margin="10, 0, 10, 40" FontSize="18" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
                     </StackPanel>
                     <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
                 </StackPanel>
@@ -297,7 +305,7 @@
                         </StackPanel>
                     </Grid>
                     <StackPanel MinHeight="150">
-                        <TextBlock Text="{Binding body}" Margin="10, 5, 10, 40" FontSize="22" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="Wrap"/>
+                        <TextBlock misc:TextFormatter.Text="{Binding body}" Margin="10, 5, 10, 40" FontSize="22" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="Wrap"/>
                     </StackPanel>
                     <Grid Height="40" Background="{ThemeResource Accent2}">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Tag="{Binding reblog_key}">

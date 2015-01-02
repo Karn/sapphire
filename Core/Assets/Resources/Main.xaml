@@ -73,6 +73,7 @@
     <converter:IsFullVersion x:Key="IsFullVersion"/>
     <converter:TagsEnabled x:Key="TagsEnabled"/>
     <converter:FollowingToString x:Key="FollowingToString"/>
+    <converter:FollowingToSign x:Key="FollowingToSign"/>
     <converter:FollowingToVisibility x:Key="FollowingToVisibility"/>
     <converter:NotFollowingToVisibility x:Key="NotFollowingToVisibility"/>
     <converter:BooleanToVisibilityConverter x:Key="BoolToVisibility"/>

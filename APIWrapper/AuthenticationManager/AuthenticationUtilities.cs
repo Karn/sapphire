@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.NetworkInformation;
@@ -42,19 +43,35 @@ namespace APIWrapper.AuthenticationManager {
             return Convert.ToInt64(ts.TotalSeconds).ToString();
         }
 
-        public string UrlEncode(string value) {
-            var unreservedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.~";
-            var result = new StringBuilder();
+        public string UrlEncode(string str) {
 
-            foreach (char symbol in value) {
-                if (unreservedChars.IndexOf(symbol) != -1) {
-                    result.Append(symbol);
-                } else {
-                    result.Append('%' + String.Format("{0:X2}", (int)symbol));
+            //var unreservedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.~";
+            //var result = new StringBuilder();
+
+            //foreach (char symbol in value) {
+            //    if (unreservedChars.IndexOf(symbol) != -1) {
+            //        result.Append(symbol);
+            //    } else {
+            //        result.Append('%' + String.Format("{0:X2}", (int)symbol));
+            //    }
+            //}
+
+            //return result.ToString();
+            str = WebUtility.UrlEncode(str);
+
+            str = str.Replace("'", "%27").Replace("(", "%28").Replace(")", "%29").Replace("*", "%2A").Replace("!", "%21").Replace("%7e", "~").Replace("+", "%20");
+
+            StringBuilder sbuilder = new StringBuilder(str);
+            for (int i = 0; i < sbuilder.Length; i++) {
+                if (sbuilder[i] == '%') {
+                    if (Char.IsLetter(sbuilder[i + 1]) || Char.IsLetter(sbuilder[i + 2])) {
+                        sbuilder[i + 1] = Char.ToUpper(sbuilder[i + 1]);
+                        sbuilder[i + 2] = Char.ToUpper(sbuilder[i + 2]);
+                    }
                 }
             }
 
-            return result.ToString();
+            return sbuilder.ToString();
         }
 
         public string GenerateSignature(string signatureBaseString, string consumerSecretKey, string tokenSecret = null) {
@@ -88,6 +105,7 @@ namespace APIWrapper.AuthenticationManager {
                 requestMsg.Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 
                 var response = await httpClient.SendAsync(requestMsg);
+                Debug.WriteLine(response);
                 return await response.Content.ReadAsStringAsync();
             } catch (Exception ex) {
                 DiagnosticsManager.LogException(ex, TAG, "Cannot load from storage; Assigned default values.");

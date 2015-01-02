@@ -22,33 +22,33 @@ namespace Core.Utils.Converters {
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container) {
             var listItem = item as Post;
             if (listItem != null) {
-                if (listItem.type.Contains("text"))
+                if (listItem.type.Equals("text"))
                     return TextTemplate;
-                else if (listItem.type.Contains("photoset"))
+                else if (listItem.type.Equals("photoset"))
                     return PhotoSetTemplate;
-                else if (listItem.type.Contains("gif"))
+                else if (listItem.type.Equals("gif"))
                     return GifTemplate;
-                else if (listItem.type.Contains("photo"))
+                else if (listItem.type.Equals("photo"))
                     return PhotoTemplate;
-                else if (listItem.type.Contains("quote"))
+                else if (listItem.type.Equals("quote"))
                     return QuoteTemplate;
-                else if (listItem.type.Contains("link"))
+                else if (listItem.type.Equals("link"))
                     return LinkTemplate;
-                else if (listItem.type.Contains("chat"))
+                else if (listItem.type.Equals("chat"))
                     return ChatTemplate;
-                else if (listItem.type.Contains("audio"))
+                else if (listItem.type.Equals("audio"))
                     return AudioTemplate;
-                else if (listItem.type.Contains("youtube"))
+                else if (listItem.type.Equals("youtube"))
                     return YoutubeTemplate;
-                else if (listItem.type.Contains("video"))
+                else if (listItem.type.Equals("video"))
                     return VideoTemplate;
-                else if (listItem.type.Contains("answer"))
+                else if (listItem.type.Equals("answer"))
                     return AnswerTemplate;
-                else if (listItem.type.Contains("advert"))
+                else if (listItem.type.Equals("advert"))
                     return AdvertTemplate;
-                else if (listItem.type.Contains("mail"))
+                else if (listItem.type.Equals("mail"))
                     return MailTemplate;
-                else if (listItem.type.Contains("nocontent"))
+                else if (listItem.type.Equals("nocontent"))
                     return NoContentTemplate;
             }
 

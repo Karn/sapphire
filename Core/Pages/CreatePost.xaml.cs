@@ -177,17 +177,24 @@ namespace Core.Pages {
             }
         }
 
-        private void PostTextButton_Tapped(object sender, TappedRoutedEventArgs e) {
+        private async void PostTextButton_Tapped(object sender, TappedRoutedEventArgs e) {
             App.DisplayStatus("Creating text post...");
             Type.IsEnabled = false;
+
             var g = (Grid)((StackPanel)((Image)sender).Parent).Parent;
+
+            var parameterString = "type=text";
             var title = ((TextBox)g.FindName("Title")).Text;
+            parameterString += !string.IsNullOrWhiteSpace(title) ? "&title=" + title : "";
             var body = ((TextBox)g.FindName("Body")).Text;
+            parameterString += !string.IsNullOrWhiteSpace(body) ? "&body=" + body : "";
             var tags = ((TextBox)g.FindName("Tags")).Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
                 tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+                parameterString += "&tags=" + tags;
             }
+
             try {
                 var status = "";
                 if (((Image)sender).Tag != null) {
@@ -203,8 +210,15 @@ namespace Core.Pages {
                         status = "&state=draft";
                     }
                 }
-                APIWrapper.Content.Model.CreatePost.Text(Authentication.Utils.UrlEncode(title), Authentication.Utils.UrlEncode(body), tags, status);
-                Frame.GoBack();
+                parameterString += status;
+                var result = await CreateRequest.CreatePost(parameterString);
+                Debug.WriteLine(await result.Content.ReadAsStringAsync());
+                if (result.StatusCode == HttpStatusCode.Created) {
+                    Type.IsEnabled = true;
+                    App.HideStatus();
+                    Frame.GoBack();
+                } else
+                    MainPage.AlertFlyout.DisplayMessage(result.ReasonPhrase);
             } catch (Exception ex) {
                 DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
                 MainPage.AlertFlyout.DisplayMessage("Failed to create post");
@@ -213,17 +227,21 @@ namespace Core.Pages {
             App.HideStatus();
         }
 
-        private void PostQuoteButton_Tapped(object sender, TappedRoutedEventArgs e) {
+        private async void PostQuoteButton_Tapped(object sender, TappedRoutedEventArgs e) {
             App.DisplayStatus("Publishing quote...");
             Type.IsEnabled = false;
 
+            var parameterString = "type=quote";
             var g = (Grid)((StackPanel)((Image)sender).Parent).Parent;
             var quote = ((TextBox)g.FindName("Quote")).Text;
+            parameterString += !string.IsNullOrWhiteSpace(quote) ? "&quote=" + quote : "";
             var source = ((TextBox)g.FindName("Source")).Text;
+            parameterString += !string.IsNullOrWhiteSpace(source) ? "&source=" + source : "";
             var tags = ((TextBox)g.FindName("Tags")).Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
                 tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+                parameterString += "&tags=" + tags;
             }
             try {
                 var status = "";
@@ -240,8 +258,15 @@ namespace Core.Pages {
                         status = "&state=draft";
                     }
                 }
-                APIWrapper.Content.Model.CreatePost.Quote(Authentication.Utils.UrlEncode(quote), Authentication.Utils.UrlEncode(source), tags, status);
-                Frame.GoBack();
+                parameterString += status;
+                var result = await CreateRequest.CreatePost(parameterString);
+                Debug.WriteLine(await result.Content.ReadAsStringAsync());
+                if (result.StatusCode == HttpStatusCode.Created) {
+                    Type.IsEnabled = true;
+                    App.HideStatus();
+                    Frame.GoBack();
+                } else
+                    MainPage.AlertFlyout.DisplayMessage(result.ReasonPhrase);
             } catch (Exception ex) {
                 MainPage.AlertFlyout.DisplayMessage("Failed to create post");
                 DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
@@ -255,15 +280,14 @@ namespace Core.Pages {
             Type.IsEnabled = false;
             var g = (Grid)((StackPanel)((Image)sender).Parent).Parent;
 
-            string parameters = "type=photo";
-
+            var parameterString = "type=photo";
             var caption = ((TextBox)g.FindName("Caption")).Text;
-            parameters += !string.IsNullOrWhiteSpace(caption) ? "&caption=" + caption : "";
+            parameterString += !string.IsNullOrWhiteSpace(caption) ? "&caption=" + caption : "";
             var tags = ((TextBox)g.FindName("Tags")).Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
                 tags = tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1);
-                parameters += "&tags=" + tags;
+                parameterString += "&tags=" + tags;
             }
 
             try {
@@ -281,9 +305,9 @@ namespace Core.Pages {
                         status = "&state=draft";
                     }
                 }
-                parameters += status;
+                parameterString += status;
                 if (image != null) {
-                    var result = await RequestHandler.POST("https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/post", image, parameters);
+                    var result = await RequestHandler.POST("https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/post", image, parameterString);
                     Debug.WriteLine(await result.Content.ReadAsStringAsync());
                     if (result.StatusCode == HttpStatusCode.Created) {
                         Type.IsEnabled = true;
@@ -300,17 +324,24 @@ namespace Core.Pages {
             App.HideStatus();
         }
 
-        private void PostLinkButton_Tapped(object sender, TappedRoutedEventArgs e) {
+        private async void PostLinkButton_Tapped(object sender, TappedRoutedEventArgs e) {
             App.DisplayStatus("Sharing link...");
             Type.IsEnabled = false;
+
+            var parameterString = "type=quote";
             var g = (Grid)((StackPanel)((Image)sender).Parent).Parent;
             var title = ((TextBox)g.FindName("Title")).Text;
+            parameterString += !string.IsNullOrWhiteSpace(title) ? "&title=" + title : "";
             var url = ((TextBox)g.FindName("Link")).Text;
+            parameterString += !string.IsNullOrWhiteSpace(url) ? "&url=" + url : "";
             var description = ((TextBox)g.FindName("Description")).Text;
+            parameterString += !string.IsNullOrWhiteSpace(description) ? "&description=" + description : "";
+
             var tags = ((TextBox)g.FindName("Tags")).Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
                 tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+                parameterString += "&tags=" + tags;
             }
             try {
                 var status = "";
@@ -327,8 +358,15 @@ namespace Core.Pages {
                         status = "&state=draft";
                     }
                 }
-                APIWrapper.Content.Model.CreatePost.Link(Authentication.Utils.UrlEncode(title), Authentication.Utils.UrlEncode(url), Authentication.Utils.UrlEncode(description), tags, status);
-                Frame.GoBack();
+                parameterString += status;
+                var result = await CreateRequest.CreatePost(parameterString);
+                Debug.WriteLine(await result.Content.ReadAsStringAsync());
+                if (result.StatusCode == HttpStatusCode.Created) {
+                    Type.IsEnabled = true;
+                    App.HideStatus();
+                    Frame.GoBack();
+                } else
+                    MainPage.AlertFlyout.DisplayMessage(result.ReasonPhrase);
             } catch (Exception ex) {
                 MainPage.AlertFlyout.DisplayMessage("Failed to create post");
                 DiagnosticsManager.LogException(ex, TAG, "Failed to create post");

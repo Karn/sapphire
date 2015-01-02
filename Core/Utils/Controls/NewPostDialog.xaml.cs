@@ -30,13 +30,9 @@ namespace Core.Utils.Controls {
         }
 
         private void PostType_Tapped(object sender, TappedRoutedEventArgs e) {
-            //if ((((Image)(e.OriginalSource)).Name).ToString().ToLower() == "photo") {
-            //    MainPage.AlertFlyout.DisplayMessage("Sorry, photo posts aren't quite ready yet!");
-            //} else {
             var frame = Window.Current.Content as Frame;
             if (!frame.Navigate(typeof(Pages.CreatePost), (((Image)(e.OriginalSource)).Name).ToString()))
                 throw new Exception("Navigation Failed");
-            //}
         }
 
         private void ToggleVisibilityOut_Completed(object sender, object e) {

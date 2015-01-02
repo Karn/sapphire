@@ -51,7 +51,8 @@ namespace Core.Pages {
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
             blogName = e.NavigationParameter.ToString();
             LayoutRoot.DataContext = await CreateRequest.GetBlog(blogName);
-            Debug.WriteLine(blogName);
+
+            Debug.WriteLine(await CreateRequest.RetrieveSearch(blogName, "me"));
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using APIWrapper.Client;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Windows.UI;
@@ -10,9 +11,7 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 
 namespace Core.Utils.Misc {
-    public class CaptionFormatter {
-
-        static int QuoteCount = 0;
+    public class TextFormatter {
 
         public static string GetText(TextBlock element) {
             if (element != null)
@@ -29,18 +28,16 @@ namespace Core.Utils.Misc {
             DependencyProperty.RegisterAttached(
                 "Text",
                 typeof(string),
-                typeof(CaptionFormatter),
+                typeof(TextFormatter),
                 new PropertyMetadata(null, OnInlineListPropertyChanged));
 
         private static void OnInlineListPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e) {
             var tb = obj as TextBlock;
             if (tb == null) return;
             string text = e.NewValue as string;
-            QuoteCount = 0;
             if (!string.IsNullOrWhiteSpace(text)) {
                 tb.Inlines.Clear();
-                text = text.ToLower().Replace("<blockquote>", "{♥○").Replace("</blockquote>", "}♥○")
-                    .Replace("<a", "♥○<a").Replace("</a>:", "</a>: ♥○");
+                text = text.ToLower().Replace("<a", "♥○<a").Replace("</a>:", "</a>: ♥○");
                 if (text.Contains("♥○") || text.Contains("<a"))
                     AddInlineControls(tb, SplitSpace(text));
                 else
@@ -51,7 +48,7 @@ namespace Core.Utils.Misc {
         private static void AddInlineControls(TextBlock textBlock, string[] quotes) {
             foreach (var tag in quotes) {
                 if (tag.Contains("<a")) {
-                    textBlock.Inlines.Add(GetHyperLink(tag, textBlock));
+                    textBlock.Inlines.Add(GetHyperLink(tag));
                     textBlock.Inlines.Add(GetRunControl(" "));
                 } else {
                     textBlock.Inlines.Add(GetRunControl(tag));
@@ -59,18 +56,16 @@ namespace Core.Utils.Misc {
             }
         }
 
-        private static Hyperlink GetHyperLink(string uri, TextBlock tb) {
+        private static Hyperlink GetHyperLink(string uri) {
             Hyperlink hyper = new Hyperlink();
             if (uri.Contains("class=\"tumblr_blog\"")) {
                 uri = CreateRequest.GetPlainTextFromHtml(uri);
                 hyper.Inlines.Add(GetRunControl(uri + "\n    "));
-                tb.Inlines.Add(new Run() { Text = " " });
                 hyper.Click += BlogName_Click;
             } else if (uri.StartsWith("<a href=")) {
                 var link = Find(uri).First();
                 hyper.NavigateUri = new Uri(link.Href);
                 hyper.Inlines.Add(GetRunControl(link.Text));
-                tb.Inlines.Add(new Run() { Text = " " });
             }
             hyper.Foreground = new SolidColorBrush(Color.FromArgb(191, 40, 52, 64));
             return hyper;
@@ -86,21 +81,7 @@ namespace Core.Utils.Misc {
         private static Run GetRunControl(string text) {
             Run run = new Run();
             run.Text = CreateRequest.GetPlainTextFromHtml(text);
-            if (run.Text.Contains('{')) {
-                QuoteCount++;
-                run.Text = run.Text.Replace("{", GenerateBlock(QuoteCount));
-            } else if (run.Text.Contains('}')) {
-                QuoteCount--;
-                run.Text = run.Text.Replace("}", "\n" + GenerateBlock(QuoteCount));
-            }
             return run;
-        }
-
-        private static string GenerateBlock(int count) {
-            string spaces = "";
-            for (int x = 0; x < count; x++)
-                spaces += " |   ";
-            return spaces;
         }
 
         private static string[] SplitSpace(string val) {

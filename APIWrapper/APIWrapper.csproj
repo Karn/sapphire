@@ -35,7 +35,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <Content Include="BugSense\BugSense - SDK License Agreement.txt" />
     <Content Include="Utils\BadgeLogo.scale-240.png" />
   </ItemGroup>
   <ItemGroup>
@@ -47,7 +46,6 @@
     <Compile Include="Content\Model\GfyCat.cs" />
     <Compile Include="Content\Model\Activity.cs" />
     <Compile Include="Content\Model\Blog.cs" />
-    <Compile Include="Content\Model\CreatePost.cs" />
     <Compile Include="Content\Model\Messages.cs" />
     <Compile Include="Content\Model\Photo.cs" />
     <Compile Include="Content\Model\Post.cs" />

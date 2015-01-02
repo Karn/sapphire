@@ -24,8 +24,6 @@ namespace APIWrapper.Client {
 
         public static bool ReloadAccountData = false;
 
-        public static string lastAccountRefresh = "";
-
         public static string GetPlainTextFromHtml(string htmlString) {
             if (htmlString != null) {
                 string htmlTagPattern = "<.*?>";
@@ -34,13 +32,13 @@ namespace APIWrapper.Client {
                 htmlString = Regex.Replace(htmlString, htmlTagPattern, string.Empty);
                 htmlString = Regex.Replace(htmlString, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
                 htmlString = htmlString.Replace("&nbsp;", string.Empty);
-                return System.Net.WebUtility.HtmlDecode(htmlString);
+                return WebUtility.HtmlDecode(htmlString);
             }
             return htmlString;
         }
 
         public static string UrlEncode(string value) {
-            string reservedCharacters = "!*'();";
+            string reservedCharacters = "-._~";
             if (String.IsNullOrEmpty(value))
                 return String.Empty;
 
@@ -83,7 +81,6 @@ namespace APIWrapper.Client {
                                 UserStore.CurrentBlog = b;
                         }
                     }
-                    lastAccountRefresh = DateTime.UtcNow.ToString();
                     return true;
                 } catch (Exception ex) {
                     DiagnosticsManager.LogException(ex, TAG, "Failed to serailize account information.");
@@ -117,10 +114,8 @@ namespace APIWrapper.Client {
                 )).StatusCode == HttpStatusCode.OK;
         }
 
-        public static async Task<bool> CreatePost(string parameters) {
-            return (await RequestHandler.POST(Endpoints.Post,
-               parameters)).StatusCode == HttpStatusCode.Created;
-            //return false;
+        public static async Task<HttpResponseMessage> CreatePost(string parameters) {
+            return await RequestHandler.POST(Endpoints.Post, parameters);
         }
 
         /// <summary>
@@ -362,8 +357,14 @@ namespace APIWrapper.Client {
                 .response.blog : new Blog();
         }
 
-        public static async Task<List<Blog>> RetrieveSearch(string tag) {
+        public static async Task<List<Blog>> BlogSearch(string tag) {
             var requestResult = await RequestHandler.GET(Endpoints.Search + tag, "api_key=" + Authentication.ConsumerKey);
+            return (requestResult.StatusCode == HttpStatusCode.OK) ?
+                JsonConvert.DeserializeObject<Responses.GetSearch>(await requestResult.Content.ReadAsStringAsync())
+                .response.blogs : new List<Blog>();
+        }
+        public static async Task<List<Blog>> RetrieveSearch(string blogName, string tag) {
+            var requestResult = await RequestHandler.GET(string.Format("https://api.tumblr.com/v2/blog/{0}.tumblr.com/tagged/{1}", blogName, tag), "api_key=" + Authentication.ConsumerKey);
             return (requestResult.StatusCode == HttpStatusCode.OK) ?
                 JsonConvert.DeserializeObject<Responses.GetSearch>(await requestResult.Content.ReadAsStringAsync())
                 .response.blogs : new List<Blog>();

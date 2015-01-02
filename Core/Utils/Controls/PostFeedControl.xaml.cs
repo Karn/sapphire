@@ -241,7 +241,14 @@ namespace Core.Utils.Controls {
                     if (player.Tag != null && player.Source == null) {
                         App.DisplayStatus("Downloading GIF...");
                         var mp4 = await CreateRequest.GenerateMP4FromGIF(player.Tag.ToString());
-                        player.Source = new Uri(mp4);
+                        if (!string.IsNullOrWhiteSpace(mp4))
+                            player.Source = new Uri(mp4);
+                        else {
+                            DiagnosticsManager.LogException(null, TAG, "Failed to retrieve GIF url.");
+                            MainPage.AlertFlyout.DisplayMessage("Unable to load animated Image.");
+                            App.HideStatus();
+                            return;
+                        }
                         App.HideStatus();
                     } else {
                         player.AutoPlay = true;
