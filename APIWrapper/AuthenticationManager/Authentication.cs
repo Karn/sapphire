@@ -15,14 +15,6 @@ namespace APIWrapper.AuthenticationManager {
 
         private static string TAG = "Authentication";
 
-        //OAuth URI Endpoints
-        private static readonly string RequestTokenURI = "http://www.tumblr.com/oauth/request_token";
-        private static readonly string AuthorizationURI = "http://www.tumblr.com/oauth/authorize";
-        private static readonly string AccessTokenURI = "http://www.tumblr.com/oauth/access_token";
-
-        //XAuth URI Endpoints
-        private static readonly string SecureAccessTokenURI = "https://www.tumblr.com/oauth/access_token";
-
         //Keys
         public static readonly string ConsumerKey = "BUHsuO5U9DF42uJtc8QTZlOmnUaJmBJGuU1efURxeklbdiLn9L";
         public static readonly string ConsumerSecretKey = "olOu3aRBCdqCuMFm8fmzNjMAWmICADSIuXWTnVSFng1ZcLU1cV";

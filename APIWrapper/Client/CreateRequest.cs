@@ -365,6 +365,7 @@ namespace APIWrapper.Client {
         }
         public static async Task<List<Blog>> RetrieveSearch(string blogName, string tag) {
             var requestResult = await RequestHandler.GET(string.Format("https://api.tumblr.com/v2/blog/{0}.tumblr.com/tagged/{1}", blogName, tag), "api_key=" + Authentication.ConsumerKey);
+            Debug.WriteLine(requestResult);
             return (requestResult.StatusCode == HttpStatusCode.OK) ?
                 JsonConvert.DeserializeObject<Responses.GetSearch>(await requestResult.Content.ReadAsStringAsync())
                 .response.blogs : new List<Blog>();
@@ -375,15 +376,12 @@ namespace APIWrapper.Client {
                 var response = await WebClient.GetAsync(new Uri(Endpoints.Spotlight));
                 var result = await response.Content.ReadAsStringAsync();
 
-                Debug.WriteLine(result);
-
                 if (result.Contains("status\":200")) {
                     UserStore.CachedSpotlight = result;
                     return JsonConvert.DeserializeObject<Responses.GetSpotlight>(result).response;
                 }
             } else {
-                Responses.GetSpotlight spotlight = JsonConvert.DeserializeObject<Responses.GetSpotlight>(UserStore.CachedSpotlight);
-                return spotlight.response;
+                return JsonConvert.DeserializeObject<Responses.GetSpotlight>(UserStore.CachedSpotlight).response;
             }
 
             return new List<Responses.SpotlightResponse>();
