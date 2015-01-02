@@ -1,19 +1,8 @@
-﻿using APIWrapper;
-using APIWrapper.Client;
-using Core.Common;
+﻿using APIWrapper.Client;
+using Core.Shared.Common;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Graphics.Display;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
@@ -27,7 +16,6 @@ namespace Core.Pages {
     /// </summary>
     public sealed partial class PostsPage : Page {
         private NavigationHelper navigationHelper;
-        private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
         public static ImageSource BlogsIcon = App.Current.Resources["BlogsIcon"] as BitmapImage;
         public static ImageSource TagsIcon = App.Current.Resources["TagsIcon"] as BitmapImage;
@@ -48,14 +36,6 @@ namespace Core.Pages {
         /// </summary>
         public NavigationHelper NavigationHelper {
             get { return this.navigationHelper; }
-        }
-
-        /// <summary>
-        /// Gets the view model for this <see cref="Page"/>.
-        /// This can be changed to a strongly typed view model.
-        /// </summary>
-        public ObservableDictionary DefaultViewModel {
-            get { return this.defaultViewModel; }
         }
 
         /// <summary>

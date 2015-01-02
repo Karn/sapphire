@@ -1,7 +1,7 @@
 ﻿using APIWrapper.AuthenticationManager;
-using APIWrapper.Client;
 using APIWrapper.Content;
-using Core.Common;
+using Core.Shared.Common;
+using Core.Utils.Misc;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;

@@ -1,6 +1,6 @@
 ﻿using APIWrapper.AuthenticationManager;
 using APIWrapper.Content;
-using Core.Common;
+using Core.Shared.Common;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -19,7 +19,6 @@ namespace Core.Pages {
     /// </summary>
     public sealed partial class AccountManager : Page {
         private NavigationHelper navigationHelper;
-        private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
         public AccountManager() {
             this.InitializeComponent();
@@ -48,14 +47,6 @@ namespace Core.Pages {
         /// </summary>
         public NavigationHelper NavigationHelper {
             get { return this.navigationHelper; }
-        }
-
-        /// <summary>
-        /// Gets the view model for this <see cref="Page"/>.
-        /// This can be changed to a strongly typed view model.
-        /// </summary>
-        public ObservableDictionary DefaultViewModel {
-            get { return this.defaultViewModel; }
         }
 
         /// <summary>
@@ -113,7 +104,7 @@ namespace Core.Pages {
         #endregion
 
         private void SelectAccountButton_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (Authentication.SelectedAccount!= ((Button)sender).Tag.ToString()) {
+            if (Authentication.SelectedAccount != ((Button)sender).Tag.ToString()) {
                 Authentication.SelectedAccount = ((Button)sender).Tag.ToString();
 
                 string token = "";

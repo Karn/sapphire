@@ -1,4 +1,5 @@
-﻿using APIWrapper.Utils;
+﻿using APIWrapper.Client;
+using APIWrapper.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -131,11 +132,11 @@ namespace APIWrapper.AuthenticationManager {
                 {"x_auth_username", Uri.EscapeDataString(userName)}
             }.Select(kv => kv.Key + "=" + kv.Value).Aggregate((i, j) => i + "&" + j);
 
-                var signatureString = "POST&" + Uri.EscapeDataString(SecureAccessTokenURI) + "&" +
+                var signatureString = "POST&" + Uri.EscapeDataString(Endpoints.SecureAccessTokenURI) + "&" +
                     Uri.EscapeDataString(signatureParameters);
                 var signature = Utils.GenerateSignature(signatureString, ConsumerSecretKey);
 
-                var response = await Utils.PostAuthenticationData(SecureAccessTokenURI,
+                var response = await Utils.PostAuthenticationData(Endpoints.SecureAccessTokenURI,
                     signatureParameters + "&oauth_signature=" + Uri.EscapeDataString(signature));
 
                 Debug.WriteLine("Access Token Response: " + response);

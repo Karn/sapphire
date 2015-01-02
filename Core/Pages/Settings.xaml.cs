@@ -1,9 +1,7 @@
 ﻿using APIWrapper.Content;
 using APIWrapper.Utils;
-using Core.Common;
+using Core.Shared.Common;
 using System;
-using System.IO;
-using Windows.Storage;
 using Windows.System;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -24,7 +22,6 @@ namespace Core.Pages {
     /// </summary>
     public sealed partial class Settings : Page {
         private NavigationHelper navigationHelper;
-        private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
         public Settings() {
             this.InitializeComponent();
@@ -49,13 +46,6 @@ namespace Core.Pages {
             get { return this.navigationHelper; }
         }
 
-        /// <summary>
-        /// Gets the view model for this <see cref="Page"/>.
-        /// This can be changed to a strongly typed view model.
-        /// </summary>
-        public ObservableDictionary DefaultViewModel {
-            get { return this.defaultViewModel; }
-        }
 
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also

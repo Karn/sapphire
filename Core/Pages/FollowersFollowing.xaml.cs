@@ -1,12 +1,12 @@
-﻿using Core.Common;
+﻿using APIWrapper.Client;
+using APIWrapper.Content.Model;
+using Core.Shared.Common;
 using System;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
-using APIWrapper.Client;
-using APIWrapper.Content.Model;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -16,7 +16,6 @@ namespace Core.Pages {
     /// </summary>
     public sealed partial class FollowersFollowing : Page {
         private NavigationHelper navigationHelper;
-        private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
         private static ObservableCollection<Blog> BlogList = new ObservableCollection<Blog>();
 
@@ -60,14 +59,6 @@ namespace Core.Pages {
         /// </summary>
         public NavigationHelper NavigationHelper {
             get { return this.navigationHelper; }
-        }
-
-        /// <summary>
-        /// Gets the view model for this <see cref="Page"/>.
-        /// This can be changed to a strongly typed view model.
-        /// </summary>
-        public ObservableDictionary DefaultViewModel {
-            get { return this.defaultViewModel; }
         }
 
         /// <summary>

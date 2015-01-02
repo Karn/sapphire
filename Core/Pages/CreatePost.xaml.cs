@@ -2,7 +2,8 @@
 using APIWrapper.Client;
 using APIWrapper.Content;
 using APIWrapper.Utils;
-using Core.Common;
+using Core.Shared.Common;
+using Core.Utils.Misc;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -27,7 +28,6 @@ namespace Core.Pages {
         private static string TAG = "CreatePost";
 
         private NavigationHelper navigationHelper;
-        private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
         StorageFile image;
         Image PhotoView;
@@ -47,14 +47,6 @@ namespace Core.Pages {
         /// </summary>
         public NavigationHelper NavigationHelper {
             get { return this.navigationHelper; }
-        }
-
-        /// <summary>
-        /// Gets the view model for this <see cref="Page"/>.
-        /// This can be changed to a strongly typed view model.
-        /// </summary>
-        public ObservableDictionary DefaultViewModel {
-            get { return this.defaultViewModel; }
         }
 
         /// <summary>

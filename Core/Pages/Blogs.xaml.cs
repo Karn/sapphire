@@ -1,6 +1,6 @@
 ﻿using APIWrapper.Content;
 using APIWrapper.Content.Model;
-using Core.Common;
+using Core.Shared.Common;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
@@ -13,7 +13,6 @@ namespace Core.Pages {
     /// </summary>
     public sealed partial class Blogs : Page {
         private NavigationHelper navigationHelper;
-        private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
         public Blogs() {
             this.InitializeComponent();
@@ -31,14 +30,6 @@ namespace Core.Pages {
         /// </summary>
         public NavigationHelper NavigationHelper {
             get { return this.navigationHelper; }
-        }
-
-        /// <summary>
-        /// Gets the view model for this <see cref="Page"/>.
-        /// This can be changed to a strongly typed view model.
-        /// </summary>
-        public ObservableDictionary DefaultViewModel {
-            get { return this.defaultViewModel; }
         }
 
         /// <summary>
@@ -64,8 +55,7 @@ namespace Core.Pages {
         /// <param name="sender">The source of the event; typically <see cref="NavigationHelper"/></param>
         /// <param name="e">Event data that provides an empty dictionary to be populated with
         /// serializable state.</param>
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) {
-        }
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) { }
 
         #region NavigationHelper registration
 

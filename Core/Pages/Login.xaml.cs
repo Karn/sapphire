@@ -1,5 +1,5 @@
 ﻿using APIWrapper.AuthenticationManager;
-using Core.Common;
+using Core.Shared.Common;
 using System;
 using System.Net.NetworkInformation;
 using Windows.Phone.UI.Input;
@@ -17,7 +17,6 @@ namespace Core.Pages {
     /// </summary>
     public sealed partial class Login : Page {
         private NavigationHelper navigationHelper;
-        private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
         private StatusBar sb;
 
@@ -51,14 +50,6 @@ namespace Core.Pages {
         /// </summary>
         public NavigationHelper NavigationHelper {
             get { return this.navigationHelper; }
-        }
-
-        /// <summary>
-        /// Gets the view model for this <see cref="Page"/>.
-        /// This can be changed to a strongly typed view model.
-        /// </summary>
-        public ObservableDictionary DefaultViewModel {
-            get { return this.defaultViewModel; }
         }
 
         /// <summary>

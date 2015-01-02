@@ -1,7 +1,7 @@
-﻿using APIWrapper.Utils;
-using APIWrapper.AuthenticationManager;
+﻿using APIWrapper.AuthenticationManager;
 using APIWrapper.Client;
-using Core.Common;
+using APIWrapper.Utils;
+using Core.Shared.Common;
 using System;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -22,7 +22,6 @@ namespace Core.Pages {
         private bool IsReply = false;
 
         private NavigationHelper navigationHelper;
-        private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
         string postID = "";
         string reblogKey = "";
@@ -42,14 +41,6 @@ namespace Core.Pages {
         /// </summary>
         public NavigationHelper NavigationHelper {
             get { return this.navigationHelper; }
-        }
-
-        /// <summary>
-        /// Gets the view model for this <see cref="Page"/>.
-        /// This can be changed to a strongly typed view model.
-        /// </summary>
-        public ObservableDictionary DefaultViewModel {
-            get { return this.defaultViewModel; }
         }
 
         /// <summary>

@@ -11,4 +11,96 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Strings\en-US\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Common\NavigationHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\RelayCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Assets\AFollowing.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\AFollowing2.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\ALiked.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\AMention.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\AReblog.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\AudioPlaceholder.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\BadgeLogo.scale-100.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\BadgeLogo.scale-140.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\BadgeLogo.scale-240.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DefaultAvatar.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\DefaultPattern.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\LoginLogo.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Logo.scale-240.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Logo_Dark.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Nav\About.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Nav\Account.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Nav\Activity.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Nav\Blogs.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Nav\Dashboard.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Nav\Password.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Nav\Queue_Dark.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Nav\Search.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Nav\Search_Dark.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Nav\Tag.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Nav\Tag_Dark.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\New.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\NewPost\Cancel.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\NewPost\Chat.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\NewPost\Link.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\NewPost\Photo.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\NewPost\PostOK.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\NewPost\Quote.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\NewPost\Text.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\NewPost\Videos.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\PauseIcon.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Placeholders\ActivityPost.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Placeholders\Login.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Placeholders\LoginVideo.mp4" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Placeholders\UploadImage.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Play.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\PlayIcon.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\PostOK.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Check.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Delete.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Drafts.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Inbox.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Liked.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Likes.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\More.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Queue.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Reblog.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Reblogged.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Reply.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Star.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\UserOptions.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Default\AddDraft.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Default\Drafts.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Default\Queue.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Default\QueuePost.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Check.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Delete.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Drafts.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Inbox.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Liked.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Likes.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\More.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Queue.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Reblog.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Reblogged.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Reply.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Star.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\UserOptions.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SmallLogo.scale-240.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SplashScreen.scale-240.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Square71x71Logo.scale-240.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\StoreLogo.scale-240.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Top.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\WideLogo.scale-240.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Assets\Resources\Main.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
 </Project>

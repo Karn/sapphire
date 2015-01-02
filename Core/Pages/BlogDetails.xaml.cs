@@ -1,6 +1,6 @@
 ﻿using APIWrapper.Client;
 using APIWrapper.Content;
-using Core.Common;
+using Core.Shared.Common;
 using System;
 using System.Diagnostics;
 using System.Linq;
