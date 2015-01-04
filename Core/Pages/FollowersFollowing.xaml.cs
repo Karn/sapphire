@@ -151,9 +151,5 @@ namespace Core.Pages {
                     throw new Exception("Navigation Failed");
             }
         }
-
-        private void Border_Tapped_1(object sender, TappedRoutedEventArgs e) {
-
-        }
     }
 }

@@ -11,12 +11,6 @@ namespace APIWrapper.Client {
 
         //API connection URI
         private static readonly string APIURI = "https://api.tumblr.com/v2";
-        //OAuth URI Endpoints
-        public static readonly string RequestTokenURI = "http://www.tumblr.com/oauth/request_token";
-        public static readonly string AuthorizationURI = "http://www.tumblr.com/oauth/authorize";
-        public static readonly string AccessTokenURI = "http://www.tumblr.com/oauth/access_token";
-        //XAuth URI Endpoints
-        public static readonly string SecureAccessTokenURI = "https://www.tumblr.com/oauth/access_token";
         //API endpoints
         public static readonly string UserInfo = APIURI + "/user/info";
         public static readonly string Dashboard = APIURI + "/user/dashboard";

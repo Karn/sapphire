@@ -118,7 +118,7 @@ namespace Core.Pages {
                 Password.IsEnabled = false;
                 LoginButton.IsEnabled = false;
 
-                string response = await APIWrapper.AuthenticationManager.Authentication.RequestAccessToken(Email.Text.ToString(), Password.Password.ToString());
+                string response = await Authentication.RequestAccessToken(Email.Text.ToString(), Password.Password.ToString());
                 await sb.ProgressIndicator.HideAsync();
 
                 if (response == "OK") {

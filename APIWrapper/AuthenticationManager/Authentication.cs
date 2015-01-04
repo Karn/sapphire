@@ -16,6 +16,12 @@ namespace APIWrapper.AuthenticationManager {
 
         private static string TAG = "Authentication";
 
+        //OAuth URI Endpoints
+        public static readonly string RequestTokenURI = "http://www.tumblr.com/oauth/request_token";
+        public static readonly string AuthorizationURI = "http://www.tumblr.com/oauth/authorize";
+        public static readonly string AccessTokenURI = "http://www.tumblr.com/oauth/access_token";
+        //XAuth URI Endpoints
+        public static readonly string SecureAccessTokenURI = "https://www.tumblr.com/oauth/access_token";
         //Keys
         public static readonly string ConsumerKey = "BUHsuO5U9DF42uJtc8QTZlOmnUaJmBJGuU1efURxeklbdiLn9L";
         public static readonly string ConsumerSecretKey = "olOu3aRBCdqCuMFm8fmzNjMAWmICADSIuXWTnVSFng1ZcLU1cV";
@@ -132,11 +138,11 @@ namespace APIWrapper.AuthenticationManager {
                 {"x_auth_username", Authentication.Utils.UrlEncode(userName)}
             }.Select(kv => kv.Key + "=" + kv.Value).Aggregate((i, j) => i + "&" + j);
 
-                var signatureString = "POST&" + Uri.EscapeDataString(Endpoints.SecureAccessTokenURI) + "&" +
+                var signatureString = "POST&" + Uri.EscapeDataString(SecureAccessTokenURI) + "&" +
                     Uri.EscapeDataString(signatureParameters);
                 var signature = Utils.GenerateSignature(signatureString, ConsumerSecretKey);
 
-                var response = await Utils.PostAuthenticationData(Endpoints.SecureAccessTokenURI,
+                var response = await Utils.PostAuthenticationData(SecureAccessTokenURI,
                     signatureParameters + "&oauth_signature=" + Uri.EscapeDataString(signature));
 
                 Debug.WriteLine("Access Token Response: " + response);
