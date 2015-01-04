@@ -24,13 +24,13 @@ namespace Core {
 
         static StatusBar statusBar;
 
+        public ContinuationManager ContinuationManager { get; private set; }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
-        /// 
-        public ContinuationManager ContinuationManager { get; private set; }
-
+        ///
         public App() {
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
@@ -144,6 +144,7 @@ namespace Core {
             await SuspensionManager.SaveAsync();
             deferral.Complete();
         }
+
 
         protected override void OnActivated(IActivatedEventArgs e) {
             base.OnActivated(e);

@@ -118,14 +118,18 @@ namespace APIWrapper.Client {
             return await RequestHandler.POST(Endpoints.Post, parameters);
         }
 
+        public static async Task<HttpResponseMessage> CreateReply(string parameters) {
+            return await RequestHandler.POST(Endpoints.Edit, parameters);
+        }
+
         /// <summary>
         /// Method to reblog a post
         /// </summary>
         /// <param name="id">The post's unique ID</param>
         /// <param name="reblogKey">The key used to handle reblogging/liking this post</param>
         /// <returns>Boolean to indicate if the request was completed</returns>
-        public async static Task<bool> ReblogPost(string id, string reblogKey, string caption = "", string tags = "", string additionalParameters = "") {
-            return (await RequestHandler.POST(Endpoints.ReblogPost,
+        public async static Task<bool> ReblogPost(string id, string reblogKey, string caption = "", string tags = "", string additionalParameters = "", string blogName = "") {
+            return (await RequestHandler.POST(Endpoints.Reblog(blogName),
                 (string.Format("id={0}&reblog_key={1}", id, reblogKey) +
                 (!string.IsNullOrEmpty(caption) ? "&comment=" + caption : "") +
                 (!string.IsNullOrEmpty(tags) ? "&tags=" + tags : "") +
@@ -135,7 +139,7 @@ namespace APIWrapper.Client {
         }
 
         public async static Task<bool> PostDraft(string id) {
-            return (await RequestHandler.POST(Endpoints.EditPost,
+            return (await RequestHandler.POST(Endpoints.Edit,
                 string.Format("state=published&id={0}", id)
                 )).StatusCode == HttpStatusCode.Created;
         }

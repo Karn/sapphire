@@ -121,14 +121,17 @@ namespace Core.Pages {
         private async void FollowUnfollowButton_Tapped(object sender, TappedRoutedEventArgs e) {
             var x = ((Button)sender);
             if (x.Content.ToString().ToLower() == "follow") {
+                App.DisplayStatus("Following user...");
                 if (await CreateRequest.FollowUnfollow(true, x.Tag.ToString())) {
                     x.Content = "UNFOLLOW";
                 }
             } else if (x.Content.ToString().ToLower() == "unfollow") {
+                App.DisplayStatus("Unfollowing user...");
                 if (await CreateRequest.FollowUnfollow(false, x.Tag.ToString())) {
                     x.Content = "FOLLOW";
                 }
             }
+            App.HideStatus();
         }
 
         private void ScrollViewer_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e) {
@@ -141,16 +144,12 @@ namespace Core.Pages {
             }
         }
 
-        private void Image_Tapped(object sender, TappedRoutedEventArgs e) {
-            var frame = Window.Current.Content as Frame;
-            if (!frame.Navigate(typeof(Pages.BlogDetails), ((Image)sender).Tag.ToString().Split(' ')[0]))
-                throw new Exception("Navigation Failed");
-        }
-
-        private void Border_Tapped(object sender, TappedRoutedEventArgs e) {
-            var frame = Window.Current.Content as Frame;
-            if (!frame.Navigate(typeof(Pages.BlogDetails), ((Image)sender).Tag.ToString().Split(' ')[0]))
-                throw new Exception("Navigation Failed");
+        private void GoToBlog(object sender, TappedRoutedEventArgs e) {
+            if (((FrameworkElement)sender).Tag != null) {
+                var frame = Window.Current.Content as Frame;
+                if (!frame.Navigate(typeof(BlogDetails), ((FrameworkElement)sender).Tag.ToString().Split(' ')[0]))
+                    throw new Exception("Navigation Failed");
+            }
         }
 
         private void Border_Tapped_1(object sender, TappedRoutedEventArgs e) {

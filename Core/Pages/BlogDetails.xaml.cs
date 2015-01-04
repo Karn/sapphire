@@ -51,8 +51,6 @@ namespace Core.Pages {
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
             blogName = e.NavigationParameter.ToString();
             LayoutRoot.DataContext = await CreateRequest.GetBlog(blogName);
-
-            Debug.WriteLine(await CreateRequest.RetrieveSearch(blogName, "me"));
         }
 
         /// <summary>
@@ -84,15 +82,17 @@ namespace Core.Pages {
 
         private async void FollowUnfollowButton_Tapped(object sender, TappedRoutedEventArgs e) {
             var x = ((Button)sender);
-            if (x.Content.ToString().ToLower() == "+") {
-                App.DisplayStatus("Following user...");
-                if (await CreateRequest.FollowUnfollow(true, x.Tag.ToString())) {
-                    x.Content = "-";
-                }
-            } else if (x.Content.ToString().ToLower() == "-") {
-                App.DisplayStatus("Unfollowing user...");
-                if (await CreateRequest.FollowUnfollow(false, x.Tag.ToString())) {
-                    x.Content = "+";
+            if (x.Tag != null) {
+                if (x.Content.ToString().ToLower() == "+") {
+                    App.DisplayStatus("Following user...");
+                    if (await CreateRequest.FollowUnfollow(true, x.Tag.ToString())) {
+                        x.Content = "-";
+                    }
+                } else if (x.Content.ToString().ToLower() == "-") {
+                    App.DisplayStatus("Unfollowing user...");
+                    if (await CreateRequest.FollowUnfollow(false, x.Tag.ToString())) {
+                        x.Content = "+";
+                    }
                 }
             }
             App.HideStatus();

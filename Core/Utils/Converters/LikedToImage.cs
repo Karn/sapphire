@@ -11,8 +11,8 @@ using Windows.UI.Xaml.Media.Imaging;
 namespace Core.Utils.Converters {
     public sealed class LikedToImage : IValueConverter {
 
-        public static ImageSource LikeBrush = new BitmapImage(new Uri("ms-appx:///Assets/Likes.png"));
-        public static ImageSource LikeFullBrush = new BitmapImage(new Uri("ms-appx:///Assets/Liked.png"));
+        public static ImageBrush LikeBrush = new ImageBrush() { ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Likes.png")) };
+        public static ImageBrush LikeFullBrush = new ImageBrush() { ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Liked.png")) };
 
 
         public object Convert(object value, Type targetType, object parameter, string language) {

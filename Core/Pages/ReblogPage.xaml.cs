@@ -1,11 +1,14 @@
 ﻿using APIWrapper.AuthenticationManager;
 using APIWrapper.Client;
+using APIWrapper.Content;
 using APIWrapper.Utils;
 using Core.Shared.Common;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
@@ -20,6 +23,7 @@ namespace Core.Pages {
         private static string TAG = "ReblogPage";
 
         private bool IsReply = false;
+        private static object options;
 
         private NavigationHelper navigationHelper;
 
@@ -140,14 +144,14 @@ namespace Core.Pages {
         }
 
         private async void PostButton_Tapped(object sender, TappedRoutedEventArgs e) {
+            var blogName = BlogName.Text;
             var tags = Tags.Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
-                tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+                tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length) : tags.Substring(0, tags.Length)));
             }
             try {
                 var status = "";
-                App.DisplayStatus("Reblogging post...");
                 ReplyFeilds.IsEnabled = false;
                 if (((Image)sender).Tag != null) {
                     if (((Image)sender).Tag.ToString() == "queue") {
@@ -163,25 +167,25 @@ namespace Core.Pages {
                         status = "&state=draft";
                     }
                 }
-                if (IsReply) {
-                    if (await CreateRequest.ReblogPost(postID, reblogKey, "", tags, "reply_text=" + Authentication.Utils.UrlEncode(Caption.Text))) {
+                if (IsReply && !string.IsNullOrWhiteSpace(Caption.Text)) {
+                    App.DisplayStatus("Posting reply...");
+                    var parameters = (string.Format("is_private=false&id={0}&reblog_key={1}", postID, reblogKey) + (!string.IsNullOrEmpty(Caption.Text) ? "&reply_text=" + Authentication.Utils.UrlEncode(Caption.Text) : "") +
+                (!string.IsNullOrEmpty(tags) ? "&tags=" + tags : ""));
+                    var request = await CreateRequest.CreatePost(parameters);
+                    Debug.WriteLine(await request.Content.ReadAsStringAsync());
+                    if (request.StatusCode == System.Net.HttpStatusCode.Created) {
                         MainPage.AlertFlyout.DisplayMessage("Created.");
                         ReplyFeilds.IsEnabled = true;
                         App.HideStatus();
                         Frame.GoBack();
                     } else {
-                        if (((Image)sender).Tag != null) {
-                            if (((Image)sender).Tag.ToString() == "queue") {
-                                MainPage.AlertFlyout.DisplayMessage("Failed to add post to queue. Remember to use the same format as on the site!");
-                            } else if (((Image)sender).Tag.ToString() == "draft") {
-                                MainPage.AlertFlyout.DisplayMessage("Failed to add post to drafts.");
-                            } else
-                                MainPage.AlertFlyout.DisplayMessage("Failed to reblog post.");
-                        }
+                        MainPage.AlertFlyout.DisplayMessage("Failed to reply to message.");
+                        App.HideStatus();
                         return;
                     }
                 } else {
-                    if (await CreateRequest.ReblogPost(postID, reblogKey, Authentication.Utils.UrlEncode(Caption.Text), tags, status)) {
+                    App.DisplayStatus("Reblogging post...");
+                    if (await CreateRequest.ReblogPost(postID, reblogKey, Authentication.Utils.UrlEncode(Caption.Text), tags, status, blogName)) {
                         MainPage.AlertFlyout.DisplayMessage("Created.");
                         ReplyFeilds.IsEnabled = true;
                         App.HideStatus();
@@ -205,6 +209,38 @@ namespace Core.Pages {
                 MainPage.AlertFlyout.DisplayMessage("Failed to create post");
                 DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
             }
+        }
+
+        private void ReblogToOptions_Loaded(object sender, RoutedEventArgs e) {
+            var mainblog = UserStore.UserBlogs.First();
+            ReblogToOptions.DataContext = mainblog;
+        }
+
+        private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e) {
+            ReblogToOptions.DataContext = UserStore.UserBlogs.Where(b => b.Name == ((TextBlock)sender).Text).FirstOrDefault();
+            Grid_Tapped(null, null);
+        }
+
+        private void ListView_Loaded(object sender, RoutedEventArgs e) {
+            ((ListView)sender).ItemsSource = UserStore.UserBlogs;
+        }
+
+        private void ReblogToOptions_Tapped(object sender, TappedRoutedEventArgs e) {
+            options = sender;
+            FrameworkElement element = sender as FrameworkElement;
+            if (element == null) return;
+
+            // If the menu was attached properly, we just need to call this handy method
+            FlyoutBase.ShowAttachedFlyout(element);
+        }
+
+        private void Grid_Tapped(object sender, TappedRoutedEventArgs e) {
+            FrameworkElement element = options as FrameworkElement;
+            if (element == null) return;
+
+            // If the menu was attached properly, we just need to call this handy method
+            var f = FlyoutBase.GetAttachedFlyout(element);
+            f.Hide();
         }
     }
 }

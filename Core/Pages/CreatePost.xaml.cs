@@ -183,7 +183,7 @@ namespace Core.Pages {
             var tags = ((TextBox)g.FindName("Tags")).Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
-                tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+                tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length) : tags.Substring(0, tags.Length)));
                 parameterString += "&tags=" + tags;
             }
 
@@ -232,7 +232,7 @@ namespace Core.Pages {
             var tags = ((TextBox)g.FindName("Tags")).Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
-                tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+                tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length) : tags.Substring(0, tags.Length)));
                 parameterString += "&tags=" + tags;
             }
             try {
@@ -278,7 +278,7 @@ namespace Core.Pages {
             var tags = ((TextBox)g.FindName("Tags")).Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
-                tags = tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1);
+                tags = tags.StartsWith(" ") ? tags.Substring(1, tags.Length) : tags.Substring(0, tags.Length);
                 parameterString += "&tags=" + tags;
             }
 
@@ -332,7 +332,7 @@ namespace Core.Pages {
             var tags = ((TextBox)g.FindName("Tags")).Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
-                tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length - 1) : tags.Substring(0, tags.Length - 1)));
+                tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length) : tags.Substring(0, tags.Length)));
                 parameterString += "&tags=" + tags;
             }
             try {

@@ -135,6 +135,9 @@
     <Compile Include="Utils\Controls\PostFeedControl.xaml.cs">
       <DependentUpon>PostFeedControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\Controls\ToggleControl.xaml.cs">
+      <DependentUpon>ToggleControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\Converters\ActivityTemplateSelector.cs" />
     <Compile Include="Utils\Converters\FollowingToSign.cs" />
     <Compile Include="Utils\Converters\TagsEnabled.cs" />
@@ -247,6 +250,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Utils\Controls\PostFeedControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utils\Controls\ToggleControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

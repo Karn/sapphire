@@ -13,6 +13,7 @@
     d:DesignHeight="300"
     d:DesignWidth="380">
     <UserControl.Resources>
+        <CollectionViewSource x:Name="PostCVS"/>
 
         <Flyout x:Key="SaveToPhoneFlyout" Placement="Full" x:Name="OptionsPopup">
             <Flyout.FlyoutPresenterStyle>
@@ -111,7 +112,8 @@
                                     <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource ReblogAsset}"/>
                                 </Button.Background>
                             </Button>
-                            <ToggleButton x:Name="LikeButton" Style="{StaticResource LikeButtonStyle}" Tag="{Binding id}" Margin="5, 0" BorderBrush="White" BorderThickness="0" MinWidth="35" Width="35" MinHeight="50" MaxWidth="35" MaxHeight="50" HorizontalAlignment="Right" IsChecked="{Binding liked}" Click="LikeButton_Click" Loaded="LikeButton_Loaded" Padding="10,0"/>
+                            <!--<ToggleButton x:Name="LikeButton" Style="{StaticResource LikeButton}" Tag="{Binding id}" Margin="5, 0" BorderBrush="White" BorderThickness="0" MinWidth="35" Width="35" MinHeight="50" MaxWidth="35" MaxHeight="50" HorizontalAlignment="Right" IsChecked="{Binding liked}" Click="LikeButton_Click" Padding="10,0"/>-->
+                            <local:ToggleControl x:Name="LikeButton" Tag="{Binding id}" Margin="5, 0" BorderBrush="White" BorderThickness="0" MinWidth="35" Width="35" MinHeight="50" MaxWidth="35" MaxHeight="50" HorizontalAlignment="Right" IsChecked="{Binding liked}" Click="LikeButton_Click"/>
                             <Button x:Name="DeleteButton" Visibility="{Binding IsEditable}" Tag="{Binding}" Click="DeleteButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}" Margin="-6, 0, 0, 0">
                                 <Button.Background>
                                     <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource DeleteButtonAsset}"/>
@@ -161,6 +163,7 @@
                 </StackPanel>
             </Border>
         </DataTemplate>
+
         <DataTemplate x:Key="Gif">
             <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
                 <StackPanel Background="{ThemeResource PostBG}">
@@ -173,24 +176,23 @@
                 </StackPanel>
             </Border>
         </DataTemplate>
+
         <DataTemplate x:Key="Photoset">
             <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
-
                 <StackPanel Background="{ThemeResource PostBG}">
                     <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
-                    <StackPanel MinHeight="150">
-                        <ListView ItemsSource="{Binding photos}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Image Holding="Image_Holding" HorizontalAlignment="Stretch" Margin="0, 0, 0, 2" Stretch="UniformToFill" Source="{Binding original_size.url}" FlyoutBase.AttachedFlyout="{StaticResource SaveToPhoneFlyout}"/>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </StackPanel>
+                    <ListView ItemsSource="{Binding photos}" MinHeight="150">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Image Holding="Image_Holding" HorizontalAlignment="Stretch" Margin="0, 0, 0, 2" Stretch="UniformToFill" Source="{Binding original_size.url}" FlyoutBase.AttachedFlyout="{StaticResource SaveToPhoneFlyout}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                     <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
                 </StackPanel>
             </Border>
         </DataTemplate>
+
         <DataTemplate x:Key="Quote">
             <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
                 <StackPanel Background="{ThemeResource PostBG}">
@@ -203,6 +205,7 @@
                 </StackPanel>
             </Border>
         </DataTemplate>
+
         <DataTemplate x:Key="Link">
             <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
                 <StackPanel Background="{ThemeResource PostBG}">
@@ -215,6 +218,7 @@
                 </StackPanel>
             </Border>
         </DataTemplate>
+
         <DataTemplate x:Key="Chat">
             <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
                 <StackPanel Background="{ThemeResource PostBG}">
@@ -227,6 +231,7 @@
                 </StackPanel>
             </Border>
         </DataTemplate>
+
         <DataTemplate x:Key="Audio">
             <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
                 <StackPanel Background="{ThemeResource PostBG}">
@@ -249,6 +254,7 @@
                 </StackPanel>
             </Border>
         </DataTemplate>
+
         <DataTemplate x:Key="Video">
             <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
                 <StackPanel Background="{StaticResource PostBG}">
@@ -260,6 +266,7 @@
                 </StackPanel>
             </Border>
         </DataTemplate>
+
         <DataTemplate x:Key="YoutubeVideo">
             <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
                 <StackPanel Background="{StaticResource PostBG}">
@@ -269,6 +276,7 @@
                 </StackPanel>
             </Border>
         </DataTemplate>
+
         <DataTemplate x:Key="Answer">
             <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
                 <StackPanel Background="{StaticResource PostBG}">
@@ -387,9 +395,6 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid.Resources>
-                <CollectionViewSource x:Name="PostCVS"/>
-            </Grid.Resources>
             <Grid Grid.Row="0" VerticalAlignment="Top" Height="60" Margin="10, 0" HorizontalAlignment="Center">
                 <TextBlock x:Name="textBlock1" Text="Pull to refresh.." Margin="15, 0, 0, 0" FontSize="22" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" VerticalAlignment="Center" TextLineBounds="Tight" FontFamily="Segoe WP" FontWeight="Thin" CharacterSpacing="-25"/>
             </Grid>

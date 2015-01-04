@@ -34,8 +34,8 @@ namespace Core.Utils.Controls {
         private bool AlreadyHasContent;
 
         public static ImageBrush RebloggedBrush = new ImageBrush { ImageSource = App.Current.Resources["RebloggedAsset"] as BitmapImage };
-        public static ImageBrush LikeBrush = new ImageBrush { ImageSource = App.Current.Resources["LikeAsset"] as BitmapImage };
-        public static ImageBrush LikeFullBrush = new ImageBrush { ImageSource = App.Current.Resources["LikedAsset"] as BitmapImage };
+        public static ImageBrush LikeBrush = new ImageBrush { ImageSource = App.Current.Resources["RebloggedAsset"] as BitmapImage };
+        public static ImageBrush LikeFullBrush = new ImageBrush { ImageSource = App.Current.Resources["RebloggedAsset"] as BitmapImage };
 
         public static ImageSource PlayIcon = App.Current.Resources["PlayIcon"] as BitmapImage;
         public static ImageSource PauseIcon = App.Current.Resources["PauseIcon"] as BitmapImage;
@@ -124,7 +124,7 @@ namespace Core.Utils.Controls {
         }
         private async void LikeButton_Click(object sender, RoutedEventArgs e) {
             try {
-                App.DisplayStatus("Liking post...");
+                App.DisplayStatus("Updating like...");
                 var x = ((ToggleButton)sender);
                 var notes = ((TextBlock)((Grid)((StackPanel)x.Parent).Parent).FindName("NoteInfo"));
 
@@ -135,13 +135,8 @@ namespace Core.Utils.Controls {
 
                 if (result) {
                     try {
-                        if ((bool)(x.IsChecked)) {
-                            notes.Text = (int.Parse(notes.Text) + 1).ToString();
-                            x.Background = LikeFullBrush;
-                        } else {
-                            notes.Text = (int.Parse(notes.Text) - 1).ToString();
-                            x.Background = LikeBrush;
-                        }
+                        notes.Text = ((bool)(x.IsChecked)) ? (int.Parse(notes.Text) + 1).ToString() :
+                            (int.Parse(notes.Text) - 1).ToString();
                     } catch (Exception ex2) {
                         DiagnosticsManager.LogException(ex2, TAG, "Failed to update note count.");
                     }

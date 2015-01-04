@@ -10,6 +10,31 @@
     mc:Ignorable="d"
     Background="{StaticResource Blue}">
 
+    <Page.Resources>
+        <Flyout x:Key="SwitchBlogFlyout" Placement="Full">
+            <Flyout.FlyoutPresenterStyle>
+                <Style TargetType="FlyoutPresenter">
+                    <Setter Property="Margin" Value="0"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                </Style>
+            </Flyout.FlyoutPresenterStyle>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid Tapped="Grid_Tapped" Background="#02000000"/>
+                <ListView Grid.Row="1" Padding="0, 25, 0, 23" VerticalAlignment="Bottom" Background="{ThemeResource HeaderLightBlue}" Loaded="ListView_Loaded">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Margin="20, 0, 20, 8" Text="{Binding Name}" Tapped="TextBlock_Tapped" Foreground="{ThemeResource LightText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Flyout>
+    </Page.Resources>
+
     <Grid x:Name="LayoutRoot" Background="{StaticResource LightGray}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -27,6 +52,7 @@
             <!--TODO: Content should be placed within the following grid-->
             <Grid Margin="5, 0" VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -46,14 +72,18 @@
                     FallbackValue=Collapsed}" Tapped="PostButton_Tapped"
                        Source="ms-appx:///Assets/Resources/Default/QueuePost.png"/>
                 </StackPanel>
-
-                <TextBox x:Name="Caption" Grid.Row="0" Margin="0, 5, 0, 0"
+                <StackPanel x:Name="ReblogToOptions" Loaded="ReblogToOptions_Loaded" DataContext="{Binding}" Grid.Row="0" Orientation="Horizontal" Margin="0, 5, 0, -3" Background="White" Height="45" FlyoutBase.AttachedFlyout="{StaticResource SwitchBlogFlyout}" Tapped="ReblogToOptions_Tapped" Visibility="{Binding ElementName=PageTitle, Converter={StaticResource IsFullVersion},
+                    FallbackValue=Collapsed}">
+                    <Image x:Name="Avatar" Stretch="UniformToFill" Source="{Binding avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
+                    <TextBlock x:Name="BlogName" FontSize="24" Foreground="Black" Text="{Binding Name, FallbackValue=Main Blog}" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal" Opacity="0.5" Style="{StaticResource HeaderTextStyle}"/>
+                </StackPanel>
+                <TextBox x:Name="Caption" Grid.Row="1" Margin="0, 5, 0, 0"
                              PlaceholderText="Caption" Padding="10, 8" Background="White"
                              BorderThickness="0" HorizontalAlignment="Stretch"
                              VerticalAlignment="Stretch" IsSpellCheckEnabled="True"
                              IsTextPredictionEnabled="True" TextWrapping="Wrap"/>
 
-                <Grid Grid.Row="1" Margin="0, -3, 0, 0">
+                <Grid Grid.Row="2" Margin="0, -3, 0, 0">
                     <TextBox x:Name="Tags" Margin="0, 5" KeyDown="TagBox_KeyDown"
                              PlaceholderText="Tags" Height="45" Padding="50, 8, 0, 0"
                              VerticalContentAlignment="Center" Background="White"
@@ -62,7 +92,7 @@
                            HorizontalAlignment="Left" Margin="7, 10" Height="30"
                            Width="35" Opacity=".5"/>
                 </Grid>
-                <Grid x:Name="PublishBox" Grid.Row="2" Margin="0, -8, 0, 0" Visibility="{Binding ElementName=PageTitle, Converter={StaticResource IsFullVersion},
+                <Grid x:Name="PublishBox" Grid.Row="3" Margin="0, -8, 0, 0" Visibility="{Binding ElementName=PageTitle, Converter={StaticResource IsFullVersion},
                     FallbackValue=Collapsed}">
                     <TextBox x:Name="PublishOn" Margin="0, 5" PlaceholderText="Publish on.."
                          Height="45" Padding="50, 8, 0, 0" BorderThickness="0"
