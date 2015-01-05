@@ -5,7 +5,6 @@ using APIWrapper.Utils;
 using Core.Shared.Common;
 using Core.Utils.Controls;
 using System;
-using System.Diagnostics;
 using Windows.ApplicationModel.Background;
 using Windows.Phone.UI.Input;
 using Windows.System;
@@ -16,7 +15,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Windows.UI.Xaml.Shapes;
 
 namespace Core {
     public sealed partial class MainPage : Page {
@@ -27,9 +25,6 @@ namespace Core {
 
         private readonly NavigationHelper navigationHelper;
 
-        public static FlyoutPresenter _LRPresenter;
-        public static StackPanel MainPagePresenter;
-
         private static bool JustNavigatedBack;
         private static bool NavigatedFromToast;
 
@@ -37,8 +32,6 @@ namespace Core {
         public static bool SwitchedAccount = false;
 
         public static NewPostDialog NPD;
-
-        public static Ellipse NewPostIndicator;
 
         public MainPage() {
             this.InitializeComponent();
@@ -99,17 +92,6 @@ namespace Core {
             get { return this.navigationHelper; }
         }
 
-        /// <summary>
-        /// Populates the page with content passed during navigation. Any saved state is also
-        /// provided when recreating a page from a prior session.
-        /// </summary>
-        /// <param name="sender">
-        /// The source of the event; typically <see cref="NavigationHelper"/>.
-        /// </param>
-        /// <param name="e">Event data that provides both the navigation parameter passed to
-        /// <see cref="Frame.Navigate(Type, Object)"/> when this page was initially requested and
-        /// a dictionary of state preserved by this page during an earlier
-        /// session. The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
             if (e.NavigationParameter != null && !string.IsNullOrEmpty(e.NavigationParameter.ToString()) && !NavigatedFromToast) {
                 //Handle accounts switch to the one described in the toast
@@ -123,11 +105,6 @@ namespace Core {
             }
 
             AlertFlyout = _ErrorFlyout;
-
-            if (CreatePostControl.Visibility == Visibility.Collapsed) {
-                CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
-                CreatePostFill.Fill = App.Current.Resources["HeaderLightBlue"] as SolidColorBrush;
-            }
 
             if (SwitchedAccount) {
                 NavigationPivot.SelectedIndex = 0;
@@ -146,34 +123,12 @@ namespace Core {
             Frame.BackStack.Clear();
         }
 
-        /// <summary>
-        /// Preserves state associated with this page in case the application is suspended or the
-        /// page is discarded from the navigation cache. Values must conform to the serialization
-        /// requirements of <see cref="SuspensionManager.SessionState"/>.
-        /// </summary>
-        /// <param name="sender">The source of the event; typically <see cref="NavigationHelper"/>.</param>
-        /// <param name="e">Event data that provides an empty dictionary to be populated with
-        /// serializable state.</param>
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) {
-            // TODO: Save the unique state of the page here.
             JustNavigatedBack = true;
         }
 
         #region NavigationHelper registration
 
-        /// <summary>
-        /// The methods provided in this section are simply used to allow
-        /// NavigationHelper to respond to the page's navigation methods.
-        /// <para>
-        /// Page specific logic should be placed in event handlers for the  
-        /// <see cref="NavigationHelper.LoadState"/>
-        /// and <see cref="NavigationHelper.SaveState"/>.
-        /// The navigation parameter is available in the LoadState method 
-        /// in addition to page state preserved during an earlier session.
-        /// </para>
-        /// </summary>
-        /// <param name="e">Provides data for navigation methods and event
-        /// handlers that cannot cancel the navigation request.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e) {
             this.navigationHelper.OnNavigatedTo(e);
         }
@@ -201,15 +156,15 @@ namespace Core {
             BackgroundTaskRegistration myFirstTask = taskBuilder.Register();
         }
 
-        private void Navigation_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            handleNav(Navigation.SelectedIndex);
+        private void NavigationIconsSelectionChanged(object sender, SelectionChangedEventArgs e) {
+            HandleNav(Navigation.SelectedIndex);
         }
 
         private void NavigationPivot_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            handleNav(NavigationPivot.SelectedIndex);
+            HandleNav(NavigationPivot.SelectedIndex);
         }
 
-        private void handleNav(int SelectedItem) {
+        private void HandleNav(int SelectedItem) {
             if (NavigationPivot.SelectedIndex != 0) {
                 RefreshButton.Visibility = Visibility.Visible;
                 CommandBar.ClosedDisplayMode = AppBarClosedDisplayMode.Compact;
@@ -258,19 +213,18 @@ namespace Core {
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e) {
-            if (!Frame.Navigate(typeof(Pages.Settings))) {
+            if (!Frame.Navigate(typeof(Pages.Settings)))
                 DiagnosticsManager.LogException(null, TAG, "Failed to navigate to Settings.");
-            }
         }
 
         private void ManageAccountButton_Click(object sender, RoutedEventArgs e) {
-            if (!Frame.Navigate(typeof(Pages.AccountManager))) {
+            if (!Frame.Navigate(typeof(Pages.AccountManager)))
                 DiagnosticsManager.LogException(null, TAG, "Failed to navigate to AccountManager.");
-            }
         }
 
         private async void RefreshButton_Click(object sender, RoutedEventArgs e) {
             switch (NavigationPivot.SelectedIndex) {
+                default:
                 case 0:
                     break;
                 case 1:
@@ -282,8 +236,6 @@ namespace Core {
                 case 3:
                     SpotlightTags.ItemsSource = await CreateRequest.RetrieveSpotlight(true);
                     break;
-                default:
-                    goto case 0;
             }
         }
 
@@ -291,24 +243,17 @@ namespace Core {
             if (UserStore.CurrentBlog != null) {
                 switch (((StackPanel)sender).Tag.ToString()) {
                     case "Posts":
-                        if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/posts")) {
+                        if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/posts"))
                             DiagnosticsManager.LogException(null, TAG, "Failed to navigate to current blogs posts.");
-                        }
                         break;
                     case "Likes":
-                        if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/user/likes")) {
+                        if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/user/likes"))
                             DiagnosticsManager.LogException(null, TAG, "Failed to navigate to current blogs likes.");
-                        }
                         break;
                     case "Followers":
-                        if (!Frame.Navigate(typeof(Pages.FollowersFollowing), "Followers")) {
-                            DiagnosticsManager.LogException(null, TAG, "Failed to navigate to Followers.");
-                        }
-                        break;
                     case "Following":
-                        if (!Frame.Navigate(typeof(Pages.FollowersFollowing), "Following")) {
+                        if (!Frame.Navigate(typeof(Pages.FollowersFollowing), ((StackPanel)sender).Tag.ToString()))
                             DiagnosticsManager.LogException(null, TAG, "Failed to navigate to Following.");
-                        }
                         break;
                 }
             }
@@ -325,15 +270,14 @@ namespace Core {
             if (Authentication.Utils.NetworkAvailable()) {
                 App.DisplayStatus("Loading account data...");
                 RefreshButton.IsEnabled = false;
-                Debug.WriteLine("Loading account data...");
-                AccountPivot.DataContext = await CreateRequest.RetrieveAccountInformation(account) ? UserStore.CurrentBlog : null;
+                AccountPivot.DataContext = await CreateRequest.RetrieveAccountInformation(account) ?
+                    UserStore.CurrentBlog : null;
                 if (!ActivityPosts.ContentLoaded)
                     ActivityPosts.LoadPosts();
                 RefreshButton.IsEnabled = true;
                 App.HideStatus();
-            } else {
+            } else
                 AlertFlyout.DisplayMessage("Unable to retrieve account details. Check your network connection.");
-            }
         }
 
         public void CreatePost_Click(object sender, RoutedEventArgs e) {
@@ -343,16 +287,14 @@ namespace Core {
                 CreatePostFill.Fill = new SolidColorBrush(Color.FromArgb(255, 207, 73, 73));
                 CreatePostControl.Visibility = Visibility.Visible;
                 CreatePostControl.AnimateIn();
-            } else {
+            } else
                 CreatePost_LostFocus(null, null);
-            }
         }
 
         private void CreatePost_LostFocus(object sender, RoutedEventArgs e) {
             CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
             CreatePostFill.Fill = App.Current.Resources["HeaderLightBlue"] as SolidColorBrush;
             CreatePostControl.AnimateOut();
-            //CreatePostControl.Visibility = Visibility.Collapsed;
         }
 
         private async void SpotlightTags_Loaded(object sender, RoutedEventArgs e) {
@@ -365,21 +307,19 @@ namespace Core {
         private void SearchText_KeyDown(object sender, KeyRoutedEventArgs e) {
             if (e.Key == VirtualKey.Enter) {
                 e.Handled = true;
-                var x = SearchText.Text;
-                SearchText.Text = "";
-                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + Uri.EscapeUriString(x))) {
+                var searchTerm = SearchText.Text;
+                SearchText.Text = string.Empty;
+                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + Uri.EscapeUriString(searchTerm)))
                     DiagnosticsManager.LogException(null, TAG, "Failed to navigate to search page.");
-                }
             }
         }
 
         private void SpotlightTagItem_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + ((Border)sender).Tag)) {
+            if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + ((Border)sender).Tag))
                 DiagnosticsManager.LogException(null, TAG, "Failed to navigate to search page via tag.");
-            }
         }
 
-        private void DashboardIcon_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e) {
+        private void ToTopButton_Click(object sender, RoutedEventArgs e) {
             Posts.ScrollToTop();
         }
 
@@ -414,13 +354,12 @@ namespace Core {
 
         private void Favs_List_Tapped(object sender, TappedRoutedEventArgs e) {
             if (UserStore.CurrentBlog != null) {
-                if (!Frame.Navigate(typeof(Pages.FavBlogs))) {
+                if (!Frame.Navigate(typeof(Pages.FavBlogs)))
                     DiagnosticsManager.LogException(null, TAG, "Failed to navigate to favorite blogs.");
-                }
             }
         }
 
-        private void Border_Loaded(object sender, RoutedEventArgs e) {
+        private void SetSpotlightItemDimensions(object sender, RoutedEventArgs e) {
             var dim = (Window.Current.Bounds.Width - 30) / 3;
             ((Border)sender).Width = dim;
             ((Border)sender).Height = dim;

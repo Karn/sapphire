@@ -72,7 +72,6 @@ namespace Core.Utils.Misc {
                 hyper.Inlines.Add(GetRunControl(link.Text));
                 tb.Inlines.Add(new Run() { Text = " " });
             }
-            hyper.Foreground = new SolidColorBrush(Color.FromArgb(191, 40, 52, 64));
             return hyper;
         }
 

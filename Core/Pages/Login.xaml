@@ -1,0 +1,63 @@
+﻿<Page
+    x:Class="Core.Pages.Login"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Core.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:Control="using:Core.Utils.Controls"
+    xmlns:CommonControl="using:APIWrapper.Utils" RequestedTheme="Light"
+    mc:Ignorable="d" Background="{ThemeResource HeaderLightBlue}">
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <ImageBrush Stretch="UniformToFill" ImageSource="ms-appx:///Assets/Placeholders/Login.jpg" Opacity="0.5"/>
+        </Grid.Background>
+
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <MediaElement x:Name="Player" Grid.RowSpan="4" Height="{Binding ElementName=LayoutRoot, Path=Height}" Width="{Binding ElementName=LayoutRoot, Path=Width}" MinHeight="100" Stretch="UniformToFill" PosterSource="ms-appx:///Assets/Placeholders/Login.jpg" Source="ms-appx:///Assets/Placeholders/LoginVideo.mp4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsLooping="True" AutoPlay="True" Opacity="0.5"/>
+
+        <!-- TitlePanel -->
+        <CommonControl:AlertDialog x:Name="ErrorFlyout" VerticalAlignment="Top" Canvas.ZIndex="9999"/>
+        <StackPanel x:Name="LogoImage" Grid.Row="0" Height="300" Margin="70, 0, 70, 0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+            <StackPanel.Background>
+                <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/LoginLogo.png">
+                    <ImageBrush.RelativeTransform>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5" ScaleX="0.75" ScaleY="0.75"/>
+                    </ImageBrush.RelativeTransform>
+                </ImageBrush>
+            </StackPanel.Background>
+        </StackPanel>
+        <StackPanel x:Name="StartBox" Grid.Row="1" Visibility="Collapsed" VerticalAlignment="Bottom" Margin="12, 0, 12, 12">
+            <TextBlock Foreground="{ThemeResource LightText}" Text="Meet Sapphire." Margin="0" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
+            <Rectangle Fill="White" HorizontalAlignment="Stretch" Height="0.5" Opacity="0.2"/>
+            <TextBlock Foreground="{ThemeResource LightText}" Text="A Tumblr client that does more than just let you like and reblog posts." Padding="40, 10" FontSize="16" TextAlignment="Center" TextLineBounds="TrimToCapHeight" TextWrapping="WrapWholeWords" Opacity="0.9" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
+            <Button x:Name="Start" Tapped="Start_Tapped" Foreground="{ThemeResource LightText}" HorizontalAlignment="Stretch" Margin="7, 15" Content="Lets get started!" FontSize="20" MinHeight="10" Height="45" Background="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" Style="{StaticResource ButtonStyleNoBG}"/>
+        </StackPanel>
+        <StackPanel x:Name="LoginBox" Visibility="Visible" Margin="10, 200, 10, 50" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Bottom">
+            <Grid Margin="10, 4" Background="#9934495E" MaxHeight="40">
+                <Image Opacity="0.5" Margin="10" HorizontalAlignment="Left" Source="ms-appx:///Assets/Nav/Account.png"/>
+                <Rectangle HorizontalAlignment="Left" Width="1" Margin="40, 5" Fill="White"/>
+                <TextBox x:Name="Email" Foreground="{ThemeResource LightText}" Margin="0" Padding="50, 5, 10, 0" InputScope="EmailSmtpAddress" GotFocus="Email_GotFocus" PlaceholderText="email" HorizontalAlignment="Stretch" Style="{StaticResource SearchBoxStyle}" Height="40"/>
+            </Grid>
+            <Grid Margin="10, 4" Background="#9934495E" MaxHeight="40">
+                <Image Opacity="0.5" Margin="10" HorizontalAlignment="Left" Source="ms-appx:///Assets/Nav/Password.png"/>
+                <Rectangle HorizontalAlignment="Left" Width="1" Margin="40, 5" Fill="White"/>
+                <PasswordBox x:Name="Password" Foreground="{ThemeResource LightText}" Margin="0" Padding="50, 5, 10, 0" GotFocus="Email_GotFocus" PlaceholderText="password" BorderThickness="0" Style="{StaticResource PasswordBoxStyle}" Height="40"/>
+            </Grid>
+            <Button x:Name="LoginButton" Foreground="{ThemeResource LightText}" Click="Button_Click" HorizontalAlignment="Stretch" Margin="7, 0" Content="Connect" FontSize="20" MinHeight="10" Height="45" Background="#FF529ECC" BorderThickness="0" Style="{StaticResource ButtonStyleNoBG}"/>
+            <TextBlock Text="Your details are not stored locally or sent to remote servers" Style="{StaticResource HeaderTextStyle}" Margin="0, 50, 0, 0" FontSize="14" TextAlignment="Center" TextWrapping="Wrap"/>
+        </StackPanel>
+    </Grid>
+</Page>

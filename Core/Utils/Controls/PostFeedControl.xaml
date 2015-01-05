@@ -37,7 +37,7 @@
         <DataTemplate x:Key="TopContainer">
             <Grid Height="50" Width="Auto" Background="{ThemeResource Accent2}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button Tag="{Binding blog_name}" Tapped="GoToBlog" VerticalAlignment="Top" BorderThickness="0" MinWidth="0" MinHeight="0" UseLayoutRounding="True" Padding="0" Margin="-3" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Style="{StaticResource ButtonStyle}">
+                    <Button Tag="{Binding blog_name}" Tapped="GoToBlog" VerticalAlignment="Top" BorderThickness="0" MinWidth="0" MinHeight="0" UseLayoutRounding="True" Padding="0" Margin="-3" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Style="{StaticResource ButtonStyleNoBG}">
                         <Image Source="{Binding avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="UniformToFill" Height="50" Width="50"/>
                     </Button>
                     <StackPanel Margin="5, 0">
@@ -97,9 +97,8 @@
         <DataTemplate x:Key="BottomContainer">
             <StackPanel>
                 <StackPanel Tag="{Binding}" Background="{ThemeResource PostBG}">
-                    <!--<TextBlock Visibility="{Binding caption, Converter={StaticResource CaptionConverter}}" Text="{Binding caption, Converter={StaticResource ToPlainText}}" Foreground="{ThemeResource DarkText}" FontSize="16" VerticalAlignment="Top" Margin="5" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxHeight="300" Tapped="Caption_Tapped"/>-->
                     <TextBlock Visibility="{Binding caption, Converter={StaticResource CaptionConverter}}" misc:CaptionFormatter.Text="{Binding caption}" Foreground="{ThemeResource DarkText}" FontSize="16" VerticalAlignment="Top" Margin="5" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" MaxHeight="300" Tapped="Caption_Tapped"/>
-                    <TextBlock Visibility="{Binding tags_as_str, Converter={StaticResource TagsEnabled}}" misc:TagLinks.Text="{Binding tags_as_str}" FontSize="16" VerticalAlignment="Top" Margin="5" TextWrapping="Wrap"/>
+                    <TextBlock Visibility="{Binding tags_as_str, Converter={StaticResource TagsEnabled}}" misc:TagLinks.Text="{Binding tags_as_str}" Foreground="{ThemeResource DarkText}" FontSize="16" VerticalAlignment="Top" Margin="5" TextWrapping="Wrap"/>
 
                     <Grid Height="40" Background="{ThemeResource Accent2}" Tag="{Binding special_case}" Loaded="CommandPanel_Loaded">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
@@ -107,26 +106,26 @@
                             <TextBlock Text=" notes" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         </StackPanel>
                         <StackPanel x:Name="NormalCommands" Orientation="Horizontal" HorizontalAlignment="Right" Tag="{Binding reblog_key}">
-                            <Button x:Name="ReblogButton" Tag="{Binding id}" Click="ReblogButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="40" MinHeight="40" MaxWidth="40" MaxHeight="40" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}">
+                            <Button x:Name="ReblogButton" Tag="{Binding id}" Click="ReblogButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="40" MinHeight="40" MaxWidth="40" MaxHeight="40" HorizontalAlignment="Right" Style="{StaticResource ButtonStyleNoBG}">
                                 <Button.Background>
                                     <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource ReblogAsset}"/>
                                 </Button.Background>
                             </Button>
                             <!--<ToggleButton x:Name="LikeButton" Style="{StaticResource LikeButton}" Tag="{Binding id}" Margin="5, 0" BorderBrush="White" BorderThickness="0" MinWidth="35" Width="35" MinHeight="50" MaxWidth="35" MaxHeight="50" HorizontalAlignment="Right" IsChecked="{Binding liked}" Click="LikeButton_Click" Padding="10,0"/>-->
                             <local:ToggleControl x:Name="LikeButton" Tag="{Binding id}" Margin="5, 0" BorderBrush="White" BorderThickness="0" MinWidth="35" Width="35" MinHeight="50" MaxWidth="35" MaxHeight="50" HorizontalAlignment="Right" IsChecked="{Binding liked}" Click="LikeButton_Click"/>
-                            <Button x:Name="DeleteButton" Visibility="{Binding IsEditable}" Tag="{Binding}" Click="DeleteButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}" Margin="-6, 0, 0, 0">
+                            <Button x:Name="DeleteButton" Visibility="{Binding IsEditable}" Tag="{Binding}" Click="DeleteButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyleNoBG}" Margin="-6, 0, 0, 0">
                                 <Button.Background>
                                     <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource DeleteButtonAsset}"/>
                                 </Button.Background>
                             </Button>
                         </StackPanel>
                         <StackPanel x:Name="DraftCommands" Visibility="Collapsed" Orientation="Horizontal" HorizontalAlignment="Right" Tag="{Binding reblog_key}">
-                            <Button x:Name="PostButton" Tag="{Binding}" Click="PostDraftButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}">
+                            <Button x:Name="PostButton" Tag="{Binding}" Click="PostDraftButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyleNoBG}">
                                 <Button.Background>
                                     <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource PostButtonAsset}"/>
                                 </Button.Background>
                             </Button>
-                            <Button x:Name="DeleteButton_" Tag="{Binding}" Click="DeleteButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}" Margin="-6, 0, 0, 0">
+                            <Button x:Name="DeleteButton_" Tag="{Binding}" Click="DeleteButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyleNoBG}" Margin="-6, 0, 0, 0">
                                 <Button.Background>
                                     <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource DeleteButtonAsset}"/>
                                 </Button.Background>
@@ -283,7 +282,7 @@
                     <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                     <StackPanel MinHeight="150">
                         <Grid>
-                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" BorderThickness="0" MinWidth="0" MinHeight="0" UseLayoutRounding="True" Padding="0" Margin="0" Style="{StaticResource ButtonStyle}">
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" BorderThickness="0" MinWidth="0" MinHeight="0" UseLayoutRounding="True" Padding="0" Margin="0" Style="{StaticResource ButtonStyleNoBG}">
                                 <Image Source="{Binding asking_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="UniformToFill" Height="50" Width="50"/>
                             </Button>
                             <StackPanel Margin="55, 3, 5, 5" Background="#33DCDCDC">
@@ -303,7 +302,7 @@
                 <StackPanel Background="{ThemeResource PostBG}">
                     <Grid Height="50" Width="Auto" Background="{ThemeResource Accent2}">
                         <StackPanel Orientation="Horizontal" >
-                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" BorderThickness="0" MinWidth="0" MinHeight="0" UseLayoutRounding="True" Padding="0" Margin="-3" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Style="{StaticResource ButtonStyle}">
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Top" BorderThickness="0" MinWidth="0" MinHeight="0" UseLayoutRounding="True" Padding="0" Margin="-3" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Style="{StaticResource ButtonStyleNoBG}">
                                 <Image Source="{Binding asking_avatar}" Stretch="UniformToFill" Height="50" Width="50"/>
                             </Button>
                             <StackPanel Margin="5, 0">
@@ -317,12 +316,12 @@
                     </StackPanel>
                     <Grid Height="40" Background="{ThemeResource Accent2}">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Tag="{Binding reblog_key}">
-                            <Button x:Name="ReplyButton" Visibility="Collapsed" Tag="{Binding id}" Click="ReplyButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="40" MinHeight="40" MaxWidth="40" MaxHeight="40" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}">
+                            <Button x:Name="ReplyButton" Visibility="Collapsed" Tag="{Binding id}" Click="ReplyButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="40" MinHeight="40" MaxWidth="40" MaxHeight="40" HorizontalAlignment="Right" Style="{StaticResource ButtonStyleNoBG}">
                                 <Button.Background>
                                     <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource ReplyAsset}"/>
                                 </Button.Background>
                             </Button>
-                            <Button x:Name="DeleteButton" Tag="{Binding}" Click="DeleteButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}" Margin="-6, 0, 0, 0">
+                            <Button x:Name="DeleteButton" Tag="{Binding}" Click="DeleteButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyleNoBG}" Margin="-6, 0, 0, 0">
                                 <Button.Background>
                                     <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource DeleteButtonAsset}"/>
                                 </Button.Background>

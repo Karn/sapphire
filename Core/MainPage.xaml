@@ -34,41 +34,77 @@
     </Page.Transitions>
 
     <Grid x:Name="LayoutRoot" Loaded="LayoutRoot_Loaded">
-        <CommonControl:AlertDialog x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
+        <CommonControl:AlertDialog x:Name="_ErrorFlyout"
+                                   Canvas.ZIndex="9999"
+                                   HorizontalAlignment="Stretch"
+                                   Height="95"
+                                   VerticalAlignment="Top"/>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <StackPanel x:Name="HeaderContainer" Background="{ThemeResource HeaderLightBlue}">
-                <Border x:Name="StatusBarBG" Canvas.ZIndex="99" Height="26" Background="{ThemeResource HeaderDarkBlue}" VerticalAlignment="Top"/>
-                <Grid x:Name="HeaderContent" Height="56" Margin="0, -1, 0, 0" RenderTransformOrigin="0.5,0.5">
+            <StackPanel x:Name="HeaderContainer"
+                        Background="{ThemeResource HeaderLightBlue}">
+                <Border x:Name="StatusBarBG"
+                        Canvas.ZIndex="99"
+                        Height="26"
+                        Background="{ThemeResource HeaderDarkBlue}"
+                        VerticalAlignment="Top"/>
+                <Grid x:Name="HeaderContent"
+                      Height="56"
+                      Margin="0, -1, 0, 0"
+                      RenderTransformOrigin="0.5,0.5">
                     <Grid.RenderTransform>
                         <CompositeTransform TranslateY="0"/>
                     </Grid.RenderTransform>
 
-                    <TextBlock x:Name="PageTitle" Text="Sapphire" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
+                    <TextBlock x:Name="PageTitle"
+                               Text="Sapphire"
+                               Style="{StaticResource HeaderTextStyle}"/>
 
-                    <StackPanel Orientation="Horizontal" Margin="5, 0" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <GridView x:Name="Navigation" ScrollViewer.VerticalScrollMode="Disabled" Height="35" Margin="0, 0, 0, 3" SelectionChanged="Navigation_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <GridView.ItemContainerTransitions>
-                                <TransitionCollection>
-                                    <EntranceThemeTransition/>
-                                </TransitionCollection>
-                            </GridView.ItemContainerTransitions>
-                            <Image Source="Assets/Nav/Dashboard.png" x:Name="DashboardIcon" Height="30" Width="35" Opacity=".5" DoubleTapped="DashboardIcon_DoubleTapped"/>
-                            <Image Source="Assets/Nav/Activity.png" x:Name="ActivityIcon" Height="30" Width="35" Opacity=".5"/>
-                            <Image Source="Assets/Nav/Account.png" x:Name="AccountIcon" Height="30" Width="35" Opacity=".5"/>
-                            <Image Source="Assets/Nav/Search.png" x:Name="SearchIcon" Height="30" Width="35" Opacity=".5"/>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="5, 0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center">
+                        <GridView x:Name="Navigation"
+                                  ScrollViewer.VerticalScrollMode="Disabled"
+                                  Height="35"
+                                  Margin="0, 0, 0, 3"
+                                  SelectionChanged="NavigationIconsSelectionChanged"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center">
+                            <Image x:Name="DashboardIcon"
+                                   Source="Assets/Nav/Dashboard.png"
+                                   Height="30"
+                                   Width="35"
+                                   Opacity=".5"/>
+                            <Image x:Name="ActivityIcon"
+                                   Source="Assets/Nav/Activity.png"
+                                   Height="30"
+                                   Width="35"
+                                   Opacity=".5"/>
+                            <Image x:Name="AccountIcon"
+                                   Source="Assets/Nav/Account.png"
+                                   Height="30"
+                                   Width="35"
+                                   Opacity=".5"/>
+                            <Image x:Name="SearchIcon"
+                                   Source="Assets/Nav/Search.png"
+                                   Height="30"
+                                   Width="35"
+                                   Opacity=".5"/>
                         </GridView>
                     </StackPanel>
                 </Grid>
             </StackPanel>
 
-            <Pivot x:Name="NavigationPivot" Grid.Row="1" 
+            <Pivot x:Name="NavigationPivot"
+                   Grid.Row="1" 
                    SelectionChanged="NavigationPivot_SelectionChanged"
-                   Margin="0, -40, 0, 0" Canvas.ZIndex="-1"
+                   Margin="0, -40, 0, 0"
+                   Canvas.ZIndex="-1"
                    Background="{StaticResource StandardGray}">
                 <PivotItem x:Name="DashboardPivot" Margin="0" HorizontalContentAlignment="Stretch">
                     <Grid>
@@ -78,6 +114,12 @@
                             <Grid>
                                 <Ellipse x:Name="CreatePostFill" Stroke="{StaticResource DarkText}" StrokeThickness="0.1" Fill="{ThemeResource HeaderLightBlue}"/>
                                 <Image x:Name="CreatePostIcon" Source="Assets/New.png" Margin="10" RenderTransformOrigin="0.5,0.5" Canvas.ZIndex="50"/>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="ToTopButton" Grid.Row="1" Click="ToTopButton_Click" Height="55" Width="55" Margin="80, 48" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="0" MinHeight="0" Style="{StaticResource ButtonStyleNoBG}">
+                            <Grid>
+                                <Ellipse Stroke="{StaticResource DarkText}" StrokeThickness="0.1" Fill="{ThemeResource HeaderLightBlue}"/>
+                                <Image Source="ms-appx:///Assets/Top.png" Margin="10" RenderTransformOrigin="0.5,0.5" Canvas.ZIndex="50"/>
                             </Grid>
                         </Button>
                     </Grid>
@@ -177,7 +219,7 @@
                         <GridView x:Name="SpotlightTags" Grid.Row="1" Padding="0, 0, 0, 13" Loaded="SpotlightTags_Loaded" ItemsSource="{Binding}" ScrollViewer.VerticalScrollMode="Enabled" VerticalAlignment="Stretch">
                             <GridView.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Tapped="SpotlightTagItem_Tapped" Tag="{Binding tag}" Margin="0, 0, 2, 2" BorderBrush="#0C000000" BorderThickness="1" Loaded="Border_Loaded">
+                                    <Border Tapped="SpotlightTagItem_Tapped" Tag="{Binding tag}" Margin="0, 0, 2, 2" BorderBrush="#0C000000" BorderThickness="1" Loaded="SetSpotlightItemDimensions">
                                         <Grid>
                                             <Image Stretch="UniformToFill" Source="{Binding promo_image}"/>
                                             <StackPanel VerticalAlignment="Top" Background="#33000000" Height="35">

@@ -48,7 +48,7 @@
                 </Button.Flyout>
             </Button>
             <TextBlock Grid.Column="1" Text="{Binding title, FallbackValue=Blog}" Margin="0, 29, 0, 0" HorizontalAlignment="Center" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Foreground="{ThemeResource DarkText}" FontWeight="Light" FontSize="26" Style="{StaticResource HeaderTextStyle}" RequestedTheme="Dark"/>
-            <Button x:Name="FollowButton" Grid.Column="2" Tag="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{Binding followed, Converter={StaticResource FollowingToSign}}" Tapped="FollowUnfollowButton_Tapped" Margin="15, 30, 15, 0" Foreground="{StaticResource HeaderLightBlue}" Background="#FFFFFF" BorderThickness="0" Style="{StaticResource ButtonStyle}" Padding="3, -20" FontSize="30" Height="40" MinHeight="0" MinWidth="40"/>
+            <Button x:Name="FollowButton" Grid.Column="2" Tag="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{Binding followed, Converter={StaticResource FollowingToSign}, FallbackValue=+}" Tapped="FollowUnfollowButton_Tapped" Margin="15, 30, 15, 0" Foreground="{StaticResource HeaderLightBlue}" Background="#FFFFFF" BorderThickness="0" Style="{StaticResource ButtonStyleNoBG}" Padding="3, -20" FontSize="30" Height="40" MinHeight="0" MinWidth="40"/>
         </Grid>
 
         <!--<TextBlock Text="{Binding title, FallbackValue=Blog}" Margin="50, 5, 50, 0" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" Foreground="{ThemeResource DarkText}" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>

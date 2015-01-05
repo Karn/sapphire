@@ -3,7 +3,6 @@ using Core.Shared.Common;
 using System;
 using System.Net.NetworkInformation;
 using Windows.Phone.UI.Input;
-using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -18,8 +17,6 @@ namespace Core.Pages {
     public sealed partial class Login : Page {
         private NavigationHelper navigationHelper;
 
-        private StatusBar sb;
-
         public Login() {
             this.InitializeComponent();
 
@@ -28,10 +25,6 @@ namespace Core.Pages {
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
             var applicationView = ApplicationView.GetForCurrentView();
-            applicationView.SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
-
-            sb = StatusBar.GetForCurrentView();
-            sb.ForegroundColor = Color.FromArgb(255, 255, 255, 255);
 
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
         }
@@ -112,16 +105,15 @@ namespace Core.Pages {
 
         private async void Button_Click(object sender, RoutedEventArgs e) {
             if (NetworkInterface.GetIsNetworkAvailable()) {
-                sb.ProgressIndicator.Text = "Signing you in...";
-                await sb.ProgressIndicator.ShowAsync();
+                App.DisplayStatus("Signing you in...");
                 Email.IsEnabled = false;
                 Password.IsEnabled = false;
                 LoginButton.IsEnabled = false;
 
                 string response = await Authentication.RequestAccessToken(Email.Text.ToString(), Password.Password.ToString());
-                await sb.ProgressIndicator.HideAsync();
 
                 if (response == "OK") {
+                    App.HideStatus();
                     if (Authentication.AuthenticatedTokens.Count == 1) {
                         if (!Frame.Navigate(typeof(MainPage))) {
                             throw new Exception();
@@ -140,16 +132,12 @@ namespace Core.Pages {
             } else {
                 ErrorFlyout.DisplayMessage("No network availiable.");
             }
+            App.HideStatus();
         }
 
         private void Email_GotFocus(object sender, RoutedEventArgs e) {
             LogoImage.Height = 150;
             LoginBox.VerticalAlignment = VerticalAlignment.Top;
-        }
-
-        private void Email_LostFocus(object sender, RoutedEventArgs e) {
-            //LogoImage.Visibility = Visibility.Visible;
-            //LoginBox.VerticalAlignment = VerticalAlignment.Bottom;
         }
 
         private void Start_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e) {

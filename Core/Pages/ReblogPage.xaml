@@ -7,8 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converter="using:Core.Utils.Converters"
     xmlns:CommonControl="using:APIWrapper.Utils"
-    mc:Ignorable="d"
-    Background="{StaticResource Blue}">
+    mc:Ignorable="d">
 
     <Page.Resources>
         <Flyout x:Key="SwitchBlogFlyout" Placement="Full">

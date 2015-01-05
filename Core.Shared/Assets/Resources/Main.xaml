@@ -7,15 +7,14 @@
     xmlns:control="using:Core.Utils.Converters">
 
     <ResourceDictionary.ThemeDictionaries>
-        <ResourceDictionary x:Key="Default">
 
+        <ResourceDictionary x:Key="Default">
             <SolidColorBrush x:Key="LightText" Color="#FFEEF1F4"/>
             <SolidColorBrush x:Key="DarkText" Color="#FF2D3F53"/>
             <SolidColorBrush x:Key="HeaderLightBlue" Color="#FF34495E"/>
             <SolidColorBrush x:Key="HeaderDarkBlue" Color="#FF293A4A"/>
             <SolidColorBrush x:Key="StandardGray" Color="#FFF1F1F1"/>
             <SolidColorBrush x:Key="PostBG" Color="#FFFFFFFF"/>
-
             <SolidColorBrush x:Key="Accent2" Color="#FFf0f3f6"/>
             <BitmapImage x:Key="ReblogAsset" UriSource="ms-appx:///Assets/Resources/Light/Reblog.png"/>
             <BitmapImage x:Key="RebloggedAsset" UriSource="ms-appx:///Assets/Resources/Light/Reblogged.png"/>
@@ -40,7 +39,6 @@
             <SolidColorBrush x:Key="HeaderDarkBlue" Color="#FF1C2022"/>
             <SolidColorBrush x:Key="StandardGray" Color="#FF24282f"/>
             <SolidColorBrush x:Key="PostBG" Color="#FF24282f"/>
-
             <SolidColorBrush x:Key="Accent2" Color="#FF29313b"/>
             <BitmapImage x:Key="ReblogAsset" UriSource="ms-appx:///Assets/Resources/Dark/Reblog.png"/>
             <BitmapImage x:Key="RebloggedAsset" UriSource="ms-appx:///Assets/Resources/Dark/Reblogged.png"/>
@@ -59,14 +57,15 @@
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
+    <!-- Common Colors -->
+    <SolidColorBrush x:Key="LightGray" Color="#FFE5EAF0"/>
+
     <!-- Common Resources -->
     <BitmapImage x:Key="DefaultAvatar" UriSource="ms-appx:///Assets/DefaultAvatar.png" />
     <BitmapImage x:Key="DefaultPattern" UriSource="ms-appx:///Assets/DefaultPattern.png" />
     <BitmapImage x:Key="ActivityPostPlaceholder" UriSource="ms-appx:///Assets/Placeholders/ActivityPost.png" />
-
     <BitmapImage x:Key="BlogsIcon" UriSource="ms-appx:///Assets/Nav/Account.png" />
     <BitmapImage x:Key="TagsIcon" UriSource="ms-appx:///Assets/Nav/Tag.png" />
-
     <BitmapImage x:Key="PlayIcon" UriSource="ms-appx:///Assets/PlayIcon.png" />
     <BitmapImage x:Key="PauseIcon" UriSource="ms-appx:///Assets/PauseIcon.png" />
 
@@ -75,26 +74,13 @@
     <converter:FollowingToString x:Key="FollowingToString"/>
     <converter:FollowingToSign x:Key="FollowingToSign"/>
     <converter:FollowingToVisibility x:Key="FollowingToVisibility"/>
-    <converter:NotFollowingToVisibility x:Key="NotFollowingToVisibility"/>
     <converter:BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
     <converter:RelativeDate x:Key="RelativeDate"/>
     <converter:ToPrettyDate x:Key="ToPrettyDate"/>
     <converter:FollowingToBG x:Key="FollowingToBG"/>
     <converter:NameToFavBrush x:Key="NameToFav"/>
-    <converter:CaptionConverter x:Key="CaptionConverter"/>
-    <converter:HtmlToPlainText x:Key="ToPlainText"/>
     <converter:RelativeTime x:Key="ToRelativeTime"/>
-    <converter:LikedToOpacity x:Key="LikedToOpacity"/>
-    <converter:LikedToImage x:Key="LikedToImage"/>
     <converter:NotesToVisibilityConverter x:Key="NotesToVisibility"/>
-
-    <!--Colors-->
-    <!--    Light Theme    -->
-
-    <!--Fonts-->
-    <!--    Light Theme    -->
-
-    <!-- Default style for Windows.UI.Xaml.Controls.CommandBar -->
 
     <Style x:Name="HeaderTextStyle" TargetType="TextBlock">
         <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}"/>
@@ -104,10 +90,11 @@
         <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
         <Setter Property="FontWeight" Value="Thin" />
         <Setter Property="FontSize" Value="30" />
+        <Setter Property="Margin" Value="15, 0, 0, 0" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="CharacterSpacing" Value="-25"/>
     </Style>
-
-    <SolidColorBrush x:Key="LightGray" Color="#FFE5EAF0"/>
 
     <Style x:Name="PasswordBoxStyle" TargetType="PasswordBox">
         <Setter Property="Foreground" Value="White"/>
@@ -264,9 +251,6 @@
         </Setter>
     </Style>
 
-    <!--Colors-->
-    <SolidColorBrush x:Key="Blue" Color="#FF1C262F"/>
-
     <Style x:Key="GroupItemStyle2" TargetType="GroupItem">
         <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="Template">
@@ -296,7 +280,6 @@
         </Setter>
     </Style>
 
-    <!--Styles-->
     <Style x:Name="SearchBoxStyle" TargetType="TextBox">
         <Setter Property="MinHeight" Value="26"/>
         <Setter Property="Foreground" Value="White"/>
@@ -611,114 +594,6 @@
                                 StrokeEndLineCap="Square" StrokeDashArray="1,1" Opacity="0" StrokeDashOffset="1.5"/>
                         <Rectangle x:Name="FocusVisualBlack" IsHitTestVisible="False" Stroke="{ThemeResource FocusVisualBlackStrokeThemeBrush}"
                                 StrokeEndLineCap="Square" StrokeDashArray="1,1" Opacity="0" StrokeDashOffset="0.5"/>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="LikeButtonStyle" TargetType="ToggleButton">
-        <Setter Property="Background">
-            <Setter.Value>
-                <ImageBrush Stretch="Uniform" ImageSource="{ThemeResource LikeAsset}"/>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="MinHeight" Value="0"/>
-        <Setter Property="MinWidth" Value="0"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="ToggleButton">
-                    <Grid Background="Transparent">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal"/>
-                                <VisualState x:Name="PointerOver"/>
-                                <VisualState x:Name="Pressed"/>
-                                <VisualState x:Name="Disabled">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="EnabledBackground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="DisabledBackground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Checked">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="EnabledBackground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource LikedAsset}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Unchecked">
-
-                                </VisualState>
-                                <VisualState x:Name="CheckedPointerOver">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="EnabledBackground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource PhoneAccentBrush}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="EnabledContent">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource PhoneButtonBasePressedForegroundBrush}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="DisabledBackground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource PhoneDisabledBrush}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="DisabledBackground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource PhoneDisabledBrush}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="DisabledContent">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource PhoneBackgroundBrush}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="CheckedPressed"/>
-                                <VisualState x:Name="CheckedDisabled">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="EnabledBackground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource PhoneAccentBrush}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="EnabledBackground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="0.4"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="EnabledContent">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource PhoneButtonBasePressedForegroundBrush}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Indeterminate"/>
-                                <VisualState x:Name="IndeterminatePointerOver"/>
-                                <VisualState x:Name="IndeterminatePressed"/>
-                                <VisualState x:Name="IndeterminateDisabled">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="EnabledBackground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="DisabledBackground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        <Border x:Name="EnabledBackground" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
-        						Background="{TemplateBinding Background}" Margin="{ThemeResource PhoneTouchTargetOverhang}">
-                            <ContentPresenter x:Name="EnabledContent" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}"
-        							Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-        							Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                        <Border x:Name="DisabledBackground" BorderBrush="{ThemeResource ButtonDisabledBorderThemeBrush}"
-        						BorderThickness="{TemplateBinding BorderThickness}" Background="Transparent" IsHitTestVisible="False"
-        						Margin="{ThemeResource PhoneTouchTargetOverhang}" Visibility="Collapsed">
-                            <ContentPresenter x:Name="DisabledContent" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}"
-        							Content="{TemplateBinding Content}" Foreground="{ThemeResource ButtonDisabledForegroundThemeBrush}"
-        							HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}"
-        							VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -1361,7 +1236,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-
 
 </ResourceDictionary>

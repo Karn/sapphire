@@ -101,9 +101,6 @@
             FollowTemplate="{StaticResource follow}"
             UserMentionTemplate="{StaticResource user_mention}"/>
 
-        <converter:RelativeDate x:Key="RelativeDate"/>
-        <converter:ToPrettyDate x:Key="ToPrettyDate"/>
-        <converter:FollowingToBG x:Key="FollowingToBG"/>
 
         <CollectionViewSource x:Name="csvNotifications" IsSourceGrouped="True"/>
     </UserControl.Resources>

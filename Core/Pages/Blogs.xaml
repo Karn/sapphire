@@ -7,8 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converter="using:Core.Utils.Converters"
     xmlns:CommonControl="using:APIWrapper.Utils"
-    mc:Ignorable="d"
-    Background="{StaticResource Blue}">
+    mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource LightGray}">
         <Grid.RowDefinitions>
@@ -32,7 +31,7 @@
                             <Image Stretch="UniformToFill" Source="{Binding theme.header_image_focused, FallbackValue={StaticResource DefaultPattern}}"/>
                             <Grid VerticalAlignment="Top" Background="#66000000" Height="35">
                                 <TextBlock Margin="10, 5" HorizontalAlignment="Left" Foreground="White" Text="{Binding Name}" FontSize="18" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
-                                <Button Margin="5, 0" Tag="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Top" Content="SELECT" Tapped="SelectBlogButton_Tapped" BorderBrush="#66FFFFFF" BorderThickness="0" Foreground="{StaticResource HeaderLightBlue}" Background="#FFFFFFFF" Style="{StaticResource ButtonStyle}" Padding="3" FontSize="18" Height="35" MinHeight="0" MinWidth="120"/>
+                                <Button Margin="5, 0" Tag="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Top" Content="SELECT" Tapped="SelectBlogButton_Tapped" BorderBrush="#66FFFFFF" BorderThickness="0" Foreground="{StaticResource HeaderLightBlue}" Background="#FFFFFFFF" Style="{StaticResource ButtonStyleNoBG}" Padding="3" FontSize="18" Height="35" MinHeight="0" MinWidth="120"/>
                             </Grid>
                             <Image HorizontalAlignment="Left" Margin="10, 40, 10, 0" Stretch="UniformToFill" Width="55" Height="55" Source="{Binding avatar}"/>
                             <TextBlock Margin="75, 40, 15, 5" Foreground="White" Text="{Binding description}" FontSize="18" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>

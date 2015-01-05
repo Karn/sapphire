@@ -115,13 +115,6 @@ namespace Core.Utils.Controls {
             }
         }
 
-        private void LikeButton_Loaded(object sender, RoutedEventArgs e) {
-            if ((bool)(((ToggleButton)sender).IsChecked)) {
-                ((ToggleButton)sender).Background = LikeFullBrush;
-            } else {
-                ((ToggleButton)sender).Background = LikeBrush;
-            }
-        }
         private async void LikeButton_Click(object sender, RoutedEventArgs e) {
             try {
                 App.DisplayStatus("Updating like...");
@@ -476,6 +469,10 @@ namespace Core.Utils.Controls {
 
             // If the menu was attached properly, we just need to call this handy method
             FlyoutBase.ShowAttachedFlyout(element);
+        }
+
+        private void ToTopButton_Click(object sender, RoutedEventArgs e) {
+            ScrollToTop();
         }
     }
 }

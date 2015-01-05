@@ -7,8 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converter="using:Core.Utils.Converters"
     xmlns:CommonControl="using:APIWrapper.Utils"
-    mc:Ignorable="d"
-    Background="{StaticResource Blue}">
+    mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource LightGray}">
         <Grid.RowDefinitions>
@@ -36,7 +35,7 @@
                             </FlyoutBase.AttachedFlyout>
                             <Grid HorizontalAlignment="Stretch" Height="75">
                                 <TextBlock Text="{Binding}" Margin="10, 0" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="22" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                <Button x:Name="SelectAccountButton" HorizontalAlignment="Right" Tag="{Binding}" Tapped="SelectAccountButton_Tapped" Margin="10, 0" Content="Select" BorderBrush="#FF529ecc" Foreground="#FFFFFFFF" Background="#FF529ecc" BorderThickness="1.0" Style="{StaticResource ButtonStyle}" Padding="3" FontSize="18" Height="45" MinHeight="0" MinWidth="120"/>
+                                <Button x:Name="SelectAccountButton" HorizontalAlignment="Right" Tag="{Binding}" Tapped="SelectAccountButton_Tapped" Margin="10, 0" Content="Select" BorderBrush="#FF529ecc" Foreground="#FFFFFFFF" Background="#FF529ecc" BorderThickness="1.0" Style="{StaticResource ButtonStyleNoBG}" Padding="3" FontSize="18" Height="45" MinHeight="0" MinWidth="120"/>
                             </Grid>
                         </StackPanel>
                     </DataTemplate>

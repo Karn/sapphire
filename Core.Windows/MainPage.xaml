@@ -7,7 +7,174 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
+            <StackPanel>
+                <ListView x:Name="Navigation" ScrollViewer.VerticalScrollMode="Enabled" Margin="0, 0, 0, 3" SelectionChanged="Navigation_SelectionChanged" HorizontalContentAlignment="Center">
+                    <Image Source="Assets/Nav/Dashboard.png" x:Name="DashboardIcon" Height="30" Width="35" Opacity=".5"/>
+                    <Image Source="Assets/Nav/Activity.png" x:Name="ActivityIcon" Height="30" Width="35" Opacity=".5"/>
+                    <Image Source="Assets/Nav/Account.png" x:Name="AccountIcon" Height="30" Width="35" Opacity=".5"/>
+                    <Image Source="Assets/Nav/Search.png" x:Name="SearchIcon" Height="30" Width="35" Opacity=".5"/>
+                </ListView>
+            </StackPanel>
+
+            <!--<StackPanel x:Name="HeaderContainer">
+                <Border x:Name="StatusBarBG" Canvas.ZIndex="99" Height="26" VerticalAlignment="Top"/>
+                <Grid x:Name="HeaderContent" Height="56" Margin="0, -1, 0, 0" RenderTransformOrigin="0.5,0.5">
+                    <Grid.RenderTransform>
+                        <CompositeTransform TranslateY="0"/>
+                    </Grid.RenderTransform>
+
+                    <TextBlock x:Name="PageTitle" Text="Sapphire" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="5, 0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <GridView x:Name="Navigation" ScrollViewer.VerticalScrollMode="Disabled" Height="35" Margin="0, 0, 0, 3" SelectionChanged="Navigation_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Image Source="Assets/Nav/Dashboard.png" x:Name="DashboardIcon" Height="30" Width="35" Opacity=".5"/>
+                            <Image Source="Assets/Nav/Activity.png" x:Name="ActivityIcon" Height="30" Width="35" Opacity=".5"/>
+                            <Image Source="Assets/Nav/Account.png" x:Name="AccountIcon" Height="30" Width="35" Opacity=".5"/>
+                            <Image Source="Assets/Nav/Search.png" x:Name="SearchIcon" Height="30" Width="35" Opacity=".5"/>
+                        </GridView>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>-->
+
+            <!--<Pivot x:Name="NavigationPivot" Grid.Row="1" 
+                   SelectionChanged="NavigationPivot_SelectionChanged"
+                   Margin="0, -40, 0, 0" Canvas.ZIndex="-1"
+                   Background="{StaticResource StandardGray}">
+                <PivotItem x:Name="DashboardPivot" Margin="0" HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Control:PostFeedControl x:Name="Posts" Margin="0, 0, 0, 24" URL="https://api.tumblr.com/v2/user/dashboard" AffectHeader="True" Loaded="Posts_Loaded"/>
+                        <Control:NewPostDialog x:Name="CreatePostControl" Visibility="Collapsed"/>
+                        <Button x:Name="CreatePost" Click="CreatePost_Click" LostFocus="CreatePost_LostFocus" Height="55" Width="55" Margin="20, 48" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="0" MinHeight="0" Style="{StaticResource ButtonStyleNoBG}">
+                            <Grid>
+                                <Ellipse x:Name="CreatePostFill" Stroke="{StaticResource DarkText}" StrokeThickness="0.1" Fill="{ThemeResource HeaderLightBlue}"/>
+                                <Image x:Name="CreatePostIcon" Source="Assets/New.png" Margin="10" RenderTransformOrigin="0.5,0.5" Canvas.ZIndex="50"/>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="ToTopButton" Grid.Row="1" Click="ToTopButton_Click" Height="55" Width="55" Margin="80, 48" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="0" MinHeight="0" Style="{StaticResource ButtonStyleNoBG}">
+                            <Grid>
+                                <Ellipse Stroke="{StaticResource DarkText}" StrokeThickness="0.1" Fill="{ThemeResource HeaderLightBlue}"/>
+                                <Image Source="ms-appx:///Assets/Top.png" Margin="10" RenderTransformOrigin="0.5,0.5" Canvas.ZIndex="50"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+                </PivotItem>
+
+                <PivotItem x:Name="ActivityPivot" Margin="0">
+                    <Control:ActivityFeedControl x:Name="ActivityPosts" HorizontalAlignment="Stretch" Margin="0, 0, 0, 54"/>
+                </PivotItem>
+
+                <PivotItem x:Name="AccountPivot" Margin="0" DataContext="{Binding}">
+                    <StackPanel x:Name="AccountPivotContent" VerticalAlignment="Top">
+                        <Grid>
+                            <Grid.Background>
+                                <ImageBrush ImageSource="{Binding Path=theme.header_image_focused, FallbackValue={ThemeResource DefaultPattern}}" Stretch="UniformToFill"/>
+                            </Grid.Background>
+                            <Grid.ChildrenTransitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition/>
+                                </TransitionCollection>
+                            </Grid.ChildrenTransitions>
+                            <StackPanel>
+                                <Ellipse Height="80" Width="80" VerticalAlignment="Top" Margin="0, 20, 0, 0">
+                                    <Ellipse.Fill>
+                                        <ImageBrush Stretch="Fill" ImageSource="{Binding Path=avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock Text="{Binding title, FallbackValue=BlogName}"  TextAlignment="Center" TextTrimming="CharacterEllipsis" FontSize="28" Style="{StaticResource HeaderTextStyle}" HorizontalAlignment="Center"/>
+                                <HyperlinkButton Content="{Binding url, FallbackValue=url}" NavigateUri="{Binding url, FallbackValue=http://www.tumblr.com}" HorizontalAlignment="Center" FontSize="20" Foreground="#FFFFFFFF}"/>
+                                <TextBlock Text="{Binding description, FallbackValue=description}" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontSize="18" Style="{StaticResource HeaderTextStyle}" TextWrapping="Wrap" MaxHeight="45" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                            <Image Source="Assets/Nav/Blogs.png" VerticalAlignment="Top" HorizontalAlignment="Right" Height="35" Width="35" Stretch="Uniform" Margin="10" Tapped="ManageBlogs_Tapped"/>
+                        </Grid>
+                        <Grid Background="{ThemeResource Accent2}">
+                            <Grid.ChildrenTransitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition/>
+                                </TransitionCollection>
+                            </Grid.ChildrenTransitions>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <StackPanel Tag="Following"  Margin="10, 5" Tapped="AccountDetails_Tapped" Width="75">
+                                    <TextBlock Text="{Binding followingCount, FallbackValue=0}" Opacity="0.5" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" FontSize="24" VerticalAlignment="Center"/>
+                                    <TextBlock Text="FOLLOWING" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" FontSize="12" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Tag="Posts"  Margin="10, 5" Tapped="AccountDetails_Tapped" Width="75">
+                                    <TextBlock Text="{Binding posts, FallbackValue=0}" Opacity="0.5" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" FontSize="24" VerticalAlignment="Center"/>
+                                    <TextBlock Text="POSTS" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" FontSize="12" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Tag="Likes" Margin="10, 5" Tapped="AccountDetails_Tapped" Width="75">
+                                    <TextBlock Text="{Binding likes, FallbackValue=0}" Opacity="0.5" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" FontSize="24" VerticalAlignment="Center"/>
+                                    <TextBlock Text="LIKES" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" FontSize="12" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Tag="Followers" Margin="10, 5" Tapped="AccountDetails_Tapped" Width="75">
+                                    <TextBlock Text="{Binding followers, FallbackValue=0}" Opacity="0.5" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" FontSize="24" VerticalAlignment="Center"/>
+                                    <TextBlock Text="FOLLOWERS" Foreground="{ThemeResource DarkText}" HorizontalAlignment="Left" FontSize="12" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Visibility="Visible" Margin="0, 10" Background="{ThemeResource Accent2}">
+                            <StackPanel Margin="10, 0">
+                                <StackPanel.ChildrenTransitions>
+                                    <TransitionCollection>
+                                        <EntranceThemeTransition/>
+                                    </TransitionCollection>
+                                </StackPanel.ChildrenTransitions>
+                                <StackPanel Orientation="Horizontal" Tag="Blogs" Tapped="Inbox_Tapped">
+                                    <Image x:Name="Inbox" Source="{ThemeResource InboxButtonAsset}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35" Width="35" Stretch="UniformToFill" Margin="10"/>
+                                    <TextBlock Text="Inbox" Foreground="{ThemeResource DarkText}" FontFamily="Segoe WP" FontWeight="Thin" FontSize="24" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Tag="Blogs" Tapped="Drafts_Tapped">
+                                    <Image x:Name="Drafts" Source="{ThemeResource DraftsButtonAsset}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35" Width="35" Stretch="UniformToFill" Margin="10"/>
+                                    <TextBlock Text="Drafts" Foreground="{ThemeResource DarkText}" FontFamily="Segoe WP" FontWeight="Thin" FontSize="24" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Tag="Blogs" Tapped="Queue_Tapped">
+                                    <Image x:Name="Queue" Source="{ThemeResource QueueButtonAsset}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35" Width="35" Stretch="UniformToFill" Margin="10"/>
+                                    <TextBlock Text="Queue" Foreground="{ThemeResource DarkText}" FontFamily="Segoe WP" FontWeight="Thin" FontSize="24" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel x:Name="Favs_List" Orientation="Horizontal" Visibility="{Binding Converter={StaticResource IsFullVersion}, FallbackValue=Collapsed}" Tag="Blogs" Tapped="Favs_List_Tapped">
+                                    <Image x:Name="Favs" Source="{ThemeResource FavAsset}" VerticalAlignment="Top" HorizontalAlignment="Left" Height="35" Width="35" Stretch="UniformToFill" Margin="10"/>
+                                    <TextBlock Text="Favorite Blogs" Foreground="{ThemeResource DarkText}" FontFamily="Segoe WP" FontWeight="Thin" FontSize="24" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+
+                </PivotItem>
+
+                <PivotItem x:Name="SearchPivot" Margin="0" VerticalContentAlignment="Stretch">
+                    <Grid Margin="10, 10, 10, 54" VerticalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBox x:Name="SearchText" KeyDown="SearchText_KeyDown" Margin="0, 5" PlaceholderText="Search..." Height="45" Padding="50, 8, 0, 0" VerticalContentAlignment="Center" Background="White" BorderThickness="0"/>
+                            <Image Source="Assets/Nav/Search_Dark.png" HorizontalAlignment="Left" Margin="7, 10" Height="30" Width="35" Opacity=".5"/>
+                        </Grid>
+                        <GridView x:Name="SpotlightTags" Grid.Row="1" Padding="0, 0, 0, 13" Loaded="SpotlightTags_Loaded" ItemsSource="{Binding}" ScrollViewer.VerticalScrollMode="Enabled" VerticalAlignment="Stretch">
+                            <GridView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Tapped="SpotlightTagItem_Tapped" Tag="{Binding tag}" Margin="0, 0, 2, 2" BorderBrush="#0C000000" BorderThickness="1" Loaded="SetSpotlightItemDimensions">
+                                        <Grid>
+                                            <Image Stretch="UniformToFill" Source="{Binding promo_image}"/>
+                                            <StackPanel VerticalAlignment="Top" Background="#33000000" Height="35">
+                                                <TextBlock Margin="10, 5" Foreground="White" Text="{Binding title}" FontSize="18" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+                        </GridView>
+                    </Grid>
+                </PivotItem>
+
+            </Pivot>-->
+        </Grid>
     </Grid>
 </Page>

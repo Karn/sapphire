@@ -144,17 +144,12 @@
     <Compile Include="Utils\Converters\IsFullVersion.cs" />
     <Compile Include="Utils\Converters\NameToFavBrush.cs" />
     <Compile Include="Utils\Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Utils\Converters\CaptionConverter.cs" />
     <Compile Include="Utils\Converters\CreatePostTemplateSelector.cs" />
     <Compile Include="Utils\Converters\FollowingToBG.cs" />
     <Compile Include="Utils\Converters\FollowingToString.cs" />
     <Compile Include="Utils\Converters\FollowingToVisibility.cs" />
-    <Compile Include="Utils\Converters\HtmlToPlainText.cs" />
-    <Compile Include="Utils\Converters\LikedToImage.cs" />
-    <Compile Include="Utils\Converters\LikedToOpacity.cs" />
     <Compile Include="Utils\Converters\MessageTemplateSelector.cs" />
     <Compile Include="Utils\Converters\NotesToVisibilityConverter.cs" />
-    <Compile Include="Utils\Converters\NotFollowingToVisibility.cs" />
     <Compile Include="Utils\Converters\PostTemplateSelector.cs" />
     <Compile Include="Utils\Converters\RelativeDate.cs" />
     <Compile Include="Utils\Converters\RelativeTime.cs" />
