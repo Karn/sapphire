@@ -213,7 +213,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
-                            <TextBox x:Name="SearchText" KeyDown="SearchText_KeyDown" Margin="0, 5" PlaceholderText="Search..." Height="45" Padding="50, 8, 0, 0" VerticalContentAlignment="Center" Background="White" BorderThickness="0"/>
+                            <TextBox x:Name="SearchText" KeyDown="SearchText_KeyDown" Margin="1, 5" PlaceholderText="Search..." Height="45" Padding="50, 8, 0, 0" VerticalContentAlignment="Center" Background="White" BorderThickness="0"/>
                             <Image Source="Assets/Nav/Search_Dark.png" HorizontalAlignment="Left" Margin="7, 10" Height="30" Width="35" Opacity=".5"/>
                         </Grid>
                         <GridView x:Name="SpotlightTags" Grid.Row="1" Padding="0, 0, 0, 13" Loaded="SpotlightTags_Loaded" ItemsSource="{Binding}" ScrollViewer.VerticalScrollMode="Enabled" VerticalAlignment="Stretch">

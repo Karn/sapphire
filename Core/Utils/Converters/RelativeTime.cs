@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
@@ -18,7 +14,7 @@ namespace Core.Utils.Converters {
         static string GetPrettyDate(DateTime d) {
             // 1.
             // Get time span elapsed since the date.
-            TimeSpan s = DateTime.Now.Subtract(d);
+            TimeSpan s = DateTime.Now.ToLocalTime().Subtract(d);
 
             // 2.
             // Get total number of days elapsed.
