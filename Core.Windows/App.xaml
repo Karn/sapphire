@@ -8,7 +8,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Framework.UI.Windows/Assets/Resources/Main.xaml"/>
+                <ResourceDictionary Source="Assets/Resources/Resources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

@@ -177,9 +177,9 @@ namespace Core.Pages {
 
             var parameterString = "type=text";
             var title = ((TextBox)g.FindName("Title")).Text;
-            parameterString += !string.IsNullOrWhiteSpace(title) ? "&title=" + title : "";
+            parameterString += !string.IsNullOrWhiteSpace(title) ? "&title=" + Authentication.Utils.UrlEncode(title) : "";
             var body = ((TextBox)g.FindName("Body")).Text;
-            parameterString += !string.IsNullOrWhiteSpace(body) ? "&body=" + body : "";
+            parameterString += !string.IsNullOrWhiteSpace(body) ? "&body=" + Authentication.Utils.UrlEncode(body) : "";
             var tags = ((TextBox)g.FindName("Tags")).Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
@@ -226,9 +226,9 @@ namespace Core.Pages {
             var parameterString = "type=quote";
             var g = (Grid)((StackPanel)((Image)sender).Parent).Parent;
             var quote = ((TextBox)g.FindName("Quote")).Text;
-            parameterString += !string.IsNullOrWhiteSpace(quote) ? "&quote=" + quote : "";
+            parameterString += !string.IsNullOrWhiteSpace(quote) ? "&quote=" + Authentication.Utils.UrlEncode(quote) : "";
             var source = ((TextBox)g.FindName("Source")).Text;
-            parameterString += !string.IsNullOrWhiteSpace(source) ? "&source=" + source : "";
+            parameterString += !string.IsNullOrWhiteSpace(source) ? "&source=" + Authentication.Utils.UrlEncode(source) : "";
             var tags = ((TextBox)g.FindName("Tags")).Text;
             if (!string.IsNullOrEmpty(tags)) {
                 tags = tags.Replace(" #", ", ");
@@ -323,11 +323,11 @@ namespace Core.Pages {
             var parameterString = "type=quote";
             var g = (Grid)((StackPanel)((Image)sender).Parent).Parent;
             var title = ((TextBox)g.FindName("Title")).Text;
-            parameterString += !string.IsNullOrWhiteSpace(title) ? "&title=" + title : "";
+            parameterString += !string.IsNullOrWhiteSpace(title) ? "&title=" + Authentication.Utils.UrlEncode(title) : "";
             var url = ((TextBox)g.FindName("Link")).Text;
-            parameterString += !string.IsNullOrWhiteSpace(url) ? "&url=" + url : "";
+            parameterString += !string.IsNullOrWhiteSpace(url) ? "&url=" + Authentication.Utils.UrlEncode(url) : "";
             var description = ((TextBox)g.FindName("Description")).Text;
-            parameterString += !string.IsNullOrWhiteSpace(description) ? "&description=" + description : "";
+            parameterString += !string.IsNullOrWhiteSpace(description) ? "&description=" + Authentication.Utils.UrlEncode(description) : "";
 
             var tags = ((TextBox)g.FindName("Tags")).Text;
             if (!string.IsNullOrEmpty(tags)) {

@@ -7,21 +7,28 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid x:Name="LayoutRoot" Background="{ThemeResource HeaderLightBlue}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-            <StackPanel>
-                <ListView x:Name="Navigation" ScrollViewer.VerticalScrollMode="Enabled" Margin="0, 0, 0, 3" SelectionChanged="Navigation_SelectionChanged" HorizontalContentAlignment="Center">
-                    <Image Source="Assets/Nav/Dashboard.png" x:Name="DashboardIcon" Height="30" Width="35" Opacity=".5"/>
-                    <Image Source="Assets/Nav/Activity.png" x:Name="ActivityIcon" Height="30" Width="35" Opacity=".5"/>
-                    <Image Source="Assets/Nav/Account.png" x:Name="AccountIcon" Height="30" Width="35" Opacity=".5"/>
-                    <Image Source="Assets/Nav/Search.png" x:Name="SearchIcon" Height="30" Width="35" Opacity=".5"/>
-                </ListView>
-            </StackPanel>
+            <Image Grid.Column="0" Source="Assets/LoginLogo.png" Width="55" Height="55" Margin="5, 15"/>
+            <GridView Grid.Column="0" Grid.Row="1" x:Name="Navigation" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Source="Assets/Nav/Dashboard.png" x:Name="DashboardIcon" Height="50" Width="50" Opacity="0.5"/>
+                <Image Source="Assets/Nav/Activity.png" x:Name="ActivityIcon" Height="50" Width="50" Opacity="0.5"/>
+                <Image Source="Assets/Nav/Account.png" x:Name="AccountIcon" Height="50" Width="50" Opacity="0.5"/>
+                <Image Source="Assets/Nav/Search.png" x:Name="SearchIcon" Height="50" Width="50" Opacity="0.5"/>
+            </GridView>
+
+            <Grid Grid.Column="1" Grid.RowSpan="2" Background="{ThemeResource StandardGray}">
+
+            </Grid>
 
             <!--<StackPanel x:Name="HeaderContainer">
                 <Border x:Name="StatusBarBG" Canvas.ZIndex="99" Height="26" VerticalAlignment="Top"/>

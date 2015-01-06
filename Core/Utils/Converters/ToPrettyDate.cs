@@ -11,7 +11,7 @@ namespace Core.Utils.Converters {
     public sealed class ToPrettyDate : IValueConverter {
 
         public object Convert(object value, Type targetType, object parameter, string language) {
-            return DateTime.Parse(value.ToString()).Date.ToString("dddd, MMMM dd");
+            return DateTime.Parse(value.ToString()).ToLocalTime().Date.ToString("dddd, MMMM dd");
         }
 
         static string GetPrettyDate(DateTime d) {
