@@ -1,6 +1,7 @@
 ﻿using APIWrapper.AuthenticationManager;
 using APIWrapper.Content;
 using Core.Shared.Common;
+using Core.Shared.Pages;
 using Core.Utils.Misc;
 using System;
 using Windows.ApplicationModel;
@@ -86,7 +87,7 @@ namespace Core {
                     if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
                         throw new Exception("Failed to create initial page");
                 } else {
-                    if (!rootFrame.Navigate(typeof(Pages.Login), "first"))
+                    if (!rootFrame.Navigate(typeof(Login), "first"))
                         throw new Exception("Failed to create initial page");
                 }
             }

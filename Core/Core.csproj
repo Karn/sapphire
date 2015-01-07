@@ -119,9 +119,6 @@
     <Compile Include="Pages\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Login.xaml.cs">
-      <DependentUpon>Login.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Controls\ActivityFeedControl.xaml.cs">
       <DependentUpon>ActivityFeedControl.xaml</DependentUpon>
@@ -156,12 +153,9 @@
     <Compile Include="Utils\Converters\RelativeTime.cs" />
     <Compile Include="Utils\Converters\ToPrettyDate.cs" />
     <Compile Include="Utils\Misc\ContinuationManager.cs" />
-    <Compile Include="Utils\Misc\TextFormatter.cs" />
     <Compile Include="Utils\Misc\DateKeyGroup.cs" />
     <Compile Include="Utils\Misc\AppLicenseHandler.cs" />
     <Compile Include="Utils\Misc\IncrementalPostLoader.cs" />
-    <Compile Include="Utils\Misc\CaptionFormatter.cs" />
-    <Compile Include="Utils\Misc\TagLinks.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -240,10 +234,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Settings.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

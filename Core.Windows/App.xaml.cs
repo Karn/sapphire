@@ -1,4 +1,6 @@
-﻿using System;
+﻿using APIWrapper.AuthenticationManager;
+using Core.Shared.Pages;
+using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -60,7 +62,15 @@ namespace Core {
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                new Authentication();
+                if (Authentication.AuthenticatedTokens.Count != 0 && Authentication.AuthenticatedSecretTokens.Count != 0) {
+                    new APIWrapper.Utils.DiagnosticsManager(Current);
+                    if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
+                        throw new Exception("Failed to create initial page");
+                } else {
+                    if (!rootFrame.Navigate(typeof(Login), "first"))
+                        throw new Exception("Failed to create initial page");
+                }
             }
             // Ensure the current window is active
             Window.Current.Activate();
@@ -86,6 +96,15 @@ namespace Core {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        public static void DisplayStatus(string message = "") {
+            //statusBar.ProgressIndicator.Text = message;
+            //await statusBar.ProgressIndicator.ShowAsync();
+        }
+
+        public static void HideStatus() {
+            //await statusBar.ProgressIndicator.HideAsync();
         }
     }
 }

@@ -196,10 +196,9 @@ namespace APIWrapper.Client {
         /// </summary>
         /// <returns></returns>
         public static async Task<List<Activity.Notification>> RetrieveActivity() {
-
-            var result = await RequestHandler.GET(Endpoints.Notifications);
-            if (result.StatusCode == HttpStatusCode.OK) {
-                try {
+            try {
+                var result = await RequestHandler.GET(Endpoints.Notifications);
+                if (result.StatusCode == HttpStatusCode.OK) {
                     Responses.GetActivity activity = JsonConvert.DeserializeObject<Responses.GetActivity>(await result.Content.ReadAsStringAsync());
                     var Notifications = new List<Activity.Notification>();
                     var NotificationDictionary = UserStore.NotificationIDs;
@@ -223,11 +222,10 @@ namespace APIWrapper.Client {
 
                     UserStore.NotificationIDs = NotificationDictionary;
                     return Notifications;
-                } catch (Exception ex) {
-                    DiagnosticsManager.LogException(ex, TAG, "Failed to serailize blog activity.");
                 }
+            } catch (Exception ex1) {
+                DiagnosticsManager.LogException(ex1, TAG, "Unable to retrieve/serialize activity feed.");
             }
-            DiagnosticsManager.LogException(null, TAG, "Failed to serailize account information.");
             return new List<Activity.Notification>();
         }
 

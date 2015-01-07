@@ -7,7 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 
-namespace Core.Utils.Misc {
+namespace Core.Shared.Utils.Misc {
     public class CaptionFormatter {
 
         static int QuoteCount = 0;
@@ -76,8 +76,10 @@ namespace Core.Utils.Misc {
         private static void BlogName_Click(Hyperlink sender, HyperlinkClickEventArgs args) {
             var blogName = ((Run)(((Hyperlink)sender).Inlines.First())).Text.ToString().Replace(" ", "").Trim(':', '\n', ' ');
             var frame = Window.Current.Content as Frame;
-            if (!frame.Navigate(typeof(Pages.BlogDetails), blogName))
+#if WINDOWS_PHONE_APP
+            if (!frame.Navigate(typeof(Core.Pages.BlogDetails), blogName))
                 throw new Exception("NavFail");
+#endif
         }
 
         private static Run GetRunControl(string text) {

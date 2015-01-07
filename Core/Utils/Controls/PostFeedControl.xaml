@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:Core.Utils.Converters"
     xmlns:util="using:Core.Utils"
-    xmlns:misc="using:Core.Utils.Misc"
+    xmlns:misc="using:Core.Shared.Utils.Misc"
     xmlns:ac="using:Microsoft.AdMediator.WindowsPhone81"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -197,8 +197,8 @@
                 <StackPanel Background="{ThemeResource PostBG}">
                     <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                     <StackPanel MinHeight="150">
-                        <TextBlock Text="{Binding text, Converter={StaticResource ToPlainText}}" Margin="10, 0, 10, 0" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
-                        <TextBlock Text="{Binding source, Converter={StaticResource ToPlainText}}" Margin="10, 5, 10, 10" FontSize="18" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                        <TextBlock misc:CaptionFormatter.Text="{Binding text}" Visibility="{Binding text, Converter={StaticResource CaptionConverter}}" Margin="10, 0, 10, 0" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                        <TextBlock misc:CaptionFormatter.Text="{Binding source}" Visibility="{Binding source, Converter={StaticResource CaptionConverter}}" Margin="10, 5, 10, 10" FontSize="18" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
                     </StackPanel>
                     <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
                 </StackPanel>
@@ -210,8 +210,8 @@
                 <StackPanel Background="{ThemeResource PostBG}">
                     <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                     <StackPanel MinHeight="150">
-                        <TextBlock Text="{Binding title, Converter={StaticResource ToPlainText}}" Visibility="{Binding title, Converter={StaticResource CaptionConverter}}" Margin="10, 0, 10, 0" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
-                        <TextBlock Text="{Binding description, Converter={StaticResource ToPlainText}}" Visibility="{Binding description, Converter={StaticResource CaptionConverter}}" Margin="10, 5, 10, 10" FontSize="18" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                        <TextBlock misc:CaptionFormatter.Text="{Binding title}" Visibility="{Binding title, Converter={StaticResource CaptionConverter}}" Margin="10, 0, 10, 0" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                        <TextBlock misc:CaptionFormatter.Text="{Binding description}" Visibility="{Binding description, Converter={StaticResource CaptionConverter}}" Margin="10, 5, 10, 10" FontSize="18" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
                     </StackPanel>
                     <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
                 </StackPanel>
@@ -223,8 +223,8 @@
                 <StackPanel Background="{ThemeResource PostBG}">
                     <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                     <StackPanel MinHeight="150">
-                        <TextBlock Text="{Binding body}" Margin="10, 0, 10, 0" FontSize="{StaticResource PhonePivotLockedTranslation}" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
-                        <TextBlock Text="{Binding description}" Margin="10, 5, 10, 10" FontSize="18" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                        <TextBlock misc:CaptionFormatter.Text="{Binding body}" Visibility="{Binding body, Converter={StaticResource CaptionConverter}}" Margin="10, 0, 10, 0" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
+                        <TextBlock misc:CaptionFormatter.Text="{Binding description}" Visibility="{Binding description, Converter={StaticResource CaptionConverter}}" Margin="10, 5, 10, 10" FontSize="18" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords"/>
                     </StackPanel>
                     <ContentPresenter ContentTemplate="{StaticResource BottomContainer}"/>
                 </StackPanel>

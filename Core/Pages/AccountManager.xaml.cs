@@ -1,6 +1,7 @@
 ﻿using APIWrapper.AuthenticationManager;
 using APIWrapper.Content;
 using Core.Shared.Common;
+using Core.Shared.Pages;
 using System;
 using System.Diagnostics;
 using System.Linq;

@@ -34,8 +34,6 @@ namespace Core.Utils.Controls {
         private bool AlreadyHasContent;
 
         public static ImageBrush RebloggedBrush = new ImageBrush { ImageSource = App.Current.Resources["RebloggedAsset"] as BitmapImage };
-        public static ImageBrush LikeBrush = new ImageBrush { ImageSource = App.Current.Resources["RebloggedAsset"] as BitmapImage };
-        public static ImageBrush LikeFullBrush = new ImageBrush { ImageSource = App.Current.Resources["RebloggedAsset"] as BitmapImage };
 
         public static ImageSource PlayIcon = App.Current.Resources["PlayIcon"] as BitmapImage;
         public static ImageSource PauseIcon = App.Current.Resources["PauseIcon"] as BitmapImage;

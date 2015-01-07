@@ -1,7 +1,6 @@
 ﻿using APIWrapper.Client;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Windows.UI;
@@ -10,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Media;
 
-namespace Core.Utils.Misc {
+namespace Core.Shared.Utils.Misc {
     public class TextFormatter {
 
         public static string GetText(TextBlock element) {
@@ -74,8 +73,10 @@ namespace Core.Utils.Misc {
         private static void BlogName_Click(Hyperlink sender, HyperlinkClickEventArgs args) {
             var blogName = ((Run)(((Hyperlink)sender).Inlines.First())).Text.ToString().Replace(" ", "").Trim(':', '\n', ' ');
             var frame = Window.Current.Content as Frame;
-            if (!frame.Navigate(typeof(Pages.BlogDetails), blogName))
+#if WINDOWS_PHONE_APP
+            if (!frame.Navigate(typeof(Core.Pages.BlogDetails), blogName))
                 throw new Exception("NavFail");
+#endif
         }
 
         private static Run GetRunControl(string text) {
