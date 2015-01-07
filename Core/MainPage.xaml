@@ -46,7 +46,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel x:Name="HeaderContainer"
-                        Background="{ThemeResource HeaderLightBlue}">
+                        Background="{ThemeResource PrimaryAccent}">
                 <Border x:Name="StatusBarBG"
                         Canvas.ZIndex="99"
                         Height="26"
@@ -112,13 +112,13 @@
                         <Control:NewPostDialog x:Name="CreatePostControl" Visibility="Collapsed"/>
                         <Button x:Name="CreatePost" Click="CreatePost_Click" LostFocus="CreatePost_LostFocus" Height="55" Width="55" Margin="20, 48" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="0" MinHeight="0" Style="{StaticResource ButtonStyleNoBG}">
                             <Grid>
-                                <Ellipse x:Name="CreatePostFill" Stroke="{StaticResource DarkText}" StrokeThickness="0.1" Fill="{ThemeResource HeaderLightBlue}"/>
+                                <Ellipse x:Name="CreatePostFill" Stroke="{StaticResource DarkText}" StrokeThickness="0.1" Fill="{ThemeResource PrimaryAccent}"/>
                                 <Image x:Name="CreatePostIcon" Source="Assets/New.png" Margin="10" RenderTransformOrigin="0.5,0.5" Canvas.ZIndex="50"/>
                             </Grid>
                         </Button>
                         <Button x:Name="ToTopButton" Grid.Row="1" Click="ToTopButton_Click" Height="55" Width="55" Margin="80, 48" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="0" MinHeight="0" Style="{StaticResource ButtonStyleNoBG}">
                             <Grid>
-                                <Ellipse Stroke="{StaticResource DarkText}" StrokeThickness="0.1" Fill="{ThemeResource HeaderLightBlue}"/>
+                                <Ellipse Stroke="{StaticResource DarkText}" StrokeThickness="0.1" Fill="{ThemeResource PrimaryAccent}"/>
                                 <Image Source="ms-appx:///Assets/Top.png" Margin="10" RenderTransformOrigin="0.5,0.5" Canvas.ZIndex="50"/>
                             </Grid>
                         </Button>

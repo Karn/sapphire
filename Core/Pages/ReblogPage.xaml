@@ -23,7 +23,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid Tapped="Grid_Tapped" Background="#02000000"/>
-                <ListView Grid.Row="1" Padding="0, 25, 0, 23" VerticalAlignment="Bottom" Background="{ThemeResource HeaderLightBlue}" Loaded="ListView_Loaded">
+                <ListView Grid.Row="1" Padding="0, 25, 0, 23" VerticalAlignment="Bottom" Background="{ThemeResource PrimaryAccent}" Loaded="ListView_Loaded">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Margin="20, 0, 20, 8" Text="{Binding Name}" Tapped="TextBlock_Tapped" Foreground="{ThemeResource LightText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
@@ -41,8 +41,8 @@
         </Grid.RowDefinitions>
         <!-- TitlePanel -->
         <CommonControl:AlertDialog Grid.RowSpan="2" x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
-        <StackPanel Grid.Row="0" Margin="0" Background="{ThemeResource HeaderLightBlue}">
-            <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource HeaderLightBlue}">
+        <StackPanel Grid.Row="0" Margin="0" Background="{ThemeResource PrimaryAccent}">
+            <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource PrimaryAccent}">
                 <TextBlock x:Name="PageTitle" Foreground="{ThemeResource LightText}" Text="Reblog post" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
             </Grid>
         </StackPanel>

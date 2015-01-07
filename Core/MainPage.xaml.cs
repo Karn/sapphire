@@ -62,7 +62,7 @@ namespace Core {
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e) {
             HeaderAnimateIn.Begin();
             if (!UserStore.EnableStatusBarBG)
-                StatusBarBG.Background = App.Current.Resources["HeaderLightBlue"] as SolidColorBrush;
+                StatusBarBG.Background = App.Current.Resources["PrimaryAccent"] as SolidColorBrush;
             else
                 StatusBarBG.Background = App.Current.Resources["HeaderDarkBlue"] as SolidColorBrush;
         }
@@ -71,7 +71,7 @@ namespace Core {
             //Fix navigating
             if (CreatePostControl.Visibility == Visibility.Visible) {
                 CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
-                CreatePostFill.Fill = App.Current.Resources["HeaderLightBlue"] as SolidColorBrush;
+                CreatePostFill.Fill = App.Current.Resources["PrimaryAccent"] as SolidColorBrush;
                 CreatePostControl.Visibility = Visibility.Collapsed;
                 e.Handled = true;
             } else if (JustNavigatedBack) {
@@ -293,7 +293,7 @@ namespace Core {
 
         private void CreatePost_LostFocus(object sender, RoutedEventArgs e) {
             CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
-            CreatePostFill.Fill = App.Current.Resources["HeaderLightBlue"] as SolidColorBrush;
+            CreatePostFill.Fill = App.Current.Resources["PrimaryAccent"] as SolidColorBrush;
             CreatePostControl.AnimateOut();
         }
 

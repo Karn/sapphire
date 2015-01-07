@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:CommonControl="using:APIWrapper.Utils"
     mc:Ignorable="d"
-    Background="{ThemeResource HeaderLightBlue}">
+    Background="{ThemeResource PrimaryAccent}">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource LightGray}">
         <!-- TitlePanel -->
@@ -17,29 +17,29 @@
         </Grid.RowDefinitions>
         <!-- TitlePanel -->
         <CommonControl:AlertDialog Grid.RowSpan="2" x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
-        <Grid Grid.Row="0" Margin="0" Background="{ThemeResource HeaderLightBlue}">
-            <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource HeaderLightBlue}">
+        <Grid Grid.Row="0" Margin="0" Background="{ThemeResource PrimaryAccent}">
+            <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource PrimaryAccent}">
                 <TextBlock x:Name="PageTitle" Foreground="{ThemeResource LightText}" Text="Settings" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
             </Grid>
         </Grid>
         <Pivot Grid.Row="1" Margin="0, -25, 0, 0">
             <PivotItem Margin="10, 0">
                 <PivotItem.Header>
-                    <TextBlock Text="general" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe WP" CharacterSpacing="-25" Foreground="{ThemeResource HeaderLightBlue}" Typography.Capitals="AllSmallCaps"/>
+                    <TextBlock Text="general" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe WP" CharacterSpacing="-25" Foreground="{ThemeResource PrimaryAccent}" Typography.Capitals="AllSmallCaps"/>
                 </PivotItem.Header>
 
                 <ScrollViewer>
                     <StackPanel HorizontalAlignment="Stretch" Margin="0">
-                        <TextBlock Margin="7, 0" Text="Like this app?" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                        <TextBlock Margin="7, 5, 7, 10" Text="It's always nice to hear what the users think about the app so be sure to review the app and let me know what you think!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
+                        <TextBlock Margin="7, 0" Text="Like this app?" TextWrapping="Wrap" Foreground="{ThemeResource PrimaryAccent}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="7, 5, 7, 10" Text="It's always nice to hear what the users think about the app so be sure to review the app and let me know what you think!" TextWrapping="Wrap" Foreground="{ThemeResource PrimaryAccent}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
                         <Button x:Name="ReviewButton" Content="Rate and review!" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="ReviewButton_Click"/>
 
-                        <TextBlock Margin="7, 0" Text="Spread the word!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                        <TextBlock Margin="7, 5, 7, 10" Text="Tell your friends about Sapphire by sharing a short message on your twitter timeline. Alternatively use the #SapphireApp hashtag to describe your experience with the app." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
+                        <TextBlock Margin="7, 0" Text="Spread the word!" TextWrapping="Wrap" Foreground="{ThemeResource PrimaryAccent}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="7, 5, 7, 10" Text="Tell your friends about Sapphire by sharing a short message on your twitter timeline. Alternatively use the #SapphireApp hashtag to describe your experience with the app." TextWrapping="Wrap" Foreground="{ThemeResource PrimaryAccent}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
                         <Button x:Name="ShareOnTwitter" Content="Tweet about Sapphire" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="ShareOnTwitter_Click"/>
 
-                        <TextBlock Margin="7, 0" Text="Get the full version" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                        <TextBlock Margin="7, 5, 7, 10" Text="You can get additional features by purchasing the full version of the app! Current additional features include, ablility to save posts as drafts/queue, viewing user likes, and adding blog to list of favorites for quick access." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
+                        <TextBlock Margin="7, 0" Text="Get the full version" TextWrapping="Wrap" Foreground="{ThemeResource PrimaryAccent}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="7, 5, 7, 10" Text="You can get additional features by purchasing the full version of the app! Current additional features include, ablility to save posts as drafts/queue, viewing user likes, and adding blog to list of favorites for quick access." TextWrapping="Wrap" Foreground="{ThemeResource PrimaryAccent}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
 
                         <Button x:Name="RemoveAdsButton" Content="Purchase the app!" HorizontalAlignment="Stretch" Margin="10, 0" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="55" Click="RemoveAds_Click"/>
 
@@ -49,49 +49,49 @@
             </PivotItem>
             <PivotItem Margin="10, 0">
                 <PivotItem.Header>
-                    <TextBlock Text="options" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe WP" CharacterSpacing="-25" Foreground="{ThemeResource HeaderLightBlue}" Typography.Capitals="AllSmallCaps"/>
+                    <TextBlock Text="options" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe WP" CharacterSpacing="-25" Foreground="{ThemeResource PrimaryAccent}" Typography.Capitals="AllSmallCaps"/>
                 </PivotItem.Header>
 
                 <ScrollViewer>
                     <StackPanel HorizontalAlignment="Stretch" Margin="0">
-                        <TextBlock Margin="7, 0" Text="UX improvement team" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                        <TextBlock Margin="7, 5, 7, -5" Text="Diagnostics/crash analytics are important to indentifying problems and correcting issus. However, if you aren't comfortable participating, you can quickly disable the feature below." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
+                        <TextBlock Margin="7, 0" Text="UX improvement team" TextWrapping="Wrap" Foreground="{ThemeResource PrimaryAccent}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="7, 5, 7, -5" Text="Diagnostics/crash analytics are important to indentifying problems and correcting issus. However, if you aren't comfortable participating, you can quickly disable the feature below." TextWrapping="Wrap" Foreground="{ThemeResource PrimaryAccent}" FontSize="16" Style="{ThemeResource HeaderTextStyle}"/>
                         <ToggleSwitch x:Name="AnalyticsSwitch" Style="{StaticResource Switch}" Header="" OffContent="Disabled" OnContent="Enabled" Toggled="AnalyticsSwitch_Toggled"/>
 
-                        <TextBlock Margin="5, 0" Text="Dark theme" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="5, 0" Text="Dark theme" TextWrapping="Wrap" Foreground="{ThemeResource PrimaryAccent}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                         <ToggleSwitch x:Name="ThemeSwitch" Style="{StaticResource Switch}" Header="Requires a manual restart." OffContent="Disabled" OnContent="Enabled" Toggled="ToggleSwitch_Toggled"/>
 
-                        <TextBlock Margin="5, 0" Text="Notifications" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="5, 0" Text="Notifications" TextWrapping="Wrap" Foreground="{ThemeResource PrimaryAccent}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                         <ToggleSwitch x:Name="EnableNotifications" Style="{StaticResource Switch}" Header="Toggle notifications for your account." OffContent="Disabled" OnContent="Enabled" Toggled="EnableNotifications_Toggled"/>
 
-                        <TextBlock Margin="5, 0" Text="Status bar background" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="5, 0" Text="Status bar background" TextWrapping="Wrap" Foreground="{ThemeResource PrimaryAccent}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                         <ToggleSwitch x:Name="StatusBarBGToggle" Style="{StaticResource Switch}" Header="Show/Hide the darker statusbar background." OffContent="Disabled" OnContent="Enabled" Toggled="StatusBarBGToggle_Toggled"/>
 
-                        <TextBlock Margin="5, 0" Text="Single click reblog" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="5, 0" Text="Single click reblog" TextWrapping="Wrap" Foreground="{ThemeResource PrimaryAccent}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                         <ToggleSwitch x:Name="EnableOneClickReblog" Style="{StaticResource Switch}" Header="If you'd like to quickly reblog posts select this option." OffContent="Disabled" OnContent="Enabled" Toggled="EnableOneClickReblog_Toggled"/>
 
-                        <TextBlock Margin="5, 0" Text="Tags in posts" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="5, 0" Text="Tags in posts" TextWrapping="Wrap" Foreground="{ThemeResource PrimaryAccent}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
                         <ToggleSwitch x:Name="DisableTagsInPosts" Style="{StaticResource Switch}" Header="If tags in posts just aren't your thing." OffContent="Disabled" OnContent="Enabled" Toggled="DisableTagsInPosts_Toggled"/>
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
             <PivotItem Margin="10, 0">
                 <PivotItem.Header>
-                    <TextBlock Text="about" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe WP" CharacterSpacing="-25" Foreground="{ThemeResource HeaderLightBlue}" Typography.Capitals="AllSmallCaps"/>
+                    <TextBlock Text="about" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe WP" CharacterSpacing="-25" Foreground="{ThemeResource PrimaryAccent}" Typography.Capitals="AllSmallCaps"/>
                 </PivotItem.Header>
                 <ScrollViewer Padding="0, 0, 0, 10">
                     <StackPanel HorizontalAlignment="Stretch" Margin="0">
                         <Image Source="ms-appx:///Assets/Logo_Dark.png" Height="150" Margin="10, 0" HorizontalAlignment="Center"/>
 
-                        <TextBlock Margin="7, 0" Text="Legal" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                        <TextBlock Margin="7, 0, 7, 10" Text="It is important to note that this application ('Sapphire') is a 3rd party client for Tumblr and is in no way affiliated, endorsed or advocated for by Yahoo! Inc. Content that is retrieved via the Tumblr APIs is property of its respective owners and is not a reflection of the developer ('Karn, Awefull'). Additionally, you agree that the developer is not liable for any issues that may occur whilst using this application." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
+                        <TextBlock Margin="7, 0" Text="Legal" TextWrapping="Wrap" Foreground="{ThemeResource PrimaryAccent}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="7, 0, 7, 10" Text="It is important to note that this application ('Sapphire') is a 3rd party client for Tumblr and is in no way affiliated, endorsed or advocated for by Yahoo! Inc. Content that is retrieved via the Tumblr APIs is property of its respective owners and is not a reflection of the developer ('Karn, Awefull'). Additionally, you agree that the developer is not liable for any issues that may occur whilst using this application." TextWrapping="Wrap" Foreground="{ThemeResource PrimaryAccent}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
 
-                        <TextBlock Margin="7, 0" Text="Privacy" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                        <TextBlock Margin="7, 0, 7, 10" Text="Your privacy is very imortant. Check out the apps privacy policy." TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
+                        <TextBlock Margin="7, 0" Text="Privacy" TextWrapping="Wrap" Foreground="{ThemeResource PrimaryAccent}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="7, 0, 7, 10" Text="Your privacy is very imortant. Check out the apps privacy policy." TextWrapping="Wrap" Foreground="{ThemeResource PrimaryAccent}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
                         <HyperlinkButton x:Name="PrivacyButton" Margin="10, 0, 10, 10" Content="open privacy policy" HorizontalAlignment="Stretch" Padding="0" FontSize="20" MinHeight="10" BorderThickness="0" Background="#FF529ECC" Foreground="White" Height="35" FontWeight="Bold" NavigateUri="http://www.awefull.ca/karn/?p=236"/>
 
-                        <TextBlock Margin="7, 0" Text="Support + Feedback" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
-                        <TextBlock Margin="7, 0, 7, 10" Text="If you come across a bug, or something that you feel needs improving, feel free to use the links below to get in touch!" TextWrapping="Wrap" Foreground="{ThemeResource HeaderLightBlue}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
+                        <TextBlock Margin="7, 0" Text="Support + Feedback" TextWrapping="Wrap" Foreground="{ThemeResource PrimaryAccent}" FontSize="20" Style="{StaticResource HeaderTextStyle}" FontWeight="Normal"/>
+                        <TextBlock Margin="7, 0, 7, 10" Text="If you come across a bug, or something that you feel needs improving, feel free to use the links below to get in touch!" TextWrapping="Wrap" Foreground="{ThemeResource PrimaryAccent}" FontSize="16" Style="{StaticResource HeaderTextStyle}"/>
 
                         <HyperlinkButton x:Name="Reddit" Content="/r/Sapphire" HorizontalAlignment="Left" Margin="10, 0" FontSize="20" MinHeight="10" Foreground="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" NavigateUri="http://reddit.com/r/sapphire"/>
                         <HyperlinkButton x:Name="Email" Content="Send me an email" HorizontalAlignment="Left" Margin="10, 0" FontSize="20" MinHeight="10" Foreground="#FF529ECC" BorderBrush="{x:Null}" BorderThickness="0" NavigateUri="mailto:sapphire@awefull.ca"/>

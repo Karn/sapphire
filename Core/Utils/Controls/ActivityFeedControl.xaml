@@ -69,7 +69,7 @@
                             <Run Text="{Binding from_tumblelog_name}"/>
                             <Run Text="started following you." FontWeight="Light"/>
                 </TextBlock>
-                <Grid Grid.Column="2" HorizontalAlignment="Right" Width="45" Height="45" Margin="10, 5" Background="{ThemeResource HeaderLightBlue}" Tag="{Binding from_tumblelog_name}" Visibility="{Binding followed, Converter={StaticResource FollowingToVisibility}}" Tapped="FollowIcon_Tapped">
+                <Grid Grid.Column="2" HorizontalAlignment="Right" Width="45" Height="45" Margin="10, 5" Background="{ThemeResource PrimaryAccent}" Tag="{Binding from_tumblelog_name}" Visibility="{Binding followed, Converter={StaticResource FollowingToVisibility}}" Tapped="FollowIcon_Tapped">
                     <Image x:Name="CreatePostIcon" Source="ms-appx:///Assets/New.png" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Grid>
             </Grid>

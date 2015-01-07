@@ -17,8 +17,8 @@
         </Grid.RowDefinitions>
         <!-- TitlePanel -->
         <CommonControl:AlertDialog Grid.RowSpan="2" x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
-        <StackPanel Grid.Row="0" Margin="0" Background="{ThemeResource HeaderLightBlue}">
-            <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource HeaderLightBlue}">
+        <StackPanel Grid.Row="0" Margin="0" Background="{ThemeResource PrimaryAccent}">
+            <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource PrimaryAccent}">
                 <TextBlock x:Name="PageTitle" Foreground="{ThemeResource LightText}" Text="Posts" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0, 0, 15, 0">
                     <Image x:Name="Mode" Tapped="Mode_Tapped" Visibility="Collapsed" Width="35" Height="30" Source="ms-appx:///Assets/Nav/Account.png" />
@@ -37,7 +37,7 @@
                             <Image Stretch="UniformToFill" Source="{Binding theme.header_image_focused, FallbackValue={StaticResource DefaultPattern}}"/>
                             <Grid VerticalAlignment="Top" Background="#66000000" Height="35">
                                 <TextBlock Margin="10, 5" HorizontalAlignment="Left" Foreground="White" Text="{Binding Name}" FontSize="18" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}" Tag="{Binding Name}" Tapped="GoToBlog"/>
-                                <Button Margin="5, 0" Tag="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{Binding following, Converter={StaticResource FollowingToString}, FallbackValue=FOLLOW}" x:Name="FollowButton" Tapped="FollowUnfollowButton_Tapped" BorderBrush="#66FFFFFF" BorderThickness="0" Foreground="{StaticResource HeaderLightBlue}" Background="#FFFFFFFF" Style="{StaticResource ButtonStyleNoBG}" Padding="3" FontSize="18" Height="35" MinHeight="0" MinWidth="120"/>
+                                <Button Margin="5, 0" Tag="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{Binding following, Converter={StaticResource FollowingToString}, FallbackValue=FOLLOW}" x:Name="FollowButton" Tapped="FollowUnfollowButton_Tapped" BorderBrush="#66FFFFFF" BorderThickness="0" Foreground="{StaticResource PrimaryAccent}" Background="#FFFFFFFF" Style="{StaticResource ButtonStyleNoBG}" Padding="3" FontSize="18" Height="35" MinHeight="0" MinWidth="120"/>
                             </Grid>
                             <Image Tag="{Binding Name}" Tapped="GoToBlog" HorizontalAlignment="Left" Margin="10, 40, 10, 0" Stretch="UniformToFill" Width="55" Height="55" Source="{Binding avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
                             <TextBlock Margin="75, 40, 15, 5" Foreground="White" Text="{Binding description}" FontSize="18" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}" Tag="{Binding Name}" Tapped="GoToBlog"/>

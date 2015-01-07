@@ -28,7 +28,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid Tapped="Grid_Tapped" Background="#02000000"/>
-                <ListView Grid.Row="1" Padding="0, 0, 0, 23" VerticalAlignment="Bottom" Background="{ThemeResource HeaderLightBlue}">
+                <ListView Grid.Row="1" Padding="0, 0, 0, 23" VerticalAlignment="Bottom" Background="{ThemeResource PrimaryAccent}">
                     <TextBlock Text="save to phone" Margin="20, 25, 20, 8" Tag="{Binding path_to_low_res_pic.url}" Tapped="OtherOptions_Tapped" Foreground="{ThemeResource LightText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
                 </ListView>
             </Grid>
@@ -63,7 +63,7 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <Grid Tapped="Grid_Tapped" Background="#02000000"/>
-                                <ListView Grid.Row="1" Padding="0, 0, 0, 23" VerticalAlignment="Bottom" Background="{ThemeResource HeaderLightBlue}">
+                                <ListView Grid.Row="1" Padding="0, 0, 0, 23" VerticalAlignment="Bottom" Background="{ThemeResource PrimaryAccent}">
                                     <TextBlock Text="post details" Margin="20, 25, 20, 8" Tag="{Binding id}" Tapped="OtherOptions_Tapped" Foreground="{ThemeResource LightText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
                                     <TextBlock Text="share" Margin="20, 0, 20, 8" Tag="{Binding post_url}" Tapped="OtherOptions_Tapped" Foreground="{ThemeResource LightText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
                                     <TextBlock Text="open in browser" Margin="20, 0, 20, 8" Tag="{Binding post_url}" Tapped="OtherOptions_Tapped" Foreground="{ThemeResource LightText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
@@ -342,7 +342,7 @@
                         <WindowsPhone81:AdMediatorControl
                         x:Name="AdMediator_8D72AF"
                         Id="AdMediator-Id-08EC04B6-3C0D-4157-B23E-4DDEFC54CC26"
-                        Background="{ThemeResource HeaderLightBlue}"
+                        Background="{ThemeResource PrimaryAccent}"
                         Foreground="White"
                         AdMediatorError="MediatedAdControl_AdMediatorError"
                         AdSdkError="MediatedAdControl_AdSdkError"

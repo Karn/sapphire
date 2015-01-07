@@ -8,7 +8,7 @@
         <ResourceDictionary x:Key="Default">
             <SolidColorBrush x:Key="LightText" Color="#FFEEF1F4"/>
             <SolidColorBrush x:Key="DarkText" Color="#FF2D3F53"/>
-            <SolidColorBrush x:Key="HeaderLightBlue" Color="#FF34495E"/>
+            <SolidColorBrush x:Key="PrimaryAccent" Color="#FF34495E"/>
             <SolidColorBrush x:Key="HeaderDarkBlue" Color="#FF293A4A"/>
             <SolidColorBrush x:Key="StandardGray" Color="#FFF1F1F1"/>
             <SolidColorBrush x:Key="PostBG" Color="#FFFFFFFF"/>
@@ -32,7 +32,7 @@
         <ResourceDictionary x:Key="Dark">
             <SolidColorBrush x:Key="LightText" Color="#FFEEF1F4"/>
             <SolidColorBrush x:Key="DarkText" Color="#FFEEF1F4"/>
-            <SolidColorBrush x:Key="HeaderLightBlue" Color="#FF24282C"/>
+            <SolidColorBrush x:Key="PrimaryAccent" Color="#FF24282C"/>
             <SolidColorBrush x:Key="HeaderDarkBlue" Color="#FF1C2022"/>
             <SolidColorBrush x:Key="StandardGray" Color="#FF2E333C"/>
             <SolidColorBrush x:Key="PostBG" Color="#FF24282f"/>
@@ -91,7 +91,7 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
         <Setter Property="Padding" Value="1"/>
-        <Setter Property="SelectionHighlightColor" Value="{ThemeResource HeaderLightBlue}"/>
+        <Setter Property="SelectionHighlightColor" Value="{ThemeResource PrimaryAccent}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="PasswordBox">
@@ -270,7 +270,7 @@
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="SelectionHighlightColor" Value="{ThemeResource HeaderLightBlue}"/>
+        <Setter Property="SelectionHighlightColor" Value="{ThemeResource PrimaryAccent}"/>
         <Setter Property="FontFamily" Value="Segoe WP"/>
         <Setter Property="FontWeight" Value="Thin"/>
         <Setter Property="FontSize" Value="22"/>
@@ -737,7 +737,7 @@
     </Style>
 
     <Style x:Name="Switch" TargetType="ToggleSwitch">
-        <Setter Property="Foreground" Value="{ThemeResource HeaderLightBlue}" />
+        <Setter Property="Foreground" Value="{ThemeResource PrimaryAccent}" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -948,7 +948,7 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <ContentPresenter x:Name="HeaderContentPresenter"
-                                          Foreground="{ThemeResource HeaderLightBlue}"
+                                          Foreground="{ThemeResource PrimaryAccent}"
                                           Margin="6, 4"
                                           Grid.ColumnSpan="2"
                                           Content="{TemplateBinding Header}"
