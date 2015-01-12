@@ -16,13 +16,13 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <CommonControl:AlertDialog Grid.RowSpan="2" x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
-        <Grid Grid.Row="0" Height="75" Background="{ThemeResource PrimaryAccent}">
+        <Grid Grid.Row="0" Height="75" Background="{ThemeResource PrimaryColor}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Image Source="{Binding theme.header_image_focused,
+            <Image Source="{Binding BlogTheme.HeaderImage,
                 FallbackValue={StaticResource DefaultPattern}}"
                    Stretch="UniformToFill" Grid.ColumnSpan="3"
                    VerticalAlignment="Center"
@@ -40,7 +40,7 @@
                                 <Setter Property="Background" Value="Transparent"/>
                             </Style>
                         </Flyout.FlyoutPresenterStyle>
-                        <StackPanel Tag="{Binding Name}" Background="{ThemeResource PrimaryAccent}" RequestedTheme="{Binding ElementName=FollowButton, Path=RequestedTheme}" Loaded="Flyout_Loaded">
+                        <StackPanel Tag="{Binding Name}" Background="{ThemeResource PrimaryColor}" RequestedTheme="{Binding ElementName=FollowButton, Path=RequestedTheme}" Loaded="Flyout_Loaded">
                             <TextBlock x:Name="fav" Text="add to favorites" Tag="{Binding Name}" Tapped="Fav_Tapped" Margin="20, 25, 0, 15" Foreground="{ThemeResource LightText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
                             <TextBlock Text="view likes" Tag="{Binding Name}" Visibility="{Binding share_likes, Converter={StaticResource BoolToVisibility}, FallbackValue=Collapsed}" Tapped="TextBlock_Tapped" Margin="20, 0, 20, 8" Foreground="{ThemeResource LightText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
                         </StackPanel>
@@ -48,7 +48,7 @@
                 </Button.Flyout>
             </Button>
             <TextBlock Grid.Column="1" Text="{Binding title, FallbackValue=Blog}" Margin="0, 29, 0, 0" HorizontalAlignment="Center" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Foreground="{ThemeResource DarkText}" FontWeight="Light" FontSize="26" Style="{StaticResource HeaderTextStyle}" RequestedTheme="Dark"/>
-            <Button x:Name="FollowButton" Grid.Column="2" Tag="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{Binding followed, Converter={StaticResource FollowingToSign}, FallbackValue=+}" Tapped="FollowUnfollowButton_Tapped" Margin="15, 30, 15, 0" Foreground="{StaticResource PrimaryAccent}" Background="#FFFFFF" BorderThickness="0" Style="{StaticResource ButtonStyleNoBG}" Padding="3, -20" FontSize="30" Height="40" MinHeight="0" MinWidth="40"/>
+            <Button x:Name="FollowButton" Grid.Column="2" Tag="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{Binding followed, Converter={StaticResource FollowingToSign}, FallbackValue=+}" Tapped="FollowUnfollowButton_Tapped" Margin="15, 30, 15, 0" Foreground="{StaticResource PrimaryColor}" Background="#FFFFFF" BorderThickness="0" Style="{StaticResource ButtonStyleNoBG}" Padding="3, -20" FontSize="30" Height="40" MinHeight="0" MinWidth="40"/>
         </Grid>
 
         <!--<TextBlock Text="{Binding title, FallbackValue=Blog}" Margin="50, 5, 50, 0" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" Foreground="{ThemeResource DarkText}" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>

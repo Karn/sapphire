@@ -9,7 +9,7 @@
     xmlns:control="using:Core.Utils.Controls"
     xmlns:CommonControl="using:APIWrapper.Utils"
     mc:Ignorable="d"
-    Background="{ThemeResource PrimaryAccent}">
+    Background="{ThemeResource PrimaryColor}">
 
     <UserControl.Resources>
 
@@ -260,8 +260,8 @@
         </Grid.RowDefinitions>
 
         <CommonControl:AlertDialog Grid.RowSpan="2" x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
-        <StackPanel Grid.Row="0" Margin="0" VerticalAlignment="Top" Background="{ThemeResource PrimaryAccent}">
-            <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource PrimaryAccent}">
+        <StackPanel Grid.Row="0" Margin="0" VerticalAlignment="Top" Background="{ThemeResource PrimaryColor}">
+            <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource PrimaryColor}">
                 <TextBlock x:Name="PageTitle" Foreground="{ThemeResource LightText}" Text="New Post" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
             </Grid>
         </StackPanel>

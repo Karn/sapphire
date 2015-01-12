@@ -1,4 +1,5 @@
 ﻿using APIWrapper.Content.Model;
+using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -9,6 +10,7 @@ namespace Core.Utils.Converters {
         public DataTemplate LikeTemplate { get; set; }
         public DataTemplate FollowTemplate { get; set; }
         public DataTemplate UserMentionTemplate { get; set; }
+        public DataTemplate AnswerTemplate { get; set; }
 
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container) {
 
@@ -21,6 +23,8 @@ namespace Core.Utils.Converters {
                 return FollowTemplate;
             else if (listItem.type == "user_mention")
                 return UserMentionTemplate;
+            else if (listItem.type == "answer")
+                return AnswerTemplate;
 
             return base.SelectTemplateCore(item, container);
         }

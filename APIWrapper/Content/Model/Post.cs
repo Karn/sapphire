@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -6,21 +7,23 @@ using Windows.UI.Xaml;
 namespace APIWrapper.Content.Model {
     public class Post {
         //Default properties
-        public string blog_name { get; set; }
+        [JsonProperty("blog_name")]
+        public string Name { get; set; }
+
+        public string Avatar {
+            get { return "http://api.tumblr.com/v2/blog/" + Name + ".tumblr.com/avatar/96"; }
+        }
+
         public Visibility IsEditable {
             get {
                 if (UserStore.CurrentBlog != null) {
-                    if (blog_name == UserStore.CurrentBlog.Name)
+                    if (Name == UserStore.CurrentBlog.Name)
                         return Visibility.Visible;
                 }
                 return Visibility.Collapsed;
             }
         }
-        public string avatar {
-            get {
-                return "http://api.tumblr.com/v2/blog/" + blog_name + ".tumblr.com/avatar/96";
-            }
-        }
+
         public string id { get; set; }
         public string post_url { get; set; }
         public string type { get; set; }
@@ -46,7 +49,6 @@ namespace APIWrapper.Content.Model {
         public string slug { get; set; }
         public string short_url { get; set; }
         public bool followed { get; set; }
-        public List<object> highlighted { get; set; }
         public int note_count { get; set; }
         public string title { get; set; }
         public string body { get; set; }
@@ -75,7 +77,6 @@ namespace APIWrapper.Content.Model {
         public string audio_url { get; set; }
         public bool? is_external { get; set; }
         public string audio_type { get; set; }
-        //public List<Dialogue> dialogue { get; set; }
         public string url { get; set; }
         public string description { get; set; }
         public string text { get; set; }
@@ -89,11 +90,7 @@ namespace APIWrapper.Content.Model {
                 }
             }
         }
-        public bool IsPhoto {
-            get {
-                return type == "photo";
-            }
-        }
+
         public string asking_name { get; set; }
         public string asking_avatar {
             get {
@@ -105,8 +102,6 @@ namespace APIWrapper.Content.Model {
         public object asking_url { get; set; }
         public string question { get; set; }
         public string answer { get; set; }
-
-        public SourceAttribution source_attribution { get; set; }
 
         private List<Note> _notes = new List<Note>();
 
@@ -123,24 +118,29 @@ namespace APIWrapper.Content.Model {
 
         public class Note {
             public string timestamp { get; set; }
-            public string blog_name { get; set; }
-            public string avatar {
+
+            [JsonProperty("blog_name")]
+            public string Name { get; set; }
+            public string Avatar {
                 get {
-                    return "http://api.tumblr.com/v2/blog/" + blog_name + ".tumblr.com/avatar/96";
+                    return "http://api.tumblr.com/v2/blog/" + Name + ".tumblr.com/avatar/96";
                 }
             }
-            public string blog_url { get; set; }
-            public string post_id { get; set; }
+            public string answer_text { get; set; }
             private string _type { get; set; }
             public string type {
                 get {
                     return _type;
                 }
                 set {
-                    if (value.Contains("like")) {
+                    if (value.Contains("posted")) {
+                        _type = "posted this.";
+                    } else if (value.Contains("like")) {
                         _type = "likes this.";
                     } else if (value.Contains("reblog")) {
                         _type = "reblogged this.";
+                    } else if (value.Contains("answer")) {
+                        _type = "answered: " + answer_text;
                     }
                 }
             }

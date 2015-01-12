@@ -44,16 +44,16 @@ namespace BackgroundUtilities {
 
                     var blogs = activity.response.blogs;
                     foreach (var b in blogs) {
-                        if (!NotificationDictionary.ContainsKey(b.blog_name))
-                            NotificationDictionary.Add(b.blog_name, 0);
-                        if (!NotificationCounts.ContainsKey(b.blog_name))
-                            NotificationCounts.Add(b.blog_name, new List<Activity.Notification>());
+                        if (!NotificationDictionary.ContainsKey(b.Name))
+                            NotificationDictionary.Add(b.Name, 0);
+                        if (!NotificationCounts.ContainsKey(b.Name))
+                            NotificationCounts.Add(b.Name, new List<Activity.Notification>());
                         foreach (var n in b.notifications) {
-                            if (n.timestamp > NotificationDictionary[b.blog_name])
-                                NotificationCounts[b.blog_name].Add(n);
+                            if (n.timestamp > NotificationDictionary[b.Name])
+                                NotificationCounts[b.Name].Add(n);
                         }
-                        if (NotificationCounts[b.blog_name].Count > 0)
-                            NotificationDictionary[b.blog_name] = NotificationCounts[b.blog_name].First().timestamp;
+                        if (NotificationCounts[b.Name].Count > 0)
+                            NotificationDictionary[b.Name] = NotificationCounts[b.Name].First().timestamp;
                     }
                 }
 

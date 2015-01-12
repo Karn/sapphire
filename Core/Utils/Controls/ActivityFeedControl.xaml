@@ -22,7 +22,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0" Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}">
-                    <Image Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
+                    <Image Width="45" Height="45" Margin="5" Source="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
                     <Image HorizontalAlignment="Right" Width="18" Height="18" Margin="0 ,35, 0, 0" Source="ms-appx:///Assets/AReblog.png" />
                 </Grid>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10">
@@ -42,7 +42,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0" Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" >
-                    <Image Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
+                    <Image Width="45" Height="45" Margin="5" Source="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
                     <Image HorizontalAlignment="Right" Width="18" Height="18" Margin="0 ,35, 0, 0" Source="ms-appx:///Assets/ALiked.png" />
                 </Grid>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10">
@@ -62,14 +62,14 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0" Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}">
-                    <Image  Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
+                    <Image  Width="45" Height="45" Margin="5" Source="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
                     <Image HorizontalAlignment="Right" Width="18" Height="18" Margin="0 ,35, 0, 0" Source="ms-appx:///Assets/AFollowing.png" />
                 </Grid>
                 <TextBlock Grid.Column="1" Margin="10" Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" HorizontalAlignment="Left" FontSize="15" TextWrapping="NoWrap" Foreground="{ThemeResource DarkText}" TextTrimming="CharacterEllipsis">
                             <Run Text="{Binding from_tumblelog_name}"/>
                             <Run Text="started following you." FontWeight="Light"/>
                 </TextBlock>
-                <Grid Grid.Column="2" HorizontalAlignment="Right" Width="45" Height="45" Margin="10, 5" Background="{ThemeResource PrimaryAccent}" Tag="{Binding from_tumblelog_name}" Visibility="{Binding followed, Converter={StaticResource FollowingToVisibility}}" Tapped="FollowIcon_Tapped">
+                <Grid Grid.Column="2" HorizontalAlignment="Right" Width="45" Height="45" Margin="10, 5" Background="{ThemeResource PrimaryColor}" Tag="{Binding from_tumblelog_name}" Visibility="{Binding followed, Converter={StaticResource FollowingToVisibility}}" Tapped="FollowIcon_Tapped">
                     <Image x:Name="CreatePostIcon" Source="ms-appx:///Assets/New.png" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Grid>
             </Grid>
@@ -82,7 +82,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0" Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}">
-                    <Image Width="45" Height="45" Margin="5" Source="{Binding Path=from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
+                    <Image Width="45" Height="45" Margin="5" Source="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
                     <Image HorizontalAlignment="Right" Width="18" Height="18" Margin="0 ,35, 0, 0" Source="ms-appx:///Assets/AMention.png" />
                 </Grid>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10" Width="245">
@@ -94,12 +94,33 @@
                 <Image Grid.Column="2" Tapped="GoToPost" Tag="{Binding target_post_id}" HorizontalAlignment="Right" Width="45" Height="45" Margin="10, 5" Source="ms-appx:///Assets/AFollowing2.png"  Stretch="UniformToFill"/>
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="answer">
+            <Grid HorizontalAlignment="Stretch" Background="{Binding followed, Converter={StaticResource FollowingToBG}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}">
+                    <Image Width="45" Height="45" Margin="5" Source="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
+                    <Image HorizontalAlignment="Right" Width="18" Height="18" Margin="0 ,35, 0, 0" Source="ms-appx:///Assets/AReply.png" />
+                </Grid>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10">
+                    <TextBlock Tapped="GoToBlog" Tag="{Binding from_tumblelog_name}" FontSize="15" HorizontalAlignment="Left" TextWrapping="NoWrap" Foreground="{ThemeResource DarkText}" TextTrimming="CharacterEllipsis">
+                            <Run Text="{Binding from_tumblelog_name}"/>
+                            <Run Text="answerd your post." FontWeight="Light"/>
+                    </TextBlock>
+                </StackPanel>
+                <Image Grid.Column="2" Tapped="GoToPost" Tag="{Binding target_post_id}" HorizontalAlignment="Right" Width="45" Height="45" Margin="10, 5" Source="{Binding media_url, FallbackValue={StaticResource ActivityPostPlaceholder}}" Stretch="UniformToFill"/>
+            </Grid>
+        </DataTemplate>
 
         <converter:ActivityTemplateSelector x:Key="ActivityListTemplate"
-            ReblogTemplate="{StaticResource reblog}"
-            LikeTemplate="{StaticResource like}"
-            FollowTemplate="{StaticResource follow}"
-            UserMentionTemplate="{StaticResource user_mention}"/>
+                                            ReblogTemplate="{StaticResource reblog}"
+                                            LikeTemplate="{StaticResource like}"
+                                            FollowTemplate="{StaticResource follow}"
+                                            UserMentionTemplate="{StaticResource user_mention}"
+                                            AnswerTemplate="{StaticResource answer}"/>
 
 
         <CollectionViewSource x:Name="csvNotifications" IsSourceGrouped="True"/>

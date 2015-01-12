@@ -19,7 +19,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -32,6 +32,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
@@ -46,12 +49,9 @@
     <Compile Include="Content\Model\GfyCat.cs" />
     <Compile Include="Content\Model\Activity.cs" />
     <Compile Include="Content\Model\Blog.cs" />
-    <Compile Include="Content\Model\Messages.cs" />
     <Compile Include="Content\Model\Photo.cs" />
     <Compile Include="Content\Model\Post.cs" />
     <Compile Include="Content\Model\Responses.cs" />
-    <Compile Include="Content\Model\SourceAttribution.cs" />
-    <Compile Include="Content\Model\Tag.cs" />
     <Compile Include="Content\Model\Theme.cs" />
     <Compile Include="Content\Model\User.cs" />
     <Compile Include="Content\UserStore.cs" />

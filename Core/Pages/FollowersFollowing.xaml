@@ -9,7 +9,7 @@
     xmlns:ufc="using:Core.Utils"
     xmlns:converter="using:Core.Utils.Converters"
     xmlns:CommonControl="using:APIWrapper.Utils"
-    Background="{ThemeResource PrimaryAccent}">
+    Background="{ThemeResource PrimaryColor}">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource LightGray}">
         <Grid.RowDefinitions>
@@ -18,8 +18,8 @@
         </Grid.RowDefinitions>
         <CommonControl:AlertDialog Grid.RowSpan="2" x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
         <!-- TitlePanel -->
-        <StackPanel Grid.Row="0" Margin="0" Background="{ThemeResource PrimaryAccent}">
-            <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource PrimaryAccent}">
+        <StackPanel Grid.Row="0" Margin="0" Background="{ThemeResource PrimaryColor}">
+            <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource PrimaryColor}">
                 <TextBlock x:Name="PageTitle" Foreground="{ThemeResource LightText}" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
             </Grid>
         </StackPanel>
@@ -45,13 +45,13 @@
                 <DataTemplate>
                     <Border MinWidth="380" HorizontalAlignment="Stretch" Margin="4, 2" Height="112" BorderBrush="#0C000000" BorderThickness="1">
                         <Grid HorizontalAlignment="Stretch">
-                            <Image Stretch="UniformToFill" Source="{Binding theme.header_image_focused, FallbackValue={StaticResource DefaultPattern}}"/>
+                            <Image Stretch="UniformToFill" Source="{Binding BlogTheme.HeaderImage, FallbackValue={StaticResource DefaultPattern}}"/>
                             <Grid VerticalAlignment="Top" Background="#66000000" Height="35">
                                 <TextBlock Margin="10, 5" HorizontalAlignment="Left" Foreground="White" Text="{Binding Name}" FontSize="18" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}" Tag="{Binding Name}" Tapped="GoToBlog"/>
-                                <Button Margin="5, 0" Tag="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{Binding following, Converter={StaticResource FollowingToString}, FallbackValue=FOLLOW}" x:Name="FollowButton" Tapped="FollowUnfollowButton_Tapped" BorderBrush="#66FFFFFF" BorderThickness="0" Foreground="{StaticResource PrimaryAccent}" Background="#FFFFFFFF" Style="{StaticResource ButtonStyleNoBG}" Padding="3" FontSize="18" Height="35" MinHeight="0" MinWidth="120"/>
+                                <Button Margin="5, 0" Tag="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{Binding following, Converter={StaticResource FollowingToString}, FallbackValue=FOLLOW}" x:Name="FollowButton" Tapped="FollowUnfollowButton_Tapped" BorderBrush="#66FFFFFF" BorderThickness="0" Foreground="{StaticResource PrimaryColor}" Background="#FFFFFFFF" Style="{StaticResource ButtonStyleNoBG}" Padding="3" FontSize="18" Height="35" MinHeight="0" MinWidth="120"/>
                             </Grid>
-                            <Image Tag="{Binding Name}" Tapped="GoToBlog" HorizontalAlignment="Left" Margin="10, 40, 10, 0" Stretch="UniformToFill" Width="55" Height="55" Source="{Binding avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
-                            <TextBlock Margin="75, 40, 15, 5" Foreground="White" Text="{Binding description}" FontSize="18" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}" Tag="{Binding Name}" Tapped="GoToBlog"/>
+                            <Image Tag="{Binding Name}" Tapped="GoToBlog" HorizontalAlignment="Left" Margin="10, 40, 10, 0" Stretch="UniformToFill" Width="55" Height="55" Source="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
+                            <TextBlock Margin="75, 40, 15, 5" Foreground="White" Text="{Binding Description}" FontSize="18" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}" Tag="{Binding Name}" Tapped="GoToBlog"/>
                         </Grid>
                     </Border>
                 </DataTemplate>

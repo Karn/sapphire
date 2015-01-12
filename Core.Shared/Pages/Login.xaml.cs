@@ -120,9 +120,12 @@ namespace Core.Shared.Pages {
                             throw new Exception();
                         }
                     } else {
-                        //if (!Frame.Navigate(typeof(AccountManager))) {
-                        //    throw new Exception();
-                        //}
+#if WINDOWS_PHONE_APP
+
+                        if (!Frame.Navigate(typeof(Core.Pages.AccountManager))) {
+                            throw new Exception();
+                        }
+#endif
                     }
                 } else {
                     ErrorFlyout.DisplayMessage(response);
@@ -131,7 +134,7 @@ namespace Core.Shared.Pages {
                 Password.IsEnabled = true;
                 LoginButton.IsEnabled = true;
             } else {
-                ErrorFlyout.DisplayMessage("No network availiable.");
+                ErrorFlyout.DisplayMessage(App.LocaleResources.GetString("No Network"));
             }
             App.HideStatus();
         }

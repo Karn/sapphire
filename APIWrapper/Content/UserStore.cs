@@ -5,32 +5,30 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Windows.Storage;
 using System.Linq;
+using APIWrapper.Content.Model;
 
 namespace APIWrapper.Content {
     public class UserStore {
 
         public static string TAG = "UserStore";
 
-        public static Model.Blog CurrentBlog;
-        public static ObservableCollection<Model.Blog> UserBlogs = new ObservableCollection<Model.Blog>();
-
-        private static ObservableCollection<Model.Blog> FavBlogs;
+        public static Blog CurrentBlog;
+        public static ObservableCollection<Blog> UserBlogs = new ObservableCollection<Blog>();
+        private static ObservableCollection<Blog> FavBlogs;
 
         private static ApplicationDataContainer Settings = ApplicationData.Current.LocalSettings;
-
 
         public UserStore() {
             if (Settings.Values["Theme"] != null) {
                 Settings.Values.Clear();
                 Debug.WriteLine("Cleared Settings.");
             }
-
         }
 
         public static void AddFav(string name) {
             try {
                 if (!FavBlogs.Any(b => b.Name == name)) {
-                    FavBlogs.Insert(0, new Model.Blog { Name = name });
+                    FavBlogs.Insert(0, new Blog { Name = name });
                     if (FavBlogs.Count > 7) {
                         FavBlogs.Remove(FavBlogs.Last());
                     }
@@ -53,9 +51,8 @@ namespace APIWrapper.Content {
 
         public static string SelectedTheme {
             get {
-                if (Settings.Values["_Theme"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_Theme"].ToString())) {
+                if (Settings.Values["_Theme"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_Theme"].ToString()))
                     return Settings.Values["_Theme"].ToString();
-                }
                 return "Light";
             }
             set {
@@ -65,9 +62,8 @@ namespace APIWrapper.Content {
 
         public static bool NotificationsEnabled {
             get {
-                if (Settings.Values["_NotificationsEnabled"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_NotificationsEnabled"].ToString())) {
+                if (Settings.Values["_NotificationsEnabled"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_NotificationsEnabled"].ToString()))
                     return Settings.Values["_NotificationsEnabled"].ToString().Contains("T") ? true : false;
-                }
                 return true;
             }
             set {
@@ -78,11 +74,9 @@ namespace APIWrapper.Content {
         public static Dictionary<string, int> NotificationIDs {
             get {
                 try {
-                    if (Settings.Values["_NotificationIds"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_NotificationIds"].ToString())) {
+                    if (Settings.Values["_NotificationIds"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_NotificationIds"].ToString()))
                         return JsonConvert.DeserializeObject<Dictionary<string, int>>(Settings.Values["_NotificationIds"].ToString());
-                    }
-                } catch (Exception ex) {
-                }
+                } catch (Exception ex) { }
                 return new Dictionary<string, int>();
             }
             set {
@@ -92,9 +86,8 @@ namespace APIWrapper.Content {
 
         public static bool OneClickReblog {
             get {
-                if (Settings.Values["_OneClickReblog"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_OneClickReblog"].ToString())) {
+                if (Settings.Values["_OneClickReblog"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_OneClickReblog"].ToString()))
                     return Settings.Values["_OneClickReblog"].ToString().Contains("T") ? true : false;
-                }
                 return true;
             }
             set {
@@ -115,9 +108,8 @@ namespace APIWrapper.Content {
 
         public static string CachedSpotlight {
             get {
-                if (Settings.Values["_CachedSpotlight"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_CachedSpotlight"].ToString())) {
+                if (Settings.Values["_CachedSpotlight"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_CachedSpotlight"].ToString()))
                     return Settings.Values["_CachedSpotlight"].ToString();
-                }
                 return "";
             }
             set {
@@ -127,9 +119,8 @@ namespace APIWrapper.Content {
 
         public static bool EnableAnalytics {
             get {
-                if (Settings.Values["_EnableAnalytics"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_EnableAnalytics"].ToString())) {
+                if (Settings.Values["_EnableAnalytics"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_EnableAnalytics"].ToString()))
                     return Settings.Values["_EnableAnalytics"].ToString().Contains("T") ? true : false;
-                }
                 return true;
             }
             set {
@@ -139,9 +130,8 @@ namespace APIWrapper.Content {
 
         public static bool EnableStatusBarBG {
             get {
-                if (Settings.Values["_StatusBarBG"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_StatusBarBG"].ToString())) {
+                if (Settings.Values["_StatusBarBG"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_StatusBarBG"].ToString()))
                     return Settings.Values["_StatusBarBG"].ToString().Contains("T") ? true : false;
-                }
                 return true;
             }
             set {
@@ -149,13 +139,13 @@ namespace APIWrapper.Content {
             }
         }
 
-        public static ObservableCollection<Model.Blog> FavBlogList {
+        public static ObservableCollection<Blog> FavBlogList {
             get {
                 if (FavBlogs == null) {
                     if (Settings.Values["_FavBlogList"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_FavBlogList"].ToString()))
-                        FavBlogs = JsonConvert.DeserializeObject<ObservableCollection<Model.Blog>>(Settings.Values["_FavBlogList"].ToString());
+                        FavBlogs = JsonConvert.DeserializeObject<ObservableCollection<Blog>>(Settings.Values["_FavBlogList"].ToString());
                     else
-                        FavBlogs = new ObservableCollection<Model.Blog>();
+                        FavBlogs = new ObservableCollection<Blog>();
                 }
                 return FavBlogs;
             }

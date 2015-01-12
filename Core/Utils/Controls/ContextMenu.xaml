@@ -22,7 +22,7 @@
                         <Setter Property="Background" Value="Transparent"/>
                     </Style>
                 </Flyout.FlyoutPresenterStyle>
-                <StackPanel Background="{ThemeResource PrimaryAccent}">
+                <StackPanel Background="{ThemeResource PrimaryColor}">
                     <TextBlock Text="add to favorites" Margin="20, 25, 20, 15" Foreground="{ThemeResource LightText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
                     <TextBlock Text="view likes" Margin="20, 0, 20, 8" Foreground="{ThemeResource LightText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
                 </StackPanel>

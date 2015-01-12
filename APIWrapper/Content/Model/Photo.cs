@@ -19,7 +19,7 @@ namespace APIWrapper.Content.Model {
             public int height { get; set; }
             public int scaled_height {
                 get {
-                    return (int)((height / width) * (Window.Current.Bounds.Height));
+                    return (int)(height / width * (Window.Current.Bounds.Height - 12));
                 }
             }
             public string url { get; set; }

@@ -472,5 +472,14 @@ namespace Core.Utils.Controls {
         private void ToTopButton_Click(object sender, RoutedEventArgs e) {
             ScrollToTop();
         }
+
+        private void GoToPostDetails(object sender, TappedRoutedEventArgs e) {
+            if (!IsSinglePost) {
+                var frame = Window.Current.Content as Frame;
+                if (!frame.Navigate(typeof(Pages.PostDetails), ((FrameworkElement)sender).Tag.ToString())) {
+                    Debug.WriteLine("Failed to Navigate");
+                }
+            }
+        }
     }
 }

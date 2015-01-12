@@ -4,12 +4,11 @@
     xmlns:local="using:Core.Shared.Assets.Resources">
 
     <ResourceDictionary.ThemeDictionaries>
-
         <ResourceDictionary x:Key="Default">
+            <SolidColorBrush x:Key="PrimaryColor" Color="#FF34495E"/>
+            <SolidColorBrush x:Key="PrimaryColorDark" Color="#FF293A4A"/>
             <SolidColorBrush x:Key="LightText" Color="#FFEEF1F4"/>
             <SolidColorBrush x:Key="DarkText" Color="#FF2D3F53"/>
-            <SolidColorBrush x:Key="PrimaryAccent" Color="#FF34495E"/>
-            <SolidColorBrush x:Key="HeaderDarkBlue" Color="#FF293A4A"/>
             <SolidColorBrush x:Key="StandardGray" Color="#FFF1F1F1"/>
             <SolidColorBrush x:Key="PostBG" Color="#FFFFFFFF"/>
             <SolidColorBrush x:Key="Accent2" Color="#FFf0f3f6"/>
@@ -32,8 +31,8 @@
         <ResourceDictionary x:Key="Dark">
             <SolidColorBrush x:Key="LightText" Color="#FFEEF1F4"/>
             <SolidColorBrush x:Key="DarkText" Color="#FFEEF1F4"/>
-            <SolidColorBrush x:Key="PrimaryAccent" Color="#FF24282C"/>
-            <SolidColorBrush x:Key="HeaderDarkBlue" Color="#FF1C2022"/>
+            <SolidColorBrush x:Key="PrimaryColor" Color="#FF24282C"/>
+            <SolidColorBrush x:Key="PrimaryColorDark" Color="#FF1C2022"/>
             <SolidColorBrush x:Key="StandardGray" Color="#FF2E333C"/>
             <SolidColorBrush x:Key="PostBG" Color="#FF24282f"/>
             <SolidColorBrush x:Key="Accent2" Color="#FF29313b"/>
@@ -81,6 +80,17 @@
         <Setter Property="CharacterSpacing" Value="-25"/>
     </Style>
 
+    <Style x:Name="StandardText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource DarkText}"/>
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontWeight" Value="Light" />
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="Margin" Value="10, 0," />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="CharacterSpacing" Value="-25"/>
+    </Style>
+
     <Style x:Name="PasswordBoxStyle" TargetType="PasswordBox">
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Background" Value="Transparent"/>
@@ -91,7 +101,7 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
         <Setter Property="Padding" Value="1"/>
-        <Setter Property="SelectionHighlightColor" Value="{ThemeResource PrimaryAccent}"/>
+        <Setter Property="SelectionHighlightColor" Value="{ThemeResource PrimaryColor}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="PasswordBox">
@@ -270,7 +280,7 @@
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="SelectionHighlightColor" Value="{ThemeResource PrimaryAccent}"/>
+        <Setter Property="SelectionHighlightColor" Value="{ThemeResource PrimaryColor}"/>
         <Setter Property="FontFamily" Value="Segoe WP"/>
         <Setter Property="FontWeight" Value="Thin"/>
         <Setter Property="FontSize" Value="22"/>
@@ -503,11 +513,10 @@
     </Style>
 
     <Style x:Key="ButtonStyleNoBG" TargetType="Button">
-        <Setter Property="Background" Value="{ThemeResource ButtonBackgroundThemeBrush}"/>
-        <Setter Property="Foreground" Value="{ThemeResource ButtonForegroundThemeBrush}"/>
-        <Setter Property="BorderBrush" Value="{ThemeResource ButtonBorderThemeBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="0"/>
+        <Setter Property="MinHeight" Value="0"/>
+        <Setter Property="MinWidth" Value="0"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
@@ -737,7 +746,7 @@
     </Style>
 
     <Style x:Name="Switch" TargetType="ToggleSwitch">
-        <Setter Property="Foreground" Value="{ThemeResource PrimaryAccent}" />
+        <Setter Property="Foreground" Value="{ThemeResource PrimaryColor}" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -787,7 +796,7 @@
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SwitchKnob"
                                                                    Storyboard.TargetProperty="Fill">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource HeaderDarkBlue}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource PrimaryColorDark}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SwitchKnob"
                                                                    Storyboard.TargetProperty="Stroke">
@@ -948,7 +957,7 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <ContentPresenter x:Name="HeaderContentPresenter"
-                                          Foreground="{ThemeResource PrimaryAccent}"
+                                          Foreground="{ThemeResource PrimaryColor}"
                                           Margin="6, 4"
                                           Grid.ColumnSpan="2"
                                           Content="{TemplateBinding Header}"
@@ -984,7 +993,7 @@
                                 <Grid Grid.Column="2" Background="Transparent" ManipulationMode="None">
                                     <Grid x:Name="SwitchKnobBounds" Height="19" Margin="10,5,10,15">
                                         <Border x:Name="OuterBorder"
-                                            BorderBrush="{ThemeResource HeaderDarkBlue}"
+                                            BorderBrush="{ThemeResource PrimaryColorDark}"
                                             BorderThickness="2">
                                             <Border x:Name="InnerBorder"
                                                 Background="Transparent"
@@ -1004,7 +1013,7 @@
                                             </Border>
                                         </Border>
                                         <Rectangle x:Name="SwitchKnob"
-                                               Fill="{ThemeResource HeaderDarkBlue}"
+                                               Fill="{ThemeResource PrimaryColorDark}"
                                                Stroke="Transparent"
                                                StrokeThickness="0"
                                                HorizontalAlignment="Left"

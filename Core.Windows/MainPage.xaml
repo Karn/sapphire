@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid x:Name="LayoutRoot" Background="{ThemeResource PrimaryAccent}">
+    <Grid x:Name="LayoutRoot" Background="{ThemeResource PrimaryColor}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -27,22 +27,22 @@
             </GridView>
 
             <Hub HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Grid.RowSpan="2" Background="{ThemeResource StandardGray}">
-                <HubSection x:Name="Dashboard" Background="{ThemeResource HeaderDarkBlue}">
+                <HubSection x:Name="Dashboard" Background="{ThemeResource PrimaryColorDark}">
                     <DataTemplate>
                         <Grid/>
                     </DataTemplate>
                 </HubSection>
-                <HubSection x:Name="Activity" Background="{ThemeResource PrimaryAccent}">
+                <HubSection x:Name="Activity" Background="{ThemeResource PrimaryColor}">
                     <DataTemplate>
                         <Grid/>
                     </DataTemplate>
                 </HubSection>
-                <HubSection x:Name="Account" Background="{ThemeResource HeaderDarkBlue}">
+                <HubSection x:Name="Account" Background="{ThemeResource PrimaryColorDark}">
                     <DataTemplate>
                         <StackPanel x:Name="AccountPivotContent" VerticalAlignment="Top">
                             <Grid>
                                 <Grid.Background>
-                                    <ImageBrush ImageSource="{Binding Path=theme.header_image_focused, FallbackValue={ThemeResource DefaultPattern}}" Stretch="UniformToFill"/>
+                                    <ImageBrush ImageSource="{Binding Path=BlogTheme.HeaderImage, FallbackValue={ThemeResource DefaultPattern}}" Stretch="UniformToFill"/>
                                 </Grid.Background>
                                 <Grid.ChildrenTransitions>
                                     <TransitionCollection>
@@ -114,7 +114,7 @@
                         </StackPanel>
                     </DataTemplate>
                 </HubSection>
-                <HubSection x:Name="Search" Background="{ThemeResource PrimaryAccent}">
+                <HubSection x:Name="Search" Background="{ThemeResource PrimaryColor}">
                     <DataTemplate>
                         <Grid/>
                     </DataTemplate>
@@ -151,13 +151,13 @@
                         <Control:NewPostDialog x:Name="CreatePostControl" Visibility="Collapsed"/>
                         <Button x:Name="CreatePost" Click="CreatePost_Click" LostFocus="CreatePost_LostFocus" Height="55" Width="55" Margin="20, 48" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="0" MinHeight="0" Style="{StaticResource ButtonStyleNoBG}">
                             <Grid>
-                                <Ellipse x:Name="CreatePostFill" Stroke="{StaticResource DarkText}" StrokeThickness="0.1" Fill="{ThemeResource PrimaryAccent}"/>
+                                <Ellipse x:Name="CreatePostFill" Stroke="{StaticResource DarkText}" StrokeThickness="0.1" Fill="{ThemeResource PrimaryColor}"/>
                                 <Image x:Name="CreatePostIcon" Source="Assets/New.png" Margin="10" RenderTransformOrigin="0.5,0.5" Canvas.ZIndex="50"/>
                             </Grid>
                         </Button>
                         <Button x:Name="ToTopButton" Grid.Row="1" Click="ToTopButton_Click" Height="55" Width="55" Margin="80, 48" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinWidth="0" MinHeight="0" Style="{StaticResource ButtonStyleNoBG}">
                             <Grid>
-                                <Ellipse Stroke="{StaticResource DarkText}" StrokeThickness="0.1" Fill="{ThemeResource PrimaryAccent}"/>
+                                <Ellipse Stroke="{StaticResource DarkText}" StrokeThickness="0.1" Fill="{ThemeResource PrimaryColor}"/>
                                 <Image Source="ms-appx:///Assets/Top.png" Margin="10" RenderTransformOrigin="0.5,0.5" Canvas.ZIndex="50"/>
                             </Grid>
                         </Button>
@@ -172,7 +172,7 @@
                     <StackPanel x:Name="AccountPivotContent" VerticalAlignment="Top">
                         <Grid>
                             <Grid.Background>
-                                <ImageBrush ImageSource="{Binding Path=theme.header_image_focused, FallbackValue={ThemeResource DefaultPattern}}" Stretch="UniformToFill"/>
+                                <ImageBrush ImageSource="{Binding Path=BlogTheme.HeaderImage, FallbackValue={ThemeResource DefaultPattern}}" Stretch="UniformToFill"/>
                             </Grid.Background>
                             <Grid.ChildrenTransitions>
                                 <TransitionCollection>

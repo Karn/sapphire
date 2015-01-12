@@ -138,7 +138,7 @@ namespace APIWrapper.AuthenticationManager {
 
                 var signatureString = "POST&" + Uri.EscapeDataString(SecureAccessTokenURI) + "&" +
                     Uri.EscapeDataString(signatureParameters);
-                var signature = Utils.GenerateSignature(signatureString, ConsumerSecretKey);
+                var signature = Utils.GenerateSignature(signatureString);
 
                 var response = await Utils.PostAuthenticationData(SecureAccessTokenURI,
                     signatureParameters + "&oauth_signature=" + Uri.EscapeDataString(signature));

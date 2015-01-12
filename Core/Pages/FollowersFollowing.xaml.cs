@@ -41,12 +41,12 @@ namespace Core.Pages {
             }
             App.DisplayStatus("Loading blogs...");
             if (PageTitle.Text.ToString() == "Followers") {
-                foreach (var x in await CreateRequest.RetrieveFollowers(offset))
-                    BlogList.Add(x);
+                foreach (var blog in await CreateRequest.RetrieveFollowers(offset))
+                    BlogList.Add(blog);
             } else if (PageTitle.Text.ToString() == "Following") {
-                foreach (var x in await CreateRequest.RetrieveFollowing(offset)) {
-                    x.following = true;
-                    BlogList.Add(x);
+                foreach (var blog in await CreateRequest.RetrieveFollowing(offset)) {
+                    blog.IsFollowing = true;
+                    BlogList.Add(blog);
                 }
             }
             List.ItemsSource = BlogList;

@@ -6,6 +6,7 @@ using Core.Shared.Common;
 using Core.Utils.Controls;
 using System;
 using Windows.ApplicationModel.Background;
+using Windows.ApplicationModel.Resources;
 using Windows.Phone.UI.Input;
 using Windows.System;
 using Windows.UI;
@@ -47,11 +48,7 @@ namespace Core {
             //Initialize
             AlertFlyout = _ErrorFlyout; //Mainpage error toast
 
-            if (Authentication.AuthenticatedTokens != null && Authentication.AuthenticatedTokens.Count > 1) {
-                AccountManageButton.Label = "accounts";
-            }
-
-            NPD = CreatePostControl;
+            NPD = PostCreationView;
 
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 
@@ -62,17 +59,17 @@ namespace Core {
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e) {
             HeaderAnimateIn.Begin();
             if (!UserStore.EnableStatusBarBG)
-                StatusBarBG.Background = App.Current.Resources["PrimaryAccent"] as SolidColorBrush;
+                StatusBarBG.Background = App.Current.Resources["PrimaryColor"] as SolidColorBrush;
             else
-                StatusBarBG.Background = App.Current.Resources["HeaderDarkBlue"] as SolidColorBrush;
+                StatusBarBG.Background = App.Current.Resources["PrimaryColorDark"] as SolidColorBrush;
         }
 
         private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e) {
             //Fix navigating
-            if (CreatePostControl.Visibility == Visibility.Visible) {
+            if (PostCreationView.Visibility == Visibility.Visible) {
                 CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
-                CreatePostFill.Fill = App.Current.Resources["PrimaryAccent"] as SolidColorBrush;
-                CreatePostControl.Visibility = Visibility.Collapsed;
+                CreatePostFill.Fill = App.Current.Resources["PrimaryColor"] as SolidColorBrush;
+                PostCreationView.Visibility = Visibility.Collapsed;
                 e.Handled = true;
             } else if (JustNavigatedBack) {
                 JustNavigatedBack = false;
@@ -98,7 +95,7 @@ namespace Core {
                 if (e.NavigationParameter.ToString().Contains("Account:")) {
                     var s = e.NavigationParameter.ToString().Split(' ');
                     SetAccountData(s[1]);
-                    Posts_Loaded(null, null);
+                    Dashboard_Loaded(null, null);
                     NavigationPivot.SelectedIndex = 1;
                     NavigatedFromToast = true;
                 }
@@ -110,7 +107,7 @@ namespace Core {
                 NavigationPivot.SelectedIndex = 0;
                 CreateRequest.ReloadAccountData = true;
                 SetAccountData();
-                Posts.RefeshPosts();
+                Dashboard.RefeshPosts();
                 SwitchedAccount = false;
             } else if (SwitchedBlog) {
                 AccountPivot.DataContext = UserStore.CurrentBlog;
@@ -176,7 +173,7 @@ namespace Core {
             }
             switch (SelectedItem) {
                 case 0:
-                    PageTitle.Text = "Dashboard";
+                    PageTitle.Text = App.LocaleResources.GetString("Dashboard");
                     DashboardIcon.Opacity = 1.0;
                     AccountIcon.Opacity = 0.5;
                     ActivityIcon.Opacity = 0.5;
@@ -184,7 +181,7 @@ namespace Core {
                     NavigationPivot.SelectedIndex = 0;
                     break;
                 case 1:
-                    PageTitle.Text = "Activity";
+                    PageTitle.Text = App.LocaleResources.GetString("Activity");
                     DashboardIcon.Opacity = 0.5;
                     AccountIcon.Opacity = 0.5;
                     ActivityIcon.Opacity = 1.0;
@@ -192,7 +189,7 @@ namespace Core {
                     NavigationPivot.SelectedIndex = 1;
                     break;
                 case 2:
-                    PageTitle.Text = "Account";
+                    PageTitle.Text = App.LocaleResources.GetString("Account");
                     DashboardIcon.Opacity = 0.5;
                     AccountIcon.Opacity = 1.0;
                     ActivityIcon.Opacity = 0.5;
@@ -200,7 +197,7 @@ namespace Core {
                     NavigationPivot.SelectedIndex = 2;
                     break;
                 case 3:
-                    PageTitle.Text = "Explore";
+                    PageTitle.Text = App.LocaleResources.GetString("Explore");
                     DashboardIcon.Opacity = 0.5;
                     AccountIcon.Opacity = 0.5;
                     ActivityIcon.Opacity = 0.5;
@@ -259,11 +256,11 @@ namespace Core {
             }
         }
 
-        public void Posts_Loaded(object sender, RoutedEventArgs e) {
+        public void Dashboard_Loaded(object sender, RoutedEventArgs e) {
             if (UserStore.CurrentBlog == null)
                 SetAccountData();
 
-            Posts.LoadPosts();
+            Dashboard.LoadPosts();
         }
 
         private async void SetAccountData(string account = "") {
@@ -282,19 +279,19 @@ namespace Core {
 
         public void CreatePost_Click(object sender, RoutedEventArgs e) {
             ((Button)sender).Focus(FocusState.Pointer);
-            if (CreatePostControl.Visibility == Visibility.Collapsed) {
+            if (PostCreationView.Visibility == Visibility.Collapsed) {
                 CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 45 };
                 CreatePostFill.Fill = new SolidColorBrush(Color.FromArgb(255, 207, 73, 73));
-                CreatePostControl.Visibility = Visibility.Visible;
-                CreatePostControl.AnimateIn();
+                PostCreationView.Visibility = Visibility.Visible;
+                PostCreationView.AnimateIn();
             } else
                 CreatePost_LostFocus(null, null);
         }
 
         private void CreatePost_LostFocus(object sender, RoutedEventArgs e) {
             CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
-            CreatePostFill.Fill = App.Current.Resources["PrimaryAccent"] as SolidColorBrush;
-            CreatePostControl.AnimateOut();
+            CreatePostFill.Fill = App.Current.Resources["PrimaryColor"] as SolidColorBrush;
+            PostCreationView.AnimateOut();
         }
 
         private async void SpotlightTags_Loaded(object sender, RoutedEventArgs e) {
@@ -320,7 +317,7 @@ namespace Core {
         }
 
         private void ToTopButton_Click(object sender, RoutedEventArgs e) {
-            Posts.ScrollToTop();
+            Dashboard.ScrollToTop();
         }
 
         private void ManageBlogs_Tapped(object sender, TappedRoutedEventArgs e) {

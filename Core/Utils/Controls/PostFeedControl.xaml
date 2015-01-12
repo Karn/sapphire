@@ -28,7 +28,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid Tapped="Grid_Tapped" Background="#02000000"/>
-                <ListView Grid.Row="1" Padding="0, 0, 0, 23" VerticalAlignment="Bottom" Background="{ThemeResource PrimaryAccent}">
+                <ListView Grid.Row="1" Padding="0, 0, 0, 23" VerticalAlignment="Bottom" Background="{ThemeResource PrimaryColor}">
                     <TextBlock Text="save to phone" Margin="20, 25, 20, 8" Tag="{Binding path_to_low_res_pic.url}" Tapped="OtherOptions_Tapped" Foreground="{ThemeResource LightText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
                 </ListView>
             </Grid>
@@ -37,11 +37,11 @@
         <DataTemplate x:Key="TopContainer">
             <Grid Height="50" Width="Auto" Background="{ThemeResource Accent2}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button Tag="{Binding blog_name}" Tapped="GoToBlog" VerticalAlignment="Top" BorderThickness="0" MinWidth="0" MinHeight="0" UseLayoutRounding="True" Padding="0" Margin="-3" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Style="{StaticResource ButtonStyleNoBG}">
-                        <Image Source="{Binding avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="UniformToFill" Height="50" Width="50"/>
+                    <Button Tag="{Binding Name}" Tapped="GoToBlog" VerticalAlignment="Top" BorderThickness="0" MinWidth="0" MinHeight="0" UseLayoutRounding="True" Padding="0" Margin="-3" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Style="{StaticResource ButtonStyleNoBG}">
+                        <Image Source="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="UniformToFill" Height="50" Width="50"/>
                     </Button>
                     <StackPanel Margin="5, 0">
-                        <TextBlock Text="{Binding blog_name}" Margin="5, 5, 5, 0" Tag="{Binding blog_name}" Tapped="GoToBlog" Foreground="{ThemeResource DarkText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
+                        <TextBlock Text="{Binding Name}" Margin="5, 5, 5, 0" Tag="{Binding Name}" Tapped="GoToBlog" Foreground="{ThemeResource DarkText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
                         <TextBlock Text="{Binding date, Converter={StaticResource ToRelativeTime}}" Margin="5, -16, 5, 0" Foreground="{ThemeResource DarkText}" FontSize="14" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis"/>
                     </StackPanel>
                 </StackPanel>
@@ -63,7 +63,7 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <Grid Tapped="Grid_Tapped" Background="#02000000"/>
-                                <ListView Grid.Row="1" Padding="0, 0, 0, 23" VerticalAlignment="Bottom" Background="{ThemeResource PrimaryAccent}">
+                                <ListView Grid.Row="1" Padding="0, 0, 0, 23" VerticalAlignment="Bottom" Background="{ThemeResource PrimaryColor}">
                                     <TextBlock Text="post details" Margin="20, 25, 20, 8" Tag="{Binding id}" Tapped="OtherOptions_Tapped" Foreground="{ThemeResource LightText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
                                     <TextBlock Text="share" Margin="20, 0, 20, 8" Tag="{Binding post_url}" Tapped="OtherOptions_Tapped" Foreground="{ThemeResource LightText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
                                     <TextBlock Text="open in browser" Margin="20, 0, 20, 8" Tag="{Binding post_url}" Tapped="OtherOptions_Tapped" Foreground="{ThemeResource LightText}" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" TextLineBounds="Tight" Style="{StaticResource HeaderTextStyle}"/>
@@ -82,9 +82,9 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Width="390" HorizontalAlignment="Stretch" Orientation="Horizontal">
-                                <Image Width="45" Height="45" Margin="5" Source="{Binding avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
-                                <TextBlock MaxWidth="235" Margin="10" Tag="{Binding blog_name}" Tapped="GoToBlog" FontSize="15" TextWrapping="Wrap" Foreground="{ThemeResource DarkText}" TextTrimming="CharacterEllipsis">
-                                        <Run Text="{Binding blog_name}"/>
+                                <Image Width="45" Height="45" Margin="5" Source="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
+                                <TextBlock MaxWidth="235" Margin="10" Tag="{Binding Name}" Tapped="GoToBlog" FontSize="15" TextWrapping="Wrap" Foreground="{ThemeResource DarkText}" TextTrimming="CharacterEllipsis">
+                                        <Run Text="{Binding Name}"/>
                                         <Run Text="{Binding type}" FontWeight="Light"/>
                                 </TextBlock>
                             </StackPanel>
@@ -101,17 +101,18 @@
                     <TextBlock Visibility="{Binding tags_as_str, Converter={StaticResource TagsEnabled}}" misc:TagLinks.Text="{Binding tags_as_str}" Foreground="{ThemeResource DarkText}" FontSize="16" VerticalAlignment="Top" Margin="5" TextWrapping="Wrap"/>
 
                     <Grid Height="40" Background="{ThemeResource Accent2}" Tag="{Binding special_case}" Loaded="CommandPanel_Loaded">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Tag="{Binding id}" Tapped="GoToPostDetails">
                             <TextBlock x:Name="NoteInfo" Text="{Binding note_count}" Margin="10, 0, 0, 0" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                             <TextBlock Text=" notes" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         </StackPanel>
                         <StackPanel x:Name="NormalCommands" Orientation="Horizontal" HorizontalAlignment="Right" Tag="{Binding reblog_key}">
-                            <Button x:Name="ReblogButton" Tag="{Binding id}" Click="ReblogButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="40" MinHeight="40" MaxWidth="40" MaxHeight="40" HorizontalAlignment="Right" Style="{StaticResource ButtonStyleNoBG}">
+                            <!--<Button x:Name="ReblogButton" Tag="{Binding id}" Click="ReblogButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="40" MinHeight="40" MaxWidth="40" MaxHeight="40" HorizontalAlignment="Right" Style="{StaticResource ButtonStyleNoBG}">
                                 <Button.Background>
                                     <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource ReblogAsset}"/>
                                 </Button.Background>
-                            </Button>
-                            <!--<ToggleButton x:Name="LikeButton" Style="{StaticResource LikeButton}" Tag="{Binding id}" Margin="5, 0" BorderBrush="White" BorderThickness="0" MinWidth="35" Width="35" MinHeight="50" MaxWidth="35" MaxHeight="50" HorizontalAlignment="Right" IsChecked="{Binding liked}" Click="LikeButton_Click" Padding="10,0"/>-->
+                            </Button>-->
+                            <local:ToggleControl x:Name="ReblogButton" Tag="{Binding id}" Margin="5, 0" BorderBrush="White" BorderThickness="0" MinWidth="35" Width="35" MinHeight="50" MaxWidth="35" MaxHeight="50" HorizontalAlignment="Right" Click="ReblogButton_Click" EnabledUnchecked="{StaticResource ReblogAsset}" EnabledChecked="{StaticResource RebloggedAsset}"/>
+
                             <local:ToggleControl x:Name="LikeButton" Tag="{Binding id}" Margin="5, 0" BorderBrush="White" BorderThickness="0" MinWidth="35" Width="35" MinHeight="50" MaxWidth="35" MaxHeight="50" HorizontalAlignment="Right" IsChecked="{Binding liked}" Click="LikeButton_Click"/>
                             <Button x:Name="DeleteButton" Visibility="{Binding IsEditable}" Tag="{Binding}" Click="DeleteButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyleNoBG}" Margin="-6, 0, 0, 0">
                                 <Button.Background>
@@ -142,7 +143,12 @@
                 <StackPanel Background="{ThemeResource PostBG}">
                     <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
                     <StackPanel MinHeight="150">
-                        <TextBlock misc:TextFormatter.Text="{Binding title}" Visibility="{Binding title, Converter={StaticResource CaptionConverter}}" Margin="10, 0, 10, 0" FontSize="22" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="WrapWholeWords"/>
+                        <TextBlock misc:TextFormatter.Text="{Binding title}"
+                                   TextWrapping="WrapWholeWords"
+                                   Style="{StaticResource StandardText}"
+                                   Visibility="{Binding title,
+                            Converter={StaticResource CaptionConverter}}"
+                                   />
                         <TextBlock misc:TextFormatter.Text="{Binding body}" Visibility="{Binding body, Converter={StaticResource CaptionConverter}}" Margin="10, 5, 10, 10" FontSize="18" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="Wrap"/>
                     </StackPanel>
                     <ContentPresenter VerticalAlignment="Bottom" ContentTemplate="{StaticResource BottomContainer}"/>
@@ -152,12 +158,9 @@
 
         <DataTemplate x:Key="Photo">
             <Border Margin="6, 3" BorderBrush="#10000000" BorderThickness="0.5">
-                <StackPanel Background="{ThemeResource PostBG}">
+                <StackPanel x:Name="Container" Background="{ThemeResource PostBG}">
                     <ContentPresenter ContentTemplate="{StaticResource TopContainer}"/>
-                    <StackPanel MinHeight="150">
-                        <Image Holding="Image_Holding" Source="{Binding path_to_low_res_pic.url}" FlyoutBase.AttachedFlyout="{StaticResource SaveToPhoneFlyout}"/>
-
-                    </StackPanel>
+                    <Image Holding="Image_Holding" Source="{Binding path_to_low_res_pic.url}" FlyoutBase.AttachedFlyout="{StaticResource SaveToPhoneFlyout}"/>
                     <ContentPresenter VerticalAlignment="Bottom" ContentTemplate="{StaticResource BottomContainer}"/>
                 </StackPanel>
             </Border>
@@ -342,7 +345,7 @@
                         <WindowsPhone81:AdMediatorControl
                         x:Name="AdMediator_8D72AF"
                         Id="AdMediator-Id-08EC04B6-3C0D-4157-B23E-4DDEFC54CC26"
-                        Background="{ThemeResource PrimaryAccent}"
+                        Background="{ThemeResource PrimaryColor}"
                         Foreground="White"
                         AdMediatorError="MediatedAdControl_AdMediatorError"
                         AdSdkError="MediatedAdControl_AdSdkError"

@@ -1,49 +1,57 @@
 ﻿using APIWrapper.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
+using Newtonsoft.Json;
 
 namespace APIWrapper.Content.Model {
     public class Blog {
-        public bool primary { get; set; }
-        public string Name { get; set; }
-        public string title { get; set; }
-        private string _description;
-        public string description {
-            get {
-                return _description;
-            }
-            set {
-                _description = CreateRequest.GetPlainTextFromHtml(value);
-            }
-        }
-        public string url { get; set; }
-        public string followers { get; set; }
-        public bool following { get; set; }
-        public int followingCount { get; set; }
-        public bool IsFollowing { get; set; }
-        public string posts { get; set; }
-        public int updated { get; set; }
-        public Theme theme { get; set; }
-        public string avatar {
-            get {
-                return "http://api.tumblr.com/v2/blog/" + Name + ".tumblr.com/avatar/128";
-            }
-        }
-        public bool share_likes { get; set; }
-        public int likes { get; set; }
-        public bool ask { get; set; }
-        public bool followed { get; set; }
-        public string ask_page_title { get; set; }
-        public bool ask_anon { get; set; }
-        public bool is_nsfw { get; set; }
 
-        public class AltBlog {
-            public string Name { get; set; }
-            public bool following { get; set; }
+        [JsonProperty("primary")]
+        public bool IsPrimaryBlog { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("title")]
+        public string Title { get; set; }
+
+        public string Avatar {
+            get { return "http://api.tumblr.com/v2/blog/" + Name + ".tumblr.com/avatar/128"; }
+        }
+
+        [JsonProperty("description")]
+        private string _description;
+
+        public string Description {
+            get { return _description; }
+            set { _description = CreateRequest.GetPlainTextFromHtml(value); }
+        }
+
+        [JsonProperty("url")]
+        public string URL { get; set; }
+
+        [JsonProperty("posts")]
+        public string PostCount { get; set; }
+
+        [JsonProperty("theme")]
+        public Theme BlogTheme { get; set; }
+
+        public int LikedPostCount { get; set; }
+
+        [JsonProperty("followers")]
+        public int FollowersCount { get; set; }
+
+        public int FollowingCount { get; set; }
+
+        [JsonProperty("following")]
+        public bool IsFollowing { get; set; }
+
+        [JsonProperty("share_likes")]
+        public bool LikesVisible { get; set; }
+
+        [JsonProperty("ask")]
+        public bool AsksEnabled { get; set; }
+
+        public class AltBlog : Blog {
+            new public bool IsFollowing { get; set; }
         }
     }
 }

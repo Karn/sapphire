@@ -6,6 +6,7 @@ using Core.Utils.Misc;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Resources;
 using Windows.Graphics.Display;
 using Windows.UI;
 using Windows.UI.ViewManagement;
@@ -17,6 +18,9 @@ using Windows.UI.Xaml.Navigation;
 namespace Core {
 
     public sealed partial class App : Application {
+
+        public static ResourceLoader LocaleResources = new ResourceLoader();
+
         private TransitionCollection transitions;
 
         private static StatusBar statusBar;

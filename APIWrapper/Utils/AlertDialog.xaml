@@ -26,7 +26,7 @@
         <StackPanel.RenderTransform>
     		<CompositeTransform TranslateX="0" TranslateY="-95"/>
     	</StackPanel.RenderTransform>
-        <Border x:Name="border" Height="95" Background="{StaticResource HeaderDarkBlue}" BorderBrush="#FF506D87" BorderThickness="0, 0, 0, 1" RenderTransformOrigin="0.5,0.5">
+        <Border x:Name="border" Height="95" Background="{StaticResource PrimaryColorDark}" BorderBrush="#FF506D87" BorderThickness="0, 0, 0, 1" RenderTransformOrigin="0.5,0.5">
         	<Border.RenderTransform>
         		<CompositeTransform/>
         	</Border.RenderTransform>

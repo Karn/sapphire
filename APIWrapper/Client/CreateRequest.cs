@@ -65,14 +65,14 @@ namespace APIWrapper.Client {
                         UserStore.CurrentBlog = null;
                         ReloadAccountData = false;
                     }
-                    foreach (var b in parsedData.response.user.blogs) {
+                    foreach (var b in parsedData.response.user.AccountBlogs) {
                         Debug.WriteLine(b.Name);
-                        b.followingCount = parsedData.response.user.following;
-                        b.likes = parsedData.response.user.likes;
+                        b.FollowingCount = parsedData.response.user.BlogsFollowingCount;
+                        b.LikedPostCount = parsedData.response.user.LikedPostCount;
 
                         UserStore.UserBlogs.Add(b);
                         if (string.IsNullOrWhiteSpace(account)) {
-                            if (UserStore.CurrentBlog == null && b.primary)
+                            if (UserStore.CurrentBlog == null && b.IsPrimaryBlog)
                                 UserStore.CurrentBlog = b;
                             else if (b.Name == UserStore.CurrentBlog.Name)
                                 UserStore.CurrentBlog = b;
@@ -205,15 +205,15 @@ namespace APIWrapper.Client {
 
                     foreach (var b in activity.response.blogs) {
                         if (UserStore.CurrentBlog != null) {
-                            if (b.blog_name.ToLower() == UserStore.CurrentBlog.Name.ToLower()) {
-                                if (!NotificationDictionary.ContainsKey(b.blog_name)) {
-                                    NotificationDictionary.Add(b.blog_name, 0);
+                            if (b.Name.ToLower() == UserStore.CurrentBlog.Name.ToLower()) {
+                                if (!NotificationDictionary.ContainsKey(b.Name)) {
+                                    NotificationDictionary.Add(b.Name, 0);
                                 }
                                 foreach (var n in b.notifications) {
                                     n.date = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(n.timestamp).ToString("yyyy'-'MM'-'dd");
                                     Notifications.Add(n);
                                 }
-                                NotificationDictionary[b.blog_name] = Notifications.First().timestamp;
+                                NotificationDictionary[b.Name] = Notifications.First().timestamp;
                             }
                         } else {
                             Debug.WriteLine("No current blog set");
@@ -288,14 +288,6 @@ namespace APIWrapper.Client {
                                     p.type = "youtube";
                             }
 
-                            //Parse images here
-                            if (!string.IsNullOrEmpty(p.title))
-                                p.title = CreateRequest.GetPlainTextFromHtml(p.title);
-                            if (!string.IsNullOrEmpty(p.body))
-                                p.body = CreateRequest.GetPlainTextFromHtml(p.body);
-                            if (!string.IsNullOrEmpty(p.answer))
-                                p.answer = CreateRequest.GetPlainTextFromHtml(p.answer);
-
                         }
                         return PostList;
                     } catch (Exception ex) {
@@ -315,6 +307,7 @@ namespace APIWrapper.Client {
             var response = await WebClient.GetAsync(new Uri(UserInfoURI));
             var result = await response.Content.ReadAsStringAsync();
 
+            Debug.WriteLine(result);
             if (result.Contains("status\":200")) {
                 try {
                     var LoadedPosts = new ObservableCollection<Post>();
@@ -332,15 +325,6 @@ namespace APIWrapper.Client {
                             if (p.video_type == "youtube")
                                 p.type = "youtube";
                         }
-
-                        //Parse images here
-                        if (!string.IsNullOrEmpty(p.title))
-                            p.title = CreateRequest.GetPlainTextFromHtml(p.title);
-                        if (!string.IsNullOrEmpty(p.body))
-                            p.body = CreateRequest.GetPlainTextFromHtml(p.body);
-                        if (!string.IsNullOrEmpty(p.answer))
-                            p.answer = CreateRequest.GetPlainTextFromHtml(p.answer);
-
                         LoadedPosts.Add(p);
                     }
                     return LoadedPosts;

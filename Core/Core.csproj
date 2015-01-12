@@ -146,14 +146,12 @@
     <Compile Include="Utils\Converters\FollowingToBG.cs" />
     <Compile Include="Utils\Converters\FollowingToString.cs" />
     <Compile Include="Utils\Converters\FollowingToVisibility.cs" />
-    <Compile Include="Utils\Converters\MessageTemplateSelector.cs" />
     <Compile Include="Utils\Converters\NotesToVisibilityConverter.cs" />
     <Compile Include="Utils\Converters\PostTemplateSelector.cs" />
     <Compile Include="Utils\Converters\RelativeDate.cs" />
     <Compile Include="Utils\Converters\RelativeTime.cs" />
     <Compile Include="Utils\Converters\ToPrettyDate.cs" />
     <Compile Include="Utils\Misc\ContinuationManager.cs" />
-    <Compile Include="Utils\Misc\DateKeyGroup.cs" />
     <Compile Include="Utils\Misc\AppLicenseHandler.cs" />
     <Compile Include="Utils\Misc\IncrementalPostLoader.cs" />
   </ItemGroup>

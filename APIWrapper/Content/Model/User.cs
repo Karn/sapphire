@@ -1,16 +1,21 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace APIWrapper.Content.Model {
+    /// <summary>
+    /// Class to map an store deserialized account data
+    /// </summary>
     public class User {
-        public string name { get; set; }
-        public int likes { get; set; }
-        public int following { get; set; }
-        public bool push_notifications { get; set; }
-        public string default_post_format { get; set; }
-        public List<Blog> blogs { get; set; }
+        [JsonProperty("likes")]
+        public int LikedPostCount { get; set; }
+
+        [JsonProperty("following")]
+        public int BlogsFollowingCount { get; set; }
+
+        [JsonProperty("push_notifications")]
+        public bool PushNotifiationsEnabled { get; set; }
+
+        [JsonProperty("blogs")]
+        public List<Blog> AccountBlogs { get; set; }
     }
 }

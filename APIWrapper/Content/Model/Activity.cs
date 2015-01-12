@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,8 +39,8 @@ namespace APIWrapper.Content.Model {
         }
 
         public class Blog {
-            public string blog_name { get; set; }
-            public string blog_id { get; set; }
+            [JsonProperty("blog_name")]
+            public string Name { get; set; }
             public List<Notification> notifications { get; set; }
         }
     }

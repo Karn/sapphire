@@ -1,7 +1,6 @@
-﻿using APIWrapper;
-using APIWrapper.Utils;
-using APIWrapper.Client;
+﻿using APIWrapper.Client;
 using APIWrapper.Content.Model;
+using APIWrapper.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,7 +8,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Data;
 
 namespace Core.Utils.Misc {
@@ -54,9 +52,8 @@ namespace Core.Utils.Misc {
                             posts = await CreateRequest.RetrievePosts(URL, LastPostID);
 
                         if (posts.Count != 0) {
-                            foreach (var post in posts) {
+                            foreach (var post in posts)
                                 this.Add(post);
-                            }
 
                             if (posts.Last().type != "nocontent") {
                                 if (URL.Contains("/user/dashboard")) {
@@ -81,9 +78,7 @@ namespace Core.Utils.Misc {
 
                         _IsRunning = false;
                         App.HideStatus();
-                        return new LoadMoreItemsResult() {
-                            Count = (uint)posts.Count
-                        };
+                        return new LoadMoreItemsResult() { Count = (uint)posts.Count };
                     });
                 } catch (Exception ex) {
                     DiagnosticsManager.LogException(ex, TAG, "Load failed due to exception.");
