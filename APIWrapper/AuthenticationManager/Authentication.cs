@@ -23,6 +23,8 @@ namespace APIWrapper.AuthenticationManager {
         //Keys
         public static readonly string ConsumerKey = "BUHsuO5U9DF42uJtc8QTZlOmnUaJmBJGuU1efURxeklbdiLn9L";
         public static readonly string ConsumerSecretKey = "olOu3aRBCdqCuMFm8fmzNjMAWmICADSIuXWTnVSFng1ZcLU1cV";
+        //public static readonly string ConsumerKey = "ylcWC3m72FF679xnYrsxFQ3VwFk4Nb0QjYyAFtVFTQQwSTFQSF";
+        //public static readonly string ConsumerSecretKey = "UH1sqE7uNdrt5It8YeONcZsG6psAyo6yAX3andyx9YRGSO98XJ";
 
         #region OTHER KEYS
         //["API_KEY"] = "4HL5w2Uht9FwOQZbsmUFFB8lrXUW2D4krfG24BvcF4Sijj3Bgd";

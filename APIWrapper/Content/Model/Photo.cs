@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Windows.UI.Xaml;
 
@@ -19,6 +20,7 @@ namespace APIWrapper.Content.Model {
             public int height { get; set; }
             public int scaled_height {
                 get {
+                    Debug.WriteLine(string.Format("Height: {0}, Width: {1}, Scaled Height: {2}", height, width, (int)((height / width) * (Window.Current.Bounds.Width - 20))));
                     return (int)(height / width * (Window.Current.Bounds.Height - 12));
                 }
             }

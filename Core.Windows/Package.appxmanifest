@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="b65b1a1d-b3f9-4a2f-bd79-861448dc066d" Publisher="CN=Karn" Version="1.0.0.0" />
+  <Identity Name="b65b1a1d-b3f9-4a2f-bd79-861448dc066d" Publisher="CN=Karn" Version="1.2.2.20" />
   <Properties>
     <DisplayName>Sapphire.</DisplayName>
     <PublisherDisplayName>Karn</PublisherDisplayName>

@@ -14,9 +14,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0"
-              Margin="0"
-              Background="{ThemeResource PrimaryColor}">
+        <Grid Grid.Row="0" Background="{ThemeResource PrimaryColor}">
             <Grid Height="45"
                   Margin="0, 25, 0, 0"
                   Background="{ThemeResource PrimaryColor}">

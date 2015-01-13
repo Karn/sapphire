@@ -10,7 +10,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.NetworkInformation;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -37,26 +36,11 @@ namespace APIWrapper.Client {
             return htmlString;
         }
 
-        public static string UrlEncode(string value) {
-            string reservedCharacters = "-._~";
-            if (String.IsNullOrEmpty(value))
-                return String.Empty;
-
-            var sb = new StringBuilder();
-
-            foreach (char @char in value) {
-                if (reservedCharacters.IndexOf(@char) == -1)
-                    sb.Append(@char);
-                else
-                    sb.AppendFormat("%{0:X2}", (int)@char);
-            }
-            return sb.ToString();
-        }
-
-        public static async Task<bool> RetrieveAccountInformation(string account = "") {
+        public static async Task<bool> RetrieveAccountInformation(string account) {
             var requestResult = await RequestHandler.GET("https://api.tumblr.com/v2/user/info");
 
             if (requestResult.StatusCode == HttpStatusCode.OK) {
+                Debug.WriteLine("Account retrival successful");
                 try {
                     var parsedData = JsonConvert.DeserializeObject<Responses.GetInfo>(await requestResult.Content.ReadAsStringAsync());
 
@@ -66,7 +50,6 @@ namespace APIWrapper.Client {
                         ReloadAccountData = false;
                     }
                     foreach (var b in parsedData.response.user.AccountBlogs) {
-                        Debug.WriteLine(b.Name);
                         b.FollowingCount = parsedData.response.user.BlogsFollowingCount;
                         b.LikedPostCount = parsedData.response.user.LikedPostCount;
 
@@ -86,7 +69,7 @@ namespace APIWrapper.Client {
                     DiagnosticsManager.LogException(ex, TAG, "Failed to serailize account information.");
                 }
             }
-            DiagnosticsManager.LogException(null, TAG, "Unable to retreive account information.");
+            DiagnosticsManager.LogException(null, TAG, await requestResult.Content.ReadAsStringAsync());
             return false;
         }
 
@@ -190,14 +173,9 @@ namespace APIWrapper.Client {
                 .response.blogs : new List<Blog>();
         }
 
-
-        /// <summary>
-        /// This needs to be moved so that background task and activity feed can be loaded from a central source
-        /// </summary>
-        /// <returns></returns>
         public static async Task<List<Activity.Notification>> RetrieveActivity() {
             try {
-                var result = await RequestHandler.GET(Endpoints.Notifications);
+                var result = await RequestHandler.GET("https://api.tumblr.com/v2/user/notifications");
                 if (result.StatusCode == HttpStatusCode.OK) {
                     Responses.GetActivity activity = JsonConvert.DeserializeObject<Responses.GetActivity>(await result.Content.ReadAsStringAsync());
                     var Notifications = new List<Activity.Notification>();
@@ -216,7 +194,7 @@ namespace APIWrapper.Client {
                                 NotificationDictionary[b.Name] = Notifications.First().timestamp;
                             }
                         } else {
-                            Debug.WriteLine("No current blog set");
+                            Debug.WriteLine("No blog set");
                         }
                     }
 
@@ -349,13 +327,6 @@ namespace APIWrapper.Client {
                 JsonConvert.DeserializeObject<Responses.GetSearch>(await requestResult.Content.ReadAsStringAsync())
                 .response.blogs : new List<Blog>();
         }
-        public static async Task<List<Blog>> RetrieveSearch(string blogName, string tag) {
-            var requestResult = await RequestHandler.GET(string.Format("https://api.tumblr.com/v2/blog/{0}.tumblr.com/tagged/{1}", blogName, tag), "api_key=" + Authentication.ConsumerKey);
-            Debug.WriteLine(requestResult);
-            return (requestResult.StatusCode == HttpStatusCode.OK) ?
-                JsonConvert.DeserializeObject<Responses.GetSearch>(await requestResult.Content.ReadAsStringAsync())
-                .response.blogs : new List<Blog>();
-        }
 
         public static async Task<List<Responses.SpotlightResponse>> RetrieveSpotlight(bool forceRefresh = false) {
             if (string.IsNullOrEmpty(UserStore.CachedSpotlight) || forceRefresh) {
@@ -366,18 +337,14 @@ namespace APIWrapper.Client {
                     UserStore.CachedSpotlight = result;
                     return JsonConvert.DeserializeObject<Responses.GetSpotlight>(result).response;
                 }
-            } else {
+            } else
                 return JsonConvert.DeserializeObject<Responses.GetSpotlight>(UserStore.CachedSpotlight).response;
-            }
-
             return new List<Responses.SpotlightResponse>();
         }
 
         public static async Task<List<Responses.SpotlightResponse>> TagDiscovery(bool forceRefresh = false) {
             var response = await WebClient.GetAsync(new Uri(Endpoints.TagDiscovery));
             var result = await response.Content.ReadAsStringAsync();
-
-            Debug.WriteLine(result);
 
             return new List<Responses.SpotlightResponse>();
         }

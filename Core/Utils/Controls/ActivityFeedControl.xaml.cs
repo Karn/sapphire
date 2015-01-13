@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -17,19 +18,19 @@ namespace Core.Utils.Controls {
 
         private static string TAG = "ActivityList";
 
-        private static HttpClient client = new HttpClient();
-        public bool ContentLoaded;
-
         public ActivityFeedControl() {
             this.InitializeComponent();
         }
 
-        public async void LoadPosts() {
+        public async Task RetrieveNotifications() {
             try {
-                App.DisplayStatus("Loading activity...");
-                GroupData(await CreateRequest.RetrieveActivity());
+                App.DisplayStatus(App.LocaleResources.GetString("LoadingActivity"));
+                var activity = await CreateRequest.RetrieveActivity();
+                if (activity.Count > 0)
+                    GroupData(activity);
+                else
+                    MainPage.AlertFlyout.DisplayMessage(App.LocaleResources.GetString("ActivityLoadFailed"));
                 App.HideStatus();
-                ContentLoaded = true;
             } catch (Exception ex) {
                 Analytics.AnalyticsManager.LogException(ex, TAG, "Error loading activity feed. ");
             }

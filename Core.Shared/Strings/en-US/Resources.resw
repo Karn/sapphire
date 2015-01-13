@@ -123,14 +123,26 @@
   <data name="Activity" xml:space="preserve">
     <value>Activity</value>
   </data>
+  <data name="ActivityLoadFailed" xml:space="preserve">
+    <value>Unable to retrieve activity feed.</value>
+  </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
+  </data>
+  <data name="DeletingPost" xml:space="preserve">
+    <value>Deleting post...</value>
+  </data>
+  <data name="DownloadingImage" xml:space="preserve">
+    <value>Downloading image...</value>
   </data>
   <data name="Explore" xml:space="preserve">
     <value>Explore</value>
   </data>
   <data name="LoadingAccountDataMessage" xml:space="preserve">
     <value>Loading account data...</value>
+  </data>
+  <data name="LoadingActivity" xml:space="preserve">
+    <value>Loading activity...</value>
   </data>
   <data name="LoadingPostsMessage" xml:space="preserve">
     <value>Loading posts...</value>
@@ -140,6 +152,15 @@
   </data>
   <data name="PostLoadFailed" xml:space="preserve">
     <value>Unable to load posts.</value>
+  </data>
+  <data name="RebloggingPost" xml:space="preserve">
+    <value>Reblogging post...</value>
+  </data>
+  <data name="UnableToLoadAccount" xml:space="preserve">
+    <value>Unable to retrieve your account. Please try again later.</value>
+  </data>
+  <data name="UpdatingLike" xml:space="preserve">
+    <value>Updating like...</value>
   </data>
   <data name="WrongLoginCredentials" xml:space="preserve">
     <value>Invalid username/password. Please try again.</value>

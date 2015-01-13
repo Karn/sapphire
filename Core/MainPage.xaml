@@ -113,11 +113,9 @@
                            HorizontalContentAlignment="Stretch">
 
                     <Grid>
-
                         <Control:PostFeedControl x:Name="Dashboard"
                                                  Margin="0, 0, 0, 24"
                                                  AffectHeader="True"
-                                                 Loaded="Dashboard_Loaded"
                                                  URL="https://api.tumblr.com/v2/user/dashboard" />
 
                         <Control:NewPostDialog x:Name="PostCreationView" Visibility="Collapsed" />
@@ -174,7 +172,7 @@
                 </PivotItem>
 
                 <PivotItem x:Name="ActivityPivot" Margin="0">
-                    <Control:ActivityFeedControl x:Name="ActivityPosts"
+                    <Control:ActivityFeedControl x:Name="ActivityFeed"
                                                  Margin="0, 0, 0, 54"
                                                  HorizontalAlignment="Stretch" />
                 </PivotItem>

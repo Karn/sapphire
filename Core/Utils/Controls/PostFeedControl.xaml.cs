@@ -1,15 +1,12 @@
 ﻿using APIWrapper.Client;
 using APIWrapper.Content;
 using APIWrapper.Content.Model;
-using APIWrapper.Utils;
-using APIWrapper.Utils.Analytics;
 using Core.Utils.Misc;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
@@ -34,8 +31,6 @@ namespace Core.Utils.Controls {
 
         private bool AlreadyHasContent;
 
-        public static ImageBrush RebloggedBrush = new ImageBrush { ImageSource = App.Current.Resources["RebloggedAsset"] as BitmapImage };
-
         public static ImageSource PlayIcon = App.Current.Resources["PlayIcon"] as BitmapImage;
         public static ImageSource PauseIcon = App.Current.Resources["PauseIcon"] as BitmapImage;
 
@@ -57,18 +52,16 @@ namespace Core.Utils.Controls {
             this.InitializeComponent();
         }
 
+        #region Properties
+
         public readonly DependencyProperty URLProperty = DependencyProperty.Register("Url",
             typeof(string),
             typeof(PostFeedControl),
             new PropertyMetadata(string.Empty));
 
         public string URL {
-            get {
-                return (string)this.GetValue(URLProperty);
-            }
-            set {
-                this.SetValue(URLProperty, value);
-            }
+            get { return (string)this.GetValue(URLProperty); }
+            set { this.SetValue(URLProperty, value); }
         }
 
         public readonly DependencyProperty AffectHeaderProperty = DependencyProperty.Register("HeaderProperty",
@@ -77,13 +70,11 @@ namespace Core.Utils.Controls {
             new PropertyMetadata(false));
 
         public bool AffectHeader {
-            get {
-                return (bool)this.GetValue(AffectHeaderProperty);
-            }
-            set {
-                this.SetValue(AffectHeaderProperty, value);
-            }
+            get { return (bool)this.GetValue(AffectHeaderProperty); }
+            set { this.SetValue(AffectHeaderProperty, value); }
         }
+
+        #endregion
 
         public void LoadPosts(bool EnforceContentLoad = false) {
             if (EnforceContentLoad || !AlreadyHasContent) {
@@ -118,9 +109,18 @@ namespace Core.Utils.Controls {
             }
         }
 
+        private void GoToPostDetails(object sender, TappedRoutedEventArgs e) {
+            if (!IsSinglePost && ((FrameworkElement)sender).Tag != null) {
+                var frame = Window.Current.Content as Frame;
+                if (!frame.Navigate(typeof(Pages.PostDetails), ((FrameworkElement)sender).Tag.ToString())) {
+                    Debug.WriteLine("Failed to Navigate");
+                }
+            }
+        }
+
         private async void LikeButton_Click(object sender, RoutedEventArgs e) {
             try {
-                App.DisplayStatus("Updating like...");
+                App.DisplayStatus(App.LocaleResources.GetString("UpdatingLike"));
                 var x = ((ToggleButton)sender);
                 var notes = ((TextBlock)((Grid)((StackPanel)x.Parent).Parent).FindName("NoteInfo"));
 
@@ -152,7 +152,7 @@ namespace Core.Utils.Controls {
                 ((ToggleControl)sender).IsChecked = true;
             if (UserStore.OneClickReblog) {
                 try {
-                    App.DisplayStatus("Reblogging post...");
+                    App.DisplayStatus(App.LocaleResources.GetString("RebloggingPost"));
                     var x = ((ToggleControl)sender);
                     var notes = ((TextBlock)((Grid)((StackPanel)x.Parent).Parent).FindName("NoteInfo"));
 
@@ -160,7 +160,6 @@ namespace Core.Utils.Controls {
                     var reblogKey = ((StackPanel)x.Parent).Tag.ToString();
 
                     if (await CreateRequest.ReblogPost(id, reblogKey)) {
-                        x.Background = RebloggedBrush;
                         notes.Text = (int.Parse(notes.Text) + 1).ToString();
                         ((ToggleControl)sender).IsChecked = true;
                     } else {
@@ -190,14 +189,13 @@ namespace Core.Utils.Controls {
 
             if (await CreateRequest.PostDraft(post.id)) {
                 MainPage.AlertFlyout.DisplayMessage("Created post.");
-                var items = Posts.ItemsSource as ObservableCollection<Post>;
-                items.Remove(post);
+                var items = (Posts.ItemsSource as ObservableCollection<Post>).Remove(post);
             } else
                 MainPage.AlertFlyout.DisplayMessage("Failed to create post.");
         }
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e) {
-            App.DisplayStatus("Deleting post...");
+            App.DisplayStatus(App.LocaleResources.GetString("DeletingPost"));
             var post = (Post)((ToggleButton)sender).Tag;
 
             if (await CreateRequest.DeletePost(post.id)) {
@@ -277,8 +275,9 @@ namespace Core.Utils.Controls {
         public void RefreshPosts() {
             LastPostID = "";
             var x = Posts.ItemsSource as ObservableCollection<Post>;
-            x.Clear();
-            LoadPosts();
+            if (x != null)
+                x.Clear();
+            LoadPosts(true);
         }
 
         private void scrollViewer_SizeChanged(object sender, SizeChangedEventArgs e) {
@@ -320,13 +319,12 @@ namespace Core.Utils.Controls {
             }
         }
 
-        private async Task<bool> SaveFileAsync(Uri fileUri) {
+        private async void SaveFileAsync(Uri fileUri) {
             try {
-                App.DisplayStatus("Downloading image...");
+                App.DisplayStatus(App.LocaleResources.GetString("DownloadingImage"));
                 // create the blank file in specified folder
                 var imageFolder = await KnownFolders.PicturesLibrary.CreateFolderAsync("Sapphire", CreationCollisionOption.OpenIfExists);
                 var path = Path.GetRandomFileName().ToLower() + Path.GetExtension(fileUri.ToString());
-                Debug.WriteLine(path);
                 var file = await imageFolder.CreateFileAsync(path, CreationCollisionOption.ReplaceExisting);
 
                 // create the downloader instance and prepare for downloading the file
@@ -336,43 +334,9 @@ namespace Core.Utils.Controls {
 
                 MainPage.AlertFlyout.DisplayMessage("Image saved.");
                 App.HideStatus();
-                return true;
             } catch (Exception ex) {
                 MainPage.AlertFlyout.DisplayMessage("Unable to save photo.");
                 Analytics.AnalyticsManager.LogException(ex, TAG, "Unable to save media to photos folder.");
-                return false;
-            }
-        }
-
-        private void PlayButton_Click(object sender, RoutedEventArgs e) {
-            var audioPlayer = ((MediaElement)(((StackPanel)(((AppBarButton)sender).Parent)).FindName("AudioPlayer")));
-            if (audioPlayer.Tag.ToString() == "Stopped" || audioPlayer.Tag.ToString() == "Paused") {
-                audioPlayer.Play();
-                audioPlayer.Tag = "Playing";
-                Debug.WriteLine("Playing: " + audioPlayer.Source);
-                ((AppBarButton)sender).Icon = new SymbolIcon() { Symbol = Symbol.Pause };
-            } else {
-                audioPlayer.Pause();
-                audioPlayer.Tag = "Paused";
-                ((AppBarButton)sender).Icon = new SymbolIcon() { Symbol = Symbol.Play };
-            }
-        }
-
-        private void StopButton_Click(object sender, RoutedEventArgs e) {
-            var audioPlayer = ((MediaElement)(((StackPanel)(((AppBarButton)sender).Parent)).FindName("AudioPlayer")));
-            if (audioPlayer.Tag.ToString() == "Playing" || audioPlayer.Tag.ToString() == "Paused") {
-                audioPlayer.Stop();
-                ((AppBarButton)(((StackPanel)(((AppBarButton)sender).Parent)).FindName("PlayButton"))).Icon = new SymbolIcon() { Symbol = Symbol.Play };
-            }
-        }
-        private void TagPanel_Loaded(object sender, RoutedEventArgs e) {
-            ((StackPanel)sender).Width = (Window.Current.Bounds.Width - 12) / 5;
-        }
-
-        private void Tag_Tapped(object sender, TappedRoutedEventArgs e) {
-            var frame = Window.Current.Content as Frame;
-            if (!frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + ((StackPanel)sender).Tag.ToString())) {
-                Debug.WriteLine("Failed to Navigate");
             }
         }
 
@@ -391,11 +355,6 @@ namespace Core.Utils.Controls {
                 ((TextBlock)sender).MaxHeight = 9999;
             else
                 ((TextBlock)sender).MaxHeight = 300;
-        }
-
-        private void WebView_Loaded(object sender, RoutedEventArgs e) {
-            if (((WebView)sender).Tag != null)
-                ((WebView)sender).NavigateToString(((WebView)sender).Tag.ToString());
         }
 
         private void MediatedAdControl_AdSdkError(object sender, Microsoft.AdMediator.Core.Events.AdFailedEventArgs e) {
@@ -432,10 +391,8 @@ namespace Core.Utils.Controls {
             var selectedItem = sender as TextBlock;
 
             if (selectedItem != null) {
-                if (selectedItem.Text.ToString().ToLowerInvariant() == "Save to phone".ToLowerInvariant()) {
-                    Debug.WriteLine("Trying to save :" + selectedItem.Tag.ToString());
-                    var saved = await SaveFileAsync(new Uri(selectedItem.Tag.ToString()));
-                    Debug.WriteLine(saved);
+                if (selectedItem.Text.ToString() == "Save to phone") {
+                    SaveFileAsync(new Uri(selectedItem.Tag.ToString()));
                 } else if (selectedItem.Text.ToString().ToLowerInvariant() == "Post details".ToLowerInvariant()) {
                     GoToPostDetails(selectedItem, null);
                 } else if (selectedItem.Text.ToString().ToLowerInvariant() == "Share".ToLowerInvariant()) {
@@ -456,17 +413,7 @@ namespace Core.Utils.Controls {
             FrameworkElement element = options as FrameworkElement;
             if (element == null) return;
 
-            // If the menu was attached properly, we just need to call this handy method
             FlyoutBase.ShowAttachedFlyout(element);
-        }
-
-        private void GoToPostDetails(object sender, TappedRoutedEventArgs e) {
-            if (!IsSinglePost) {
-                var frame = Window.Current.Content as Frame;
-                if (!frame.Navigate(typeof(Pages.PostDetails), ((FrameworkElement)sender).Tag.ToString())) {
-                    Debug.WriteLine("Failed to Navigate");
-                }
-            }
         }
     }
 }

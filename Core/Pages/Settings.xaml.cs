@@ -1,5 +1,4 @@
 ﻿using APIWrapper.Content;
-using APIWrapper.Utils;
 using Core.Shared.Common;
 using System;
 using Windows.ApplicationModel;
@@ -9,13 +8,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
-//Below is how to get application package details
-//http://code.msdn.microsoft.com/wpapps/Package-sample-46e239fa
-
-
-
-// The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
 namespace Core.Pages {
     /// <summary>
@@ -73,33 +65,12 @@ namespace Core.Pages {
             StatusBarBGToggle.IsOn = UserStore.EnableStatusBarBG;
         }
 
-        /// <summary>
-        /// Preserves state associated with this page in case the application is suspended or the
-        /// page is discarded from the navigation cache.  Values must conform to the serialization
-        /// requirements of <see cref="SuspensionManager.SessionState"/>.
-        /// </summary>
-        /// <param name="sender">The source of the event; typically <see cref="NavigationHelper"/></param>
-        /// <param name="e">Event data that provides an empty dictionary to be populated with
-        /// serializable state.</param>
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) {
 
         }
 
         #region NavigationHelper registration
 
-        /// <summary>
-        /// The methods provided in this section are simply used to allow
-        /// NavigationHelper to respond to the page's navigation methods.
-        /// <para>
-        /// Page specific logic should be placed in event handlers for the  
-        /// <see cref="NavigationHelper.LoadState"/>
-        /// and <see cref="NavigationHelper.SaveState"/>.
-        /// The navigation parameter is available in the LoadState method 
-        /// in addition to page state preserved during an earlier session.
-        /// </para>
-        /// </summary>
-        /// <param name="e">Provides data for navigation methods and event
-        /// handlers that cannot cancel the navigation request.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e) {
             this.navigationHelper.OnNavigatedTo(e);
         }
@@ -120,35 +91,19 @@ namespace Core.Pages {
         }
 
         private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e) {
-            if (((ToggleSwitch)sender).IsOn) {
-                UserStore.SelectedTheme = "Dark";
-            } else {
-                UserStore.SelectedTheme = "Light";
-            }
+            UserStore.SelectedTheme = ((ToggleSwitch)sender).IsOn ? "Dark" : "Light";
         }
 
         private void EnableNotifications_Toggled(object sender, RoutedEventArgs e) {
-            if (((ToggleSwitch)sender).IsOn) {
-                UserStore.NotificationsEnabled = true;
-            } else {
-                UserStore.NotificationsEnabled = false;
-            }
+            UserStore.NotificationsEnabled = ((ToggleSwitch)sender).IsOn;
         }
 
         private void EnableOneClickReblog_Toggled(object sender, RoutedEventArgs e) {
-            if (((ToggleSwitch)sender).IsOn) {
-                UserStore.OneClickReblog = true;
-            } else {
-                UserStore.OneClickReblog = false;
-            }
+            UserStore.OneClickReblog = ((ToggleSwitch)sender).IsOn;
         }
 
         private void DisableTagsInPosts_Toggled(object sender, RoutedEventArgs e) {
-            if (((ToggleSwitch)sender).IsOn) {
-                UserStore.TagsInPosts = true;
-            } else {
-                UserStore.TagsInPosts = false;
-            }
+            UserStore.TagsInPosts = ((ToggleSwitch)sender).IsOn;
         }
 
         private void AnalyticsSwitch_Toggled(object sender, RoutedEventArgs e) {
@@ -161,11 +116,7 @@ namespace Core.Pages {
         }
 
         private void StatusBarBGToggle_Toggled(object sender, RoutedEventArgs e) {
-            if (((ToggleSwitch)sender).IsOn) {
-                UserStore.EnableStatusBarBG = true;
-            } else {
-                UserStore.EnableStatusBarBG = false;
-            }
+            UserStore.EnableStatusBarBG = ((ToggleSwitch)sender).IsOn;
         }
 
         private async void ShareOnTwitter_Click(object sender, RoutedEventArgs e) {

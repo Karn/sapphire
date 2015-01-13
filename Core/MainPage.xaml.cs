@@ -5,6 +5,8 @@ using APIWrapper.Utils;
 using Core.Shared.Common;
 using Core.Utils.Controls;
 using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Resources;
 using Windows.Phone.UI.Input;
@@ -22,13 +24,11 @@ namespace Core {
 
         public static string TAG = "MainPage";
 
-        public static AlertDialog AlertFlyout;
-
         private readonly NavigationHelper navigationHelper;
 
-        private static int LastIndex;
+        public static AlertDialog AlertFlyout;
+        private static int LastIndex = -1;
         private static bool NavigatedFromToast;
-
         public static bool SwitchedBlog = false;
         public static bool SwitchedAccount = false;
 
@@ -58,12 +58,34 @@ namespace Core {
             Analytics.AnalyticsManager.RegisterView(TAG);
         }
 
+        public async void CreateView() {
+            if (UserStore.CurrentBlog == null) {
+                if (await GetUserAccount() && UserStore.CurrentBlog != null) {
+                    Dashboard.LoadPosts();
+                    ActivityFeed.RetrieveNotifications();
+                }
+            }
+        }
+
+        public async Task<bool> GetUserAccount(string account = "") {
+            App.DisplayStatus(App.LocaleResources.GetString("LoadingAccountDataMessage"));
+            if (await CreateRequest.RetrieveAccountInformation(account)) {
+                AccountPivot.DataContext = UserStore.CurrentBlog;
+                return true;
+            } else
+                AlertFlyout.DisplayMessage(App.LocaleResources.GetString("UnableToLoadAccount"));
+            App.HideStatus();
+            return false;
+        }
+
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e) {
             HeaderAnimateIn.Begin();
             if (!UserStore.EnableStatusBarBG)
                 StatusBarBG.Background = App.Current.Resources["PrimaryColor"] as SolidColorBrush;
             else
                 StatusBarBG.Background = App.Current.Resources["PrimaryColorDark"] as SolidColorBrush;
+
+            CreateView();
         }
 
         private void BackButtonPressed(object sender, BackPressedEventArgs e) {
@@ -83,39 +105,37 @@ namespace Core {
             }
         }
 
-        /// <summary>
-        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
-        /// </summary>
         public NavigationHelper NavigationHelper {
             get { return this.navigationHelper; }
         }
 
-        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
+        private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
             if (e.NavigationParameter != null && !string.IsNullOrEmpty(e.NavigationParameter.ToString()) && !NavigatedFromToast) {
                 //Handle accounts switch to the one described in the toast
                 if (e.NavigationParameter.ToString().Contains("Account:")) {
                     var s = e.NavigationParameter.ToString().Split(' ');
-                    SetAccountData(s[1]);
-                    Dashboard_Loaded(null, null);
+                    await GetUserAccount(s[1]);
+                    ActivityFeed.RetrieveNotifications();
                     NavigationPivot.SelectedIndex = 1;
                     NavigatedFromToast = true;
                 }
             }
 
-            AlertFlyout = _ErrorFlyout;
-
             if (SwitchedAccount) {
                 NavigationPivot.SelectedIndex = 0;
                 CreateRequest.ReloadAccountData = true;
-                SetAccountData();
+                await GetUserAccount(string.Empty);
                 Dashboard.RefreshPosts();
+                ActivityFeed.RetrieveNotifications();
                 SwitchedAccount = false;
             } else if (SwitchedBlog) {
                 AccountPivot.DataContext = UserStore.CurrentBlog;
-                ActivityPosts.ClearPosts();
-                ActivityPosts.LoadPosts();
+                ActivityFeed.ClearPosts();
+                ActivityFeed.RetrieveNotifications();
                 SwitchedBlog = false;
             }
+
+            AlertFlyout = _ErrorFlyout;
 
             //Remove entries before this page.
             Frame.BackStack.Clear();
@@ -138,8 +158,6 @@ namespace Core {
         #endregion
 
         private async void RegisterBackgroundTask() {
-            // Windows Phone app must call this to use trigger types (see MSDN)
-
             foreach (var cur in BackgroundTaskRegistration.AllTasks) {
                 if (cur.Value.Name == "PushNotificationTask") {
                     Analytics.AnalyticsManager.LogException(null, TAG, "Previous task found.");
@@ -226,9 +244,10 @@ namespace Core {
                 case 0:
                     break;
                 case 1:
-                    ActivityPosts.LoadPosts(); break;
+                    ActivityFeed.RetrieveNotifications(); break;
                 case 2:
-                    SetAccountData(); break;
+                    await GetUserAccount(string.Empty);
+                    ActivityFeed.RetrieveNotifications(); break;
                 case 3:
                     SpotlightTags.ItemsSource = await CreateRequest.RetrieveSpotlight(true); break;
             }
@@ -252,24 +271,6 @@ namespace Core {
                         break;
                 }
             }
-        }
-
-        public void Dashboard_Loaded(object sender, RoutedEventArgs e) {
-            if (UserStore.CurrentBlog == null) {
-                SetAccountData();
-
-                Dashboard.LoadPosts();
-            }
-        }
-
-        private async void SetAccountData(string account = "") {
-            App.DisplayStatus(App.LocaleResources.GetString("LoadingAccountDataMessage"));
-            RefreshButton.IsEnabled = false;
-            AccountPivot.DataContext = await CreateRequest.RetrieveAccountInformation(account) ?
-                UserStore.CurrentBlog : null;
-            ActivityPosts.LoadPosts();
-            RefreshButton.IsEnabled = true;
-            App.HideStatus();
         }
 
         public void CreatePost_Click(object sender, RoutedEventArgs e) {

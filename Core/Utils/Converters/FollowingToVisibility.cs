@@ -6,9 +6,9 @@ namespace Core.Utils.Converters {
     public sealed class FollowingToVisibility : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, string language) {
             if ((bool)value) {
-                return Visibility.Visible;
+                return Visibility.Collapsed;
             }
-            return Visibility.Collapsed;
+            return Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language) {

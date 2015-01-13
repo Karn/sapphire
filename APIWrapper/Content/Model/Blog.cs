@@ -7,8 +7,13 @@ namespace APIWrapper.Content.Model {
         [JsonProperty("primary")]
         public bool IsPrimaryBlog { get; set; }
 
+        public string _name = "";
+
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string Name {
+            get { return _name; }
+            set { _name = value; }
+        }
 
         [JsonProperty("title")]
         public string Title { get; set; }
