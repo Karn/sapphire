@@ -88,7 +88,7 @@
                                        Text="view likes"
                                        TextLineBounds="Tight"
                                        TextTrimming="CharacterEllipsis"
-                                       Visibility="{Binding share_likes,
+                                       Visibility="{Binding LikesVisible,
                                                             Converter={StaticResource BoolToVisibility},
                                                             FallbackValue=Collapsed}" />
                         </StackPanel>
@@ -104,7 +104,7 @@
                        Foreground="{ThemeResource DarkText}"
                        RequestedTheme="Dark"
                        Style="{StaticResource HeaderTextStyle}"
-                       Text="{Binding title}"
+                       Text="{Binding Title}"
                        TextTrimming="CharacterEllipsis" />
             <Button x:Name="FollowButton"
                     Grid.Column="2"
@@ -116,7 +116,7 @@
                     VerticalAlignment="Top"
                     Background="#FFFFFF"
                     BorderThickness="0"
-                    Content="{Binding followed,
+                    Content="{Binding Following,
                                       Converter={StaticResource FollowingToSign},
                                       FallbackValue=+}"
                     FontSize="30"
