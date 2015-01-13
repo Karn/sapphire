@@ -2,6 +2,7 @@
 using APIWrapper.Utils;
 using Core.Shared.Common;
 using System;
+using Windows.ApplicationModel;
 using Windows.System;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -36,7 +37,11 @@ namespace Core.Pages {
                 RemoveAdsButton.Background = new SolidColorBrush(Color.FromArgb(255, 51, 63, 74));
             }
 
-            MainPage.AlertFlyout = _ErrorFlyout;
+            AppVersion.Text = string.Format("{0}.{1}.{2}.{3}",
+                Package.Current.Id.Version.Major.ToString(),
+                Package.Current.Id.Version.Minor.ToString(),
+                Package.Current.Id.Version.Build.ToString(),
+                Package.Current.Id.Version.Revision.ToString());
         }
 
         /// <summary>
@@ -149,7 +154,7 @@ namespace Core.Pages {
         private void AnalyticsSwitch_Toggled(object sender, RoutedEventArgs e) {
             if (((ToggleSwitch)sender).IsOn) {
                 UserStore.EnableAnalytics = true;
-                DiagnosticsManager.EnableDiagnostics();
+                Analytics.AnalyticsManager.EnableDiagnostics();
             } else {
                 UserStore.EnableAnalytics = false;
             }

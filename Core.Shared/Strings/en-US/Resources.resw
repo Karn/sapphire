@@ -129,10 +129,19 @@
   <data name="Explore" xml:space="preserve">
     <value>Explore</value>
   </data>
+  <data name="LoadingAccountDataMessage" xml:space="preserve">
+    <value>Loading account data...</value>
+  </data>
+  <data name="LoadingPostsMessage" xml:space="preserve">
+    <value>Loading posts...</value>
+  </data>
   <data name="NoNetwork" xml:space="preserve">
     <value>Unable to connect. Please check your network.</value>
   </data>
+  <data name="PostLoadFailed" xml:space="preserve">
+    <value>Unable to load posts.</value>
+  </data>
   <data name="WrongLoginCredentials" xml:space="preserve">
-    <value />
+    <value>Invalid username/password. Please try again.</value>
   </data>
 </root>

@@ -26,7 +26,7 @@ namespace Core {
 
         private readonly NavigationHelper navigationHelper;
 
-        private static bool JustNavigatedBack;
+        private static int LastIndex;
         private static bool NavigatedFromToast;
 
         public static bool SwitchedBlog = false;
@@ -50,10 +50,12 @@ namespace Core {
 
             NPD = PostCreationView;
 
-            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+            HardwareButtons.BackPressed += BackButtonPressed;
 
             if (UserStore.NotificationsEnabled)
                 RegisterBackgroundTask();
+
+            Analytics.AnalyticsManager.RegisterView(TAG);
         }
 
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e) {
@@ -64,21 +66,20 @@ namespace Core {
                 StatusBarBG.Background = App.Current.Resources["PrimaryColorDark"] as SolidColorBrush;
         }
 
-        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e) {
+        private void BackButtonPressed(object sender, BackPressedEventArgs e) {
             //Fix navigating
             if (PostCreationView.Visibility == Visibility.Visible) {
                 CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
                 CreatePostFill.Fill = App.Current.Resources["PrimaryColor"] as SolidColorBrush;
                 PostCreationView.Visibility = Visibility.Collapsed;
                 e.Handled = true;
-            } else if (JustNavigatedBack) {
-                JustNavigatedBack = false;
+            } else if (LastIndex != -1) {
+                Navigation.SelectedIndex = LastIndex;
+                LastIndex = -1;
                 e.Handled = true;
-                return;
             } else if (NavigationPivot.SelectedIndex != 0) {
                 NavigationPivot.SelectedIndex = 0;
                 e.Handled = true;
-                return;
             }
         }
 
@@ -107,7 +108,7 @@ namespace Core {
                 NavigationPivot.SelectedIndex = 0;
                 CreateRequest.ReloadAccountData = true;
                 SetAccountData();
-                Dashboard.RefeshPosts();
+                Dashboard.RefreshPosts();
                 SwitchedAccount = false;
             } else if (SwitchedBlog) {
                 AccountPivot.DataContext = UserStore.CurrentBlog;
@@ -121,7 +122,7 @@ namespace Core {
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) {
-            JustNavigatedBack = true;
+            LastIndex = Navigation.SelectedIndex;
         }
 
         #region NavigationHelper registration
@@ -141,7 +142,7 @@ namespace Core {
 
             foreach (var cur in BackgroundTaskRegistration.AllTasks) {
                 if (cur.Value.Name == "PushNotificationTask") {
-                    DiagnosticsManager.LogException(null, TAG, "Previous task found.");
+                    Analytics.AnalyticsManager.LogException(null, TAG, "Previous task found.");
                     return;
                 }
             }
@@ -211,12 +212,12 @@ namespace Core {
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e) {
             if (!Frame.Navigate(typeof(Pages.Settings)))
-                DiagnosticsManager.LogException(null, TAG, "Failed to navigate to Settings.");
+                Analytics.AnalyticsManager.LogException(null, TAG, "Failed to navigate to Settings.");
         }
 
         private void ManageAccountButton_Click(object sender, RoutedEventArgs e) {
             if (!Frame.Navigate(typeof(Pages.AccountManager)))
-                DiagnosticsManager.LogException(null, TAG, "Failed to navigate to AccountManager.");
+                Analytics.AnalyticsManager.LogException(null, TAG, "Failed to navigate to AccountManager.");
         }
 
         private async void RefreshButton_Click(object sender, RoutedEventArgs e) {
@@ -225,14 +226,11 @@ namespace Core {
                 case 0:
                     break;
                 case 1:
-                    ActivityPosts.LoadPosts();
-                    break;
+                    ActivityPosts.LoadPosts(); break;
                 case 2:
-                    SetAccountData();
-                    break;
+                    SetAccountData(); break;
                 case 3:
-                    SpotlightTags.ItemsSource = await CreateRequest.RetrieveSpotlight(true);
-                    break;
+                    SpotlightTags.ItemsSource = await CreateRequest.RetrieveSpotlight(true); break;
             }
         }
 
@@ -241,40 +239,37 @@ namespace Core {
                 switch (((StackPanel)sender).Tag.ToString()) {
                     case "Posts":
                         if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/posts"))
-                            DiagnosticsManager.LogException(null, TAG, "Failed to navigate to current blogs posts.");
+                            Analytics.AnalyticsManager.LogException(null, TAG, "Failed to navigate to current blogs posts.");
                         break;
                     case "Likes":
                         if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/user/likes"))
-                            DiagnosticsManager.LogException(null, TAG, "Failed to navigate to current blogs likes.");
+                            Analytics.AnalyticsManager.LogException(null, TAG, "Failed to navigate to current blogs likes.");
                         break;
                     case "Followers":
                     case "Following":
                         if (!Frame.Navigate(typeof(Pages.FollowersFollowing), ((StackPanel)sender).Tag.ToString()))
-                            DiagnosticsManager.LogException(null, TAG, "Failed to navigate to Following.");
+                            Analytics.AnalyticsManager.LogException(null, TAG, "Failed to navigate to Following.");
                         break;
                 }
             }
         }
 
         public void Dashboard_Loaded(object sender, RoutedEventArgs e) {
-            if (UserStore.CurrentBlog == null)
+            if (UserStore.CurrentBlog == null) {
                 SetAccountData();
 
-            Dashboard.LoadPosts();
+                Dashboard.LoadPosts();
+            }
         }
 
         private async void SetAccountData(string account = "") {
-            if (Authentication.Utils.NetworkAvailable()) {
-                App.DisplayStatus("Loading account data...");
-                RefreshButton.IsEnabled = false;
-                AccountPivot.DataContext = await CreateRequest.RetrieveAccountInformation(account) ?
-                    UserStore.CurrentBlog : null;
-                if (!ActivityPosts.ContentLoaded)
-                    ActivityPosts.LoadPosts();
-                RefreshButton.IsEnabled = true;
-                App.HideStatus();
-            } else
-                AlertFlyout.DisplayMessage("Unable to retrieve account details. Check your network connection.");
+            App.DisplayStatus(App.LocaleResources.GetString("LoadingAccountDataMessage"));
+            RefreshButton.IsEnabled = false;
+            AccountPivot.DataContext = await CreateRequest.RetrieveAccountInformation(account) ?
+                UserStore.CurrentBlog : null;
+            ActivityPosts.LoadPosts();
+            RefreshButton.IsEnabled = true;
+            App.HideStatus();
         }
 
         public void CreatePost_Click(object sender, RoutedEventArgs e) {
@@ -294,7 +289,7 @@ namespace Core {
             PostCreationView.AnimateOut();
         }
 
-        private async void SpotlightTags_Loaded(object sender, RoutedEventArgs e) {
+        private async void Spotlight_Loaded(object sender, RoutedEventArgs e) {
             if (SpotlightTags.ItemsSource == null || sender == null) {
                 if (Authentication.Utils.NetworkAvailable())
                     SpotlightTags.ItemsSource = await CreateRequest.RetrieveSpotlight();
@@ -307,13 +302,15 @@ namespace Core {
                 var searchTerm = SearchText.Text;
                 SearchText.Text = string.Empty;
                 if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + Uri.EscapeUriString(searchTerm)))
-                    DiagnosticsManager.LogException(null, TAG, "Failed to navigate to search page.");
+                    Analytics.AnalyticsManager.LogException(null, TAG, "Failed to navigate to search page.");
             }
         }
 
-        private void SpotlightTagItem_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + ((Border)sender).Tag))
-                DiagnosticsManager.LogException(null, TAG, "Failed to navigate to search page via tag.");
+        private void SpotlightItem_Tapped(object sender, TappedRoutedEventArgs e) {
+            if (((Border)sender).Tag != null) {
+                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + ((Border)sender).Tag))
+                    Analytics.AnalyticsManager.LogException(null, TAG, "Failed to navigate to search page via tag.");
+            }
         }
 
         private void ToTopButton_Click(object sender, RoutedEventArgs e) {
@@ -322,13 +319,13 @@ namespace Core {
 
         private void ManageBlogs_Tapped(object sender, TappedRoutedEventArgs e) {
             if (!Frame.Navigate(typeof(Pages.Blogs)))
-                DiagnosticsManager.LogException(null, TAG, "Failed to navigate to blog selection.");
+                Analytics.AnalyticsManager.LogException(null, TAG, "Failed to navigate to blog selection.");
         }
 
         private void Inbox_Tapped(object sender, TappedRoutedEventArgs e) {
             if (UserStore.CurrentBlog != null) {
                 if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/posts/submission")) {
-                    DiagnosticsManager.LogException(null, TAG, "Failed to navigate to inbox.");
+                    Analytics.AnalyticsManager.LogException(null, TAG, "Failed to navigate to inbox.");
                 }
             }
         }
@@ -336,7 +333,7 @@ namespace Core {
         private void Drafts_Tapped(object sender, TappedRoutedEventArgs e) {
             if (UserStore.CurrentBlog != null) {
                 if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/posts/draft")) {
-                    DiagnosticsManager.LogException(null, TAG, "Failed to navigate to drafts.");
+                    Analytics.AnalyticsManager.LogException(null, TAG, "Failed to navigate to drafts.");
                 }
             }
         }
@@ -344,7 +341,7 @@ namespace Core {
         private void Queue_Tapped(object sender, TappedRoutedEventArgs e) {
             if (UserStore.CurrentBlog != null) {
                 if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/posts/queue")) {
-                    DiagnosticsManager.LogException(null, TAG, "Failed to navigate to queue.");
+                    Analytics.AnalyticsManager.LogException(null, TAG, "Failed to navigate to queue.");
                 }
             }
         }
@@ -352,7 +349,7 @@ namespace Core {
         private void Favs_List_Tapped(object sender, TappedRoutedEventArgs e) {
             if (UserStore.CurrentBlog != null) {
                 if (!Frame.Navigate(typeof(Pages.FavBlogs)))
-                    DiagnosticsManager.LogException(null, TAG, "Failed to navigate to favorite blogs.");
+                    Analytics.AnalyticsManager.LogException(null, TAG, "Failed to navigate to favorite blogs.");
             }
         }
 

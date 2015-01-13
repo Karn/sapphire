@@ -12,7 +12,9 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="380">
+
     <UserControl.Resources>
+
         <CollectionViewSource x:Name="PostCVS"/>
 
         <Flyout x:Key="SaveToPhoneFlyout" Placement="Full" x:Name="OptionsPopup">
@@ -106,19 +108,9 @@
                             <TextBlock Text=" notes" FontSize="22" FontWeight="Light" Foreground="{ThemeResource DarkText}" TextWrapping="WrapWholeWords" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         </StackPanel>
                         <StackPanel x:Name="NormalCommands" Orientation="Horizontal" HorizontalAlignment="Right" Tag="{Binding reblog_key}">
-                            <!--<Button x:Name="ReblogButton" Tag="{Binding id}" Click="ReblogButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="40" MinHeight="40" MaxWidth="40" MaxHeight="40" HorizontalAlignment="Right" Style="{StaticResource ButtonStyleNoBG}">
-                                <Button.Background>
-                                    <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource ReblogAsset}"/>
-                                </Button.Background>
-                            </Button>-->
-                            <local:ToggleControl x:Name="ReblogButton" Tag="{Binding id}" Margin="5, 0" BorderBrush="White" BorderThickness="0" MinWidth="35" Width="35" MinHeight="50" MaxWidth="35" MaxHeight="50" HorizontalAlignment="Right" Click="ReblogButton_Click" EnabledUnchecked="{StaticResource ReblogAsset}" EnabledChecked="{StaticResource RebloggedAsset}"/>
-
-                            <local:ToggleControl x:Name="LikeButton" Tag="{Binding id}" Margin="5, 0" BorderBrush="White" BorderThickness="0" MinWidth="35" Width="35" MinHeight="50" MaxWidth="35" MaxHeight="50" HorizontalAlignment="Right" IsChecked="{Binding liked}" Click="LikeButton_Click"/>
-                            <Button x:Name="DeleteButton" Visibility="{Binding IsEditable}" Tag="{Binding}" Click="DeleteButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyleNoBG}" Margin="-6, 0, 0, 0">
-                                <Button.Background>
-                                    <ImageBrush Stretch="UniformToFill" ImageSource="{ThemeResource DeleteButtonAsset}"/>
-                                </Button.Background>
-                            </Button>
+                            <local:ToggleControl x:Name="ReblogButton" Tag="{Binding id}" IsChecked="False" Margin="5, 0" BorderThickness="0" MinWidth="35" Width="35" MinHeight="50" MaxWidth="35" MaxHeight="50" HorizontalAlignment="Right" Click="ReblogButton_Click" EnabledUnchecked="{StaticResource ReblogAsset}" EnabledChecked="{StaticResource RebloggedAsset}"/>
+                            <local:ToggleControl x:Name="LikeButton" Tag="{Binding id}" Margin="5, 0" BorderThickness="0" MinWidth="35" Width="35" MinHeight="50" MaxWidth="35" MaxHeight="50" HorizontalAlignment="Right" IsChecked="{Binding liked, FallbackValue=False}" Click="LikeButton_Click"/>
+                            <local:ToggleControl x:Name="DeleteButton" Padding="0" Visibility="{Binding IsEditable}" Tag="{Binding}" Margin="0, 0, 5, 0" BorderThickness="0" MinWidth="35" Width="35" MinHeight="50" MaxWidth="35" MaxHeight="50" HorizontalAlignment="Right" IsChecked="{Binding liked}" Click="DeleteButton_Click" EnabledUnchecked="{StaticResource DeleteButtonAsset}" EnabledChecked="{StaticResource DeleteButtonAsset}"/>
                         </StackPanel>
                         <StackPanel x:Name="DraftCommands" Visibility="Collapsed" Orientation="Horizontal" HorizontalAlignment="Right" Tag="{Binding reblog_key}">
                             <Button x:Name="PostButton" Tag="{Binding}" Click="PostDraftButton_Click" BorderBrush="White" BorderThickness="0" MinWidth="50" MinHeight="50" MaxWidth="50" MaxHeight="50" HorizontalAlignment="Right" Style="{StaticResource ButtonStyleNoBG}">
@@ -147,8 +139,7 @@
                                    TextWrapping="WrapWholeWords"
                                    Style="{StaticResource StandardText}"
                                    Visibility="{Binding title,
-                            Converter={StaticResource CaptionConverter}}"
-                                   />
+                            Converter={StaticResource CaptionConverter}}"/>
                         <TextBlock misc:TextFormatter.Text="{Binding body}" Visibility="{Binding body, Converter={StaticResource CaptionConverter}}" Margin="10, 5, 10, 10" FontSize="18" FontWeight="Light" Foreground="{StaticResource DarkText}" TextWrapping="Wrap"/>
                     </StackPanel>
                     <ContentPresenter VerticalAlignment="Bottom" ContentTemplate="{StaticResource BottomContainer}"/>

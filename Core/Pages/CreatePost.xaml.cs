@@ -212,7 +212,7 @@ namespace Core.Pages {
                 } else
                     MainPage.AlertFlyout.DisplayMessage(result.ReasonPhrase);
             } catch (Exception ex) {
-                DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
+                Analytics.AnalyticsManager.LogException(ex, TAG, "Failed to create post");
                 MainPage.AlertFlyout.DisplayMessage("Failed to create post");
             }
             Type.IsEnabled = true;
@@ -261,7 +261,7 @@ namespace Core.Pages {
                     MainPage.AlertFlyout.DisplayMessage(result.ReasonPhrase);
             } catch (Exception ex) {
                 MainPage.AlertFlyout.DisplayMessage("Failed to create post");
-                DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
+                Analytics.AnalyticsManager.LogException(ex, TAG, "Failed to create post");
             }
             Type.IsEnabled = true;
             App.HideStatus();
@@ -310,7 +310,7 @@ namespace Core.Pages {
                 }
             } catch (Exception ex) {
                 MainPage.AlertFlyout.DisplayMessage("Failed to create post");
-                DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
+                Analytics.AnalyticsManager.LogException(ex, TAG, "Failed to create post");
             }
             Type.IsEnabled = true;
             App.HideStatus();
@@ -361,7 +361,7 @@ namespace Core.Pages {
                     MainPage.AlertFlyout.DisplayMessage(result.ReasonPhrase);
             } catch (Exception ex) {
                 MainPage.AlertFlyout.DisplayMessage("Failed to create post");
-                DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
+                Analytics.AnalyticsManager.LogException(ex, TAG, "Failed to create post");
             }
             Type.IsEnabled = true;
             App.HideStatus();

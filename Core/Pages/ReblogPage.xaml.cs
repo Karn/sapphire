@@ -3,6 +3,7 @@ using APIWrapper.Client;
 using APIWrapper.Content;
 using APIWrapper.Utils;
 using Core.Shared.Common;
+using Core.Utils.Controls;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -25,10 +26,14 @@ namespace Core.Pages {
         private bool IsReply = false;
         private static object options;
 
+        public ToggleControl button;
+
         private NavigationHelper navigationHelper;
 
         string postID = "";
         string reblogKey = "";
+
+        bool reblogged = false;
 
         public ReblogPage() {
             this.InitializeComponent();
@@ -59,16 +64,19 @@ namespace Core.Pages {
         /// a dictionary of state preserved by this page during an earlier
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
-            var args = e.NavigationParameter.ToString();
-            if (e.NavigationParameter.ToString().Contains("Reply:")) {
+            object[] navParams = e.NavigationParameter as object[];
+            button = navParams[0] as ToggleControl;
+            var parameters = navParams[1].ToString();
+
+            if (parameters.Contains("Reply:")) {
                 PageTitle.Text = "Reply";
                 IsReply = true;
                 AddToDraftsButton.Visibility = Visibility.Collapsed;
                 AddToQueueButton.Visibility = Visibility.Collapsed;
                 PublishBox.Visibility = Visibility.Collapsed;
-                args = e.NavigationParameter.ToString().Substring(7);
+                parameters = parameters.Substring(7);
             }
-            var x = args.Split(',');
+            var x = parameters.Split(',');
             postID = x[0].Replace(",", "");
             reblogKey = x[1].Replace(",", "");
         }
@@ -82,6 +90,7 @@ namespace Core.Pages {
         /// <param name="e">Event data that provides an empty dictionary to be populated with
         /// serializable state.</param>
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) {
+            button.IsChecked = reblogged;
         }
 
         #region NavigationHelper registration
@@ -176,11 +185,13 @@ namespace Core.Pages {
                     if (request.StatusCode == System.Net.HttpStatusCode.Created) {
                         MainPage.AlertFlyout.DisplayMessage("Created.");
                         ReplyFeilds.IsEnabled = true;
+                        reblogged = true;
                         App.HideStatus();
                         Frame.GoBack();
                     } else {
                         MainPage.AlertFlyout.DisplayMessage("Failed to reply to message.");
                         App.HideStatus();
+                        button.IsChecked = false;
                         return;
                     }
                 } else {
@@ -188,6 +199,7 @@ namespace Core.Pages {
                     if (await CreateRequest.ReblogPost(postID, reblogKey, Authentication.Utils.UrlEncode(Caption.Text), tags, status, blogName)) {
                         MainPage.AlertFlyout.DisplayMessage("Created.");
                         ReplyFeilds.IsEnabled = true;
+                        reblogged = true;
                         App.HideStatus();
                         Frame.GoBack();
                     } else {
@@ -199,7 +211,7 @@ namespace Core.Pages {
                             } else
                                 MainPage.AlertFlyout.DisplayMessage("Failed to reblog post.");
                         }
-                        return;
+                        button.IsChecked = false;
                     }
                 }
                 App.HideStatus();
@@ -207,7 +219,8 @@ namespace Core.Pages {
             } catch (Exception ex) {
                 App.HideStatus();
                 MainPage.AlertFlyout.DisplayMessage("Failed to create post");
-                DiagnosticsManager.LogException(ex, TAG, "Failed to create post");
+                Analytics.AnalyticsManager.LogException(ex, TAG, "Failed to create post");
+                button.IsChecked = false;
             }
         }
 

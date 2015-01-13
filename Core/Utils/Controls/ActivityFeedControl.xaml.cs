@@ -31,7 +31,7 @@ namespace Core.Utils.Controls {
                 App.HideStatus();
                 ContentLoaded = true;
             } catch (Exception ex) {
-                DiagnosticsManager.LogException(ex, TAG, "Error loading activity feed. ");
+                Analytics.AnalyticsManager.LogException(ex, TAG, "Error loading activity feed. ");
             }
         }
 

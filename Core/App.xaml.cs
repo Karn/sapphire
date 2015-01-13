@@ -87,7 +87,6 @@ namespace Core {
                 new Authentication();
 
                 if (Authentication.AuthenticatedTokens.Count != 0 && Authentication.AuthenticatedSecretTokens.Count != 0) {
-                    new APIWrapper.Utils.DiagnosticsManager(Current);
                     if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
                         throw new Exception("Failed to create initial page");
                 } else {

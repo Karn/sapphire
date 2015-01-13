@@ -8,8 +8,11 @@
               Unchecked="ToggleButton_CheckedChanged"
               IsEnabledChanged="ToggleButton_IsEnabledChanged"
               Loaded="ToggleButton_Loaded">
+
     <ToggleButton.Style>
+
         <Style TargetType="ToggleButton">
+
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ToggleButton">

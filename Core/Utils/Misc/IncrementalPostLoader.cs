@@ -43,7 +43,7 @@ namespace Core.Utils.Misc {
                 _IsRunning = true;
                 try {
                     return AsyncInfo.Run(async c => {
-                        App.DisplayStatus("Loading posts...");
+                        App.DisplayStatus(App.LocaleResources.GetString("LoadingPostsMessage"));
 
                         var posts = new List<Post>();
                         if (string.IsNullOrEmpty(LastPostID))
@@ -67,7 +67,7 @@ namespace Core.Utils.Misc {
                                 }
                             }
                         } else {
-                            MainPage.AlertFlyout.DisplayMessage("Unable to find posts.");
+                            MainPage.AlertFlyout.DisplayMessage(App.LocaleResources.GetString("PostLoadFailed"));
                         }
 
                         if (AppLicenseHandler.IsTrial && posts.Count > 5)
@@ -81,7 +81,7 @@ namespace Core.Utils.Misc {
                         return new LoadMoreItemsResult() { Count = (uint)posts.Count };
                     });
                 } catch (Exception ex) {
-                    DiagnosticsManager.LogException(ex, TAG, "Load failed due to exception.");
+                    Analytics.AnalyticsManager.LogException(ex, TAG, "Load failed due to exception.");
                     MainPage.AlertFlyout.DisplayMessage("Load failed due to exception.");
                     throw new Exception();
                 }

@@ -2,6 +2,7 @@
 using APIWrapper.Content;
 using APIWrapper.Content.Model;
 using APIWrapper.Utils;
+using APIWrapper.Utils.Analytics;
 using Core.Utils.Misc;
 using System;
 using System.Collections.ObjectModel;
@@ -41,7 +42,6 @@ namespace Core.Utils.Controls {
 
         public bool IsSinglePost;
 
-        public string FirstPostID;
         public string LastPostID;
 
         int offset = 0;
@@ -49,6 +49,9 @@ namespace Core.Utils.Controls {
         public bool PostsLoading;
 
         private string ShareURI;
+
+        bool _isPullRefresh = false;
+        bool _updating = false;
 
         public PostFeedControl() {
             this.InitializeComponent();
@@ -102,7 +105,9 @@ namespace Core.Utils.Controls {
         }
 
         public void ScrollToTop() {
-            Posts.ScrollIntoView(Posts.Items.First());
+            try {
+                Posts.ScrollIntoView(Posts.Items.First());
+            } catch { }
         }
 
         private void GoToBlog(object sender, TappedRoutedEventArgs e) {
@@ -129,23 +134,26 @@ namespace Core.Utils.Controls {
                         notes.Text = ((bool)(x.IsChecked)) ? (int.Parse(notes.Text) + 1).ToString() :
                             (int.Parse(notes.Text) - 1).ToString();
                     } catch (Exception ex2) {
-                        DiagnosticsManager.LogException(ex2, TAG, "Failed to update note count.");
+                        Analytics.AnalyticsManager.LogException(ex2, TAG, "Failed to update note count.");
                     }
                 } else {
+                    ((ToggleButton)sender).IsChecked = ((bool)(x.IsChecked)) ? false : true;
                     MainPage.AlertFlyout.DisplayMessage("Unable to like post.");
                 }
                 App.HideStatus();
             } catch (Exception ex) {
-                DiagnosticsManager.LogException(ex, TAG, "Unable to like post.");
+                Analytics.AnalyticsManager.LogException(ex, TAG, "Unable to like post.");
                 MainPage.AlertFlyout.DisplayMessage("Unable to like post.");
             }
         }
 
         private async void ReblogButton_Click(object sender, RoutedEventArgs e) {
+            if (((ToggleControl)sender).IsChecked == true)
+                ((ToggleControl)sender).IsChecked = true;
             if (UserStore.OneClickReblog) {
                 try {
                     App.DisplayStatus("Reblogging post...");
-                    var x = ((Button)sender);
+                    var x = ((ToggleControl)sender);
                     var notes = ((TextBlock)((Grid)((StackPanel)x.Parent).Parent).FindName("NoteInfo"));
 
                     var id = x.Tag.ToString();
@@ -154,19 +162,23 @@ namespace Core.Utils.Controls {
                     if (await CreateRequest.ReblogPost(id, reblogKey)) {
                         x.Background = RebloggedBrush;
                         notes.Text = (int.Parse(notes.Text) + 1).ToString();
-                    } else
+                        ((ToggleControl)sender).IsChecked = true;
+                    } else {
+                        ((ToggleButton)sender).IsChecked = ((bool)(x.IsChecked)) ? false : true;
                         MainPage.AlertFlyout.DisplayMessage("Failed to reblog post.");
+                    }
                     App.HideStatus();
                 } catch (Exception ex) {
-                    DiagnosticsManager.LogException(ex, TAG, "Failed to reblog post");
+                    ((ToggleButton)sender).IsChecked = ((bool)(((ToggleControl)sender).IsChecked)) ? false : true;
+                    Analytics.AnalyticsManager.LogException(ex, TAG, "Failed to reblog post");
                 }
             } else {
                 var frame = Window.Current.Content as Frame;
-                if (!frame.Navigate(typeof(Pages.ReblogPage), ((Button)sender).Tag.ToString() + "," + ((StackPanel)((Button)sender).Parent).Tag.ToString()))
+                if (!frame.Navigate(typeof(Pages.ReblogPage), new object[] { sender, ((ToggleControl)sender).Tag.ToString() + "," + ((StackPanel)((ToggleControl)sender).Parent).Tag.ToString() }))
                     throw new Exception("Navigation Failed");
             }
-
         }
+
         private void ReplyButton_Click(object sender, RoutedEventArgs e) {
             var frame = Window.Current.Content as Frame;
             if (!frame.Navigate(typeof(Pages.ReblogPage), "Reply: " + ((Button)sender).Tag.ToString() + "," + ((StackPanel)((Button)sender).Parent).Tag.ToString()))
@@ -186,7 +198,7 @@ namespace Core.Utils.Controls {
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e) {
             App.DisplayStatus("Deleting post...");
-            var post = (Post)((Button)sender).Tag;
+            var post = (Post)((ToggleButton)sender).Tag;
 
             if (await CreateRequest.DeletePost(post.id)) {
                 var items = Posts.ItemsSource as ObservableCollection<Post>;
@@ -194,14 +206,6 @@ namespace Core.Utils.Controls {
             } else
                 MainPage.AlertFlyout.DisplayMessage("Failed to delete post.");
             App.HideStatus();
-        }
-
-        private void ShareButton_Tapped(object sender, TappedRoutedEventArgs e) {
-            ShareURI = ((string)((Image)sender).Tag);
-            Debug.WriteLine(ShareURI);
-            DataTransferManager.GetForCurrentView().DataRequested += PostView_DataRequested;
-
-            DataTransferManager.ShowShareUI();
         }
 
         void PostView_DataRequested(DataTransferManager sender, DataRequestedEventArgs args) {
@@ -230,7 +234,7 @@ namespace Core.Utils.Controls {
                         if (!string.IsNullOrWhiteSpace(mp4))
                             player.Source = new Uri(mp4);
                         else {
-                            DiagnosticsManager.LogException(null, TAG, "Failed to retrieve GIF url.");
+                            Analytics.AnalyticsManager.LogException(null, TAG, "Failed to retrieve GIF url.");
                             MainPage.AlertFlyout.DisplayMessage("Unable to load animated Image.");
                             App.HideStatus();
                             return;
@@ -250,7 +254,7 @@ namespace Core.Utils.Controls {
                     ((AppBarButton)sender).Tag = "stopped";
                 }
             } catch (Exception ex) {
-                DiagnosticsManager.LogException(ex, TAG, "Failed to load GIF.");
+                Analytics.AnalyticsManager.LogException(ex, TAG, "Failed to load GIF.");
                 MainPage.AlertFlyout.DisplayMessage("Unable to load animated Image.");
             }
         }
@@ -270,9 +274,8 @@ namespace Core.Utils.Controls {
             scrollViewer.ChangeView(null, 60.0, null);
         }
 
-        public void RefeshPosts() {
+        public void RefreshPosts() {
             LastPostID = "";
-            FirstPostID = "";
             var x = Posts.ItemsSource as ObservableCollection<Post>;
             x.Clear();
             LoadPosts();
@@ -284,8 +287,6 @@ namespace Core.Utils.Controls {
             scrollViewer.ChangeView(null, 60.0, null);
         }
 
-        bool _isPullRefresh = false;
-        bool _updating = false;
         private void scrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e) {
             if (!IsSinglePost) {
                 if (sv == null)
@@ -305,11 +306,7 @@ namespace Core.Utils.Controls {
                     if (!e.IsIntermediate) {
                         if (sv.VerticalOffset == 0.0 && _isPullRefresh) {
                             Debug.WriteLine("Refreshing feed.");
-                            LastPostID = "";
-                            FirstPostID = "";
-                            var x = Posts.ItemsSource as ObservableCollection<Post>;
-                            x.Clear();
-                            LoadPosts(true);
+                            RefreshPosts();
                         }
 
                         sv.ChangeView(null, 60.0, null);
@@ -342,7 +339,7 @@ namespace Core.Utils.Controls {
                 return true;
             } catch (Exception ex) {
                 MainPage.AlertFlyout.DisplayMessage("Unable to save photo.");
-                DiagnosticsManager.LogException(ex, TAG, "Unable to save media to photos folder.");
+                Analytics.AnalyticsManager.LogException(ex, TAG, "Unable to save media to photos folder.");
                 return false;
             }
         }
@@ -359,7 +356,6 @@ namespace Core.Utils.Controls {
                 audioPlayer.Tag = "Paused";
                 ((AppBarButton)sender).Icon = new SymbolIcon() { Symbol = Symbol.Play };
             }
-
         }
 
         private void StopButton_Click(object sender, RoutedEventArgs e) {
@@ -441,12 +437,7 @@ namespace Core.Utils.Controls {
                     var saved = await SaveFileAsync(new Uri(selectedItem.Tag.ToString()));
                     Debug.WriteLine(saved);
                 } else if (selectedItem.Text.ToString().ToLowerInvariant() == "Post details".ToLowerInvariant()) {
-                    if (!IsSinglePost) {
-                        var frame = Window.Current.Content as Frame;
-                        if (!frame.Navigate(typeof(Pages.PostDetails), selectedItem.Tag.ToString())) {
-                            Debug.WriteLine("Failed to Navigate");
-                        }
-                    }
+                    GoToPostDetails(selectedItem, null);
                 } else if (selectedItem.Text.ToString().ToLowerInvariant() == "Share".ToLowerInvariant()) {
                     ShareURI = selectedItem.Tag.ToString();
                     Debug.WriteLine(ShareURI);
@@ -467,10 +458,6 @@ namespace Core.Utils.Controls {
 
             // If the menu was attached properly, we just need to call this handy method
             FlyoutBase.ShowAttachedFlyout(element);
-        }
-
-        private void ToTopButton_Click(object sender, RoutedEventArgs e) {
-            ScrollToTop();
         }
 
         private void GoToPostDetails(object sender, TappedRoutedEventArgs e) {
