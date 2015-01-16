@@ -1,6 +1,5 @@
 ﻿using APIWrapper.Client;
 using APIWrapper.Content.Model;
-using APIWrapper.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,6 +21,8 @@ namespace Core.Utils.Misc {
         private string FirstPostID;
         private string LastPostID;
         public int offset;
+
+
 
         public IncrementalPostLoader(string URL, int offset) {
             this.URL = URL;

@@ -9,7 +9,7 @@ namespace APIWrapper.Utils {
     public sealed partial class AlertDialog : UserControl {
 
         private static List<string> ErrorQueue = new List<string>();
-        
+
         public static bool IsAnimating;
 
         public AlertDialog() {

@@ -19,9 +19,7 @@ namespace APIWrapper.Client {
 
         private static string TAG = "Request";
 
-        private static HttpClient WebClient = new HttpClient();
-
-        public static bool ReloadAccountData = false;
+        private static HttpClient Client = new HttpClient();
 
         public static string GetPlainTextFromHtml(string htmlString) {
             if (htmlString != null) {
@@ -37,60 +35,43 @@ namespace APIWrapper.Client {
         }
 
         public static async Task<bool> RetrieveAccountInformation(string account) {
-            var requestResult = await RequestHandler.GET("https://api.tumblr.com/v2/user/info");
+            try {
+                var requestResult = await RequestHandler.GET("https://api.tumblr.com/v2/user/info");
 
-            if (requestResult.StatusCode == HttpStatusCode.OK) {
-                Debug.WriteLine("Account retrival successful");
-                try {
+                if (requestResult.StatusCode == HttpStatusCode.OK) {
+
                     var parsedData = JsonConvert.DeserializeObject<Responses.GetInfo>(await requestResult.Content.ReadAsStringAsync());
 
                     UserStore.UserBlogs.Clear();
-                    if (ReloadAccountData) {
-                        UserStore.CurrentBlog = null;
-                        ReloadAccountData = false;
-                    }
+
                     foreach (var b in parsedData.response.user.AccountBlogs) {
                         b.FollowingCount = parsedData.response.user.BlogsFollowingCount;
                         b.LikedPostCount = parsedData.response.user.LikedPostCount;
 
+                        if (b.Name == account) {
+                            UserStore.CurrentBlog = b;
+                        } else if (UserStore.CurrentBlog == null && b.IsPrimaryBlog)
+                            UserStore.CurrentBlog = b;
+                        else if (b.Name == UserStore.CurrentBlog.Name)
+                            UserStore.CurrentBlog = b;
+
                         UserStore.UserBlogs.Add(b);
-                        if (string.IsNullOrWhiteSpace(account)) {
-                            if (UserStore.CurrentBlog == null && b.IsPrimaryBlog)
-                                UserStore.CurrentBlog = b;
-                            else if (b.Name == UserStore.CurrentBlog.Name)
-                                UserStore.CurrentBlog = b;
-                        } else {
-                            if (b.Name == account)
-                                UserStore.CurrentBlog = b;
-                        }
                     }
+
                     return true;
-                } catch (Exception ex) {
-                    DiagnosticsManager.LogException(ex, TAG, "Failed to serailize account information.");
                 }
+            } catch (Exception ex) {
+                DiagnosticsManager.LogException(ex, TAG, "Failed to serailize account information.");
             }
-            DiagnosticsManager.LogException(null, TAG, await requestResult.Content.ReadAsStringAsync());
             return false;
         }
 
-        /// <summary>
-        /// Method to change status of post to 'Liked'
-        /// </summary>
-        /// <param name="id">The post's unique ID</param>
-        /// <param name="reblogKey">The key used to handle reblogging/liking this post</param>
-        /// <returns>Boolean to indicate if the request was completed</returns>
         public static async Task<bool> LikePost(string id, string reblogKey) {
             return (await RequestHandler.GET(Endpoints.LikePost,
                 string.Format("id={0}&reblog_key={1}", id, reblogKey)
                 )).StatusCode == HttpStatusCode.OK;
         }
 
-        /// <summary>
-        /// Method to change status of post to 'Liked'
-        /// </summary>
-        /// <param name="id">The post's unique ID</param>
-        /// <param name="reblogKey">The key used to handle reblogging/liking this post</param>
-        /// <returns>Boolean to indicate if the request was completed</returns>
         public static async Task<bool> UnlikePost(string id, string reblogKey) {
             return (await RequestHandler.GET(Endpoints.UnlikePost,
                 string.Format("id={0}&reblog_key={1}", id, reblogKey)
@@ -105,13 +86,8 @@ namespace APIWrapper.Client {
             return await RequestHandler.POST(Endpoints.Edit, parameters);
         }
 
-        /// <summary>
-        /// Method to reblog a post
-        /// </summary>
-        /// <param name="id">The post's unique ID</param>
-        /// <param name="reblogKey">The key used to handle reblogging/liking this post</param>
-        /// <returns>Boolean to indicate if the request was completed</returns>
-        public async static Task<bool> ReblogPost(string id, string reblogKey, string caption = "", string tags = "", string additionalParameters = "", string blogName = "") {
+        public async static Task<bool> ReblogPost(string id, string reblogKey, string caption = "",
+            string tags = "", string additionalParameters = "", string blogName = "") {
             return (await RequestHandler.POST(Endpoints.Reblog(blogName),
                 (string.Format("id={0}&reblog_key={1}", id, reblogKey) +
                 (!string.IsNullOrEmpty(caption) ? "&comment=" + caption : "") +
@@ -127,11 +103,6 @@ namespace APIWrapper.Client {
                 )).StatusCode == HttpStatusCode.Created;
         }
 
-        /// <summary>
-        /// Method to delete a post
-        /// </summary>
-        /// <param name="id">The post's unique ID</param>
-        /// <returns>Boolean to indicate if the request was completed</returns>
         public async static Task<bool> DeletePost(string id) {
             return (await RequestHandler.POST(Endpoints.DeletePost,
                 string.Format("state=published&id={0}", id)
@@ -176,8 +147,9 @@ namespace APIWrapper.Client {
         public static async Task<List<Activity.Notification>> RetrieveActivity() {
             try {
                 var result = await RequestHandler.GET("https://api.tumblr.com/v2/user/notifications");
+
                 if (result.StatusCode == HttpStatusCode.OK) {
-                    Responses.GetActivity activity = JsonConvert.DeserializeObject<Responses.GetActivity>(await result.Content.ReadAsStringAsync());
+                    var activity = JsonConvert.DeserializeObject<Responses.GetActivity>(await result.Content.ReadAsStringAsync());
                     var Notifications = new List<Activity.Notification>();
                     var NotificationDictionary = UserStore.NotificationIDs;
 
@@ -193,8 +165,6 @@ namespace APIWrapper.Client {
                                 }
                                 NotificationDictionary[b.Name] = Notifications.First().timestamp;
                             }
-                        } else {
-                            Debug.WriteLine("No blog set");
                         }
                     }
 
@@ -219,11 +189,10 @@ namespace APIWrapper.Client {
                 } else if (url.Contains("/tagged")) {
                     var searchTag = url.Split('?')[1];
                     var newUrl = url.Split('?')[0].Replace("?", "");
-                    newUrl = string.IsNullOrEmpty(lastPostID) ?
-                        newUrl + "?api_key=" + Authentication.ConsumerKey + "&" + searchTag :
-                        newUrl + "?api_key=" + Authentication.ConsumerKey + "&" + searchTag + "&before=" + lastPostID;
+                    newUrl = newUrl + "?api_key=" + Authentication.ConsumerKey + "&" + searchTag +
+                        (!string.IsNullOrEmpty(lastPostID) ? "&before=" + lastPostID : "");
 
-                    result = await WebClient.GetAsync(new Uri(newUrl));
+                    result = await Client.GetAsync(new Uri(newUrl));
                 } else {
                     if (string.IsNullOrEmpty(lastPostID))
                         result = await RequestHandler.GET(url, "api_key=" + Authentication.ConsumerKey);
@@ -265,7 +234,6 @@ namespace APIWrapper.Client {
                                 if (p.video_type == "youtube")
                                     p.type = "youtube";
                             }
-
                         }
                         return PostList;
                     } catch (Exception ex) {
@@ -282,10 +250,10 @@ namespace APIWrapper.Client {
             string UserInfoURI = string.Format(
                 "https://api.tumblr.com/v2/blog/{0}.tumblr.com/posts?id={1}&notes_info=true&api_key={2}",
                 UserStore.CurrentBlog.Name, post_id, Authentication.ConsumerKey);
-            var response = await WebClient.GetAsync(new Uri(UserInfoURI));
+
+            var response = await Client.GetAsync(new Uri(UserInfoURI));
             var result = await response.Content.ReadAsStringAsync();
 
-            Debug.WriteLine(result);
             if (result.Contains("status\":200")) {
                 try {
                     var LoadedPosts = new ObservableCollection<Post>();
@@ -330,7 +298,7 @@ namespace APIWrapper.Client {
 
         public static async Task<List<Responses.SpotlightResponse>> RetrieveSpotlight(bool forceRefresh = false) {
             if (string.IsNullOrEmpty(UserStore.CachedSpotlight) || forceRefresh) {
-                var response = await WebClient.GetAsync(new Uri(Endpoints.Spotlight));
+                var response = await Client.GetAsync(new Uri(Endpoints.Spotlight));
                 var result = await response.Content.ReadAsStringAsync();
 
                 if (result.Contains("status\":200")) {
@@ -343,14 +311,14 @@ namespace APIWrapper.Client {
         }
 
         public static async Task<List<Responses.SpotlightResponse>> TagDiscovery(bool forceRefresh = false) {
-            var response = await WebClient.GetAsync(new Uri(Endpoints.TagDiscovery));
+            var response = await Client.GetAsync(new Uri(Endpoints.TagDiscovery));
             var result = await response.Content.ReadAsStringAsync();
 
             return new List<Responses.SpotlightResponse>();
         }
 
-        public static async Task<string> GenerateMP4FromGIF(string gif) {
-            var response = await WebClient.GetAsync(new Uri("http://upload.gfycat.com/transcode?fetchUrl=" + gif));
+        public static async Task<string> GetConvertedGIFUri(string gif) {
+            var response = await Client.GetAsync(new Uri("http://upload.gfycat.com/transcode?fetchUrl=" + gif));
             var result = await response.Content.ReadAsStringAsync();
 
             return JsonConvert.DeserializeObject<GfyCat>(result).mp4Url;

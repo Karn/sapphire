@@ -31,11 +31,7 @@
     </Page.Transitions>
 
     <Grid x:Name="LayoutRoot" Loaded="LayoutRoot_Loaded">
-        <CommonControl:AlertDialog x:Name="_ErrorFlyout"
-                                   Height="95"
-                                   HorizontalAlignment="Stretch"
-                                   VerticalAlignment="Top"
-                                   Canvas.ZIndex="9999" />
+        <CommonControl:AlertDialog x:Name="_ErrorFlyout" />
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

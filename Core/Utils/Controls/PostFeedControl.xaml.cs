@@ -228,7 +228,7 @@ namespace Core.Utils.Controls {
                 if (((AppBarButton)sender).Tag.ToString() == "stopped") {
                     if (player.Tag != null && player.Source == null) {
                         App.DisplayStatus("Downloading GIF...");
-                        var mp4 = await CreateRequest.GenerateMP4FromGIF(player.Tag.ToString());
+                        var mp4 = await CreateRequest.GetConvertedGIFUri(player.Tag.ToString());
                         if (!string.IsNullOrWhiteSpace(mp4))
                             player.Source = new Uri(mp4);
                         else {

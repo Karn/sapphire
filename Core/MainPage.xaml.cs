@@ -1,17 +1,15 @@
-﻿using APIWrapper.AuthenticationManager;
-using APIWrapper.Client;
+﻿using APIWrapper.Client;
 using APIWrapper.Content;
 using APIWrapper.Utils;
 using Core.Shared.Common;
 using Core.Utils.Controls;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
-using Windows.ApplicationModel.Resources;
 using Windows.Phone.UI.Input;
 using Windows.System;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -57,13 +55,22 @@ namespace Core {
 
             Analytics.AnalyticsManager.RegisterView(TAG);
         }
+        private void LayoutRoot_Loaded(object sender, RoutedEventArgs e) {
+            HeaderAnimateIn.Begin();
+
+            if (!UserStore.EnableStatusBarBG)
+                StatusBarBG.Background = App.Current.Resources["PrimaryColor"] as SolidColorBrush;
+            else
+                StatusBarBG.Background = App.Current.Resources["PrimaryColorDark"] as SolidColorBrush;
+
+            CreateView();
+        }
 
         public async void CreateView() {
-            if (UserStore.CurrentBlog == null) {
-                if (await GetUserAccount() && UserStore.CurrentBlog != null) {
-                    Dashboard.LoadPosts();
-                    ActivityFeed.RetrieveNotifications();
-                }
+            if (await GetUserAccount() && UserStore.CurrentBlog != null) {
+                AccountPivot.DataContext = UserStore.CurrentBlog;
+                Dashboard.LoadPosts();
+                await ActivityFeed.RetrieveNotifications();
             }
         }
 
@@ -76,16 +83,6 @@ namespace Core {
                 AlertFlyout.DisplayMessage(App.LocaleResources.GetString("UnableToLoadAccount"));
             App.HideStatus();
             return false;
-        }
-
-        private void LayoutRoot_Loaded(object sender, RoutedEventArgs e) {
-            HeaderAnimateIn.Begin();
-            if (!UserStore.EnableStatusBarBG)
-                StatusBarBG.Background = App.Current.Resources["PrimaryColor"] as SolidColorBrush;
-            else
-                StatusBarBG.Background = App.Current.Resources["PrimaryColorDark"] as SolidColorBrush;
-
-            CreateView();
         }
 
         private void BackButtonPressed(object sender, BackPressedEventArgs e) {
@@ -115,7 +112,7 @@ namespace Core {
                 if (e.NavigationParameter.ToString().Contains("Account:")) {
                     var s = e.NavigationParameter.ToString().Split(' ');
                     await GetUserAccount(s[1]);
-                    ActivityFeed.RetrieveNotifications();
+                    await ActivityFeed.RetrieveNotifications();
                     NavigationPivot.SelectedIndex = 1;
                     NavigatedFromToast = true;
                 }
@@ -123,15 +120,14 @@ namespace Core {
 
             if (SwitchedAccount) {
                 NavigationPivot.SelectedIndex = 0;
-                CreateRequest.ReloadAccountData = true;
                 await GetUserAccount(string.Empty);
                 Dashboard.RefreshPosts();
-                ActivityFeed.RetrieveNotifications();
+                await ActivityFeed.RetrieveNotifications();
                 SwitchedAccount = false;
             } else if (SwitchedBlog) {
                 AccountPivot.DataContext = UserStore.CurrentBlog;
                 ActivityFeed.ClearPosts();
-                ActivityFeed.RetrieveNotifications();
+                await ActivityFeed.RetrieveNotifications();
                 SwitchedBlog = false;
             }
 
@@ -239,18 +235,19 @@ namespace Core {
         }
 
         private async void RefreshButton_Click(object sender, RoutedEventArgs e) {
+            RefreshButton.IsEnabled = false;
             switch (NavigationPivot.SelectedIndex) {
                 default:
                 case 0:
                     break;
                 case 1:
-                    ActivityFeed.RetrieveNotifications(); break;
+                    await ActivityFeed.RetrieveNotifications(); break;
                 case 2:
-                    await GetUserAccount(string.Empty);
-                    ActivityFeed.RetrieveNotifications(); break;
+                    await GetUserAccount(string.Empty); break;
                 case 3:
                     SpotlightTags.ItemsSource = await CreateRequest.RetrieveSpotlight(true); break;
             }
+            RefreshButton.IsEnabled = true;
         }
 
         private void AccountDetails_Tapped(object sender, TappedRoutedEventArgs e) {
@@ -291,10 +288,8 @@ namespace Core {
         }
 
         private async void Spotlight_Loaded(object sender, RoutedEventArgs e) {
-            if (SpotlightTags.ItemsSource == null || sender == null) {
-                if (Authentication.Utils.NetworkAvailable())
-                    SpotlightTags.ItemsSource = await CreateRequest.RetrieveSpotlight();
-            }
+            if (SpotlightTags.ItemsSource == null || sender == null)
+                SpotlightTags.ItemsSource = await CreateRequest.RetrieveSpotlight();
         }
 
         private void SearchText_KeyDown(object sender, KeyRoutedEventArgs e) {
