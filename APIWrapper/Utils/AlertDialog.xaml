@@ -20,9 +20,8 @@
     </UserControl.Resources>
 
     <StackPanel x:Name="ToastContainer"
-                Height="95"
                 VerticalAlignment="Top"
-                Canvas.ZIndex="9999999"
+                Canvas.ZIndex="9999"
                 RenderTransformOrigin="0.5,0.5">
         <StackPanel.RenderTransform>
             <CompositeTransform TranslateX="0" TranslateY="-95" />

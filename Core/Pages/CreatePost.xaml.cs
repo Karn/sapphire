@@ -1,7 +1,6 @@
 ﻿using APIWrapper.AuthenticationManager;
 using APIWrapper.Client;
 using APIWrapper.Content;
-using APIWrapper.Utils;
 using Core.Shared.Common;
 using Core.Utils.Misc;
 using System;
@@ -80,19 +79,6 @@ namespace Core.Pages {
 
         #region NavigationHelper registration
 
-        /// <summary>
-        /// The methods provided in this section are simply used to allow
-        /// NavigationHelper to respond to the page's navigation methods.
-        /// <para>
-        /// Page specific logic should be placed in event handlers for the  
-        /// <see cref="NavigationHelper.LoadState"/>
-        /// and <see cref="NavigationHelper.SaveState"/>.
-        /// The navigation parameter is available in the LoadState method 
-        /// in addition to page state preserved during an earlier session.
-        /// </para>
-        /// </summary>
-        /// <param name="e">Provides data for navigation methods and event
-        /// handlers that cannot cancel the navigation request.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e) {
             this.navigationHelper.OnNavigatedTo(e);
         }
@@ -299,8 +285,9 @@ namespace Core.Pages {
                 }
                 parameterString += status;
                 if (image != null) {
-                    var result = await RequestHandler.POST("https://api.tumblr.com/v2/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/post", image, parameterString);
-                    Debug.WriteLine(await result.Content.ReadAsStringAsync());
+                    var result = await RequestHandler.POST("https://api.tumblr.com/v2/blog/" +
+                        UserStore.CurrentBlog.Name + ".tumblr.com/post", image, parameterString);
+
                     if (result.StatusCode == HttpStatusCode.Created) {
                         Type.IsEnabled = true;
                         App.HideStatus();

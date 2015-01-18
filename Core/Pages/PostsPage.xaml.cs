@@ -36,20 +36,20 @@ namespace Core.Pages {
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
-            PostList.URL = e.NavigationParameter.ToString();
-            if (PostList.URL.Contains("/likes")) {
+            PostFeed.URL = e.NavigationParameter.ToString();
+            if (PostFeed.URL.Contains("/likes")) {
                 PageTitle.Text = "Likes";
-            } else if (PostList.URL.Contains("/tagged")) {
-                var x = PostList.URL.Split('?');
+            } else if (PostFeed.URL.Contains("/tagged")) {
+                var x = PostFeed.URL.Split('?');
                 var y = x[1].Split('&');
                 tag = Uri.UnescapeDataString(y[0].Substring(4));
                 PageTitle.Text = "Search: " + tag.Replace('+', ' ');
                 Mode.Visibility = Visibility.Visible;
-            } else if (PostList.URL.Contains("/submission")) {
+            } else if (PostFeed.URL.Contains("/submission")) {
                 PageTitle.Text = "Inbox";
-            } else if (PostList.URL.Contains("/draft")) {
+            } else if (PostFeed.URL.Contains("/draft")) {
                 PageTitle.Text = "Drafts";
-            } else if (PostList.URL.Contains("/queue")) {
+            } else if (PostFeed.URL.Contains("/queue")) {
                 PageTitle.Text = "Queue";
             }
 
@@ -85,16 +85,16 @@ namespace Core.Pages {
 
         private void PostList_Loaded(object sender, RoutedEventArgs e) {
             if (!loaded) {
-                PostList.LoadPosts(true);
+                PostFeed.LoadPosts(true);
                 loaded = true;
             }
         }
 
         private async void Mode_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (PostList.Visibility == Visibility.Visible) {
+            if (PostFeed.Visibility == Visibility.Visible) {
                 Mode.Source = TagsIcon;
                 ToTop.Visibility = Visibility.Collapsed;
-                PostList.Visibility = Visibility.Collapsed;
+                PostFeed.Visibility = Visibility.Collapsed;
                 BlogSearch.Visibility = Visibility.Visible;
                 if (BlogSearch.ItemsSource == null) {
                     if (APIWrapper.AuthenticationManager.Authentication.Utils.NetworkAvailable())
@@ -103,7 +103,7 @@ namespace Core.Pages {
             } else {
                 Mode.Source = BlogsIcon;
                 ToTop.Visibility = Visibility.Visible;
-                PostList.Visibility = Visibility.Visible;
+                PostFeed.Visibility = Visibility.Visible;
                 BlogSearch.Visibility = Visibility.Collapsed;
             }
         }
@@ -117,7 +117,23 @@ namespace Core.Pages {
         }
 
         private void ToTop_Tapped(object sender, TappedRoutedEventArgs e) {
-            PostList.ScrollToTop();
+            PostFeed.ScrollToTop();
+        }
+
+        private async void FollowUnfollowButton_Tapped(object sender, TappedRoutedEventArgs e) {
+            var x = ((Button)sender);
+            if (x.Content.ToString().ToLower() == "follow") {
+                App.DisplayStatus("Following user...");
+                if (await CreateRequest.FollowUnfollow(true, x.Tag.ToString())) {
+                    x.Content = "UNFOLLOW";
+                }
+            } else if (x.Content.ToString().ToLower() == "unfollow") {
+                App.DisplayStatus("Unfollowing user...");
+                if (await CreateRequest.FollowUnfollow(false, x.Tag.ToString())) {
+                    x.Content = "FOLLOW";
+                }
+            }
+            App.HideStatus();
         }
     }
 }
