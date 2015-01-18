@@ -107,7 +107,6 @@ namespace APIWrapper.AuthenticationManager {
             } catch (Exception ex) {
                 AuthenticatedTokens = new Dictionary<string, string>();
                 AuthenticatedSecretTokens = new Dictionary<string, string>();
-                DiagnosticsManager.LogException(ex, TAG, "Cannot load from storage; Assigned default values.");
             }
         }
 
@@ -117,7 +116,6 @@ namespace APIWrapper.AuthenticationManager {
                 LocalSettings.Values["AccountTokens"] = JsonConvert.SerializeObject(AuthenticatedTokens);
                 LocalSettings.Values["AccountSecretTokens"] = JsonConvert.SerializeObject(AuthenticatedSecretTokens);
             } catch (Exception ex) {
-                DiagnosticsManager.LogException(ex, TAG, "Cannot save to storage.");
             }
         }
 

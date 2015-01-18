@@ -24,11 +24,11 @@ namespace BackgroundUtilities {
 
             BackgroundTaskDeferral _deferral = taskInstance.GetDeferral();
 
-            new UserStore();
-            var x = UserStore.NotificationIDs;
+            new UserStorageUtils();
+            var x = UserStorageUtils.NotificationIDs;
             if (x != null)
                 NotificationDictionary = x;
-            if (UserStore.NotificationsEnabled)
+            if (UserStorageUtils.NotificationsEnabled)
                 await RetrieveNotifications();
 
             _deferral.Complete();
@@ -37,7 +37,7 @@ namespace BackgroundUtilities {
         private async Task RetrieveNotifications() {
 
             try {
-                var Response = await APIWrapper.Client.RequestHandler.GET("https://api.tumblr.com/v2/user/notifications");
+                var Response = await APIWrapper.Client.RequestService.GET("https://api.tumblr.com/v2/user/notifications");
 
                 if (Response.StatusCode == System.Net.HttpStatusCode.OK) {
                     var activity = JsonConvert.DeserializeObject<Responses.GetActivity>(await Response.Content.ReadAsStringAsync());
@@ -57,10 +57,9 @@ namespace BackgroundUtilities {
                     }
                 }
 
-                UserStore.NotificationIDs = NotificationDictionary;
+                UserStorageUtils.NotificationIDs = NotificationDictionary;
                 DisplayNotification();
             } catch (Exception ex) {
-                DiagnosticsManager.LogException(ex, TAG, "Failed to serialize activity for notifications.");
             }
         }
 

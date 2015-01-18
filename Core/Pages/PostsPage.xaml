@@ -28,7 +28,7 @@
         </StackPanel>
 
         <!--TODO: Content should be placed within the following grid-->
-        <controls:PostFeedControl Visibility="Visible" x:Name="PostFeed" Grid.Row="1" Margin="0" AffectHeader="False" Loaded="PostList_Loaded"/>
+        <controls:PostFeedControl Visibility="Visible" x:Name="PostFeed" Grid.Row="1" Margin="0" AffectHeader="False" Loaded="FeedLoaded"/>
         <ListView x:Name="BlogSearch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Visibility="Collapsed" Grid.Row="1" ItemsSource="{Binding}" ScrollViewer.VerticalScrollMode="Enabled">
             <ListView.ItemTemplate>
                 <DataTemplate>

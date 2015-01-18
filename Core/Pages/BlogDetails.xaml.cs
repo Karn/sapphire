@@ -101,11 +101,11 @@ namespace Core.Pages {
         private void Fav_Tapped(object sender, TappedRoutedEventArgs e) {
             if (((TextBlock)sender).Tag != null) {
                 var name = ((TextBlock)sender).Tag.ToString();
-                if (UserStore.FavBlogList.Any(b => b.Name == name)) {
-                    UserStore.RemoveFav(name);
+                if (UserStorageUtils.FavBlogList.Any(b => b.Name == name)) {
+                    UserStorageUtils.RemoveFav(name);
                     ((TextBlock)sender).Text = "add to favorites";
                 } else {
-                    UserStore.AddFav(name);
+                    UserStorageUtils.AddFav(name);
                     ((TextBlock)sender).Text = "remove from favorites";
                 }
             }
@@ -122,7 +122,7 @@ namespace Core.Pages {
         private void Flyout_Loaded(object sender, RoutedEventArgs e) {
             if (((StackPanel)sender).Tag != null) {
                 var name = ((StackPanel)sender).Tag.ToString();
-                if (UserStore.FavBlogList.Any(b => b.Name == name)) {
+                if (UserStorageUtils.FavBlogList.Any(b => b.Name == name)) {
                     ((TextBlock)((StackPanel)sender).FindName("fav")).Text = "remove from favorites";
                 } else {
                     ((TextBlock)((StackPanel)sender).FindName("fav")).Text = "add to favorites";

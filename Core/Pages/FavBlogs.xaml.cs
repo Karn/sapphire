@@ -23,7 +23,7 @@ namespace Core.Pages {
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-            List.ItemsSource = UserStore.FavBlogList;
+            List.ItemsSource = UserStorageUtils.FavBlogList;
             MainPage.AlertFlyout = _ErrorFlyout;
         }
 
@@ -86,7 +86,7 @@ namespace Core.Pages {
         #endregion
 
         private void SelectBlogButton_Tapped(object sender, TappedRoutedEventArgs e) {
-            UserStore.CurrentBlog = ((Button)sender).Tag as Blog;
+            UserStorageUtils.CurrentBlog = ((Button)sender).Tag as Blog;
             MainPage.SwitchedBlog = true;
             Frame.GoBack();
         }

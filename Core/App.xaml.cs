@@ -31,9 +31,9 @@ namespace Core {
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
 
-            new UserStore();
+            new UserStorageUtils();
 
-            RequestedTheme = UserStore.SelectedTheme == "Dark" ?
+            RequestedTheme = UserStorageUtils.SelectedTheme == "Dark" ?
                 ApplicationTheme.Dark :
                 ApplicationTheme.Light;
         }

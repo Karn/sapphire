@@ -30,7 +30,7 @@ namespace Core.Pages {
 
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 
-            List.ItemsSource = UserStore.UserBlogs;
+            List.ItemsSource = UserStorageUtils.UserBlogs;
             MainPage.AlertFlyout = _ErrorFlyout;
         }
 

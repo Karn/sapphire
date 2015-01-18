@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace APIWrapper.Client {
-    internal class Endpoints {
+    internal class EndpointManager {
 
         //API connection URI
         private static string APIURI = "https://api.tumblr.com/v2";
@@ -25,14 +25,13 @@ namespace APIWrapper.Client {
         public static string Spotlight = APIURI + "/spotlight/directories?api_key=" + Authentication.ConsumerKey;
         public static string TagDiscovery = APIURI + "/tag_discovery?api_key=" + Authentication.ConsumerKey;
         public static string Following = APIURI + "/user/following";
-        public static string Followers = APIURI + "/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/followers";
-        public static string Post = APIURI + "/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/post";
-        //public static string ReblogPost = APIURI + "/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/post/reblog";
-        public static string Reblog(string blogName = "") { return APIURI + "/blog/" + (!string.IsNullOrWhiteSpace(blogName) ? blogName : UserStore.CurrentBlog.Name) + ".tumblr.com/post/reblog"; }
-        public static string Edit = APIURI + "/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/post/edit";
-        public static string DeletePost = APIURI + "/blog/" + UserStore.CurrentBlog.Name + ".tumblr.com/post/delete";
-        public static string Inbox = APIURI + "/blog/" + UserStore.CurrentBlog.Name + "/posts/submission";
-        public static string Drafts = APIURI + "/blog/" + UserStore.CurrentBlog.Name + "/posts/draft";
-        public static string Queue = APIURI + "/blog/" + UserStore.CurrentBlog.Name + "/posts/queue";
+        public static string Followers = APIURI + "/blog/" + UserStorageUtils.CurrentBlog.Name + ".tumblr.com/followers";
+        public static string Post = APIURI + "/blog/" + UserStorageUtils.CurrentBlog.Name + ".tumblr.com/post";
+        public static string Reblog(string blogName = "") { return APIURI + "/blog/" + (!string.IsNullOrWhiteSpace(blogName) ? blogName : UserStorageUtils.CurrentBlog.Name) + ".tumblr.com/post/reblog"; }
+        public static string Edit = APIURI + "/blog/" + UserStorageUtils.CurrentBlog.Name + ".tumblr.com/post/edit";
+        public static string DeletePost = APIURI + "/blog/" + UserStorageUtils.CurrentBlog.Name + ".tumblr.com/post/delete";
+        public static string Inbox = APIURI + "/blog/" + UserStorageUtils.CurrentBlog.Name + "/posts/submission";
+        public static string Drafts = APIURI + "/blog/" + UserStorageUtils.CurrentBlog.Name + "/posts/draft";
+        public static string Queue = APIURI + "/blog/" + UserStorageUtils.CurrentBlog.Name + "/posts/queue";
     }
 }

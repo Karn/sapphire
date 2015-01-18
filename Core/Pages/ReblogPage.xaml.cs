@@ -225,17 +225,17 @@ namespace Core.Pages {
         }
 
         private void ReblogToOptions_Loaded(object sender, RoutedEventArgs e) {
-            var mainblog = UserStore.UserBlogs.First();
+            var mainblog = UserStorageUtils.UserBlogs.First();
             ReblogToOptions.DataContext = mainblog;
         }
 
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e) {
-            ReblogToOptions.DataContext = UserStore.UserBlogs.Where(b => b.Name == ((TextBlock)sender).Text).FirstOrDefault();
+            ReblogToOptions.DataContext = UserStorageUtils.UserBlogs.Where(b => b.Name == ((TextBlock)sender).Text).FirstOrDefault();
             Grid_Tapped(null, null);
         }
 
         private void ListView_Loaded(object sender, RoutedEventArgs e) {
-            ((ListView)sender).ItemsSource = UserStore.UserBlogs;
+            ((ListView)sender).ItemsSource = UserStorageUtils.UserBlogs;
         }
 
         private void ReblogToOptions_Tapped(object sender, TappedRoutedEventArgs e) {

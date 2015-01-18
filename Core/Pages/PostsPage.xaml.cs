@@ -4,7 +4,6 @@ using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
@@ -13,10 +12,7 @@ using Windows.UI.Xaml.Navigation;
 namespace Core.Pages {
     public sealed partial class PostsPage : Page {
         private NavigationHelper navigationHelper;
-
-        public static ImageSource BlogsIcon = App.Current.Resources["BlogsIcon"] as BitmapImage;
-        public static ImageSource TagsIcon = App.Current.Resources["TagsIcon"] as BitmapImage;
-
+        
         bool loaded = false;
         string tag = "";
 
@@ -83,7 +79,7 @@ namespace Core.Pages {
 
         #endregion
 
-        private void PostList_Loaded(object sender, RoutedEventArgs e) {
+        private void FeedLoaded(object sender, RoutedEventArgs e) {
             if (!loaded) {
                 PostFeed.LoadPosts(true);
                 loaded = true;
@@ -92,16 +88,15 @@ namespace Core.Pages {
 
         private async void Mode_Tapped(object sender, TappedRoutedEventArgs e) {
             if (PostFeed.Visibility == Visibility.Visible) {
-                Mode.Source = TagsIcon;
+                Mode.Source = App.Current.Resources["TagsIcon"] as BitmapImage; ;
                 ToTop.Visibility = Visibility.Collapsed;
                 PostFeed.Visibility = Visibility.Collapsed;
                 BlogSearch.Visibility = Visibility.Visible;
                 if (BlogSearch.ItemsSource == null) {
-                    if (APIWrapper.AuthenticationManager.Authentication.Utils.NetworkAvailable())
-                        BlogSearch.ItemsSource = await CreateRequest.BlogSearch(tag);
+                    BlogSearch.ItemsSource = await CreateRequest.BlogSearch(tag);
                 }
             } else {
-                Mode.Source = BlogsIcon;
+                Mode.Source = App.Current.Resources["BlogsIcon"] as BitmapImage;
                 ToTop.Visibility = Visibility.Visible;
                 PostFeed.Visibility = Visibility.Visible;
                 BlogSearch.Visibility = Visibility.Collapsed;
@@ -121,16 +116,16 @@ namespace Core.Pages {
         }
 
         private async void FollowUnfollowButton_Tapped(object sender, TappedRoutedEventArgs e) {
-            var x = ((Button)sender);
-            if (x.Content.ToString().ToLower() == "follow") {
+            var btn = (Button)sender;
+            if (btn.Content.ToString().ToLower() == "follow") {
                 App.DisplayStatus("Following user...");
-                if (await CreateRequest.FollowUnfollow(true, x.Tag.ToString())) {
-                    x.Content = "UNFOLLOW";
+                if (await CreateRequest.FollowUnfollow(true, btn.Tag.ToString())) {
+                    btn.Content = "UNFOLLOW";
                 }
-            } else if (x.Content.ToString().ToLower() == "unfollow") {
+            } else if (btn.Content.ToString().ToLower() == "unfollow") {
                 App.DisplayStatus("Unfollowing user...");
-                if (await CreateRequest.FollowUnfollow(false, x.Tag.ToString())) {
-                    x.Content = "FOLLOW";
+                if (await CreateRequest.FollowUnfollow(false, btn.Tag.ToString())) {
+                    btn.Content = "FOLLOW";
                 }
             }
             App.HideStatus();

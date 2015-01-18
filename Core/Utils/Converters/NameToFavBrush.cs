@@ -10,7 +10,7 @@ namespace Core.Utils.Converters {
 
         public object Convert(object value, Type targetType, object parameter, string language) {
             if (value.ToString() != null) {
-                if (UserStore.FavBlogList.Any(b => b.Name == value.ToString()))
+                if (UserStorageUtils.FavBlogList.Any(b => b.Name == value.ToString()))
                     return App.Current.Resources["DefaultFavAsset"] as BitmapImage;
             }
             return App.Current.Resources["DefaultUnfavAsset"] as BitmapImage;

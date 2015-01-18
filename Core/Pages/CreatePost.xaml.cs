@@ -285,8 +285,8 @@ namespace Core.Pages {
                 }
                 parameterString += status;
                 if (image != null) {
-                    var result = await RequestHandler.POST("https://api.tumblr.com/v2/blog/" +
-                        UserStore.CurrentBlog.Name + ".tumblr.com/post", image, parameterString);
+                    var result = await RequestService.POST("https://api.tumblr.com/v2/blog/" +
+                        UserStorageUtils.CurrentBlog.Name + ".tumblr.com/post", image, parameterString);
 
                     if (result.StatusCode == HttpStatusCode.Created) {
                         Type.IsEnabled = true;

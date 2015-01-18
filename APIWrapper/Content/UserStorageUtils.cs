@@ -8,7 +8,7 @@ using System.Linq;
 using APIWrapper.Content.Model;
 
 namespace APIWrapper.Content {
-    public class UserStore {
+    public class UserStorageUtils {
 
         public static string TAG = "UserStore";
 
@@ -18,7 +18,7 @@ namespace APIWrapper.Content {
 
         private static ApplicationDataContainer Settings = ApplicationData.Current.LocalSettings;
 
-        public UserStore() {
+        public UserStorageUtils() {
             if (Settings.Values["Theme"] != null) {
                 Settings.Values.Clear();
                 Debug.WriteLine("Cleared Settings.");
@@ -35,7 +35,6 @@ namespace APIWrapper.Content {
                     FavBlogList = FavBlogs;
                 }
             } catch (Exception ex) {
-                Utils.DiagnosticsManager.LogException(ex, TAG, "Failed to add blog to favorites.");
             }
         }
         public static void RemoveFav(string name) {
@@ -45,7 +44,6 @@ namespace APIWrapper.Content {
                     FavBlogList = FavBlogs;
                 }
             } catch (Exception ex) {
-                Utils.DiagnosticsManager.LogException(ex, TAG, "Failed to remove blog from favorites.");
             }
         }
 

@@ -8,8 +8,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
-
 namespace Core {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
@@ -63,12 +61,9 @@ namespace Core {
             }
 
             if (rootFrame.Content == null) {
-                // When the navigation stack isn't restored navigate to the first page,
-                // configuring the new page by passing required information as a navigation
-                // parameter
                 new Authentication();
                 if (Authentication.AuthenticatedTokens.Count != 0 && Authentication.AuthenticatedSecretTokens.Count != 0) {
-                    new APIWrapper.Utils.DiagnosticsManager(Current);
+
                     if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
                         throw new Exception("Failed to create initial page");
                 } else {

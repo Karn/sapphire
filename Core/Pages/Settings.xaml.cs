@@ -56,13 +56,13 @@ namespace Core.Pages {
         /// a dictionary of state preserved by this page during an earlier
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
-            if (UserStore.SelectedTheme == "Dark")
+            if (UserStorageUtils.SelectedTheme == "Dark")
                 ThemeSwitch.IsOn = true;
-            EnableNotifications.IsOn = UserStore.NotificationsEnabled;
-            EnableOneClickReblog.IsOn = UserStore.OneClickReblog;
-            DisableTagsInPosts.IsOn = UserStore.TagsInPosts;
-            AnalyticsSwitch.IsOn = UserStore.EnableAnalytics;
-            StatusBarBGToggle.IsOn = UserStore.EnableStatusBarBG;
+            EnableNotifications.IsOn = UserStorageUtils.NotificationsEnabled;
+            EnableOneClickReblog.IsOn = UserStorageUtils.OneClickReblog;
+            DisableTagsInPosts.IsOn = UserStorageUtils.TagsInPosts;
+            AnalyticsSwitch.IsOn = UserStorageUtils.EnableAnalytics;
+            StatusBarBGToggle.IsOn = UserStorageUtils.EnableStatusBarBG;
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) {
@@ -91,32 +91,32 @@ namespace Core.Pages {
         }
 
         private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e) {
-            UserStore.SelectedTheme = ((ToggleSwitch)sender).IsOn ? "Dark" : "Light";
+            UserStorageUtils.SelectedTheme = ((ToggleSwitch)sender).IsOn ? "Dark" : "Light";
         }
 
         private void EnableNotifications_Toggled(object sender, RoutedEventArgs e) {
-            UserStore.NotificationsEnabled = ((ToggleSwitch)sender).IsOn;
+            UserStorageUtils.NotificationsEnabled = ((ToggleSwitch)sender).IsOn;
         }
 
         private void EnableOneClickReblog_Toggled(object sender, RoutedEventArgs e) {
-            UserStore.OneClickReblog = ((ToggleSwitch)sender).IsOn;
+            UserStorageUtils.OneClickReblog = ((ToggleSwitch)sender).IsOn;
         }
 
         private void DisableTagsInPosts_Toggled(object sender, RoutedEventArgs e) {
-            UserStore.TagsInPosts = ((ToggleSwitch)sender).IsOn;
+            UserStorageUtils.TagsInPosts = ((ToggleSwitch)sender).IsOn;
         }
 
         private void AnalyticsSwitch_Toggled(object sender, RoutedEventArgs e) {
             if (((ToggleSwitch)sender).IsOn) {
-                UserStore.EnableAnalytics = true;
+                UserStorageUtils.EnableAnalytics = true;
                 Analytics.AnalyticsManager.EnableDiagnostics();
             } else {
-                UserStore.EnableAnalytics = false;
+                UserStorageUtils.EnableAnalytics = false;
             }
         }
 
         private void StatusBarBGToggle_Toggled(object sender, RoutedEventArgs e) {
-            UserStore.EnableStatusBarBG = ((ToggleSwitch)sender).IsOn;
+            UserStorageUtils.EnableStatusBarBG = ((ToggleSwitch)sender).IsOn;
         }
 
         private async void ShareOnTwitter_Click(object sender, RoutedEventArgs e) {

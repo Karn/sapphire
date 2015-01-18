@@ -1,10 +1,8 @@
-﻿using APIWrapper.Utils;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Security.Cryptography;
@@ -13,14 +11,6 @@ using Windows.Storage.Streams;
 
 namespace APIWrapper.AuthenticationManager {
     public class AuthenticationUtilities {
-
-        private string TAG = "AuthenticationUtilities";
-
-        public bool NetworkAvailable() {
-            if (NetworkInterface.GetIsNetworkAvailable())
-                return true;
-            return false;
-        }
 
         public string GetNonce() {
             StringBuilder builder = new StringBuilder();
@@ -67,21 +57,21 @@ namespace APIWrapper.AuthenticationManager {
 
         public async Task<string> PostAuthenticationData(string url, string postData) {
             try {
-                HttpClient httpClient = new HttpClient();
-                httpClient.MaxResponseContentBufferSize = int.MaxValue;
-                httpClient.DefaultRequestHeaders.ExpectContinue = false;
-                HttpRequestMessage requestMsg = new HttpRequestMessage();
+                using (var httpClient = new HttpClient()) {
+                    httpClient.MaxResponseContentBufferSize = int.MaxValue;
+                    httpClient.DefaultRequestHeaders.ExpectContinue = false;
+                    HttpRequestMessage requestMsg = new HttpRequestMessage();
 
-                requestMsg.Content = new StringContent(postData);
-                requestMsg.Method = new HttpMethod("POST");
-                requestMsg.RequestUri = new Uri(url, UriKind.Absolute);
-                requestMsg.Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+                    requestMsg.Content = new StringContent(postData);
+                    requestMsg.Method = new HttpMethod("POST");
+                    requestMsg.RequestUri = new Uri(url, UriKind.Absolute);
+                    requestMsg.Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 
-                var response = await httpClient.SendAsync(requestMsg);
-                Debug.WriteLine(response);
-                return await response.Content.ReadAsStringAsync();
+                    var response = await httpClient.SendAsync(requestMsg);
+                    Debug.WriteLine(response);
+                    return await response.Content.ReadAsStringAsync();
+                }
             } catch (Exception ex) {
-                DiagnosticsManager.LogException(ex, TAG, "Cannot load from storage; Assigned default values.");
                 return null;
             }
         }

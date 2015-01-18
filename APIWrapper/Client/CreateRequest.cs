@@ -36,59 +36,58 @@ namespace APIWrapper.Client {
 
         public static async Task<bool> RetrieveAccountInformation(string account) {
             try {
-                var requestResult = await RequestHandler.GET("https://api.tumblr.com/v2/user/info");
+                var requestResult = await RequestService.GET("https://api.tumblr.com/v2/user/info");
 
                 if (requestResult.StatusCode == HttpStatusCode.OK) {
 
                     var parsedData = JsonConvert.DeserializeObject<Responses.GetInfo>(await requestResult.Content.ReadAsStringAsync());
 
-                    UserStore.UserBlogs.Clear();
+                    UserStorageUtils.UserBlogs.Clear();
 
                     foreach (var b in parsedData.response.user.AccountBlogs) {
                         b.FollowingCount = parsedData.response.user.BlogsFollowingCount;
                         b.LikedPostCount = parsedData.response.user.LikedPostCount;
 
                         if (b.Name == account) {
-                            UserStore.CurrentBlog = b;
-                        } else if (UserStore.CurrentBlog == null && b.IsPrimaryBlog)
-                            UserStore.CurrentBlog = b;
-                        else if (b.Name == UserStore.CurrentBlog.Name)
-                            UserStore.CurrentBlog = b;
+                            UserStorageUtils.CurrentBlog = b;
+                        } else if (UserStorageUtils.CurrentBlog == null && b.IsPrimaryBlog)
+                            UserStorageUtils.CurrentBlog = b;
+                        else if (b.Name == UserStorageUtils.CurrentBlog.Name)
+                            UserStorageUtils.CurrentBlog = b;
 
-                        UserStore.UserBlogs.Add(b);
+                        UserStorageUtils.UserBlogs.Add(b);
                     }
 
                     return true;
                 }
             } catch (Exception ex) {
-                DiagnosticsManager.LogException(ex, TAG, "Failed to serailize account information.");
             }
             return false;
         }
 
         public static async Task<bool> LikePost(string id, string reblogKey) {
-            return (await RequestHandler.GET(Endpoints.LikePost,
+            return (await RequestService.GET(EndpointManager.LikePost,
                 string.Format("id={0}&reblog_key={1}", id, reblogKey)
                 )).StatusCode == HttpStatusCode.OK;
         }
 
         public static async Task<bool> UnlikePost(string id, string reblogKey) {
-            return (await RequestHandler.GET(Endpoints.UnlikePost,
+            return (await RequestService.GET(EndpointManager.UnlikePost,
                 string.Format("id={0}&reblog_key={1}", id, reblogKey)
                 )).StatusCode == HttpStatusCode.OK;
         }
 
         public static async Task<HttpResponseMessage> CreatePost(string parameters) {
-            return await RequestHandler.POST(Endpoints.Post, parameters);
+            return await RequestService.POST(EndpointManager.Post, parameters);
         }
 
         public static async Task<HttpResponseMessage> CreateReply(string parameters) {
-            return await RequestHandler.POST(Endpoints.Edit, parameters);
+            return await RequestService.POST(EndpointManager.Edit, parameters);
         }
 
         public async static Task<bool> ReblogPost(string id, string reblogKey, string caption = "",
             string tags = "", string additionalParameters = "", string blogName = "") {
-            return (await RequestHandler.POST(Endpoints.Reblog(blogName),
+            return (await RequestService.POST(EndpointManager.Reblog(blogName),
                 (string.Format("id={0}&reblog_key={1}", id, reblogKey) +
                 (!string.IsNullOrEmpty(caption) ? "&comment=" + caption : "") +
                 (!string.IsNullOrEmpty(tags) ? "&tags=" + tags : "") +
@@ -98,13 +97,13 @@ namespace APIWrapper.Client {
         }
 
         public async static Task<bool> PostDraft(string id) {
-            return (await RequestHandler.POST(Endpoints.Edit,
+            return (await RequestService.POST(EndpointManager.Edit,
                 string.Format("state=published&id={0}", id)
                 )).StatusCode == HttpStatusCode.Created;
         }
 
         public async static Task<bool> DeletePost(string id) {
-            return (await RequestHandler.POST(Endpoints.DeletePost,
+            return (await RequestService.POST(EndpointManager.DeletePost,
                 string.Format("state=published&id={0}", id)
                 )).StatusCode == HttpStatusCode.OK;
         }
@@ -116,8 +115,8 @@ namespace APIWrapper.Client {
         /// <param name="blogName">The name of the blog that is affectd by the API call</param>
         /// <returns></returns>
         public static async Task<bool> FollowUnfollow(bool follow, string blogName) {
-            return (follow ? await RequestHandler.POST(Endpoints.FollowUser,
-                string.Format("url={0}.tumblr.com", blogName)) : await RequestHandler.POST(Endpoints.UnfollowUser,
+            return (follow ? await RequestService.POST(EndpointManager.FollowUser,
+                string.Format("url={0}.tumblr.com", blogName)) : await RequestService.POST(EndpointManager.UnfollowUser,
                 string.Format("url={0}.tumblr.com", blogName))
                 ).StatusCode == HttpStatusCode.OK;
         }
@@ -127,7 +126,7 @@ namespace APIWrapper.Client {
         /// </summary>
         /// <returns>List of blogs</returns>
         public static async Task<List<Blog>> RetrieveFollowers(int offset) {
-            var requestResult = await RequestHandler.GET(Endpoints.Followers, string.Format("offset={0}", offset));
+            var requestResult = await RequestService.GET(EndpointManager.Followers, string.Format("offset={0}", offset));
             return (requestResult.StatusCode == HttpStatusCode.OK) ?
                 JsonConvert.DeserializeObject<Responses.GetFollowers>(await requestResult.Content.ReadAsStringAsync())
                 .response.users : new List<Blog>();
@@ -138,24 +137,24 @@ namespace APIWrapper.Client {
         /// </summary>
         /// <returns>List of blogs</returns>
         public static async Task<List<Blog>> RetrieveFollowing(int offset) {
-            var requestResult = await RequestHandler.GET(Endpoints.Following, string.Format("offset={0}", offset));
+            var requestResult = await RequestService.GET(EndpointManager.Following, string.Format("offset={0}", offset));
             return (requestResult.StatusCode == HttpStatusCode.OK) ?
                 JsonConvert.DeserializeObject<Responses.GetFollowing>(await requestResult.Content.ReadAsStringAsync())
                 .response.blogs : new List<Blog>();
         }
 
         public static async Task<List<Activity.Notification>> RetrieveActivity() {
-            try {
-                var result = await RequestHandler.GET("https://api.tumblr.com/v2/user/notifications");
+            if (UserStorageUtils.CurrentBlog != null) {
+                try {
+                    var result = await RequestService.GET("https://api.tumblr.com/v2/user/notifications");
 
-                if (result.StatusCode == HttpStatusCode.OK) {
-                    var activity = JsonConvert.DeserializeObject<Responses.GetActivity>(await result.Content.ReadAsStringAsync());
-                    var Notifications = new List<Activity.Notification>();
-                    var NotificationDictionary = UserStore.NotificationIDs;
+                    if (result.StatusCode == HttpStatusCode.OK) {
+                        var activity = JsonConvert.DeserializeObject<Responses.GetActivity>(await result.Content.ReadAsStringAsync());
+                        var Notifications = new List<Activity.Notification>();
+                        var NotificationDictionary = UserStorageUtils.NotificationIDs;
 
-                    foreach (var b in activity.response.blogs) {
-                        if (UserStore.CurrentBlog != null) {
-                            if (b.Name.ToLower() == UserStore.CurrentBlog.Name.ToLower()) {
+                        foreach (var b in activity.response.blogs) {
+                            if (b.Name == UserStorageUtils.CurrentBlog.Name) {
                                 if (!NotificationDictionary.ContainsKey(b.Name)) {
                                     NotificationDictionary.Add(b.Name, 0);
                                 }
@@ -166,98 +165,90 @@ namespace APIWrapper.Client {
                                 NotificationDictionary[b.Name] = Notifications.First().timestamp;
                             }
                         }
-                    }
 
-                    UserStore.NotificationIDs = NotificationDictionary;
-                    return Notifications;
-                }
-            } catch (Exception ex1) {
-                DiagnosticsManager.LogException(ex1, TAG, "Unable to retrieve/serialize activity feed.");
+                        UserStorageUtils.NotificationIDs = NotificationDictionary;
+                        return Notifications;
+                    }
+                } catch (Exception ex) { }
             }
             return new List<Activity.Notification>();
         }
 
         public static async Task<List<Post>> RetrievePosts(string url, string lastPostID = "") {
-            if (Authentication.Utils.NetworkAvailable()) {
-                var result = new HttpResponseMessage();
-                if (url.Contains("/user/dashboard") || url.Contains("/submission") || url.Contains("/draft") || url.Contains("/queue")) {
-                    result = string.IsNullOrEmpty(lastPostID) ?
-                        result = await RequestHandler.GET(url) : await RequestHandler.GET(url, "max_id=" + lastPostID);
-                } else if (url.Contains("/user/likes")) {
-                    result = string.IsNullOrEmpty(lastPostID) ?
-                        await RequestHandler.GET(url) : await RequestHandler.GET(url, "offset=" + lastPostID);
-                } else if (url.Contains("/tagged")) {
-                    var searchTag = url.Split('?')[1];
-                    var newUrl = url.Split('?')[0].Replace("?", "");
-                    newUrl = newUrl + "?api_key=" + Authentication.ConsumerKey + "&" + searchTag +
-                        (!string.IsNullOrEmpty(lastPostID) ? "&before=" + lastPostID : "");
+            var result = new HttpResponseMessage();
+            if (url.Contains("/user/dashboard") || url.Contains("/submission") || url.Contains("/draft") || url.Contains("/queue")) {
+                result = string.IsNullOrEmpty(lastPostID) ?
+                    result = await RequestService.GET(url) : await RequestService.GET(url, "max_id=" + lastPostID);
+            } else if (url.Contains("/user/likes")) {
+                result = string.IsNullOrEmpty(lastPostID) ?
+                    await RequestService.GET(url) : await RequestService.GET(url, "offset=" + lastPostID);
+            } else if (url.Contains("/tagged")) {
+                var searchTag = url.Split('?')[1];
+                var newUrl = url.Split('?')[0].Replace("?", "");
+                newUrl = newUrl + "?api_key=" + Authentication.ConsumerKey + "&" + searchTag +
+                    (!string.IsNullOrEmpty(lastPostID) ? "&before=" + lastPostID : "");
 
-                    result = await Client.GetAsync(new Uri(newUrl));
-                } else {
-                    if (string.IsNullOrEmpty(lastPostID))
-                        result = await RequestHandler.GET(url, "api_key=" + Authentication.ConsumerKey);
-                    else
-                        result = await RequestHandler.GET(url, "offset=" + lastPostID + "&api_key=" + Authentication.ConsumerKey);
-                }
-
-                if (result.StatusCode == HttpStatusCode.OK) {
-                    try {
-                        var PostList = new List<Post>();
-                        var resultAsString = await result.Content.ReadAsStringAsync();
-                        if (url.Contains("/likes")) {
-                            PostList = JsonConvert.DeserializeObject<Responses.GetLikes>(resultAsString).response.liked_posts;
-                        } else if (url.Contains("/tagged")) {
-                            PostList = JsonConvert.DeserializeObject<Responses.GetTagged>(resultAsString).response;
-                        } else {
-                            var posts = JsonConvert.DeserializeObject<Responses.GetPosts>(resultAsString);
-                            PostList = posts.response.posts;
-                            if (url.Contains("/submission")) {
-                                foreach (var post in posts.response.posts) {
-                                    if (post.type == "answer")
-                                        post.body = post.question;
-                                    post.type = "mail";
-                                }
-                            } else if (url.Contains("/draft") || url.Contains("/queue")) {
-                                foreach (var post in posts.response.posts)
-                                    post.special_case = "draft";
-                            }
-                        }
-
-                        foreach (var p in PostList) {
-                            if (p.type == "photo") {
-                                if (p.path_to_low_res_pic.url.Contains(".gif")) {
-                                    p.type = "gif";
-                                }
-                                if (p.photos.Count > 1)
-                                    p.type = "photoset";
-                            } else if (p.type == "video") {
-                                if (p.video_type == "youtube")
-                                    p.type = "youtube";
-                            }
-                        }
-                        return PostList;
-                    } catch (Exception ex) {
-                        DiagnosticsManager.LogException(ex, TAG, "Failed to serailize posts.");
-                    }
-                } else {
-                    DiagnosticsManager.LogException(null, TAG, "Failed to retrieve posts.");
-                }
+                result = await Client.GetAsync(new Uri(newUrl));
+            } else {
+                result = string.IsNullOrEmpty(lastPostID) ?
+                    await RequestService.GET(url, "api_key=" + Authentication.ConsumerKey) :
+                    await RequestService.GET(url, "offset=" + lastPostID + "&api_key=" + Authentication.ConsumerKey);
             }
+
+            if (result.StatusCode == HttpStatusCode.OK) {
+                try {
+                    var PostList = new List<Post>();
+                    var resultAsString = await result.Content.ReadAsStringAsync();
+                    if (url.Contains("/likes")) {
+                        PostList = JsonConvert.DeserializeObject<Responses.GetLikes>(resultAsString).response.liked_posts;
+                    } else if (url.Contains("/tagged")) {
+                        PostList = JsonConvert.DeserializeObject<Responses.GetTagged>(resultAsString).response;
+                    } else {
+                        var posts = JsonConvert.DeserializeObject<Responses.GetPosts>(resultAsString);
+                        PostList = posts.response.posts;
+                        if (url.Contains("/submission")) {
+                            foreach (var post in posts.response.posts) {
+                                if (post.type == "answer")
+                                    post.body = post.question;
+                                post.type = "mail";
+                            }
+                        } else if (url.Contains("/draft") || url.Contains("/queue")) {
+                            foreach (var post in posts.response.posts)
+                                post.special_case = "draft";
+                        }
+                    }
+
+                    foreach (var p in PostList) {
+                        if (p.type == "photo") {
+                            if (p.path_to_low_res_pic.url.Contains(".gif")) {
+                                p.type = "gif";
+                            }
+                            if (p.photos.Count > 1)
+                                p.type = "photoset";
+                        } else if (p.type == "video") {
+                            if (p.video_type == "youtube")
+                                p.type = "youtube";
+                        }
+                    }
+                    return PostList;
+                } catch (Exception ex) {
+                }
+            } else {
+            }
+
             return new List<Post>() { new Post() { type = "nocontent" } };
         }
 
-        public static async Task<ObservableCollection<Post>> RetrievePost(string post_id) {
-            string UserInfoURI = string.Format(
+        public static async Task<List<Post>> RetrievePost(string post_id) {
+            var url = string.Format(
                 "https://api.tumblr.com/v2/blog/{0}.tumblr.com/posts?id={1}&notes_info=true&api_key={2}",
-                UserStore.CurrentBlog.Name, post_id, Authentication.ConsumerKey);
+                UserStorageUtils.CurrentBlog.Name, post_id, Authentication.ConsumerKey);
 
-            var response = await Client.GetAsync(new Uri(UserInfoURI));
+            var response = await Client.GetAsync(new Uri(url));
             var result = await response.Content.ReadAsStringAsync();
 
-            if (result.Contains("status\":200")) {
+            if (response.StatusCode == HttpStatusCode.OK) {
                 try {
-                    var LoadedPosts = new ObservableCollection<Post>();
-
                     var posts = JsonConvert.DeserializeObject<Responses.GetPosts>(result);
 
                     foreach (var p in posts.response.posts) {
@@ -271,47 +262,45 @@ namespace APIWrapper.Client {
                             if (p.video_type == "youtube")
                                 p.type = "youtube";
                         }
-                        LoadedPosts.Add(p);
                     }
-                    return LoadedPosts;
+                    return posts.response.posts;
                 } catch (Exception ex) {
-                    DiagnosticsManager.LogException(ex, TAG, "Failed to serailize single post.");
                 }
             }
-            DiagnosticsManager.LogException(null, TAG, "Failed to retrieve single post.");
-            return new ObservableCollection<Post>();
+            return null;
         }
 
         public static async Task<Blog> GetBlog(string name) {
-            var requestResult = await RequestHandler.GET(string.Format(Endpoints.Blog + "{0}.tumblr.com/info", name), "api_key=" + Authentication.ConsumerKey);
+            var requestResult = await RequestService.GET(string.Format(EndpointManager.Blog + "{0}.tumblr.com/info", name),
+                "api_key=" + Authentication.ConsumerKey);
             return (requestResult.StatusCode == HttpStatusCode.OK) ?
                 JsonConvert.DeserializeObject<Responses.GetBlog>(await requestResult.Content.ReadAsStringAsync())
                 .response.blog : new Blog();
         }
 
         public static async Task<List<Blog>> BlogSearch(string tag) {
-            var requestResult = await RequestHandler.GET(Endpoints.Search + tag, "api_key=" + Authentication.ConsumerKey);
+            var requestResult = await RequestService.GET(EndpointManager.Search + tag, "api_key=" + Authentication.ConsumerKey);
             return (requestResult.StatusCode == HttpStatusCode.OK) ?
                 JsonConvert.DeserializeObject<Responses.GetSearch>(await requestResult.Content.ReadAsStringAsync())
                 .response.blogs : new List<Blog>();
         }
 
         public static async Task<List<Responses.SpotlightResponse>> RetrieveSpotlight(bool forceRefresh = false) {
-            if (string.IsNullOrEmpty(UserStore.CachedSpotlight) || forceRefresh) {
-                var response = await Client.GetAsync(new Uri(Endpoints.Spotlight));
+            if (string.IsNullOrEmpty(UserStorageUtils.CachedSpotlight) || forceRefresh) {
+                var response = await Client.GetAsync(new Uri(EndpointManager.Spotlight));
                 var result = await response.Content.ReadAsStringAsync();
 
                 if (result.Contains("status\":200")) {
-                    UserStore.CachedSpotlight = result;
+                    UserStorageUtils.CachedSpotlight = result;
                     return JsonConvert.DeserializeObject<Responses.GetSpotlight>(result).response;
                 }
             } else
-                return JsonConvert.DeserializeObject<Responses.GetSpotlight>(UserStore.CachedSpotlight).response;
+                return JsonConvert.DeserializeObject<Responses.GetSpotlight>(UserStorageUtils.CachedSpotlight).response;
             return new List<Responses.SpotlightResponse>();
         }
 
         public static async Task<List<Responses.SpotlightResponse>> TagDiscovery(bool forceRefresh = false) {
-            var response = await Client.GetAsync(new Uri(Endpoints.TagDiscovery));
+            var response = await Client.GetAsync(new Uri(EndpointManager.TagDiscovery));
             var result = await response.Content.ReadAsStringAsync();
 
             return new List<Responses.SpotlightResponse>();
