@@ -128,13 +128,15 @@ namespace Core.Pages {
                 }
                 tagBox.Text = converted.TrimEnd(' ');
             } else if (e.Key == Windows.System.VirtualKey.Back) {
-                if (!"#, ".Contains(tagBox.Text.Last().ToString())) {
-                    var tags = ((TextBox)sender).Text.Split(',');
-                    var converted = "";
-                    for (var i = 0; i < tags.Count() - 1; i++) {
-                        converted += string.Format("#{0}, ", tags[i].Trim('#', ',', ' '));
+                if (!string.IsNullOrEmpty(tagBox.Text)) {
+                    if (!"#, ".Contains(tagBox.Text.Last().ToString())) {
+                        var tags = ((TextBox)sender).Text.Split(',');
+                        var converted = "";
+                        for (var i = 0; i < tags.Count() - 1; i++) {
+                            converted += string.Format("#{0}, ", tags[i].Trim('#', ',', ' '));
+                        }
+                        tagBox.Text = converted.TrimEnd(' ');
                     }
-                    tagBox.Text = converted.TrimEnd(' ');
                 }
             }
 

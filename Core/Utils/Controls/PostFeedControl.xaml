@@ -75,7 +75,7 @@
                                Stretch="UniformToFill" />
                     </Button>
                     <StackPanel Margin="5, 0">
-                        <TextBlock Margin="5, 5, 5, 0"
+                        <TextBlock Margin="5,5,50,0"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    FontSize="24"
