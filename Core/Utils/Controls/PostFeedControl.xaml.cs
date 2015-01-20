@@ -391,16 +391,16 @@ namespace Core.Utils.Controls {
             var selectedItem = sender as TextBlock;
 
             if (selectedItem != null) {
-                if (selectedItem.Text.ToString() == "Save to phone") {
+                if (selectedItem.Text.ToString() == "save to phone") {
                     SaveFileAsync(new Uri(selectedItem.Tag.ToString()));
-                } else if (selectedItem.Text.ToString().ToLowerInvariant() == "Post details".ToLowerInvariant()) {
+                } else if (selectedItem.Text.ToString() == "post details") {
                     GoToPostDetails(selectedItem, null);
-                } else if (selectedItem.Text.ToString().ToLowerInvariant() == "Share".ToLowerInvariant()) {
+                } else if (selectedItem.Text.ToString() == "share") {
                     ShareURI = selectedItem.Tag.ToString();
                     Debug.WriteLine(ShareURI);
                     DataTransferManager.GetForCurrentView().DataRequested += PostView_DataRequested;
                     DataTransferManager.ShowShareUI();
-                } else if (selectedItem.Text.ToString().ToLowerInvariant() == "Open in browser".ToLowerInvariant()) {
+                } else if (selectedItem.Text.ToString() == "open in browser") {
                     await Windows.System.Launcher.LaunchUriAsync(new Uri(selectedItem.Tag.ToString()));
                 }
                 Grid_Tapped(null, null);
@@ -408,7 +408,6 @@ namespace Core.Utils.Controls {
         }
 
         private void Image_Holding(object sender, HoldingRoutedEventArgs e) {
-            Debug.WriteLine("Tapped.");
             options = sender;
             FrameworkElement element = options as FrameworkElement;
             if (element == null) return;
