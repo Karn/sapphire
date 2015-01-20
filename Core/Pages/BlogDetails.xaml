@@ -6,7 +6,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Core.Pages"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      Background="{StaticResource StandardGray}"
+      Background="{StaticResource WindowBackground}"
       mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot" DataContext="{Binding}">
@@ -22,7 +22,7 @@
                                    Canvas.ZIndex="9999" />
         <Grid Grid.Row="0"
               Height="75"
-              Background="{ThemeResource PrimaryColor}">
+              Background="{ThemeResource ColorPrimary}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -60,7 +60,7 @@
                                 <Setter Property="Background" Value="Transparent" />
                             </Style>
                         </Flyout.FlyoutPresenterStyle>
-                        <StackPanel Background="{ThemeResource PrimaryColor}"
+                        <StackPanel Background="{ThemeResource ColorPrimary}"
                                     Loaded="Flyout_Loaded"
                                     RequestedTheme="{Binding ElementName=FollowButton,
                                                              Path=RequestedTheme}"
@@ -70,7 +70,7 @@
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Top"
                                        FontSize="24"
-                                       Foreground="{ThemeResource LightText}"
+                                       Foreground="{ThemeResource TextColorPrimary}"
                                        Style="{StaticResource HeaderTextStyle}"
                                        Tag="{Binding Name}"
                                        Tapped="Fav_Tapped"
@@ -81,7 +81,7 @@
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Top"
                                        FontSize="24"
-                                       Foreground="{ThemeResource LightText}"
+                                       Foreground="{ThemeResource TextColorPrimary}"
                                        Style="{StaticResource HeaderTextStyle}"
                                        Tag="{Binding Name}"
                                        Tapped="TextBlock_Tapped"
@@ -101,7 +101,7 @@
                        VerticalAlignment="Center"
                        FontSize="26"
                        FontWeight="Light"
-                       Foreground="{ThemeResource DarkText}"
+                       Foreground="{ThemeResource TextColorPrimaryDark}"
                        RequestedTheme="Dark"
                        Style="{StaticResource HeaderTextStyle}"
                        Text="{Binding Title}"
@@ -120,7 +120,7 @@
                                       Converter={StaticResource FollowingToSign},
                                       FallbackValue=+}"
                     FontSize="30"
-                    Foreground="{StaticResource PrimaryColor}"
+                    Foreground="{StaticResource ColorPrimary}"
                     Padding="3, -20"
                     Style="{StaticResource ButtonStyleNoBG}"
                     Tag="{Binding Name}"

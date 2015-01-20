@@ -56,9 +56,9 @@ namespace Core {
             HeaderAnimateIn.Begin();
 
             if (!UserStorageUtils.EnableStatusBarBG)
-                StatusBarBG.Background = App.Current.Resources["PrimaryColor"] as SolidColorBrush;
+                StatusBarBG.Background = App.Current.Resources["ColorPrimary"] as SolidColorBrush;
             else
-                StatusBarBG.Background = App.Current.Resources["PrimaryColorDark"] as SolidColorBrush;
+                StatusBarBG.Background = App.Current.Resources["ColorPrimaryDark"] as SolidColorBrush;
 
             if (AccountPivot.DataContext == null)
                 CreateView();
@@ -87,7 +87,7 @@ namespace Core {
             //Fix navigating
             if (PostCreationView.Visibility == Visibility.Visible) {
                 CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
-                CreatePostFill.Fill = App.Current.Resources["PrimaryColor"] as SolidColorBrush;
+                CreatePostFill.Fill = App.Current.Resources["ColorPrimary"] as SolidColorBrush;
                 PostCreationView.Visibility = Visibility.Collapsed;
                 e.Handled = true;
             } else if (LastIndex != -1) {
@@ -282,7 +282,7 @@ namespace Core {
 
         private void CreatePost_LostFocus(object sender, RoutedEventArgs e) {
             CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
-            CreatePostFill.Fill = App.Current.Resources["PrimaryColor"] as SolidColorBrush;
+            CreatePostFill.Fill = App.Current.Resources["ColorPrimary"] as SolidColorBrush;
             PostCreationView.AnimateOut();
         }
 

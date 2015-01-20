@@ -34,13 +34,13 @@
                 <Grid Background="#02000000" Tapped="Grid_Tapped" />
                 <ListView Grid.Row="1"
                           VerticalAlignment="Bottom"
-                          Background="{ThemeResource PrimaryColor}"
+                          Background="{ThemeResource ColorPrimary}"
                           Padding="0, 0, 0, 23">
                     <TextBlock Margin="20, 25, 20, 8"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontSize="24"
-                               Foreground="{ThemeResource LightText}"
+                               Foreground="{ThemeResource TextColorPrimary}"
                                Style="{StaticResource HeaderTextStyle}"
                                Tag="{Binding path_to_low_res_pic.url}"
                                Tapped="OtherOptions_Tapped"
@@ -54,7 +54,7 @@
         <DataTemplate x:Key="TopContainer">
             <Grid Width="Auto"
                   Height="50"
-                  Background="{ThemeResource Accent2}">
+                  Background="{ThemeResource WindowBackgroundAccent}">
                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                     <Button MinWidth="0"
                             MinHeight="0"
@@ -79,7 +79,7 @@
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    FontSize="24"
-                                   Foreground="{ThemeResource DarkText}"
+                                   Foreground="{ThemeResource TextColorPrimaryDark}"
                                    Style="{StaticResource HeaderTextStyle}"
                                    Tag="{Binding Name}"
                                    Tapped="GoToBlog"
@@ -90,7 +90,7 @@
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    FontSize="14"
-                                   Foreground="{ThemeResource DarkText}"
+                                   Foreground="{ThemeResource TextColorPrimaryDark}"
                                    Text="{Binding date,
                                                   Converter={StaticResource ToRelativeTime}}"
                                    TextTrimming="CharacterEllipsis" />
@@ -126,13 +126,13 @@
                                 <Grid Background="#02000000" Tapped="Grid_Tapped" />
                                 <ListView Grid.Row="1"
                                           VerticalAlignment="Bottom"
-                                          Background="{ThemeResource PrimaryColor}"
+                                          Background="{ThemeResource ColorPrimary}"
                                           Padding="0, 0, 0, 23">
                                     <TextBlock Margin="20, 25, 20, 8"
                                                HorizontalAlignment="Left"
                                                VerticalAlignment="Top"
                                                FontSize="24"
-                                               Foreground="{ThemeResource LightText}"
+                                               Foreground="{ThemeResource TextColorPrimary}"
                                                Style="{StaticResource HeaderTextStyle}"
                                                Tag="{Binding id}"
                                                Tapped="OtherOptions_Tapped"
@@ -143,7 +143,7 @@
                                                HorizontalAlignment="Left"
                                                VerticalAlignment="Top"
                                                FontSize="24"
-                                               Foreground="{ThemeResource LightText}"
+                                               Foreground="{ThemeResource TextColorPrimary}"
                                                Style="{StaticResource HeaderTextStyle}"
                                                Tag="{Binding post_url}"
                                                Tapped="OtherOptions_Tapped"
@@ -154,7 +154,7 @@
                                                HorizontalAlignment="Left"
                                                VerticalAlignment="Top"
                                                FontSize="24"
-                                               Foreground="{ThemeResource LightText}"
+                                               Foreground="{ThemeResource TextColorPrimary}"
                                                Style="{StaticResource HeaderTextStyle}"
                                                Tag="{Binding post_url}"
                                                Tapped="OtherOptions_Tapped"
@@ -173,7 +173,7 @@
             <StackPanel Margin="0, 4, 0, 0">
                 <TextBlock Margin="7, 10"
                            FontSize="26"
-                           Foreground="{ThemeResource DarkText}"
+                           Foreground="{ThemeResource TextColorPrimaryDark}"
                            Style="{StaticResource HeaderTextStyle}"
                            Text="Notes"
                            TextWrapping="Wrap" />
@@ -191,7 +191,7 @@
                                 <TextBlock MaxWidth="235"
                                            Margin="10"
                                            FontSize="15"
-                                           Foreground="{ThemeResource DarkText}"
+                                           Foreground="{ThemeResource TextColorPrimaryDark}"
                                            Tag="{Binding Name}"
                                            Tapped="GoToBlog"
                                            TextTrimming="CharacterEllipsis"
@@ -213,7 +213,7 @@
                                Margin="5"
                                VerticalAlignment="Top"
                                FontSize="16"
-                               Foreground="{ThemeResource DarkText}"
+                               Foreground="{ThemeResource TextColorPrimaryDark}"
                                Tapped="Caption_Tapped"
                                TextTrimming="CharacterEllipsis"
                                TextWrapping="Wrap"
@@ -223,14 +223,14 @@
                     <TextBlock Margin="5"
                                VerticalAlignment="Top"
                                FontSize="16"
-                               Foreground="{ThemeResource DarkText}"
+                               Foreground="{ThemeResource TextColorPrimaryDark}"
                                TextWrapping="Wrap"
                                Visibility="{Binding tags_as_str,
                                                     Converter={StaticResource TagsEnabled}}"
                                misc:TagLinks.Text="{Binding tags_as_str}" />
 
                     <Grid Height="40"
-                          Background="{ThemeResource Accent2}"
+                          Background="{ThemeResource WindowBackgroundAccent}"
                           Loaded="CommandPanel_Loaded"
                           Tag="{Binding special_case}">
                         <StackPanel HorizontalAlignment="Left"
@@ -243,14 +243,14 @@
                                        VerticalAlignment="Center"
                                        FontSize="22"
                                        FontWeight="Light"
-                                       Foreground="{ThemeResource DarkText}"
+                                       Foreground="{ThemeResource TextColorPrimaryDark}"
                                        Text="{Binding note_count}"
                                        TextWrapping="WrapWholeWords" />
                             <TextBlock HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
                                        FontSize="22"
                                        FontWeight="Light"
-                                       Foreground="{ThemeResource DarkText}"
+                                       Foreground="{ThemeResource TextColorPrimaryDark}"
                                        Text=" notes"
                                        TextWrapping="WrapWholeWords" />
                         </StackPanel>
@@ -364,7 +364,7 @@
                         <TextBlock Margin="10, 5, 10, 10"
                                    FontSize="18"
                                    FontWeight="Light"
-                                   Foreground="{StaticResource DarkText}"
+                                   Foreground="{StaticResource TextColorPrimaryDark}"
                                    TextWrapping="Wrap"
                                    Visibility="{Binding body,
                                                         Converter={StaticResource CaptionConverter}}"
@@ -458,7 +458,7 @@
                         <TextBlock Margin="10, 0, 10, 0"
                                    FontSize="22"
                                    FontWeight="Light"
-                                   Foreground="{ThemeResource DarkText}"
+                                   Foreground="{ThemeResource TextColorPrimaryDark}"
                                    TextWrapping="WrapWholeWords"
                                    Visibility="{Binding text,
                                                         Converter={StaticResource CaptionConverter}}"
@@ -466,7 +466,7 @@
                         <TextBlock Margin="10, 5, 10, 10"
                                    FontSize="18"
                                    FontWeight="Light"
-                                   Foreground="{ThemeResource DarkText}"
+                                   Foreground="{ThemeResource TextColorPrimaryDark}"
                                    TextWrapping="WrapWholeWords"
                                    Visibility="{Binding source,
                                                         Converter={StaticResource CaptionConverter}}"
@@ -487,7 +487,7 @@
                         <TextBlock Margin="10, 0, 10, 0"
                                    FontSize="22"
                                    FontWeight="Light"
-                                   Foreground="{ThemeResource DarkText}"
+                                   Foreground="{ThemeResource TextColorPrimaryDark}"
                                    TextWrapping="WrapWholeWords"
                                    Visibility="{Binding title,
                                                         Converter={StaticResource CaptionConverter}}"
@@ -495,7 +495,7 @@
                         <TextBlock Margin="10, 5, 10, 10"
                                    FontSize="18"
                                    FontWeight="Light"
-                                   Foreground="{ThemeResource DarkText}"
+                                   Foreground="{ThemeResource TextColorPrimaryDark}"
                                    TextWrapping="WrapWholeWords"
                                    Visibility="{Binding description,
                                                         Converter={StaticResource CaptionConverter}}"
@@ -516,7 +516,7 @@
                         <TextBlock Margin="10, 0, 10, 0"
                                    FontSize="22"
                                    FontWeight="Light"
-                                   Foreground="{ThemeResource DarkText}"
+                                   Foreground="{ThemeResource TextColorPrimaryDark}"
                                    TextWrapping="WrapWholeWords"
                                    Visibility="{Binding body,
                                                         Converter={StaticResource CaptionConverter}}"
@@ -524,7 +524,7 @@
                         <TextBlock Margin="10, 5, 10, 10"
                                    FontSize="18"
                                    FontWeight="Light"
-                                   Foreground="{ThemeResource DarkText}"
+                                   Foreground="{ThemeResource TextColorPrimaryDark}"
                                    TextWrapping="WrapWholeWords"
                                    Visibility="{Binding description,
                                                         Converter={StaticResource CaptionConverter}}"
@@ -553,7 +553,7 @@
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
                                        FontSize="24"
-                                       Foreground="{ThemeResource DarkText}"
+                                       Foreground="{ThemeResource TextColorPrimaryDark}"
                                        Style="{StaticResource HeaderTextStyle}">
                                 <Run Text="{Binding artist}" />
                                 <Run Text="-" />
@@ -614,7 +614,7 @@
                     <TextBlock Margin="10, 0, 10, 0"
                                FontSize="22"
                                FontWeight="Light"
-                               Foreground="{ThemeResource DarkText}"
+                               Foreground="{ThemeResource TextColorPrimaryDark}"
                                Text="This is a youtube video please use the post menu to open in browser."
                                TextWrapping="WrapWholeWords" />
                     <ContentPresenter ContentTemplate="{StaticResource BottomContainer}" />
@@ -649,7 +649,7 @@
                                 <TextBlock Margin="10, 2"
                                            FontSize="22"
                                            FontWeight="Light"
-                                           Foreground="{ThemeResource DarkText}"
+                                           Foreground="{ThemeResource TextColorPrimaryDark}"
                                            Text="{Binding asking_name,
                                                           FallbackValue=Name}"
                                            TextLineBounds="Tight"
@@ -657,7 +657,7 @@
                                 <TextBlock Margin="10, 0, 10, 2"
                                            FontSize="18"
                                            FontWeight="Light"
-                                           Foreground="{ThemeResource DarkText}"
+                                           Foreground="{ThemeResource TextColorPrimaryDark}"
                                            Text="{Binding question,
                                                           FallbackValue=Question}"
                                            TextLineBounds="TrimToBaseline"
@@ -667,7 +667,7 @@
                         <TextBlock Margin="10, 0, 10, 40"
                                    FontSize="18"
                                    FontWeight="Light"
-                                   Foreground="{ThemeResource DarkText}"
+                                   Foreground="{ThemeResource TextColorPrimaryDark}"
                                    TextWrapping="WrapWholeWords"
                                    misc:TextFormatter.Text="{Binding answer}" />
                     </StackPanel>
@@ -683,7 +683,7 @@
                 <StackPanel Background="{ThemeResource PostBG}">
                     <Grid Width="Auto"
                           Height="50"
-                          Background="{ThemeResource Accent2}">
+                          Background="{ThemeResource WindowBackgroundAccent}">
                         <StackPanel Orientation="Horizontal">
                             <Button MinWidth="0"
                                     MinHeight="0"
@@ -706,7 +706,7 @@
                                            HorizontalAlignment="Left"
                                            VerticalAlignment="Top"
                                            FontSize="24"
-                                           Foreground="{ThemeResource DarkText}"
+                                           Foreground="{ThemeResource TextColorPrimaryDark}"
                                            Style="{StaticResource HeaderTextStyle}"
                                            Tag="{Binding asking_name}"
                                            Tapped="GoToBlog"
@@ -717,7 +717,7 @@
                                            HorizontalAlignment="Left"
                                            VerticalAlignment="Top"
                                            FontSize="14"
-                                           Foreground="{ThemeResource DarkText}"
+                                           Foreground="{ThemeResource TextColorPrimaryDark}"
                                            Text="said:"
                                            TextTrimming="CharacterEllipsis" />
                             </StackPanel>
@@ -727,11 +727,11 @@
                         <TextBlock Margin="10, 5, 10, 40"
                                    FontSize="22"
                                    FontWeight="Light"
-                                   Foreground="{StaticResource DarkText}"
+                                   Foreground="{StaticResource TextColorPrimaryDark}"
                                    TextWrapping="Wrap"
                                    misc:TextFormatter.Text="{Binding body}" />
                     </StackPanel>
-                    <Grid Height="40" Background="{ThemeResource Accent2}">
+                    <Grid Height="40" Background="{ThemeResource WindowBackgroundAccent}">
                         <StackPanel HorizontalAlignment="Right"
                                     Orientation="Horizontal"
                                     Tag="{Binding reblog_key}">
@@ -779,7 +779,7 @@
                     BorderThickness="0.5">
                 <StackPanel MinWidth="380"
                             MinHeight="40"
-                            Background="{ThemeResource Accent2}">
+                            Background="{ThemeResource WindowBackgroundAccent}">
                     <StackPanel Margin="0" Orientation="Horizontal">
                         <TextBlock MaxWidth="284"
                                    Margin="5, 7"
@@ -787,7 +787,7 @@
                                    VerticalAlignment="Top"
                                    FontSize="26"
                                    FontWeight="SemiLight"
-                                   Foreground="{ThemeResource DarkText}"
+                                   Foreground="{ThemeResource TextColorPrimaryDark}"
                                    Text="Advertisement"
                                    TextLineBounds="Tight"
                                    TextTrimming="CharacterEllipsis" />
@@ -798,7 +798,7 @@
                                               AdMediatorError="MediatedAdControl_AdMediatorError"
                                               AdSdkError="MediatedAdControl_AdSdkError"
                                               AdSdkEvent="MediatedAdControl_AdSdkEvent"
-                                              Background="{ThemeResource PrimaryColor}"
+                                              Background="{ThemeResource ColorPrimary}"
                                               Foreground="White"
                                               Id="AdMediator-Id-08EC04B6-3C0D-4157-B23E-4DDEFC54CC26" />
                     </Grid>
@@ -818,7 +818,7 @@
                            FontFamily="Segoe WP"
                            FontSize="22"
                            FontWeight="Thin"
-                           Foreground="{ThemeResource DarkText}"
+                           Foreground="{ThemeResource TextColorPrimaryDark}"
                            Opacity="0.2"
                            Text="There is nothing yet to show"
                            TextLineBounds="Tight" />
@@ -873,7 +873,7 @@
                            FontFamily="Segoe WP"
                            FontSize="22"
                            FontWeight="Thin"
-                           Foreground="{ThemeResource DarkText}"
+                           Foreground="{ThemeResource TextColorPrimaryDark}"
                            Text="Pull to refresh.."
                            TextLineBounds="Tight" />
             </Grid>

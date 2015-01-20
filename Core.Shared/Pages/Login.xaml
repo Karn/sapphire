@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Core.Shared.Pages"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      Background="{ThemeResource PrimaryColor}"
+      Background="{ThemeResource ColorPrimary}"
       RequestedTheme="Light"
       mc:Ignorable="d">
 
@@ -89,7 +89,7 @@
                          Height="40"
                          Margin="0"
                          HorizontalAlignment="Stretch"
-                         Foreground="{ThemeResource LightText}"
+                         Foreground="{ThemeResource TextColorPrimary}"
                          GotFocus="Email_GotFocus"
                          InputScope="EmailSmtpAddress"
                          Padding="50, 5, 10, 0"
@@ -111,7 +111,7 @@
                              Height="40"
                              Margin="0"
                              BorderThickness="0"
-                             Foreground="{ThemeResource LightText}"
+                             Foreground="{ThemeResource TextColorPrimary}"
                              GotFocus="Email_GotFocus"
                              Padding="50, 5, 10, 0"
                              PlaceholderText="password"
@@ -127,7 +127,7 @@
                     Click="Button_Click"
                     Content="Connect"
                     FontSize="20"
-                    Foreground="{ThemeResource LightText}"
+                    Foreground="{ThemeResource TextColorPrimary}"
                     Style="{StaticResource ButtonStyleNoBG}" />
             <TextBlock Margin="0, 50, 0, 0"
                        HorizontalAlignment="Center"
@@ -146,7 +146,7 @@
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="40"
-                       Foreground="{ThemeResource LightText}"
+                       Foreground="{ThemeResource TextColorPrimary}"
                        Style="{StaticResource HeaderTextStyle}"
                        Text="Meet Sapphire." />
             <Rectangle Height="0.5"
@@ -156,7 +156,7 @@
             <TextBlock HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="16"
-                       Foreground="{ThemeResource LightText}"
+                       Foreground="{ThemeResource TextColorPrimary}"
                        Opacity="0.9"
                        Padding="40, 10"
                        Style="{StaticResource HeaderTextStyle}"
@@ -174,7 +174,7 @@
                     BorderThickness="0"
                     Content="Lets get started!"
                     FontSize="20"
-                    Foreground="{ThemeResource LightText}"
+                    Foreground="{ThemeResource TextColorPrimary}"
                     Style="{StaticResource ButtonStyleNoBG}"
                     Tapped="Start_Tapped" />
         </StackPanel>

@@ -1,12 +1,9 @@
 ﻿using APIWrapper.Client;
 using APIWrapper.Content.Model;
-using APIWrapper.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -69,7 +66,7 @@ namespace Core.Utils.Controls {
         }
 
         private void Border_Loaded(object sender, RoutedEventArgs e) {
-            ((Border)sender).Width = Window.Current.Bounds.Width;
+            ((Grid)sender).Width = Window.Current.Bounds.Width;
         }
     }
 }

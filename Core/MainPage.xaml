@@ -38,11 +38,11 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <StackPanel x:Name="HeaderContainer" Background="{ThemeResource PrimaryColor}">
+            <StackPanel x:Name="HeaderContainer" Background="{ThemeResource ColorPrimary}">
                 <Border x:Name="StatusBarBG"
                         Height="26"
                         VerticalAlignment="Top"
-                        Background="{ThemeResource PrimaryColorDark}"
+                        Background="{ThemeResource ColorPrimaryDark}"
                         Canvas.ZIndex="99" />
                 <Grid x:Name="HeaderContent"
                       Height="56"
@@ -100,7 +100,7 @@
             <Pivot x:Name="NavigationPivot"
                    Grid.Row="1"
                    Margin="0, -40, 0, 0"
-                   Background="{StaticResource StandardGray}"
+                   Background="{StaticResource WindowBackground}"
                    Canvas.ZIndex="-1"
                    SelectionChanged="NavigationPivot_SelectionChanged">
 
@@ -129,8 +129,8 @@
                             <Grid>
 
                                 <Ellipse x:Name="CreatePostFill"
-                                         Fill="{ThemeResource PrimaryColor}"
-                                         Stroke="{StaticResource DarkText}"
+                                         Fill="{ThemeResource ColorPrimary}"
+                                         Stroke="{StaticResource TextColorPrimaryDark}"
                                          StrokeThickness="0.1" />
 
                                 <Image x:Name="CreatePostIcon"
@@ -153,8 +153,8 @@
 
                             <Grid>
 
-                                <Ellipse Fill="{ThemeResource PrimaryColor}"
-                                         Stroke="{StaticResource DarkText}"
+                                <Ellipse Fill="{ThemeResource ColorPrimary}"
+                                         Stroke="{StaticResource TextColorPrimaryDark}"
                                          StrokeThickness="0.1" />
 
                                 <Image Margin="10"
@@ -228,7 +228,7 @@
                                    Stretch="Uniform"
                                    Tapped="ManageBlogs_Tapped" />
                         </Grid>
-                        <Grid Background="{ThemeResource Accent2}">
+                        <Grid Background="{ThemeResource WindowBackgroundAccent}">
                             <Grid.ChildrenTransitions>
                                 <TransitionCollection>
                                     <EntranceThemeTransition />
@@ -242,14 +242,14 @@
                                     <TextBlock HorizontalAlignment="Left"
                                                VerticalAlignment="Center"
                                                FontSize="24"
-                                               Foreground="{ThemeResource DarkText}"
+                                               Foreground="{ThemeResource TextColorPrimaryDark}"
                                                Opacity="0.5"
                                                Text="{Binding FollowingCount,
                                                               FallbackValue=0}" />
                                     <TextBlock HorizontalAlignment="Left"
                                                VerticalAlignment="Center"
                                                FontSize="12"
-                                               Foreground="{ThemeResource DarkText}"
+                                               Foreground="{ThemeResource TextColorPrimaryDark}"
                                                Text="FOLLOWING" />
                                 </StackPanel>
                                 <StackPanel Width="75"
@@ -259,14 +259,14 @@
                                     <TextBlock HorizontalAlignment="Left"
                                                VerticalAlignment="Center"
                                                FontSize="24"
-                                               Foreground="{ThemeResource DarkText}"
+                                               Foreground="{ThemeResource TextColorPrimaryDark}"
                                                Opacity="0.5"
                                                Text="{Binding PostCount,
                                                               FallbackValue=0}" />
                                     <TextBlock HorizontalAlignment="Left"
                                                VerticalAlignment="Center"
                                                FontSize="12"
-                                               Foreground="{ThemeResource DarkText}"
+                                               Foreground="{ThemeResource TextColorPrimaryDark}"
                                                Text="POSTS" />
                                 </StackPanel>
                                 <StackPanel Width="75"
@@ -276,14 +276,14 @@
                                     <TextBlock HorizontalAlignment="Left"
                                                VerticalAlignment="Center"
                                                FontSize="24"
-                                               Foreground="{ThemeResource DarkText}"
+                                               Foreground="{ThemeResource TextColorPrimaryDark}"
                                                Opacity="0.5"
                                                Text="{Binding LikedPostCount,
                                                               FallbackValue=0}" />
                                     <TextBlock HorizontalAlignment="Left"
                                                VerticalAlignment="Center"
                                                FontSize="12"
-                                               Foreground="{ThemeResource DarkText}"
+                                               Foreground="{ThemeResource TextColorPrimaryDark}"
                                                Text="LIKES" />
                                 </StackPanel>
                                 <StackPanel Width="75"
@@ -293,20 +293,20 @@
                                     <TextBlock HorizontalAlignment="Left"
                                                VerticalAlignment="Center"
                                                FontSize="24"
-                                               Foreground="{ThemeResource DarkText}"
+                                               Foreground="{ThemeResource TextColorPrimaryDark}"
                                                Opacity="0.5"
                                                Text="{Binding FollowersCount,
                                                               FallbackValue=0}" />
                                     <TextBlock HorizontalAlignment="Left"
                                                VerticalAlignment="Center"
                                                FontSize="12"
-                                               Foreground="{ThemeResource DarkText}"
+                                               Foreground="{ThemeResource TextColorPrimaryDark}"
                                                Text="FOLLOWERS" />
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
                         <Grid Margin="0, 10"
-                              Background="{ThemeResource Accent2}"
+                              Background="{ThemeResource WindowBackgroundAccent}"
                               Visibility="Visible">
                             <StackPanel Margin="10, 0">
                                 <StackPanel.ChildrenTransitions>
@@ -329,7 +329,7 @@
                                                FontFamily="Segoe WP"
                                                FontSize="24"
                                                FontWeight="Thin"
-                                               Foreground="{ThemeResource DarkText}"
+                                               Foreground="{ThemeResource TextColorPrimaryDark}"
                                                Text="Inbox" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal"
@@ -347,7 +347,7 @@
                                                FontFamily="Segoe WP"
                                                FontSize="24"
                                                FontWeight="Thin"
-                                               Foreground="{ThemeResource DarkText}"
+                                               Foreground="{ThemeResource TextColorPrimaryDark}"
                                                Text="Drafts" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal"
@@ -365,7 +365,7 @@
                                                FontFamily="Segoe WP"
                                                FontSize="24"
                                                FontWeight="Thin"
-                                               Foreground="{ThemeResource DarkText}"
+                                               Foreground="{ThemeResource TextColorPrimaryDark}"
                                                Text="Queue" />
                                 </StackPanel>
                                 <StackPanel x:Name="Favs_List"
@@ -386,7 +386,7 @@
                                                FontFamily="Segoe WP"
                                                FontSize="24"
                                                FontWeight="Thin"
-                                               Foreground="{ThemeResource DarkText}"
+                                               Foreground="{ThemeResource TextColorPrimaryDark}"
                                                Text="Favorite Blogs" />
                                 </StackPanel>
                             </StackPanel>
@@ -462,7 +462,7 @@
 
     <Page.BottomAppBar>
         <CommandBar x:Name="CommandBar"
-                    Background="{ThemeResource PrimaryColorDark}"
+                    Background="{ThemeResource ColorPrimaryDark}"
                     ClosedDisplayMode="Minimal"
                     Foreground="{StaticResource LightGray}">
             <AppBarButton x:Name="RefreshButton"

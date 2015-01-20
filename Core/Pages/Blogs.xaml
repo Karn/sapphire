@@ -16,9 +16,9 @@
         </Grid.RowDefinitions>
         <!-- TitlePanel -->
         <CommonControl:AlertDialog Grid.RowSpan="2" x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
-        <StackPanel Grid.Row="0" Margin="0" Background="{ThemeResource PrimaryColor}">
-            <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource PrimaryColor}">
-                <TextBlock x:Name="PageTitle" Foreground="{ThemeResource LightText}" Text="Blogs" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
+        <StackPanel Grid.Row="0" Margin="0" Background="{ThemeResource ColorPrimary}">
+            <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource ColorPrimary}">
+                <TextBlock x:Name="PageTitle" Foreground="{ThemeResource TextColorPrimary}" Text="Blogs" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
             </Grid>
         </StackPanel>
 
@@ -31,7 +31,7 @@
                             <Image Stretch="UniformToFill" Source="{Binding BlogTheme.HeaderImage, FallbackValue={StaticResource DefaultPattern}}"/>
                             <Grid VerticalAlignment="Top" Background="#66000000" Height="35">
                                 <TextBlock Margin="10, 5" HorizontalAlignment="Left" Foreground="White" Text="{Binding Name}" FontSize="18" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>
-                                <Button Margin="5, 0" Tag="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Top" Content="SELECT" Tapped="SelectBlogButton_Tapped" BorderBrush="#66FFFFFF" BorderThickness="0" Foreground="{StaticResource PrimaryColor}" Background="#FFFFFFFF" Style="{StaticResource ButtonStyleNoBG}" Padding="3" FontSize="18" Height="35" MinHeight="0" MinWidth="120"/>
+                                <Button Margin="5, 0" Tag="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Top" Content="SELECT" Tapped="SelectBlogButton_Tapped" BorderBrush="#66FFFFFF" BorderThickness="0" Foreground="{StaticResource ColorPrimary}" Background="#FFFFFFFF" Style="{StaticResource ButtonStyleNoBG}" Padding="3" FontSize="18" Height="35" MinHeight="0" MinWidth="120"/>
                             </Grid>
                             <Image HorizontalAlignment="Left" Margin="10, 40, 10, 0" Stretch="UniformToFill" Width="55" Height="55" Source="{Binding Avatar}"/>
                             <TextBlock Margin="75, 40, 15, 5" Foreground="White" Text="{Binding Description}" FontSize="18" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource HeaderTextStyle}"/>

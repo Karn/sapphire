@@ -28,7 +28,7 @@
         </StackPanel.RenderTransform>
         <Border x:Name="border"
                 Height="95"
-                Background="{StaticResource PrimaryColorDark}"
+                Background="{StaticResource ColorPrimaryDark}"
                 BorderBrush="#FF506D87"
                 BorderThickness="0, 0, 0, 1"
                 RenderTransformOrigin="0.5,0.5">

@@ -7,7 +7,7 @@
       xmlns:local="using:Core.Pages"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:ufc="using:Core.Utils"
-      Background="{ThemeResource PrimaryColor}"
+      Background="{ThemeResource ColorPrimary}"
       mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource LightGray}">
@@ -24,15 +24,15 @@
         <!--  TitlePanel  -->
         <StackPanel Grid.Row="0"
                     Margin="0"
-                    Background="{ThemeResource PrimaryColor}">
+                    Background="{ThemeResource ColorPrimary}">
             <Grid Height="45"
                   Margin="0, 25, 0, 0"
-                  Background="{ThemeResource PrimaryColor}">
+                  Background="{ThemeResource ColorPrimary}">
                 <TextBlock x:Name="PageTitle"
                            Margin="15, 0, 0, 0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
-                           Foreground="{ThemeResource LightText}"
+                           Foreground="{ThemeResource TextColorPrimary}"
                            Style="{StaticResource HeaderTextStyle}" />
             </Grid>
         </StackPanel>
@@ -111,7 +111,7 @@
                                                           Converter={StaticResource FollowingToString},
                                                           FallbackValue=FOLLOW}"
                                         FontSize="18"
-                                        Foreground="{StaticResource PrimaryColor}"
+                                        Foreground="{StaticResource ColorPrimary}"
                                         Padding="3"
                                         Style="{StaticResource ButtonStyleNoBG}"
                                         Tag="{Binding Name}"
