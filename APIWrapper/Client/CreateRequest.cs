@@ -28,7 +28,7 @@ namespace APIWrapper.Client {
                 htmlString = regexCss.Replace(htmlString, string.Empty);
                 htmlString = Regex.Replace(htmlString, htmlTagPattern, string.Empty);
                 htmlString = Regex.Replace(htmlString, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
-                htmlString = htmlString.Replace("&nbsp;", string.Empty);
+                htmlString = htmlString.Replace("&nbsp;", " ");
                 return WebUtility.HtmlDecode(htmlString);
             }
             return htmlString;

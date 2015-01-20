@@ -4,6 +4,7 @@ using APIWrapper.Utils;
 using Core.Shared.Common;
 using Core.Utils.Controls;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Phone.UI.Input;
@@ -26,11 +27,8 @@ namespace Core {
 
         public static AlertDialog AlertFlyout;
         private static int LastIndex = -1;
-        private static bool NavigatedFromToast;
         public static bool SwitchedBlog = false;
         public static bool SwitchedAccount = false;
-
-        public static NewPostDialog NPD;
 
         public MainPage() {
             this.InitializeComponent();
@@ -46,15 +44,14 @@ namespace Core {
             //Initialize
             AlertFlyout = _ErrorFlyout; //Mainpage error toast
 
-            NPD = PostCreationView;
-
-            HardwareButtons.BackPressed += BackButtonPressed;
-
             if (UserStorageUtils.NotificationsEnabled)
                 RegisterBackgroundTask();
 
             Analytics.AnalyticsManager.RegisterView(TAG);
+
+            HardwareButtons.BackPressed += BackButtonPressed;
         }
+
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e) {
             HeaderAnimateIn.Begin();
 
@@ -63,7 +60,8 @@ namespace Core {
             else
                 StatusBarBG.Background = App.Current.Resources["PrimaryColorDark"] as SolidColorBrush;
 
-            CreateView();
+            if (AccountPivot.DataContext == null)
+                CreateView();
         }
 
         public async void CreateView() {
@@ -107,26 +105,27 @@ namespace Core {
         }
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
-            if (e.NavigationParameter != null && !string.IsNullOrEmpty(e.NavigationParameter.ToString()) && !NavigatedFromToast) {
+            if (e.NavigationParameter != null && !string.IsNullOrEmpty(e.NavigationParameter.ToString())) {
                 //Handle accounts switch to the one described in the toast
                 if (e.NavigationParameter.ToString().Contains("Account:")) {
                     var s = e.NavigationParameter.ToString().Split(' ');
                     await GetUserAccount(s[1]);
                     await ActivityFeed.RetrieveNotifications();
                     NavigationPivot.SelectedIndex = 1;
-                    NavigatedFromToast = true;
                 }
             }
 
             if (SwitchedAccount) {
+                Debug.WriteLine("Refreshing due to account switch.");
                 NavigationPivot.SelectedIndex = 0;
                 await GetUserAccount(string.Empty);
                 Dashboard.RefreshPosts();
+                ActivityFeed.ClearPosts();
                 await ActivityFeed.RetrieveNotifications();
                 SwitchedAccount = false;
             } else if (SwitchedBlog) {
+                Debug.WriteLine("Refreshing due to blog switch.");
                 AccountPivot.DataContext = UserStorageUtils.CurrentBlog;
-                ActivityFeed.ClearPosts();
                 await ActivityFeed.RetrieveNotifications();
                 SwitchedBlog = false;
             }

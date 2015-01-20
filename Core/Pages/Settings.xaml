@@ -338,7 +338,7 @@
                                          Content="Send me an email"
                                          FontSize="20"
                                          Foreground="#FF529ECC"
-                                         NavigateUri="mailto:sapphire@awefull.ca" />
+                                         NavigateUri="mailto:sapphire@gemlabs.me" />
                         <HyperlinkButton x:Name="Follow"
                                          MinHeight="10"
                                          Margin="10, 0"

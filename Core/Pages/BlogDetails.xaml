@@ -116,7 +116,7 @@
                     VerticalAlignment="Top"
                     Background="#FFFFFF"
                     BorderThickness="0"
-                    Content="{Binding Following,
+                    Content="{Binding IsFollowing,
                                       Converter={StaticResource FollowingToSign},
                                       FallbackValue=+}"
                     FontSize="30"
