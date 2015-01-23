@@ -7,353 +7,581 @@
       Background="{ThemeResource ColorPrimary}"
       mc:Ignorable="d">
 
-	<Grid x:Name="LayoutRoot" Background="{StaticResource LightGray}">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource LightGray}">
 
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-		<Grid Grid.Row="0" Background="{ThemeResource ColorPrimary}">
-			<Grid Height="45"
-			      Margin="0, 25, 0, 0"
-			      Background="{ThemeResource ColorPrimary}">
-				<TextBlock x:Name="PageTitle"
-				           Margin="15, 0, 0, 0"
-				           HorizontalAlignment="Left"
-				           VerticalAlignment="Center"
-				           Foreground="{ThemeResource TextColorPrimary}"
-				           Style="{StaticResource HeaderTextStyle}"
-				           Text="Settings" />
-			</Grid>
-		</Grid>
-		<Pivot Grid.Row="1" Margin="0, -25, 0, 0">
-			<PivotItem Margin="10, 0">
-				<PivotItem.Header>
-					<TextBlock HorizontalAlignment="Left"
-					           VerticalAlignment="Center"
-					           CharacterSpacing="-25"
-					           FontFamily="Segoe WP"
-					           FontSize="26"
-					           Foreground="{ThemeResource ColorPrimary}"
-					           Text="general"
-					           Typography.Capitals="AllSmallCaps" />
-				</PivotItem.Header>
+        <Grid Grid.Row="0" Background="{ThemeResource ColorPrimary}">
+            <Grid Height="45"
+                  Margin="0, 25, 0, 0"
+                  Background="{ThemeResource ColorPrimary}">
+                <TextBlock x:Name="PageTitle"
+                           Margin="15, 0, 0, 0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Foreground="{ThemeResource TextColorPrimary}"
+                           Style="{StaticResource HeaderTextStyle}"
+                           Text="Settings" />
+            </Grid>
+        </Grid>
+        <ScrollViewer Grid.Row="1" Margin="10, 0">
+            <StackPanel>
+                <Border Margin="0, 4"
+                        BorderBrush="#19000000"
+                        BorderThickness="0, 0, 0, 1"
+                        Padding="0, 4">
+                    <TextBlock Margin="7, 0"
+                               FontSize="20"
+                               FontWeight="Normal"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Style="{StaticResource HeaderTextStyle}"
+                               Text="General" />
+                </Border>
+                <StackPanel>
+                    <TextBlock Margin="8, 0"
+                               FontSize="18"
+                               FontWeight="Normal"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Style="{StaticResource HeaderTextStyle}"
+                               Text="Like this app?"
+                               TextWrapping="Wrap" />
+                    <TextBlock Margin="8, -10, 8, 0"
+                               FontSize="15"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Opacity="0.8"
+                               Style="{ThemeResource HeaderTextStyle}"
+                               Text="Take a moment to rate/review the app."
+                               TextWrapping="Wrap" />
+                    <!--
+                        <Image Width="35"
+                        Height="35"
+                        HorizontalAlignment="Right" />
+                    -->
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Margin="8, 0"
+                               FontSize="18"
+                               FontWeight="Normal"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Style="{StaticResource HeaderTextStyle}"
+                               Text="Upgrade to full version"
+                               TextWrapping="Wrap" />
+                    <TextBlock Margin="8, -10, 8, 0"
+                               FontSize="15"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Opacity="0.8"
+                               Style="{ThemeResource HeaderTextStyle}"
+                               Text="Add features with a one time app purchase."
+                               TextWrapping="Wrap" />
+                    <!--
+                        <Image Width="35"
+                        Height="35"
+                        HorizontalAlignment="Right" />
+                    -->
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Margin="8, 0"
+                               FontSize="18"
+                               FontWeight="Normal"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Style="{StaticResource HeaderTextStyle}"
+                               Text="About Sapphire."
+                               TextWrapping="Wrap" />
+                    <TextBlock Margin="8, -10, 8, 0"
+                               FontSize="15"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Opacity="0.8"
+                               Style="{ThemeResource HeaderTextStyle}"
+                               Text="Legal, privacy, and support."
+                               TextWrapping="Wrap" />
+                    <!--
+                        <Image Width="35"
+                        Height="35"
+                        HorizontalAlignment="Right" />
+                    -->
+                </StackPanel>
 
-				<ScrollViewer>
-					<StackPanel Margin="0" HorizontalAlignment="Stretch">
-						<TextBlock Margin="7, 0"
-						           FontSize="20"
-						           FontWeight="Normal"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{StaticResource HeaderTextStyle}"
-						           Text="Like this app?"
-						           TextWrapping="Wrap" />
-						<TextBlock Margin="7, 5, 7, 10"
-						           FontSize="16"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{ThemeResource HeaderTextStyle}"
-						           Text="It's always nice to hear what the users think about the app so be sure to review the app and let me know what you think!"
-						           TextWrapping="Wrap" />
-						<Button x:Name="ReviewButton"
-						        Height="55"
-						        MinHeight="10"
-						        Margin="10, 0"
-						        HorizontalAlignment="Stretch"
-						        Background="#FF529ECC"
-						        BorderThickness="0"
-						        Click="ReviewButton_Click"
-						        Content="Rate and review!"
-						        FontSize="20"
-						        Foreground="White"
-						        Padding="0" />
+                <Border Margin="0, 4"
+                        BorderBrush="#19000000"
+                        BorderThickness="0, 0, 0, 1"
+                        Padding="0, 4">
+                    <TextBlock Margin="7, 0"
+                               FontSize="20"
+                               FontWeight="Normal"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Style="{StaticResource HeaderTextStyle}"
+                               Text="Options" />
+                </Border>
+                <StackPanel>
+                    <TextBlock Margin="8, 0"
+                               FontSize="18"
+                               FontWeight="Normal"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Style="{StaticResource HeaderTextStyle}"
+                               Text="Notifications"
+                               TextWrapping="Wrap" />
+                    <TextBlock Margin="8, -10, 8, 0"
+                               FontSize="15"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Opacity="0.8"
+                               Style="{ThemeResource HeaderTextStyle}"
+                               Text="Manage blog alerts."
+                               TextWrapping="Wrap" />
+                    <!--
+                        <Image Width="35"
+                        Height="35"
+                        HorizontalAlignment="Right" />
+                    -->
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Margin="8, 0"
+                               FontSize="18"
+                               FontWeight="Normal"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Style="{StaticResource HeaderTextStyle}"
+                               Text="UX feedback"
+                               TextWrapping="Wrap" />
+                    <TextBlock Margin="8, -10, 8, 0"
+                               FontSize="15"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Opacity="0.8"
+                               Style="{ThemeResource HeaderTextStyle}"
+                               Text="Assist in development via usage analytics."
+                               TextWrapping="Wrap" />
+                    <!--
+                        <Image Width="35"
+                        Height="35"
+                        HorizontalAlignment="Right" />
+                    -->
+                    <!--
+                        <CheckBox MinWidth="35"
+                        Margin="0, -8"
+                        HorizontalAlignment="Right"
+                        Foreground="{ThemeResource ColorPrimary}"
+                        Padding="0" />
+                    -->
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Margin="8, 0"
+                               FontSize="18"
+                               FontWeight="Normal"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Style="{StaticResource HeaderTextStyle}"
+                               Text="Dark theme"
+                               TextWrapping="Wrap" />
+                    <TextBlock Margin="8, -10, 8, 0"
+                               FontSize="15"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Opacity="0.8"
+                               Style="{ThemeResource HeaderTextStyle}"
+                               Text="Enable a darker application skin."
+                               TextWrapping="Wrap" />
+                    <!--
+                        <Image Width="35"
+                        Height="35"
+                        HorizontalAlignment="Right" />
+                    -->
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Margin="8, 0"
+                               FontSize="18"
+                               FontWeight="Normal"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Style="{StaticResource HeaderTextStyle}"
+                               Text="Status bar background"
+                               TextWrapping="Wrap" />
+                    <TextBlock Margin="8, -10, 8, 0"
+                               FontSize="15"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Opacity="0.8"
+                               Style="{ThemeResource HeaderTextStyle}"
+                               Text="Enable a darker status bar background"
+                               TextWrapping="Wrap" />
+                    <!--
+                        <Image Width="35"
+                        Height="35"
+                        HorizontalAlignment="Right" />
+                    -->
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Margin="8, 0"
+                               FontSize="18"
+                               FontWeight="Normal"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Style="{StaticResource HeaderTextStyle}"
+                               Text="One-click reblog"
+                               TextWrapping="Wrap" />
+                    <TextBlock Margin="8, -10, 8, 0"
+                               FontSize="15"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Opacity="0.8"
+                               Style="{ThemeResource HeaderTextStyle}"
+                               Text="Enable a faster reblogging button."
+                               TextWrapping="Wrap" />
+                    <!--
+                        <Image Width="35"
+                        Height="35"
+                        HorizontalAlignment="Right" />
+                    -->
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Margin="8, 0"
+                               FontSize="18"
+                               FontWeight="Normal"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Style="{StaticResource HeaderTextStyle}"
+                               Text="Post tags"
+                               TextWrapping="Wrap" />
+                    <TextBlock Margin="8, -10, 8, 0"
+                               FontSize="15"
+                               Foreground="{ThemeResource ColorPrimary}"
+                               Opacity="0.8"
+                               Style="{ThemeResource HeaderTextStyle}"
+                               Text="Display post tags below the captions."
+                               TextWrapping="Wrap" />
+                    <!--
+                        <Image Width="35"
+                        Height="35"
+                        HorizontalAlignment="Right" />
+                    -->
+                </StackPanel>
+            </StackPanel>
 
-						<TextBlock Margin="7, 0"
-						           FontSize="20"
-						           FontWeight="Normal"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{StaticResource HeaderTextStyle}"
-						           Text="Spread the word!"
-						           TextWrapping="Wrap" />
-						<TextBlock Margin="7, 5, 7, 10"
-						           FontSize="16"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{ThemeResource HeaderTextStyle}"
-						           Text="Tell your friends about Sapphire by sharing a short message on your twitter timeline. Alternatively use the #SapphireApp hashtag to describe your experience with the app."
-						           TextWrapping="Wrap" />
-						<Button x:Name="ShareOnTwitter"
-						        Height="55"
-						        MinHeight="10"
-						        Margin="10, 0"
-						        HorizontalAlignment="Stretch"
-						        Background="#FF529ECC"
-						        BorderThickness="0"
-						        Click="ShareOnTwitter_Click"
-						        Content="Tweet about Sapphire"
-						        FontSize="20"
-						        Foreground="White"
-						        Padding="0" />
+        </ScrollViewer>
 
-						<TextBlock Margin="7, 0"
-						           FontSize="20"
-						           FontWeight="Normal"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{StaticResource HeaderTextStyle}"
-						           Text="Get the full version"
-						           TextWrapping="Wrap" />
-						<TextBlock Margin="7, 5, 7, 10"
-						           FontSize="16"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{StaticResource HeaderTextStyle}"
-						           Text="You can get additional features by purchasing the full version of the app! Take a look at the description for further details."
-						           TextWrapping="Wrap" />
-
-						<Button x:Name="RemoveAdsButton"
-						        Height="55"
-						        MinHeight="10"
-						        Margin="10, 0"
-						        HorizontalAlignment="Stretch"
-						        Background="#FF529ECC"
-						        BorderThickness="0"
-						        Click="RemoveAds_Click"
-						        Content="Purchase the app!"
-						        FontSize="20"
-						        Foreground="White"
-						        Padding="0" />
-
-					</StackPanel>
-				</ScrollViewer>
-
-			</PivotItem>
-			<PivotItem Margin="10, 0">
-				<PivotItem.Header>
-					<TextBlock HorizontalAlignment="Left"
-					           VerticalAlignment="Center"
-					           CharacterSpacing="-25"
-					           FontFamily="Segoe WP"
-					           FontSize="26"
-					           Foreground="{ThemeResource ColorPrimary}"
-					           Text="options"
-					           Typography.Capitals="AllSmallCaps" />
-				</PivotItem.Header>
-
-				<ScrollViewer>
-					<StackPanel Margin="0" HorizontalAlignment="Stretch">
-						<TextBlock Margin="7, 0"
-						           FontSize="20"
-						           FontWeight="Normal"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{StaticResource HeaderTextStyle}"
-						           Text="UX improvement team"
-						           TextWrapping="Wrap" />
-						<TextBlock Margin="7, 5, 7, -5"
-						           FontSize="16"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{ThemeResource HeaderTextStyle}"
-						           Text="Diagnostics/crash analytics are important to indentifying problems and correcting issus. However, if you aren't comfortable participating, you can quickly disable the feature below."
-						           TextWrapping="Wrap" />
-						<ToggleSwitch x:Name="AnalyticsSwitch"
-						              Header=""
-						              OffContent="Disabled"
-						              OnContent="Enabled"
-						              Style="{StaticResource Switch}"
-						              Toggled="AnalyticsSwitch_Toggled" />
-
-						<TextBlock Margin="5, 0"
-						           FontSize="20"
-						           FontWeight="Normal"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{StaticResource HeaderTextStyle}"
-						           Text="Dark theme"
-						           TextWrapping="Wrap" />
-						<ToggleSwitch x:Name="ThemeSwitch"
-						              Header="Requires a manual restart."
-						              OffContent="Disabled"
-						              OnContent="Enabled"
-						              Style="{StaticResource Switch}"
-						              Toggled="ToggleSwitch_Toggled" />
-
-						<TextBlock Margin="5, 0"
-						           FontSize="20"
-						           FontWeight="Normal"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{StaticResource HeaderTextStyle}"
-						           Text="Notifications"
-						           TextWrapping="Wrap" />
-						<ToggleSwitch x:Name="EnableNotifications"
-						              Header="Toggle notifications for your account."
-						              OffContent="Disabled"
-						              OnContent="Enabled"
-						              Style="{StaticResource Switch}"
-						              Toggled="EnableNotifications_Toggled" />
-
-						<TextBlock Margin="5, 0"
-						           FontSize="20"
-						           FontWeight="Normal"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{StaticResource HeaderTextStyle}"
-						           Text="Status bar background"
-						           TextWrapping="Wrap" />
-						<ToggleSwitch x:Name="StatusBarBGToggle"
-						              Header="Show/Hide the darker statusbar background."
-						              OffContent="Disabled"
-						              OnContent="Enabled"
-						              Style="{StaticResource Switch}"
-						              Toggled="StatusBarBGToggle_Toggled" />
-
-						<TextBlock Margin="5, 0"
-						           FontSize="20"
-						           FontWeight="Normal"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{StaticResource HeaderTextStyle}"
-						           Text="Single click reblog"
-						           TextWrapping="Wrap" />
-						<ToggleSwitch x:Name="EnableOneClickReblog"
-						              Header="If you'd like to quickly reblog posts select this option."
-						              OffContent="Disabled"
-						              OnContent="Enabled"
-						              Style="{StaticResource Switch}"
-						              Toggled="EnableOneClickReblog_Toggled" />
-
-						<TextBlock Margin="5, 0"
-						           FontSize="20"
-						           FontWeight="Normal"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{StaticResource HeaderTextStyle}"
-						           Text="Tags in posts"
-						           TextWrapping="Wrap" />
-						<ToggleSwitch x:Name="DisableTagsInPosts"
-						              Header="If tags in posts just aren't your thing."
-						              OffContent="Disabled"
-						              OnContent="Enabled"
-						              Style="{StaticResource Switch}"
-						              Toggled="DisableTagsInPosts_Toggled" />
-					</StackPanel>
-				</ScrollViewer>
-			</PivotItem>
-			<PivotItem Margin="10, 0">
-				<PivotItem.Header>
-					<TextBlock HorizontalAlignment="Left"
-					           VerticalAlignment="Center"
-					           CharacterSpacing="-25"
-					           FontFamily="Segoe WP"
-					           FontSize="26"
-					           Foreground="{ThemeResource ColorPrimary}"
-					           Text="about"
-					           Typography.Capitals="AllSmallCaps" />
-				</PivotItem.Header>
-				<ScrollViewer Padding="0, 0, 0, 10">
-					<StackPanel Margin="0" HorizontalAlignment="Stretch">
-						<Image Height="150"
-						       Margin="10, 0"
-						       HorizontalAlignment="Center"
-						       Source="ms-appx:///Assets/Logo_Dark.png" />
-
-						<TextBlock Margin="7, 0"
-						           FontSize="20"
-						           FontWeight="Normal"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{StaticResource HeaderTextStyle}"
-						           Text="Application build number"
-						           TextWrapping="Wrap" />
-						<TextBlock x:Name="AppVersion"
-						           Margin="7, 0, 7, 10"
-						           FontSize="16"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{StaticResource HeaderTextStyle}"
-						           Text="Version"
-						           TextWrapping="Wrap" />
-
-						<TextBlock Margin="7, 0"
-						           FontSize="20"
-						           FontWeight="Normal"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{StaticResource HeaderTextStyle}"
-						           Text="Legal"
-						           TextWrapping="Wrap" />
-						<TextBlock Margin="7, 0, 7, 10"
-						           FontSize="16"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{StaticResource HeaderTextStyle}"
-						           Text="It is important to note that this application ('Sapphire') is a 3rd party client for Tumblr and is in no way affiliated, endorsed or advocated for by Yahoo! Inc. Content that is retrieved via the Tumblr APIs is property of its respective owners and is not a reflection of the developer ('Karn, Awefull'). Additionally, you agree that the developer is not liable for any issues that may occur whilst using this application."
-						           TextWrapping="Wrap" />
-
-						<TextBlock Margin="7, 0"
-						           FontSize="20"
-						           FontWeight="Normal"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{StaticResource HeaderTextStyle}"
-						           Text="Privacy"
-						           TextWrapping="Wrap" />
-						<TextBlock Margin="7, 0, 7, 10"
-						           FontSize="16"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{StaticResource HeaderTextStyle}"
-						           Text="Your privacy is very imortant. Check out the apps privacy policy."
-						           TextWrapping="Wrap" />
-						<HyperlinkButton x:Name="PrivacyButton"
-						                 Height="35"
-						                 MinHeight="10"
-						                 Margin="10, 0, 10, 10"
-						                 HorizontalAlignment="Stretch"
-						                 Background="#FF529ECC"
-						                 BorderThickness="0"
-						                 Content="open privacy policy"
-						                 FontSize="20"
-						                 FontWeight="Bold"
-						                 Foreground="White"
-						                 NavigateUri="http://gemlabs.me/sapphire/privacypolicy.html"
-						                 Padding="0" />
-
-						<TextBlock Margin="7, 0"
-						           FontSize="20"
-						           FontWeight="Normal"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{StaticResource HeaderTextStyle}"
-						           Text="Support + Feedback"
-						           TextWrapping="Wrap" />
-						<TextBlock Margin="7, 0, 7, 10"
-						           FontSize="16"
-						           Foreground="{ThemeResource ColorPrimary}"
-						           Style="{StaticResource HeaderTextStyle}"
-						           Text="If you come across a bug, or something that you feel needs improving, feel free to use the links below to get in touch!"
-						           TextWrapping="Wrap" />
-
-						<HyperlinkButton x:Name="Reddit"
-						                 MinHeight="10"
-						                 Margin="10, 0"
-						                 HorizontalAlignment="Left"
-						                 BorderBrush="{x:Null}"
-						                 BorderThickness="0"
-						                 Content="/r/Sapphire"
-						                 FontSize="20"
-						                 Foreground="#FF529ECC"
-						                 NavigateUri="http://reddit.com/r/sapphire" />
-						<HyperlinkButton x:Name="Email"
-						                 MinHeight="10"
-						                 Margin="10, 0"
-						                 HorizontalAlignment="Left"
-						                 BorderBrush="{x:Null}"
-						                 BorderThickness="0"
-						                 Content="Send me an email"
-						                 FontSize="20"
-						                 Foreground="#FF529ECC"
-						                 NavigateUri="mailto:sapphire@gemlabs.me" />
-						<HyperlinkButton x:Name="Follow"
-						                 MinHeight="10"
-						                 Margin="10, 0"
-						                 HorizontalAlignment="Left"
-						                 BorderBrush="{x:Null}"
-						                 BorderThickness="0"
-						                 Content="@KarnSaheb"
-						                 FontSize="20"
-						                 Foreground="#FF529ECC"
-						                 NavigateUri="http://twitter.com/intent/follow?screen_name=KarnSaheb" />
-					</StackPanel>
-				</ScrollViewer>
-
-				<!--  </ListView>  -->
-			</PivotItem>
-		</Pivot>
-	</Grid>
+        <!--
+            <Pivot Grid.Row="1" Margin="0, -25, 0, 0">
+            <PivotItem Margin="10, 0">
+            <PivotItem.Header>
+            <TextBlock HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            CharacterSpacing="-25"
+            FontFamily="Segoe WP"
+            FontSize="26"
+            Foreground="{ThemeResource ColorPrimary}"
+            Text="general"
+            Typography.Capitals="AllSmallCaps" />
+            </PivotItem.Header>
+            
+            <ScrollViewer>
+            <StackPanel Margin="0" HorizontalAlignment="Stretch">
+            <TextBlock Margin="7, 0"
+            FontSize="20"
+            FontWeight="Normal"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{StaticResource HeaderTextStyle}"
+            Text="Like this app?"
+            TextWrapping="Wrap" />
+            <TextBlock Margin="7, 5, 7, 10"
+            FontSize="16"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{ThemeResource HeaderTextStyle}"
+            Text="It's always nice to hear what the users think about the app so be sure to review the app and let me know what you think!"
+            TextWrapping="Wrap" />
+            <Button x:Name="ReviewButton"
+            Height="55"
+            MinHeight="10"
+            Margin="10, 0"
+            HorizontalAlignment="Stretch"
+            Background="#FF529ECC"
+            BorderThickness="0"
+            Click="ReviewButton_Click"
+            Content="Rate and review!"
+            FontSize="20"
+            Foreground="White"
+            Padding="0" />
+            
+            <TextBlock Margin="7, 0"
+            FontSize="20"
+            FontWeight="Normal"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{StaticResource HeaderTextStyle}"
+            Text="Spread the word!"
+            TextWrapping="Wrap" />
+            <TextBlock Margin="7, 5, 7, 10"
+            FontSize="16"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{ThemeResource HeaderTextStyle}"
+            Text="Tell your friends about Sapphire by sharing a short message on your twitter timeline. Alternatively use the #SapphireApp hashtag to describe your experience with the app."
+            TextWrapping="Wrap" />
+            <Button x:Name="ShareOnTwitter"
+            Height="55"
+            MinHeight="10"
+            Margin="10, 0"
+            HorizontalAlignment="Stretch"
+            Background="#FF529ECC"
+            BorderThickness="0"
+            Click="ShareOnTwitter_Click"
+            Content="Tweet about Sapphire"
+            FontSize="20"
+            Foreground="White"
+            Padding="0" />
+            
+            <TextBlock Margin="7, 0"
+            FontSize="20"
+            FontWeight="Normal"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{StaticResource HeaderTextStyle}"
+            Text="Get the full version"
+            TextWrapping="Wrap" />
+            <TextBlock Margin="7, 5, 7, 10"
+            FontSize="16"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{StaticResource HeaderTextStyle}"
+            Text="You can get additional features by purchasing the full version of the app! Take a look at the description for further details."
+            TextWrapping="Wrap" />
+            
+            <Button x:Name="RemoveAdsButton"
+            Height="55"
+            MinHeight="10"
+            Margin="10, 0"
+            HorizontalAlignment="Stretch"
+            Background="#FF529ECC"
+            BorderThickness="0"
+            Click="RemoveAds_Click"
+            Content="Purchase the app!"
+            FontSize="20"
+            Foreground="White"
+            Padding="0" />
+            
+            </StackPanel>
+            </ScrollViewer>
+            
+            </PivotItem>
+            <PivotItem Margin="10, 0">
+            <PivotItem.Header>
+            <TextBlock HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            CharacterSpacing="-25"
+            FontFamily="Segoe WP"
+            FontSize="26"
+            Foreground="{ThemeResource ColorPrimary}"
+            Text="options"
+            Typography.Capitals="AllSmallCaps" />
+            </PivotItem.Header>
+            
+            <ScrollViewer>
+            <StackPanel Margin="0" HorizontalAlignment="Stretch">
+            <TextBlock Margin="7, 0"
+            FontSize="20"
+            FontWeight="Normal"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{StaticResource HeaderTextStyle}"
+            Text="UX improvement team"
+            TextWrapping="Wrap" />
+            <TextBlock Margin="7, 5, 7, -5"
+            FontSize="16"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{ThemeResource HeaderTextStyle}"
+            Text="Diagnostics/crash analytics are important to indentifying problems and correcting issus. However, if you aren't comfortable participating, you can quickly disable the feature below."
+            TextWrapping="Wrap" />
+            <ToggleSwitch x:Name="AnalyticsSwitch"
+            Header=""
+            OffContent="Disabled"
+            OnContent="Enabled"
+            Style="{StaticResource Switch}"
+            Toggled="AnalyticsSwitch_Toggled" />
+            
+            <TextBlock Margin="5, 0"
+            FontSize="20"
+            FontWeight="Normal"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{StaticResource HeaderTextStyle}"
+            Text="Dark theme"
+            TextWrapping="Wrap" />
+            <ToggleSwitch x:Name="ThemeSwitch"
+            Header="Requires a manual restart."
+            OffContent="Disabled"
+            OnContent="Enabled"
+            Style="{StaticResource Switch}"
+            Toggled="ToggleSwitch_Toggled" />
+            
+            <TextBlock Margin="5, 0"
+            FontSize="20"
+            FontWeight="Normal"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{StaticResource HeaderTextStyle}"
+            Text="Notifications"
+            TextWrapping="Wrap" />
+            <ToggleSwitch x:Name="EnableNotifications"
+            Header="Toggle notifications for your account."
+            OffContent="Disabled"
+            OnContent="Enabled"
+            Style="{StaticResource Switch}"
+            Toggled="EnableNotifications_Toggled" />
+            
+            <TextBlock Margin="5, 0"
+            FontSize="20"
+            FontWeight="Normal"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{StaticResource HeaderTextStyle}"
+            Text="Status bar background"
+            TextWrapping="Wrap" />
+            <ToggleSwitch x:Name="StatusBarBGToggle"
+            Header="Show/Hide the darker statusbar background."
+            OffContent="Disabled"
+            OnContent="Enabled"
+            Style="{StaticResource Switch}"
+            Toggled="StatusBarBGToggle_Toggled" />
+            
+            <TextBlock Margin="5, 0"
+            FontSize="20"
+            FontWeight="Normal"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{StaticResource HeaderTextStyle}"
+            Text="Single click reblog"
+            TextWrapping="Wrap" />
+            <ToggleSwitch x:Name="EnableOneClickReblog"
+            Header="If you'd like to quickly reblog posts select this option."
+            OffContent="Disabled"
+            OnContent="Enabled"
+            Style="{StaticResource Switch}"
+            Toggled="EnableOneClickReblog_Toggled" />
+            
+            <TextBlock Margin="5, 0"
+            FontSize="20"
+            FontWeight="Normal"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{StaticResource HeaderTextStyle}"
+            Text="Tags in posts"
+            TextWrapping="Wrap" />
+            <ToggleSwitch x:Name="DisableTagsInPosts"
+            Header="If tags in posts just aren't your thing."
+            OffContent="Disabled"
+            OnContent="Enabled"
+            Style="{StaticResource Switch}"
+            Toggled="DisableTagsInPosts_Toggled" />
+            </StackPanel>
+            </ScrollViewer>
+            </PivotItem>
+            <PivotItem Margin="10, 0">
+            <PivotItem.Header>
+            <TextBlock HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            CharacterSpacing="-25"
+            FontFamily="Segoe WP"
+            FontSize="26"
+            Foreground="{ThemeResource ColorPrimary}"
+            Text="about"
+            Typography.Capitals="AllSmallCaps" />
+            </PivotItem.Header>
+            <ScrollViewer Padding="0, 0, 0, 10">
+            <StackPanel Margin="0" HorizontalAlignment="Stretch">
+            <Image Height="150"
+            Margin="10, 0"
+            HorizontalAlignment="Center"
+            Source="ms-appx:///Assets/Logo_Dark.png" />
+            
+            <TextBlock Margin="7, 0"
+            FontSize="20"
+            FontWeight="Normal"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{StaticResource HeaderTextStyle}"
+            Text="Application build number"
+            TextWrapping="Wrap" />
+            <TextBlock x:Name="AppVersion"
+            Margin="7, 0, 7, 10"
+            FontSize="16"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{StaticResource HeaderTextStyle}"
+            Text="Version"
+            TextWrapping="Wrap" />
+            
+            <TextBlock Margin="7, 0"
+            FontSize="20"
+            FontWeight="Normal"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{StaticResource HeaderTextStyle}"
+            Text="Legal"
+            TextWrapping="Wrap" />
+            <TextBlock Margin="7, 0, 7, 10"
+            FontSize="16"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{StaticResource HeaderTextStyle}"
+            Text="It is important to note that this application ('Sapphire') is a 3rd party client for Tumblr and is in no way affiliated, endorsed or advocated for by Yahoo! Inc. Content that is retrieved via the Tumblr APIs is property of its respective owners and is not a reflection of the developer ('Karn, Awefull'). Additionally, you agree that the developer is not liable for any issues that may occur whilst using this application."
+            TextWrapping="Wrap" />
+            
+            <TextBlock Margin="7, 0"
+            FontSize="20"
+            FontWeight="Normal"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{StaticResource HeaderTextStyle}"
+            Text="Privacy"
+            TextWrapping="Wrap" />
+            <TextBlock Margin="7, 0, 7, 10"
+            FontSize="16"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{StaticResource HeaderTextStyle}"
+            Text="Your privacy is very imortant. Check out the apps privacy policy."
+            TextWrapping="Wrap" />
+            <HyperlinkButton x:Name="PrivacyButton"
+            Height="35"
+            MinHeight="10"
+            Margin="10, 0, 10, 10"
+            HorizontalAlignment="Stretch"
+            Background="#FF529ECC"
+            BorderThickness="0"
+            Content="open privacy policy"
+            FontSize="20"
+            FontWeight="Bold"
+            Foreground="White"
+            NavigateUri="http://gemlabs.me/sapphire/privacypolicy.html"
+            Padding="0" />
+            
+            <TextBlock Margin="7, 0"
+            FontSize="20"
+            FontWeight="Normal"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{StaticResource HeaderTextStyle}"
+            Text="Support + Feedback"
+            TextWrapping="Wrap" />
+            <TextBlock Margin="7, 0, 7, 10"
+            FontSize="16"
+            Foreground="{ThemeResource ColorPrimary}"
+            Style="{StaticResource HeaderTextStyle}"
+            Text="If you come across a bug, or something that you feel needs improving, feel free to use the links below to get in touch!"
+            TextWrapping="Wrap" />
+            
+            <HyperlinkButton x:Name="Reddit"
+            MinHeight="10"
+            Margin="10, 0"
+            HorizontalAlignment="Left"
+            BorderBrush="{x:Null}"
+            BorderThickness="0"
+            Content="/r/Sapphire"
+            FontSize="20"
+            Foreground="#FF529ECC"
+            NavigateUri="http://reddit.com/r/sapphire" />
+            <HyperlinkButton x:Name="Email"
+            MinHeight="10"
+            Margin="10, 0"
+            HorizontalAlignment="Left"
+            BorderBrush="{x:Null}"
+            BorderThickness="0"
+            Content="Send me an email"
+            FontSize="20"
+            Foreground="#FF529ECC"
+            NavigateUri="mailto:sapphire@gemlabs.me" />
+            <HyperlinkButton x:Name="Follow"
+            MinHeight="10"
+            Margin="10, 0"
+            HorizontalAlignment="Left"
+            BorderBrush="{x:Null}"
+            BorderThickness="0"
+            Content="@KarnSaheb"
+            FontSize="20"
+            Foreground="#FF529ECC"
+            NavigateUri="http://twitter.com/intent/follow?screen_name=KarnSaheb" />
+            </StackPanel>
+            </ScrollViewer>
+        -->
+        <!--  </ListView>  -->
+        <!--
+            </PivotItem>
+            </Pivot>
+        -->
+    </Grid>
 </Page>

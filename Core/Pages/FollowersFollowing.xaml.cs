@@ -117,6 +117,7 @@ namespace Core.Pages {
 
         private async void FollowUnfollowButton_Tapped(object sender, TappedRoutedEventArgs e) {
             var x = ((Button)sender);
+            x.IsEnabled = false;
             if (x.Content.ToString().ToLower() == "follow") {
                 App.DisplayStatus("Following user...");
                 if (await CreateRequest.FollowUnfollow(true, x.Tag.ToString())) {
@@ -128,6 +129,7 @@ namespace Core.Pages {
                     x.Content = "FOLLOW";
                 }
             }
+            x.IsEnabled = true;
             App.HideStatus();
         }
 

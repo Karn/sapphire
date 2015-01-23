@@ -23,17 +23,17 @@ namespace Core.Pages {
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-            if (!Utils.AppLicenseHandler.IsTrial) {
-                RemoveAdsButton.Content = "Upgraded features. Thank you!";
-                RemoveAdsButton.IsTapEnabled = false;
-                RemoveAdsButton.Background = new SolidColorBrush(Color.FromArgb(255, 51, 63, 74));
-            }
+            //if (!Utils.AppLicenseHandler.IsTrial) {
+            //    RemoveAdsButton.Content = "Upgraded features. Thank you!";
+            //    RemoveAdsButton.IsTapEnabled = false;
+            //    RemoveAdsButton.Background = new SolidColorBrush(Color.FromArgb(255, 51, 63, 74));
+            //}
 
-            AppVersion.Text = string.Format("{0}.{1}.{2}.{3}",
-                Package.Current.Id.Version.Major.ToString(),
-                Package.Current.Id.Version.Minor.ToString(),
-                Package.Current.Id.Version.Build.ToString(),
-                Package.Current.Id.Version.Revision.ToString());
+            //AppVersion.Text = string.Format("{0}.{1}.{2}.{3}",
+            //    Package.Current.Id.Version.Major.ToString(),
+            //    Package.Current.Id.Version.Minor.ToString(),
+            //    Package.Current.Id.Version.Build.ToString(),
+            //    Package.Current.Id.Version.Revision.ToString());
         }
 
         public NavigationHelper NavigationHelper {
@@ -41,13 +41,13 @@ namespace Core.Pages {
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
-            if (UserStorageUtils.SelectedTheme == "Dark")
-                ThemeSwitch.IsOn = true;
-            EnableNotifications.IsOn = UserStorageUtils.NotificationsEnabled;
-            EnableOneClickReblog.IsOn = UserStorageUtils.OneClickReblog;
-            DisableTagsInPosts.IsOn = UserStorageUtils.TagsInPosts;
-            AnalyticsSwitch.IsOn = UserStorageUtils.EnableAnalytics;
-            StatusBarBGToggle.IsOn = UserStorageUtils.EnableStatusBarBG;
+            //if (UserStorageUtils.SelectedTheme == "Dark")
+            //    ThemeSwitch.IsOn = true;
+            //EnableNotifications.IsOn = UserStorageUtils.NotificationsEnabled;
+            //EnableOneClickReblog.IsOn = UserStorageUtils.OneClickReblog;
+            //DisableTagsInPosts.IsOn = UserStorageUtils.TagsInPosts;
+            //AnalyticsSwitch.IsOn = UserStorageUtils.EnableAnalytics;
+            //StatusBarBGToggle.IsOn = UserStorageUtils.EnableStatusBarBG;
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) {
