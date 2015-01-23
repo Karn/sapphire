@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Navigation;
 namespace Core.Pages {
     public sealed partial class PostsPage : Page {
         private NavigationHelper navigationHelper;
-        
+
         bool loaded = false;
         string tag = "";
 
@@ -40,7 +40,9 @@ namespace Core.Pages {
                 var y = x[1].Split('&');
                 tag = Uri.UnescapeDataString(y[0].Substring(4));
                 PageTitle.Text = "Search: " + tag.Replace('+', ' ');
-                Mode.Visibility = Visibility.Visible;
+                ResultsHeader.Visibility = Visibility.Visible;
+                BlogsHeader.Visibility = Visibility.Visible;
+                Blogs.Visibility = Visibility.Visible;
             } else if (PostFeed.URL.Contains("/submission")) {
                 PageTitle.Text = "Inbox";
             } else if (PostFeed.URL.Contains("/draft")) {
@@ -86,23 +88,6 @@ namespace Core.Pages {
             }
         }
 
-        private async void Mode_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (PostFeed.Visibility == Visibility.Visible) {
-                Mode.Source = App.Current.Resources["TagsIcon"] as BitmapImage; ;
-                ToTop.Visibility = Visibility.Collapsed;
-                PostFeed.Visibility = Visibility.Collapsed;
-                BlogSearch.Visibility = Visibility.Visible;
-                if (BlogSearch.ItemsSource == null) {
-                    BlogSearch.ItemsSource = await CreateRequest.BlogSearch(tag);
-                }
-            } else {
-                Mode.Source = App.Current.Resources["BlogsIcon"] as BitmapImage;
-                ToTop.Visibility = Visibility.Visible;
-                PostFeed.Visibility = Visibility.Visible;
-                BlogSearch.Visibility = Visibility.Collapsed;
-            }
-        }
-
         private void GoToBlog(object sender, TappedRoutedEventArgs e) {
             if (((FrameworkElement)sender).Tag != null) {
                 var frame = Window.Current.Content as Frame;
@@ -129,6 +114,14 @@ namespace Core.Pages {
                 }
             }
             App.HideStatus();
+        }
+
+        private async void BlogSearch_Loaded(object sender, RoutedEventArgs e) {
+            if (BlogSearch.ItemsSource == null) {
+                App.DisplayStatus("Searching for blogs...");
+                BlogSearch.ItemsSource = await CreateRequest.BlogSearch(tag);
+                App.HideStatus();
+            }
         }
     }
 }

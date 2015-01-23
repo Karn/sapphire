@@ -16,9 +16,6 @@ using System.Threading.Tasks;
 
 namespace APIWrapper.Client {
     public class CreateRequest {
-
-        //private static string TAG = "Request";
-
         private static HttpClient Client = new HttpClient();
 
         public static string GetPlainTextFromHtml(string htmlString) {
