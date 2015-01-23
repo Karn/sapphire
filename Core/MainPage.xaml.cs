@@ -136,6 +136,9 @@ namespace Core {
                 SwitchedBlog = false;
             }
 
+            if (LastIndex != -1)
+                NavigationPivot.SelectedIndex = LastIndex;
+
             AlertFlyout = _ErrorFlyout;
 
             //Remove entries before this page.
@@ -143,7 +146,8 @@ namespace Core {
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) {
-            LastIndex = Navigation.SelectedIndex;
+            LastIndex = NavigationPivot.SelectedIndex;
+            Debug.WriteLine("Saving index. " + LastIndex);
         }
 
         #region NavigationHelper registration
