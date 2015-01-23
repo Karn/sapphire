@@ -21,6 +21,8 @@ namespace Core.Pages {
     public sealed partial class AccountManager : Page {
         private NavigationHelper navigationHelper;
 
+        private static object flyoutControl;
+
         public AccountManager() {
             this.InitializeComponent();
 
@@ -134,43 +136,60 @@ namespace Core.Pages {
             List.ItemsSource = Authentication.AuthenticatedTokens.Keys;
         }
 
-        private void StackPanel_Holding(object sender, HoldingRoutedEventArgs e) {
-            FrameworkElement senderElement = sender as FrameworkElement;
-            FlyoutBase flyoutBase = FlyoutBase.GetAttachedFlyout(senderElement);
+        private void Image_Holding(object sender, HoldingRoutedEventArgs e) {
+            flyoutControl = sender;
+            FrameworkElement element = flyoutControl as FrameworkElement;
+            if (element == null) return;
 
-            flyoutBase.ShowAt(senderElement);
+            FlyoutBase.ShowAttachedFlyout(element);
         }
 
-        private void RemoveButton_Click(object sender, RoutedEventArgs e) {
-            var x = ((MenuFlyoutItem)sender).Tag.ToString();
+        private void Grid_Tapped(object sender, TappedRoutedEventArgs e) {
+            FrameworkElement element = flyoutControl as FrameworkElement;
+            if (element == null) return;
 
-            Authentication.AuthenticatedTokens.Remove(x);
-            Authentication.AuthenticatedSecretTokens.Remove(x);
-            Debug.WriteLine(Authentication.AuthenticatedTokens.Count);
-            if (Authentication.AuthenticatedTokens.Count != 0) {
-                if (Authentication.SelectedAccount == x) {
-                    Authentication.SelectedAccount = Authentication.AuthenticatedTokens.Keys.First();
+            // If the menu was attached properly, we just need to call this handy method
+            var f = FlyoutBase.GetAttachedFlyout(element);
+            f.Hide();
+        }
 
-                    string token = "";
-                    Authentication.AuthenticatedTokens.TryGetValue(Authentication.SelectedAccount, out token);
-                    Authentication.Token = token;
+        private void OtherOptions_Tapped(object sender, TappedRoutedEventArgs e) {
+            var selectedItem = sender as TextBlock;
 
-                    string secrettoken = "";
-                    Authentication.AuthenticatedSecretTokens.TryGetValue(Authentication.SelectedAccount, out secrettoken);
-                    Authentication.TokenSecret = secrettoken;
+            if (selectedItem != null) {
+                if (selectedItem.Text.ToString() == "remove") {
+                    var x = selectedItem.Tag.ToString();
 
-                    MainPage.SwitchedAccount = true;
+                    Authentication.AuthenticatedTokens.Remove(x);
+                    Authentication.AuthenticatedSecretTokens.Remove(x);
+                    Debug.WriteLine(Authentication.AuthenticatedTokens.Count);
+                    if (Authentication.AuthenticatedTokens.Count != 0) {
+                        if (Authentication.SelectedAccount == x) {
+                            Authentication.SelectedAccount = Authentication.AuthenticatedTokens.Keys.First();
+
+                            string token = "";
+                            Authentication.AuthenticatedTokens.TryGetValue(Authentication.SelectedAccount, out token);
+                            Authentication.Token = token;
+
+                            string secrettoken = "";
+                            Authentication.AuthenticatedSecretTokens.TryGetValue(Authentication.SelectedAccount, out secrettoken);
+                            Authentication.TokenSecret = secrettoken;
+
+                            MainPage.SwitchedAccount = true;
+                        }
+                        Authentication.SetAuthenticatedTokens();
+                    } else {
+                        Authentication.SetAuthenticatedTokens();
+                        if (!Frame.Navigate(typeof(Login))) {
+                            throw new Exception();
+                        }
+                        return;
+                    }
+
+                    List.ItemsSource = Authentication.AuthenticatedTokens.Keys;
                 }
-                Authentication.SetAuthenticatedTokens();
-            } else {
-                Authentication.SetAuthenticatedTokens();
-                if (!Frame.Navigate(typeof(Login))) {
-                    throw new Exception();
-                }
-                return;
+                Grid_Tapped(null, null);
             }
-
-            List.ItemsSource = Authentication.AuthenticatedTokens.Keys;
         }
     }
 }

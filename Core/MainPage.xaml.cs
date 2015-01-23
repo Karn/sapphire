@@ -70,9 +70,8 @@ namespace Core {
                 if (AccountPivot.DataContext != null) {
                     for (int i = 0; i < 5; i++) {
                         Dashboard.LoadPosts();
-                        if (Dashboard.FeedItemCount() > 0) {
+                        if (Dashboard.FeedItemCount() > 0)
                             return;
-                        }
                     }
                 }
                 await ActivityFeed.RetrieveNotifications();

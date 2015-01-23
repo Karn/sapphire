@@ -91,6 +91,9 @@ namespace Core.Utils.Controls {
         }
 
         public int FeedItemCount() {
+            if (Posts.Items.Count == 1 && (Posts.ItemsSource as ObservableCollection<Post>).Last().type == "nocontent")
+                return 0;
+
             return Posts.Items.Count;
         }
 
