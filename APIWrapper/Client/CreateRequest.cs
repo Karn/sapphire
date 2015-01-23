@@ -33,33 +33,73 @@ namespace APIWrapper.Client {
 
         public static async Task<bool> RetrieveAccountInformation(string account) {
             try {
-                var requestResult = await RequestService.GET("https://api.tumblr.com/v2/user/info");
+                for (int i = 0; i < 5; i++) {
+                    var requestResult = await RequestService.GET("https://api.tumblr.com/v2/user/info");
 
-                if (requestResult.StatusCode == HttpStatusCode.OK) {
+                    if (requestResult.StatusCode == HttpStatusCode.OK) {
 
-                    var parsedData = JsonConvert.DeserializeObject<Responses.GetInfo>(await requestResult.Content.ReadAsStringAsync());
+                        var parsedData = JsonConvert.DeserializeObject<Responses.GetInfo>(await requestResult.Content.ReadAsStringAsync());
 
-                    UserStorageUtils.UserBlogs.Clear();
+                        UserStorageUtils.UserBlogs.Clear();
 
-                    foreach (var b in parsedData.response.user.AccountBlogs) {
-                        b.FollowingCount = parsedData.response.user.BlogsFollowingCount;
-                        b.LikedPostCount = parsedData.response.user.LikedPostCount;
+                        foreach (var b in parsedData.response.user.AccountBlogs) {
+                            b.FollowingCount = parsedData.response.user.BlogsFollowingCount;
+                            b.LikedPostCount = parsedData.response.user.LikedPostCount;
 
-                        if (b.Name == account) {
-                            UserStorageUtils.CurrentBlog = b;
-                        } else if (UserStorageUtils.CurrentBlog == null && b.IsPrimaryBlog)
-                            UserStorageUtils.CurrentBlog = b;
-                        else if (b.Name == UserStorageUtils.CurrentBlog.Name)
-                            UserStorageUtils.CurrentBlog = b;
+                            if (b.Name == account) {
+                                UserStorageUtils.CurrentBlog = b;
+                            } else if (UserStorageUtils.CurrentBlog == null && b.IsPrimaryBlog)
+                                UserStorageUtils.CurrentBlog = b;
+                            else if (b.Name == UserStorageUtils.CurrentBlog.Name)
+                                UserStorageUtils.CurrentBlog = b;
 
-                        UserStorageUtils.UserBlogs.Add(b);
+                            UserStorageUtils.UserBlogs.Add(b);
+                        }
+
+                        if (UserStorageUtils.UserBlogs.Count > 0)
+                            return true;
                     }
-
-                    return true;
+                    Debug.WriteLine("Rerunning call due to previous faliure. " + i);
                 }
             } catch (Exception ex) {
+
             }
             return false;
+        }
+
+        public static async Task<List<Activity.Notification>> RetrieveActivity() {
+            if (UserStorageUtils.CurrentBlog != null) {
+                try {
+                    for (int i = 0; i < 5; i++) {
+                        var result = await RequestService.GET("https://api.tumblr.com/v2/user/notifications");
+
+                        if (result.StatusCode == HttpStatusCode.OK) {
+                            var activity = JsonConvert.DeserializeObject<Responses.GetActivity>(await result.Content.ReadAsStringAsync());
+                            var Notifications = new List<Activity.Notification>();
+                            var NotificationDictionary = UserStorageUtils.NotificationIDs;
+
+                            foreach (var b in activity.response.blogs) {
+                                if (b.Name == UserStorageUtils.CurrentBlog.Name) {
+                                    Debug.WriteLine("Retreiving activity for " + b.Name);
+                                    if (!NotificationDictionary.ContainsKey(b.Name)) {
+                                        NotificationDictionary.Add(b.Name, 0);
+                                    }
+                                    foreach (var n in b.notifications) {
+                                        n.date = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(n.timestamp).ToString("yyyy'-'MM'-'dd");
+                                        Notifications.Add(n);
+                                    }
+                                    NotificationDictionary[b.Name] = Notifications.First().timestamp;
+
+                                    UserStorageUtils.NotificationIDs = NotificationDictionary;
+                                    return Notifications;
+                                }
+                            }
+                        }
+                        Debug.WriteLine("Rerunning call due to previous faliure. " + i);
+                    }
+                } catch (Exception ex) { }
+            }
+            return new List<Activity.Notification>();
         }
 
         public static async Task<bool> LikePost(string id, string reblogKey) {
@@ -138,37 +178,6 @@ namespace APIWrapper.Client {
             return (requestResult.StatusCode == HttpStatusCode.OK) ?
                 JsonConvert.DeserializeObject<Responses.GetFollowing>(await requestResult.Content.ReadAsStringAsync())
                 .response.blogs : new List<Blog>();
-        }
-
-        public static async Task<List<Activity.Notification>> RetrieveActivity() {
-            if (UserStorageUtils.CurrentBlog != null) {
-                try {
-                    var result = await RequestService.GET("https://api.tumblr.com/v2/user/notifications");
-
-                    if (result.StatusCode == HttpStatusCode.OK) {
-                        var activity = JsonConvert.DeserializeObject<Responses.GetActivity>(await result.Content.ReadAsStringAsync());
-                        var Notifications = new List<Activity.Notification>();
-                        var NotificationDictionary = UserStorageUtils.NotificationIDs;
-
-                        foreach (var b in activity.response.blogs) {
-                            if (b.Name == UserStorageUtils.CurrentBlog.Name) {
-                                if (!NotificationDictionary.ContainsKey(b.Name)) {
-                                    NotificationDictionary.Add(b.Name, 0);
-                                }
-                                foreach (var n in b.notifications) {
-                                    n.date = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(n.timestamp).ToString("yyyy'-'MM'-'dd");
-                                    Notifications.Add(n);
-                                }
-                                NotificationDictionary[b.Name] = Notifications.First().timestamp;
-                            }
-                        }
-
-                        UserStorageUtils.NotificationIDs = NotificationDictionary;
-                        return Notifications;
-                    }
-                } catch (Exception ex) { }
-            }
-            return new List<Activity.Notification>();
         }
 
         public static async Task<List<Post>> RetrievePosts(string url, string lastPostID = "") {

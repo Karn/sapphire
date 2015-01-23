@@ -67,7 +67,14 @@ namespace Core {
         public async void CreateView() {
             if (await GetUserAccount() && UserStorageUtils.CurrentBlog != null) {
                 AccountPivot.DataContext = UserStorageUtils.CurrentBlog;
-                Dashboard.LoadPosts();
+                if (AccountPivot.DataContext != null) {
+                    for (int i = 0; i < 5; i++) {
+                        Dashboard.LoadPosts();
+                        if (Dashboard.FeedItemCount() > 0) {
+                            return;
+                        }
+                    }
+                }
                 await ActivityFeed.RetrieveNotifications();
             }
         }

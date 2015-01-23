@@ -90,6 +90,10 @@ namespace Core.Utils.Controls {
             }
         }
 
+        public int FeedItemCount() {
+            return Posts.Items.Count;
+        }
+
         public async void LoadSpecificPost(string post_id) {
             IsSinglePost = true;
             Posts.ItemsSource = await CreateRequest.RetrievePost(post_id);
