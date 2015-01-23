@@ -76,66 +76,68 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border Height="112"
-                            MinWidth="380"
+                    <Border MinWidth="380"
                             Margin="4, 2"
                             HorizontalAlignment="Stretch"
-                            BorderBrush="#0C000000"
-                            BorderThickness="1">
+                            BorderBrush="#19000000"
+                            BorderThickness="0,0,0,1">
                         <Grid HorizontalAlignment="Stretch">
-                            <Image Source="{Binding BlogTheme.HeaderImage, FallbackValue={StaticResource DefaultPattern}}" Stretch="UniformToFill" />
-                            <Grid Height="35"
-                                  VerticalAlignment="Top"
-                                  Background="#66000000">
-                                <TextBlock Margin="10, 5"
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Grid.Column="0"
+                                     Width="65"
+                                     Height="65"
+                                     Margin="10, 5"
+                                     HorizontalAlignment="Left"
+                                     Tag="{Binding Name}"
+                                     Tapped="GoToBlog">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <StackPanel Grid.Column="1"
+                                        Margin="10"
+                                        HorizontalAlignment="Left">
+                                <TextBlock Margin="0"
                                            HorizontalAlignment="Left"
                                            FontSize="18"
                                            FontWeight="Normal"
-                                           Foreground="White"
+                                           Foreground="{ThemeResource ColorPrimaryDark}"
                                            Style="{StaticResource HeaderTextStyle}"
                                            Tag="{Binding Name}"
                                            Tapped="GoToBlog"
                                            Text="{Binding Name}"
                                            TextTrimming="CharacterEllipsis" />
-                                <Button x:Name="FollowButton"
-                                        Height="35"
-                                        MinWidth="120"
-                                        MinHeight="0"
-                                        Margin="5, 0"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Top"
-                                        Background="#FFFFFFFF"
-                                        BorderBrush="#66FFFFFF"
-                                        BorderThickness="0"
-                                        Content="{Binding IsFollowing,
-                                                          Converter={StaticResource FollowingToString},
-                                                          FallbackValue=FOLLOW}"
-                                        FontSize="18"
-                                        Foreground="{StaticResource ColorPrimary}"
-                                        Padding="3"
-                                        Style="{StaticResource ButtonStyleNoBG}"
-                                        Tag="{Binding Name}"
-                                        Tapped="FollowUnfollowButton_Tapped" />
-                            </Grid>
-                            <Image Width="55"
-                                   Height="55"
-                                   Margin="10, 40, 10, 0"
-                                   HorizontalAlignment="Left"
-                                   Source="{Binding Avatar,
-                                                    FallbackValue={StaticResource DefaultAvatar}}"
-                                   Stretch="UniformToFill"
-                                   Tag="{Binding Name}"
-                                   Tapped="GoToBlog" />
-                            <TextBlock Margin="75, 40, 15, 5"
-                                       FontSize="18"
-                                       FontWeight="Normal"
-                                       Foreground="White"
-                                       Style="{StaticResource HeaderTextStyle}"
-                                       Tag="{Binding Name}"
-                                       Tapped="GoToBlog"
-                                       Text="{Binding Description}"
-                                       TextTrimming="CharacterEllipsis"
-                                       TextWrapping="WrapWholeWords" />
+                                <TextBlock Margin="0, -10, 0, 0"
+                                           HorizontalAlignment="Left"
+                                           FontSize="14"
+                                           Foreground="{ThemeResource TextColorPrimaryDark}"
+                                           Text="{Binding URL}"
+                                           TextTrimming="CharacterEllipsis" />
+                            </StackPanel>
+
+                            <Button x:Name="FollowButton"
+                                    Grid.Column="2"
+                                    Height="35"
+                                    MinWidth="120"
+                                    MinHeight="0"
+                                    Margin="5, 0"
+                                    VerticalAlignment="Center"
+                                    Background="#FFFFFFFF"
+                                    BorderBrush="#66FFFFFF"
+                                    BorderThickness="0"
+                                    Content="{Binding IsFollowing,
+                                                      Converter={StaticResource FollowingToString},
+                                                      FallbackValue=FOLLOW}"
+                                    FontSize="18"
+                                    Foreground="{StaticResource ColorPrimary}"
+                                    Padding="3"
+                                    Style="{StaticResource ButtonStyleNoBG}"
+                                    Tag="{Binding Name}"
+                                    Tapped="FollowUnfollowButton_Tapped" />
                         </Grid>
                     </Border>
                 </DataTemplate>

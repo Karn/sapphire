@@ -196,7 +196,7 @@ namespace Core.Utils.Controls {
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e) {
             App.DisplayStatus(App.LocaleResources.GetString("DeletingPost"));
-            var post = (Post)((ToggleButton)sender).Tag;
+            var post = (Post)((FrameworkElement)sender).Tag;
 
             if (await CreateRequest.DeletePost(post.id)) {
                 var items = Posts.ItemsSource as ObservableCollection<Post>;
