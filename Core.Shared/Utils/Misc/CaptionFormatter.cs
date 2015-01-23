@@ -37,7 +37,7 @@ namespace Core.Shared.Utils.Misc {
             QuoteCount = 0;
             if (!string.IsNullOrWhiteSpace(text)) {
                 tb.Inlines.Clear();
-                text = text.ToLower().Replace("<blockquote>", "{♥○").Replace("</blockquote>", "}♥○")
+                text = text.Replace("<blockquote>", "{♥○").Replace("</blockquote>", "}♥○")
                     .Replace("<a", "♥○<a").Replace("</a>:", "</a>: ♥○");
                 if (text.Contains("♥○") || text.Contains("<a"))
                     AddInlineControls(tb, SplitSpace(text));

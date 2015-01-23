@@ -36,7 +36,7 @@ namespace Core.Shared.Utils.Misc {
             string text = e.NewValue as string;
             if (!string.IsNullOrWhiteSpace(text)) {
                 tb.Inlines.Clear();
-                text = text.ToLower().Replace("<a", "♥○<a").Replace("</a>:", "</a>: ♥○");
+                text = text.Replace("<a", "♥○<a").Replace("</a>:", "</a>: ♥○");
                 if (text.Contains("♥○") || text.Contains("<a"))
                     AddInlineControls(tb, SplitSpace(text));
                 else

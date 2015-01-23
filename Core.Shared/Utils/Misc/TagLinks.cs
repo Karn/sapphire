@@ -33,7 +33,7 @@ namespace Core.Shared.Utils.Misc {
             string text = e.NewValue as string;
             tb.Inlines.Clear();
             if (text != null) {
-                if (text.ToLower().Contains("#"))
+                if (text.Contains("#"))
                     AddInlineControls(tb, SplitSpace(text));
                 else
                     tb.Inlines.Add(GetRunControl(text));
