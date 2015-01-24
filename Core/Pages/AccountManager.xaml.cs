@@ -180,12 +180,12 @@ namespace Core.Pages {
                         Authentication.SetAuthenticatedTokens();
                     } else {
                         Authentication.SetAuthenticatedTokens();
+                        Grid_Tapped(null, null);
                         if (!Frame.Navigate(typeof(Login))) {
                             throw new Exception();
                         }
-                        return;
                     }
-
+                    List.ItemsSource = null;
                     List.ItemsSource = Authentication.AuthenticatedTokens.Keys;
                 }
                 Grid_Tapped(null, null);
