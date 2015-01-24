@@ -52,6 +52,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\NewPost\Quote.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\NewPost\Text.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\NewPost\Videos.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\open_nav.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\PauseIcon.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Placeholders\ActivityPost.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Placeholders\Login.jpg" />

@@ -6,6 +6,7 @@ using Windows.System;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
@@ -23,17 +24,9 @@ namespace Core.Pages {
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-            //if (!Utils.AppLicenseHandler.IsTrial) {
-            //    RemoveAdsButton.Content = "Upgraded features. Thank you!";
-            //    RemoveAdsButton.IsTapEnabled = false;
-            //    RemoveAdsButton.Background = new SolidColorBrush(Color.FromArgb(255, 51, 63, 74));
-            //}
-
-            //AppVersion.Text = string.Format("{0}.{1}.{2}.{3}",
-            //    Package.Current.Id.Version.Major.ToString(),
-            //    Package.Current.Id.Version.Minor.ToString(),
-            //    Package.Current.Id.Version.Build.ToString(),
-            //    Package.Current.Id.Version.Revision.ToString());
+            if (!Utils.AppLicenseHandler.IsTrial) {
+                UpgardePanel.Visibility = Visibility.Collapsed;
+            }
         }
 
         public NavigationHelper NavigationHelper {
@@ -41,13 +34,13 @@ namespace Core.Pages {
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
-            //if (UserStorageUtils.SelectedTheme == "Dark")
-            //    ThemeSwitch.IsOn = true;
-            //EnableNotifications.IsOn = UserStorageUtils.NotificationsEnabled;
-            //EnableOneClickReblog.IsOn = UserStorageUtils.OneClickReblog;
-            //DisableTagsInPosts.IsOn = UserStorageUtils.TagsInPosts;
-            //AnalyticsSwitch.IsOn = UserStorageUtils.EnableAnalytics;
-            //StatusBarBGToggle.IsOn = UserStorageUtils.EnableStatusBarBG;
+            if (UserStorageUtils.SelectedTheme == "Dark")
+                DarkTheme.IsChecked = true;
+            NotificationsToggle.IsChecked = UserStorageUtils.NotificationsEnabled;
+            OneClickReblog.IsChecked = UserStorageUtils.OneClickReblog;
+            PostTags.IsChecked = UserStorageUtils.TagsInPosts;
+            UXFeedback.IsChecked = UserStorageUtils.EnableAnalytics;
+            DarkStatusbar.IsChecked = UserStorageUtils.EnableStatusBarBG;
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) {
@@ -66,33 +59,24 @@ namespace Core.Pages {
 
         #endregion
 
-        private async void RemoveAds_Click(object sender, RoutedEventArgs e) {
-            if (Utils.AppLicenseHandler.IsTrial)
-                await Utils.AppLicenseHandler.RemoveAds();
-        }
-
-        private async void ReviewButton_Click(object sender, RoutedEventArgs e) {
-            await Launcher.LaunchUriAsync(new Uri("ms-windows-store:reviewapp?appid=d9b787e4-616a-40ea-bdb4-c81523cb0733"));
-        }
-
-        private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e) {
-            UserStorageUtils.SelectedTheme = ((ToggleSwitch)sender).IsOn ? "Dark" : "Light";
+        private void SwitchTheme_Toggled(object sender, RoutedEventArgs e) {
+            UserStorageUtils.SelectedTheme = (bool)((CheckBox)sender).IsChecked ? "Dark" : "Light";
         }
 
         private void EnableNotifications_Toggled(object sender, RoutedEventArgs e) {
-            UserStorageUtils.NotificationsEnabled = ((ToggleSwitch)sender).IsOn;
+            UserStorageUtils.NotificationsEnabled = (bool)((CheckBox)sender).IsChecked;
         }
 
         private void EnableOneClickReblog_Toggled(object sender, RoutedEventArgs e) {
-            UserStorageUtils.OneClickReblog = ((ToggleSwitch)sender).IsOn;
+            UserStorageUtils.OneClickReblog = (bool)((CheckBox)sender).IsChecked;
         }
 
         private void DisableTagsInPosts_Toggled(object sender, RoutedEventArgs e) {
-            UserStorageUtils.TagsInPosts = ((ToggleSwitch)sender).IsOn;
+            UserStorageUtils.TagsInPosts = (bool)((CheckBox)sender).IsChecked;
         }
 
         private void AnalyticsSwitch_Toggled(object sender, RoutedEventArgs e) {
-            if (((ToggleSwitch)sender).IsOn) {
+            if ((bool)((CheckBox)sender).IsChecked) {
                 UserStorageUtils.EnableAnalytics = true;
                 Analytics.AnalyticsManager.EnableDiagnostics();
             } else {
@@ -101,11 +85,22 @@ namespace Core.Pages {
         }
 
         private void StatusBarBGToggle_Toggled(object sender, RoutedEventArgs e) {
-            UserStorageUtils.EnableStatusBarBG = ((ToggleSwitch)sender).IsOn;
+            UserStorageUtils.EnableStatusBarBG = (bool)((CheckBox)sender).IsChecked;
         }
 
-        private async void ShareOnTwitter_Click(object sender, RoutedEventArgs e) {
-            await Launcher.LaunchUriAsync(new Uri("http://twitter.com/intent/tweet?text=%23SapphireApp+is+an+awesome+%26+beautiful+Tumblr+app+for+WP8.1.+It+has+activity%2C+notifications+%2B+more%21+Download+now+at+http%3A%2F%2Ft.co%2FP4dyvc4LZ0"));
+        private async void RateReviewTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e) {
+            await Launcher.LaunchUriAsync(new Uri("ms-windows-store:reviewapp?appid=d9b787e4-616a-40ea-bdb4-c81523cb0733"));
+        }
+
+        private async void UpgradeAppTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e) {
+            if (Utils.AppLicenseHandler.IsTrial)
+                await Utils.AppLicenseHandler.RemoveAds();
+        }
+
+        private void AboutTapped(object sender, TappedRoutedEventArgs e) {
+            var frame = Window.Current.Content as Frame;
+            if (!frame.Navigate(typeof(Pages.About)))
+                throw new Exception("NavFail");
         }
     }
 }

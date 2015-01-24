@@ -34,74 +34,76 @@
                         BorderThickness="0, 0, 0, 1"
                         Padding="0, 4">
                     <TextBlock Margin="7, 0"
-                               FontSize="20"
+                               FontSize="22"
                                FontWeight="Normal"
                                Foreground="{ThemeResource ColorPrimary}"
                                Style="{StaticResource HeaderTextStyle}"
                                Text="General" />
                 </Border>
-                <StackPanel>
+                <StackPanel Tapped="RateReviewTapped">
                     <TextBlock Margin="8, 0"
-                               FontSize="18"
+                               FontSize="20"
                                FontWeight="Normal"
                                Foreground="{ThemeResource ColorPrimary}"
                                Style="{StaticResource HeaderTextStyle}"
                                Text="Like this app?"
                                TextWrapping="Wrap" />
                     <TextBlock Margin="8, -10, 8, 0"
-                               FontSize="15"
+                               FontSize="17"
                                Foreground="{ThemeResource ColorPrimary}"
                                Opacity="0.8"
                                Style="{ThemeResource HeaderTextStyle}"
                                Text="Take a moment to rate/review the app."
                                TextWrapping="Wrap" />
-                    <!--
-                        <Image Width="35"
-                        Height="35"
-                        HorizontalAlignment="Right" />
-                    -->
+
+                    <Image Width="35"
+                           Height="35"
+                           Margin="0, -60, 0, 0"
+                           HorizontalAlignment="Right"
+                           Source="ms-appx:///Assets/open_nav.png" />
+
                 </StackPanel>
-                <StackPanel>
+                <StackPanel x:Name="UpgardePanel" Tapped="UpgradeAppTapped">
                     <TextBlock Margin="8, 0"
-                               FontSize="18"
+                               FontSize="20"
                                FontWeight="Normal"
                                Foreground="{ThemeResource ColorPrimary}"
                                Style="{StaticResource HeaderTextStyle}"
                                Text="Upgrade to full version"
                                TextWrapping="Wrap" />
                     <TextBlock Margin="8, -10, 8, 0"
-                               FontSize="15"
+                               FontSize="17"
                                Foreground="{ThemeResource ColorPrimary}"
                                Opacity="0.8"
                                Style="{ThemeResource HeaderTextStyle}"
                                Text="Add features with a one time app purchase."
                                TextWrapping="Wrap" />
-                    <!--
-                        <Image Width="35"
-                        Height="35"
-                        HorizontalAlignment="Right" />
-                    -->
+                    <Image Width="35"
+                           Height="35"
+                           Margin="0, -60, 0, 0"
+                           HorizontalAlignment="Right"
+                           Source="ms-appx:///Assets/open_nav.png" />
                 </StackPanel>
-                <StackPanel>
+                <StackPanel Tapped="AboutTapped">
                     <TextBlock Margin="8, 0"
-                               FontSize="18"
+                               FontSize="20"
                                FontWeight="Normal"
                                Foreground="{ThemeResource ColorPrimary}"
                                Style="{StaticResource HeaderTextStyle}"
                                Text="About Sapphire."
                                TextWrapping="Wrap" />
                     <TextBlock Margin="8, -10, 8, 0"
-                               FontSize="15"
+                               FontSize="17"
                                Foreground="{ThemeResource ColorPrimary}"
                                Opacity="0.8"
                                Style="{ThemeResource HeaderTextStyle}"
                                Text="Legal, privacy, and support."
                                TextWrapping="Wrap" />
-                    <!--
-                        <Image Width="35"
-                        Height="35"
-                        HorizontalAlignment="Right" />
-                    -->
+                    <Image Width="35"
+                           Height="35"
+                           Margin="0, -60, 0, 0"
+                           HorizontalAlignment="Right"
+                           Source="ms-appx:///Assets/open_nav.png" />
                 </StackPanel>
 
                 <Border Margin="0, 4"
@@ -109,7 +111,7 @@
                         BorderThickness="0, 0, 0, 1"
                         Padding="0, 4">
                     <TextBlock Margin="7, 0"
-                               FontSize="20"
+                               FontSize="22"
                                FontWeight="Normal"
                                Foreground="{ThemeResource ColorPrimary}"
                                Style="{StaticResource HeaderTextStyle}"
@@ -117,136 +119,141 @@
                 </Border>
                 <StackPanel>
                     <TextBlock Margin="8, 0"
-                               FontSize="18"
+                               FontSize="20"
                                FontWeight="Normal"
                                Foreground="{ThemeResource ColorPrimary}"
                                Style="{StaticResource HeaderTextStyle}"
                                Text="Notifications"
                                TextWrapping="Wrap" />
                     <TextBlock Margin="8, -10, 8, 0"
-                               FontSize="15"
+                               FontSize="18"
                                Foreground="{ThemeResource ColorPrimary}"
                                Opacity="0.8"
                                Style="{ThemeResource HeaderTextStyle}"
                                Text="Manage blog alerts."
                                TextWrapping="Wrap" />
-                    <!--
-                        <Image Width="35"
-                        Height="35"
-                        HorizontalAlignment="Right" />
-                    -->
+                    <CheckBox x:Name="NotificationsToggle"
+                              MinWidth="35"
+                              Margin="0, -60, -5, 0"
+                              HorizontalAlignment="Right"
+                              BorderBrush="#4a9bca"
+                              Checked="EnableNotifications_Toggled"
+                              RequestedTheme="Light" />
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Margin="8, 0"
-                               FontSize="18"
+                               FontSize="20"
                                FontWeight="Normal"
                                Foreground="{ThemeResource ColorPrimary}"
                                Style="{StaticResource HeaderTextStyle}"
                                Text="UX feedback"
                                TextWrapping="Wrap" />
                     <TextBlock Margin="8, -10, 8, 0"
-                               FontSize="15"
+                               FontSize="18"
                                Foreground="{ThemeResource ColorPrimary}"
                                Opacity="0.8"
                                Style="{ThemeResource HeaderTextStyle}"
                                Text="Assist in development via usage analytics."
                                TextWrapping="Wrap" />
-                    <!--
-                        <Image Width="35"
-                        Height="35"
-                        HorizontalAlignment="Right" />
-                    -->
-                    <!--
-                        <CheckBox MinWidth="35"
-                        Margin="0, -8"
-                        HorizontalAlignment="Right"
-                        Foreground="{ThemeResource ColorPrimary}"
-                        Padding="0" />
-                    -->
+                    <CheckBox x:Name="UXFeedback"
+                              MinWidth="35"
+                              Margin="0, -60, -5, 0"
+                              HorizontalAlignment="Right"
+                              BorderBrush="#4a9bca"
+                              Checked="AnalyticsSwitch_Toggled"
+                              RequestedTheme="Light" />
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Margin="8, 0"
-                               FontSize="18"
+                               FontSize="20"
                                FontWeight="Normal"
                                Foreground="{ThemeResource ColorPrimary}"
                                Style="{StaticResource HeaderTextStyle}"
                                Text="Dark theme"
                                TextWrapping="Wrap" />
                     <TextBlock Margin="8, -10, 8, 0"
-                               FontSize="15"
+                               FontSize="18"
                                Foreground="{ThemeResource ColorPrimary}"
                                Opacity="0.8"
                                Style="{ThemeResource HeaderTextStyle}"
                                Text="Enable a darker application skin."
                                TextWrapping="Wrap" />
-                    <!--
-                        <Image Width="35"
-                        Height="35"
-                        HorizontalAlignment="Right" />
-                    -->
+                    <CheckBox x:Name="DarkTheme"
+                              MinWidth="35"
+                              Margin="0, -60, -5, 0"
+                              HorizontalAlignment="Right"
+                              BorderBrush="#4a9bca"
+                              Click="SwitchTheme_Toggled"
+                              RequestedTheme="Light" />
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Margin="8, 0"
-                               FontSize="18"
+                               FontSize="20"
                                FontWeight="Normal"
                                Foreground="{ThemeResource ColorPrimary}"
                                Style="{StaticResource HeaderTextStyle}"
                                Text="Status bar background"
                                TextWrapping="Wrap" />
                     <TextBlock Margin="8, -10, 8, 0"
-                               FontSize="15"
+                               FontSize="18"
                                Foreground="{ThemeResource ColorPrimary}"
                                Opacity="0.8"
                                Style="{ThemeResource HeaderTextStyle}"
                                Text="Enable a darker status bar background"
                                TextWrapping="Wrap" />
-                    <!--
-                        <Image Width="35"
-                        Height="35"
-                        HorizontalAlignment="Right" />
-                    -->
+                    <CheckBox x:Name="DarkStatusbar"
+                              MinWidth="35"
+                              Margin="0, -60, -5, 0"
+                              HorizontalAlignment="Right"
+                              BorderBrush="#4a9bca"
+                              Checked="StatusBarBGToggle_Toggled"
+                              RequestedTheme="Light" />
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Margin="8, 0"
-                               FontSize="18"
+                               FontSize="20"
                                FontWeight="Normal"
                                Foreground="{ThemeResource ColorPrimary}"
                                Style="{StaticResource HeaderTextStyle}"
                                Text="One-click reblog"
                                TextWrapping="Wrap" />
                     <TextBlock Margin="8, -10, 8, 0"
-                               FontSize="15"
+                               FontSize="18"
                                Foreground="{ThemeResource ColorPrimary}"
                                Opacity="0.8"
                                Style="{ThemeResource HeaderTextStyle}"
                                Text="Enable a faster reblogging button."
                                TextWrapping="Wrap" />
-                    <!--
-                        <Image Width="35"
-                        Height="35"
-                        HorizontalAlignment="Right" />
-                    -->
+                    <CheckBox x:Name="OneClickReblog"
+                              MinWidth="35"
+                              Margin="0, -60, -5, 0"
+                              HorizontalAlignment="Right"
+                              BorderBrush="#4a9bca"
+                              Checked="EnableOneClickReblog_Toggled"
+                              RequestedTheme="Light" />
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Margin="8, 0"
-                               FontSize="18"
+                               FontSize="20"
                                FontWeight="Normal"
                                Foreground="{ThemeResource ColorPrimary}"
                                Style="{StaticResource HeaderTextStyle}"
                                Text="Post tags"
                                TextWrapping="Wrap" />
                     <TextBlock Margin="8, -10, 8, 0"
-                               FontSize="15"
+                               FontSize="18"
                                Foreground="{ThemeResource ColorPrimary}"
                                Opacity="0.8"
                                Style="{ThemeResource HeaderTextStyle}"
                                Text="Display post tags below the captions."
                                TextWrapping="Wrap" />
-                    <!--
-                        <Image Width="35"
-                        Height="35"
-                        HorizontalAlignment="Right" />
-                    -->
+                    <CheckBox x:Name="PostTags"
+                              MinWidth="35"
+                              Margin="0, -60, -5, 0"
+                              HorizontalAlignment="Right"
+                              BorderBrush="#4a9bca"
+                              Checked="DisableTagsInPosts_Toggled"
+                              RequestedTheme="Light" />
                 </StackPanel>
             </StackPanel>
 
