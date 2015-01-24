@@ -75,6 +75,7 @@ namespace APIWrapper.Client {
 
                         if (result.StatusCode == HttpStatusCode.OK) {
                             var activity = JsonConvert.DeserializeObject<Responses.GetActivity>(await result.Content.ReadAsStringAsync());
+
                             var Notifications = new List<Activity.Notification>();
                             var NotificationDictionary = UserStorageUtils.NotificationIDs;
 
@@ -279,6 +280,7 @@ namespace APIWrapper.Client {
         public static async Task<Blog> GetBlog(string name) {
             var requestResult = await RequestService.GET(string.Format(EndpointManager.Blog + "{0}.tumblr.com/info", name),
                 "api_key=" + Authentication.ConsumerKey);
+            Debug.WriteLine(await requestResult.Content.ReadAsStringAsync());
             return (requestResult.StatusCode == HttpStatusCode.OK) ?
                 JsonConvert.DeserializeObject<Responses.GetBlog>(await requestResult.Content.ReadAsStringAsync())
                 .response.blog : new Blog();
@@ -292,7 +294,7 @@ namespace APIWrapper.Client {
         }
 
         public static async Task<List<Responses.SpotlightResponse>> RetrieveSpotlight(bool forceRefresh = false) {
-            if (string.IsNullOrEmpty(UserStorageUtils.CachedSpotlight) || forceRefresh) {
+            if (string.IsNullOrEmpty(UserStorageUtils.CachedSpotlight) || forceRefresh && UserStorageUtils.CurrentBlog != null) {
                 var response = await Client.GetAsync(new Uri(EndpointManager.Spotlight));
                 var result = await response.Content.ReadAsStringAsync();
 

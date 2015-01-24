@@ -68,7 +68,7 @@ namespace Core.Utils.Misc {
                                 }
                             }
                         } else {
-                            MainPage.AlertFlyout.DisplayMessage(App.LocaleResources.GetString("PostLoadFailed"));
+                            App.Alert(App.LocaleResources.GetString("PostLoadFailed"));
                         }
 
                         if (AppLicenseHandler.IsTrial && posts.Count > 5)
@@ -83,7 +83,7 @@ namespace Core.Utils.Misc {
                     });
                 } catch (Exception ex) {
                     Analytics.AnalyticsManager.LogException(ex, TAG, "Load failed due to exception.");
-                    MainPage.AlertFlyout.DisplayMessage("Load failed due to exception.");
+                    App.Alert("Load failed due to exception.");
                     throw new Exception();
                 }
             }

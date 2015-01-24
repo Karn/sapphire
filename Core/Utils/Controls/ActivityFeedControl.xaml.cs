@@ -25,8 +25,6 @@ namespace Core.Utils.Controls {
                 var activity = await CreateRequest.RetrieveActivity();
                 if (activity.Count > 0)
                     GroupData(activity);
-                else
-                    MainPage.AlertFlyout.DisplayMessage(App.LocaleResources.GetString("ActivityLoadFailed"));
                 App.HideStatus();
             } catch (Exception ex) {
                 Analytics.AnalyticsManager.LogException(ex, TAG, "Error loading activity feed. ");

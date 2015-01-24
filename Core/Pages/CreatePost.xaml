@@ -252,7 +252,7 @@
 
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource LightGray}">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource WindowBackground}">
         <!-- TitlePanel -->
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>

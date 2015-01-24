@@ -42,7 +42,7 @@ namespace Core.Pages {
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-            MainPage.AlertFlyout = _ErrorFlyout;
+            
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace Core.Pages {
                 if (((Image)sender).Tag != null) {
                     if (((Image)sender).Tag.ToString() == "queue") {
                         if (string.IsNullOrWhiteSpace(PublishOn.Text)) {
-                            MainPage.AlertFlyout.DisplayMessage("Please enter a time to publish the post on.");
+                            App.Alert("Please enter a time to publish the post on.");
                             ReplyFeilds.IsEnabled = true;
                             App.HideStatus();
                             return;
@@ -174,13 +174,13 @@ namespace Core.Pages {
                     var request = await CreateRequest.CreatePost(parameters);
                     Debug.WriteLine(await request.Content.ReadAsStringAsync());
                     if (request.StatusCode == System.Net.HttpStatusCode.Created) {
-                        MainPage.AlertFlyout.DisplayMessage("Created.");
+                        App.Alert("Created.");
                         ReplyFeilds.IsEnabled = true;
                         reblogged = true;
                         App.HideStatus();
                         Frame.GoBack();
                     } else {
-                        MainPage.AlertFlyout.DisplayMessage("Failed to reply to message.");
+                        App.Alert("Failed to reply to message.");
                         App.HideStatus();
                         button.IsChecked = false;
                         return;
@@ -188,7 +188,7 @@ namespace Core.Pages {
                 } else {
                     App.DisplayStatus("Reblogging post...");
                     if (await CreateRequest.ReblogPost(postID, reblogKey, Authentication.Utils.UrlEncode(Caption.Text), tags, status, blogName)) {
-                        MainPage.AlertFlyout.DisplayMessage("Created.");
+                        App.Alert("Created.");
                         ReplyFeilds.IsEnabled = true;
                         reblogged = true;
                         App.HideStatus();
@@ -196,11 +196,11 @@ namespace Core.Pages {
                     } else {
                         if (((Image)sender).Tag != null) {
                             if (((Image)sender).Tag.ToString() == "queue") {
-                                MainPage.AlertFlyout.DisplayMessage("Failed to add post to queue. Remember to use the same format as on the site!");
+                                App.Alert("Failed to add post to queue. Remember to use the same format as on the site!");
                             } else if (((Image)sender).Tag.ToString() == "draft") {
-                                MainPage.AlertFlyout.DisplayMessage("Failed to add post to drafts.");
+                                App.Alert("Failed to add post to drafts.");
                             } else
-                                MainPage.AlertFlyout.DisplayMessage("Failed to reblog post.");
+                                App.Alert("Failed to reblog post.");
                         }
                         button.IsChecked = false;
                     }
@@ -209,7 +209,7 @@ namespace Core.Pages {
                 ReplyFeilds.IsEnabled = false;
             } catch (Exception ex) {
                 App.HideStatus();
-                MainPage.AlertFlyout.DisplayMessage("Failed to create post");
+                App.Alert("Failed to create post");
                 Analytics.AnalyticsManager.LogException(ex, TAG, "Failed to create post");
                 button.IsChecked = false;
             }

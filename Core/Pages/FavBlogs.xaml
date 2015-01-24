@@ -8,7 +8,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource LightGray}">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource WindowBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

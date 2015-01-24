@@ -9,12 +9,12 @@
     <UserControl.Resources>
         <Storyboard x:Name="Display" Completed="Display_Completed">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ToastContainer" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
-                <EasingDoubleKeyFrame KeyTime="0" Value="-95" />
+                <EasingDoubleKeyFrame KeyTime="0" Value="-81" />
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0" />
                 <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-10" />
                 <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0" />
                 <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0" />
-                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="-95" />
+                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="-81" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
@@ -24,39 +24,24 @@
                 Canvas.ZIndex="9999"
                 RenderTransformOrigin="0.5,0.5">
         <StackPanel.RenderTransform>
-            <CompositeTransform TranslateX="0" TranslateY="-95" />
+            <CompositeTransform TranslateX="0" TranslateY="-81" />
         </StackPanel.RenderTransform>
-        <Border x:Name="border"
-                Height="95"
-                Background="{StaticResource ColorPrimaryDark}"
-                BorderBrush="#FF506D87"
-                BorderThickness="0, 0, 0, 1"
-                RenderTransformOrigin="0.5,0.5">
-            <Border.RenderTransform>
-                <CompositeTransform />
-            </Border.RenderTransform>
-            <Grid Height="70" VerticalAlignment="Bottom">
-                <Image Width="30"
-                       Height="30"
-                       Margin="15, 0"
-                       HorizontalAlignment="Left"
-                       Source="BadgeLogo.png"
-                       Stretch="UniformToFill" />
-                <StackPanel MaxHeight="50"
-                            Margin="60, 0, 20, 0"
-                            VerticalAlignment="Center">
-                    <TextBlock x:Name="Message"
-                               MinHeight="0"
-                               VerticalAlignment="Center"
-                               FontSize="20"
-                               Opacity="0.8"
-                               Style="{StaticResource HeaderTextStyle}"
-                               Text="Error Message"
-                               TextLineBounds="Tight"
-                               TextWrapping="Wrap" />
-                </StackPanel>
-            </Grid>
-        </Border>
+
+        <Grid Height="55"
+              Margin="0, 25, 0, 0"
+              VerticalAlignment="Bottom"
+              Background="{ThemeResource ColorPrimaryDark}">
+            <TextBlock x:Name="Message"
+                       MinHeight="0"
+                       Margin="15, 10"
+                       VerticalAlignment="Center"
+                       FontSize="18"
+                       Opacity="0.8"
+                       Style="{StaticResource HeaderTextStyle}"
+                       Text="Error Message"
+                       TextLineBounds="Tight"
+                       TextWrapping="Wrap" />
+        </Grid>
     </StackPanel>
 
 </UserControl>

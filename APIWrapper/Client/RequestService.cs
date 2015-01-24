@@ -20,7 +20,7 @@ namespace APIWrapper.Client {
 
         public static async Task<HttpResponseMessage> GET(string URL, string additionalParameters = "", CancellationTokenSource cToken = null) {
             try {
-                using (var client = new HttpClient()) {
+                using (var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate })) {
                     client.MaxResponseContentBufferSize = int.MaxValue;
                     client.DefaultRequestHeaders.ExpectContinue = false;
 
@@ -39,10 +39,12 @@ namespace APIWrapper.Client {
                         (!string.IsNullOrEmpty(additionalParameters) ? "?" + additionalParameters : ""))
                     };
 
+                    requestMessage.Headers.Add("Accept-Encoding", "gzip,deflate");
                     requestMessage.Headers.Authorization = new AuthenticationHeaderValue("OAuth", authenticationData);
                     requestMessage.Headers.IfModifiedSince = DateTime.UtcNow.Date;
 
-                    return (cToken != null) ? await client.SendAsync(requestMessage, HttpCompletionOption.ResponseContentRead, cToken.Token) : await client.SendAsync(requestMessage);
+                    return (cToken != null) ? await client.SendAsync(requestMessage, HttpCompletionOption.ResponseContentRead, cToken.Token) :
+                        await client.SendAsync(requestMessage);
                 }
             } catch (Exception ex) {
                 return new HttpResponseMessage() { StatusCode = HttpStatusCode.NotFound };

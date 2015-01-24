@@ -7,6 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using System.Linq;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -28,7 +29,7 @@ namespace Core.Pages {
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-            MainPage.AlertFlyout = _ErrorFlyout;
+            
         }
 
         public async void SetItemSource() {
@@ -38,12 +39,16 @@ namespace Core.Pages {
             }
             App.DisplayStatus("Loading blogs...");
             if (PageTitle.Text.ToString() == "Followers") {
-                foreach (var blog in await CreateRequest.RetrieveFollowers(offset))
+                foreach (var blog in await CreateRequest.RetrieveFollowers(offset)) {
+                    //if (!BlogList.Contains(blog))
                     BlogList.Add(blog);
+                }
             } else if (PageTitle.Text.ToString() == "Following") {
                 foreach (var blog in await CreateRequest.RetrieveFollowing(offset)) {
-                    blog.IsFollowing = true;
+                    //if (!BlogList.Contains(blog)) {
+                    blog._following = true;
                     BlogList.Add(blog);
+                    //}
                 }
             }
             List.ItemsSource = BlogList;

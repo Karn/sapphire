@@ -38,7 +38,7 @@ namespace Core.Pages {
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-            MainPage.AlertFlyout = _ErrorFlyout;
+
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace Core.Pages {
                     PhotoView.Stretch = Stretch.UniformToFill;
                 }
             } else {
-                MainPage.AlertFlyout.DisplayMessage("Failed to select image.");
+                App.Alert("Failed to select image.");
             }
         }
 
@@ -181,7 +181,7 @@ namespace Core.Pages {
                     if (((Image)sender).Tag.ToString() == "queue") {
                         var publishOn = ((TextBox)g.FindName("PublishOn")).Text;
                         if (string.IsNullOrWhiteSpace(publishOn)) {
-                            MainPage.AlertFlyout.DisplayMessage("Please enter a time to publish the post on.");
+                            App.Alert("Please enter a time to publish the post on.");
                             return;
                         } else {
                             status = "&state=queue&publish_on=" + Authentication.Utils.UrlEncode(publishOn);
@@ -198,10 +198,10 @@ namespace Core.Pages {
                     App.HideStatus();
                     Frame.GoBack();
                 } else
-                    MainPage.AlertFlyout.DisplayMessage(result.ReasonPhrase);
+                    App.Alert(result.ReasonPhrase);
             } catch (Exception ex) {
                 Analytics.AnalyticsManager.LogException(ex, TAG, "Failed to create post");
-                MainPage.AlertFlyout.DisplayMessage("Failed to create post");
+                App.Alert("Failed to create post");
             }
             Type.IsEnabled = true;
             App.HideStatus();
@@ -229,7 +229,7 @@ namespace Core.Pages {
                     if (((Image)sender).Tag.ToString() == "queue") {
                         var publishOn = ((TextBox)g.FindName("PublishOn")).Text;
                         if (string.IsNullOrWhiteSpace(publishOn)) {
-                            MainPage.AlertFlyout.DisplayMessage("Please enter a time to publish the post on.");
+                            App.Alert("Please enter a time to publish the post on.");
                             return;
                         } else {
                             status = "&state=queue&publish_on=" + Authentication.Utils.UrlEncode(publishOn);
@@ -246,9 +246,9 @@ namespace Core.Pages {
                     App.HideStatus();
                     Frame.GoBack();
                 } else
-                    MainPage.AlertFlyout.DisplayMessage(result.ReasonPhrase);
+                    App.Alert(result.ReasonPhrase);
             } catch (Exception ex) {
-                MainPage.AlertFlyout.DisplayMessage("Failed to create post");
+                App.Alert("Failed to create post");
                 Analytics.AnalyticsManager.LogException(ex, TAG, "Failed to create post");
             }
             Type.IsEnabled = true;
@@ -276,7 +276,7 @@ namespace Core.Pages {
                     if (((Image)sender).Tag.ToString() == "queue") {
                         var publishOn = ((TextBox)g.FindName("PublishOn")).Text;
                         if (string.IsNullOrWhiteSpace(publishOn)) {
-                            MainPage.AlertFlyout.DisplayMessage("Please enter a time to publish the post on.");
+                            App.Alert("Please enter a time to publish the post on.");
                             return;
                         } else {
                             status = "&state=queue&publish_on=" + publishOn;
@@ -295,10 +295,10 @@ namespace Core.Pages {
                         App.HideStatus();
                         Frame.GoBack();
                     } else
-                        MainPage.AlertFlyout.DisplayMessage(result.ReasonPhrase);
+                        App.Alert(result.ReasonPhrase);
                 }
             } catch (Exception ex) {
-                MainPage.AlertFlyout.DisplayMessage("Failed to create post");
+                App.Alert("Failed to create post");
                 Analytics.AnalyticsManager.LogException(ex, TAG, "Failed to create post");
             }
             Type.IsEnabled = true;
@@ -330,7 +330,7 @@ namespace Core.Pages {
                     if (((Image)sender).Tag.ToString() == "queue") {
                         var publishOn = ((TextBox)g.FindName("PublishOn")).Text;
                         if (string.IsNullOrWhiteSpace(publishOn)) {
-                            MainPage.AlertFlyout.DisplayMessage("Please enter a time to publish the post on.");
+                            App.Alert("Please enter a time to publish the post on.");
                             return;
                         } else {
                             status = "&state=queue&publish_on=" + Authentication.Utils.UrlEncode(publishOn);
@@ -347,9 +347,9 @@ namespace Core.Pages {
                     App.HideStatus();
                     Frame.GoBack();
                 } else
-                    MainPage.AlertFlyout.DisplayMessage(result.ReasonPhrase);
+                    App.Alert(result.ReasonPhrase);
             } catch (Exception ex) {
-                MainPage.AlertFlyout.DisplayMessage("Failed to create post");
+                App.Alert("Failed to create post");
                 Analytics.AnalyticsManager.LogException(ex, TAG, "Failed to create post");
             }
             Type.IsEnabled = true;

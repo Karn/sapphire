@@ -14,6 +14,7 @@ using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
@@ -25,7 +26,6 @@ namespace Core {
 
         private readonly NavigationHelper navigationHelper;
 
-        public static AlertDialog AlertFlyout;
         private static int LastIndex = -1;
         public static bool SwitchedBlog = false;
         public static bool SwitchedAccount = false;
@@ -41,9 +41,6 @@ namespace Core {
 
             ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
 
-            //Initialize
-            AlertFlyout = _ErrorFlyout; //Mainpage error toast
-
             if (UserStorageUtils.NotificationsEnabled)
                 RegisterBackgroundTask();
 
@@ -55,10 +52,9 @@ namespace Core {
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e) {
             HeaderAnimateIn.Begin();
 
-            if (!UserStorageUtils.EnableStatusBarBG)
-                StatusBarBG.Background = App.Current.Resources["ColorPrimary"] as SolidColorBrush;
-            else
-                StatusBarBG.Background = App.Current.Resources["ColorPrimaryDark"] as SolidColorBrush;
+            StatusBarBG.Background = UserStorageUtils.EnableStatusBarBG ?
+                App.Current.Resources["ColorPrimaryDark"] as SolidColorBrush :
+                App.Current.Resources["ColorPrimary"] as SolidColorBrush;
 
             if (AccountPivot.DataContext == null)
                 CreateView();
@@ -67,12 +63,10 @@ namespace Core {
         public async void CreateView() {
             if (await GetUserAccount() && UserStorageUtils.CurrentBlog != null) {
                 AccountPivot.DataContext = UserStorageUtils.CurrentBlog;
-                if (AccountPivot.DataContext != null) {
-                    for (int i = 0; i < 5; i++) {
-                        Dashboard.LoadPosts();
-                        if (Dashboard.FeedItemCount() > 0)
-                            return;
-                    }
+                for (int i = 0; i < 5; i++) {
+                    Dashboard.LoadPosts();
+                    if (Dashboard.FeedItemCount() > 0)
+                        return;
                 }
                 await ActivityFeed.RetrieveNotifications();
             }
@@ -84,7 +78,7 @@ namespace Core {
                 AccountPivot.DataContext = UserStorageUtils.CurrentBlog;
                 return true;
             } else
-                AlertFlyout.DisplayMessage(App.LocaleResources.GetString("UnableToLoadAccount"));
+                App.Alert(App.LocaleResources.GetString("UnableToLoadAccount"));
             App.HideStatus();
             return false;
         }
@@ -139,15 +133,12 @@ namespace Core {
             if (LastIndex != -1)
                 NavigationPivot.SelectedIndex = LastIndex;
 
-            AlertFlyout = _ErrorFlyout;
-
             //Remove entries before this page.
             Frame.BackStack.Clear();
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) {
             LastIndex = NavigationPivot.SelectedIndex;
-            Debug.WriteLine("Saving index. " + LastIndex);
         }
 
         #region NavigationHelper registration

@@ -72,7 +72,7 @@ namespace Core.Pages {
         }
 
         private void DisableTagsInPosts_Toggled(object sender, RoutedEventArgs e) {
-            UserStorageUtils.TagsInPosts = (bool)((CheckBox)sender).IsChecked;
+            UserStorageUtils.TagsInPosts = (bool)((CheckBox)sender).IsChecked ? true : false;
         }
 
         private void AnalyticsSwitch_Toggled(object sender, RoutedEventArgs e) {

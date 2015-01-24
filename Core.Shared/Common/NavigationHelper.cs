@@ -1,4 +1,5 @@
-﻿using System;
+﻿using APIWrapper.Utils;
+using System;
 using System.Collections.Generic;
 using Windows.System;
 using Windows.UI.Core;
@@ -64,6 +65,9 @@ namespace Core.Shared.Common {
         /// navigation requests only occur when the page is occupying the entire window.</param>
         public NavigationHelper(Page page) {
             this.Page = page;
+
+            var layoutRoot = (Grid)page.FindName("LayoutRoot");
+            layoutRoot.Children.Add(new AlertDialog { Name = "PageAlertDialog" });
 
             // When this page is part of the visual tree make two changes:
             // 1) Map application view state to visual state for the page
@@ -185,10 +189,8 @@ namespace Core.Shared.Common {
         /// </summary>
         /// <param name="sender">Instance that triggered the event.</param>
         /// <param name="e">Event data describing the conditions that led to the event.</param>
-        private void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e)
-        {
-            if (this.GoBackCommand.CanExecute(null))
-            {
+        private void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e) {
+            if (this.GoBackCommand.CanExecute(null)) {
                 e.Handled = true;
                 this.GoBackCommand.Execute(null);
             }

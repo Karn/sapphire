@@ -145,12 +145,12 @@ namespace Core.Utils.Controls {
                     }
                 } else {
                     ((ToggleButton)sender).IsChecked = ((bool)(x.IsChecked)) ? false : true;
-                    MainPage.AlertFlyout.DisplayMessage("Unable to like post.");
+                    App.Alert("Unable to like post.");
                 }
                 App.HideStatus();
             } catch (Exception ex) {
                 Analytics.AnalyticsManager.LogException(ex, TAG, "Unable to like post.");
-                MainPage.AlertFlyout.DisplayMessage("Unable to like post.");
+                App.Alert("Unable to like post.");
             }
         }
 
@@ -171,7 +171,7 @@ namespace Core.Utils.Controls {
                         ((ToggleControl)sender).IsChecked = true;
                     } else {
                         ((ToggleButton)sender).IsChecked = ((bool)(x.IsChecked)) ? false : true;
-                        MainPage.AlertFlyout.DisplayMessage("Failed to reblog post.");
+                        App.Alert("Failed to reblog post.");
                     }
                     App.HideStatus();
                 } catch (Exception ex) {
@@ -195,10 +195,10 @@ namespace Core.Utils.Controls {
             var post = (Post)((Button)sender).Tag;
 
             if (await CreateRequest.PostDraft(post.id)) {
-                MainPage.AlertFlyout.DisplayMessage("Created post.");
+                App.Alert("Created post.");
                 var items = (Posts.ItemsSource as ObservableCollection<Post>).Remove(post);
             } else
-                MainPage.AlertFlyout.DisplayMessage("Failed to create post.");
+                App.Alert("Failed to create post.");
         }
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e) {
@@ -209,7 +209,7 @@ namespace Core.Utils.Controls {
                 var items = Posts.ItemsSource as ObservableCollection<Post>;
                 items.Remove(post);
             } else
-                MainPage.AlertFlyout.DisplayMessage("Failed to delete post.");
+                App.Alert("Failed to delete post.");
             App.HideStatus();
         }
 
@@ -240,7 +240,7 @@ namespace Core.Utils.Controls {
                             player.Source = new Uri(mp4);
                         else {
                             Analytics.AnalyticsManager.LogException(null, TAG, "Failed to retrieve GIF url.");
-                            MainPage.AlertFlyout.DisplayMessage("Unable to load animated Image.");
+                            App.Alert("Unable to load animated Image.");
                             App.HideStatus();
                             return;
                         }
@@ -260,7 +260,7 @@ namespace Core.Utils.Controls {
                 }
             } catch (Exception ex) {
                 Analytics.AnalyticsManager.LogException(ex, TAG, "Failed to load GIF.");
-                MainPage.AlertFlyout.DisplayMessage("Unable to load animated Image.");
+                App.Alert("Unable to load animated Image.");
             }
         }
 
@@ -339,10 +339,8 @@ namespace Core.Utils.Controls {
                 var downloadOperation = backgroundDownloader.CreateDownload(fileUri, file);
                 await downloadOperation.StartAsync();
 
-                MainPage.AlertFlyout.DisplayMessage("Image saved.");
                 App.HideStatus();
             } catch (Exception ex) {
-                MainPage.AlertFlyout.DisplayMessage("Unable to save photo.");
                 Analytics.AnalyticsManager.LogException(ex, TAG, "Unable to save media to photos folder.");
             }
         }

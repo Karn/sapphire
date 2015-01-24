@@ -24,7 +24,7 @@ namespace Core.Pages {
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
             List.ItemsSource = UserStorageUtils.FavBlogList;
-            MainPage.AlertFlyout = _ErrorFlyout;
+            
         }
 
         /// <summary>

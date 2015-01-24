@@ -1,8 +1,9 @@
 ﻿using APIWrapper.Client;
 using Newtonsoft.Json;
+using System;
 
 namespace APIWrapper.Content.Model {
-    public class Blog {
+    public class Blog : IEquatable<Blog> {
 
         [JsonProperty("primary")]
         public bool IsPrimaryBlog { get; set; }
@@ -47,7 +48,16 @@ namespace APIWrapper.Content.Model {
         public int FollowingCount { get; set; }
 
         [JsonProperty("following")]
-        public bool IsFollowing { get; set; }
+        public bool _following { get; set; }
+
+        [JsonProperty("followed")]
+        private bool _followed { get; set; }
+
+        public bool IsFollowing {
+            get {
+                return _followed || _followed;
+            }
+        }
 
         [JsonProperty("share_likes")]
         public bool LikesVisible { get; set; }
@@ -57,6 +67,10 @@ namespace APIWrapper.Content.Model {
 
         public class AltBlog : Blog {
             new public bool IsFollowing { get; set; }
+        }
+
+        public bool Equals(Blog other) {
+            return this.Name == other.Name;
         }
     }
 }

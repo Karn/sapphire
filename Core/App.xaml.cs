@@ -1,5 +1,6 @@
 ﻿using APIWrapper.AuthenticationManager;
 using APIWrapper.Content;
+using APIWrapper.Utils;
 using Core.Shared.Common;
 using Core.Shared.Pages;
 using Core.Utils.Misc;
@@ -9,6 +10,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Resources;
 using Windows.Graphics.Display;
 using Windows.UI;
+using Windows.UI.Notifications;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -133,6 +135,11 @@ namespace Core {
 
         public static async void HideStatus() {
             await statusBar.ProgressIndicator.HideAsync();
+        }
+
+        public static void Alert(string message) {
+            var d = (AlertDialog)((Grid)((Page)((Frame)Window.Current.Content).Content).FindName("LayoutRoot")).FindName("PageAlertDialog");
+            d.DisplayMessage(message);
         }
     }
 }

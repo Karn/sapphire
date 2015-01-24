@@ -1,28 +1,38 @@
-﻿<Page
-    x:Class="Core.Pages.PostDetails"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Core.Pages"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    xmlns:controls="using:Core.Utils.Controls"
-    xmlns:CommonControl="using:APIWrapper.Utils">
+﻿<Page x:Class="Core.Pages.PostDetails"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:CommonControl="using:APIWrapper.Utils"
+      xmlns:controls="using:Core.Utils.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:Core.Pages"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource WindowBackground}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <!-- TitlePanel -->
-        <CommonControl:AlertDialog Grid.RowSpan="2" x:Name="_ErrorFlyout" Canvas.ZIndex="9999" HorizontalAlignment="Stretch" Height="95" VerticalAlignment="Top"/>
-        <StackPanel Grid.Row="0" Margin="0" Background="{ThemeResource ColorPrimary}">
-            <Grid Height="45" Margin="0, 25, 0, 0" Background="{ThemeResource ColorPrimary}">
-                <TextBlock x:Name="PageTitle" Foreground="{ThemeResource TextColorPrimary}" Text="Posts Details" Margin="15, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderTextStyle}"/>
+        <!--  TitlePanel  -->
+        <StackPanel Grid.Row="0"
+                    Margin="0"
+                    Background="{ThemeResource ColorPrimary}">
+            <Grid Height="45"
+                  Margin="0, 25, 0, 0"
+                  Background="{ThemeResource ColorPrimary}">
+                <TextBlock x:Name="PageTitle"
+                           Margin="15, 0, 0, 0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Foreground="{ThemeResource TextColorPrimary}"
+                           Style="{StaticResource HeaderTextStyle}"
+                           Text="Posts Details" />
             </Grid>
         </StackPanel>
 
-        <!--TODO: Content should be placed within the following grid-->
-        <controls:PostFeedControl x:Name="Details" Grid.Row="1" Loaded="Details_Loaded"/>
+        <!--  TODO: Content should be placed within the following grid  -->
+        <controls:PostFeedControl x:Name="Details"
+                                  Grid.Row="1"
+                                  Loaded="Details_Loaded" />
     </Grid>
 </Page>

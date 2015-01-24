@@ -8,18 +8,11 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource LightGray}">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource WindowBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <!--  TitlePanel  -->
-        <CommonControl:AlertDialog x:Name="_ErrorFlyout"
-                                   Grid.RowSpan="2"
-                                   Height="95"
-                                   HorizontalAlignment="Stretch"
-                                   VerticalAlignment="Top"
-                                   Canvas.ZIndex="9999" />
         <StackPanel Grid.Row="0"
                     Margin="0"
                     Background="{ThemeResource ColorPrimary}">

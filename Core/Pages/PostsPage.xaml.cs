@@ -13,8 +13,10 @@ namespace Core.Pages {
     public sealed partial class PostsPage : Page {
         private NavigationHelper navigationHelper;
 
+        public static string TAG = "PostsPage";
+
         bool loaded = false;
-        string tag = "";
+        string searchTag = "";
 
         public PostsPage() {
             this.InitializeComponent();
@@ -38,8 +40,8 @@ namespace Core.Pages {
             } else if (PostFeed.URL.Contains("/tagged")) {
                 var x = PostFeed.URL.Split('?');
                 var y = x[1].Split('&');
-                tag = Uri.UnescapeDataString(y[0].Substring(4));
-                PageTitle.Text = "Search: " + tag.Replace('+', ' ');
+                searchTag = Uri.UnescapeDataString(y[0].Substring(4));
+                PageTitle.Text = "Search: " + searchTag.Replace('+', ' ');
                 ResultsHeader.Visibility = Visibility.Visible;
                 BlogsHeader.Visibility = Visibility.Visible;
                 Blogs.Visibility = Visibility.Visible;
@@ -51,7 +53,9 @@ namespace Core.Pages {
                 PageTitle.Text = "Queue";
             }
 
-            MainPage.AlertFlyout = _ErrorFlyout;
+
+            Analytics.AnalyticsManager.RegisterView(TAG + " " + PageTitle.Text);
+            
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) { }
@@ -119,7 +123,7 @@ namespace Core.Pages {
         private async void BlogSearch_Loaded(object sender, RoutedEventArgs e) {
             if (BlogSearch.ItemsSource == null) {
                 App.DisplayStatus("Searching for blogs...");
-                BlogSearch.ItemsSource = await CreateRequest.BlogSearch(tag);
+                BlogSearch.ItemsSource = await CreateRequest.BlogSearch(searchTag);
                 App.HideStatus();
             }
         }

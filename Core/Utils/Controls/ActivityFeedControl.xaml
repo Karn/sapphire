@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="using:Core.Utils.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:q="using:QKit"
              xmlns:util="using:Core.Utils"
              d:DesignHeight="300"
              d:DesignWidth="380"
@@ -52,7 +51,6 @@
                        Width="45"
                        Height="45"
                        Margin="10, 5"
-                       HorizontalAlignment="Right"
                        Source="{Binding media_url,
                                         FallbackValue={StaticResource ActivityPostPlaceholder}}"
                        Stretch="UniformToFill"
@@ -99,7 +97,6 @@
                        Width="45"
                        Height="45"
                        Margin="10, 5"
-                       HorizontalAlignment="Right"
                        Source="{Binding media_url}"
                        Stretch="UniformToFill"
                        Tag="{Binding target_post_id}"
@@ -143,7 +140,6 @@
                       Width="45"
                       Height="45"
                       Margin="10, 5"
-                      HorizontalAlignment="Right"
                       Background="{ThemeResource ColorPrimary}"
                       Tag="{Binding from_tumblelog_name}"
                       Tapped="FollowIcon_Tapped"
@@ -178,21 +174,18 @@
                            HorizontalAlignment="Right"
                            Source="ms-appx:///Assets/AMention.png" />
                 </Grid>
-                <StackPanel Grid.Column="1"
-                            Width="245"
-                            Margin="10"
-                            Orientation="Horizontal">
-                    <TextBlock HorizontalAlignment="Left"
-                               FontSize="15"
-                               Foreground="{ThemeResource TextColorPrimaryDark}"
-                               Tag="{Binding from_tumblelog_name}"
-                               Tapped="GoToBlog"
-                               TextTrimming="CharacterEllipsis"
-                               TextWrapping="NoWrap">
-                        <Run Text="{Binding from_tumblelog_name}" />
-                        <Run FontWeight="Light" Text="mentioned you in a post." />
-                    </TextBlock>
-                </StackPanel>
+                <TextBlock Grid.Column="1"
+                           Margin="10"
+                           HorizontalAlignment="Left"
+                           FontSize="15"
+                           Foreground="{ThemeResource TextColorPrimaryDark}"
+                           Tag="{Binding from_tumblelog_name}"
+                           Tapped="GoToBlog"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="NoWrap">
+                    <Run Text="{Binding from_tumblelog_name}" />
+                    <Run FontWeight="Light" Text="mentioned you in a post." />
+                </TextBlock>
                 <Image Grid.Column="2"
                        Width="45"
                        Height="45"
@@ -243,7 +236,6 @@
                        Width="45"
                        Height="45"
                        Margin="10, 5"
-                       HorizontalAlignment="Right"
                        Source="{Binding media_url,
                                         FallbackValue={StaticResource ActivityPostPlaceholder}}"
                        Stretch="UniformToFill"
@@ -266,12 +258,7 @@
     <ListView x:Name="Notifications"
               Margin="0, 2"
               HorizontalAlignment="Stretch"
-              HorizontalContentAlignment="Stretch"
               Background="#00000000"
-              IsDoubleTapEnabled="False"
-              IsHoldingEnabled="False"
-              IsRightTapEnabled="False"
-              IsTapEnabled="False"
               ItemTemplateSelector="{StaticResource ActivityListTemplate}"
               ItemsSource="{Binding Source={StaticResource csvNotifications}}">
         <ListView.ItemContainerStyle>

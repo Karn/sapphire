@@ -27,7 +27,7 @@ namespace Core.Pages {
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-            MainPage.AlertFlyout = _ErrorFlyout;
+            
         }
 
         /// <summary>

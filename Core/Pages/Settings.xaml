@@ -7,7 +7,7 @@
       Background="{ThemeResource ColorPrimary}"
       mc:Ignorable="d">
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource LightGray}">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource WindowBackground}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
