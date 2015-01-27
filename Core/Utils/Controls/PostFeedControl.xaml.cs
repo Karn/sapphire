@@ -187,7 +187,7 @@ namespace Core.Utils.Controls {
 
         private void ReplyButton_Click(object sender, RoutedEventArgs e) {
             var frame = Window.Current.Content as Frame;
-            if (!frame.Navigate(typeof(Pages.ReblogPage), "Reply: " + ((Button)sender).Tag.ToString() + "," + ((StackPanel)((Button)sender).Parent).Tag.ToString()))
+            if (!frame.Navigate(typeof(Pages.ReblogPage), new object[] { sender, "Reply: " + ((FrameworkElement)sender).Tag.ToString() + "," + ((StackPanel)((FrameworkElement)sender).Parent).Tag.ToString() }))
                 throw new Exception("Navigation Failed");
         }
 

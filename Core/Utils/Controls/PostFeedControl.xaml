@@ -735,22 +735,41 @@
                         <StackPanel HorizontalAlignment="Right"
                                     Orientation="Horizontal"
                                     Tag="{Binding reblog_key}">
-                            <Button x:Name="ReplyButton"
-                                    MinWidth="40"
-                                    MinHeight="40"
-                                    MaxWidth="40"
-                                    MaxHeight="40"
-                                    HorizontalAlignment="Right"
-                                    BorderBrush="White"
-                                    BorderThickness="0"
-                                    Click="ReplyButton_Click"
-                                    Style="{StaticResource ButtonStyleNoBG}"
-                                    Tag="{Binding id}"
-                                    Visibility="Collapsed">
+                            <local:ToggleControl x:Name="ReplyButton"
+                                                 Width="35"
+                                                 MinWidth="35"
+                                                 MinHeight="50"
+                                                 MaxWidth="35"
+                                                 MaxHeight="50"
+                                                 Margin="5, 0"
+                                                 HorizontalAlignment="Right"
+                                                 BorderThickness="0"
+                                                 Click="ReplyButton_Click"
+                                                 EnabledChecked="{ThemeResource ReplyAsset}"
+                                                 EnabledUnchecked="{ThemeResource ReplyAsset}"
+                                                 IsChecked="False"
+                                                 Tag="{Binding id}" />
+                            <!--
+                                <local:ToggleControl x:Name="ReplyButton"
+                                MinWidth="40"
+                                MinHeight="40"
+                                MaxWidth="40"
+                                MaxHeight="40"
+                                HorizontalAlignment="Right"
+                                BorderBrush="White"
+                                BorderThickness="0"
+                                Click="ReplyButton_Click"
+                                EnabledChecked="{ThemeResource ReplyAsset}"
+                                EnabledUnchecked="{ThemeResource ReplyAsset}"
+                                Tag="{Binding id}"
+                                Visibility="Visible"/
+                            -->
+                            <!--
                                 <Button.Background>
-                                    <ImageBrush ImageSource="{ThemeResource ReplyAsset}" Stretch="UniformToFill" />
+                                <ImageBrush ImageSource="{ThemeResource ReplyAsset}" Stretch="UniformToFill" />
                                 </Button.Background>
-                            </Button>
+                            -->
+
                             <Button x:Name="DeleteButton"
                                     MinWidth="50"
                                     MinHeight="50"

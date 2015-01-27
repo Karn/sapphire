@@ -169,11 +169,11 @@ namespace Core.Pages {
                 }
                 if (IsReply && !string.IsNullOrWhiteSpace(Caption.Text)) {
                     App.DisplayStatus("Posting reply...");
-                    var parameters = (string.Format("is_private=false&id={0}&reblog_key={1}", postID, reblogKey) + (!string.IsNullOrEmpty(Caption.Text) ? "&reply_text=" + Authentication.Utils.UrlEncode(Caption.Text) : "") +
+                    var parameters = (string.Format("id={0}", postID) + (!string.IsNullOrEmpty(Caption.Text) ? "&reply_text=" + Authentication.Utils.UrlEncode(Caption.Text) : "") +
                 (!string.IsNullOrEmpty(tags) ? "&tags=" + tags : ""));
-                    var request = await CreateRequest.CreatePost(parameters);
+                    var request = await CreateRequest.CreateReply(parameters);
                     Debug.WriteLine(await request.Content.ReadAsStringAsync());
-                    if (request.StatusCode == System.Net.HttpStatusCode.Created) {
+                    if (request.StatusCode == System.Net.HttpStatusCode.OK) {
                         App.Alert("Created.");
                         ReplyFeilds.IsEnabled = true;
                         reblogged = true;
