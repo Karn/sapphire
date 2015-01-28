@@ -24,9 +24,8 @@ namespace Core.Pages {
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-            if (!Utils.AppLicenseHandler.IsTrial) {
+            if (!Utils.AppLicenseHandler.IsTrial)
                 UpgardePanel.Visibility = Visibility.Collapsed;
-            }
         }
 
         public NavigationHelper NavigationHelper {
@@ -72,7 +71,7 @@ namespace Core.Pages {
         }
 
         private void DisableTagsInPosts_Toggled(object sender, RoutedEventArgs e) {
-            UserStorageUtils.TagsInPosts = (bool)((CheckBox)sender).IsChecked ? true : false;
+            UserStorageUtils.TagsInPosts = (bool)((CheckBox)sender).IsChecked;
         }
 
         private void AnalyticsSwitch_Toggled(object sender, RoutedEventArgs e) {

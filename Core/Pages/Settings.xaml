@@ -137,7 +137,7 @@
                               Margin="0, -60, -5, 0"
                               HorizontalAlignment="Right"
                               BorderBrush="#4a9bca"
-                              Checked="EnableNotifications_Toggled"
+                              Click="EnableNotifications_Toggled"
                               RequestedTheme="Light" />
                 </StackPanel>
                 <StackPanel>
@@ -160,7 +160,7 @@
                               Margin="0, -60, -5, 0"
                               HorizontalAlignment="Right"
                               BorderBrush="#4a9bca"
-                              Checked="AnalyticsSwitch_Toggled"
+                              Click="AnalyticsSwitch_Toggled"
                               RequestedTheme="Light" />
                 </StackPanel>
                 <StackPanel>
@@ -206,7 +206,7 @@
                               Margin="0, -60, -5, 0"
                               HorizontalAlignment="Right"
                               BorderBrush="#4a9bca"
-                              Checked="StatusBarBGToggle_Toggled"
+                              Click="StatusBarBGToggle_Toggled"
                               RequestedTheme="Light" />
                 </StackPanel>
                 <StackPanel>
@@ -229,7 +229,7 @@
                               Margin="0, -60, -5, 0"
                               HorizontalAlignment="Right"
                               BorderBrush="#4a9bca"
-                              Checked="EnableOneClickReblog_Toggled"
+                              Click="EnableOneClickReblog_Toggled"
                               RequestedTheme="Light" />
                 </StackPanel>
                 <StackPanel>
@@ -252,7 +252,7 @@
                               Margin="0, -60, -5, 0"
                               HorizontalAlignment="Right"
                               BorderBrush="#4a9bca"
-                              Checked="DisableTagsInPosts_Toggled"
+                              Click="DisableTagsInPosts_Toggled"
                               RequestedTheme="Light" />
                 </StackPanel>
             </StackPanel>
