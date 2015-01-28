@@ -7,46 +7,38 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Core.Pages"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Background="{ThemeResource ColorPrimary}"
       mc:Ignorable="d">
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource WindowBackground}">
+    <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <!--  TitlePanel  -->
-        <CommonControl:AlertDialog x:Name="_ErrorFlyout"
-                                   Grid.RowSpan="2"
-                                   Height="95"
-                                   HorizontalAlignment="Stretch"
-                                   VerticalAlignment="Top"
-                                   Canvas.ZIndex="9999" />
-        <StackPanel Grid.Row="0"
-                    Margin="0"
-                    Background="{ThemeResource ColorPrimary}">
-            <Grid Height="45"
-                  Margin="0, 25, 0, 0"
-                  Background="{ThemeResource ColorPrimary}">
-                <TextBlock x:Name="PageTitle"
-                           Margin="15, 0, 0, 0"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           Foreground="{ThemeResource TextColorPrimary}"
-                           Style="{StaticResource HeaderTextStyle}"
-                           Text="Posts" />
-                <StackPanel Margin="0, 0, 15, 0"
-                            HorizontalAlignment="Right"
-                            Orientation="Horizontal">
-                    <Image x:Name="ToTop"
-                           Width="35"
-                           Height="30"
-                           Source="ms-appx:///Assets/Top.png"
-                           Tapped="ToTop_Tapped" />
-                </StackPanel>
-            </Grid>
-        </StackPanel>
+        <Grid Height="55"
+              Background="{ThemeResource ColorPrimary}"
+              Canvas.ZIndex="9999">
+            <TextBlock x:Name="PageTitle"
+                       Margin="15, 0, 0, 0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Foreground="{ThemeResource TextColorPrimary}"
+                       Style="{StaticResource HeaderTextStyle}"
+                       Text="Posts" />
+            <StackPanel Margin="0, 0, 15, 0"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                <Image x:Name="ToTop"
+                       Width="35"
+                       Height="30"
+                       Source="ms-appx:///Assets/Top.png"
+                       Tapped="ToTop_Tapped" />
+            </StackPanel>
+        </Grid>
 
-        <Pivot Grid.Row="1" Margin="0, -32, 0, 0">
+        <Pivot Grid.Row="1"
+               Margin="0, -8, 0, 0"
+               Background="{ThemeResource WindowBackground}">
             <PivotItem Margin="0">
                 <PivotItem.Header>
                     <TextBlock x:Name="ResultsHeader"

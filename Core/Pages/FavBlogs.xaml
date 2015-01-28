@@ -6,92 +6,83 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Core.Pages"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Background="{ThemeResource ColorPrimary}"
       mc:Ignorable="d">
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource WindowBackground}">
+    <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <!--  TitlePanel  -->
-        <CommonControl:AlertDialog x:Name="_ErrorFlyout"
-                                   Grid.RowSpan="2"
-                                   Height="95"
-                                   HorizontalAlignment="Stretch"
-                                   VerticalAlignment="Top"
-                                   Canvas.ZIndex="9999" />
-        <StackPanel Grid.Row="0"
-                    Margin="0"
-                    Background="{ThemeResource ColorPrimary}">
-            <Grid Height="45" Margin="0, 25, 0, 0">
-                <TextBlock x:Name="PageTitle"
-                           Margin="15, 0, 0, 0"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           Foreground="{ThemeResource TextColorPrimary}"
-                           Style="{StaticResource HeaderTextStyle}"
-                           Text="Favorite blogs" />
-            </Grid>
-        </StackPanel>
+        <Grid Height="55" Background="{ThemeResource ColorPrimary}">
+            <TextBlock x:Name="PageTitle"
+                       Margin="15, 0, 0, 0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Foreground="{ThemeResource TextColorPrimary}"
+                       Style="{StaticResource HeaderTextStyle}"
+                       Text="Favorite blogs" />
+        </Grid>
 
-        <!--  TODO: Content should be placed within the following grid  -->
-        <ListView x:Name="List"
-                  Grid.Row="1"
-                  Margin="0, 2, 0, 0"
-                  HorizontalAlignment="Center"
-                  ItemsSource="{Binding}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Border Margin="4, 2"
-                            HorizontalAlignment="Stretch"
-                            BorderBrush="#19000000"
-                            BorderThickness="0,0,0,1">
-                        <Grid HorizontalAlignment="Stretch">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Ellipse Grid.Column="0"
-                                     Width="65"
-                                     Height="65"
-                                     Margin="10, 5"
-                                     HorizontalAlignment="Left">
-                                <Ellipse.Fill>
-                                    <ImageBrush ImageSource="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <TextBlock Grid.Column="1"
-                                       Margin="0"
-                                       HorizontalAlignment="Left"
-                                       FontSize="18"
-                                       FontWeight="Normal"
-                                       Foreground="{ThemeResource ColorPrimaryDark}"
-                                       Style="{StaticResource HeaderTextStyle}"
-                                       Text="{Binding Name}"
-                                       TextTrimming="CharacterEllipsis" />
+        <Grid Grid.Row="1" Background="{StaticResource WindowBackground}">
+            <ListView x:Name="List"
+                      Margin="0, 2, 0, 0"
+                      HorizontalAlignment="Center"
+                      ItemsSource="{Binding}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="4, 2"
+                                HorizontalAlignment="Stretch"
+                                BorderBrush="#19000000"
+                                BorderThickness="0,0,0,1">
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Grid.Column="0"
+                                         Width="65"
+                                         Height="65"
+                                         Margin="10, 5"
+                                         HorizontalAlignment="Left">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock Grid.Column="1"
+                                           Margin="0"
+                                           HorizontalAlignment="Left"
+                                           FontSize="18"
+                                           FontWeight="Normal"
+                                           Foreground="{ThemeResource ColorPrimaryDark}"
+                                           Style="{StaticResource HeaderTextStyle}"
+                                           Text="{Binding Name}"
+                                           TextTrimming="CharacterEllipsis" />
 
-                            <Button x:Name="FollowButton"
-                                    Grid.Column="2"
-                                    Height="35"
-                                    MinWidth="120"
-                                    MinHeight="0"
-                                    Margin="5, 0"
-                                    VerticalAlignment="Center"
-                                    Background="#FFFFFFFF"
-                                    BorderBrush="#66FFFFFF"
-                                    BorderThickness="0"
-                                    Content="VIEW"
-                                    FontSize="18"
-                                    Foreground="{StaticResource ColorPrimary}"
-                                    Padding="3"
-                                    Style="{StaticResource ButtonStyleNoBG}"
-                                    Tag="{Binding Name}"
-                                    Tapped="ViewButton_Tapped" />
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                                <Button x:Name="FollowButton"
+                                        Grid.Column="2"
+                                        Height="35"
+                                        MinWidth="120"
+                                        MinHeight="0"
+                                        Margin="5, 0"
+                                        VerticalAlignment="Center"
+                                        Background="#FFFFFFFF"
+                                        BorderBrush="#66FFFFFF"
+                                        BorderThickness="0"
+                                        Content="VIEW"
+                                        FontSize="18"
+                                        Foreground="{StaticResource ColorPrimary}"
+                                        Padding="3"
+                                        Style="{StaticResource ButtonStyleNoBG}"
+                                        Tag="{Binding Name}"
+                                        Tapped="ViewButton_Tapped" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
     </Grid>
 </Page>

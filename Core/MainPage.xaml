@@ -322,7 +322,7 @@
             </PivotItem>
 
             <PivotItem x:Name="SearchPivot" Margin="0">
-                <Grid Margin="10">
+                <Grid Margin="10, 10, 10, 0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />

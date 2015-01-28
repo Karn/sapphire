@@ -64,130 +64,130 @@
                        Text="Reblog post" />
         </Grid>
 
-        <ContentControl x:Name="ReplyFeilds"
-                        Grid.Row="1"
-                        VerticalAlignment="Stretch"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Stretch">
-            <Grid Margin="5, 0" VerticalAlignment="Stretch">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Background="{ThemeResource WindowBackground}">
+            <ContentControl x:Name="ReplyFeilds"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch">
+                <Grid Margin="5, 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                <StackPanel Margin="0, -35, 15, 0"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Top"
-                            Orientation="Horizontal">
-                    <Image x:Name="ReblogPostButton"
-                           Width="35"
-                           Height="30"
-                           Source="ms-appx:///Assets/NewPost/PostOK.png"
-                           Tapped="PostButton_Tapped" />
-                    <Image x:Name="AddToDraftsButton"
-                           Width="35"
-                           Height="30"
-                           Margin="5, 0"
-                           Source="ms-appx:///Assets/Resources/Default/AddDraft.png"
-                           Tag="draft"
-                           Tapped="PostButton_Tapped"
-                           Visibility="{Binding ElementName=PageTitle,
-                                                Converter={StaticResource IsFullVersion},
-                                                FallbackValue=Collapsed}" />
-                    <Image x:Name="AddToQueueButton"
-                           Width="35"
-                           Height="30"
-                           Source="ms-appx:///Assets/Resources/Default/QueuePost.png"
-                           Tag="queue"
-                           Tapped="PostButton_Tapped"
-                           Visibility="{Binding ElementName=PageTitle,
-                                                Converter={StaticResource IsFullVersion},
-                                                FallbackValue=Collapsed}" />
-                </StackPanel>
-                <StackPanel x:Name="ReblogToOptions"
-                            Grid.Row="0"
-                            Height="45"
-                            Margin="0, 5, 0, -3"
-                            Background="White"
-                            DataContext="{Binding}"
-                            FlyoutBase.AttachedFlyout="{StaticResource SwitchBlogFlyout}"
-                            Loaded="ReblogToOptions_Loaded"
-                            Orientation="Horizontal"
-                            Tapped="ReblogToOptions_Tapped"
-                            Visibility="{Binding ElementName=PageTitle,
-                                                 Converter={StaticResource IsFullVersion},
-                                                 FallbackValue=Collapsed}">
-                    <Image x:Name="Avatar"
-                           Source="{Binding Avatar,
-                                            FallbackValue={StaticResource DefaultAvatar}}"
-                           Stretch="UniformToFill" />
-                    <TextBlock x:Name="BlogName"
-                               Margin="15, 0, 0, 0"
+                    <StackPanel Margin="0, -35, 15, 0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Orientation="Horizontal">
+                        <Image x:Name="ReblogPostButton"
+                               Width="35"
+                               Height="30"
+                               Source="ms-appx:///Assets/NewPost/PostOK.png"
+                               Tapped="PostButton_Tapped" />
+                        <Image x:Name="AddToDraftsButton"
+                               Width="35"
+                               Height="30"
+                               Margin="5, 0"
+                               Source="ms-appx:///Assets/Resources/Default/AddDraft.png"
+                               Tag="draft"
+                               Tapped="PostButton_Tapped"
+                               Visibility="{Binding ElementName=PageTitle,
+                                                    Converter={StaticResource IsFullVersion},
+                                                    FallbackValue=Collapsed}" />
+                        <Image x:Name="AddToQueueButton"
+                               Width="35"
+                               Height="30"
+                               Source="ms-appx:///Assets/Resources/Default/QueuePost.png"
+                               Tag="queue"
+                               Tapped="PostButton_Tapped"
+                               Visibility="{Binding ElementName=PageTitle,
+                                                    Converter={StaticResource IsFullVersion},
+                                                    FallbackValue=Collapsed}" />
+                    </StackPanel>
+                    <StackPanel x:Name="ReblogToOptions"
+                                Grid.Row="0"
+                                Height="45"
+                                Margin="0, 5, 0, -3"
+                                Background="White"
+                                DataContext="{Binding}"
+                                FlyoutBase.AttachedFlyout="{StaticResource SwitchBlogFlyout}"
+                                Loaded="ReblogToOptions_Loaded"
+                                Orientation="Horizontal"
+                                Tapped="ReblogToOptions_Tapped"
+                                Visibility="{Binding ElementName=PageTitle,
+                                                     Converter={StaticResource IsFullVersion},
+                                                     FallbackValue=Collapsed}">
+                        <Image x:Name="Avatar"
+                               Source="{Binding Avatar,
+                                                FallbackValue={StaticResource DefaultAvatar}}"
+                               Stretch="UniformToFill" />
+                        <TextBlock x:Name="BlogName"
+                                   Margin="15, 0, 0, 0"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   FontSize="24"
+                                   FontWeight="Normal"
+                                   Foreground="Black"
+                                   Opacity="0.5"
+                                   Style="{StaticResource HeaderTextStyle}"
+                                   Text="{Binding Name,
+                                                  FallbackValue=Main Blog}" />
+                    </StackPanel>
+                    <TextBox x:Name="Caption"
+                             Grid.Row="1"
+                             Margin="0, 5, 0, 0"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                             Background="White"
+                             BorderThickness="0"
+                             IsSpellCheckEnabled="True"
+                             IsTextPredictionEnabled="True"
+                             Padding="10, 8"
+                             PlaceholderText="Caption"
+                             TextWrapping="Wrap" />
+
+                    <Grid Grid.Row="2" Margin="0, -3, 0, 0">
+                        <TextBox x:Name="Tags"
+                                 Height="45"
+                                 Margin="0, 5"
+                                 VerticalContentAlignment="Center"
+                                 Background="White"
+                                 BorderThickness="0"
+                                 KeyDown="TagBox_KeyDown"
+                                 LostFocus="Tags_LostFocus"
+                                 Padding="50, 8, 0, 0"
+                                 PlaceholderText="Tags" />
+                        <Image Width="35"
+                               Height="30"
+                               Margin="7, 10"
                                HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               FontSize="24"
-                               FontWeight="Normal"
-                               Foreground="Black"
-                               Opacity="0.5"
-                               Style="{StaticResource HeaderTextStyle}"
-                               Text="{Binding Name,
-                                              FallbackValue=Main Blog}" />
-                </StackPanel>
-                <TextBox x:Name="Caption"
-                         Grid.Row="1"
-                         Margin="0, 5, 0, 0"
-                         HorizontalAlignment="Stretch"
-                         VerticalAlignment="Stretch"
-                         Background="White"
-                         BorderThickness="0"
-                         IsSpellCheckEnabled="True"
-                         IsTextPredictionEnabled="True"
-                         Padding="10, 8"
-                         PlaceholderText="Caption"
-                         TextWrapping="Wrap" />
-
-                <Grid Grid.Row="2" Margin="0, -3, 0, 0">
-                    <TextBox x:Name="Tags"
-                             Height="45"
-                             Margin="0, 5"
-                             VerticalContentAlignment="Center"
-                             Background="White"
-                             BorderThickness="0"
-                             KeyDown="TagBox_KeyDown"
-                             LostFocus="Tags_LostFocus"
-                             Padding="50, 8, 0, 0"
-                             PlaceholderText="Tags" />
-                    <Image Width="35"
-                           Height="30"
-                           Margin="7, 10"
-                           HorizontalAlignment="Left"
-                           Opacity=".5"
-                           Source="ms-appx:///Assets/Nav/Tag_Dark.png" />
+                               Opacity=".5"
+                               Source="ms-appx:///Assets/Nav/Tag_Dark.png" />
+                    </Grid>
+                    <Grid x:Name="PublishBox"
+                          Grid.Row="3"
+                          Margin="0, -8, 0, 0"
+                          Visibility="{Binding ElementName=PageTitle,
+                                               Converter={StaticResource IsFullVersion},
+                                               FallbackValue=Collapsed}">
+                        <TextBox x:Name="PublishOn"
+                                 Height="45"
+                                 Margin="0, 5"
+                                 VerticalContentAlignment="Center"
+                                 Background="White"
+                                 BorderThickness="0"
+                                 Padding="50, 8, 0, 0"
+                                 PlaceholderText="Publish on.." />
+                        <Image Width="35"
+                               Height="30"
+                               Margin="7, 10"
+                               HorizontalAlignment="Left"
+                               Opacity=".5"
+                               Source="ms-appx:///Assets/Nav/Queue_Dark.png" />
+                    </Grid>
                 </Grid>
-                <Grid x:Name="PublishBox"
-                      Grid.Row="3"
-                      Margin="0, -8, 0, 0"
-                      Visibility="{Binding ElementName=PageTitle,
-                                           Converter={StaticResource IsFullVersion},
-                                           FallbackValue=Collapsed}">
-                    <TextBox x:Name="PublishOn"
-                             Height="45"
-                             Margin="0, 5"
-                             VerticalContentAlignment="Center"
-                             Background="White"
-                             BorderThickness="0"
-                             Padding="50, 8, 0, 0"
-                             PlaceholderText="Publish on.." />
-                    <Image Width="35"
-                           Height="30"
-                           Margin="7, 10"
-                           HorizontalAlignment="Left"
-                           Opacity=".5"
-                           Source="ms-appx:///Assets/Nav/Queue_Dark.png" />
-                </Grid>
-            </Grid>
-        </ContentControl>
+            </ContentControl>
+        </Grid>
     </Grid>
 </Page>

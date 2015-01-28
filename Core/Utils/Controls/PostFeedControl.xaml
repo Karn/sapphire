@@ -814,6 +814,7 @@
                   VerticalAlignment="Top"
                   HorizontalContentAlignment="Stretch"
                   VerticalContentAlignment="Stretch"
+                  Background="{ThemeResource WindowBackground}"
                   HorizontalScrollMode="Disabled"
                   Loaded="scrollViewer_Loaded"
                   SizeChanged="scrollViewer_SizeChanged"
