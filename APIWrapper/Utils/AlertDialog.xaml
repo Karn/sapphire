@@ -9,28 +9,28 @@
     <UserControl.Resources>
         <Storyboard x:Name="Display" Completed="Display_Completed">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ToastContainer" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
-                <EasingDoubleKeyFrame KeyTime="0" Value="-81" />
+                <EasingDoubleKeyFrame KeyTime="0" Value="-107" />
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0" />
                 <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-10" />
                 <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0" />
                 <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0" />
-                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="-81" />
+                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="-107" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
 
     <StackPanel x:Name="ToastContainer"
                 VerticalAlignment="Top"
+                Background="{ThemeResource ColorPrimaryDark}"
                 Canvas.ZIndex="9999"
                 RenderTransformOrigin="0.5,0.5">
         <StackPanel.RenderTransform>
-            <CompositeTransform TranslateX="0" TranslateY="-81" />
+            <CompositeTransform TranslateX="0" TranslateY="-107" />
         </StackPanel.RenderTransform>
 
         <Grid Height="55"
-              Margin="0, 25, 0, 0"
-              VerticalAlignment="Bottom"
-              Background="{ThemeResource ColorPrimaryDark}">
+              Margin="0"
+              VerticalAlignment="Bottom">
             <TextBlock x:Name="Message"
                        MinHeight="0"
                        Margin="15, 10"

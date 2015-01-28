@@ -6,6 +6,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Core.Pages"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Background="{ThemeResource ColorPrimary}"
       mc:Ignorable="d">
 
     <Page.Resources>
@@ -51,35 +52,23 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <!--  TitlePanel  -->
-        <CommonControl:AlertDialog x:Name="_ErrorFlyout"
-                                   Grid.RowSpan="2"
-                                   Height="95"
-                                   HorizontalAlignment="Stretch"
-                                   VerticalAlignment="Top"
-                                   Canvas.ZIndex="9999" />
-        <StackPanel Grid.Row="0"
-                    Margin="0"
-                    Background="{ThemeResource ColorPrimary}">
-            <Grid Height="45"
-                  Margin="0, 25, 0, 0"
-                  Background="{ThemeResource ColorPrimary}">
-                <TextBlock x:Name="PageTitle"
-                           Margin="15, 0, 0, 0"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           Foreground="{ThemeResource TextColorPrimary}"
-                           Style="{StaticResource HeaderTextStyle}"
-                           Text="Reblog post" />
-            </Grid>
-        </StackPanel>
+        <Grid Grid.Row="0"
+              Height="55"
+              Background="{ThemeResource ColorPrimary}">
+            <TextBlock x:Name="PageTitle"
+                       Margin="15, 0, 0, 0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Foreground="{ThemeResource TextColorPrimary}"
+                       Style="{StaticResource HeaderTextStyle}"
+                       Text="Reblog post" />
+        </Grid>
 
         <ContentControl x:Name="ReplyFeilds"
                         Grid.Row="1"
                         VerticalAlignment="Stretch"
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="Stretch">
-            <!--  TODO: Content should be placed within the following grid  -->
             <Grid Margin="5, 0" VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

@@ -68,6 +68,7 @@ namespace Core.Shared.Common {
 
             var layoutRoot = (Grid)page.FindName("LayoutRoot");
             layoutRoot.Children.Add(new AlertDialog { Name = "PageAlertDialog" });
+            
 
             // When this page is part of the visual tree make two changes:
             // 1) Map application view state to visual state for the page

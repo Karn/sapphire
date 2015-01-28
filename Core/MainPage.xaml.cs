@@ -41,7 +41,7 @@ namespace Core {
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-            ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
+            ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseVisible);
 
             if (UserStorageUtils.NotificationsEnabled)
                 RegisterBackgroundTask();
@@ -50,7 +50,7 @@ namespace Core {
         }
 
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e) {
-            HeaderContainer.Background = UserStorageUtils.EnableStatusBarBG ?
+            this.Background = UserStorageUtils.EnableStatusBarBG ?
                 App.Current.Resources["ColorPrimaryDark"] as SolidColorBrush :
                 App.Current.Resources["ColorPrimary"] as SolidColorBrush;
 
@@ -78,6 +78,7 @@ namespace Core {
                 return true;
             } else
                 App.Alert(App.LocaleResources.GetString("UnableToLoadAccount"));
+            App.HideStatus();
             return false;
         }
 

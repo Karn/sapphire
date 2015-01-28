@@ -14,14 +14,9 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <CommonControl:AlertDialog x:Name="_ErrorFlyout"
-                                   Grid.RowSpan="2"
-                                   Height="95"
-                                   HorizontalAlignment="Stretch"
-                                   VerticalAlignment="Top"
-                                   Canvas.ZIndex="9999" />
         <Grid Grid.Row="0"
               Height="75"
+              Margin="0, -24, 0, 0"
               Background="{ThemeResource ColorPrimary}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />

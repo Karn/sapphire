@@ -8,7 +8,6 @@
              xmlns:local="using:Core.Utils.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:misc="using:Core.Shared.Utils.Misc"
-             xmlns:util="using:Core.Utils"
              d:DesignHeight="300"
              d:DesignWidth="380"
              mc:Ignorable="d">
@@ -243,46 +242,23 @@
                                     Orientation="Horizontal"
                                     Tag="{Binding reblog_key}">
                             <local:ToggleControl x:Name="ReblogButton"
-                                                 Width="35"
-                                                 MinWidth="35"
-                                                 MinHeight="50"
-                                                 MaxWidth="35"
-                                                 MaxHeight="50"
                                                  Margin="5, 0"
-                                                 HorizontalAlignment="Right"
-                                                 BorderThickness="0"
                                                  Click="ReblogButton_Click"
                                                  EnabledChecked="{StaticResource RebloggedAsset}"
                                                  EnabledUnchecked="{StaticResource ReblogAsset}"
                                                  IsChecked="False"
                                                  Tag="{Binding id}" />
                             <local:ToggleControl x:Name="LikeButton"
-                                                 Width="35"
-                                                 MinWidth="35"
-                                                 MinHeight="50"
-                                                 MaxWidth="35"
-                                                 MaxHeight="50"
                                                  Margin="5, 0"
-                                                 HorizontalAlignment="Right"
-                                                 BorderThickness="0"
                                                  Click="LikeButton_Click"
                                                  IsChecked="{Binding liked,
                                                                      FallbackValue=False}"
                                                  Tag="{Binding id}" />
                             <local:ToggleControl x:Name="DeleteButton"
-                                                 Width="35"
-                                                 MinWidth="35"
-                                                 MinHeight="50"
-                                                 MaxWidth="35"
-                                                 MaxHeight="50"
                                                  Margin="0, 0, 5, 0"
-                                                 HorizontalAlignment="Right"
-                                                 BorderThickness="0"
                                                  Click="DeleteButton_Click"
                                                  EnabledChecked="{StaticResource DeleteButtonAsset}"
                                                  EnabledUnchecked="{StaticResource DeleteButtonAsset}"
-                                                 IsChecked="{Binding liked}"
-                                                 Padding="0"
                                                  Tag="{Binding}"
                                                  Visibility="{Binding IsEditable}" />
                         </StackPanel>
@@ -291,37 +267,20 @@
                                     Orientation="Horizontal"
                                     Tag="{Binding reblog_key}"
                                     Visibility="Collapsed">
-                            <Button x:Name="PostButton"
-                                    MinWidth="50"
-                                    MinHeight="50"
-                                    MaxWidth="50"
-                                    MaxHeight="50"
-                                    HorizontalAlignment="Right"
-                                    BorderBrush="White"
-                                    BorderThickness="0"
-                                    Click="PostDraftButton_Click"
-                                    Style="{StaticResource ButtonStyleNoBG}"
-                                    Tag="{Binding}">
-                                <Button.Background>
-                                    <ImageBrush ImageSource="{ThemeResource PostButtonAsset}" Stretch="UniformToFill" />
-                                </Button.Background>
-                            </Button>
-                            <Button x:Name="DeleteButton_"
-                                    MinWidth="50"
-                                    MinHeight="50"
-                                    MaxWidth="50"
-                                    MaxHeight="50"
-                                    Margin="-6, 0, 0, 0"
-                                    HorizontalAlignment="Right"
-                                    BorderBrush="White"
-                                    BorderThickness="0"
-                                    Click="DeleteButton_Click"
-                                    Style="{StaticResource ButtonStyleNoBG}"
-                                    Tag="{Binding}">
-                                <Button.Background>
-                                    <ImageBrush ImageSource="{ThemeResource DeleteButtonAsset}" Stretch="UniformToFill" />
-                                </Button.Background>
-                            </Button>
+                            <local:ToggleControl x:Name="PostButton"
+                                                 Margin="0, 0, 5, 0"
+                                                 Click="PostDraftButton_Click"
+                                                 EnabledChecked="{StaticResource PostButtonAsset}"
+                                                 EnabledUnchecked="{StaticResource PostButtonAsset}"
+                                                 Tag="{Binding}"
+                                                 Visibility="{Binding IsEditable}" />
+                            <local:ToggleControl x:Name="DeleteButton_"
+                                                 Margin="0, 0, 5, 0"
+                                                 Click="DeleteButton_Click"
+                                                 EnabledChecked="{StaticResource DeleteButtonAsset}"
+                                                 EnabledUnchecked="{StaticResource DeleteButtonAsset}"
+                                                 Tag="{Binding}"
+                                                 Visibility="{Binding IsEditable}" />
                         </StackPanel>
                     </Grid>
                 </StackPanel>

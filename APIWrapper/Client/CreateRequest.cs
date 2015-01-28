@@ -137,7 +137,7 @@ namespace APIWrapper.Client {
         public async static Task<bool> PostDraft(string id) {
             return (await RequestService.POST(EndpointManager.Edit,
                 string.Format("state=published&id={0}", id)
-                )).StatusCode == HttpStatusCode.Created;
+                )).StatusCode == HttpStatusCode.OK;
         }
 
         public async static Task<bool> DeletePost(string id) {

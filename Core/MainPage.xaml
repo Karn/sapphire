@@ -5,64 +5,67 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Core"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      Background="{StaticResource WindowBackground}"
+      Background="{StaticResource ColorPrimaryDark}"
       mc:Ignorable="d">
 
-    <Grid x:Name="LayoutRoot" Loaded="LayoutRoot_Loaded">
+    <Grid x:Name="LayoutRoot"
+          Background="{StaticResource WindowBackground}"
+          Loaded="LayoutRoot_Loaded">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel x:Name="HeaderContainer" Background="{ThemeResource ColorPrimaryDark}">
-            <Grid x:Name="HeaderContent"
-                  Height="56"
-                  Margin="0, 25, 0, 0"
-                  Background="{ThemeResource ColorPrimary}">
+        <Grid x:Name="HeaderContainer"
+              Height="55"
+              Background="{ThemeResource ColorPrimary}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="PageTitle"
+                       Style="{StaticResource HeaderTextStyle}"
+                       Text="Sapphire" />
 
-                <TextBlock x:Name="PageTitle"
-                           Style="{StaticResource HeaderTextStyle}"
-                           Text="Sapphire" />
+            <GridView x:Name="Navigation"
+                      Grid.Column="1"
+                      Height="35"
+                      Margin="5, 0, 5, 3"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Center"
+                      ScrollViewer.VerticalScrollMode="Disabled"
+                      SelectionChanged="NavigationIconsSelectionChanged">
 
-                <GridView x:Name="Navigation"
-                          Height="35"
-                          Margin="5, 0, 5, 3"
-                          HorizontalAlignment="Right"
-                          VerticalAlignment="Center"
-                          ScrollViewer.VerticalScrollMode="Disabled"
-                          SelectionChanged="NavigationIconsSelectionChanged">
+                <Image x:Name="DashboardIcon"
+                       Width="35"
+                       Height="30"
+                       Opacity=".5"
+                       Source="Assets/Nav/Dashboard.png" />
 
-                    <Image x:Name="DashboardIcon"
-                           Width="35"
-                           Height="30"
-                           Opacity=".5"
-                           Source="Assets/Nav/Dashboard.png" />
+                <Image x:Name="ActivityIcon"
+                       Width="35"
+                       Height="30"
+                       Opacity=".5"
+                       Source="Assets/Nav/Activity.png" />
 
-                    <Image x:Name="ActivityIcon"
-                           Width="35"
-                           Height="30"
-                           Opacity=".5"
-                           Source="Assets/Nav/Activity.png" />
+                <Image x:Name="AccountIcon"
+                       Width="35"
+                       Height="30"
+                       Opacity=".5"
+                       Source="Assets/Nav/Account.png" />
 
-                    <Image x:Name="AccountIcon"
-                           Width="35"
-                           Height="30"
-                           Opacity=".5"
-                           Source="Assets/Nav/Account.png" />
-
-                    <Image x:Name="SearchIcon"
-                           Width="35"
-                           Height="30"
-                           Opacity=".5"
-                           Source="Assets/Nav/Search.png" />
-                </GridView>
-            </Grid>
-        </StackPanel>
+                <Image x:Name="SearchIcon"
+                       Width="35"
+                       Height="30"
+                       Opacity=".5"
+                       Source="Assets/Nav/Search.png" />
+            </GridView>
+        </Grid>
 
         <Pivot x:Name="NavigationPivot"
                Grid.Row="1"
-               Margin="0, -40, 0, 0"
+               Margin="0, -14, 0, 0"
                Canvas.ZIndex="-1"
                SelectionChanged="NavigationPivot_SelectionChanged">
 
@@ -72,7 +75,6 @@
 
                 <Grid>
                     <control:PostFeedControl x:Name="Dashboard"
-                                             Margin="0, 0, 0, 24"
                                              AffectHeader="True"
                                              URL="https://api.tumblr.com/v2/user/dashboard" />
 
@@ -81,7 +83,7 @@
                     <Button x:Name="ToTopButton"
                             Width="55"
                             Height="55"
-                            Margin="80, 48"
+                            Margin="80, 24"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
                             Click="ToTopButton_Click"
@@ -104,9 +106,7 @@
             </PivotItem>
 
             <PivotItem x:Name="ActivityPivot" Margin="0">
-                <control:ActivityFeedControl x:Name="ActivityFeed"
-                                             Margin="0, 0, 0, 54"
-                                             HorizontalAlignment="Stretch" />
+                <control:ActivityFeedControl x:Name="ActivityFeed" HorizontalAlignment="Stretch" />
             </PivotItem>
 
             <PivotItem x:Name="AccountPivot"
@@ -322,7 +322,7 @@
             </PivotItem>
 
             <PivotItem x:Name="SearchPivot" Margin="0">
-                <Grid Margin="10, 10, 10, 54">
+                <Grid Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
@@ -349,7 +349,6 @@
                               VerticalAlignment="Stretch"
                               ItemsSource="{Binding}"
                               Loaded="Spotlight_Loaded"
-                              Padding="0, 0, 0, 13"
                               ScrollViewer.VerticalScrollMode="Enabled">
                         <GridView.ItemTemplate>
                             <DataTemplate>

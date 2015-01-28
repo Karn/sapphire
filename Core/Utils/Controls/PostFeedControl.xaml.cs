@@ -192,7 +192,7 @@ namespace Core.Utils.Controls {
         }
 
         private async void PostDraftButton_Click(object sender, RoutedEventArgs e) {
-            var post = (Post)((Button)sender).Tag;
+            var post = (Post)((FrameworkElement)sender).Tag;
 
             if (await CreateRequest.PostDraft(post.id)) {
                 App.Alert("Created post.");
