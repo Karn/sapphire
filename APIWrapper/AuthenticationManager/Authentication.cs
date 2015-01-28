@@ -12,8 +12,6 @@ namespace APIWrapper.AuthenticationManager {
 
     public class Authentication {
 
-        private static string TAG = "Authentication";
-
         //OAuth URI Endpoints
         public static readonly string RequestTokenURI = "http://www.tumblr.com/oauth/request_token";
         public static readonly string AuthorizationURI = "http://www.tumblr.com/oauth/authorize";

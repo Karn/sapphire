@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -18,6 +19,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Core.Utils.Controls {
     public sealed partial class NewPostDialog : UserControl {
+
+        public bool IsActive = false;
+
         public NewPostDialog() {
             this.InitializeComponent();
         }
@@ -36,7 +40,28 @@ namespace Core.Utils.Controls {
         }
 
         private void ToggleVisibilityOut_Completed(object sender, object e) {
-            this.Visibility = Visibility.Collapsed;
+            PostButtons.Visibility = Visibility.Collapsed;
+        }
+
+        public void CreatePost_Click(object sender, RoutedEventArgs e) {
+            ((Button)sender).Focus(FocusState.Pointer);
+            if (PostButtons.Visibility == Visibility.Collapsed) {
+                BG.Visibility = Visibility.Visible;
+                CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 45 };
+                CreatePostFill.Fill = new SolidColorBrush(Color.FromArgb(255, 207, 73, 73));
+                PostButtons.Visibility = Visibility.Visible;
+                AnimateIn();
+                IsActive = true;
+            } else
+                CreatePost_LostFocus(null, null);
+        }
+
+        public void CreatePost_LostFocus(object sender, RoutedEventArgs e) {
+            CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
+            CreatePostFill.Fill = App.Current.Resources["ColorPrimary"] as SolidColorBrush;
+            AnimateOut();
+            BG.Visibility = Visibility.Collapsed;
+            IsActive = false;
         }
     }
 }

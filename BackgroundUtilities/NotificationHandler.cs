@@ -15,8 +15,6 @@ namespace BackgroundUtilities {
 
     public sealed class NotificationHandler : IBackgroundTask {
 
-        private static string TAG = "NotificationHandler";
-
         Dictionary<string, int> NotificationDictionary = new Dictionary<string, int>();
         Dictionary<string, List<Activity.Notification>> NotificationCounts = new Dictionary<string, List<Activity.Notification>>();
 

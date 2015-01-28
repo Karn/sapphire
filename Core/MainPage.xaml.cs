@@ -33,6 +33,8 @@ namespace Core {
         public MainPage() {
             this.InitializeComponent();
 
+            Analytics.AnalyticsManager.RegisterView(TAG);
+
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
             this.navigationHelper = new NavigationHelper(this);
@@ -44,15 +46,11 @@ namespace Core {
             if (UserStorageUtils.NotificationsEnabled)
                 RegisterBackgroundTask();
 
-            Analytics.AnalyticsManager.RegisterView(TAG);
-
             HardwareButtons.BackPressed += BackButtonPressed;
         }
 
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e) {
-            HeaderAnimateIn.Begin();
-
-            StatusBarBG.Background = UserStorageUtils.EnableStatusBarBG ?
+            HeaderContainer.Background = UserStorageUtils.EnableStatusBarBG ?
                 App.Current.Resources["ColorPrimaryDark"] as SolidColorBrush :
                 App.Current.Resources["ColorPrimary"] as SolidColorBrush;
 
@@ -76,28 +74,25 @@ namespace Core {
             App.DisplayStatus(App.LocaleResources.GetString("LoadingAccountDataMessage"));
             if (await CreateRequest.RetrieveAccountInformation(account)) {
                 AccountPivot.DataContext = UserStorageUtils.CurrentBlog;
+                App.HideStatus();
                 return true;
             } else
                 App.Alert(App.LocaleResources.GetString("UnableToLoadAccount"));
-            App.HideStatus();
             return false;
         }
 
         private void BackButtonPressed(object sender, BackPressedEventArgs e) {
-            //Fix navigating
-            if (PostCreationView.Visibility == Visibility.Visible) {
-                CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
-                CreatePostFill.Fill = App.Current.Resources["ColorPrimary"] as SolidColorBrush;
-                PostCreationView.Visibility = Visibility.Collapsed;
-                e.Handled = true;
+            if (PostCreationView.IsActive) {
+                PostCreationView.CreatePost_LostFocus(null, null);
             } else if (LastIndex != -1) {
                 Navigation.SelectedIndex = LastIndex;
                 LastIndex = -1;
-                e.Handled = true;
             } else if (NavigationPivot.SelectedIndex != 0) {
                 NavigationPivot.SelectedIndex = 0;
-                e.Handled = true;
+            } else {
+                App.Current.Exit();
             }
+            e.Handled = true;
         }
 
         public NavigationHelper NavigationHelper {
@@ -268,23 +263,6 @@ namespace Core {
                         break;
                 }
             }
-        }
-
-        public void CreatePost_Click(object sender, RoutedEventArgs e) {
-            ((Button)sender).Focus(FocusState.Pointer);
-            if (PostCreationView.Visibility == Visibility.Collapsed) {
-                CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 45 };
-                CreatePostFill.Fill = new SolidColorBrush(Color.FromArgb(255, 207, 73, 73));
-                PostCreationView.Visibility = Visibility.Visible;
-                PostCreationView.AnimateIn();
-            } else
-                CreatePost_LostFocus(null, null);
-        }
-
-        private void CreatePost_LostFocus(object sender, RoutedEventArgs e) {
-            CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
-            CreatePostFill.Fill = App.Current.Resources["ColorPrimary"] as SolidColorBrush;
-            PostCreationView.AnimateOut();
         }
 
         private async void Spotlight_Loaded(object sender, RoutedEventArgs e) {

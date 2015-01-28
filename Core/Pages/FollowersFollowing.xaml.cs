@@ -29,7 +29,7 @@ namespace Core.Pages {
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-            
+
         }
 
         public async void SetItemSource() {
@@ -46,7 +46,7 @@ namespace Core.Pages {
             } else if (PageTitle.Text.ToString() == "Following") {
                 foreach (var blog in await CreateRequest.RetrieveFollowing(offset)) {
                     //if (!BlogList.Contains(blog)) {
-                    blog._following = true;
+                    blog.IsFollowing = true;
                     BlogList.Add(blog);
                     //}
                 }

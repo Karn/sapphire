@@ -59,7 +59,7 @@ namespace APIWrapper.Client {
                         if (UserStorageUtils.UserBlogs.Count > 0)
                             return true;
                     }
-                    Debug.WriteLine("Rerunning call due to previous faliure. " + i);
+                    Debug.WriteLine("Rerunning call due to previous faliure. " + (i + 1));
                 }
             } catch (Exception ex) {
 
@@ -165,6 +165,7 @@ namespace APIWrapper.Client {
         /// <returns>List of blogs</returns>
         public static async Task<List<Blog>> RetrieveFollowers(int offset) {
             var requestResult = await RequestService.GET(EndpointManager.Followers, string.Format("offset={0}", offset));
+            Debug.WriteLine(await requestResult.Content.ReadAsStringAsync());
             return (requestResult.StatusCode == HttpStatusCode.OK) ?
                 JsonConvert.DeserializeObject<Responses.GetFollowers>(await requestResult.Content.ReadAsStringAsync())
                 .response.users : new List<Blog>();

@@ -41,11 +41,6 @@ namespace Core {
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs e) {
-#if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached) {
-                this.DebugSettings.EnableFrameRateCounter = true;
-            }
-#endif
 
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -114,10 +109,6 @@ namespace Core {
 
         protected override void OnActivated(IActivatedEventArgs e) {
             base.OnActivated(e);
-
-            DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
-            StatusBar.GetForCurrentView().BackgroundColor = Color.FromArgb(255, 40, 52, 64);
-            StatusBar.GetForCurrentView().ForegroundColor = Color.FromArgb(255, 255, 255, 255);
 
             ContinuationManager = new ContinuationManager();
 

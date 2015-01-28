@@ -1,6 +1,7 @@
 ﻿using APIWrapper.Client;
 using Newtonsoft.Json;
 using System;
+using System.Diagnostics;
 
 namespace APIWrapper.Content.Model {
     public class Blog : IEquatable<Blog> {
@@ -51,11 +52,14 @@ namespace APIWrapper.Content.Model {
         public bool _following { get; set; }
 
         [JsonProperty("followed")]
-        private bool _followed { get; set; }
+        public bool _followed { get; set; }
 
         public bool IsFollowing {
             get {
-                return _followed || _followed;
+                return (_following || _followed);
+            }
+            set {
+                _following = value;
             }
         }
 
@@ -64,10 +68,6 @@ namespace APIWrapper.Content.Model {
 
         [JsonProperty("ask")]
         public bool AsksEnabled { get; set; }
-
-        public class AltBlog : Blog {
-            new public bool IsFollowing { get; set; }
-        }
 
         public bool Equals(Blog other) {
             return this.Name == other.Name;

@@ -30,8 +30,8 @@
 
         <ScrollViewer Grid.Row="1"
                       Margin="10, 0"
-                      Padding="0, 0, 0, 10">
-            <StackPanel Margin="0" HorizontalAlignment="Stretch">
+                      Padding="0, 0, 0, 0">
+            <StackPanel Margin="0, 0, 0, 10" HorizontalAlignment="Stretch">
                 <Image Height="150"
                        Margin="10, 0"
                        HorizontalAlignment="Center"
@@ -63,7 +63,7 @@
                            FontSize="16"
                            Foreground="{ThemeResource ColorPrimary}"
                            Style="{StaticResource HeaderTextStyle}"
-                           Text="It is important to note that this application ('Sapphire') is a 3rd party client for Tumblr and is in no way affiliated, endorsed or advocated for by Yahoo! Inc. Content that is retrieved via the Tumblr APIs is property of its respective owners and is not a reflection of the developer ('Karn, Awefull'). Additionally, you agree that the developer is not liable for any issues that may occur whilst using this application."
+                           Text="It is important to note that this application ('Sapphire') is a 3rd party client for Tumblr and is in no way affiliated, endorsed or advocated for by Yahoo! Inc. Content that is retrieved via the Tumblr APIs is property of its respective owners and is not a reflection of the developer ('Karn, GemLabs'). Additionally, you agree that the developer is not liable for any issues that may occur whilst using this application."
                            TextWrapping="Wrap" />
 
                 <TextBlock Margin="7, 0"

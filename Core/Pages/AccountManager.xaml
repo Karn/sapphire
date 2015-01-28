@@ -123,7 +123,7 @@
                                         Background="#FFFFFFFF"
                                         BorderBrush="#66FFFFFF"
                                         BorderThickness="0"
-                                        Content="Select"
+                                        Content="SELECT"
                                         FontSize="18"
                                         Foreground="{StaticResource ColorPrimary}"
                                         Padding="3"

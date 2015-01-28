@@ -56,24 +56,14 @@
                   Height="50"
                   Background="{ThemeResource WindowBackgroundAccent}">
                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                    <Button MinWidth="0"
-                            MinHeight="0"
-                            Margin="-3"
-                            VerticalAlignment="Top"
-                            HorizontalContentAlignment="Stretch"
-                            VerticalContentAlignment="Stretch"
-                            BorderThickness="0"
-                            Padding="0"
-                            Style="{StaticResource ButtonStyleNoBG}"
-                            Tag="{Binding Name}"
-                            Tapped="GoToBlog"
-                            UseLayoutRounding="True">
-                        <Image Width="50"
-                               Height="50"
-                               Source="{Binding Avatar,
-                                                FallbackValue={StaticResource DefaultAvatar}}"
-                               Stretch="UniformToFill" />
-                    </Button>
+                    <Image Width="50"
+                           Height="50"
+                           Source="{Binding Avatar,
+                                            FallbackValue={StaticResource DefaultAvatar}}"
+                           Stretch="UniformToFill"
+                           Tag="{Binding Name}"
+                           Tapped="GoToBlog" />
+
                     <StackPanel Margin="5, 0">
                         <TextBlock Margin="5,5,50,0"
                                    HorizontalAlignment="Left"
@@ -96,20 +86,14 @@
                                    TextTrimming="CharacterEllipsis" />
                     </StackPanel>
                 </StackPanel>
-                <Button x:Name="OtherOptionsButton"
-                        Width="35"
-                        Height="35"
-                        MinWidth="0"
-                        MaxHeight="0"
-                        Margin="10, 0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        BorderThickness="0"
-                        Padding="0"
-                        Tapped="OtherOptionsButton_Tapped">
-                    <Button.Background>
-                        <ImageBrush ImageSource="{ThemeResource MoreButtonAsset}" Stretch="UniformToFill" />
-                    </Button.Background>
+                <Image x:Name="OtherOptionsButton"
+                       Width="35"
+                       Height="35"
+                       Margin="10, 0"
+                       HorizontalAlignment="Right"
+                       Source="{ThemeResource MoreButtonAsset}"
+                       Stretch="UniformToFill"
+                       Tapped="OtherOptionsButton_Tapped">
                     <FlyoutBase.AttachedFlyout>
                         <Flyout x:Name="OptionsPopup" Placement="Full">
                             <Flyout.FlyoutPresenterStyle>
@@ -165,7 +149,7 @@
                             </Grid>
                         </Flyout>
                     </FlyoutBase.AttachedFlyout>
-                </Button>
+                </Image>
             </Grid>
         </DataTemplate>
 

@@ -1,34 +1,12 @@
 ﻿<Page x:Class="Core.MainPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:CommonControl="using:APIWrapper.Utils"
-      xmlns:Control="using:Core.Utils.Controls"
+      xmlns:control="using:Core.Utils.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Core"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      Background="#FFf1f1f1"
+      Background="{StaticResource WindowBackground}"
       mc:Ignorable="d">
-
-    <Page.Resources>
-        <Storyboard x:Name="HeaderAnimateIn">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="HeaderContent" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
-                <EasingDoubleKeyFrame KeyTime="0" Value="-81" />
-                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0" />
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-7" />
-                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0" />
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-    </Page.Resources>
-
-    <Page.Transitions>
-        <TransitionCollection>
-            <NavigationThemeTransition>
-                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                    <CommonNavigationTransitionInfo IsStaggeringEnabled="True" />
-                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
-            </NavigationThemeTransition>
-        </TransitionCollection>
-    </Page.Transitions>
 
     <Grid x:Name="LayoutRoot" Loaded="LayoutRoot_Loaded">
 
@@ -37,69 +15,54 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel x:Name="HeaderContainer" Background="{ThemeResource ColorPrimary}">
-            <Border x:Name="StatusBarBG"
-                    Height="26"
-                    VerticalAlignment="Top"
-                    Background="{ThemeResource ColorPrimaryDark}"
-                    Canvas.ZIndex="99" />
+        <StackPanel x:Name="HeaderContainer" Background="{ThemeResource ColorPrimaryDark}">
             <Grid x:Name="HeaderContent"
                   Height="56"
-                  Margin="0, -1, 0, 0"
-                  RenderTransformOrigin="0.5,0.5">
-                <Grid.RenderTransform>
-                    <CompositeTransform TranslateY="0" />
-                </Grid.RenderTransform>
+                  Margin="0, 25, 0, 0"
+                  Background="{ThemeResource ColorPrimary}">
 
                 <TextBlock x:Name="PageTitle"
                            Style="{StaticResource HeaderTextStyle}"
                            Text="Sapphire" />
 
-                <StackPanel Margin="5, 0"
-                            HorizontalAlignment="Right"
-                            Orientation="Horizontal">
+                <GridView x:Name="Navigation"
+                          Height="35"
+                          Margin="5, 0, 5, 3"
+                          HorizontalAlignment="Right"
+                          VerticalAlignment="Center"
+                          ScrollViewer.VerticalScrollMode="Disabled"
+                          SelectionChanged="NavigationIconsSelectionChanged">
 
-                    <GridView x:Name="Navigation"
-                              Height="35"
-                              Margin="0, 0, 0, 3"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              ScrollViewer.VerticalScrollMode="Disabled"
-                              SelectionChanged="NavigationIconsSelectionChanged">
+                    <Image x:Name="DashboardIcon"
+                           Width="35"
+                           Height="30"
+                           Opacity=".5"
+                           Source="Assets/Nav/Dashboard.png" />
 
-                        <Image x:Name="DashboardIcon"
-                               Width="35"
-                               Height="30"
-                               Opacity=".5"
-                               Source="Assets/Nav/Dashboard.png" />
+                    <Image x:Name="ActivityIcon"
+                           Width="35"
+                           Height="30"
+                           Opacity=".5"
+                           Source="Assets/Nav/Activity.png" />
 
-                        <Image x:Name="ActivityIcon"
-                               Width="35"
-                               Height="30"
-                               Opacity=".5"
-                               Source="Assets/Nav/Activity.png" />
+                    <Image x:Name="AccountIcon"
+                           Width="35"
+                           Height="30"
+                           Opacity=".5"
+                           Source="Assets/Nav/Account.png" />
 
-                        <Image x:Name="AccountIcon"
-                               Width="35"
-                               Height="30"
-                               Opacity=".5"
-                               Source="Assets/Nav/Account.png" />
-
-                        <Image x:Name="SearchIcon"
-                               Width="35"
-                               Height="30"
-                               Opacity=".5"
-                               Source="Assets/Nav/Search.png" />
-
-                    </GridView>
-                </StackPanel>
+                    <Image x:Name="SearchIcon"
+                           Width="35"
+                           Height="30"
+                           Opacity=".5"
+                           Source="Assets/Nav/Search.png" />
+                </GridView>
             </Grid>
         </StackPanel>
 
         <Pivot x:Name="NavigationPivot"
                Grid.Row="1"
                Margin="0, -40, 0, 0"
-               Background="{StaticResource WindowBackground}"
                Canvas.ZIndex="-1"
                SelectionChanged="NavigationPivot_SelectionChanged">
 
@@ -108,38 +71,12 @@
                        HorizontalContentAlignment="Stretch">
 
                 <Grid>
-                    <Control:PostFeedControl x:Name="Dashboard"
+                    <control:PostFeedControl x:Name="Dashboard"
                                              Margin="0, 0, 0, 24"
                                              AffectHeader="True"
                                              URL="https://api.tumblr.com/v2/user/dashboard" />
 
-                    <Control:NewPostDialog x:Name="PostCreationView" Visibility="Collapsed" />
-
-                    <Button x:Name="CreatePost"
-                            Width="55"
-                            Height="55"
-                            Margin="20, 48"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Click="CreatePost_Click"
-                            LostFocus="CreatePost_LostFocus"
-                            Style="{StaticResource ButtonStyleNoBG}">
-
-                        <Grid>
-
-                            <Ellipse x:Name="CreatePostFill"
-                                     Fill="{ThemeResource ColorPrimary}"
-                                     Stroke="{StaticResource TextColorPrimaryDark}"
-                                     StrokeThickness="0.1" />
-
-                            <Image x:Name="CreatePostIcon"
-                                   Margin="10"
-                                   Canvas.ZIndex="50"
-                                   RenderTransformOrigin="0.5,0.5"
-                                   Source="Assets/New.png" />
-
-                        </Grid>
-                    </Button>
+                    <control:NewPostDialog x:Name="PostCreationView" Visibility="Visible" />
 
                     <Button x:Name="ToTopButton"
                             Width="55"
@@ -167,7 +104,7 @@
             </PivotItem>
 
             <PivotItem x:Name="ActivityPivot" Margin="0">
-                <Control:ActivityFeedControl x:Name="ActivityFeed"
+                <control:ActivityFeedControl x:Name="ActivityFeed"
                                              Margin="0, 0, 0, 54"
                                              HorizontalAlignment="Stretch" />
             </PivotItem>
@@ -304,18 +241,14 @@
                             </StackPanel>
                         </StackPanel>
                     </Grid>
-                    <Grid Margin="0, 10"
-                          Background="{ThemeResource WindowBackgroundAccent}"
-                          Visibility="Visible">
+                    <Grid Margin="0, 10" Background="{ThemeResource WindowBackgroundAccent}">
                         <StackPanel Margin="10, 0">
                             <StackPanel.ChildrenTransitions>
                                 <TransitionCollection>
                                     <EntranceThemeTransition />
                                 </TransitionCollection>
                             </StackPanel.ChildrenTransitions>
-                            <StackPanel Orientation="Horizontal"
-                                        Tag="Blogs"
-                                        Tapped="Inbox_Tapped">
+                            <StackPanel Orientation="Horizontal" Tapped="Inbox_Tapped">
                                 <Image x:Name="Inbox"
                                        Width="35"
                                        Height="35"
@@ -331,9 +264,7 @@
                                            Foreground="{ThemeResource TextColorPrimaryDark}"
                                            Text="Inbox" />
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal"
-                                        Tag="Blogs"
-                                        Tapped="Drafts_Tapped">
+                            <StackPanel Orientation="Horizontal" Tapped="Drafts_Tapped">
                                 <Image x:Name="Drafts"
                                        Width="35"
                                        Height="35"
@@ -349,9 +280,7 @@
                                            Foreground="{ThemeResource TextColorPrimaryDark}"
                                            Text="Drafts" />
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal"
-                                        Tag="Blogs"
-                                        Tapped="Queue_Tapped">
+                            <StackPanel Orientation="Horizontal" Tapped="Queue_Tapped">
                                 <Image x:Name="Queue"
                                        Width="35"
                                        Height="35"
@@ -369,7 +298,6 @@
                             </StackPanel>
                             <StackPanel x:Name="Favs_List"
                                         Orientation="Horizontal"
-                                        Tag="Blogs"
                                         Tapped="Favs_List_Tapped"
                                         Visibility="{Binding Converter={StaticResource IsFullVersion},
                                                              FallbackValue=Collapsed}">
@@ -391,18 +319,15 @@
                         </StackPanel>
                     </Grid>
                 </StackPanel>
-
             </PivotItem>
 
-            <PivotItem x:Name="SearchPivot"
-                       Margin="0"
-                       VerticalContentAlignment="Stretch">
-                <Grid Margin="10, 10, 10, 54" VerticalAlignment="Stretch">
+            <PivotItem x:Name="SearchPivot" Margin="0">
+                <Grid Margin="10, 10, 10, 54">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
+                    <Grid>
                         <TextBox x:Name="SearchText"
                                  Height="45"
                                  Margin="1, 5"

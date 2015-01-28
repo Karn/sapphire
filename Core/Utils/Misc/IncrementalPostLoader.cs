@@ -33,9 +33,7 @@ namespace Core.Utils.Misc {
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count) {
             if (_IsRunning || !HasMoreItems) {
                 Debug.WriteLine("Still running.");
-#pragma warning disable CS1998
                 return AsyncInfo.Run(async c => {
-#pragma warning restore CS1998
                     return new LoadMoreItemsResult() {
                         Count = 0
                     };
