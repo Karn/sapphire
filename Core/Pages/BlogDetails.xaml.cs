@@ -4,6 +4,7 @@ using Core.Shared.Common;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -76,7 +77,7 @@ namespace Core.Pages {
         private void Posts_Loaded(object sender, RoutedEventArgs e) {
             if (string.IsNullOrWhiteSpace(Posts.LastPostID) || !Posts.URL.Contains(blogName)) {
                 Posts.URL = "https://api.tumblr.com/v2/blog/" + blogName + ".tumblr.com/posts";
-                Posts.LoadPosts();
+                Posts.LoadPosts(true);
             }
         }
 

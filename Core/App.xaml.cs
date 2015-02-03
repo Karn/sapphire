@@ -64,12 +64,6 @@ namespace Core {
             }
 
             if (rootFrame.Content == null) {
-                if (rootFrame.ContentTransitions != null) {
-                    this.transitions = new TransitionCollection();
-                    foreach (var c in rootFrame.ContentTransitions) {
-                        this.transitions.Add(c);
-                    }
-                }
 
                 rootFrame.ContentTransitions = null;
                 rootFrame.Navigated += this.RootFrame_FirstNavigated;

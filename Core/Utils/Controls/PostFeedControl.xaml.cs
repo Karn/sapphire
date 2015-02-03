@@ -7,6 +7,8 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
@@ -34,6 +36,7 @@ namespace Core.Utils.Controls {
         public static ImageSource PlayIcon = App.Current.Resources["PlayIcon"] as BitmapImage;
         public static ImageSource PauseIcon = App.Current.Resources["PauseIcon"] as BitmapImage;
 
+        CancellationTokenSource cts = new CancellationTokenSource();
 
         public bool IsSinglePost;
 

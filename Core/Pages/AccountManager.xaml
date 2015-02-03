@@ -100,7 +100,7 @@
                                            VerticalAlignment="Center"
                                            FontSize="18"
                                            FontWeight="Normal"
-                                           Foreground="{ThemeResource ColorPrimaryDark}"
+                                           Foreground="{ThemeResource TextColorPrimaryDark}"
                                            Style="{StaticResource HeaderTextStyle}"
                                            Text="{Binding}"
                                            TextTrimming="CharacterEllipsis" />

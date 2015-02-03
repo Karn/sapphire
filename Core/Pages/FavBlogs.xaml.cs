@@ -15,12 +15,42 @@ namespace Core.Pages {
     /// </summary>
     public sealed partial class FavBlogs : Page {
 
+        private NavigationHelper navigationHelper;
+
         public FavBlogs() {
             this.InitializeComponent();
 
-            List.ItemsSource = UserStorageUtils.FavBlogList;
+            this.navigationHelper = new NavigationHelper(this);
+            this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
+            this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
+            List.ItemsSource = UserStorageUtils.FavBlogList;
         }
+
+        #region NavigationHelper registration
+
+        public NavigationHelper NavigationHelper {
+            get { return this.navigationHelper; }
+        }
+
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
+        }
+
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) {
+        }
+
+
+
+        protected override void OnNavigatedTo(NavigationEventArgs e) {
+            this.navigationHelper.OnNavigatedTo(e);
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e) {
+            this.navigationHelper.OnNavigatedFrom(e);
+        }
+
+        #endregion
+
 
         private void SelectBlogButton_Tapped(object sender, TappedRoutedEventArgs e) {
             UserStorageUtils.CurrentBlog = ((Button)sender).Tag as Blog;

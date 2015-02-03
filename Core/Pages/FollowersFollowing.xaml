@@ -6,7 +6,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Core.Pages"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:ufc="using:Core.Utils"
       Background="{ThemeResource ColorPrimary}"
       mc:Ignorable="d">
 
@@ -31,25 +30,9 @@
                       ItemsSource="{Binding}">
                 <ListView.Resources>
                     <ControlTemplate x:Key="ListViewControlTemplate1" TargetType="ListView">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}">
-                            <ScrollViewer x:Name="ScrollViewer"
-                                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                          HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
-                                          IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
-                                          IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}"
-                                          IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
-                                          IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}"
-                                          TabNavigation="{TemplateBinding TabNavigation}"
-                                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
-                                          VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
-                                          ViewChanging="ScrollViewer_ViewChanging"
-                                          ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
-                                <ItemsPresenter Header="{TemplateBinding Header}"
-                                                HeaderTemplate="{TemplateBinding HeaderTemplate}"
-                                                HeaderTransitions="{TemplateBinding HeaderTransitions}"
-                                                Padding="{TemplateBinding Padding}" />
+                        <Border>
+                            <ScrollViewer x:Name="ScrollViewer" ViewChanging="ScrollViewer_ViewChanging">
+                                <ItemsPresenter />
                             </ScrollViewer>
                         </Border>
                     </ControlTemplate>
@@ -91,7 +74,7 @@
                                                HorizontalAlignment="Left"
                                                FontSize="18"
                                                FontWeight="Normal"
-                                               Foreground="{ThemeResource ColorPrimaryDark}"
+                                               Foreground="{ThemeResource TextColorPrimaryDark}"
                                                Style="{StaticResource HeaderTextStyle}"
                                                Tag="{Binding Name}"
                                                Tapped="GoToBlog"

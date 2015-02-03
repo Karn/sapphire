@@ -1,20 +1,18 @@
 ﻿using APIWrapper.AuthenticationManager;
 using APIWrapper.Content;
 using APIWrapper.Content.Model;
-using APIWrapper.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace APIWrapper.Client {
+namespace APIWrapper.Client
+{
     public class CreateRequest {
         private static HttpClient Client = new HttpClient();
 
@@ -24,7 +22,7 @@ namespace APIWrapper.Client {
                 var regexCss = new Regex("(\\<script(.+?)\\</script\\>)|(\\<style(.+?)\\</style\\>)", RegexOptions.Singleline | RegexOptions.IgnoreCase);
                 htmlString = regexCss.Replace(htmlString, string.Empty);
                 htmlString = Regex.Replace(htmlString, htmlTagPattern, string.Empty);
-                htmlString = Regex.Replace(htmlString, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
+                htmlString = Regex.Replace(htmlString, @"^\s+$[\r]*", "", RegexOptions.Multiline);
                 htmlString = htmlString.Replace("&nbsp;", " ");
                 return WebUtility.HtmlDecode(htmlString);
             }
@@ -81,7 +79,6 @@ namespace APIWrapper.Client {
 
                             foreach (var b in activity.response.blogs) {
                                 if (b.Name == UserStorageUtils.CurrentBlog.Name) {
-                                    Debug.WriteLine("Retreiving activity for " + b.Name);
                                     if (!NotificationDictionary.ContainsKey(b.Name)) {
                                         NotificationDictionary.Add(b.Name, 0);
                                     }

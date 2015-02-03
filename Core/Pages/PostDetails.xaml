@@ -6,9 +6,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Core.Pages"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Background="{StaticResource ColorPrimary}"
       mc:Ignorable="d">
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource WindowBackground}">
+    <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -24,8 +25,9 @@
                        Text="Posts Details" />
         </Grid>
 
-        <controls:PostFeedControl x:Name="Details"
-                                  Grid.Row="1"
-                                  Loaded="Details_Loaded" />
+        <Grid Grid.Row="1" Background="{StaticResource WindowBackground}">
+            <controls:PostFeedControl x:Name="Details" Loaded="Details_Loaded" />
+        </Grid>
+
     </Grid>
 </Page>

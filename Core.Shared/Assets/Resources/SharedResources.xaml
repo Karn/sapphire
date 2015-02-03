@@ -8,7 +8,7 @@
             <SolidColorBrush x:Key="ColorPrimaryDark" Color="#FF293A4A" />
             <SolidColorBrush x:Key="TextColorPrimary" Color="#FFEEF1F4" />
             <SolidColorBrush x:Key="TextColorPrimaryDark" Color="#FF2D3F53" />
-            <SolidColorBrush x:Key="WindowBackground" Color="#FFf2f2f2" />
+            <SolidColorBrush x:Key="WindowBackground" Color="#FFecf0f1" />
             <SolidColorBrush x:Key="WindowBackgroundAccent" Color="#FFfdfdfd" />
             <SolidColorBrush x:Key="PostBG" Color="#FFFFFFFF" />
 

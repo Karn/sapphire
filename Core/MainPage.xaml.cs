@@ -5,6 +5,7 @@ using Core.Shared.Common;
 using Core.Utils.Controls;
 using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Phone.UI.Input;
@@ -62,7 +63,7 @@ namespace Core {
             if (await GetUserAccount() && UserStorageUtils.CurrentBlog != null) {
                 AccountPivot.DataContext = UserStorageUtils.CurrentBlog;
                 for (int i = 0; i < 5; i++) {
-                    Dashboard.LoadPosts();
+                    Dashboard.LoadPosts(true);
                     if (Dashboard.FeedItemCount() > 0)
                         return;
                 }

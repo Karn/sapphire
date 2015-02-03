@@ -1,6 +1,8 @@
 ﻿using APIWrapper.Client;
 using Core.Shared.Common;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -55,26 +57,13 @@ namespace Core.Pages {
 
 
             Analytics.AnalyticsManager.RegisterView(TAG + " " + PageTitle.Text);
-            
+            PostFeed.LoadPosts();
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) { }
 
         #region NavigationHelper registration
 
-        /// <summary>
-        /// The methods provided in this section are simply used to allow
-        /// NavigationHelper to respond to the page's navigation methods.
-        /// <para>
-        /// Page specific logic should be placed in event handlers for the  
-        /// <see cref="NavigationHelper.LoadState"/>
-        /// and <see cref="NavigationHelper.SaveState"/>.
-        /// The navigation parameter is available in the LoadState method 
-        /// in addition to page state preserved during an earlier session.
-        /// </para>
-        /// </summary>
-        /// <param name="e">Provides data for navigation methods and event
-        /// handlers that cannot cancel the navigation request.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e) {
             this.navigationHelper.OnNavigatedTo(e);
         }
@@ -85,12 +74,6 @@ namespace Core.Pages {
 
         #endregion
 
-        private void FeedLoaded(object sender, RoutedEventArgs e) {
-            if (!loaded) {
-                PostFeed.LoadPosts(true);
-                loaded = true;
-            }
-        }
 
         private void GoToBlog(object sender, TappedRoutedEventArgs e) {
             if (((FrameworkElement)sender).Tag != null) {
