@@ -93,6 +93,15 @@ namespace Core.Utils.Controls {
             }
         }
 
+        public void LoadPosts(object cachedPostData, int scrollOffset = 0) {
+            Posts.ItemsSource = cachedPostData;
+            App.HideStatus();
+        }
+
+        public object GetPostSource() {
+            return Posts.ItemsSource;
+        }
+
         public int FeedItemCount() {
             if (Posts.Items.Count == 1 && (Posts.ItemsSource as ObservableCollection<Post>).Last().type == "nocontent")
                 return 0;
@@ -101,8 +110,10 @@ namespace Core.Utils.Controls {
         }
 
         public async void LoadSpecificPost(string post_id) {
+            App.DisplayStatus(App.LocaleResources.GetString("LoadingPost"));
             IsSinglePost = true;
             Posts.ItemsSource = await CreateRequest.RetrievePost(post_id);
+            App.HideStatus();
         }
 
         public void ScrollToTop() {
@@ -122,9 +133,8 @@ namespace Core.Utils.Controls {
         private void GoToPostDetails(object sender, TappedRoutedEventArgs e) {
             if (!IsSinglePost && ((FrameworkElement)sender).Tag != null) {
                 var frame = Window.Current.Content as Frame;
-                if (!frame.Navigate(typeof(Pages.PostDetails), ((FrameworkElement)sender).Tag.ToString())) {
+                if (!frame.Navigate(typeof(Pages.PostDetails), ((FrameworkElement)sender).Tag.ToString()))
                     Debug.WriteLine("Failed to Navigate");
-                }
             }
         }
 
@@ -206,11 +216,11 @@ namespace Core.Utils.Controls {
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e) {
             App.DisplayStatus(App.LocaleResources.GetString("DeletingPost"));
-            var post = (Post)((FrameworkElement)sender).Tag;
+            var post_id = ((FrameworkElement)sender).Tag.ToString();
 
-            if (await CreateRequest.DeletePost(post.id)) {
+            if (await CreateRequest.DeletePost(post_id)) {
                 var items = Posts.ItemsSource as ObservableCollection<Post>;
-                items.Remove(post);
+                items.Remove(items.Where(x => x.id == post_id).First());
             } else
                 App.Alert("Failed to delete post.");
             App.HideStatus();

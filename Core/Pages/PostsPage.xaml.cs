@@ -17,7 +17,6 @@ namespace Core.Pages {
 
         public static string TAG = "PostsPage";
 
-        bool loaded = false;
         string searchTag = "";
 
         public PostsPage() {
@@ -37,6 +36,7 @@ namespace Core.Pages {
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
             PostFeed.URL = e.NavigationParameter.ToString();
+
             if (PostFeed.URL.Contains("/likes")) {
                 PageTitle.Text = "Likes";
             } else if (PostFeed.URL.Contains("/tagged")) {
@@ -54,7 +54,6 @@ namespace Core.Pages {
             } else if (PostFeed.URL.Contains("/queue")) {
                 PageTitle.Text = "Queue";
             }
-
 
             Analytics.AnalyticsManager.RegisterView(TAG + " " + PageTitle.Text);
             PostFeed.LoadPosts();

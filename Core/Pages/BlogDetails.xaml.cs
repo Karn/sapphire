@@ -19,7 +19,10 @@ namespace Core.Pages {
     public sealed partial class BlogDetails : Page {
         private NavigationHelper navigationHelper;
 
-        private string blogName;
+        static string blogName;
+
+        static object cached_blog_data = null;
+        static object cached_post_data = null;
 
         public BlogDetails() {
             this.InitializeComponent();
@@ -27,8 +30,6 @@ namespace Core.Pages {
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
-
-            
         }
 
         /// <summary>
@@ -38,31 +39,25 @@ namespace Core.Pages {
             get { return this.navigationHelper; }
         }
 
-        /// <summary>
-        /// Populates the page with content passed during navigation.  Any saved state is also
-        /// provided when recreating a page from a prior session.
-        /// </summary>
-        /// <param name="sender">
-        /// The source of the event; typically <see cref="NavigationHelper"/>
-        /// </param>
-        /// <param name="e">Event data that provides both the navigation parameter passed to
-        /// <see cref="Frame.Navigate(Type, Object)"/> when this page was initially requested and
-        /// a dictionary of state preserved by this page during an earlier
-        /// session.  The state will be null the first time a page is visited.</param>
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
-            blogName = e.NavigationParameter.ToString();
-            LayoutRoot.DataContext = await CreateRequest.GetBlog(blogName);
+            if (cached_blog_data == null || blogName != e.NavigationParameter.ToString()) {
+                blogName = e.NavigationParameter.ToString();
+                LayoutRoot.DataContext = await CreateRequest.GetBlog(blogName);
+                Posts.URL = "https://api.tumblr.com/v2/blog/" + blogName + ".tumblr.com/posts";
+                Posts.LoadPosts();
+            } else {
+                Debug.WriteLine("Loading from cache.");
+                LayoutRoot.DataContext = cached_blog_data;
+                Posts.LoadPosts(cached_post_data);
+                cached_blog_data = null;
+                cached_post_data = null;
+            }
         }
 
-        /// <summary>
-        /// Preserves state associated with this page in case the application is suspended or the
-        /// page is discarded from the navigation cache.  Values must conform to the serialization
-        /// requirements of <see cref="SuspensionManager.SessionState"/>.
-        /// </summary>
-        /// <param name="sender">The source of the event; typically <see cref="NavigationHelper"/></param>
-        /// <param name="e">Event data that provides an empty dictionary to be populated with
-        /// serializable state.</param>
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) { }
+        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) {
+            cached_blog_data = LayoutRoot.DataContext;
+            cached_post_data = Posts.GetPostSource();
+        }
 
         #region NavigationHelper registration
         protected override void OnNavigatedTo(NavigationEventArgs e) {
@@ -76,8 +71,6 @@ namespace Core.Pages {
 
         private void Posts_Loaded(object sender, RoutedEventArgs e) {
             if (string.IsNullOrWhiteSpace(Posts.LastPostID) || !Posts.URL.Contains(blogName)) {
-                Posts.URL = "https://api.tumblr.com/v2/blog/" + blogName + ".tumblr.com/posts";
-                Posts.LoadPosts(true);
             }
         }
 

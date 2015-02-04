@@ -144,6 +144,9 @@
   <data name="LoadingActivity" xml:space="preserve">
     <value>Loading activity...</value>
   </data>
+  <data name="LoadingPost" xml:space="preserve">
+    <value>Loading post details..</value>
+  </data>
   <data name="LoadingPostsMessage" xml:space="preserve">
     <value>Loading posts...</value>
   </data>

@@ -87,7 +87,7 @@ namespace Core {
             if (PostCreationView.IsActive) {
                 PostCreationView.CreatePost_LostFocus(null, null);
             } else if (LastIndex != -1) {
-                Navigation.SelectedIndex = LastIndex;
+                NavigationPivot.SelectedIndex = LastIndex;
                 LastIndex = -1;
             } else if (NavigationPivot.SelectedIndex != 0) {
                 NavigationPivot.SelectedIndex = 0;

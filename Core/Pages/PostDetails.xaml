@@ -26,7 +26,7 @@
         </Grid>
 
         <Grid Grid.Row="1" Background="{StaticResource WindowBackground}">
-            <controls:PostFeedControl x:Name="Details" Loaded="Details_Loaded" />
+            <controls:PostFeedControl x:Name="Details" />
         </Grid>
 
     </Grid>

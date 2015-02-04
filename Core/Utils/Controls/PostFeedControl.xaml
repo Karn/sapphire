@@ -259,7 +259,7 @@
                                                  Click="DeleteButton_Click"
                                                  EnabledChecked="{StaticResource DeleteButtonAsset}"
                                                  EnabledUnchecked="{StaticResource DeleteButtonAsset}"
-                                                 Tag="{Binding}"
+                                                 Tag="{Binding id}"
                                                  Visibility="{Binding IsEditable}" />
                         </StackPanel>
                         <StackPanel x:Name="DraftCommands"
@@ -279,7 +279,7 @@
                                                  Click="DeleteButton_Click"
                                                  EnabledChecked="{StaticResource DeleteButtonAsset}"
                                                  EnabledUnchecked="{StaticResource DeleteButtonAsset}"
-                                                 Tag="{Binding}"
+                                                 Tag="{Binding id}"
                                                  Visibility="{Binding IsEditable}" />
                         </StackPanel>
                     </Grid>
@@ -826,23 +826,18 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0"
-                  Height="60"
-                  Margin="10, 0"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Top">
-                <TextBlock x:Name="textBlock1"
-                           Margin="15, 0, 0, 0"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           CharacterSpacing="-25"
-                           FontFamily="Segoe WP"
-                           FontSize="22"
-                           FontWeight="Thin"
-                           Foreground="{ThemeResource TextColorPrimaryDark}"
-                           Text="Pull to refresh.."
-                           TextLineBounds="Tight" />
-            </Grid>
+            <TextBlock x:Name="textBlock1"
+                       Padding="0, 20"
+                       Height="60"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       CharacterSpacing="-25"
+                       FontFamily="Segoe WP"
+                       FontSize="22"
+                       FontWeight="Thin"
+                       Foreground="{ThemeResource TextColorPrimaryDark}"
+                       Text="Pull to refresh.."
+                       TextLineBounds="Tight" />
             <ListView x:Name="Posts"
                       Grid.Row="1"
                       Margin="0"
@@ -857,13 +852,14 @@
                       Padding="0, 4"
                       ScrollViewer.HorizontalScrollMode="Disabled"
                       ScrollViewer.VerticalScrollBarVisibility="Auto"
-                      SelectionMode="None"
-                      ShowsScrollingPlaceholders="True">
-                <ListView.ItemContainerTransitions>
+                      SelectionMode="None">
+                <!--
+                    <ListView.ItemContainerTransitions>
                     <TransitionCollection>
-                        <EntranceThemeTransition />
+                    <EntranceThemeTransition />
                     </TransitionCollection>
-                </ListView.ItemContainerTransitions>
+                    </ListView.ItemContainerTransitions>
+                -->
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <ItemsStackPanel />

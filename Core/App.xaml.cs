@@ -23,8 +23,6 @@ namespace Core {
 
         public static ResourceLoader LocaleResources = new ResourceLoader();
 
-        private TransitionCollection transitions;
-
         private static StatusBar statusBar;
 
         public ContinuationManager ContinuationManager { get; private set; }
@@ -66,13 +64,10 @@ namespace Core {
             if (rootFrame.Content == null) {
 
                 rootFrame.ContentTransitions = null;
-                rootFrame.Navigated += this.RootFrame_FirstNavigated;
-
-                DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
+                //rootFrame.Navigated += this.RootFrame_FirstNavigated;
 
                 statusBar = StatusBar.GetForCurrentView();
-                statusBar.BackgroundColor = Color.FromArgb(255, 40, 52, 64);
-                statusBar.ForegroundColor = Color.FromArgb(255, 255, 255, 255);
+                statusBar.ForegroundColor = Colors.White;
 
                 new Utils.AppLicenseHandler();
                 new Authentication();
@@ -91,8 +86,9 @@ namespace Core {
 
         private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e) {
             var rootFrame = sender as Frame;
-            rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
+            //rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
             rootFrame.Navigated -= this.RootFrame_FirstNavigated;
+            //rootFrame.Tag = sender.GetType().FullName; //Fix this so that the tag can be used with analytics to track the current view.
         }
 
         private async void OnSuspending(object sender, SuspendingEventArgs e) {
