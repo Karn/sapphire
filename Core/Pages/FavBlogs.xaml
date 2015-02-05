@@ -27,7 +27,6 @@
         <Grid Grid.Row="1" Background="{StaticResource WindowBackground}">
             <ListView x:Name="List"
                       Margin="0, 2, 0, 0"
-                      HorizontalAlignment="Center"
                       ItemsSource="{Binding}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -61,7 +60,6 @@
                                        Style="{StaticResource HeaderTextStyle}"
                                        Text="{Binding Name}"
                                        TextTrimming="CharacterEllipsis" />
-
                             <Button x:Name="FollowButton"
                                     Grid.Column="2"
                                     Height="35"
@@ -73,6 +71,7 @@
                                     BorderBrush="#66FFFFFF"
                                     BorderThickness="0"
                                     Content="VIEW"
+                                    HorizontalAlignment="Right"
                                     FontSize="18"
                                     Foreground="{StaticResource ColorPrimary}"
                                     Padding="3"
