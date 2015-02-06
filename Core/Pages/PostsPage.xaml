@@ -10,148 +10,146 @@
       Background="{ThemeResource ColorPrimary}"
       mc:Ignorable="d">
 
-    <Grid x:Name="LayoutRoot">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid Height="55"
-              Background="{ThemeResource ColorPrimary}"
-              Canvas.ZIndex="9999">
-            <TextBlock x:Name="PageTitle"
-                       Margin="15, 0, 0, 0"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Center"
-                       Foreground="{ThemeResource TextColorPrimary}"
-                       Style="{StaticResource HeaderTextStyle}"
-                       Text="Posts" />
-            <StackPanel Margin="0, 0, 15, 0"
-                        HorizontalAlignment="Right"
-                        Orientation="Horizontal">
-                <Image x:Name="ToTop"
-                       Width="35"
-                       Height="30"
-                       Source="ms-appx:///Assets/Top.png"
-                       Tapped="ToTop_Tapped" />
-            </StackPanel>
-        </Grid>
+	<Grid x:Name="LayoutRoot">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="55" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<Grid HorizontalAlignment="Stretch" Background="{ThemeResource ColorPrimary}">
+			<TextBlock x:Name="PageTitle"
+			           Margin="15, 0, 0, 0"
+			           HorizontalAlignment="Left"
+			           VerticalAlignment="Center"
+			           Foreground="{ThemeResource TextColorPrimary}"
+			           Style="{StaticResource HeaderTextStyle}"
+			           Text="Posts" />
 
-        <Pivot Grid.Row="1"
-               Margin="0, -8, 0, 0"
-               Background="{ThemeResource WindowBackground}">
-            <PivotItem Margin="0">
-                <PivotItem.Header>
-                    <TextBlock x:Name="ResultsHeader"
-                               Margin="0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               CharacterSpacing="-25"
-                               FontFamily="Segoe WP"
-                               FontSize="26"
-                               Foreground="{ThemeResource TextColorPrimaryDark}"
-                               Text="Results"
-                               Typography.Capitals="AllSmallCaps"
-                               Visibility="Collapsed" />
-                </PivotItem.Header>
+			<Image x:Name="ToTop"
+			       Width="35"
+			       Height="30"
+			       Margin="15, 0"
+			       HorizontalAlignment="Right"
+			       Source="ms-appx:///Assets/Top.png"
+			       Tapped="ToTop_Tapped" />
+		</Grid>
 
-                <controls:PostFeedControl x:Name="PostFeed"
-                                          Grid.Row="1"
-                                          Margin="0, -5, 0, 0" />
-            </PivotItem>
+		<Pivot Grid.Row="1"
+		       Margin="0, -8, 0, 0"
+		       Background="{ThemeResource WindowBackground}"
+		       Canvas.ZIndex="-99">
+			<PivotItem Margin="0">
+				<PivotItem.Header>
+					<TextBlock x:Name="ResultsHeader"
+					           Margin="0"
+					           HorizontalAlignment="Left"
+					           VerticalAlignment="Center"
+					           CharacterSpacing="-25"
+					           FontFamily="Segoe WP"
+					           FontSize="26"
+					           Foreground="{ThemeResource TextColorPrimaryDark}"
+					           Text="Results"
+					           Typography.Capitals="AllSmallCaps"
+					           Visibility="Collapsed" />
+				</PivotItem.Header>
 
-            <PivotItem x:Name="Blogs"
-                       Margin="0"
-                       Visibility="Collapsed">
-                <PivotItem.Header>
-                    <TextBlock x:Name="BlogsHeader"
-                               Margin="0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               CharacterSpacing="-25"
-                               FontFamily="Segoe WP"
-                               FontSize="26"
-                               Foreground="{ThemeResource TextColorPrimaryDark}"
-                               Text="Blogs"
-                               Typography.Capitals="AllSmallCaps"
-                               Visibility="Collapsed" />
-                </PivotItem.Header>
-                <ListView x:Name="BlogSearch"
-                          Grid.Row="1"
-                          HorizontalAlignment="Stretch"
-                          HorizontalContentAlignment="Stretch"
-                          ItemsSource="{Binding}"
-                          Loaded="BlogSearch_Loaded"
-                          ScrollViewer.VerticalScrollMode="Enabled">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border MinWidth="380"
-                                    Margin="4, 2"
-                                    HorizontalAlignment="Stretch"
-                                    BorderBrush="#19000000"
-                                    BorderThickness="0,0,0,1">
-                                <Grid HorizontalAlignment="Stretch">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Ellipse Grid.Column="0"
-                                             Width="65"
-                                             Height="65"
-                                             Margin="10, 5"
-                                             HorizontalAlignment="Left"
-                                             Tag="{Binding Name}"
-                                             Tapped="GoToBlog">
-                                        <Ellipse.Fill>
-                                            <ImageBrush ImageSource="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
-                                        </Ellipse.Fill>
-                                    </Ellipse>
-                                    <StackPanel Grid.Column="1"
-                                                Margin="10"
-                                                HorizontalAlignment="Left">
-                                        <TextBlock Margin="0"
-                                                   HorizontalAlignment="Left"
-                                                   FontSize="18"
-                                                   FontWeight="Normal"
-                                                   Foreground="{ThemeResource TextColorPrimaryDark}"
-                                                   Style="{StaticResource HeaderTextStyle}"
-                                                   Tag="{Binding Name}"
-                                                   Tapped="GoToBlog"
-                                                   Text="{Binding Name}"
-                                                   TextTrimming="CharacterEllipsis" />
-                                        <TextBlock Margin="0, -10, 0, 0"
-                                                   HorizontalAlignment="Left"
-                                                   FontSize="14"
-                                                   Foreground="{ThemeResource TextColorPrimaryDark}"
-                                                   Text="{Binding URL}"
-                                                   TextTrimming="CharacterEllipsis" />
-                                    </StackPanel>
+				<controls:PostFeedControl x:Name="PostFeed"
+				                          Grid.Row="1"
+				                          Margin="0, -5, 0, 0" />
+			</PivotItem>
 
-                                    <Button x:Name="FollowButton"
-                                            Grid.Column="2"
-                                            Height="35"
-                                            MinWidth="120"
-                                            MinHeight="0"
-                                            Margin="5, 0"
-                                            VerticalAlignment="Center"
-                                            Background="#FFFFFFFF"
-                                            BorderBrush="#66FFFFFF"
-                                            BorderThickness="0"
-                                            Content="{Binding IsFollowing,
-                                                              Converter={StaticResource FollowingToString},
-                                                              FallbackValue=FOLLOW}"
-                                            FontSize="18"
-                                            Foreground="{StaticResource ColorPrimary}"
-                                            Padding="3"
-                                            Style="{StaticResource ButtonStyleNoBG}"
-                                            Tag="{Binding Name}"
-                                            Tapped="FollowUnfollowButton_Tapped" />
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </PivotItem>
-        </Pivot>
-    </Grid>
+			<PivotItem x:Name="Blogs"
+			           Margin="0"
+			           Visibility="Collapsed">
+				<PivotItem.Header>
+					<TextBlock x:Name="BlogsHeader"
+					           Margin="0"
+					           HorizontalAlignment="Left"
+					           VerticalAlignment="Center"
+					           CharacterSpacing="-25"
+					           FontFamily="Segoe WP"
+					           FontSize="26"
+					           Foreground="{ThemeResource TextColorPrimaryDark}"
+					           Text="Blogs"
+					           Typography.Capitals="AllSmallCaps"
+					           Visibility="Collapsed" />
+				</PivotItem.Header>
+				<ListView x:Name="BlogSearch"
+				          Grid.Row="1"
+				          HorizontalAlignment="Stretch"
+				          HorizontalContentAlignment="Stretch"
+				          ItemsSource="{Binding}"
+				          Loaded="BlogSearch_Loaded"
+				          ScrollViewer.VerticalScrollMode="Enabled">
+					<ListView.ItemTemplate>
+						<DataTemplate>
+							<Border MinWidth="380"
+							        Margin="4, 2"
+							        HorizontalAlignment="Stretch"
+							        BorderBrush="#19000000"
+							        BorderThickness="0,0,0,1">
+								<Grid HorizontalAlignment="Stretch">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="Auto" />
+									</Grid.ColumnDefinitions>
+									<Ellipse Grid.Column="0"
+									         Width="65"
+									         Height="65"
+									         Margin="10, 5"
+									         HorizontalAlignment="Left"
+									         Tag="{Binding Name}"
+									         Tapped="GoToBlog">
+										<Ellipse.Fill>
+											<ImageBrush ImageSource="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+										</Ellipse.Fill>
+									</Ellipse>
+									<StackPanel Grid.Column="1"
+									            Margin="10"
+									            HorizontalAlignment="Left">
+										<TextBlock Margin="0"
+										           HorizontalAlignment="Left"
+										           FontSize="18"
+										           FontWeight="Normal"
+										           Foreground="{ThemeResource TextColorPrimaryDark}"
+										           Style="{StaticResource HeaderTextStyle}"
+										           Tag="{Binding Name}"
+										           Tapped="GoToBlog"
+										           Text="{Binding Name}"
+										           TextTrimming="CharacterEllipsis" />
+										<TextBlock Margin="0, -10, 0, 0"
+										           HorizontalAlignment="Left"
+										           FontSize="14"
+										           Foreground="{ThemeResource TextColorPrimaryDark}"
+										           Text="{Binding URL}"
+										           TextTrimming="CharacterEllipsis" />
+									</StackPanel>
+
+									<Button x:Name="FollowButton"
+									        Grid.Column="2"
+									        Height="35"
+									        MinWidth="120"
+									        MinHeight="0"
+									        Margin="5, 0"
+									        VerticalAlignment="Center"
+									        Background="#FFFFFFFF"
+									        BorderBrush="#66FFFFFF"
+									        BorderThickness="0"
+									        Content="{Binding IsFollowing,
+									                          Converter={StaticResource FollowingToString},
+									                          FallbackValue=FOLLOW}"
+									        FontSize="18"
+									        Foreground="{StaticResource ColorPrimary}"
+									        Padding="3"
+									        Style="{StaticResource ButtonStyleNoBG}"
+									        Tag="{Binding Name}"
+									        Tapped="FollowUnfollowButton_Tapped" />
+								</Grid>
+							</Border>
+						</DataTemplate>
+					</ListView.ItemTemplate>
+				</ListView>
+			</PivotItem>
+		</Pivot>
+	</Grid>
 </Page>

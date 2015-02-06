@@ -31,11 +31,10 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid Background="#02000000" Tapped="Grid_Tapped" />
-                <ListView Grid.Row="1"
-                          VerticalAlignment="Bottom"
-                          Background="{ThemeResource ColorPrimary}"
-                          Padding="0, 0, 0, 23">
-                    <TextBlock Margin="20, 25, 20, 8"
+                <Grid Grid.Row="1"
+                      VerticalAlignment="Bottom"
+                      Background="{ThemeResource ColorPrimary}">
+                    <TextBlock Margin="20, 25, 20, 12"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontSize="24"
@@ -46,7 +45,7 @@
                                Text="save to phone"
                                TextLineBounds="Tight"
                                TextTrimming="CharacterEllipsis" />
-                </ListView>
+                </Grid>
             </Grid>
         </Flyout>
 
@@ -110,58 +109,52 @@
         </DataTemplate>
 
         <DataTemplate x:Key="Photo">
-            <StackPanel x:Name="Container" Background="{ThemeResource PostBG}">
-                <Image FlyoutBase.AttachedFlyout="{StaticResource SaveToPhoneFlyout}"
-                       Holding="Image_Holding"
-                       Source="{Binding path_to_low_res_pic.url}" />
-            </StackPanel>
+            <Image FlyoutBase.AttachedFlyout="{StaticResource SaveToPhoneFlyout}"
+                   Holding="Image_Holding"
+                   Source="{Binding path_to_low_res_pic.url}" />
         </DataTemplate>
 
         <DataTemplate x:Key="Gif">
-            <StackPanel Background="{ThemeResource PostBG}">
-                <Grid Background="Black">
-                    <MediaElement x:Name="Player"
-                                  MinHeight="100"
-                                  AutoPlay="True"
-                                  IsDoubleTapEnabled="False"
-                                  IsHoldingEnabled="False"
-                                  IsLooping="True"
-                                  IsRightTapEnabled="False"
-                                  IsTapEnabled="False"
-                                  PosterSource="{Binding path_to_low_res_pic.url}"
-                                  Stretch="UniformToFill"
-                                  Tag="{Binding path_to_low_res_pic.url}" />
-                    <AppBarButton x:Name="PlayButton"
-                                  HorizontalAlignment="Right"
-                                  VerticalAlignment="Top"
-                                  Background="#CC252525"
-                                  BorderBrush="White"
-                                  Click="AppBarButton_Click"
-                                  Foreground="White"
-                                  Icon="Play"
-                                  IsCompact="True"
-                                  LostFocus="PlayButton_LostFocus"
-                                  RequestedTheme="Dark"
-                                  Tag="stopped" />
-                </Grid>
-            </StackPanel>
+            <Grid>
+                <MediaElement x:Name="Player"
+                              MinHeight="100"
+                              AutoPlay="True"
+                              IsDoubleTapEnabled="False"
+                              IsHoldingEnabled="False"
+                              IsLooping="True"
+                              IsRightTapEnabled="False"
+                              IsTapEnabled="False"
+                              PosterSource="{Binding path_to_low_res_pic.url}"
+                              Stretch="UniformToFill"
+                              Tag="{Binding path_to_low_res_pic.url}" />
+                <AppBarButton x:Name="PlayButton"
+                              HorizontalAlignment="Right"
+                              VerticalAlignment="Top"
+                              Background="#CC252525"
+                              BorderBrush="White"
+                              Click="AppBarButton_Click"
+                              Foreground="White"
+                              Icon="Play"
+                              IsCompact="True"
+                              LostFocus="PlayButton_LostFocus"
+                              RequestedTheme="Dark"
+                              Tag="stopped" />
+            </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="Photoset">
-            <StackPanel Background="{ThemeResource PostBG}">
-                <ListView MinHeight="150" ItemsSource="{Binding photos}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Image Margin="0, 0, 0, 2"
-                                   HorizontalAlignment="Stretch"
-                                   FlyoutBase.AttachedFlyout="{StaticResource SaveToPhoneFlyout}"
-                                   Holding="Image_Holding"
-                                   Source="{Binding original_size.url}"
-                                   Stretch="UniformToFill" />
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackPanel>
+            <ListView ItemsSource="{Binding photos}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Image Margin="0, 0, 0, 2"
+                               HorizontalAlignment="Stretch"
+                               FlyoutBase.AttachedFlyout="{StaticResource SaveToPhoneFlyout}"
+                               Holding="Image_Holding"
+                               Source="{Binding original_size.url}"
+                               Stretch="UniformToFill" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </DataTemplate>
 
         <DataTemplate x:Key="Quote">
@@ -285,18 +278,16 @@
         </DataTemplate>
 
         <DataTemplate x:Key="Video">
-            <StackPanel Background="{StaticResource PostBG}">
-                <MediaElement MinHeight="100"
-                              AreTransportControlsEnabled="True"
-                              AutoPlay="False"
-                              IsDoubleTapEnabled="False"
-                              IsHoldingEnabled="False"
-                              IsRightTapEnabled="False"
-                              IsTapEnabled="False"
-                              PosterSource="{Binding thumbnail_url}"
-                              Source="{Binding video_url}"
-                              Stretch="UniformToFill" />
-            </StackPanel>
+            <MediaElement MinHeight="100"
+                          AreTransportControlsEnabled="True"
+                          AutoPlay="False"
+                          IsDoubleTapEnabled="False"
+                          IsHoldingEnabled="False"
+                          IsRightTapEnabled="False"
+                          IsTapEnabled="False"
+                          PosterSource="{Binding thumbnail_url}"
+                          Source="{Binding video_url}"
+                          Stretch="UniformToFill" />
         </DataTemplate>
 
         <DataTemplate x:Key="YoutubeVideo">
@@ -524,9 +515,7 @@
                   VerticalContentAlignment="Stretch"
                   Background="{ThemeResource WindowBackground}"
                   HorizontalScrollMode="Disabled"
-                  Loaded="scrollViewer_Loaded"
                   SizeChanged="scrollViewer_SizeChanged"
-                  VerticalScrollBarVisibility="Hidden"
                   ViewChanged="scrollViewer_ViewChanged"
                   ZoomMode="Disabled">
         <Grid>
@@ -535,7 +524,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock x:Name="textBlock1"
-                       Height="60"
+                       Height="50"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        CharacterSpacing="-25"

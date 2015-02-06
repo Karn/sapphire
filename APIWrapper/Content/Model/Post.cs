@@ -34,11 +34,13 @@ namespace APIWrapper.Content.Model {
         public string[] tags { get; set; }
         public string tags_as_str {
             get {
-                var converted = "";
-                foreach (var tag in tags) {
-                    converted += string.Format("#{0} ", tag);
-                }
-                return converted.TrimEnd(' ');
+                try {
+                    var converted = "";
+                    foreach (var tag in tags)
+                        converted += string.Format("#{0} ", tag);
+                    return converted.TrimEnd(' ');
+                } catch { }
+                return "";
             }
         }
         public string source_url { get; set; }
@@ -90,7 +92,6 @@ namespace APIWrapper.Content.Model {
                 }
             }
         }
-
         public string asking_name { get; set; }
         public string asking_avatar {
             get {

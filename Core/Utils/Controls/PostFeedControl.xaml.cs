@@ -289,7 +289,7 @@ namespace Core.Utils.Controls {
         }
 
         private void scrollViewer_Loaded(object sender, RoutedEventArgs e) {
-            scrollViewer.ChangeView(null, 60.0, null);
+            //scrollViewer.ChangeView(null, 60.0, null);
         }
 
         public void RefreshPosts() {
@@ -319,7 +319,7 @@ namespace Core.Utils.Controls {
                         textBlock1.Text = "Pull to refresh";
                     }
 
-                    if (sv.VerticalOffset != 0.0 && sv.VerticalOffset != 120)
+                    if (sv.VerticalOffset != 0.0)
                         _isPullRefresh = true;
 
                     if (!e.IsIntermediate) {
