@@ -122,5 +122,5 @@ namespace Core {
             var d = (AlertDialog)((Grid)((Page)((Frame)Window.Current.Content).Content).FindName("LayoutRoot")).FindName("PageAlertDialog");
             d.DisplayMessage(message);
         }
-    }
+	}
 }

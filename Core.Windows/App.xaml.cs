@@ -1,4 +1,5 @@
 ﻿using APIWrapper.AuthenticationManager;
+using APIWrapper.Utils;
 using Core.Shared.Pages;
 using System;
 using Windows.ApplicationModel;
@@ -105,5 +106,10 @@ namespace Core {
         public static void HideStatus() {
             //await statusBar.ProgressIndicator.HideAsync();
         }
-    }
+
+		public static void Alert(string message) {
+			var d = (AlertDialog)((Grid)((Page)((Frame)Window.Current.Content).Content).FindName("LayoutRoot")).FindName("PageAlertDialog");
+			d.DisplayMessage(message);
+		}
+	}
 }

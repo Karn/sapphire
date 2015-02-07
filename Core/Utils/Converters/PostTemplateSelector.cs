@@ -16,7 +16,6 @@ namespace Core.Utils.Converters {
         public DataTemplate VideoTemplate { get; set; }
         public DataTemplate AnswerTemplate { get; set; }
         public DataTemplate MailTemplate { get; set; }
-        public DataTemplate AdvertTemplate { get; set; }
         public DataTemplate NoContentTemplate { get; set; }
 
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container) {
@@ -44,8 +43,6 @@ namespace Core.Utils.Converters {
                     return VideoTemplate;
                 else if (listItem.type.Equals("answer"))
                     return AnswerTemplate;
-                else if (listItem.type.Equals("advert"))
-                    return AdvertTemplate;
                 else if (listItem.type.Equals("mail"))
                     return MailTemplate;
                 else if (listItem.type.Equals("nocontent"))

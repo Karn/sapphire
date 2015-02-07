@@ -142,6 +142,7 @@
     <Compile Include="Utils\Converters\ActivityTemplateSelector.cs" />
     <Compile Include="Utils\Converters\CaptionConverter.cs" />
     <Compile Include="Utils\Converters\FollowingToSign.cs" />
+    <Compile Include="Utils\Converters\IsNotFullVersion.cs" />
     <Compile Include="Utils\Converters\TagsEnabled.cs" />
     <Compile Include="Utils\Converters\IsFullVersion.cs" />
     <Compile Include="Utils\Converters\NameToFavBrush.cs" />

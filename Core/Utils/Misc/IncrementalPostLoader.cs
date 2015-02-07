@@ -66,9 +66,6 @@ namespace Core.Utils.Misc {
 							App.Alert(App.LocaleResources.GetString("PostLoadFailed"));
 						}
 
-						if (AppLicenseHandler.IsTrial && posts.Count > 5)
-							this.Add(new Post { type = "advert" });
-
 						if (posts.Count < 20)
 							HasMoreItems = false;
 

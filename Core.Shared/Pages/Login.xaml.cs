@@ -128,13 +128,13 @@ namespace Core.Shared.Pages {
 #endif
                     }
                 } else {
-                    ErrorFlyout.DisplayMessage(response);
+                    App.Alert(response);
                 }
                 Email.IsEnabled = true;
                 Password.IsEnabled = true;
                 LoginButton.IsEnabled = true;
             } else {
-                ErrorFlyout.DisplayMessage(App.LocaleResources.GetString("No Network"));
+                App.Alert(App.LocaleResources.GetString("No Network"));
             }
             App.HideStatus();
         }
