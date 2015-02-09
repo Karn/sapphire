@@ -32,23 +32,23 @@
 			<ListView.ItemContainerStyle>
 				<StaticResource ResourceKey="ListViewItemContainerStyle" />
 			</ListView.ItemContainerStyle>
-			<ListView.ItemTemplate>
-				<DataTemplate>
-					<Grid HorizontalAlignment="Stretch">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto" />
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="Auto" />
-						</Grid.ColumnDefinitions>
-						<Ellipse Grid.Column="0"
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Ellipse Grid.Column="0"
 						         Width="65"
 						         Height="65"
 						         Margin="10, 5">
-							<Ellipse.Fill>
-								<ImageBrush ImageSource="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
-							</Ellipse.Fill>
-						</Ellipse>
-						<TextBlock Grid.Column="1"
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <TextBlock Grid.Column="1"
 						           Margin="0"
 						           HorizontalAlignment="Stretch"
 						           FontSize="18"
@@ -58,7 +58,7 @@
 						           Text="{Binding Name,
 						                          FallbackValue=Blog Name}"
 						           TextTrimming="CharacterEllipsis" />
-						<Button x:Name="FollowButton"
+                        <Button x:Name="FollowButton"
 						        Grid.Column="2"
 						        Height="35"
 						        MinWidth="120"
@@ -76,9 +76,9 @@
 						        Style="{StaticResource ButtonStyleNoBG}"
 						        Tag="{Binding Name}"
 						        Tapped="ViewButton_Tapped" />
-					</Grid>
-				</DataTemplate>
-			</ListView.ItemTemplate>
-		</ListView>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 	</Grid>
 </Page>

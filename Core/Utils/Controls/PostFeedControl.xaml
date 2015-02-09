@@ -85,7 +85,7 @@
 
 		<DataTemplate x:Key="Text">
 			<StackPanel Background="{ThemeResource PostBG}">
-				<TextBlock FontSize="16"
+				<TextBlock FontSize="20"
 				           FontWeight="SemiBold"
 				           Padding="8"
 				           Style="{StaticResource StandardText}"
@@ -94,7 +94,7 @@
 				                                Converter={StaticResource CaptionConverter}}"
 				           misc:TextFormatter.Text="{Binding title}" />
 				<TextBlock Margin="10, 5, 10, 10"
-				           FontSize="16"
+				           FontSize="20"
 				           FontWeight="Light"
 				           Foreground="{StaticResource TextColorPrimaryDark}"
 				           LineHeight="18"
@@ -155,24 +155,70 @@
 		</DataTemplate>
 
 		<DataTemplate x:Key="Quote">
-			<StackPanel Background="{ThemeResource PostBG}">
-				<TextBlock Margin="10, 0, 10, 0"
-				           FontSize="22"
-				           FontWeight="Light"
-				           Foreground="{ThemeResource TextColorPrimaryDark}"
+			<Grid Background="{ThemeResource PostBG}">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<TextBlock Margin="0, -20"
+				           FontSize="100"
+				           FontWeight="SemiBold"
+				           Foreground="#FF529ECC"
+				           Opacity="0.3"
+				           Padding="0"
+				           RenderTransformOrigin="0.5,0.5"
+				           Style="{StaticResource StandardText}"
+				           Text="''"
+				           TextWrapping="WrapWholeWords" />
+				<TextBlock Margin="0, 20"
+				           FontSize="20"
+				           FontWeight="SemiBold"
+				           Padding="8"
+				           Style="{StaticResource StandardText}"
 				           TextWrapping="WrapWholeWords"
 				           Visibility="{Binding text,
 				                                Converter={StaticResource CaptionConverter}}"
-				           misc:CaptionFormatter.Text="{Binding text}" />
-				<TextBlock Margin="10, 5, 10, 10"
-				           FontSize="18"
+				           misc:TextFormatter.Text="{Binding text}" />
+				<TextBlock Margin="0"
+				           HorizontalAlignment="Right"
+				           VerticalAlignment="Bottom"
+				           FontSize="100"
+				           FontWeight="SemiBold"
+				           Foreground="#FF529ECC"
+				           Opacity="0.3"
+				           Padding="0"
+				           Style="{StaticResource StandardText}"
+				           Text="''"
+				           TextWrapping="WrapWholeWords" />
+				<TextBlock Grid.Row="1"
+				           Margin="10, 5, 10, 10"
+				           FontSize="20"
 				           FontWeight="Light"
-				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           TextWrapping="WrapWholeWords"
+				           Foreground="{StaticResource TextColorPrimaryDark}"
+				           LineHeight="18"
+				           TextWrapping="Wrap"
 				           Visibility="{Binding source,
 				                                Converter={StaticResource CaptionConverter}}"
-				           misc:CaptionFormatter.Text="{Binding source}" />
-			</StackPanel>
+				           misc:TextFormatter.Text="{Binding source}" />
+				<!--
+					<TextBlock Margin="10, 0, 10, 0"
+					FontSize="22"
+					FontWeight="Light"
+					Foreground="{ThemeResource TextColorPrimaryDark}"
+					TextWrapping="WrapWholeWords"
+					Visibility="{Binding text,
+					Converter={StaticResource CaptionConverter}}"
+					misc:CaptionFormatter.Text="{Binding text}" />
+					<TextBlock Margin="10, 5, 10, 10"
+					FontSize="18"
+					FontWeight="Light"
+					Foreground="{ThemeResource TextColorPrimaryDark}"
+					TextWrapping="WrapWholeWords"
+					Visibility="{Binding source,
+					Converter={StaticResource CaptionConverter}}"
+					misc:CaptionFormatter.Text="{Binding source}" />
+				-->
+			</Grid>
 		</DataTemplate>
 
 		<DataTemplate x:Key="Link">
@@ -344,12 +390,11 @@
 			</StackPanel>
 		</DataTemplate>
 
-        <DataTemplate x:Key="Mail">
-            <StackPanel Background="{ThemeResource PostBG}">
-                <Grid Height="50"
-				      Background="{ThemeResource WindowBackgroundAccent}">
-                    <StackPanel Orientation="Horizontal">
-                        <Button MinWidth="0"
+		<DataTemplate x:Key="Mail">
+			<StackPanel Background="{ThemeResource PostBG}">
+				<Grid Height="50" Background="{ThemeResource WindowBackgroundAccent}">
+					<StackPanel Orientation="Horizontal">
+						<Button MinWidth="0"
 						        MinHeight="0"
 						        Margin="-3"
 						        HorizontalAlignment="Left"
@@ -360,13 +405,13 @@
 						        Padding="0"
 						        Style="{StaticResource ButtonStyleNoBG}"
 						        UseLayoutRounding="True">
-                            <Image Width="50"
+							<Image Width="50"
 							       Height="50"
 							       Source="{Binding asking_avatar}"
 							       Stretch="UniformToFill" />
-                        </Button>
-                        <StackPanel Margin="5, 0">
-                            <TextBlock Margin="5, 5, 5, 0"
+						</Button>
+						<StackPanel Margin="5, 0">
+							<TextBlock Margin="5, 5, 5, 0"
 							           HorizontalAlignment="Left"
 							           VerticalAlignment="Top"
 							           FontSize="24"
@@ -377,29 +422,29 @@
 							           Text="{Binding asking_name}"
 							           TextLineBounds="Tight"
 							           TextTrimming="CharacterEllipsis" />
-                            <TextBlock Margin="5, -16, 5, 0"
+							<TextBlock Margin="5, -16, 5, 0"
 							           HorizontalAlignment="Left"
 							           VerticalAlignment="Top"
 							           FontSize="14"
 							           Foreground="{ThemeResource TextColorPrimaryDark}"
 							           Text="said:"
 							           TextTrimming="CharacterEllipsis" />
-                        </StackPanel>
-                    </StackPanel>
-                </Grid>
-                <StackPanel MinHeight="150">
-                    <TextBlock Margin="10, 5, 10, 40"
+						</StackPanel>
+					</StackPanel>
+				</Grid>
+				<StackPanel MinHeight="150">
+					<TextBlock Margin="10, 5, 10, 40"
 					           FontSize="22"
 					           FontWeight="Light"
 					           Foreground="{StaticResource TextColorPrimaryDark}"
 					           TextWrapping="Wrap"
 					           misc:TextFormatter.Text="{Binding body}" />
-                </StackPanel>
-                <Grid Height="40" Background="{ThemeResource WindowBackgroundAccent}">
-                    <StackPanel HorizontalAlignment="Right"
+				</StackPanel>
+				<Grid Height="40" Background="{ThemeResource WindowBackgroundAccent}">
+					<StackPanel HorizontalAlignment="Right"
 					            Orientation="Horizontal"
 					            Tag="{Binding reblog_key}">
-                        <local:ToggleControl x:Name="ReplyButton"
+						<local:ToggleControl x:Name="ReplyButton"
 						                     Width="35"
 						                     MinWidth="35"
 						                     MinHeight="50"
@@ -415,7 +460,7 @@
 						                     Tag="{Binding id}"
 						                     Visibility="Collapsed" />
 
-                        <Button x:Name="DeleteButton"
+						<Button x:Name="DeleteButton"
 						        MinWidth="50"
 						        MinHeight="50"
 						        MaxWidth="50"
@@ -427,16 +472,16 @@
 						        Click="DeleteButton_Click"
 						        Style="{StaticResource ButtonStyleNoBG}"
 						        Tag="{Binding}">
-                            <Button.Background>
-                                <ImageBrush ImageSource="{ThemeResource DeleteButtonAsset}" Stretch="UniformToFill" />
-                            </Button.Background>
-                        </Button>
-                    </StackPanel>
-                </Grid>
-            </StackPanel>
-        </DataTemplate>
+							<Button.Background>
+								<ImageBrush ImageSource="{ThemeResource DeleteButtonAsset}" Stretch="UniformToFill" />
+							</Button.Background>
+						</Button>
+					</StackPanel>
+				</Grid>
+			</StackPanel>
+		</DataTemplate>
 
-        <DataTemplate x:Key="NothingToShow">
+		<DataTemplate x:Key="NothingToShow">
 			<Grid Height="60"
 			      Margin="10, 0"
 			      HorizontalAlignment="Center"
@@ -522,8 +567,7 @@
 				<ListView.ItemTemplate>
 					<DataTemplate>
 						<StackPanel Margin="6, 3">
-							<Grid Height="50"
-							      Background="{ThemeResource WindowBackgroundAccent}">
+							<Grid Height="50" Background="{ThemeResource WindowBackgroundAccent}">
 								<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 									<Image Width="50"
 									       Height="50"

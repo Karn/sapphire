@@ -9,136 +9,131 @@
       Background="{ThemeResource ColorPrimary}"
       mc:Ignorable="d">
 
-    <Page.Resources>
-        <Flyout x:Key="RemoveAccount"
-                x:Name="OptionsPopup"
-                Placement="Full">
-            <Flyout.FlyoutPresenterStyle>
-                <Style TargetType="FlyoutPresenter">
-                    <Setter Property="Margin" Value="0" />
-                    <Setter Property="Background" Value="Transparent" />
-                </Style>
-            </Flyout.FlyoutPresenterStyle>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid Background="#02000000" Tapped="Grid_Tapped" />
-                <ListView Grid.Row="1"
-                          VerticalAlignment="Bottom"
-                          Background="{ThemeResource ColorPrimary}"
-                          Padding="0, 0, 0, 23">
-                    <TextBlock Margin="20, 25, 20, 8"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               FontSize="24"
-                               Foreground="{ThemeResource TextColorPrimary}"
-                               Style="{StaticResource HeaderTextStyle}"
-                               Tag="{Binding}"
-                               Tapped="OtherOptions_Tapped"
-                               Text="remove"
-                               TextLineBounds="Tight"
-                               TextTrimming="CharacterEllipsis" />
-                </ListView>
-            </Grid>
-        </Flyout>
-    </Page.Resources>
+	<Page.Resources>
+		<Flyout x:Key="RemoveAccount"
+		        x:Name="OptionsPopup"
+		        Placement="Full">
+			<Flyout.FlyoutPresenterStyle>
+				<Style TargetType="FlyoutPresenter">
+					<Setter Property="Margin" Value="0" />
+					<Setter Property="Background" Value="Transparent" />
+				</Style>
+			</Flyout.FlyoutPresenterStyle>
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid Background="#02000000" Tapped="Grid_Tapped" />
+				<ListView Grid.Row="1"
+				          VerticalAlignment="Bottom"
+				          Background="{ThemeResource ColorPrimary}"
+				          Padding="0, 0, 0, 23">
+					<TextBlock Margin="20, 25, 20, 8"
+					           HorizontalAlignment="Left"
+					           VerticalAlignment="Top"
+					           FontSize="24"
+					           Foreground="{ThemeResource TextColorPrimary}"
+					           Style="{StaticResource HeaderTextStyle}"
+					           Tag="{Binding}"
+					           Tapped="OtherOptions_Tapped"
+					           Text="remove"
+					           TextLineBounds="Tight"
+					           TextTrimming="CharacterEllipsis" />
+				</ListView>
+			</Grid>
+		</Flyout>
+	</Page.Resources>
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource WindowBackground}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid Height="55" Background="{ThemeResource ColorPrimary}">
-            <TextBlock x:Name="PageTitle"
-                       Margin="15, 0, 0, 0"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Center"
-                       Foreground="{ThemeResource TextColorPrimary}"
-                       Style="{StaticResource HeaderTextStyle}"
-                       Text="Account" />
-        </Grid>
+	<Grid x:Name="LayoutRoot" Background="{StaticResource WindowBackground}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<Grid Height="55" Background="{ThemeResource ColorPrimary}">
+			<TextBlock x:Name="PageTitle"
+			           Margin="15, 0, 0, 0"
+			           HorizontalAlignment="Left"
+			           VerticalAlignment="Center"
+			           Foreground="{ThemeResource TextColorPrimary}"
+			           Style="{StaticResource HeaderTextStyle}"
+			           Text="Account" />
+		</Grid>
 
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <ListView x:Name="List"
-                      Margin="0, 2, 0, 0"
-                      HorizontalAlignment="Center"
-                      ItemsSource="{Binding}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-
-                        <Border MinWidth="380"
-                                Margin="4, 2"
-                                HorizontalAlignment="Stretch"
-                                BorderBrush="#19000000"
-                                BorderThickness="0,0,0,1"
-                                FlyoutBase.AttachedFlyout="{StaticResource RemoveAccount}"
-                                Holding="Image_Holding">
-                            <Grid HorizontalAlignment="Stretch">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Ellipse Grid.Column="0"
-                                         Width="65"
-                                         Height="65"
-                                         Margin="10, 5"
-                                         HorizontalAlignment="Left">
-                                    <Ellipse.Fill>
-                                        <ImageBrush ImageSource="{StaticResource DefaultAvatar}" Stretch="Fill" />
-                                    </Ellipse.Fill>
-                                </Ellipse>
-                                <TextBlock Grid.Column="1"
-                                           Margin="0"
-                                           HorizontalAlignment="Left"
-                                           VerticalAlignment="Center"
-                                           FontSize="18"
-                                           FontWeight="Normal"
-                                           Foreground="{ThemeResource TextColorPrimaryDark}"
-                                           Style="{StaticResource HeaderTextStyle}"
-                                           Text="{Binding}"
-                                           TextTrimming="CharacterEllipsis" />
-                                <Button x:Name="SelectAccountButton"
-                                        Grid.Column="2"
-                                        Height="35"
-                                        MinWidth="120"
-                                        MinHeight="0"
-                                        Margin="5, 0"
-                                        VerticalAlignment="Center"
-                                        Background="#FFFFFFFF"
-                                        BorderBrush="#66FFFFFF"
-                                        BorderThickness="0"
-                                        Content="SELECT"
-                                        FontSize="18"
-                                        Foreground="{StaticResource ColorPrimary}"
-                                        Padding="3"
-                                        Style="{StaticResource ButtonStyleNoBG}"
-                                        Tag="{Binding}"
-                                        Tapped="SelectAccountButton_Tapped" />
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Button x:Name="AddAccount"
-                    Grid.Row="1"
-                    Height="55"
-                    MinHeight="10"
-                    Margin="10, 0"
-                    HorizontalAlignment="Stretch"
-                    Background="#FF529ECC"
-                    BorderThickness="0"
-                    Click="AddAccount_Click"
-                    Content="Add account"
-                    FontSize="20"
-                    Foreground="White"
-                    Padding="0" />
-        </Grid>
-    </Grid>
+		<Grid Grid.Row="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<ListView x:Name="List"
+			          Margin="0, 2, 0, 0"
+			          ItemsSource="{Binding}">
+				<ListView.ItemContainerStyle>
+					<StaticResource ResourceKey="ListViewItemContainerStyle" />
+				</ListView.ItemContainerStyle>
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<Grid HorizontalAlignment="Stretch"
+						      FlyoutBase.AttachedFlyout="{StaticResource RemoveAccount}"
+						      Holding="Image_Holding">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<Ellipse Grid.Column="0"
+							         Width="65"
+							         Height="65"
+							         Margin="10, 5">
+								<Ellipse.Fill>
+									<ImageBrush ImageSource="{StaticResource DefaultAvatar}" Stretch="Fill" />
+								</Ellipse.Fill>
+							</Ellipse>
+							<TextBlock Grid.Column="1"
+							           Margin="0"
+							           HorizontalAlignment="Stretch"
+							           VerticalAlignment="Center"
+							           FontSize="18"
+							           FontWeight="Normal"
+							           Foreground="{ThemeResource TextColorPrimaryDark}"
+							           Style="{StaticResource HeaderTextStyle}"
+							           Text="{Binding}"
+							           TextTrimming="CharacterEllipsis" />
+							<Button x:Name="SelectAccountButton"
+							        Grid.Column="2"
+							        Height="35"
+							        MinWidth="120"
+							        MinHeight="0"
+							        Margin="5, 0"
+							        VerticalAlignment="Center"
+							        Background="#FFFFFFFF"
+							        BorderBrush="#66FFFFFF"
+							        BorderThickness="0"
+							        Content="SELECT"
+							        FontSize="18"
+							        Foreground="{StaticResource ColorPrimary}"
+							        Padding="3"
+							        Style="{StaticResource ButtonStyleNoBG}"
+							        Tag="{Binding}"
+							        Tapped="SelectAccountButton_Tapped" />
+						</Grid>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+				<Border />
+			</ListView>
+			<Button x:Name="AddAccount"
+			        Grid.Row="1"
+			        Height="55"
+			        MinHeight="10"
+			        Margin="10, 0"
+			        HorizontalAlignment="Stretch"
+			        Background="#FF529ECC"
+			        BorderThickness="0"
+			        Click="AddAccount_Click"
+			        Content="ADD ACCOUNT"
+			        FontSize="18"
+			        Foreground="White"
+			        Padding="0" />
+		</Grid>
+	</Grid>
 </Page>
