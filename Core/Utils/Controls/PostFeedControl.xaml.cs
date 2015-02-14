@@ -53,11 +53,11 @@ namespace Core.Utils.Controls {
 
         public PostFeedControl() {
             this.InitializeComponent();
-        }
+		}
 
-        #region Properties
+		#region Properties
 
-        public readonly DependencyProperty URLProperty = DependencyProperty.Register("Url",
+		public readonly DependencyProperty URLProperty = DependencyProperty.Register("Url",
             typeof(string),
             typeof(PostFeedControl),
             new PropertyMetadata(string.Empty));
@@ -103,7 +103,7 @@ namespace Core.Utils.Controls {
         }
 
         public int FeedItemCount() {
-            if (Posts.Items.Count == 1 && (Posts.ItemsSource as ObservableCollection<Post>).Last().type == "nocontent")
+            if (Posts.Items.Count == 1 && !IsSinglePost && (Posts.ItemsSource as ObservableCollection<Post>).Last().type == "nocontent")
                 return 0;
 
             return Posts.Items.Count;
@@ -112,7 +112,10 @@ namespace Core.Utils.Controls {
         public async void LoadSpecificPost(string post_id) {
             App.DisplayStatus(App.LocaleResources.GetString("LoadingPost"));
             IsSinglePost = true;
-            Posts.ItemsSource = await CreateRequest.RetrievePost(post_id);
+			scrollViewer.SizeChanged -= scrollViewer_SizeChanged;
+			scrollViewer.ViewChanged -= scrollViewer_ViewChanged;
+			textBlock1.Visibility = Visibility.Collapsed;
+			Posts.ItemsSource = await CreateRequest.RetrievePosts("", "", post_id);
             App.HideStatus();
         }
 
@@ -286,10 +289,6 @@ namespace Core.Utils.Controls {
             player.Stop();
             ((AppBarButton)sender).Icon = new SymbolIcon { Symbol = Symbol.Play };
             ((AppBarButton)sender).Tag = "stopped";
-        }
-
-        private void scrollViewer_Loaded(object sender, RoutedEventArgs e) {
-            //scrollViewer.ChangeView(null, 60.0, null);
         }
 
         public void RefreshPosts() {

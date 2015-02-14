@@ -1,4 +1,5 @@
 ﻿using Core.Shared.Common;
+using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -31,7 +32,7 @@ namespace Core.Pages {
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
             postId = e.NavigationParameter.ToString();
-            Details.LoadSpecificPost(postId);
+			Debug.WriteLine(postId);
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) { }
@@ -59,6 +60,12 @@ namespace Core.Pages {
             this.navigationHelper.OnNavigatedFrom(e);
         }
 
-        #endregion
-    }
+		#endregion
+
+		private void Details_Loaded(object sender, RoutedEventArgs e) {
+			Debug.WriteLine("Loaded");
+
+			Details.LoadSpecificPost(postId);
+		}
+	}
 }

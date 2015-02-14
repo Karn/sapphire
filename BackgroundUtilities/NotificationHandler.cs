@@ -76,7 +76,10 @@ namespace BackgroundUtilities {
                     IXmlNode toastNode = toastXml.SelectSingleNode("/toast");
                     ((XmlElement)toastNode).SetAttribute("launch", "Account: " + n.Key.ToString());
 
-                    ToastNotification x = new ToastNotification(toastXml);
+					ToastNotificationManager.History.Clear();
+
+					ToastNotification x = new ToastNotification(toastXml);
+					x.Tag = n.Value.Count.ToString();
                     x.SuppressPopup = true;
                     ToastNotificationManager.CreateToastNotifier().Show(x);
                 }

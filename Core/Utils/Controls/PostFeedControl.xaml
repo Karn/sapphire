@@ -12,9 +12,6 @@
              mc:Ignorable="d">
 
 	<UserControl.Resources>
-
-		<CollectionViewSource x:Name="PostCVS" />
-
 		<Flyout x:Key="SaveToPhoneFlyout"
 		        x:Name="OptionsPopup"
 		        Placement="Full">
@@ -59,7 +56,10 @@
 				<ListView ItemsSource="{Binding notes}">
 					<ListView.ItemTemplate>
 						<DataTemplate>
-							<StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+							<StackPanel HorizontalAlignment="Stretch"
+							            Orientation="Horizontal"
+							            Tag="{Binding Name}"
+							            Tapped="GoToBlog">
 								<Image Width="45"
 								       Height="45"
 								       Margin="5"
@@ -69,8 +69,6 @@
 								           Margin="10"
 								           FontSize="15"
 								           Foreground="{ThemeResource TextColorPrimaryDark}"
-								           Tag="{Binding Name}"
-								           Tapped="GoToBlog"
 								           TextTrimming="CharacterEllipsis"
 								           TextWrapping="Wrap">
 									<Run Text="{Binding Name}" />
@@ -114,7 +112,6 @@
 		<DataTemplate x:Key="Gif">
 			<Grid>
 				<MediaElement x:Name="Player"
-				              MinHeight="100"
 				              AutoPlay="True"
 				              IsDoubleTapEnabled="False"
 				              IsHoldingEnabled="False"
@@ -200,24 +197,6 @@
 				           Visibility="{Binding source,
 				                                Converter={StaticResource CaptionConverter}}"
 				           misc:TextFormatter.Text="{Binding source}" />
-				<!--
-					<TextBlock Margin="10, 0, 10, 0"
-					FontSize="22"
-					FontWeight="Light"
-					Foreground="{ThemeResource TextColorPrimaryDark}"
-					TextWrapping="WrapWholeWords"
-					Visibility="{Binding text,
-					Converter={StaticResource CaptionConverter}}"
-					misc:CaptionFormatter.Text="{Binding text}" />
-					<TextBlock Margin="10, 5, 10, 10"
-					FontSize="18"
-					FontWeight="Light"
-					Foreground="{ThemeResource TextColorPrimaryDark}"
-					TextWrapping="WrapWholeWords"
-					Visibility="{Binding source,
-					Converter={StaticResource CaptionConverter}}"
-					misc:CaptionFormatter.Text="{Binding source}" />
-				-->
 			</Grid>
 		</DataTemplate>
 
@@ -481,25 +460,6 @@
 			</StackPanel>
 		</DataTemplate>
 
-		<DataTemplate x:Key="NothingToShow">
-			<Grid Height="60"
-			      Margin="10, 0"
-			      HorizontalAlignment="Center"
-			      VerticalAlignment="Top">
-				<TextBlock Margin="15, 0, 0, 0"
-				           HorizontalAlignment="Left"
-				           VerticalAlignment="Center"
-				           CharacterSpacing="-25"
-				           FontFamily="Segoe WP"
-				           FontSize="22"
-				           FontWeight="Thin"
-				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           Opacity="0.2"
-				           Text="There is nothing yet to show"
-				           TextLineBounds="Tight" />
-			</Grid>
-		</DataTemplate>
-
 		<converters:PostTemplateSelector x:Key="PostTemplate"
 		                                 AnswerTemplate="{StaticResource Answer}"
 		                                 AudioTemplate="{StaticResource Audio}"
@@ -507,7 +467,6 @@
 		                                 GifTemplate="{StaticResource Gif}"
 		                                 LinkTemplate="{StaticResource Link}"
 		                                 MailTemplate="{StaticResource Mail}"
-		                                 NoContentTemplate="{StaticResource NothingToShow}"
 		                                 PhotoSetTemplate="{StaticResource Photoset}"
 		                                 PhotoTemplate="{StaticResource Photo}"
 		                                 QuoteTemplate="{StaticResource Quote}"
@@ -535,14 +494,11 @@
 			</Grid.RowDefinitions>
 			<TextBlock x:Name="textBlock1"
 			           Height="50"
-			           HorizontalAlignment="Center"
 			           VerticalAlignment="Center"
-			           CharacterSpacing="-25"
-			           FontFamily="Segoe WP"
 			           FontSize="22"
-			           FontWeight="Thin"
 			           Foreground="{ThemeResource TextColorPrimaryDark}"
 			           Padding="0, 20"
+			           Style="{StaticResource HeaderTextStyle}"
 			           Text="Pull to refresh.."
 			           TextLineBounds="Tight" />
 			<ListView x:Name="Posts"
@@ -589,14 +545,15 @@
 										           Text="{Binding Name}"
 										           TextLineBounds="Tight"
 										           TextTrimming="CharacterEllipsis" />
-										<TextBlock Margin="5, -16, 5, 0"
+										<TextBlock Margin="5, 0"
 										           HorizontalAlignment="Left"
 										           VerticalAlignment="Top"
 										           FontSize="14"
 										           Foreground="{ThemeResource TextColorPrimaryDark}"
-										           Text="{Binding date,
-										                          Converter={StaticResource ToRelativeTime}}"
-										           TextTrimming="CharacterEllipsis" />
+										           TextTrimming="CharacterEllipsis">
+											<Run Text="{Binding date, Converter={StaticResource ToRelativeTime}}" />
+											<Run Text="{Binding RebloggedFrom}" />
+										</TextBlock>
 									</StackPanel>
 								</StackPanel>
 								<Image x:Name="OtherOptionsButton"
@@ -621,12 +578,10 @@
 													<RowDefinition Height="Auto" />
 												</Grid.RowDefinitions>
 												<Grid Background="#02000000" Tapped="Grid_Tapped" />
-												<ListView Grid.Row="1"
-												          VerticalAlignment="Bottom"
-												          Background="{ThemeResource ColorPrimary}"
-												          Padding="0, 0, 0, 23">
-													<TextBlock Margin="20, 25, 20, 8"
-													           HorizontalAlignment="Left"
+												<StackPanel Grid.Row="1"
+												            VerticalAlignment="Bottom"
+												            Background="{ThemeResource ColorPrimary}">
+													<TextBlock Margin="20, 25, 20, 16"
 													           VerticalAlignment="Top"
 													           FontSize="24"
 													           Foreground="{ThemeResource TextColorPrimary}"
@@ -636,8 +591,7 @@
 													           Text="post details"
 													           TextLineBounds="Tight"
 													           TextTrimming="CharacterEllipsis" />
-													<TextBlock Margin="20, 0, 20, 8"
-													           HorizontalAlignment="Left"
+													<TextBlock Margin="20, 8, 20, 16"
 													           VerticalAlignment="Top"
 													           FontSize="24"
 													           Foreground="{ThemeResource TextColorPrimary}"
@@ -647,7 +601,7 @@
 													           Text="share"
 													           TextLineBounds="Tight"
 													           TextTrimming="CharacterEllipsis" />
-													<TextBlock Margin="20, 0, 20, 8"
+													<TextBlock Margin="20, 8, 20, 25"
 													           HorizontalAlignment="Left"
 													           VerticalAlignment="Top"
 													           FontSize="24"
@@ -658,7 +612,7 @@
 													           Text="open in browser"
 													           TextLineBounds="Tight"
 													           TextTrimming="CharacterEllipsis" />
-												</ListView>
+												</StackPanel>
 											</Grid>
 										</Flyout>
 									</FlyoutBase.AttachedFlyout>

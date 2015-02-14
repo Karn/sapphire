@@ -64,14 +64,11 @@
 
 
 	<Style x:Name="HeaderTextStyle" TargetType="TextBlock">
-		<Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}" />
-		<Setter Property="MinHeight" Value="{ThemeResource TextControlThemeMinHeight}" />
 		<Setter Property="Foreground" Value="White" />
-		<Setter Property="SelectionHighlightColor" Value="{ThemeResource TextSelectionHighlightColorThemeBrush}" />
-		<Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
 		<Setter Property="FontWeight" Value="Thin" />
 		<Setter Property="FontSize" Value="30" />
 		<Setter Property="Margin" Value="15, 0, 0, 0" />
+		<Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
 		<Setter Property="VerticalAlignment" Value="Center" />
 		<Setter Property="HorizontalAlignment" Value="Left" />
 		<Setter Property="CharacterSpacing" Value="-25" />
@@ -401,7 +398,7 @@
 								<VisualState x:Name="Pressed">
 									<Storyboard>
 										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
-											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource WindowBackgroundAccent}" />
+											<DiscreteObjectKeyFrame KeyTime="0" Value="#00000000" />
 										</ObjectAnimationUsingKeyFrames>
 										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
 											<DiscreteObjectKeyFrame KeyTime="0" Value="#33000000" />

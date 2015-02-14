@@ -17,18 +17,28 @@
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
-		<TextBlock x:Name="PageTitle"
-		           Margin="15, 0, 0, 0"
-		           HorizontalAlignment="Left"
-		           VerticalAlignment="Center"
-		           Foreground="{ThemeResource TextColorPrimary}"
-		           Style="{StaticResource HeaderTextStyle}"
-		           Text="Posts Details" />
-
-		<Grid Grid.Row="1" Background="{StaticResource WindowBackground}">
-			<controls:PostFeedControl x:Name="Details" />
+		<Grid Background="{StaticResource ColorPrimary}" Canvas.ZIndex="99">
+			<TextBlock x:Name="PageTitle"
+			           Margin="15, 0, 0, 0"
+			           HorizontalAlignment="Left"
+			           VerticalAlignment="Center"
+			           Foreground="{ThemeResource TextColorPrimary}"
+			           Style="{StaticResource HeaderTextStyle}"
+			           Text="Posts Details" />
 		</Grid>
 
+
+		<Grid x:Name="Container"
+		      Grid.Row="1"
+		      Margin="0, -10"
+		      VerticalAlignment="Stretch"
+		      Background="{StaticResource WindowBackground}">
+			<controls:PostFeedControl x:Name="Details"
+			                          Height="{Binding ElementName=Container,
+			                                           Path=ActualHeight}"
+			                          VerticalAlignment="Stretch"
+			                          Loaded="Details_Loaded" />
+		</Grid>
 		<Grid Grid.Row="2"
 		      Height="50"
 		      Background="Black"
