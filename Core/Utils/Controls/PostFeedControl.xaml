@@ -7,6 +7,7 @@
              xmlns:local="using:Core.Utils.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:misc="using:Core.Shared.Utils.Misc"
+             xmlns:miscl="using:Core.Utils.Misc"
              d:DesignHeight="300"
              d:DesignWidth="380"
              mc:Ignorable="d">
@@ -137,18 +138,47 @@
 		</DataTemplate>
 
 		<DataTemplate x:Key="Photoset">
-			<ListView ItemsSource="{Binding photos}">
+			<!--
+				<ListView ItemsSource="{Binding photos}">
 				<ListView.ItemTemplate>
-					<DataTemplate>
-						<Image Margin="0, 0, 0, 2"
-						       HorizontalAlignment="Stretch"
-						       FlyoutBase.AttachedFlyout="{StaticResource SaveToPhoneFlyout}"
-						       Holding="Image_Holding"
-						       Source="{Binding original_size.url}"
-						       Stretch="UniformToFill" />
-					</DataTemplate>
+				<DataTemplate>
+				<Image Margin="0, 0, 0, 2"
+				HorizontalAlignment="Stretch"
+				FlyoutBase.AttachedFlyout="{StaticResource SaveToPhoneFlyout}"
+				Holding="Image_Holding"
+				Source="{Binding original_size.url}"
+				Stretch="UniformToFill" />
+				</DataTemplate>
 				</ListView.ItemTemplate>
-			</ListView>
+				</ListView>
+			-->
+			<miscl:VariableGridView x:Name="itemGridView"
+			                        HorizontalContentAlignment="Stretch"
+			                        ItemsSource="{Binding photos}">
+
+
+				<GridView.ItemsPanel>
+					<ItemsPanelTemplate>
+						<VariableSizedWrapGrid Loaded="VariableSizedWrapGrid_Loaded" Orientation="Horizontal" />
+					</ItemsPanelTemplate>
+				</GridView.ItemsPanel>
+
+
+				<GridView.ItemTemplate>
+					<DataTemplate>
+						<Grid Background="Azure">
+							<Image HorizontalAlignment="Stretch"
+							       FlyoutBase.AttachedFlyout="{StaticResource SaveToPhoneFlyout}"
+							       Holding="Image_Holding"
+							       Source="{Binding original_size.url}"
+							       Stretch="UniformToFill" />
+						</Grid>
+
+
+					</DataTemplate>
+				</GridView.ItemTemplate>
+			</miscl:VariableGridView>
+
 		</DataTemplate>
 
 		<DataTemplate x:Key="Quote">
@@ -628,6 +658,7 @@
 									           VerticalAlignment="Top"
 									           FontSize="16"
 									           Foreground="{ThemeResource TextColorPrimaryDark}"
+									           IsTextSelectionEnabled="False"
 									           Tapped="Caption_Tapped"
 									           TextTrimming="CharacterEllipsis"
 									           TextWrapping="Wrap"

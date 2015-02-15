@@ -431,5 +431,9 @@ namespace Core.Utils.Controls {
 
             FlyoutBase.ShowAttachedFlyout(element);
         }
-    }
+
+		private void VariableSizedWrapGrid_Loaded(object sender, RoutedEventArgs e) {
+			((VariableSizedWrapGrid)sender).ItemWidth = (((VariableSizedWrapGrid)sender).ActualWidth) / 6;
+		}
+	}
 }

@@ -233,8 +233,13 @@ namespace APIWrapper.Client {
 							if (p.path_to_low_res_pic.url.Contains(".gif")) {
 								p.type = "gif";
 							}
-							if (p.photos.Count > 1)
+							if (p.photos.Count > 1) {
 								p.type = "photoset";
+								p.photoset_layout = p.photoset_layout.Replace('1', '6').Replace('2', '4').Replace("3", "222").Replace("4", "33");
+								for (var i = 0; i < p.photoset_layout.Length; i++) {
+									p.photos.ElementAt(i).ColSpan = int.Parse(p.photoset_layout.ElementAt(i).ToString());	//Set the column span for this object
+								}
+							}
 						} else if (p.type == "video") {
 							if (p.video_type == "youtube")
 								p.type = "youtube";

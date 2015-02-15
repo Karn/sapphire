@@ -159,6 +159,7 @@
     <Compile Include="Utils\Misc\ContinuationManager.cs" />
     <Compile Include="Utils\Misc\AppLicenseHandler.cs" />
     <Compile Include="Utils\Misc\IncrementalPostLoader.cs" />
+    <Compile Include="Utils\Misc\VariableGridView.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
