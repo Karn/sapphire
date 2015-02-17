@@ -31,7 +31,7 @@
 				<Grid Grid.Row="1"
 				      VerticalAlignment="Bottom"
 				      Background="{ThemeResource ColorPrimary}">
-					<TextBlock Margin="20, 25, 20, 12"
+					<TextBlock Margin="20, 25, 20, 25"
 					           HorizontalAlignment="Left"
 					           VerticalAlignment="Top"
 					           FontSize="24"
@@ -138,20 +138,6 @@
 		</DataTemplate>
 
 		<DataTemplate x:Key="Photoset">
-			<!--
-				<ListView ItemsSource="{Binding photos}">
-				<ListView.ItemTemplate>
-				<DataTemplate>
-				<Image Margin="0, 0, 0, 2"
-				HorizontalAlignment="Stretch"
-				FlyoutBase.AttachedFlyout="{StaticResource SaveToPhoneFlyout}"
-				Holding="Image_Holding"
-				Source="{Binding original_size.url}"
-				Stretch="UniformToFill" />
-				</DataTemplate>
-				</ListView.ItemTemplate>
-				</ListView>
-			-->
 			<miscl:VariableGridView x:Name="itemGridView"
 			                        HorizontalContentAlignment="Stretch"
 			                        ItemsSource="{Binding photos}">
@@ -173,8 +159,6 @@
 							       Source="{Binding original_size.url}"
 							       Stretch="UniformToFill" />
 						</Grid>
-
-
 					</DataTemplate>
 				</GridView.ItemTemplate>
 			</miscl:VariableGridView>

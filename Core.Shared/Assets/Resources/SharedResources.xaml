@@ -72,6 +72,7 @@
 		<Setter Property="VerticalAlignment" Value="Center" />
 		<Setter Property="HorizontalAlignment" Value="Left" />
 		<Setter Property="CharacterSpacing" Value="-25" />
+		<Setter Property="Padding" Value="0, 4" />
 	</Style>
 
 	<Style x:Name="StandardText" TargetType="TextBlock">
@@ -79,6 +80,7 @@
 		<Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
 		<Setter Property="FontWeight" Value="Light" />
 		<Setter Property="FontSize" Value="22" />
+		<Setter Property="Padding" Value="0, 4" />
 		<Setter Property="Margin" Value="10, 0," />
 		<Setter Property="VerticalAlignment" Value="Center" />
 		<Setter Property="HorizontalAlignment" Value="Left" />
@@ -274,106 +276,6 @@
 						        IsTabStop="False"
 						        Style="{StaticResource DeleteButtonStyle}"
 						        Visibility="Collapsed" />
-					</Grid>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-
-	<Style x:Key="ButtonStyle" TargetType="Button">
-		<Setter Property="Background" Value="{ThemeResource ButtonBackgroundThemeBrush}" />
-		<Setter Property="Foreground" Value="{ThemeResource ButtonForegroundThemeBrush}" />
-		<Setter Property="BorderBrush" Value="{ThemeResource ButtonBorderThemeBrush}" />
-		<Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}" />
-		<Setter Property="Padding" Value="5" />
-		<Setter Property="HorizontalAlignment" Value="Center" />
-		<Setter Property="VerticalAlignment" Value="Center" />
-		<Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
-		<Setter Property="FontWeight" Value="SemiBold" />
-		<Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="Button">
-					<Grid>
-						<VisualStateManager.VisualStateGroups>
-							<VisualStateGroup x:Name="CommonStates">
-								<VisualState x:Name="Normal" />
-								<VisualState x:Name="PointerOver">
-									<Storyboard>
-										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
-											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPointerOverBackgroundThemeBrush}" />
-										</ObjectAnimationUsingKeyFrames>
-										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPointerOverForegroundThemeBrush}" />
-										</ObjectAnimationUsingKeyFrames>
-									</Storyboard>
-								</VisualState>
-								<VisualState x:Name="Pressed">
-									<Storyboard>
-										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
-											<DiscreteObjectKeyFrame KeyTime="0" Value="#33000000" />
-										</ObjectAnimationUsingKeyFrames>
-										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-											<DiscreteObjectKeyFrame KeyTime="0" Value="#FFF0F0F0" />
-										</ObjectAnimationUsingKeyFrames>
-									</Storyboard>
-								</VisualState>
-								<VisualState x:Name="Disabled">
-									<Storyboard>
-										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
-											<DiscreteObjectKeyFrame KeyTime="0" Value="#33000000" />
-										</ObjectAnimationUsingKeyFrames>
-										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledForegroundThemeBrush}" />
-										</ObjectAnimationUsingKeyFrames>
-									</Storyboard>
-								</VisualState>
-							</VisualStateGroup>
-							<VisualStateGroup x:Name="FocusStates">
-								<VisualState x:Name="Focused">
-									<Storyboard>
-										<DoubleAnimation Duration="0"
-										                 Storyboard.TargetName="FocusVisualWhite"
-										                 Storyboard.TargetProperty="Opacity"
-										                 To="1" />
-										<DoubleAnimation Duration="0"
-										                 Storyboard.TargetName="FocusVisualBlack"
-										                 Storyboard.TargetProperty="Opacity"
-										                 To="1" />
-									</Storyboard>
-								</VisualState>
-								<VisualState x:Name="Unfocused" />
-								<VisualState x:Name="PointerFocused" />
-							</VisualStateGroup>
-						</VisualStateManager.VisualStateGroups>
-						<Border x:Name="Border"
-						        Margin="3"
-						        Background="{TemplateBinding Background}"
-						        BorderBrush="{TemplateBinding BorderBrush}"
-						        BorderThickness="{TemplateBinding BorderThickness}">
-							<ContentPresenter x:Name="ContentPresenter"
-							                  Margin="{TemplateBinding Padding}"
-							                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-							                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-							                  AutomationProperties.AccessibilityView="Raw"
-							                  Content="{TemplateBinding Content}"
-							                  ContentTemplate="{TemplateBinding ContentTemplate}"
-							                  ContentTransitions="{TemplateBinding ContentTransitions}" />
-						</Border>
-						<Rectangle x:Name="FocusVisualWhite"
-						           IsHitTestVisible="False"
-						           Opacity="0"
-						           Stroke="{ThemeResource FocusVisualWhiteStrokeThemeBrush}"
-						           StrokeDashArray="1,1"
-						           StrokeDashOffset="1.5"
-						           StrokeEndLineCap="Square" />
-						<Rectangle x:Name="FocusVisualBlack"
-						           IsHitTestVisible="False"
-						           Opacity="0"
-						           Stroke="{ThemeResource FocusVisualBlackStrokeThemeBrush}"
-						           StrokeDashArray="1,1"
-						           StrokeDashOffset="0.5"
-						           StrokeEndLineCap="Square" />
 					</Grid>
 				</ControlTemplate>
 			</Setter.Value>

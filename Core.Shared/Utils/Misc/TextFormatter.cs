@@ -37,7 +37,7 @@ namespace Core.Shared.Utils.Misc {
             if (!string.IsNullOrWhiteSpace(text)) {
                 tb.Inlines.Clear();
                 text = text.Replace("<a", "♥○<a").Replace("</a>:", "</a>: ♥○");
-                if (text.Contains("♥○") || text.Contains("<a"))
+                if (text.Contains("♥○"))
                     AddInlineControls(tb, SplitSpace(text));
                 else
                     tb.Inlines.Add(GetRunControl(text));
@@ -86,7 +86,7 @@ namespace Core.Shared.Utils.Misc {
         }
 
         private static string[] SplitSpace(string val) {
-            string[] splittedVal = val.Split(new string[] { "♥○", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] splittedVal = val.Split(new string[] { "♥○", "\n\n" }, StringSplitOptions.RemoveEmptyEntries);
             return splittedVal;
         }
 

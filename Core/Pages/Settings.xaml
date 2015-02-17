@@ -132,7 +132,7 @@
 					           TextWrapping="Wrap" />
 					<CheckBox x:Name="NotificationsToggle"
 					          MinWidth="35"
-					          Margin="0, -60, -5, 0"
+					          Margin="0, -50, -5, 0"
 					          HorizontalAlignment="Right"
 					          Background="#11FFFFFF"
 					          BorderBrush="#4a9bca"
@@ -156,7 +156,7 @@
 					           TextWrapping="Wrap" />
 					<CheckBox x:Name="UXFeedback"
 					          MinWidth="35"
-					          Margin="0, -60, -5, 0"
+					          Margin="0, -50, -5, 0"
 					          HorizontalAlignment="Right"
 					          Background="#11FFFFFF"
 					          BorderBrush="#4a9bca"
@@ -180,7 +180,7 @@
 					           TextWrapping="Wrap" />
 					<CheckBox x:Name="DarkTheme"
 					          MinWidth="35"
-					          Margin="0, -60, -5, 0"
+					          Margin="0, -50, -5, 0"
 					          HorizontalAlignment="Right"
 					          Background="#11FFFFFF"
 					          BorderBrush="#4a9bca"
@@ -204,7 +204,7 @@
 					           TextWrapping="Wrap" />
 					<CheckBox x:Name="DarkStatusbar"
 					          MinWidth="35"
-					          Margin="0, -60, -5, 0"
+					          Margin="0, -50, -5, 0"
 					          HorizontalAlignment="Right"
 					          Background="#11FFFFFF"
 					          BorderBrush="#4a9bca"
@@ -228,7 +228,7 @@
 					           TextWrapping="Wrap" />
 					<CheckBox x:Name="OneClickReblog"
 					          MinWidth="35"
-					          Margin="0, -60, -5, 0"
+					          Margin="0, -50, -5, 0"
 					          HorizontalAlignment="Right"
 					          Background="#11FFFFFF"
 					          BorderBrush="#4a9bca"
@@ -252,7 +252,7 @@
 					           TextWrapping="Wrap" />
 					<CheckBox x:Name="PostTags"
 					          MinWidth="35"
-					          Margin="0, -60, -5, 0"
+					          Margin="0, -50, -5, 0"
 					          HorizontalAlignment="Right"
 					          Background="#11FFFFFF"
 					          BorderBrush="#4a9bca"

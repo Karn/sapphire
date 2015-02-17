@@ -10,6 +10,7 @@ namespace APIWrapper.Content.Model {
 		public string caption { get; set; }
 		public List<AltSize> alt_sizes { get; set; }
 		public int ColSpan { get; set; }
+		public int RowSpan { get; set; }
 		public OriginalSize original_size { get; set; }
 		public class AltSize {
 			public int width { get; set; }
