@@ -14,7 +14,6 @@ namespace Core.Utils.Misc {
 		protected override void PrepareContainerForItemOverride(DependencyObject element, object item) {
 			var model = (Photo)item;
 			try {
-				Debug.WriteLine(model.ColSpan);
 				element.SetValue(VariableSizedWrapGrid.ColumnSpanProperty, model.ColSpan);
 				element.SetValue(VariableSizedWrapGrid.RowSpanProperty, 1);
 			} catch {

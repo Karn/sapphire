@@ -319,7 +319,7 @@
 			        Content="Connect"
 			        FontSize="20"
 			        Foreground="{ThemeResource TextColorPrimary}"
-			        Style="{StaticResource ButtonStyle}" />
+			        Style="{StaticResource ButtonStyleNoBG}" />
 			<TextBlock Margin="0, 50, 0, 0"
 			           HorizontalAlignment="Center"
 			           FontSize="14"

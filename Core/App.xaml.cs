@@ -64,8 +64,8 @@ namespace Core {
 
 				rootFrame.ContentTransitions = null;
 				//rootFrame.Navigated += this.RootFrame_FirstNavigated;
-
-				statusBar = StatusBar.GetForCurrentView();
+				if (statusBar == null)
+					statusBar = StatusBar.GetForCurrentView();
 				statusBar.ForegroundColor = Colors.White;
 
 				new Utils.AppLicenseHandler();
@@ -97,6 +97,9 @@ namespace Core {
 
 		protected override void OnActivated(IActivatedEventArgs e) {
 			base.OnActivated(e);
+
+			if (statusBar == null)
+				statusBar = StatusBar.GetForCurrentView();
 
 			ContinuationManager = new ContinuationManager();
 

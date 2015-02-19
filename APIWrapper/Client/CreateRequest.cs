@@ -248,6 +248,8 @@ namespace APIWrapper.Client {
 					return PostList;
 				} catch (Exception ex) {
 				}
+			} else {
+				Debug.WriteLine(await result.Content.ReadAsStringAsync());
 			}
 			return new List<Post>();
 		}

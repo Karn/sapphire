@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using Windows.ApplicationModel.Activation;
 using Windows.Storage;
+using Windows.Storage.FileProperties;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
@@ -145,9 +146,8 @@ namespace Core.Pages {
                 image = args.Files[0];
                 Debug.WriteLine(image.Path);
                 using (IRandomAccessStream fileStream = await image.OpenAsync(FileAccessMode.Read)) {
-                    var x = await image.GetThumbnailAsync(Windows.Storage.FileProperties.ThumbnailMode.PicturesView);
                     var photo = new BitmapImage();
-                    photo.SetSource(x);
+                    await photo.SetSourceAsync(image.OpenAsync(FileAccessMode.Read).GetResults());
 
                     PhotoView.Source = photo;
                     PhotoView.Stretch = Stretch.UniformToFill;
@@ -287,16 +287,16 @@ namespace Core.Pages {
                 }
                 parameterString += status;
                 if (image != null) {
-                    var result = await RequestService.POST("https://api.tumblr.com/v2/blog/" +
+					Frame.GoBack();
+					var result = await RequestService.POST("https://api.tumblr.com/v2/blog/" +
                         UserStorageUtils.CurrentBlog.Name + ".tumblr.com/post", image, parameterString);
 
                     if (result.StatusCode == HttpStatusCode.Created) {
                         Type.IsEnabled = true;
                         App.HideStatus();
-                        Frame.GoBack();
                     } else
                         App.Alert(result.ReasonPhrase);
-                }
+				}
             } catch (Exception ex) {
                 App.Alert("Failed to create post");
                 Analytics.AnalyticsManager.LogException(ex, TAG, "Failed to create post");

@@ -63,7 +63,7 @@ namespace Core {
             if (await GetUserAccount() && UserStorageUtils.CurrentBlog != null) {
                 AccountPivot.DataContext = UserStorageUtils.CurrentBlog;
                 for (int i = 0; i < 5; i++) {
-                    Dashboard.LoadPosts(true);
+                    Dashboard.LoadPosts();
                     if (Dashboard.FeedItemCount() > 0)
                         return;
                 }

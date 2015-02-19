@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
+	<!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,113 +59,113 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="Account" xml:space="preserve">
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="Account" xml:space="preserve">
     <value>Account</value>
   </data>
-  <data name="Activity" xml:space="preserve">
+	<data name="Activity" xml:space="preserve">
     <value>Activity</value>
   </data>
-  <data name="ActivityLoadFailed" xml:space="preserve">
+	<data name="ActivityLoadFailed" xml:space="preserve">
     <value>Unable to retrieve activity feed.</value>
   </data>
-  <data name="Dashboard" xml:space="preserve">
+	<data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
-  <data name="DeletingPost" xml:space="preserve">
+	<data name="DeletingPost" xml:space="preserve">
     <value>Deleting post...</value>
   </data>
-  <data name="DownloadingImage" xml:space="preserve">
+	<data name="DownloadingImage" xml:space="preserve">
     <value>Downloading image...</value>
   </data>
-  <data name="Explore" xml:space="preserve">
+	<data name="Explore" xml:space="preserve">
     <value>Explore</value>
   </data>
-  <data name="LoadingAccountDataMessage" xml:space="preserve">
+	<data name="LoadingAccountDataMessage" xml:space="preserve">
     <value>Loading account data...</value>
   </data>
-  <data name="LoadingActivity" xml:space="preserve">
+	<data name="LoadingActivity" xml:space="preserve">
     <value>Loading activity...</value>
   </data>
-  <data name="LoadingPost" xml:space="preserve">
+	<data name="LoadingPost" xml:space="preserve">
     <value>Loading post details..</value>
   </data>
-  <data name="LoadingPostsMessage" xml:space="preserve">
+	<data name="LoadingPostsMessage" xml:space="preserve">
     <value>Loading posts...</value>
   </data>
-  <data name="NoNetwork" xml:space="preserve">
+	<data name="NoNetwork" xml:space="preserve">
     <value>Unable to connect. Please check your network.</value>
   </data>
-  <data name="PostLoadFailed" xml:space="preserve">
+	<data name="PostLoadFailed" xml:space="preserve">
     <value>Unable to load posts.</value>
   </data>
-  <data name="RebloggingPost" xml:space="preserve">
+	<data name="RebloggingPost" xml:space="preserve">
     <value>Reblogging post...</value>
   </data>
-  <data name="UnableToLoadAccount" xml:space="preserve">
+	<data name="UnableToLoadAccount" xml:space="preserve">
     <value>Unable to retrieve your account. Please try again later.</value>
   </data>
-  <data name="UpdatingLike" xml:space="preserve">
+	<data name="UpdatingLike" xml:space="preserve">
     <value>Updating like...</value>
   </data>
-  <data name="WrongLoginCredentials" xml:space="preserve">
+	<data name="WrongLoginCredentials" xml:space="preserve">
     <value>Invalid username/password. Please try again.</value>
   </data>
 </root>

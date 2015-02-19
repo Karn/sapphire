@@ -21,9 +21,6 @@ namespace Core.Pages {
 
         static string blogName;
 
-        static object cached_blog_data = null;
-        static object cached_post_data = null;
-
         public BlogDetails() {
             this.InitializeComponent();
 
@@ -40,23 +37,15 @@ namespace Core.Pages {
         }
 
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
-            if (cached_blog_data == null || blogName != e.NavigationParameter.ToString()) {
+            if (LayoutRoot.DataContext == null || blogName != e.NavigationParameter.ToString()) {
                 blogName = e.NavigationParameter.ToString();
                 LayoutRoot.DataContext = await CreateRequest.GetBlog(blogName);
                 Posts.URL = "https://api.tumblr.com/v2/blog/" + blogName + ".tumblr.com/posts";
                 Posts.LoadPosts();
-            } else {
-                Debug.WriteLine("Loading from cache.");
-                LayoutRoot.DataContext = cached_blog_data;
-                Posts.LoadPosts(cached_post_data);
-                cached_blog_data = null;
-                cached_post_data = null;
             }
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) {
-            cached_blog_data = LayoutRoot.DataContext;
-            cached_post_data = Posts.GetPostSource();
         }
 
         #region NavigationHelper registration

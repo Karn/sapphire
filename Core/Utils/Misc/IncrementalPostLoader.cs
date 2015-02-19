@@ -20,11 +20,10 @@ namespace Core.Utils.Misc {
 
 		private string FirstPostID;
 		private string LastPostID;
-		public int offset;
+		public int offset = 0;
 
-		public IncrementalPostLoader(string URL, int offset) {
+		public IncrementalPostLoader(string URL) {
 			this.URL = URL;
-			this.offset = offset;
 			HasMoreItems = true;
 		}
 

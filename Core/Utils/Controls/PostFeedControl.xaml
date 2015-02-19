@@ -13,9 +13,7 @@
              mc:Ignorable="d">
 
 	<UserControl.Resources>
-		<Flyout x:Key="SaveToPhoneFlyout"
-		        x:Name="OptionsPopup"
-		        Placement="Full">
+		<Flyout x:Key="SaveToPhoneFlyout" Placement="Full">
 			<Flyout.FlyoutPresenterStyle>
 				<Style TargetType="FlyoutPresenter">
 					<Setter Property="Margin" Value="0" />
@@ -45,7 +43,36 @@
 				</Grid>
 			</Grid>
 		</Flyout>
-
+		<Flyout x:Key="SaveToPhonePSFlyout" Placement="Full">
+			<Flyout.FlyoutPresenterStyle>
+				<Style TargetType="FlyoutPresenter">
+					<Setter Property="Margin" Value="0" />
+					<Setter Property="Background" Value="Transparent" />
+				</Style>
+			</Flyout.FlyoutPresenterStyle>
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid Background="#02000000" Tapped="Grid_Tapped" />
+				<Grid Grid.Row="1"
+				      VerticalAlignment="Bottom"
+				      Background="{ThemeResource ColorPrimary}">
+					<TextBlock Margin="20, 25, 20, 25"
+					           HorizontalAlignment="Left"
+					           VerticalAlignment="Top"
+					           FontSize="24"
+					           Foreground="{ThemeResource TextColorPrimary}"
+					           Style="{StaticResource HeaderTextStyle}"
+					           Tag="{Binding original_size.url}"
+					           Tapped="OtherOptions_Tapped"
+					           Text="save to phone"
+					           TextLineBounds="Tight"
+					           TextTrimming="CharacterEllipsis" />
+				</Grid>
+			</Grid>
+		</Flyout>
 		<DataTemplate x:Key="NotesContainer">
 			<StackPanel Margin="0, 4, 0, 0">
 				<TextBlock Margin="7, 10"
@@ -141,20 +168,16 @@
 			<miscl:VariableGridView x:Name="itemGridView"
 			                        HorizontalContentAlignment="Stretch"
 			                        ItemsSource="{Binding photos}">
-
-
 				<GridView.ItemsPanel>
 					<ItemsPanelTemplate>
 						<VariableSizedWrapGrid Loaded="VariableSizedWrapGrid_Loaded" Orientation="Horizontal" />
 					</ItemsPanelTemplate>
 				</GridView.ItemsPanel>
-
-
 				<GridView.ItemTemplate>
 					<DataTemplate>
 						<Grid Background="Azure">
 							<Image HorizontalAlignment="Stretch"
-							       FlyoutBase.AttachedFlyout="{StaticResource SaveToPhoneFlyout}"
+							       FlyoutBase.AttachedFlyout="{StaticResource SaveToPhonePSFlyout}"
 							       Holding="Image_Holding"
 							       Source="{Binding original_size.url}"
 							       Stretch="UniformToFill" />
@@ -635,107 +658,105 @@
 							<ContentControl HorizontalContentAlignment="Stretch"
 							                Content="{Binding}"
 							                ContentTemplateSelector="{StaticResource PostTemplate}" />
-							<StackPanel>
-								<StackPanel Background="{ThemeResource PostBG}" Tag="{Binding}">
-									<TextBlock MaxHeight="300"
-									           Margin="5"
-									           VerticalAlignment="Top"
-									           FontSize="16"
-									           Foreground="{ThemeResource TextColorPrimaryDark}"
-									           IsTextSelectionEnabled="False"
-									           Tapped="Caption_Tapped"
-									           TextTrimming="CharacterEllipsis"
-									           TextWrapping="Wrap"
-									           Visibility="{Binding caption,
-									                                Converter={StaticResource CaptionConverter}}"
-									           misc:CaptionFormatter.Text="{Binding caption}" />
-									<TextBlock Margin="5"
-									           VerticalAlignment="Top"
-									           FontSize="16"
-									           Foreground="{ThemeResource TextColorPrimaryDark}"
-									           TextWrapping="Wrap"
-									           Visibility="{Binding tags_as_str,
-									                                Converter={StaticResource TagsEnabled}}"
-									           misc:TagLinks.Text="{Binding tags_as_str}" />
+							<StackPanel Background="{ThemeResource PostBG}" Tag="{Binding}">
+								<TextBlock MaxHeight="300"
+								           Margin="5"
+								           VerticalAlignment="Top"
+								           FontSize="16"
+								           Foreground="{ThemeResource TextColorPrimaryDark}"
+								           IsTextSelectionEnabled="False"
+								           Tapped="Caption_Tapped"
+								           TextTrimming="CharacterEllipsis"
+								           TextWrapping="Wrap"
+								           Visibility="{Binding caption,
+								                                Converter={StaticResource CaptionConverter}}"
+								           misc:CaptionFormatter.Text="{Binding caption}" />
+								<TextBlock Margin="5"
+								           VerticalAlignment="Top"
+								           FontSize="16"
+								           Foreground="{ThemeResource TextColorPrimaryDark}"
+								           TextWrapping="Wrap"
+								           Visibility="{Binding tags_as_str,
+								                                Converter={StaticResource TagsEnabled}}"
+								           misc:TagLinks.Text="{Binding tags_as_str}" />
 
-									<Grid Height="40"
-									      Background="{ThemeResource WindowBackgroundAccent}"
-									      Loaded="CommandPanel_Loaded"
-									      Tag="{Binding special_case}">
-										<StackPanel HorizontalAlignment="Left"
-										            Orientation="Horizontal"
-										            Tag="{Binding id}"
-										            Tapped="GoToPostDetails">
-											<TextBlock x:Name="NoteInfo"
-											           Margin="10, 0, 0, 0"
-											           HorizontalAlignment="Left"
-											           VerticalAlignment="Center"
-											           FontSize="22"
-											           FontWeight="Light"
-											           Foreground="{ThemeResource TextColorPrimaryDark}"
-											           Text="{Binding note_count}"
-											           TextWrapping="WrapWholeWords" />
-											<TextBlock HorizontalAlignment="Left"
-											           VerticalAlignment="Center"
-											           FontSize="22"
-											           FontWeight="Light"
-											           Foreground="{ThemeResource TextColorPrimaryDark}"
-											           Text=" notes"
-											           TextWrapping="WrapWholeWords" />
-										</StackPanel>
-										<StackPanel x:Name="NormalCommands"
-										            HorizontalAlignment="Right"
-										            Orientation="Horizontal"
-										            Tag="{Binding reblog_key}">
-											<local:ToggleControl x:Name="ReblogButton"
-											                     Margin="5, 0"
-											                     Click="ReblogButton_Click"
-											                     EnabledChecked="{StaticResource RebloggedAsset}"
-											                     EnabledUnchecked="{StaticResource ReblogAsset}"
-											                     IsChecked="False"
-											                     Tag="{Binding id}" />
-											<local:ToggleControl x:Name="LikeButton"
-											                     Margin="5, 0"
-											                     Click="LikeButton_Click"
-											                     IsChecked="{Binding liked,
-											                                         FallbackValue=False}"
-											                     Tag="{Binding id}" />
-											<local:ToggleControl x:Name="DeleteButton"
-											                     Margin="0, 0, 5, 0"
-											                     Click="DeleteButton_Click"
-											                     EnabledChecked="{StaticResource DeleteButtonAsset}"
-											                     EnabledUnchecked="{StaticResource DeleteButtonAsset}"
-											                     Tag="{Binding id}"
-											                     Visibility="{Binding IsEditable}" />
-										</StackPanel>
-										<StackPanel x:Name="DraftCommands"
-										            HorizontalAlignment="Right"
-										            Orientation="Horizontal"
-										            Tag="{Binding reblog_key}"
-										            Visibility="Collapsed">
-											<local:ToggleControl x:Name="PostButton"
-											                     Margin="0, 0, 5, 0"
-											                     Click="PostDraftButton_Click"
-											                     EnabledChecked="{StaticResource PostButtonAsset}"
-											                     EnabledUnchecked="{StaticResource PostButtonAsset}"
-											                     Tag="{Binding}"
-											                     Visibility="{Binding IsEditable}" />
-											<local:ToggleControl x:Name="DeleteButton_"
-											                     Margin="0, 0, 5, 0"
-											                     Click="DeleteButton_Click"
-											                     EnabledChecked="{StaticResource DeleteButtonAsset}"
-											                     EnabledUnchecked="{StaticResource DeleteButtonAsset}"
-											                     Tag="{Binding id}"
-											                     Visibility="{Binding IsEditable}" />
-										</StackPanel>
-									</Grid>
-								</StackPanel>
-								<ContentPresenter VerticalAlignment="Bottom"
-								                  ContentTemplate="{StaticResource NotesContainer}"
-								                  Visibility="{Binding notes,
-								                                       Converter={StaticResource NotesToVisibility},
-								                                       FallbackValue=Collapsed}" />
+								<Grid Height="40"
+								      Background="{ThemeResource WindowBackgroundAccent}"
+								      Loaded="CommandPanel_Loaded"
+								      Tag="{Binding special_case}">
+									<StackPanel HorizontalAlignment="Left"
+									            Orientation="Horizontal"
+									            Tag="{Binding id}"
+									            Tapped="GoToPostDetails">
+										<TextBlock x:Name="NoteInfo"
+										           Margin="10, 0, 0, 0"
+										           HorizontalAlignment="Left"
+										           VerticalAlignment="Center"
+										           FontSize="22"
+										           FontWeight="Light"
+										           Foreground="{ThemeResource TextColorPrimaryDark}"
+										           Text="{Binding note_count}"
+										           TextWrapping="WrapWholeWords" />
+										<TextBlock HorizontalAlignment="Left"
+										           VerticalAlignment="Center"
+										           FontSize="22"
+										           FontWeight="Light"
+										           Foreground="{ThemeResource TextColorPrimaryDark}"
+										           Text=" notes"
+										           TextWrapping="WrapWholeWords" />
+									</StackPanel>
+									<StackPanel x:Name="NormalCommands"
+									            HorizontalAlignment="Right"
+									            Orientation="Horizontal"
+									            Tag="{Binding reblog_key}">
+										<local:ToggleControl x:Name="ReblogButton"
+										                     Margin="5, 0"
+										                     Click="ReblogButton_Click"
+										                     EnabledChecked="{StaticResource RebloggedAsset}"
+										                     EnabledUnchecked="{StaticResource ReblogAsset}"
+										                     IsChecked="False"
+										                     Tag="{Binding id,
+										                                   Mode=TwoWay}" />
+										<local:ToggleControl x:Name="LikeButton"
+										                     Margin="5, 0"
+										                     Click="LikeButton_Click"
+										                     IsChecked="{Binding liked,
+										                                         FallbackValue=False,
+										                                         Mode=TwoWay}"
+										                     Tag="{Binding id}" />
+										<local:ToggleControl x:Name="DeleteButton"
+										                     Margin="0, 0, 5, 0"
+										                     Click="DeleteButton_Click"
+										                     EnabledChecked="{StaticResource DeleteButtonAsset}"
+										                     EnabledUnchecked="{StaticResource DeleteButtonAsset}"
+										                     Tag="{Binding id}"
+										                     Visibility="{Binding IsEditable}" />
+									</StackPanel>
+									<StackPanel x:Name="DraftCommands"
+									            HorizontalAlignment="Right"
+									            Orientation="Horizontal"
+									            Tag="{Binding reblog_key}"
+									            Visibility="Collapsed">
+										<local:ToggleControl x:Name="PostButton"
+										                     Margin="0, 0, 5, 0"
+										                     Click="PostDraftButton_Click"
+										                     EnabledChecked="{StaticResource PostButtonAsset}"
+										                     EnabledUnchecked="{StaticResource PostButtonAsset}"
+										                     Tag="{Binding}" />
+										<local:ToggleControl x:Name="DeleteButton_"
+										                     Margin="0, 0, 5, 0"
+										                     Click="DeleteButton_Click"
+										                     EnabledChecked="{StaticResource DeleteButtonAsset}"
+										                     EnabledUnchecked="{StaticResource DeleteButtonAsset}"
+										                     Tag="{Binding id}" />
+									</StackPanel>
+								</Grid>
 							</StackPanel>
+							<ContentPresenter VerticalAlignment="Bottom"
+							                  ContentTemplate="{StaticResource NotesContainer}"
+							                  Visibility="{Binding notes,
+							                                       Converter={StaticResource NotesToVisibility},
+							                                       FallbackValue=Collapsed}" />
 						</StackPanel>
 					</DataTemplate>
 				</ListView.ItemTemplate>
