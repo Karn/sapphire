@@ -112,5 +112,11 @@ namespace Core.Pages {
                 }
             }
         }
-    }
+
+		private void mail_Tapped(object sender, TappedRoutedEventArgs e) {
+			var frame = Window.Current.Content as Frame;
+			if (!frame.Navigate(typeof(ReblogPage), new object[] { sender, "Message: " + ((FrameworkElement)sender).Tag.ToString() }))
+				throw new Exception("Navigation Failed");
+		}
+	}
 }

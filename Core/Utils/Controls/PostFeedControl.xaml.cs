@@ -261,14 +261,17 @@ namespace Core.Utils.Controls {
 		}
 
 		private void PlayButton_LostFocus(object sender, RoutedEventArgs e) {
-			var grid = (Grid)((AppBarButton)sender).Parent;
+			try {
+				var grid = (Grid)((AppBarButton)sender).Parent;
 
-			var player = ((MediaElement)grid.FindName("Player"));
+				var player = ((MediaElement)grid.FindName("Player"));
 
-			player.AutoPlay = false;
-			player.Stop();
-			((AppBarButton)sender).Icon = new SymbolIcon { Symbol = Symbol.Play };
-			((AppBarButton)sender).Tag = "stopped";
+				player.AutoPlay = false;
+				player.Stop();
+				((AppBarButton)sender).Icon = new SymbolIcon { Symbol = Symbol.Play };
+				((AppBarButton)sender).Tag = "stopped";
+			} catch (Exception ex) {
+			}
 		}
 
 		public void RefreshPosts() {

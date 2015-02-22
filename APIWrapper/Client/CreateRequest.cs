@@ -115,8 +115,12 @@ namespace APIWrapper.Client {
 			return await RequestService.POST(EndpointManager.Post, parameters);
 		}
 
-		public static async Task<HttpResponseMessage> CreateReply(string parameters) {
-			return await RequestService.POST(EndpointManager.Edit, parameters);
+		public static async Task<bool> CreateReply(string id, string answer, bool isPrivate) {
+			var req = await RequestService.POST("https://api.tumblr.com/v2/blog/" + UserStorageUtils.CurrentBlog.Name + ".tumblr.com/question/reply",
+				string.Format("type=answer&id={0}&post_id={0}&answer={2}&is_private={3}", id, answer, isPrivate ? "true" : "false")
+				);
+			Debug.WriteLine(await req.Content.ReadAsStringAsync());
+			return (req).StatusCode == HttpStatusCode.OK;
 		}
 
 		public async static Task<bool> ReblogPost(string id, string reblogKey, string caption = "",
@@ -140,6 +144,14 @@ namespace APIWrapper.Client {
 			return (await RequestService.POST(EndpointManager.DeletePost,
 				string.Format("state=published&id={0}", id)
 				)).StatusCode == HttpStatusCode.OK;
+		}
+
+		public async static Task<bool> PostQuestion(string blogName, string question) {
+			var req = await RequestService.POST("https://api.tumblr.com/v2/blog/" + blogName + ".tumblr.com/ask",
+				string.Format("sender={0}&question={1}", UserStorageUtils.CurrentBlog.Name, question)
+				);
+			Debug.WriteLine(await req.Content.ReadAsStringAsync());
+            return (req).StatusCode == HttpStatusCode.OK;
 		}
 
 		/// <summary>

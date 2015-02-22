@@ -474,7 +474,7 @@
 						                     EnabledUnchecked="{ThemeResource ReplyAsset}"
 						                     IsChecked="False"
 						                     Tag="{Binding id}"
-						                     Visibility="Collapsed" />
+						                     Visibility="Visible" />
 
 						<Button x:Name="DeleteButton"
 						        MinWidth="50"

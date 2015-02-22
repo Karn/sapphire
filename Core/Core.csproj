@@ -127,9 +127,6 @@
     <Compile Include="Utils\Controls\ActivityFeedControl.xaml.cs">
       <DependentUpon>ActivityFeedControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils\Controls\ContextMenu.xaml.cs">
-      <DependentUpon>ContextMenu.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Utils\Controls\NewPostDialog.xaml.cs">
       <DependentUpon>NewPostDialog.xaml</DependentUpon>
     </Compile>
@@ -245,10 +242,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Utils\Controls\ActivityFeedControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Utils\Controls\ContextMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
