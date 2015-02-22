@@ -360,10 +360,10 @@
 			</StackPanel>
 		</DataTemplate>
 
-		<DataTemplate x:Key="Answer">
-			<StackPanel Background="{StaticResource PostBG}">
-				<Grid>
-					<Button MinWidth="0"
+        <DataTemplate x:Key="Answer">
+            <StackPanel Background="{StaticResource PostBG}">
+                <Grid>
+                    <Button MinWidth="0"
 					        MinHeight="0"
 					        Margin="0"
 					        HorizontalAlignment="Left"
@@ -372,14 +372,14 @@
 					        Padding="0"
 					        Style="{StaticResource ButtonStyleNoBG}"
 					        UseLayoutRounding="True">
-						<Image Width="50"
+                        <Image Width="50"
 						       Height="50"
 						       Source="{Binding asking_avatar,
 						                        FallbackValue={StaticResource DefaultAvatar}}"
 						       Stretch="UniformToFill" />
-					</Button>
-					<StackPanel Margin="55, 3, 5, 5" Background="#33DCDCDC">
-						<TextBlock Margin="10, 2"
+                    </Button>
+                    <StackPanel Margin="55, 3, 5, 5" Background="#33DCDCDC">
+                        <TextBlock Margin="10, 2"
 						           FontSize="22"
 						           FontWeight="Light"
 						           Foreground="{ThemeResource TextColorPrimaryDark}"
@@ -387,7 +387,7 @@
 						                          FallbackValue=Name}"
 						           TextLineBounds="Tight"
 						           TextWrapping="NoWrap" />
-						<TextBlock Margin="10, 0, 10, 2"
+                        <TextBlock Margin="10, 0, 10, 2"
 						           FontSize="18"
 						           FontWeight="Light"
 						           Foreground="{ThemeResource TextColorPrimaryDark}"
@@ -395,115 +395,23 @@
 						                          FallbackValue=Question}"
 						           TextLineBounds="TrimToBaseline"
 						           TextWrapping="WrapWholeWords" />
-					</StackPanel>
-				</Grid>
-				<TextBlock Margin="10, 0, 10, 40"
+                    </StackPanel>
+                </Grid>
+                <TextBlock Margin="10, 0, 10, 40"
 				           FontSize="18"
 				           FontWeight="Light"
 				           Foreground="{ThemeResource TextColorPrimaryDark}"
 				           TextWrapping="WrapWholeWords"
 				           misc:TextFormatter.Text="{Binding answer}" />
-			</StackPanel>
-		</DataTemplate>
+            </StackPanel>
+        </DataTemplate>
 
-		<DataTemplate x:Key="Mail">
-			<StackPanel Background="{ThemeResource PostBG}">
-				<Grid Height="50" Background="{ThemeResource WindowBackgroundAccent}">
-					<StackPanel Orientation="Horizontal">
-						<Button MinWidth="0"
-						        MinHeight="0"
-						        Margin="-3"
-						        HorizontalAlignment="Left"
-						        VerticalAlignment="Top"
-						        HorizontalContentAlignment="Stretch"
-						        VerticalContentAlignment="Stretch"
-						        BorderThickness="0"
-						        Padding="0"
-						        Style="{StaticResource ButtonStyleNoBG}"
-						        UseLayoutRounding="True">
-							<Image Width="50"
-							       Height="50"
-							       Source="{Binding asking_avatar}"
-							       Stretch="UniformToFill" />
-						</Button>
-						<StackPanel Margin="5, 0">
-							<TextBlock Margin="5, 5, 5, 0"
-							           HorizontalAlignment="Left"
-							           VerticalAlignment="Top"
-							           FontSize="24"
-							           Foreground="{ThemeResource TextColorPrimaryDark}"
-							           Style="{StaticResource HeaderTextStyle}"
-							           Tag="{Binding asking_name}"
-							           Tapped="GoToBlog"
-							           Text="{Binding asking_name}"
-							           TextLineBounds="Tight"
-							           TextTrimming="CharacterEllipsis" />
-							<TextBlock Margin="5, -16, 5, 0"
-							           HorizontalAlignment="Left"
-							           VerticalAlignment="Top"
-							           FontSize="14"
-							           Foreground="{ThemeResource TextColorPrimaryDark}"
-							           Text="said:"
-							           TextTrimming="CharacterEllipsis" />
-						</StackPanel>
-					</StackPanel>
-				</Grid>
-				<StackPanel MinHeight="150">
-					<TextBlock Margin="10, 5, 10, 40"
-					           FontSize="22"
-					           FontWeight="Light"
-					           Foreground="{StaticResource TextColorPrimaryDark}"
-					           TextWrapping="Wrap"
-					           misc:TextFormatter.Text="{Binding body}" />
-				</StackPanel>
-				<Grid Height="40" Background="{ThemeResource WindowBackgroundAccent}">
-					<StackPanel HorizontalAlignment="Right"
-					            Orientation="Horizontal"
-					            Tag="{Binding reblog_key}">
-						<local:ToggleControl x:Name="ReplyButton"
-						                     Width="35"
-						                     MinWidth="35"
-						                     MinHeight="50"
-						                     MaxWidth="35"
-						                     MaxHeight="50"
-						                     Margin="5, 0"
-						                     HorizontalAlignment="Right"
-						                     BorderThickness="0"
-						                     Click="ReplyButton_Click"
-						                     EnabledChecked="{ThemeResource ReplyAsset}"
-						                     EnabledUnchecked="{ThemeResource ReplyAsset}"
-						                     IsChecked="False"
-						                     Tag="{Binding id}"
-						                     Visibility="Visible" />
-
-						<Button x:Name="DeleteButton"
-						        MinWidth="50"
-						        MinHeight="50"
-						        MaxWidth="50"
-						        MaxHeight="50"
-						        Margin="-6, 0, 0, 0"
-						        HorizontalAlignment="Right"
-						        BorderBrush="White"
-						        BorderThickness="0"
-						        Click="DeleteButton_Click"
-						        Style="{StaticResource ButtonStyleNoBG}"
-						        Tag="{Binding}">
-							<Button.Background>
-								<ImageBrush ImageSource="{ThemeResource DeleteButtonAsset}" Stretch="UniformToFill" />
-							</Button.Background>
-						</Button>
-					</StackPanel>
-				</Grid>
-			</StackPanel>
-		</DataTemplate>
-
-		<converters:PostTemplateSelector x:Key="PostTemplate"
+        <converters:PostTemplateSelector x:Key="PostTemplate"
 		                                 AnswerTemplate="{StaticResource Answer}"
 		                                 AudioTemplate="{StaticResource Audio}"
 		                                 ChatTemplate="{StaticResource Chat}"
 		                                 GifTemplate="{StaticResource Gif}"
 		                                 LinkTemplate="{StaticResource Link}"
-		                                 MailTemplate="{StaticResource Mail}"
 		                                 PhotoSetTemplate="{StaticResource Photoset}"
 		                                 PhotoTemplate="{StaticResource Photo}"
 		                                 QuoteTemplate="{StaticResource Quote}"

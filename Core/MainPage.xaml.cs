@@ -300,7 +300,7 @@ namespace Core {
 
         private void Inbox_Tapped(object sender, TappedRoutedEventArgs e) {
             if (UserUtils.CurrentBlog != null) {
-                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserUtils.CurrentBlog.Name + ".tumblr.com/posts/submission")) {
+                if (!Frame.Navigate(typeof(Pages.Inbox))) {
                     Analytics.AnalyticsManager.LogException(null, TAG, "Failed to navigate to inbox.");
                 }
             }

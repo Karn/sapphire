@@ -96,6 +96,9 @@
     <Compile Include="Pages\FollowersFollowing.xaml.cs">
       <DependentUpon>FollowersFollowing.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Inbox.xaml.cs">
+      <DependentUpon>Inbox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ReblogPage.xaml.cs">
       <DependentUpon>ReblogPage.xaml</DependentUpon>
     </Compile>
@@ -204,6 +207,11 @@
     <Page Include="Pages\FollowersFollowing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Inbox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>
+      </SubType>
     </Page>
     <Page Include="Pages\ReblogPage.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -64,6 +64,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Play.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\PlayIcon.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\PostOK.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Refresh.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Check.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Delete.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Drafts.png" />

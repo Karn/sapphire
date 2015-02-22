@@ -48,8 +48,6 @@ namespace APIWrapper.Client {
 					requestMessage.Headers.Authorization = new AuthenticationHeaderValue("OAuth", authenticationData);
 					requestMessage.Headers.IfModifiedSince = DateTime.UtcNow.Date;
 
-					Debug.WriteLine(requestMessage);
-
 					return (cToken != null) ? await client.SendAsync(requestMessage, HttpCompletionOption.ResponseContentRead, cToken.Token) :
 						await client.SendAsync(requestMessage);
 				}

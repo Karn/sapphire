@@ -79,6 +79,8 @@ namespace Core.Pages {
 				PublishBox.Visibility = Visibility.Collapsed;
 				TagContainer.Visibility = Visibility.Collapsed;
 				parameters = parameters.Substring(7);
+				var x = parameters.Split(',');
+				postID = x[0].Replace(",", "");
 			} else if (parameters.Contains("Message:")) {
 				askTo = parameters.Substring(9);
 				PageTitle.Text = "Ask: " + askTo;
@@ -88,12 +90,11 @@ namespace Core.Pages {
 				PublishBox.Visibility = Visibility.Collapsed;
 				TagContainer.Visibility = Visibility.Collapsed;
 				Caption.PlaceholderText = "Question";
-				return;
+			} else {
+				var x = parameters.Split(',');
+				postID = x[0].Replace(",", "");
+				reblogKey = x[1].Replace(",", "");
 			}
-
-			var x = parameters.Split(',');
-			postID = x[0].Replace(",", "");
-			reblogKey = x[1].Replace(",", "");
 		}
 
 		/// <summary>
@@ -185,8 +186,6 @@ namespace Core.Pages {
 				}
 				if (IsReply && !string.IsNullOrWhiteSpace(Caption.Text)) {
 					App.DisplayStatus("Sending reply...");
-				//	var parameters = (string.Format("id={0}", postID) + (!string.IsNullOrEmpty(Caption.Text) ? "&reply_text=" + Authentication.Utils.UrlEncode(Caption.Text) : "") +
-				//(!string.IsNullOrEmpty(tags) ? "&tags=" + tags : ""));
 					if (await CreateRequest.CreateReply(postID, Authentication.Utils.UrlEncode(Caption.Text), false)) {
 						App.Alert("Created.");
 						ReplyFeilds.IsEnabled = true;
