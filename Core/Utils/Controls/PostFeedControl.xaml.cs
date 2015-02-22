@@ -153,7 +153,7 @@ namespace Core.Utils.Controls {
 		private async void ReblogButton_Click(object sender, RoutedEventArgs e) {
 			if (((ToggleControl)sender).IsChecked == true)
 				((ToggleControl)sender).IsChecked = true;
-			if (UserStorageUtils.OneClickReblog) {
+			if (UserUtils.OneClickReblog) {
 				try {
 					App.DisplayStatus(App.LocaleResources.GetString("RebloggingPost"));
 					var x = ((ToggleControl)sender);

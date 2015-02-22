@@ -37,23 +37,23 @@ namespace APIWrapper.Client {
 
 						var parsedData = JsonConvert.DeserializeObject<Responses.GetInfo>(await requestResult.Content.ReadAsStringAsync());
 
-						UserStorageUtils.UserBlogs.Clear();
+						UserUtils.UserBlogs.Clear();
 
 						foreach (var b in parsedData.response.user.AccountBlogs) {
 							b.FollowingCount = parsedData.response.user.BlogsFollowingCount;
 							b.LikedPostCount = parsedData.response.user.LikedPostCount;
 
 							if (b.Name == account) {
-								UserStorageUtils.CurrentBlog = b;
-							} else if (UserStorageUtils.CurrentBlog == null && b.IsPrimaryBlog)
-								UserStorageUtils.CurrentBlog = b;
-							else if (b.Name == UserStorageUtils.CurrentBlog.Name)
-								UserStorageUtils.CurrentBlog = b;
+								UserUtils.CurrentBlog = b;
+							} else if (UserUtils.CurrentBlog == null && b.IsPrimaryBlog)
+								UserUtils.CurrentBlog = b;
+							else if (b.Name == UserUtils.CurrentBlog.Name)
+								UserUtils.CurrentBlog = b;
 
-							UserStorageUtils.UserBlogs.Add(b);
+							UserUtils.UserBlogs.Add(b);
 						}
 
-						if (UserStorageUtils.UserBlogs.Count > 0)
+						if (UserUtils.UserBlogs.Count > 0)
 							return true;
 					}
 					Debug.WriteLine("Rerunning call due to previous faliure. " + (i + 1));
@@ -65,32 +65,25 @@ namespace APIWrapper.Client {
 		}
 
 		public static async Task<List<Activity.Notification>> RetrieveActivity() {
-			if (UserStorageUtils.CurrentBlog != null) {
+			if (UserUtils.CurrentBlog != null) {
 				try {
 					for (int i = 0; i < 5; i++) {
-						var result = await RequestService.GET("https://api.tumblr.com/v2/user/notifications");
-
+						var result = await RequestService.GET("https://api.tumblr.com/v2/blog/" + UserUtils.CurrentBlog.Name + ".tumblr.com/notifications", "rfg=true");
+						Debug.WriteLine(await result.Content.ReadAsStringAsync());
 						if (result.StatusCode == HttpStatusCode.OK) {
 							var activity = JsonConvert.DeserializeObject<Responses.GetActivity>(await result.Content.ReadAsStringAsync());
 
 							var Notifications = new List<Activity.Notification>();
-							var NotificationDictionary = UserStorageUtils.NotificationIDs;
+							var NotificationDictionary = UserUtils.NotificationIDs;
 
-							foreach (var b in activity.response.blogs) {
-								if (b.Name == UserStorageUtils.CurrentBlog.Name) {
-									if (!NotificationDictionary.ContainsKey(b.Name)) {
-										NotificationDictionary.Add(b.Name, 0);
-									}
-									foreach (var n in b.notifications) {
-										n.date = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(n.timestamp).ToString("yyyy'-'MM'-'dd");
-										Notifications.Add(n);
-									}
-									NotificationDictionary[b.Name] = Notifications.First().timestamp;
-
-									UserStorageUtils.NotificationIDs = NotificationDictionary;
-									return Notifications;
-								}
+							foreach (var n in activity.response.notifications) {
+								n.date = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(n.timestamp).ToString("yyyy'-'MM'-'dd");
+								Notifications.Add(n);
 							}
+							NotificationDictionary[UserUtils.CurrentBlog.Name] = Notifications.First().timestamp;
+
+							UserUtils.NotificationIDs = NotificationDictionary;
+							return Notifications;
 						}
 						Debug.WriteLine("Rerunning call due to previous faliure. " + i);
 					}
@@ -116,7 +109,7 @@ namespace APIWrapper.Client {
 		}
 
 		public static async Task<bool> CreateReply(string id, string answer, bool isPrivate) {
-			var req = await RequestService.POST("https://api.tumblr.com/v2/blog/" + UserStorageUtils.CurrentBlog.Name + ".tumblr.com/question/reply",
+			var req = await RequestService.POST("https://api.tumblr.com/v2/blog/" + UserUtils.CurrentBlog.Name + ".tumblr.com/question/reply",
 				string.Format("type=answer&id={0}&post_id={0}&answer={2}&is_private={3}", id, answer, isPrivate ? "true" : "false")
 				);
 			Debug.WriteLine(await req.Content.ReadAsStringAsync());
@@ -148,10 +141,10 @@ namespace APIWrapper.Client {
 
 		public async static Task<bool> PostQuestion(string blogName, string question) {
 			var req = await RequestService.POST("https://api.tumblr.com/v2/blog/" + blogName + ".tumblr.com/ask",
-				string.Format("sender={0}&question={1}", UserStorageUtils.CurrentBlog.Name, question)
+				string.Format("sender={0}&question={1}", UserUtils.CurrentBlog.Name, question)
 				);
 			Debug.WriteLine(await req.Content.ReadAsStringAsync());
-            return (req).StatusCode == HttpStatusCode.OK;
+			return (req).StatusCode == HttpStatusCode.OK;
 		}
 
 		/// <summary>
@@ -195,7 +188,7 @@ namespace APIWrapper.Client {
 			if (!string.IsNullOrWhiteSpace(post_id)) {
 				var request = string.Format(
 				"https://api.tumblr.com/v2/blog/{0}.tumblr.com/posts?id={1}&notes_info=true&reblog_info=true&api_key={2}",
-				UserStorageUtils.CurrentBlog.Name, post_id, Authentication.ConsumerKey);
+				UserUtils.CurrentBlog.Name, post_id, Authentication.ConsumerKey);
 				result = await Client.GetAsync(new Uri(request));
 				Debug.WriteLine(await result.Content.ReadAsStringAsync());
 			} else if (url.Contains("/user/dashboard") || url.Contains("/submission") || url.Contains("/draft") || url.Contains("/queue")) {
@@ -261,7 +254,6 @@ namespace APIWrapper.Client {
 				} catch (Exception ex) {
 				}
 			} else {
-				Debug.WriteLine(await result.Content.ReadAsStringAsync());
 			}
 			return new List<Post>();
 		}
@@ -283,16 +275,16 @@ namespace APIWrapper.Client {
 		}
 
 		public static async Task<List<Responses.SpotlightResponse>> RetrieveSpotlight(bool forceRefresh = false) {
-			if (string.IsNullOrEmpty(UserStorageUtils.CachedSpotlight) || forceRefresh && UserStorageUtils.CurrentBlog != null) {
+			if (string.IsNullOrEmpty(UserUtils.CachedSpotlight) || forceRefresh && UserUtils.CurrentBlog != null) {
 				var response = await Client.GetAsync(new Uri(EndpointManager.Spotlight));
 				var result = await response.Content.ReadAsStringAsync();
 
 				if (result.Contains("status\":200")) {
-					UserStorageUtils.CachedSpotlight = result;
+					UserUtils.CachedSpotlight = result;
 					return JsonConvert.DeserializeObject<Responses.GetSpotlight>(result).response;
 				}
 			} else
-				return JsonConvert.DeserializeObject<Responses.GetSpotlight>(UserStorageUtils.CachedSpotlight).response;
+				return JsonConvert.DeserializeObject<Responses.GetSpotlight>(UserUtils.CachedSpotlight).response;
 			return new List<Responses.SpotlightResponse>();
 		}
 

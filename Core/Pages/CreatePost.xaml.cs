@@ -289,7 +289,7 @@ namespace Core.Pages {
                 if (image != null) {
 					Frame.GoBack();
 					var result = await RequestService.POST("https://api.tumblr.com/v2/blog/" +
-                        UserStorageUtils.CurrentBlog.Name + ".tumblr.com/post", image, parameterString);
+                        UserUtils.CurrentBlog.Name + ".tumblr.com/post", image, parameterString);
 
                     if (result.StatusCode == HttpStatusCode.Created) {
                         Type.IsEnabled = true;

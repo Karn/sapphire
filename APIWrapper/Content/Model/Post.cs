@@ -16,8 +16,8 @@ namespace APIWrapper.Content.Model {
 
 		public Visibility IsEditable {
 			get {
-				if (UserStorageUtils.CurrentBlog != null) {
-					if (Name == UserStorageUtils.CurrentBlog.Name)
+				if (UserUtils.CurrentBlog != null) {
+					if (Name == UserUtils.CurrentBlog.Name)
 						return Visibility.Visible;
 				}
 				return Visibility.Collapsed;

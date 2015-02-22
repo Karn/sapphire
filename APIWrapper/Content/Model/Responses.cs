@@ -18,10 +18,14 @@ namespace APIWrapper.Content.Model {
         }
 
         public class ActivityResponse {
-            public List<Activity.Blog> blogs { get; set; }
+            public List<Activity.Notification> notifications { get; set; }
         }
 
-        public class FollowingResponse {
+		public class NotificationsResponse {
+			public List<Activity.Blog> blogs { get; set; }
+		}
+
+		public class FollowingResponse {
             public int total_blogs { get; set; }
             public List<Blog> blogs { get; set; }
         }
@@ -69,7 +73,12 @@ namespace APIWrapper.Content.Model {
             public ActivityResponse response { get; set; }
         }
 
-        public class GetBlog {
+		public class GetNotifications {
+			public Meta meta { get; set; }
+			public NotificationsResponse response { get; set; }
+		}
+
+		public class GetBlog {
             public Meta meta { get; set; }
             public BlogResponse response { get; set; }
         }

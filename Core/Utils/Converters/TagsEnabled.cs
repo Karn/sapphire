@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Data;
 namespace Core.Utils.Converters {
     public sealed class TagsEnabled : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, string language) {
-            return (UserStorageUtils.TagsInPosts && !string.IsNullOrWhiteSpace(value.ToString())) ? Visibility.Visible : Visibility.Collapsed;
+            return (UserUtils.TagsInPosts && !string.IsNullOrWhiteSpace(value.ToString())) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language) {

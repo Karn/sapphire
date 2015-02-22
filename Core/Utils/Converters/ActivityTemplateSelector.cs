@@ -11,8 +11,9 @@ namespace Core.Utils.Converters {
         public DataTemplate FollowTemplate { get; set; }
         public DataTemplate UserMentionTemplate { get; set; }
         public DataTemplate AnswerTemplate { get; set; }
+		public DataTemplate FanmailTemplate { get; set; }
 
-        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container) {
+		protected override DataTemplate SelectTemplateCore(object item, DependencyObject container) {
 
             var listItem = item as Activity.Notification;
             if (listItem.type == "reblog")
@@ -23,10 +24,12 @@ namespace Core.Utils.Converters {
                 return FollowTemplate;
             else if (listItem.type == "user_mention")
                 return UserMentionTemplate;
-            else if (listItem.type == "answer")
+            else if (listItem.type == "ask_answer")
                 return AnswerTemplate;
+			else if (listItem.type == "fanmail")
+				return FanmailTemplate;
 
-            return base.SelectTemplateCore(item, container);
+			return base.SelectTemplateCore(item, container);
         }
     }
 }

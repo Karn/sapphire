@@ -32,7 +32,7 @@ namespace Core.Pages {
 
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 
-            List.ItemsSource = UserStorageUtils.UserBlogs;
+            List.ItemsSource = UserUtils.UserBlogs;
             
         }
 

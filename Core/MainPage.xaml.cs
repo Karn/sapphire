@@ -44,14 +44,14 @@ namespace Core {
 
             ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseVisible);
 
-            if (UserStorageUtils.NotificationsEnabled)
+            if (UserUtils.NotificationsEnabled)
                 RegisterBackgroundTask();
 
             HardwareButtons.BackPressed += BackButtonPressed;
         }
 
         private void LayoutRoot_Loaded(object sender, RoutedEventArgs e) {
-            this.Background = UserStorageUtils.EnableStatusBarBG ?
+            this.Background = UserUtils.EnableStatusBarBG ?
                 App.Current.Resources["ColorPrimaryDark"] as SolidColorBrush :
                 App.Current.Resources["ColorPrimary"] as SolidColorBrush;
 
@@ -60,8 +60,8 @@ namespace Core {
         }
 
         public async void CreateView() {
-            if (await GetUserAccount() && UserStorageUtils.CurrentBlog != null) {
-                AccountPivot.DataContext = UserStorageUtils.CurrentBlog;
+            if (await GetUserAccount() && UserUtils.CurrentBlog != null) {
+                AccountPivot.DataContext = UserUtils.CurrentBlog;
                 for (int i = 0; i < 5; i++) {
                     Dashboard.LoadPosts();
                     if (Dashboard.FeedItemCount() > 0)
@@ -74,7 +74,7 @@ namespace Core {
         public async Task<bool> GetUserAccount(string account = "") {
             App.DisplayStatus(App.LocaleResources.GetString("LoadingAccountDataMessage"));
             if (await CreateRequest.RetrieveAccountInformation(account)) {
-                AccountPivot.DataContext = UserStorageUtils.CurrentBlog;
+                AccountPivot.DataContext = UserUtils.CurrentBlog;
                 App.HideStatus();
                 return true;
             } else
@@ -122,7 +122,7 @@ namespace Core {
                 SwitchedAccount = false;
             } else if (SwitchedBlog) {
                 Debug.WriteLine("Refreshing due to blog switch.");
-                AccountPivot.DataContext = UserStorageUtils.CurrentBlog;
+                AccountPivot.DataContext = UserUtils.CurrentBlog;
                 await ActivityFeed.RetrieveNotifications();
                 SwitchedBlog = false;
             }
@@ -248,10 +248,10 @@ namespace Core {
         }
 
         private void AccountDetails_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (UserStorageUtils.CurrentBlog != null) {
+            if (UserUtils.CurrentBlog != null) {
                 switch (((StackPanel)sender).Tag.ToString()) {
                     case "Posts":
-                        if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserStorageUtils.CurrentBlog.Name + ".tumblr.com/posts"))
+                        if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserUtils.CurrentBlog.Name + ".tumblr.com/posts"))
                             Analytics.AnalyticsManager.LogException(null, TAG, "Failed to navigate to current blogs posts.");
                         break;
                     case "Likes":
@@ -299,31 +299,31 @@ namespace Core {
         }
 
         private void Inbox_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (UserStorageUtils.CurrentBlog != null) {
-                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserStorageUtils.CurrentBlog.Name + ".tumblr.com/posts/submission")) {
+            if (UserUtils.CurrentBlog != null) {
+                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserUtils.CurrentBlog.Name + ".tumblr.com/posts/submission")) {
                     Analytics.AnalyticsManager.LogException(null, TAG, "Failed to navigate to inbox.");
                 }
             }
         }
 
         private void Drafts_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (UserStorageUtils.CurrentBlog != null) {
-                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserStorageUtils.CurrentBlog.Name + ".tumblr.com/posts/draft")) {
+            if (UserUtils.CurrentBlog != null) {
+                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserUtils.CurrentBlog.Name + ".tumblr.com/posts/draft")) {
                     Analytics.AnalyticsManager.LogException(null, TAG, "Failed to navigate to drafts.");
                 }
             }
         }
 
         private void Queue_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (UserStorageUtils.CurrentBlog != null) {
-                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserStorageUtils.CurrentBlog.Name + ".tumblr.com/posts/queue")) {
+            if (UserUtils.CurrentBlog != null) {
+                if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserUtils.CurrentBlog.Name + ".tumblr.com/posts/queue")) {
                     Analytics.AnalyticsManager.LogException(null, TAG, "Failed to navigate to queue.");
                 }
             }
         }
 
         private void Favs_List_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (UserStorageUtils.CurrentBlog != null) {
+            if (UserUtils.CurrentBlog != null) {
                 if (!Frame.Navigate(typeof(Pages.FavBlogs)))
                     Analytics.AnalyticsManager.LogException(null, TAG, "Failed to navigate to favorite blogs.");
             }

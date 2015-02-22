@@ -21,12 +21,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\Misc\TextFormatter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Assets\AFanMail.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\AFanMail2.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\AFollowing.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\AFollowing2.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\ALiked.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\AMention.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\AReblog.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\AReply.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\AReply2.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\AudioPlaceholder.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\DefaultAvatar.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\DefaultPattern.png" />

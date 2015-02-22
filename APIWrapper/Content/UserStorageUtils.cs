@@ -8,7 +8,7 @@ using System.Linq;
 using APIWrapper.Content.Model;
 
 namespace APIWrapper.Content {
-    public class UserStorageUtils {
+    public class UserUtils {
 
         public static string TAG = "UserStore";
 
@@ -18,7 +18,7 @@ namespace APIWrapper.Content {
 
         private static ApplicationDataContainer Settings = ApplicationData.Current.LocalSettings;
 
-        public UserStorageUtils() {
+        public UserUtils() {
             if (Settings.Values["Theme"] != null) {
                 Settings.Values.Clear();
                 Debug.WriteLine("Cleared Settings.");

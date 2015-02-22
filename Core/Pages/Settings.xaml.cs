@@ -33,13 +33,13 @@ namespace Core.Pages {
         }
 
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
-            if (UserStorageUtils.SelectedTheme == "Dark")
+            if (UserUtils.SelectedTheme == "Dark")
                 DarkTheme.IsChecked = true;
-            NotificationsToggle.IsChecked = UserStorageUtils.NotificationsEnabled;
-            OneClickReblog.IsChecked = UserStorageUtils.OneClickReblog;
-            PostTags.IsChecked = UserStorageUtils.TagsInPosts;
-            UXFeedback.IsChecked = UserStorageUtils.EnableAnalytics;
-            DarkStatusbar.IsChecked = UserStorageUtils.EnableStatusBarBG;
+            NotificationsToggle.IsChecked = UserUtils.NotificationsEnabled;
+            OneClickReblog.IsChecked = UserUtils.OneClickReblog;
+            PostTags.IsChecked = UserUtils.TagsInPosts;
+            UXFeedback.IsChecked = UserUtils.EnableAnalytics;
+            DarkStatusbar.IsChecked = UserUtils.EnableStatusBarBG;
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) {
@@ -59,32 +59,32 @@ namespace Core.Pages {
         #endregion
 
         private void SwitchTheme_Toggled(object sender, RoutedEventArgs e) {
-            UserStorageUtils.SelectedTheme = (bool)((CheckBox)sender).IsChecked ? "Dark" : "Light";
+            UserUtils.SelectedTheme = (bool)((CheckBox)sender).IsChecked ? "Dark" : "Light";
         }
 
         private void EnableNotifications_Toggled(object sender, RoutedEventArgs e) {
-            UserStorageUtils.NotificationsEnabled = (bool)((CheckBox)sender).IsChecked;
+            UserUtils.NotificationsEnabled = (bool)((CheckBox)sender).IsChecked;
         }
 
         private void EnableOneClickReblog_Toggled(object sender, RoutedEventArgs e) {
-            UserStorageUtils.OneClickReblog = (bool)((CheckBox)sender).IsChecked;
+            UserUtils.OneClickReblog = (bool)((CheckBox)sender).IsChecked;
         }
 
         private void DisableTagsInPosts_Toggled(object sender, RoutedEventArgs e) {
-            UserStorageUtils.TagsInPosts = (bool)((CheckBox)sender).IsChecked;
+            UserUtils.TagsInPosts = (bool)((CheckBox)sender).IsChecked;
         }
 
         private void AnalyticsSwitch_Toggled(object sender, RoutedEventArgs e) {
             if ((bool)((CheckBox)sender).IsChecked) {
-                UserStorageUtils.EnableAnalytics = true;
+                UserUtils.EnableAnalytics = true;
                 Analytics.AnalyticsManager.EnableDiagnostics();
             } else {
-                UserStorageUtils.EnableAnalytics = false;
+                UserUtils.EnableAnalytics = false;
             }
         }
 
         private void StatusBarBGToggle_Toggled(object sender, RoutedEventArgs e) {
-            UserStorageUtils.EnableStatusBarBG = (bool)((CheckBox)sender).IsChecked;
+            UserUtils.EnableStatusBarBG = (bool)((CheckBox)sender).IsChecked;
         }
 
         private async void RateReviewTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e) {

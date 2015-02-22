@@ -22,11 +22,11 @@ namespace BackgroundUtilities {
 
             BackgroundTaskDeferral _deferral = taskInstance.GetDeferral();
 
-            new UserStorageUtils();
-            var x = UserStorageUtils.NotificationIDs;
+            new UserUtils();
+            var x = UserUtils.NotificationIDs;
             if (x != null)
                 NotificationDictionary = x;
-            if (UserStorageUtils.NotificationsEnabled)
+            if (UserUtils.NotificationsEnabled)
                 await RetrieveNotifications();
 
             _deferral.Complete();
@@ -38,24 +38,24 @@ namespace BackgroundUtilities {
                 var Response = await APIWrapper.Client.RequestService.GET("https://api.tumblr.com/v2/user/notifications");
 
                 if (Response.StatusCode == System.Net.HttpStatusCode.OK) {
-                    var activity = JsonConvert.DeserializeObject<Responses.GetActivity>(await Response.Content.ReadAsStringAsync());
+					var activity = JsonConvert.DeserializeObject<Responses.GetNotifications>(await Response.Content.ReadAsStringAsync());
 
-                    var blogs = activity.response.blogs;
-                    foreach (var b in blogs) {
-                        if (!NotificationDictionary.ContainsKey(b.Name))
-                            NotificationDictionary.Add(b.Name, 0);
-                        if (!NotificationCounts.ContainsKey(b.Name))
-                            NotificationCounts.Add(b.Name, new List<Activity.Notification>());
-                        foreach (var n in b.notifications) {
-                            if (n.timestamp > NotificationDictionary[b.Name])
-                                NotificationCounts[b.Name].Add(n);
-                        }
-                        if (NotificationCounts[b.Name].Count > 0)
-                            NotificationDictionary[b.Name] = NotificationCounts[b.Name].First().timestamp;
-                    }
-                }
+					var blogs = activity.response.blogs;
+					foreach (var b in blogs) {
+						if (!NotificationDictionary.ContainsKey(b.Name))
+							NotificationDictionary.Add(b.Name, 0);
+						if (!NotificationCounts.ContainsKey(b.Name))
+							NotificationCounts.Add(b.Name, new List<Activity.Notification>());
+						foreach (var n in b.notifications) {
+							if (n.timestamp > NotificationDictionary[b.Name])
+								NotificationCounts[b.Name].Add(n);
+						}
+						if (NotificationCounts[b.Name].Count > 0)
+							NotificationDictionary[b.Name] = NotificationCounts[b.Name].First().timestamp;
+					}
+				}
 
-                UserStorageUtils.NotificationIDs = NotificationDictionary;
+                UserUtils.NotificationIDs = NotificationDictionary;
                 DisplayNotification();
             } catch (Exception ex) {
             }

@@ -82,8 +82,11 @@
 							           Tapped="mail_Tapped"
 							           Text="ask question"
 							           TextLineBounds="Tight"
-							           TextTrimming="CharacterEllipsis" />
-							<TextBlock Margin="20, 0, 20, 8"
+							           TextTrimming="CharacterEllipsis"
+							           Visibility="{Binding LikesVisible,
+							                                Converter={StaticResource BoolToVisibility},
+							                                FallbackValue=Collapsed}" />
+							<TextBlock Margin="20, 0, 20, 15"
 							           HorizontalAlignment="Left"
 							           VerticalAlignment="Top"
 							           FontSize="24"
