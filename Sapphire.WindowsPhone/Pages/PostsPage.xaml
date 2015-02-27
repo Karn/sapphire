@@ -1,0 +1,165 @@
+﻿<Page x:Class="Sapphire.Pages.PostsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:CommonControl="using:APIWrapper.Utils"
+      xmlns:ac="using:Microsoft.AdMediator.WindowsPhone81"
+      xmlns:controls="using:Sapphire.Utils.Controls"
+      xmlns:converter="using:Sapphire.Utils.Converters"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:Sapphire.Pages"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Background="{ThemeResource ColorPrimary}"
+      mc:Ignorable="d">
+
+	<Grid x:Name="LayoutRoot">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="55" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<Grid HorizontalAlignment="Stretch" Background="{ThemeResource ColorPrimary}">
+			<TextBlock x:Name="PageTitle"
+			           Margin="15, 0, 0, 0"
+			           HorizontalAlignment="Left"
+			           VerticalAlignment="Center"
+			           Foreground="{ThemeResource TextColorPrimary}"
+			           Style="{StaticResource HeaderTextStyle}"
+			           Text="Posts" />
+
+			<Image x:Name="ToTop"
+			       Width="35"
+			       Height="30"
+			       Margin="15, 0"
+			       HorizontalAlignment="Right"
+			       Source="ms-appx:///Assets/Top.png"
+			       Tapped="ToTop_Tapped" />
+		</Grid>
+
+		<Pivot Grid.Row="1"
+		       Margin="0, -8, 0, 0"
+		       Background="{ThemeResource WindowBackground}"
+		       Canvas.ZIndex="-99">
+			<PivotItem Margin="0">
+				<PivotItem.Header>
+					<TextBlock x:Name="ResultsHeader"
+					           Margin="0"
+					           HorizontalAlignment="Left"
+					           VerticalAlignment="Center"
+					           CharacterSpacing="-25"
+					           FontFamily="Segoe WP"
+					           FontSize="26"
+					           Foreground="{ThemeResource TextColorPrimaryDark}"
+					           Text="Results"
+					           Typography.Capitals="AllSmallCaps"
+					           Visibility="Collapsed" />
+				</PivotItem.Header>
+
+				<controls:PostView x:Name="PostFeed"
+				                          Grid.Row="1"
+				                          Margin="0, -8, 0, 0" />
+			</PivotItem>
+
+			<PivotItem x:Name="Blogs"
+			           Margin="0"
+			           Visibility="Collapsed">
+				<PivotItem.Header>
+					<TextBlock x:Name="BlogsHeader"
+					           Margin="0"
+					           HorizontalAlignment="Left"
+					           VerticalAlignment="Center"
+					           CharacterSpacing="-25"
+					           FontFamily="Segoe WP"
+					           FontSize="26"
+					           Foreground="{ThemeResource TextColorPrimaryDark}"
+					           Text="Blogs"
+					           Typography.Capitals="AllSmallCaps"
+					           Visibility="Collapsed" />
+				</PivotItem.Header>
+				<ListView x:Name="BlogSearch"
+				          Grid.Row="1"
+				          HorizontalAlignment="Stretch"
+				          HorizontalContentAlignment="Stretch"
+				          ItemsSource="{Binding}"
+				          Loaded="BlogSearch_Loaded"
+				          ScrollViewer.VerticalScrollMode="Enabled">
+					<ListView.ItemContainerStyle>
+						<StaticResource ResourceKey="ListViewItemContainerStyle" />
+					</ListView.ItemContainerStyle>
+					<ListView.ItemTemplate>
+						<DataTemplate>
+							<Grid HorizontalAlignment="Stretch">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+								<Ellipse Grid.Column="0"
+								         Width="65"
+								         Height="65"
+								         Margin="10, 5"
+								         HorizontalAlignment="Left"
+								         Tag="{Binding Name}"
+								         Tapped="GoToBlog">
+									<Ellipse.Fill>
+										<ImageBrush ImageSource="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+									</Ellipse.Fill>
+								</Ellipse>
+								<StackPanel Grid.Column="1"
+								            Margin="10"
+								            HorizontalAlignment="Left">
+									<TextBlock Margin="0"
+									           HorizontalAlignment="Left"
+									           FontSize="18"
+									           FontWeight="Normal"
+									           Foreground="{ThemeResource TextColorPrimaryDark}"
+									           Style="{StaticResource HeaderTextStyle}"
+									           Tag="{Binding Name}"
+									           Tapped="GoToBlog"
+									           Text="{Binding Name}"
+									           TextTrimming="CharacterEllipsis" />
+									<TextBlock Margin="0, -10, 0, 0"
+									           HorizontalAlignment="Left"
+									           FontSize="14"
+									           Foreground="{ThemeResource TextColorPrimaryDark}"
+									           Text="{Binding URL}"
+									           TextTrimming="CharacterEllipsis" />
+								</StackPanel>
+
+								<Button x:Name="FollowButton"
+								        Grid.Column="2"
+								        Height="35"
+								        MinWidth="120"
+								        MinHeight="0"
+								        Margin="5, 0"
+								        VerticalAlignment="Center"
+								        Background="#FFFFFFFF"
+								        BorderBrush="#66FFFFFF"
+								        BorderThickness="0"
+								        Content="{Binding IsFollowing,
+								                          Converter={StaticResource FollowingToString},
+								                          FallbackValue=FOLLOW}"
+								        FontSize="18"
+								        Foreground="{StaticResource ColorPrimary}"
+								        Padding="3"
+								        Style="{StaticResource ButtonStyleNoBG}"
+								        Tag="{Binding Name}"
+								        Tapped="FollowUnfollowButton_Tapped" />
+							</Grid>
+						</DataTemplate>
+					</ListView.ItemTemplate>
+				</ListView>
+			</PivotItem>
+		</Pivot>
+
+		<Grid Grid.Row="2"
+		      Height="50"
+		      Background="Black"
+		      Visibility="{Binding ElementName=PageTitle,
+		                           Converter={StaticResource IsNotFullVersion},
+		                           FallbackValue=Collapsed}">
+			<ac:AdMediatorControl x:Name="AdMediator_8D72AF"
+			                      HorizontalAlignment="Stretch"
+			                      Id="AdMediator-Id-08EC04B6-3C0D-4157-B23E-4DDEFC54CC26" />
+		</Grid>
+	</Grid>
+</Page>

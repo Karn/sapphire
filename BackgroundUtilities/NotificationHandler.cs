@@ -22,11 +22,11 @@ namespace BackgroundUtilities {
 
             BackgroundTaskDeferral _deferral = taskInstance.GetDeferral();
 
-            new UserUtils();
-            var x = UserUtils.NotificationIDs;
+            new UserPreferences();
+            var x = UserPreferences.NotificationIDs;
             if (x != null)
                 NotificationDictionary = x;
-            if (UserUtils.NotificationsEnabled)
+            if (UserPreferences.NotificationsEnabled)
                 await RetrieveNotifications();
 
             _deferral.Complete();
@@ -55,7 +55,7 @@ namespace BackgroundUtilities {
 					}
 				}
 
-                UserUtils.NotificationIDs = NotificationDictionary;
+                UserPreferences.NotificationIDs = NotificationDictionary;
                 DisplayNotification();
             } catch (Exception ex) {
             }

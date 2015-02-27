@@ -13,14 +13,6 @@ namespace APIWrapper.AuthenticationManager {
     public class AuthenticationUtilities {
 
         public string GetNonce() {
-			//StringBuilder builder = new StringBuilder();
-			//char ch;
-			//for (int i = 0; i < 32; i++) {
-			//    ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * (new Random()).NextDouble() + 65)));
-			//    builder.Append(ch);
-			//}
-
-			//return builder.ToString().ToLower();
 			return (new Random()).Next(123400, 9999999).ToString();
 		}
 

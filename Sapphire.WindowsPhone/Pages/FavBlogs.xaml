@@ -1,0 +1,84 @@
+﻿<Page x:Class="Sapphire.Pages.FavBlogs"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:CommonControl="using:APIWrapper.Utils"
+      xmlns:converter="using:Sapphire.Utils.Converters"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:Sapphire.Pages"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Background="{ThemeResource ColorPrimary}"
+      mc:Ignorable="d">
+
+	<Grid x:Name="LayoutRoot">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="55" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<TextBlock x:Name="PageTitle"
+		           Margin="15, 0, 0, 0"
+		           HorizontalAlignment="Left"
+		           VerticalAlignment="Center"
+		           Foreground="{ThemeResource TextColorPrimary}"
+		           Style="{StaticResource HeaderTextStyle}"
+		           Text="Favorite blogs" />
+
+		<ListView x:Name="List"
+		          Grid.Row="1"
+		          Margin="0, 2, 0, 0"
+		          HorizontalAlignment="Stretch"
+		          HorizontalContentAlignment="Stretch"
+		          Background="{StaticResource WindowBackground}"
+		          ItemsSource="{Binding}">
+			<ListView.ItemContainerStyle>
+				<StaticResource ResourceKey="ListViewItemContainerStyle" />
+			</ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Ellipse Grid.Column="0"
+						         Width="65"
+						         Height="65"
+						         Margin="10, 5">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <TextBlock Grid.Column="1"
+						           Margin="0"
+						           HorizontalAlignment="Stretch"
+						           FontSize="18"
+						           FontWeight="Normal"
+						           Foreground="{ThemeResource TextColorPrimaryDark}"
+						           Style="{StaticResource HeaderTextStyle}"
+						           Text="{Binding Name,
+						                          FallbackValue=Blog Name}"
+						           TextTrimming="CharacterEllipsis" />
+                        <Button x:Name="FollowButton"
+						        Grid.Column="2"
+						        Height="35"
+						        MinWidth="120"
+						        MinHeight="0"
+						        Margin="5, 0"
+						        HorizontalAlignment="Right"
+						        VerticalAlignment="Center"
+						        Background="#FFFFFFFF"
+						        BorderBrush="#66FFFFFF"
+						        BorderThickness="0"
+						        Content="VIEW"
+						        FontSize="18"
+						        Foreground="{StaticResource ColorPrimary}"
+						        Padding="3"
+						        Style="{StaticResource ButtonStyleNoBG}"
+						        Tag="{Binding Name}"
+						        Tapped="ViewButton_Tapped" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+	</Grid>
+</Page>

@@ -54,9 +54,8 @@
     <Compile Include="Content\Model\Responses.cs" />
     <Compile Include="Content\Model\Theme.cs" />
     <Compile Include="Content\Model\User.cs" />
-    <Compile Include="Content\UserStorageUtils.cs" />
+    <Compile Include="Content\UserUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\Analytics\AnalyticsManager.cs" />
     <Compile Include="Utils\AlertDialog.xaml.cs">
       <DependentUpon>AlertDialog.xaml</DependentUpon>
     </Compile>

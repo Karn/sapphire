@@ -31,10 +31,8 @@ namespace APIWrapper.Content.Model {
             public string target_tumblelog_name { get; set; }
             public bool private_channel { get; set; }
             public string media_url { get; set; }
-            public string media_url_large { get; set; }
             public string post_type { get; set; }
             public bool followed { get; set; }
-            public string added_text { get; set; }
             public object post_id { get; set; }
         }
 

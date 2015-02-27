@@ -25,13 +25,13 @@ namespace APIWrapper.Client {
         public static string Spotlight = APIURI + "/spotlight/directories?api_key=" + Authentication.ConsumerKey;
         public static string TagDiscovery = APIURI + "/tag_discovery?api_key=" + Authentication.ConsumerKey;
         public static string Following = APIURI + "/user/following";
-        public static string Followers = APIURI + "/blog/" + UserUtils.CurrentBlog.Name + ".tumblr.com/followers";
-        public static string Post = APIURI + "/blog/" + UserUtils.CurrentBlog.Name + ".tumblr.com/post";
-        public static string Reblog(string blogName = "") { return APIURI + "/blog/" + (!string.IsNullOrWhiteSpace(blogName) ? blogName : UserUtils.CurrentBlog.Name) + ".tumblr.com/post/reblog"; }
-        public static string Edit = APIURI + "/blog/" + UserUtils.CurrentBlog.Name + ".tumblr.com/post/edit";
-        public static string DeletePost = APIURI + "/blog/" + UserUtils.CurrentBlog.Name + ".tumblr.com/post/delete";
-        public static string Inbox = APIURI + "/blog/" + UserUtils.CurrentBlog.Name + "/posts/submission";
-        public static string Drafts = APIURI + "/blog/" + UserUtils.CurrentBlog.Name + "/posts/draft";
-        public static string Queue = APIURI + "/blog/" + UserUtils.CurrentBlog.Name + "/posts/queue";
+        public static string Followers = APIURI + "/blog/" + UserPreferences.CurrentBlog.Name + ".tumblr.com/followers";
+        public static string Post = APIURI + "/blog/" + UserPreferences.CurrentBlog.Name + ".tumblr.com/post";
+        public static string Reblog(string blogName = "") { return APIURI + "/blog/" + (!string.IsNullOrWhiteSpace(blogName) ? blogName : UserPreferences.CurrentBlog.Name) + ".tumblr.com/post/reblog"; }
+        public static string Edit = APIURI + "/blog/" + UserPreferences.CurrentBlog.Name + ".tumblr.com/post/edit";
+        public static string DeletePost = APIURI + "/blog/" + UserPreferences.CurrentBlog.Name + ".tumblr.com/post/delete";
+        public static string Inbox = APIURI + "/blog/" + UserPreferences.CurrentBlog.Name + "/posts/submission";
+        public static string Drafts = APIURI + "/blog/" + UserPreferences.CurrentBlog.Name + "/posts/draft";
+        public static string Queue = APIURI + "/blog/" + UserPreferences.CurrentBlog.Name + "/posts/queue";
     }
 }
