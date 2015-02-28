@@ -1,4 +1,4 @@
-﻿using APIWrapper.Content;
+﻿using Core.Content;
 using Sapphire.Shared.Common;
 using System;
 using Windows.System;

@@ -1,4 +1,4 @@
-﻿using APIWrapper.AuthenticationManager;
+﻿using Core.AuthenticationManager;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
 
-namespace APIWrapper.Client {
+namespace Core.Client {
 	public class RequestService {
 
 		//private static string TAG = "RequestService";

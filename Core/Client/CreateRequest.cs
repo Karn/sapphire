@@ -1,6 +1,6 @@
-﻿using APIWrapper.AuthenticationManager;
-using APIWrapper.Content;
-using APIWrapper.Content.Model;
+﻿using Core.AuthenticationManager;
+using Core.Content;
+using Core.Content.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace APIWrapper.Client {
+namespace Core.Client {
 	public class CreateRequest {
 		private static HttpClient Client = new HttpClient();
 

@@ -15,8 +15,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Utils\Analytics.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utils\Log.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\Misc\CaptionFormatter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\Misc\TagLinks.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\Misc\TextFormatter.cs" />

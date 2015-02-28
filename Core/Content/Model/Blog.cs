@@ -1,9 +1,9 @@
-﻿using APIWrapper.Client;
+﻿using Core.Client;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 
-namespace APIWrapper.Content.Model {
+namespace Core.Content.Model {
     public class Blog : IEquatable<Blog> {
 
         [JsonProperty("primary")]

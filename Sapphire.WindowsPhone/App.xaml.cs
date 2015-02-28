@@ -1,6 +1,6 @@
-﻿using APIWrapper.AuthenticationManager;
-using APIWrapper.Content;
-using APIWrapper.Utils;
+﻿using Core.AuthenticationManager;
+using Core.Content;
+using Core.Utils;
 using Sapphire.Utils;
 using Sapphire.Utils.Misc;
 using Sapphire.Shared.Common;
@@ -23,7 +23,7 @@ namespace Sapphire {
 		public static ResourceLoader LocaleResources = new ResourceLoader();
 
 		private static StatusBar statusBar;
-		private TransitionCollection transitions;
+		//private TransitionCollection transitions;
 
 		public ContinuationManager ContinuationManager { get; private set; }
 
@@ -71,8 +71,10 @@ namespace Sapphire {
 					statusBar = StatusBar.GetForCurrentView();
 				statusBar.ForegroundColor = Colors.White;
 
-				new Utils.AppLicenseHandler();
+				new AppLicenseHandler();
 				new Authentication();
+
+				Analytics.GetInstance().SendEvent("Initialized analytics platform.");
 
 				if (Authentication.AuthenticatedTokens.Count != 0 && Authentication.AuthenticatedSecretTokens.Count != 0) {
 					if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
@@ -88,7 +90,7 @@ namespace Sapphire {
 
 		private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e) {
 			var rootFrame = sender as Frame;
-			rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() { } };
+			//rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() { } };
 			rootFrame.Navigated -= this.RootFrame_FirstNavigated;
 		}
 

@@ -1,4 +1,4 @@
-﻿using APIWrapper.Utils;
+﻿using Core.Utils;
 using System;
 using System.Collections.Generic;
 using Windows.System;

@@ -1,5 +1,5 @@
-﻿using APIWrapper.Client;
-using APIWrapper.Content;
+﻿using Core.Client;
+using Core.Content;
 using Sapphire.Shared.Common;
 using System;
 using System.Diagnostics;

@@ -1,5 +1,5 @@
-﻿using APIWrapper.AuthenticationManager;
-using APIWrapper.Utils;
+﻿using Core.AuthenticationManager;
+using Core.Utils;
 using Sapphire.Shared.Pages;
 using System;
 using Windows.ApplicationModel;

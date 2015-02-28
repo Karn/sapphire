@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Sapphire.Utils {
+namespace Core.Utils {
 	/// <summary>
 	/// Class to provide output and diagnostic logging for application wide events.s
 	/// </summary>
@@ -34,7 +34,7 @@ namespace Sapphire.Utils {
 		/// </summary>
 		/// <param name="message">Message to describe error.</param>
 		public static void wtf(string message) {
-
+			Debug.WriteLine("[WTF]: " + message);
 		}
 	}
 }

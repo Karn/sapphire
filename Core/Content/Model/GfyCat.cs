@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APIWrapper.Content.Model {
+namespace Core.Content.Model {
     public class GfyCat {
         public string gfyName { get; set; }
         public int gfysize { get; set; }

@@ -1,4 +1,4 @@
-﻿using APIWrapper.Content.Model;
+﻿using Core.Content.Model;
 using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

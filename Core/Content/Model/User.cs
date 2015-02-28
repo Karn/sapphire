@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace APIWrapper.Content.Model {
+namespace Core.Content.Model {
     /// <summary>
     /// Class to map an store deserialized account data
     /// </summary>

@@ -5,9 +5,9 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Windows.Storage;
 using System.Linq;
-using APIWrapper.Content.Model;
+using Core.Content.Model;
 
-namespace APIWrapper.Content {
+namespace Core.Content {
     public class UserPreferences {
 
         public static string TAG = "UserStore";

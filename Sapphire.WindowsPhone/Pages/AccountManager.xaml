@@ -1,7 +1,7 @@
 ﻿<Page x:Class="Sapphire.Pages.AccountManager"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:CommonControl="using:APIWrapper.Utils"
+      xmlns:CommonControl="using:Core.Utils"
       xmlns:converter="using:Sapphire.Utils.Converters"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Sapphire.Pages"

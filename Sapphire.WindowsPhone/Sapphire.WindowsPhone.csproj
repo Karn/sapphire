@@ -186,20 +186,17 @@
     <Content Include="Assets\StoreLogo.scale-240.png" />
     <Content Include="Assets\WideLogo.scale-240.png" />
     <Content Include="StoreManifest.xml" />
-    <None Include="analytics.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Package.StoreAssociation.xml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\APIWrapper\APIWrapper.csproj">
-      <Project>{dce12972-e70b-4ed0-b5e7-ec2f6e9aa300}</Project>
-      <Name>APIWrapper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BackgroundUtilities\BackgroundUtilities.csproj">
       <Project>{5774e968-17ff-421b-96a8-bc0a4701696d}</Project>
       <Name>BackgroundUtilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{dce12972-e70b-4ed0-b5e7-ec2f6e9aa300}</Project>
+      <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -283,17 +280,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="AdDuplex.Universal.Controls.WinPhone.XAML">
-      <HintPath>..\packages\AdDuplexWinPhone81.8.5.0.5\lib\portable-win81+wpa81\AdDuplex.Universal.Controls.WinPhone.XAML.winmd</HintPath>
+    <Reference Include="AdDuplex.Universal.Controls.WinPhone.XAML, Version=9.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AdDuplexWinPhone81.9.0.0.1\lib\portable-win81+wpa81\AdDuplex.Universal.Controls.WinPhone.XAML.dll</HintPath>
     </Reference>
-    <Reference Include="AdDuplex.Universal.WinPhone.WinRT">
-      <HintPath>..\packages\AdDuplexWinPhone81.8.5.0.5\lib\portable-win81+wpa81\AdDuplex.Universal.WinPhone.WinRT.winmd</HintPath>
-    </Reference>
-    <Reference Include="GoogleAnalytics">
-      <HintPath>..\packages\GoogleAnalyticsSDK.1.2.12\lib\wpa81\GoogleAnalytics.winmd</HintPath>
-    </Reference>
-    <Reference Include="GoogleAnalytics.Core">
-      <HintPath>..\packages\GoogleAnalyticsSDK.1.2.12\lib\wpa81\GoogleAnalytics.Core.winmd</HintPath>
+    <Reference Include="AdDuplex.Universal.WinPhone.WinRT, Version=9.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AdDuplexWinPhone81.9.0.0.1\lib\portable-win81+wpa81\AdDuplex.Universal.WinPhone.WinRT.winmd</HintPath>
     </Reference>
     <Reference Include="Microsoft.AdMediator.WindowsPhone81.AdDuplex">
       <HintPath>..\packages\Microsoft.AdMediator.WindowsPhone81.AdDuplex.1.0.11\lib\wpa\Microsoft.AdMediator.WindowsPhone81.AdDuplex.dll</HintPath>

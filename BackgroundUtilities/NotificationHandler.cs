@@ -1,6 +1,5 @@
-﻿using APIWrapper.Content;
-using APIWrapper.Content.Model;
-using APIWrapper.Utils;
+﻿using Core.Content;
+using Core.Content.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,7 @@ using Windows.UI.Notifications;
 
 namespace BackgroundUtilities {
 
-    public sealed class NotificationHandler : IBackgroundTask {
+	public sealed class NotificationHandler : IBackgroundTask {
 
         Dictionary<string, int> NotificationDictionary = new Dictionary<string, int>();
         Dictionary<string, List<Activity.Notification>> NotificationCounts = new Dictionary<string, List<Activity.Notification>>();
@@ -35,7 +34,7 @@ namespace BackgroundUtilities {
         private async Task RetrieveNotifications() {
 
             try {
-                var Response = await APIWrapper.Client.RequestService.GET("https://api.tumblr.com/v2/user/notifications");
+                var Response = await Core.Client.RequestService.GET("https://api.tumblr.com/v2/user/notifications");
 
                 if (Response.StatusCode == System.Net.HttpStatusCode.OK) {
 					var activity = JsonConvert.DeserializeObject<Responses.GetNotifications>(await Response.Content.ReadAsStringAsync());

@@ -1,4 +1,4 @@
-﻿using APIWrapper.Client;
+﻿using Core.Client;
 using Sapphire.Shared.Common;
 using System;
 using Windows.UI.Xaml;

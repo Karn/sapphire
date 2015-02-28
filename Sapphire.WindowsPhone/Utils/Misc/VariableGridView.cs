@@ -1,4 +1,4 @@
-﻿using APIWrapper.Content.Model;
+﻿using Core.Content.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

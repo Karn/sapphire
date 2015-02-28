@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace APIWrapper.Content.Model {
+namespace Core.Content.Model {
     public class Responses {
 
         public class Meta {

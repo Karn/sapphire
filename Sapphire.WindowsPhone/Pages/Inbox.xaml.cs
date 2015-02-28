@@ -1,6 +1,6 @@
-﻿using APIWrapper.Client;
-using APIWrapper.Content;
-using APIWrapper.Content.Model;
+﻿using Core.Client;
+using Core.Content;
+using Core.Content.Model;
 using Sapphire.Shared.Common;
 using Sapphire.Utils.Misc;
 using System;

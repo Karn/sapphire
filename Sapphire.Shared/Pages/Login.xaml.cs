@@ -1,4 +1,4 @@
-﻿using APIWrapper.AuthenticationManager;
+﻿using Core.AuthenticationManager;
 using Sapphire.Shared.Common;
 using System;
 using System.Net.NetworkInformation;

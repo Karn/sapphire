@@ -5,7 +5,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace APIWrapper.Content.Model {
+namespace Core.Content.Model {
 	public class Photo {
 		public string caption { get; set; }
 		public List<AltSize> alt_sizes { get; set; }

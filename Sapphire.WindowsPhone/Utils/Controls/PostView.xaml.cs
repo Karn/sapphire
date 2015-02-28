@@ -1,6 +1,7 @@
-﻿using APIWrapper.Client;
-using APIWrapper.Content;
-using APIWrapper.Content.Model;
+﻿using Core.Client;
+using Core.Content;
+using Core.Content.Model;
+using Core.Utils;
 using Sapphire.Utils.Misc;
 using System;
 using System.Collections.ObjectModel;
@@ -40,7 +41,7 @@ namespace Sapphire.Utils.Controls {
 		public bool PostsLoading;
 
 		private string ShareURI;
-		
+
 		bool _updating = false;
 
 		public PostView() {
@@ -319,7 +320,7 @@ namespace Sapphire.Utils.Controls {
 
 				App.HideStatus();
 			} catch (Exception ex) {
-				Analytics.LogException(ex, "", "Unable to save media to photos folder.");
+				Log.e("Unable to save media to photos folder.");
 			}
 		}
 

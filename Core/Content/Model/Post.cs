@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Xaml;
 
-namespace APIWrapper.Content.Model {
+namespace Core.Content.Model {
 	public class Post {
 		//Default properties
 		[JsonProperty("blog_name")]

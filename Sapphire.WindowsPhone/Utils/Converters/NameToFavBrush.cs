@@ -1,4 +1,4 @@
-﻿using APIWrapper.Content;
+﻿using Core.Content;
 using System;
 using System.Linq;
 using Windows.UI.Xaml;

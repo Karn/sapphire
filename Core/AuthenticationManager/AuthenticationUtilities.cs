@@ -9,7 +9,7 @@ using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage.Streams;
 
-namespace APIWrapper.AuthenticationManager {
+namespace Core.AuthenticationManager {
     public class AuthenticationUtilities {
 
         public string GetNonce() {

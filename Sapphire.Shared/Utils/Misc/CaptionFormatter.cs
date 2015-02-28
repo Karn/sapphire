@@ -1,4 +1,4 @@
-﻿using APIWrapper.Client;
+﻿using Core.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;

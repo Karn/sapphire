@@ -1,5 +1,5 @@
-﻿using APIWrapper.Client;
-using APIWrapper.Content.Model;
+﻿using Core.Client;
+using Core.Content.Model;
 using Sapphire.Shared.Common;
 using System;
 using System.Collections.ObjectModel;

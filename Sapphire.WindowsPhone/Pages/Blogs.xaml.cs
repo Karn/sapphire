@@ -1,5 +1,5 @@
-﻿using APIWrapper.Content;
-using APIWrapper.Content.Model;
+﻿using Core.Content;
+using Core.Content.Model;
 using Sapphire.Shared.Common;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;

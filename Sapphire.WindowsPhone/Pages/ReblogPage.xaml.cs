@@ -1,7 +1,7 @@
-﻿using APIWrapper.AuthenticationManager;
-using APIWrapper.Client;
-using APIWrapper.Content;
-using APIWrapper.Utils;
+﻿using Core.AuthenticationManager;
+using Core.Client;
+using Core.Content;
+using Core.Utils;
 using Sapphire.Shared.Common;
 using Sapphire.Utils.Controls;
 using System;

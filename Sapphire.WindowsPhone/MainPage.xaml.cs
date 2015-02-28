@@ -1,5 +1,6 @@
-﻿using APIWrapper.Client;
-using APIWrapper.Content;
+﻿using Core.Client;
+using Core.Content;
+using Core.Utils;
 using Sapphire.Shared.Common;
 using Sapphire.Utils;
 using System;
@@ -91,17 +92,6 @@ namespace Sapphire {
 		}
 
 		private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
-
-			if (e.NavigationParameter != null && !string.IsNullOrEmpty(e.NavigationParameter.ToString())) {
-				//Handle accounts switch to the one described in the toast
-				if (e.NavigationParameter.ToString().Contains("Account:")) {
-					var s = e.NavigationParameter.ToString().Split(' ');
-					await GetUserAccount(s[1]);
-					await Activity.RetrieveNotifications();
-					NavigationPivot.SelectedIndex = 1;
-				}
-			}
-
 			if (AccountPivot.DataContext == null)
 				CreateView();
 
@@ -118,6 +108,14 @@ namespace Sapphire {
 				AccountPivot.DataContext = UserPreferences.CurrentBlog;
 				await Activity.RetrieveNotifications();
 				SwitchedBlog = false;
+			} else if (e.NavigationParameter != null && !string.IsNullOrEmpty(e.NavigationParameter.ToString())) {
+				//Handle accounts switch to the one described in the toast
+				if (e.NavigationParameter.ToString().Contains("Account:")) {
+					var s = e.NavigationParameter.ToString().Split(' ');
+					await GetUserAccount(s[1]);
+					await Activity.RetrieveNotifications();
+					NavigationPivot.SelectedIndex = 1;
+				}
 			}
 
 			if (LastIndex != -1)
@@ -216,12 +214,12 @@ namespace Sapphire {
 
 		private void SettingsButton_Click(object sender, RoutedEventArgs e) {
 			if (!Frame.Navigate(typeof(Pages.Settings)))
-				Analytics.LogException(null, TAG, "Failed to navigate to Settings.");
+				Log.e("Failed to navigate to Settings.");
 		}
 
 		private void ManageAccountButton_Click(object sender, RoutedEventArgs e) {
 			if (!Frame.Navigate(typeof(Pages.AccountManager)))
-				Analytics.LogException(null, TAG, "Failed to navigate to AccountManager.");
+				Log.e("Failed to navigate to AccountManager.");
 		}
 
 		private async void RefreshButton_Click(object sender, RoutedEventArgs e) {
@@ -245,16 +243,16 @@ namespace Sapphire {
 				switch (((StackPanel)sender).Tag.ToString()) {
 					case "Posts":
 						if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserPreferences.CurrentBlog.Name + ".tumblr.com/posts"))
-							Analytics.LogException(null, TAG, "Failed to navigate to current blogs posts.");
+							Log.e("Failed to navigate to current blogs posts.");
 						break;
 					case "Likes":
 						if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/user/likes"))
-							Analytics.LogException(null, TAG, "Failed to navigate to current blogs likes.");
+							Log.e("Failed to navigate to current blogs likes.");
 						break;
 					case "Followers":
 					case "Following":
 						if (!Frame.Navigate(typeof(Pages.FollowersFollowing), ((StackPanel)sender).Tag.ToString()))
-							Analytics.LogException(null, TAG, "Failed to navigate to Following.");
+							Log.e("Failed to navigate to Following.");
 						break;
 				}
 			}
@@ -271,14 +269,14 @@ namespace Sapphire {
 				var searchTerm = SearchText.Text;
 				SearchText.Text = string.Empty;
 				if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + Uri.EscapeUriString(searchTerm)))
-					Analytics.LogException(null, TAG, "Failed to navigate to search page.");
+					Log.e("Failed to navigate to search page.");
 			}
 		}
 
 		private void SpotlightItem_Tapped(object sender, TappedRoutedEventArgs e) {
 			if (((Border)sender).Tag != null) {
 				if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + ((Border)sender).Tag))
-					Analytics.LogException(null, TAG, "Failed to navigate to search page via tag.");
+					Log.e("Failed to navigate to search page via tag.");
 			}
 		}
 
@@ -288,13 +286,13 @@ namespace Sapphire {
 
 		private void ManageBlogs_Tapped(object sender, TappedRoutedEventArgs e) {
 			if (!Frame.Navigate(typeof(Pages.Blogs)))
-				Analytics.LogException(null, TAG, "Failed to navigate to blog selection.");
+				Log.e("Failed to navigate to blog selection.");
 		}
 
 		private void Inbox_Tapped(object sender, TappedRoutedEventArgs e) {
 			if (UserPreferences.CurrentBlog != null) {
 				if (!Frame.Navigate(typeof(Pages.Inbox))) {
-					Analytics.LogException(null, TAG, "Failed to navigate to inbox.");
+					Log.e("Failed to navigate to inbox.");
 				}
 			}
 		}
@@ -302,7 +300,7 @@ namespace Sapphire {
 		private void Drafts_Tapped(object sender, TappedRoutedEventArgs e) {
 			if (UserPreferences.CurrentBlog != null) {
 				if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserPreferences.CurrentBlog.Name + ".tumblr.com/posts/draft")) {
-					Analytics.LogException(null, TAG, "Failed to navigate to drafts.");
+					Log.e("Failed to navigate to drafts.");
 				}
 			}
 		}
@@ -310,7 +308,7 @@ namespace Sapphire {
 		private void Queue_Tapped(object sender, TappedRoutedEventArgs e) {
 			if (UserPreferences.CurrentBlog != null) {
 				if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserPreferences.CurrentBlog.Name + ".tumblr.com/posts/queue")) {
-					Analytics.LogException(null, TAG, "Failed to navigate to queue.");
+					Log.e("Failed to navigate to queue.");
 				}
 			}
 		}
@@ -318,7 +316,7 @@ namespace Sapphire {
 		private void Favs_List_Tapped(object sender, TappedRoutedEventArgs e) {
 			if (UserPreferences.CurrentBlog != null) {
 				if (!Frame.Navigate(typeof(Pages.FavBlogs)))
-					Analytics.LogException(null, TAG, "Failed to navigate to favorite blogs.");
+					Log.e("Failed to navigate to favorite blogs.");
 			}
 		}
 

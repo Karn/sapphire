@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace APIWrapper.Content.Model {
+namespace Core.Content.Model {
     public class Theme {
         [JsonProperty("header_image_focused")]
         public string HeaderImage { get; set; }

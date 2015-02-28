@@ -1,12 +1,12 @@
-﻿using APIWrapper.AuthenticationManager;
-using APIWrapper.Content;
+﻿using Core.AuthenticationManager;
+using Core.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APIWrapper.Client {
+namespace Core.Client {
     internal class EndpointManager {
 
         //API connection URI
