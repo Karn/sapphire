@@ -24,7 +24,7 @@
 			           HorizontalAlignment="Left"
 			           VerticalAlignment="Center"
 			           Foreground="{ThemeResource TextColorPrimary}"
-			           Style="{StaticResource HeaderTextStyle}"
+			           Style="{StaticResource LargeText}"
 			           Text="Inbox" />
 
 			<Image x:Name="RefreshButton"
@@ -74,7 +74,7 @@
 									           VerticalAlignment="Top"
 									           FontSize="24"
 									           Foreground="{ThemeResource TextColorPrimaryDark}"
-									           Style="{StaticResource HeaderTextStyle}"
+									           Style="{StaticResource LargeText}"
 									           Tag="{Binding asking_name}"
 									           Tapped="GoToBlog"
 									           Text="{Binding asking_name}"

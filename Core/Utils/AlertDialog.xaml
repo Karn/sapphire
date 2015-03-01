@@ -37,7 +37,7 @@
                        VerticalAlignment="Center"
                        FontSize="18"
                        Opacity="0.8"
-                       Style="{StaticResource HeaderTextStyle}"
+                       Style="{StaticResource LargeText}"
                        Text="Error Message"
                        TextLineBounds="Tight"
                        TextWrapping="Wrap" />

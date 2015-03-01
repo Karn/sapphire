@@ -15,6 +15,7 @@ using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
@@ -124,7 +125,7 @@ namespace Sapphire.Utils.Controls {
 			try {
 				App.DisplayStatus(App.LocaleResources.GetString("UpdatingLike"));
 				var x = ((ToggleButton)sender);
-				var notes = ((TextBlock)((Grid)((StackPanel)x.Parent).Parent).FindName("NoteInfo"));
+				var notes = ((Run)((TextBlock)((Grid)((StackPanel)x.Parent).Parent).FindName("NoteInfo")).Inlines.First());
 
 				var id = x.Tag.ToString();
 				var reblogKey = ((StackPanel)(x).Parent).Tag.ToString();
@@ -154,7 +155,7 @@ namespace Sapphire.Utils.Controls {
 				try {
 					App.DisplayStatus(App.LocaleResources.GetString("RebloggingPost"));
 					var x = ((ToggleControl)sender);
-					var notes = ((TextBlock)((Grid)((StackPanel)x.Parent).Parent).FindName("NoteInfo"));
+					var notes = ((Run)((TextBlock)((Grid)((StackPanel)x.Parent).Parent).FindName("NoteInfo")).Inlines.First());
 
 					var id = x.Tag.ToString();
 					var reblogKey = ((StackPanel)x.Parent).Tag.ToString();

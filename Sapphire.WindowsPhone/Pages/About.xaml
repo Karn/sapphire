@@ -20,7 +20,7 @@
 			           HorizontalAlignment="Left"
 			           VerticalAlignment="Center"
 			           Foreground="{ThemeResource TextColorPrimary}"
-			           Style="{StaticResource HeaderTextStyle}"
+			           Style="{StaticResource LargeText}"
 			           Text="About" />
 		</Grid>
 
@@ -37,14 +37,14 @@
 				           FontSize="20"
 				           FontWeight="Normal"
 				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           Style="{StaticResource HeaderTextStyle}"
+				           Style="{StaticResource LargeText}"
 				           Text="Application build number"
 				           TextWrapping="Wrap" />
 				<TextBlock x:Name="AppVersion"
 				           Margin="7, 0, 7, 10"
 				           FontSize="16"
 				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           Style="{StaticResource HeaderTextStyle}"
+				           Style="{StaticResource LargeText}"
 				           Text="Version"
 				           TextWrapping="Wrap" />
 
@@ -52,13 +52,13 @@
 				           FontSize="20"
 				           FontWeight="Normal"
 				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           Style="{StaticResource HeaderTextStyle}"
+				           Style="{StaticResource LargeText}"
 				           Text="Legal"
 				           TextWrapping="Wrap" />
 				<TextBlock Margin="7, 0, 7, 10"
 				           FontSize="16"
 				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           Style="{StaticResource HeaderTextStyle}"
+				           Style="{StaticResource LargeText}"
 				           Text="It is important to note that this application ('Sapphire') is a 3rd party client for Tumblr and is in no way affiliated, endorsed or advocated for by Yahoo! Inc. Content that is retrieved via the Tumblr APIs is property of its respective owners and is not a reflection of the developer ('Karn, GemLabs'). Additionally, you agree that the developer is not liable for any issues that may occur whilst using this application."
 				           TextWrapping="Wrap" />
 
@@ -66,13 +66,13 @@
 				           FontSize="20"
 				           FontWeight="Normal"
 				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           Style="{StaticResource HeaderTextStyle}"
+				           Style="{StaticResource LargeText}"
 				           Text="Privacy"
 				           TextWrapping="Wrap" />
 				<TextBlock Margin="7, 0, 7, 10"
 				           FontSize="16"
 				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           Style="{StaticResource HeaderTextStyle}"
+				           Style="{StaticResource LargeText}"
 				           Text="Your privacy is very imortant. Check out the apps privacy policy."
 				           TextWrapping="Wrap" />
 				<HyperlinkButton x:Name="PrivacyButton"
@@ -93,13 +93,13 @@
 				           FontSize="20"
 				           FontWeight="Normal"
 				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           Style="{StaticResource HeaderTextStyle}"
+				           Style="{StaticResource LargeText}"
 				           Text="Support + Feedback"
 				           TextWrapping="Wrap" />
 				<TextBlock Margin="7, 0, 7, 10"
 				           FontSize="16"
 				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           Style="{StaticResource HeaderTextStyle}"
+				           Style="{StaticResource LargeText}"
 				           Text="If you come across a bug, or something that you feel needs improving, feel free to use the links below to get in touch!"
 				           TextWrapping="Wrap" />
 

@@ -23,7 +23,7 @@
 			           HorizontalAlignment="Left"
 			           VerticalAlignment="Center"
 			           Foreground="{ThemeResource TextColorPrimary}"
-			           Style="{StaticResource HeaderTextStyle}"
+			           Style="{StaticResource LargeText}"
 			           Text="Posts Details" />
 		</Grid>
 

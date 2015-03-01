@@ -19,7 +19,7 @@
 		           HorizontalAlignment="Left"
 		           VerticalAlignment="Center"
 		           Foreground="{ThemeResource TextColorPrimary}"
-		           Style="{StaticResource HeaderTextStyle}"
+		           Style="{StaticResource LargeText}"
 		           Text="Favorite blogs" />
 
 		<ListView x:Name="List"
@@ -54,7 +54,7 @@
 						           FontSize="18"
 						           FontWeight="Normal"
 						           Foreground="{ThemeResource TextColorPrimaryDark}"
-						           Style="{StaticResource HeaderTextStyle}"
+						           Style="{StaticResource LargeText}"
 						           Text="{Binding Name,
 						                          FallbackValue=Blog Name}"
 						           TextTrimming="CharacterEllipsis" />

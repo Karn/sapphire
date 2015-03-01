@@ -17,7 +17,7 @@
 
 		<Grid x:Name="HeaderContainer" Background="{StaticResource ColorPrimary}">
 			<TextBlock x:Name="PageTitle"
-			           Style="{StaticResource HeaderTextStyle}"
+			           Style="{StaticResource LargeText}"
 			           Text="Sapphire" />
 
 			<GridView x:Name="Navigation"
@@ -122,7 +122,7 @@
 							</Ellipse>
 							<TextBlock HorizontalAlignment="Center"
 							           FontSize="28"
-							           Style="{StaticResource HeaderTextStyle}"
+							           Style="{StaticResource LargeText}"
 							           Text="{Binding Title,
 							                          FallbackValue=BlogName}"
 							           TextAlignment="Center"
@@ -137,7 +137,7 @@
 							<TextBlock MaxHeight="45"
 							           HorizontalAlignment="Center"
 							           FontSize="18"
-							           Style="{StaticResource HeaderTextStyle}"
+							           Style="{StaticResource LargeText}"
 							           Text="{Binding Description,
 							                          FallbackValue=description}"
 							           TextAlignment="Center"
@@ -352,7 +352,7 @@
 											           FontSize="18"
 											           FontWeight="Normal"
 											           Foreground="White"
-											           Style="{StaticResource HeaderTextStyle}"
+											           Style="{StaticResource LargeText}"
 											           Text="{Binding title}"
 											           TextTrimming="CharacterEllipsis" />
 										</StackPanel>

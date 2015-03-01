@@ -22,7 +22,7 @@
 			           HorizontalAlignment="Left"
 			           VerticalAlignment="Center"
 			           Foreground="{ThemeResource TextColorPrimary}"
-			           Style="{StaticResource HeaderTextStyle}"
+			           Style="{StaticResource LargeText}"
 			           Text="Create reply" />
 		</Grid>
 

@@ -207,6 +207,7 @@ namespace Core.Client {
 				try {
 					var PostList = new List<Post>();
 					var resultAsString = await result.Content.ReadAsStringAsync();
+					Debug.WriteLine(resultAsString);
 					if (url.Contains("/likes")) {
 						PostList = JsonConvert.DeserializeObject<Responses.GetLikes>(resultAsString).response.liked_posts;
 					} else if (url.Contains("/tagged")) {

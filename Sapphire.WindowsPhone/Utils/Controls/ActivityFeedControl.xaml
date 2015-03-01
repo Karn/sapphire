@@ -33,20 +33,13 @@
 					       HorizontalAlignment="Right"
 					       Source="ms-appx:///Assets/AReblog.png" />
 				</Grid>
-				<StackPanel Grid.Column="1"
-				            Margin="10"
-				            Orientation="Horizontal">
-					<TextBlock HorizontalAlignment="Left"
-					           FontSize="15"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Tag="{Binding from_tumblelog_name}"
-					           Tapped="GoToBlog"
-					           TextTrimming="CharacterEllipsis"
-					           TextWrapping="NoWrap">
-						<Run Text="{Binding from_tumblelog_name}" />
-						<Run FontWeight="Light" Text="reblogged your post." />
-					</TextBlock>
-				</StackPanel>
+				<TextBlock Grid.Column="1"
+				           Style="{StaticResource SmallText}"
+				           Tag="{Binding from_tumblelog_name}"
+				           Tapped="GoToBlog">
+					<Run FontWeight="Normal" Text="{Binding from_tumblelog_name}" />
+					<Run Text="reblogged your post." />
+				</TextBlock>
 				<Image Grid.Column="2"
 				       Width="45"
 				       Height="45"
@@ -79,20 +72,13 @@
 					       HorizontalAlignment="Right"
 					       Source="ms-appx:///Assets/ALiked.png" />
 				</Grid>
-				<StackPanel Grid.Column="1"
-				            Margin="10"
-				            Orientation="Horizontal">
-					<TextBlock HorizontalAlignment="Left"
-					           FontSize="15"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Tag="{Binding from_tumblelog_name}"
-					           Tapped="GoToBlog"
-					           TextTrimming="CharacterEllipsis"
-					           TextWrapping="NoWrap">
-						<Run Text="{Binding from_tumblelog_name}" />
-						<Run FontWeight="Light" Text="liked your post." />
-					</TextBlock>
-				</StackPanel>
+				<TextBlock Grid.Column="1"
+				           Style="{StaticResource SmallText}"
+				           Tag="{Binding from_tumblelog_name}"
+				           Tapped="GoToBlog">
+					<Run FontWeight="Normal" Text="{Binding from_tumblelog_name}" />
+					<Run Text="liked your post." />
+				</TextBlock>
 				<Image Grid.Column="2"
 				       Width="45"
 				       Height="45"
@@ -125,16 +111,11 @@
 					       Source="ms-appx:///Assets/AFollowing.png" />
 				</Grid>
 				<TextBlock Grid.Column="1"
-				           Margin="10"
-				           HorizontalAlignment="Left"
-				           FontSize="15"
-				           Foreground="{ThemeResource TextColorPrimaryDark}"
+				           Style="{StaticResource SmallText}"
 				           Tag="{Binding from_tumblelog_name}"
-				           Tapped="GoToBlog"
-				           TextTrimming="CharacterEllipsis"
-				           TextWrapping="NoWrap">
-					<Run Text="{Binding from_tumblelog_name}" />
-					<Run FontWeight="Light" Text="started following you." />
+				           Tapped="GoToBlog">
+					<Run FontWeight="Normal" Text="{Binding from_tumblelog_name}" />
+					<Run Text="started following you." />
 				</TextBlock>
 				<Grid Grid.Column="2"
 				      Width="45"
@@ -175,16 +156,11 @@
 					       Source="ms-appx:///Assets/AMention.png" />
 				</Grid>
 				<TextBlock Grid.Column="1"
-				           Margin="10"
-				           HorizontalAlignment="Left"
-				           FontSize="15"
-				           Foreground="{ThemeResource TextColorPrimaryDark}"
+				           Style="{StaticResource SmallText}"
 				           Tag="{Binding from_tumblelog_name}"
-				           Tapped="GoToBlog"
-				           TextTrimming="CharacterEllipsis"
-				           TextWrapping="NoWrap">
-					<Run Text="{Binding from_tumblelog_name}" />
-					<Run FontWeight="Light" Text="mentioned you in a post." />
+				           Tapped="GoToBlog">
+					<Run FontWeight="Normal" Text="{Binding from_tumblelog_name}" />
+					<Run Text="mentioned you in a post." />
 				</TextBlock>
 				<Image Grid.Column="2"
 				       Width="45"
@@ -218,20 +194,13 @@
 					       HorizontalAlignment="Right"
 					       Source="ms-appx:///Assets/AReply.png" />
 				</Grid>
-				<StackPanel Grid.Column="1"
-				            Margin="10"
-				            Orientation="Horizontal">
-					<TextBlock HorizontalAlignment="Left"
-					           FontSize="15"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Tag="{Binding from_tumblelog_name}"
-					           Tapped="GoToBlog"
-					           TextTrimming="CharacterEllipsis"
-					           TextWrapping="NoWrap">
-						<Run Text="{Binding from_tumblelog_name}" />
-						<Run FontWeight="Light" Text="answerd your post." />
-					</TextBlock>
-				</StackPanel>
+				<TextBlock Grid.Column="1"
+				           Style="{StaticResource SmallText}"
+				           Tag="{Binding from_tumblelog_name}"
+				           Tapped="GoToBlog">
+					<Run FontWeight="Normal" Text="{Binding from_tumblelog_name}" />
+					<Run Text="answerd your post." />
+				</TextBlock>
 				<Image Grid.Column="2"
 				       Width="45"
 				       Height="45"
@@ -262,20 +231,13 @@
 					       HorizontalAlignment="Right"
 					       Source="ms-appx:///Assets/AFanMail.png" />
 				</Grid>
-				<StackPanel Grid.Column="1"
-				            Margin="10"
-				            Orientation="Horizontal">
-					<TextBlock HorizontalAlignment="Left"
-					           FontSize="15"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Tag="{Binding from_tumblelog_name}"
-					           Tapped="GoToBlog"
-					           TextTrimming="CharacterEllipsis"
-					           TextWrapping="NoWrap">
-						<Run Text="{Binding from_tumblelog_name}" />
-						<Run FontWeight="Light" Text="sent you fan mail." />
-					</TextBlock>
-				</StackPanel>
+				<TextBlock Grid.Column="1"
+				           Style="{StaticResource SmallText}"
+				           Tag="{Binding from_tumblelog_name}"
+				           Tapped="GoToBlog">
+					<Run FontWeight="Normal" Text="{Binding from_tumblelog_name}" />
+					<Run Text="sent you fan mail." />
+				</TextBlock>
 				<Image Grid.Column="2"
 				       Width="45"
 				       Height="45"
@@ -313,27 +275,18 @@
 						<Grid Height="35"
 						      HorizontalAlignment="Stretch"
 						      VerticalAlignment="Center"
+						      Background="{ThemeResource WindowBackgroundAccent}"
 						      Loaded="Border_Loaded">
-							<Rectangle Fill="{ThemeResource WindowBackgroundAccent}" Opacity="0.5" />
-							<Grid Margin="0, 8, 0, 0" HorizontalAlignment="Stretch">
-								<TextBlock Grid.Column="2"
-								           Margin="10, 2"
-								           HorizontalAlignment="Right"
-								           VerticalAlignment="Center"
-								           FontSize="16"
-								           Foreground="{ThemeResource TextColorPrimaryDark}"
-								           Style="{StaticResource HeaderTextStyle}"
-								           Text="{Binding Key,
-								                          Converter={StaticResource ToPrettyDate}}" />
-								<TextBlock Grid.Row="0"
-								           Margin="10, 2"
-								           HorizontalAlignment="Left"
-								           VerticalAlignment="Center"
-								           FontSize="16"
-								           Foreground="{ThemeResource TextColorPrimaryDark}"
-								           Style="{StaticResource HeaderTextStyle}"
+							<Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
+								<TextBlock FontWeight="Normal"
+								           Style="{StaticResource SmallText}"
 								           Text="{Binding Key,
 								                          Converter={StaticResource RelativeDate}}" />
+								<TextBlock HorizontalAlignment="Right"
+								           FontWeight="Normal"
+								           Style="{StaticResource SmallText}"
+								           Text="{Binding Key,
+								                          Converter={StaticResource ToPrettyDate}}" />
 							</Grid>
 						</Grid>
 					</DataTemplate>

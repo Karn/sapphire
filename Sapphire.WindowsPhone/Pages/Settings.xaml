@@ -19,7 +19,7 @@
 			           HorizontalAlignment="Left"
 			           VerticalAlignment="Center"
 			           Foreground="{ThemeResource TextColorPrimary}"
-			           Style="{StaticResource HeaderTextStyle}"
+			           Style="{StaticResource LargeText}"
 			           Text="Settings" />
 		</Grid>
 
@@ -35,7 +35,7 @@
 					           FontSize="21"
 					           FontWeight="Normal"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource HeaderTextStyle}"
+					           Style="{StaticResource LargeText}"
 					           Text="GENERAL" />
 				</Border>
 				<StackPanel Tapped="RateReviewTapped">
@@ -43,14 +43,14 @@
 					           FontSize="20"
 					           FontWeight="Normal"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource HeaderTextStyle}"
+					           Style="{StaticResource LargeText}"
 					           Text="Like this app?"
 					           TextWrapping="Wrap" />
 					<TextBlock Margin="8, -10, 8, 0"
 					           FontSize="17"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
 					           Opacity="0.8"
-					           Style="{ThemeResource HeaderTextStyle}"
+					           Style="{ThemeResource LargeText}"
 					           Text="Take a moment to rate/review the app."
 					           TextWrapping="Wrap" />
 
@@ -66,14 +66,14 @@
 					           FontSize="20"
 					           FontWeight="Normal"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource HeaderTextStyle}"
+					           Style="{StaticResource LargeText}"
 					           Text="Upgrade to full version"
 					           TextWrapping="Wrap" />
 					<TextBlock Margin="8, -10, 8, 0"
 					           FontSize="17"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
 					           Opacity="0.8"
-					           Style="{ThemeResource HeaderTextStyle}"
+					           Style="{ThemeResource LargeText}"
 					           Text="Add features with a one time app purchase."
 					           TextWrapping="Wrap" />
 					<Image Width="35"
@@ -87,14 +87,14 @@
 					           FontSize="20"
 					           FontWeight="Normal"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource HeaderTextStyle}"
+					           Style="{StaticResource LargeText}"
 					           Text="About Sapphire."
 					           TextWrapping="Wrap" />
 					<TextBlock Margin="8, -10, 8, 0"
 					           FontSize="17"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
 					           Opacity="0.8"
-					           Style="{ThemeResource HeaderTextStyle}"
+					           Style="{ThemeResource LargeText}"
 					           Text="Legal, privacy, and support."
 					           TextWrapping="Wrap" />
 					<Image Width="35"
@@ -112,7 +112,7 @@
 					           FontSize="21"
 					           FontWeight="Normal"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource HeaderTextStyle}"
+					           Style="{StaticResource LargeText}"
 					           Text="OPTIONS" />
 				</Border>
 				<StackPanel>
@@ -120,14 +120,14 @@
 					           FontSize="20"
 					           FontWeight="Normal"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource HeaderTextStyle}"
+					           Style="{StaticResource LargeText}"
 					           Text="Notifications"
 					           TextWrapping="Wrap" />
 					<TextBlock Margin="8, -10, 8, 0"
 					           FontSize="18"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
 					           Opacity="0.8"
-					           Style="{ThemeResource HeaderTextStyle}"
+					           Style="{ThemeResource LargeText}"
 					           Text="Manage blog alerts."
 					           TextWrapping="Wrap" />
 					<CheckBox x:Name="NotificationsToggle"
@@ -144,14 +144,14 @@
 					           FontSize="20"
 					           FontWeight="Normal"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource HeaderTextStyle}"
+					           Style="{StaticResource LargeText}"
 					           Text="UX feedback"
 					           TextWrapping="Wrap" />
 					<TextBlock Margin="8, -10, 8, 0"
 					           FontSize="18"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
 					           Opacity="0.8"
-					           Style="{ThemeResource HeaderTextStyle}"
+					           Style="{ThemeResource LargeText}"
 					           Text="Assist in development via usage analytics."
 					           TextWrapping="Wrap" />
 					<CheckBox x:Name="UXFeedback"
@@ -168,14 +168,14 @@
 					           FontSize="20"
 					           FontWeight="Normal"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource HeaderTextStyle}"
+					           Style="{StaticResource LargeText}"
 					           Text="Dark theme"
 					           TextWrapping="Wrap" />
 					<TextBlock Margin="8, -10, 8, 0"
 					           FontSize="18"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
 					           Opacity="0.8"
-					           Style="{ThemeResource HeaderTextStyle}"
+					           Style="{ThemeResource LargeText}"
 					           Text="Enable a darker application skin."
 					           TextWrapping="Wrap" />
 					<CheckBox x:Name="DarkTheme"
@@ -192,14 +192,14 @@
 					           FontSize="20"
 					           FontWeight="Normal"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource HeaderTextStyle}"
+					           Style="{StaticResource LargeText}"
 					           Text="Status bar background"
 					           TextWrapping="Wrap" />
 					<TextBlock Margin="8, -10, 8, 0"
 					           FontSize="18"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
 					           Opacity="0.8"
-					           Style="{ThemeResource HeaderTextStyle}"
+					           Style="{ThemeResource LargeText}"
 					           Text="Enable a darker status bar background"
 					           TextWrapping="Wrap" />
 					<CheckBox x:Name="DarkStatusbar"
@@ -216,14 +216,14 @@
 					           FontSize="20"
 					           FontWeight="Normal"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource HeaderTextStyle}"
+					           Style="{StaticResource LargeText}"
 					           Text="Quick reblog"
 					           TextWrapping="Wrap" />
 					<TextBlock Margin="8, -10, 8, 0"
 					           FontSize="18"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
 					           Opacity="0.8"
-					           Style="{ThemeResource HeaderTextStyle}"
+					           Style="{ThemeResource LargeText}"
 					           Text="Skip addition of more details to a post."
 					           TextWrapping="Wrap" />
 					<CheckBox x:Name="OneClickReblog"
@@ -240,14 +240,14 @@
 					           FontSize="20"
 					           FontWeight="Normal"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource HeaderTextStyle}"
+					           Style="{StaticResource LargeText}"
 					           Text="Post tags"
 					           TextWrapping="Wrap" />
 					<TextBlock Margin="8, -10, 8, 0"
 					           FontSize="18"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
 					           Opacity="0.8"
-					           Style="{ThemeResource HeaderTextStyle}"
+					           Style="{ThemeResource LargeText}"
 					           Text="Display post tags below the captions."
 					           TextWrapping="Wrap" />
 					<CheckBox x:Name="PostTags"

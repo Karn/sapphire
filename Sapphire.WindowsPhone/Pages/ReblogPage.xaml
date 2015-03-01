@@ -35,7 +35,7 @@
 							           VerticalAlignment="Top"
 							           FontSize="24"
 							           Foreground="{ThemeResource TextColorPrimary}"
-							           Style="{StaticResource HeaderTextStyle}"
+							           Style="{StaticResource LargeText}"
 							           Tapped="TextBlock_Tapped"
 							           Text="{Binding Name}"
 							           TextLineBounds="Tight"
@@ -60,7 +60,7 @@
 			           HorizontalAlignment="Left"
 			           VerticalAlignment="Center"
 			           Foreground="{ThemeResource TextColorPrimary}"
-			           Style="{StaticResource HeaderTextStyle}"
+			           Style="{StaticResource LargeText}"
 			           Text="Reblog post" />
 		</Grid>
 
@@ -130,7 +130,7 @@
 						           FontWeight="Normal"
 						           Foreground="Black"
 						           Opacity="0.5"
-						           Style="{StaticResource HeaderTextStyle}"
+						           Style="{StaticResource LargeText}"
 						           Text="{Binding Name,
 						                          FallbackValue=Main Blog}" />
 					</StackPanel>
