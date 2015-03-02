@@ -34,7 +34,7 @@
 					       Source="ms-appx:///Assets/AReblog.png" />
 				</Grid>
 				<TextBlock Grid.Column="1"
-				           Style="{StaticResource Body}"
+				           Style="{StaticResource Caption}"
 				           Tag="{Binding from_tumblelog_name}"
 				           Tapped="GoToBlog">
 					<Run Text="{Binding from_tumblelog_name}" />
@@ -73,7 +73,7 @@
 					       Source="ms-appx:///Assets/ALiked.png" />
 				</Grid>
 				<TextBlock Grid.Column="1"
-				           Style="{StaticResource Body}"
+				           Style="{StaticResource Caption}"
 				           Tag="{Binding from_tumblelog_name}"
 				           Tapped="GoToBlog">
 					<Run Text="{Binding from_tumblelog_name}" />
@@ -111,7 +111,7 @@
 					       Source="ms-appx:///Assets/AFollowing.png" />
 				</Grid>
 				<TextBlock Grid.Column="1"
-				           Style="{StaticResource Body}"
+				           Style="{StaticResource Caption}"
 				           Tag="{Binding from_tumblelog_name}"
 				           Tapped="GoToBlog">
 					<Run Text="{Binding from_tumblelog_name}" />
@@ -156,7 +156,7 @@
 					       Source="ms-appx:///Assets/AMention.png" />
 				</Grid>
 				<TextBlock Grid.Column="1"
-				           Style="{StaticResource Body}"
+				           Style="{StaticResource Caption}"
 				           Tag="{Binding from_tumblelog_name}"
 				           Tapped="GoToBlog">
 					<Run Text="{Binding from_tumblelog_name}" />
@@ -195,7 +195,7 @@
 					       Source="ms-appx:///Assets/AReply.png" />
 				</Grid>
 				<TextBlock Grid.Column="1"
-				           Style="{StaticResource Body}"
+				           Style="{StaticResource Caption}"
 				           Tag="{Binding from_tumblelog_name}"
 				           Tapped="GoToBlog">
 					<Run Text="{Binding from_tumblelog_name}" />
@@ -232,7 +232,7 @@
 					       Source="ms-appx:///Assets/AFanMail.png" />
 				</Grid>
 				<TextBlock Grid.Column="1"
-				           Style="{StaticResource Body}"
+				           Style="{StaticResource Caption}"
 				           Tag="{Binding from_tumblelog_name}"
 				           Tapped="GoToBlog">
 					<Run Text="{Binding from_tumblelog_name}" />
@@ -279,13 +279,13 @@
 						      Loaded="Border_Loaded">
 							<TextBlock FontWeight="Normal"
 							           Padding="10, 4"
-							           Style="{StaticResource BodyBold}"
+							           Style="{StaticResource Caption}"
 							           Text="{Binding Key,
 							                          Converter={StaticResource RelativeDate}}" />
 							<TextBlock HorizontalAlignment="Right"
 							           FontWeight="Normal"
 							           Padding="10, 4"
-							           Style="{StaticResource BodyBold}"
+							           Style="{StaticResource Caption}"
 							           Text="{Binding Key,
 							                          Converter={StaticResource ToPrettyDate}}" />
 						</Grid>

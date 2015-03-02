@@ -33,7 +33,7 @@
 					           HorizontalAlignment="Left"
 					           VerticalAlignment="Top"
 					           FontSize="24"
-					           Foreground="{ThemeResource TextColorPrimary}"
+					           Foreground="{ThemeResource TextColorPrimaryDark}"
 					           Style="{StaticResource Headline}"
 					           Tag="{Binding path_to_low_res_pic.url}"
 					           Tapped="OtherOptions_Tapped"
@@ -394,7 +394,6 @@
 	              VerticalAlignment="Top"
 	              HorizontalContentAlignment="Stretch"
 	              VerticalContentAlignment="Stretch"
-	              Background="{ThemeResource WindowBackground}"
 	              HorizontalScrollMode="Disabled"
 	              SizeChanged="scrollViewer_SizeChanged"
 	              ViewChanged="scrollViewer_ViewChanged"
@@ -408,7 +407,7 @@
 			           Height="50"
 			           HorizontalAlignment="Center"
 			           Padding="0, 20"
-			           Style="{StaticResource Title}"
+			           Style="{StaticResource SubTitle}"
 			           Text="Pull to refresh..."
 			           TextLineBounds="Tight" />
 			<ListView x:Name="Posts"
@@ -451,7 +450,7 @@
 										           TextLineBounds="TrimToBaseline" />
 										<TextBlock Foreground="{ThemeResource TextColorPrimaryDark}"
 										           Padding="7, 0"
-										           Style="{StaticResource Body}">
+										           Style="{StaticResource Caption}">
 											<Run Text="{Binding date, Converter={StaticResource ToRelativeTime}}" />
 											<Run Text="{Binding RebloggedFrom}" />
 										</TextBlock>
@@ -510,14 +509,14 @@
 								<TextBlock MaxHeight="300"
 								           FontWeight="Normal"
 								           IsTextSelectionEnabled="False"
-								           Style="{StaticResource Body}"
+								           Style="{StaticResource Caption}"
 								           Tapped="Caption_Tapped"
 								           TextWrapping="Wrap"
 								           Visibility="{Binding caption,
 								                                Converter={StaticResource CaptionConverter}}"
 								           misc:CaptionFormatter.Text="{Binding caption}" />
 								<TextBlock FontWeight="Normal"
-								           Style="{StaticResource Body}"
+								           Style="{StaticResource Caption}"
 								           TextWrapping="Wrap"
 								           Visibility="{Binding tags_as_str,
 								                                Converter={StaticResource TagsEnabled}}"

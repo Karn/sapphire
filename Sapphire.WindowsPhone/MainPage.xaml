@@ -120,7 +120,6 @@
 								</Ellipse.Fill>
 							</Ellipse>
 							<TextBlock HorizontalAlignment="Center"
-							           FontWeight="Normal"
 							           Foreground="White"
 							           Style="{StaticResource Title}"
 							           Text="{Binding Title,
@@ -129,7 +128,8 @@
 							<TextBlock MaxHeight="45"
 							           HorizontalAlignment="Center"
 							           Foreground="White"
-							           Style="{StaticResource SubTitle}"
+							           Padding="0"
+							           Style="{StaticResource Body}"
 							           TextAlignment="Center"
 							           TextWrapping="Wrap">
 								<Hyperlink NavigateUri="{Binding URL, FallbackValue=http://www.tumblr.com}">
@@ -139,7 +139,7 @@
 							<TextBlock MaxHeight="45"
 							           HorizontalAlignment="Center"
 							           Foreground="White"
-							           Style="{StaticResource SubTitle}"
+							           Style="{StaticResource Body}"
 							           Text="{Binding Description,
 							                          FallbackValue=description}"
 							           TextAlignment="Center"

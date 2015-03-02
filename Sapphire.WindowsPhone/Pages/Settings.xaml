@@ -23,9 +23,8 @@
 		              Background="{StaticResource WindowBackground}"
 		              Padding="5, 0">
 			<StackPanel>
-				<TextBlock Style="{StaticResource Title}" Text="General" />
 				<StackPanel Tapped="RateReviewTapped">
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource SubTitle}">
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
 						<Run FontWeight="Normal" Text="Like this app?" />
 						<LineBreak />
 						<Run Text="Take a moment to rate/review the app." />
@@ -37,7 +36,7 @@
 					       Source="ms-appx:///Assets/open_nav.png" />
 				</StackPanel>
 				<StackPanel x:Name="UpgardePanel" Tapped="UpgradeAppTapped">
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource SubTitle}">
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
 						<Run FontWeight="Normal" Text="Upgrade to full version" />
 						<LineBreak />
 						<Run Text="Add features with a one time app purchase." />
@@ -49,7 +48,7 @@
 					       Source="ms-appx:///Assets/open_nav.png" />
 				</StackPanel>
 				<StackPanel Tapped="AboutTapped">
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource SubTitle}">
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
 						<Run FontWeight="Normal" Text="About Sapphire" />
 						<LineBreak />
 						<Run Text="Legal, privacy, and support." />
@@ -60,11 +59,8 @@
 					       HorizontalAlignment="Right"
 					       Source="ms-appx:///Assets/open_nav.png" />
 				</StackPanel>
-
-
-				<TextBlock Style="{StaticResource Title}" Text="Options" />
 				<StackPanel>
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource SubTitle}">
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
 						<Run FontWeight="Normal" Text="Notifications" />
 						<LineBreak />
 						<Run Text="Manage blog alerts." />
@@ -79,7 +75,7 @@
 					          RequestedTheme="Light" />
 				</StackPanel>
 				<StackPanel>
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource SubTitle}">
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
 						<Run FontWeight="Normal" Text="UX feedback" />
 						<LineBreak />
 						<Run Text="Assist in development via usage analytics." />
@@ -94,7 +90,7 @@
 					          RequestedTheme="Light" />
 				</StackPanel>
 				<StackPanel>
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource SubTitle}">
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
 						<Run FontWeight="Normal" Text="Dark theme" />
 						<LineBreak />
 						<Run Text="Enable a darker application skin." />
@@ -109,7 +105,7 @@
 					          RequestedTheme="Light" />
 				</StackPanel>
 				<StackPanel>
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource SubTitle}">
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
 						<Run FontWeight="Normal" Text="Statusbar background" />
 						<LineBreak />
 						<Run Text="Enable a darker status bar background" />
@@ -124,7 +120,7 @@
 					          RequestedTheme="Light" />
 				</StackPanel>
 				<StackPanel>
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource SubTitle}">
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
 						<Run FontWeight="Normal" Text="Quick-reblog" />
 						<LineBreak />
 						<Run Text="Skip addition of more details to a post." />
@@ -139,7 +135,7 @@
 					          RequestedTheme="Light" />
 				</StackPanel>
 				<StackPanel>
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource SubTitle}">
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
 						<Run FontWeight="Normal" Text="Post tags" />
 						<LineBreak />
 						<Run Text="Display post tags below the captions." />
