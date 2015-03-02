@@ -15,121 +15,60 @@
 
 		<Grid Height="55" Background="{ThemeResource ColorPrimary}">
 			<TextBlock x:Name="PageTitle"
-			           Margin="15, 0, 0, 0"
-			           HorizontalAlignment="Left"
-			           VerticalAlignment="Center"
-			           Foreground="{ThemeResource TextColorPrimary}"
-			           Style="{StaticResource LargeText}"
+			           Style="{StaticResource Headline}"
 			           Text="Settings" />
 		</Grid>
 
 		<ScrollViewer Grid.Row="1"
 		              Background="{StaticResource WindowBackground}"
-		              Padding="10, 0">
+		              Padding="5, 0">
 			<StackPanel>
-				<Border Margin="0, 4"
-				        BorderBrush="#19000000"
-				        BorderThickness="0, 0, 0, 1"
-				        Padding="0, 4">
-					<TextBlock Margin="7, 0"
-					           FontSize="21"
-					           FontWeight="Normal"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource LargeText}"
-					           Text="GENERAL" />
-				</Border>
+				<TextBlock Style="{StaticResource Title}" Text="General" />
 				<StackPanel Tapped="RateReviewTapped">
-					<TextBlock Margin="8, 0"
-					           FontSize="20"
-					           FontWeight="Normal"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource LargeText}"
-					           Text="Like this app?"
-					           TextWrapping="Wrap" />
-					<TextBlock Margin="8, -10, 8, 0"
-					           FontSize="17"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Opacity="0.8"
-					           Style="{ThemeResource LargeText}"
-					           Text="Take a moment to rate/review the app."
-					           TextWrapping="Wrap" />
-
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource SubTitle}">
+						<Run FontWeight="Normal" Text="Like this app?" />
+						<LineBreak />
+						<Run Text="Take a moment to rate/review the app." />
+					</TextBlock>
 					<Image Width="35"
 					       Height="35"
-					       Margin="0, -60, 0, 0"
+					       Margin="0, -40, 0, 0"
 					       HorizontalAlignment="Right"
 					       Source="ms-appx:///Assets/open_nav.png" />
-
 				</StackPanel>
 				<StackPanel x:Name="UpgardePanel" Tapped="UpgradeAppTapped">
-					<TextBlock Margin="8, 0"
-					           FontSize="20"
-					           FontWeight="Normal"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource LargeText}"
-					           Text="Upgrade to full version"
-					           TextWrapping="Wrap" />
-					<TextBlock Margin="8, -10, 8, 0"
-					           FontSize="17"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Opacity="0.8"
-					           Style="{ThemeResource LargeText}"
-					           Text="Add features with a one time app purchase."
-					           TextWrapping="Wrap" />
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource SubTitle}">
+						<Run FontWeight="Normal" Text="Upgrade to full version" />
+						<LineBreak />
+						<Run Text="Add features with a one time app purchase." />
+					</TextBlock>
 					<Image Width="35"
 					       Height="35"
-					       Margin="0, -60, 0, 0"
+					       Margin="0, -40, 0, 0"
 					       HorizontalAlignment="Right"
 					       Source="ms-appx:///Assets/open_nav.png" />
 				</StackPanel>
 				<StackPanel Tapped="AboutTapped">
-					<TextBlock Margin="8, 0"
-					           FontSize="20"
-					           FontWeight="Normal"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource LargeText}"
-					           Text="About Sapphire."
-					           TextWrapping="Wrap" />
-					<TextBlock Margin="8, -10, 8, 0"
-					           FontSize="17"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Opacity="0.8"
-					           Style="{ThemeResource LargeText}"
-					           Text="Legal, privacy, and support."
-					           TextWrapping="Wrap" />
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource SubTitle}">
+						<Run FontWeight="Normal" Text="About Sapphire" />
+						<LineBreak />
+						<Run Text="Legal, privacy, and support." />
+					</TextBlock>
 					<Image Width="35"
 					       Height="35"
-					       Margin="0, -60, 0, 0"
+					       Margin="0, -40, 0, 0"
 					       HorizontalAlignment="Right"
 					       Source="ms-appx:///Assets/open_nav.png" />
 				</StackPanel>
 
-				<Border Margin="0, 4"
-				        BorderBrush="#19000000"
-				        BorderThickness="0, 0, 0, 1"
-				        Padding="0, 4">
-					<TextBlock Margin="7, 0"
-					           FontSize="21"
-					           FontWeight="Normal"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource LargeText}"
-					           Text="OPTIONS" />
-				</Border>
+
+				<TextBlock Style="{StaticResource Title}" Text="Options" />
 				<StackPanel>
-					<TextBlock Margin="8, 0"
-					           FontSize="20"
-					           FontWeight="Normal"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource LargeText}"
-					           Text="Notifications"
-					           TextWrapping="Wrap" />
-					<TextBlock Margin="8, -10, 8, 0"
-					           FontSize="18"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Opacity="0.8"
-					           Style="{ThemeResource LargeText}"
-					           Text="Manage blog alerts."
-					           TextWrapping="Wrap" />
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource SubTitle}">
+						<Run FontWeight="Normal" Text="Notifications" />
+						<LineBreak />
+						<Run Text="Manage blog alerts." />
+					</TextBlock>
 					<CheckBox x:Name="NotificationsToggle"
 					          MinWidth="35"
 					          Margin="0, -50, -5, 0"
@@ -140,20 +79,11 @@
 					          RequestedTheme="Light" />
 				</StackPanel>
 				<StackPanel>
-					<TextBlock Margin="8, 0"
-					           FontSize="20"
-					           FontWeight="Normal"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource LargeText}"
-					           Text="UX feedback"
-					           TextWrapping="Wrap" />
-					<TextBlock Margin="8, -10, 8, 0"
-					           FontSize="18"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Opacity="0.8"
-					           Style="{ThemeResource LargeText}"
-					           Text="Assist in development via usage analytics."
-					           TextWrapping="Wrap" />
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource SubTitle}">
+						<Run FontWeight="Normal" Text="UX feedback" />
+						<LineBreak />
+						<Run Text="Assist in development via usage analytics." />
+					</TextBlock>
 					<CheckBox x:Name="UXFeedback"
 					          MinWidth="35"
 					          Margin="0, -50, -5, 0"
@@ -164,20 +94,11 @@
 					          RequestedTheme="Light" />
 				</StackPanel>
 				<StackPanel>
-					<TextBlock Margin="8, 0"
-					           FontSize="20"
-					           FontWeight="Normal"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource LargeText}"
-					           Text="Dark theme"
-					           TextWrapping="Wrap" />
-					<TextBlock Margin="8, -10, 8, 0"
-					           FontSize="18"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Opacity="0.8"
-					           Style="{ThemeResource LargeText}"
-					           Text="Enable a darker application skin."
-					           TextWrapping="Wrap" />
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource SubTitle}">
+						<Run FontWeight="Normal" Text="Dark theme" />
+						<LineBreak />
+						<Run Text="Enable a darker application skin." />
+					</TextBlock>
 					<CheckBox x:Name="DarkTheme"
 					          MinWidth="35"
 					          Margin="0, -50, -5, 0"
@@ -188,20 +109,11 @@
 					          RequestedTheme="Light" />
 				</StackPanel>
 				<StackPanel>
-					<TextBlock Margin="8, 0"
-					           FontSize="20"
-					           FontWeight="Normal"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource LargeText}"
-					           Text="Status bar background"
-					           TextWrapping="Wrap" />
-					<TextBlock Margin="8, -10, 8, 0"
-					           FontSize="18"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Opacity="0.8"
-					           Style="{ThemeResource LargeText}"
-					           Text="Enable a darker status bar background"
-					           TextWrapping="Wrap" />
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource SubTitle}">
+						<Run FontWeight="Normal" Text="Statusbar background" />
+						<LineBreak />
+						<Run Text="Enable a darker status bar background" />
+					</TextBlock>
 					<CheckBox x:Name="DarkStatusbar"
 					          MinWidth="35"
 					          Margin="0, -50, -5, 0"
@@ -212,20 +124,11 @@
 					          RequestedTheme="Light" />
 				</StackPanel>
 				<StackPanel>
-					<TextBlock Margin="8, 0"
-					           FontSize="20"
-					           FontWeight="Normal"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource LargeText}"
-					           Text="Quick reblog"
-					           TextWrapping="Wrap" />
-					<TextBlock Margin="8, -10, 8, 0"
-					           FontSize="18"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Opacity="0.8"
-					           Style="{ThemeResource LargeText}"
-					           Text="Skip addition of more details to a post."
-					           TextWrapping="Wrap" />
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource SubTitle}">
+						<Run FontWeight="Normal" Text="Quick-reblog" />
+						<LineBreak />
+						<Run Text="Skip addition of more details to a post." />
+					</TextBlock>
 					<CheckBox x:Name="OneClickReblog"
 					          MinWidth="35"
 					          Margin="0, -50, -5, 0"
@@ -236,20 +139,11 @@
 					          RequestedTheme="Light" />
 				</StackPanel>
 				<StackPanel>
-					<TextBlock Margin="8, 0"
-					           FontSize="20"
-					           FontWeight="Normal"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource LargeText}"
-					           Text="Post tags"
-					           TextWrapping="Wrap" />
-					<TextBlock Margin="8, -10, 8, 0"
-					           FontSize="18"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Opacity="0.8"
-					           Style="{ThemeResource LargeText}"
-					           Text="Display post tags below the captions."
-					           TextWrapping="Wrap" />
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource SubTitle}">
+						<Run FontWeight="Normal" Text="Post tags" />
+						<LineBreak />
+						<Run Text="Display post tags below the captions." />
+					</TextBlock>
 					<CheckBox x:Name="PostTags"
 					          MinWidth="35"
 					          Margin="0, -50, -5, 0"

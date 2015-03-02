@@ -34,7 +34,7 @@
 					           VerticalAlignment="Top"
 					           FontSize="24"
 					           Foreground="{ThemeResource TextColorPrimary}"
-					           Style="{StaticResource LargeText}"
+					           Style="{StaticResource Headline}"
 					           Tag="{Binding path_to_low_res_pic.url}"
 					           Tapped="OtherOptions_Tapped"
 					           Text="save to phone"
@@ -64,7 +64,7 @@
 					           VerticalAlignment="Top"
 					           FontSize="24"
 					           Foreground="{ThemeResource TextColorPrimary}"
-					           Style="{StaticResource LargeText}"
+					           Style="{StaticResource Headline}"
 					           Tag="{Binding original_size.url}"
 					           Tapped="OtherOptions_Tapped"
 					           Text="save to phone"
@@ -278,7 +278,7 @@
 					           VerticalAlignment="Center"
 					           FontSize="24"
 					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource LargeText}">
+					           Style="{StaticResource Headline}">
 						<Run Text="{Binding artist}" />
 						<Run Text="-" />
 						<Run Text="{Binding track_name, FallbackValue=Track_Name}" />
@@ -408,7 +408,7 @@
 			           Height="50"
 			           HorizontalAlignment="Center"
 			           Padding="0, 20"
-			           Style="{StaticResource MediumText}"
+			           Style="{StaticResource Title}"
 			           Text="Pull to refresh..."
 			           TextLineBounds="Tight" />
 			<ListView x:Name="Posts"
@@ -444,14 +444,14 @@
 									<StackPanel Margin="5, 0">
 										<TextBlock Margin="0, 0, 50, 0"
 										           Padding="5, 0"
-										           Style="{StaticResource MediumText}"
+										           Style="{StaticResource SubTitle}"
 										           Tag="{Binding Name}"
 										           Tapped="GoToBlog"
 										           Text="{Binding Name}"
 										           TextLineBounds="TrimToBaseline" />
 										<TextBlock Foreground="{ThemeResource TextColorPrimaryDark}"
 										           Padding="7, 0"
-										           Style="{StaticResource SmallText}">
+										           Style="{StaticResource Body}">
 											<Run Text="{Binding date, Converter={StaticResource ToRelativeTime}}" />
 											<Run Text="{Binding RebloggedFrom}" />
 										</TextBlock>
@@ -483,17 +483,17 @@
 												            VerticalAlignment="Bottom"
 												            Background="{ThemeResource ColorPrimary}">
 													<TextBlock Margin="20, 25, 20, 16"
-													           Style="{StaticResource MediumText}"
+													           Style="{StaticResource Title}"
 													           Tag="{Binding id}"
 													           Tapped="OtherOptions_Tapped"
 													           Text="post details" />
 													<TextBlock Margin="20, 8, 20, 16"
-													           Style="{StaticResource MediumText}"
+													           Style="{StaticResource Title}"
 													           Tag="{Binding post_url}"
 													           Tapped="OtherOptions_Tapped"
 													           Text="share" />
 													<TextBlock Margin="20, 8, 20, 25"
-													           Style="{StaticResource MediumText}"
+													           Style="{StaticResource Title}"
 													           Tag="{Binding post_url}"
 													           Tapped="OtherOptions_Tapped"
 													           Text="open in browser" />
@@ -510,14 +510,14 @@
 								<TextBlock MaxHeight="300"
 								           FontWeight="Normal"
 								           IsTextSelectionEnabled="False"
-								           Style="{StaticResource SmallText}"
+								           Style="{StaticResource Body}"
 								           Tapped="Caption_Tapped"
 								           TextWrapping="Wrap"
 								           Visibility="{Binding caption,
 								                                Converter={StaticResource CaptionConverter}}"
 								           misc:CaptionFormatter.Text="{Binding caption}" />
 								<TextBlock FontWeight="Normal"
-								           Style="{StaticResource SmallText}"
+								           Style="{StaticResource Body}"
 								           TextWrapping="Wrap"
 								           Visibility="{Binding tags_as_str,
 								                                Converter={StaticResource TagsEnabled}}"
@@ -528,7 +528,7 @@
 								      Loaded="CommandPanel_Loaded"
 								      Tag="{Binding special_case}">
 									<TextBlock x:Name="NoteInfo"
-									           Style="{StaticResource MediumText}"
+									           Style="{StaticResource SubTitle}"
 									           Tag="{Binding id}"
 									           Tapped="GoToPostDetails">
 										<Run Text="{Binding note_count}" />

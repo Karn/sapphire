@@ -16,123 +16,64 @@
 
 		<Grid Height="55" Background="{ThemeResource ColorPrimary}">
 			<TextBlock x:Name="PageTitle"
-			           Margin="15, 0, 0, 0"
-			           HorizontalAlignment="Left"
-			           VerticalAlignment="Center"
-			           Foreground="{ThemeResource TextColorPrimary}"
-			           Style="{StaticResource LargeText}"
+			           Style="{StaticResource Headline}"
 			           Text="About" />
 		</Grid>
 
 		<ScrollViewer Grid.Row="1"
 		              Background="{StaticResource WindowBackground}"
-		              Padding="10, 0">
+		              Padding="5, 0">
 			<StackPanel Margin="0, 0, 0, 10" HorizontalAlignment="Stretch">
-				<Image Height="150"
-				       Margin="10, 0"
-				       HorizontalAlignment="Center"
-				       Source="ms-appx:///Assets/Logo_Dark.png" />
 
-				<TextBlock Margin="7, 0"
-				           FontSize="20"
-				           FontWeight="Normal"
-				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           Style="{StaticResource LargeText}"
-				           Text="Application build number"
-				           TextWrapping="Wrap" />
+				<TextBlock Style="{StaticResource Title}" Text="Application build number" />
 				<TextBlock x:Name="AppVersion"
-				           Margin="7, 0, 7, 10"
-				           FontSize="16"
-				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           Style="{StaticResource LargeText}"
+				           Style="{StaticResource Body}"
 				           Text="Version"
 				           TextWrapping="Wrap" />
 
-				<TextBlock Margin="7, 0"
-				           FontSize="20"
-				           FontWeight="Normal"
-				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           Style="{StaticResource LargeText}"
-				           Text="Legal"
-				           TextWrapping="Wrap" />
-				<TextBlock Margin="7, 0, 7, 10"
-				           FontSize="16"
-				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           Style="{StaticResource LargeText}"
+				<TextBlock Style="{StaticResource Title}" Text="Legal" />
+				<TextBlock Style="{StaticResource Body}"
 				           Text="It is important to note that this application ('Sapphire') is a 3rd party client for Tumblr and is in no way affiliated, endorsed or advocated for by Yahoo! Inc. Content that is retrieved via the Tumblr APIs is property of its respective owners and is not a reflection of the developer ('Karn, GemLabs'). Additionally, you agree that the developer is not liable for any issues that may occur whilst using this application."
 				           TextWrapping="Wrap" />
 
-				<TextBlock Margin="7, 0"
-				           FontSize="20"
-				           FontWeight="Normal"
-				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           Style="{StaticResource LargeText}"
-				           Text="Privacy"
-				           TextWrapping="Wrap" />
-				<TextBlock Margin="7, 0, 7, 10"
-				           FontSize="16"
-				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           Style="{StaticResource LargeText}"
+				<TextBlock Style="{StaticResource Title}" Text="Privacy" />
+				<TextBlock Style="{StaticResource Body}"
 				           Text="Your privacy is very imortant. Check out the apps privacy policy."
 				           TextWrapping="Wrap" />
 				<HyperlinkButton x:Name="PrivacyButton"
-				                 Height="35"
-				                 MinHeight="10"
-				                 Margin="10, 0, 10, 10"
-				                 HorizontalAlignment="Stretch"
-				                 Background="#FF529ECC"
-				                 BorderThickness="0"
-				                 Content="open privacy policy"
-				                 FontSize="20"
-				                 FontWeight="Bold"
-				                 Foreground="White"
+				                 BorderBrush="{x:Null}"
+				                 Content="View privacy policy"
+				                 FontSize="18"
+				                 Foreground="#FF529ECC"
 				                 NavigateUri="http://gemlabs.me/sapphire/privacypolicy.html"
-				                 Padding="0" />
+				                 Padding="5" />
 
-				<TextBlock Margin="7, 0"
-				           FontSize="20"
-				           FontWeight="Normal"
-				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           Style="{StaticResource LargeText}"
-				           Text="Support + Feedback"
-				           TextWrapping="Wrap" />
-				<TextBlock Margin="7, 0, 7, 10"
-				           FontSize="16"
-				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           Style="{StaticResource LargeText}"
+				<TextBlock Style="{StaticResource Title}" Text="Support + Feedback" />
+				<TextBlock Style="{StaticResource Body}"
 				           Text="If you come across a bug, or something that you feel needs improving, feel free to use the links below to get in touch!"
 				           TextWrapping="Wrap" />
 
 				<HyperlinkButton x:Name="Reddit"
-				                 MinHeight="10"
-				                 Margin="10, 0"
-				                 HorizontalAlignment="Left"
 				                 BorderBrush="{x:Null}"
-				                 BorderThickness="0"
 				                 Content="/r/Sapphire"
-				                 FontSize="20"
+				                 FontSize="18"
 				                 Foreground="#FF529ECC"
-				                 NavigateUri="http://reddit.com/r/sapphire" />
+				                 NavigateUri="http://reddit.com/r/sapphire"
+				                 Padding="5" />
 				<HyperlinkButton x:Name="Email"
-				                 MinHeight="10"
-				                 Margin="10, 0"
-				                 HorizontalAlignment="Left"
 				                 BorderBrush="{x:Null}"
-				                 BorderThickness="0"
 				                 Content="Send me an email"
-				                 FontSize="20"
+				                 FontSize="18"
 				                 Foreground="#FF529ECC"
-				                 NavigateUri="mailto:sapphire@gemlabs.me" />
+				                 NavigateUri="mailto:sapphire@gemlabs.me"
+				                 Padding="5" />
 				<HyperlinkButton x:Name="Follow"
-				                 MinHeight="10"
-				                 Margin="10, 0"
-				                 HorizontalAlignment="Left"
 				                 BorderBrush="{x:Null}"
-				                 BorderThickness="0"
 				                 Content="@KarnSaheb"
-				                 FontSize="20"
+				                 FontSize="18"
 				                 Foreground="#FF529ECC"
-				                 NavigateUri="http://twitter.com/intent/follow?screen_name=KarnSaheb" />
+				                 NavigateUri="http://twitter.com/intent/follow?screen_name=KarnSaheb"
+				                 Padding="5" />
 			</StackPanel>
 		</ScrollViewer>
 	</Grid>

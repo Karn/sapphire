@@ -240,7 +240,7 @@ namespace Sapphire {
 
 		private void AccountDetails_Tapped(object sender, TappedRoutedEventArgs e) {
 			if (UserPreferences.CurrentBlog != null) {
-				switch (((StackPanel)sender).Tag.ToString()) {
+				switch (((FrameworkElement)sender).Tag.ToString()) {
 					case "Posts":
 						if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserPreferences.CurrentBlog.Name + ".tumblr.com/posts"))
 							Log.e("Failed to navigate to current blogs posts.");
@@ -274,8 +274,8 @@ namespace Sapphire {
 		}
 
 		private void SpotlightItem_Tapped(object sender, TappedRoutedEventArgs e) {
-			if (((Border)sender).Tag != null) {
-				if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + ((Border)sender).Tag))
+			if (((FrameworkElement)sender).Tag != null) {
+				if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + ((FrameworkElement)sender).Tag))
 					Log.e("Failed to navigate to search page via tag.");
 			}
 		}
@@ -321,9 +321,9 @@ namespace Sapphire {
 		}
 
 		private void SetSpotlightItemDimensions(object sender, RoutedEventArgs e) {
-			var dim = (Window.Current.Bounds.Width - 30) / 3;
-			((Border)sender).Width = dim;
-			((Border)sender).Height = dim;
+			var dim = (Window.Current.Bounds.Width - 25) / 3;
+			((Grid)sender).Width = dim;
+			((Grid)sender).Height = dim;
 		}
 	}
 }

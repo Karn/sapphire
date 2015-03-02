@@ -323,7 +323,7 @@
 			<TextBlock Margin="0, 50, 0, 0"
 			           HorizontalAlignment="Center"
 			           FontSize="14"
-			           Style="{StaticResource LargeText}"
+			           Style="{StaticResource Headline}"
 			           Text="Your details are not stored locally or sent to remote servers"
 			           TextAlignment="Center"
 			           TextWrapping="Wrap" />
@@ -338,7 +338,7 @@
 			           VerticalAlignment="Center"
 			           FontSize="40"
 			           Foreground="{ThemeResource TextColorPrimary}"
-			           Style="{StaticResource LargeText}"
+			           Style="{StaticResource Headline}"
 			           Text="Meet Sapphire." />
 			<Rectangle Height="0.5"
 			           HorizontalAlignment="Stretch"
@@ -350,7 +350,7 @@
 			           Foreground="{ThemeResource TextColorPrimary}"
 			           Opacity="0.9"
 			           Padding="40, 10"
-			           Style="{StaticResource LargeText}"
+			           Style="{StaticResource Headline}"
 			           Text="A Tumblr client that does more than just let you like and reblog posts."
 			           TextAlignment="Center"
 			           TextLineBounds="TrimToCapHeight"

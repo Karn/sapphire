@@ -17,7 +17,7 @@
 
 		<Grid x:Name="HeaderContainer" Background="{StaticResource ColorPrimary}">
 			<TextBlock x:Name="PageTitle"
-			           Style="{StaticResource LargeText}"
+			           Style="{StaticResource Headline}"
 			           Text="Sapphire" />
 
 			<GridView x:Name="Navigation"
@@ -87,7 +87,6 @@
 							         StrokeThickness="0.1" />
 							<Image Margin="10"
 							       Canvas.ZIndex="50"
-							       RenderTransformOrigin="0.5,0.5"
 							       Source="ms-appx:///Assets/Top.png" />
 						</Grid>
 					</Button>
@@ -101,7 +100,7 @@
 			<PivotItem x:Name="AccountPivot"
 			           Margin="0"
 			           DataContext="{Binding}">
-				<StackPanel x:Name="AccountPivotContent" VerticalAlignment="Top">
+				<StackPanel x:Name="AccountPivotContent">
 					<Grid>
 						<Grid.Background>
 							<ImageBrush ImageSource="{Binding BlogTheme.HeaderImage, FallbackValue={ThemeResource DefaultPattern}}" Stretch="UniformToFill" />
@@ -121,27 +120,29 @@
 								</Ellipse.Fill>
 							</Ellipse>
 							<TextBlock HorizontalAlignment="Center"
-							           FontSize="28"
-							           Style="{StaticResource LargeText}"
+							           FontWeight="Normal"
+							           Foreground="White"
+							           Style="{StaticResource Title}"
 							           Text="{Binding Title,
 							                          FallbackValue=BlogName}"
-							           TextAlignment="Center"
-							           TextTrimming="CharacterEllipsis" />
-							<HyperlinkButton HorizontalAlignment="Center"
-							                 Content="{Binding URL,
-							                                   FallbackValue=url}"
-							                 FontSize="20"
-							                 Foreground="#FFFFFFFF"
-							                 NavigateUri="{Binding URL,
-							                                       FallbackValue=http://www.tumblr.com}" />
+							           TextAlignment="Center" />
 							<TextBlock MaxHeight="45"
 							           HorizontalAlignment="Center"
-							           FontSize="18"
-							           Style="{StaticResource LargeText}"
+							           Foreground="White"
+							           Style="{StaticResource SubTitle}"
+							           TextAlignment="Center"
+							           TextWrapping="Wrap">
+								<Hyperlink NavigateUri="{Binding URL, FallbackValue=http://www.tumblr.com}">
+									<Run Text="{Binding URL, FallbackValue=url}" />
+								</Hyperlink>
+							</TextBlock>
+							<TextBlock MaxHeight="45"
+							           HorizontalAlignment="Center"
+							           Foreground="White"
+							           Style="{StaticResource SubTitle}"
 							           Text="{Binding Description,
 							                          FallbackValue=description}"
 							           TextAlignment="Center"
-							           TextTrimming="CharacterEllipsis"
 							           TextWrapping="Wrap" />
 						</StackPanel>
 						<Image Width="35"
@@ -167,74 +168,46 @@
 							<ColumnDefinition Width="*" />
 							<ColumnDefinition Width="10" />
 						</Grid.ColumnDefinitions>
-						<StackPanel Grid.Column="1"
-						            Margin="10, 5"
-						            Tag="Following"
-						            Tapped="AccountDetails_Tapped">
-							<TextBlock HorizontalAlignment="Left"
-							           VerticalAlignment="Center"
-							           FontSize="24"
-							           Foreground="{ThemeResource TextColorPrimaryDark}"
-							           Opacity="0.5"
-							           Text="{Binding FollowingCount,
-							                          FallbackValue=0}" />
-							<TextBlock HorizontalAlignment="Left"
-							           VerticalAlignment="Center"
-							           FontSize="12"
-							           Foreground="{ThemeResource TextColorPrimaryDark}"
-							           Text="FOLLOWING" />
-						</StackPanel>
-						<StackPanel Grid.Column="2"
-						            Margin="10, 5"
-						            Tag="Posts"
-						            Tapped="AccountDetails_Tapped">
-							<TextBlock HorizontalAlignment="Left"
-							           VerticalAlignment="Center"
-							           FontSize="24"
-							           Foreground="{ThemeResource TextColorPrimaryDark}"
-							           Opacity="0.5"
-							           Text="{Binding PostCount,
-							                          FallbackValue=0}" />
-							<TextBlock HorizontalAlignment="Left"
-							           VerticalAlignment="Center"
-							           FontSize="12"
-							           Foreground="{ThemeResource TextColorPrimaryDark}"
-							           Text="POSTS" />
-						</StackPanel>
-						<StackPanel Grid.Column="3"
-						            Margin="10, 5"
-						            Tag="Likes"
-						            Tapped="AccountDetails_Tapped">
-							<TextBlock HorizontalAlignment="Left"
-							           VerticalAlignment="Center"
-							           FontSize="24"
-							           Foreground="{ThemeResource TextColorPrimaryDark}"
-							           Opacity="0.5"
-							           Text="{Binding LikedPostCount,
-							                          FallbackValue=0}" />
-							<TextBlock HorizontalAlignment="Left"
-							           VerticalAlignment="Center"
-							           FontSize="12"
-							           Foreground="{ThemeResource TextColorPrimaryDark}"
-							           Text="LIKES" />
-						</StackPanel>
-						<StackPanel Grid.Column="4"
-						            Margin="10, 5"
-						            Tag="Followers"
-						            Tapped="AccountDetails_Tapped">
-							<TextBlock HorizontalAlignment="Left"
-							           VerticalAlignment="Center"
-							           FontSize="24"
-							           Foreground="{ThemeResource TextColorPrimaryDark}"
-							           Opacity="0.5"
-							           Text="{Binding FollowersCount,
-							                          FallbackValue=0}" />
-							<TextBlock HorizontalAlignment="Left"
-							           VerticalAlignment="Center"
-							           FontSize="12"
-							           Foreground="{ThemeResource TextColorPrimaryDark}"
-							           Text="FOLLOWERS" />
-						</StackPanel>
+						<TextBlock Grid.Column="1"
+						           FontWeight="Normal"
+						           Foreground="{ThemeResource TextColorPrimaryDark}"
+						           Style="{StaticResource Title}"
+						           Tag="Following"
+						           Tapped="AccountDetails_Tapped">
+							<Run Text="{Binding FollowingCount, FallbackValue=0}" />
+							<LineBreak />
+							<Run FontSize="12" Text="FOLLOWING" />
+						</TextBlock>
+						<TextBlock Grid.Column="2"
+						           FontWeight="Normal"
+						           Foreground="{ThemeResource TextColorPrimaryDark}"
+						           Style="{StaticResource Title}"
+						           Tag="Posts"
+						           Tapped="AccountDetails_Tapped">
+							<Run Text="{Binding PostCount, FallbackValue=0}" />
+							<LineBreak />
+							<Run FontSize="12" Text="POSTS" />
+						</TextBlock>
+						<TextBlock Grid.Column="3"
+						           FontWeight="Normal"
+						           Foreground="{ThemeResource TextColorPrimaryDark}"
+						           Style="{StaticResource Title}"
+						           Tag="Likes"
+						           Tapped="AccountDetails_Tapped">
+							<Run Text="{Binding LikedPostCount, FallbackValue=0}" />
+							<LineBreak />
+							<Run FontSize="12" Text="LIKES" />
+						</TextBlock>
+						<TextBlock Grid.Column="4"
+						           FontWeight="Normal"
+						           Foreground="{ThemeResource TextColorPrimaryDark}"
+						           Style="{StaticResource Title}"
+						           Tag="Followers"
+						           Tapped="AccountDetails_Tapped">
+							<Run Text="{Binding FollowersCount, FallbackValue=0}" />
+							<LineBreak />
+							<Run FontSize="12" Text="FOLLOWERS" />
+						</TextBlock>
 					</Grid>
 					<StackPanel Margin="0, 10" Background="{ThemeResource WindowBackgroundAccent}">
 						<StackPanel.ChildrenTransitions>
@@ -250,10 +223,7 @@
 							       Source="{ThemeResource InboxButtonAsset}"
 							       Stretch="UniformToFill" />
 							<TextBlock VerticalAlignment="Center"
-							           FontFamily="Segoe WP"
-							           FontSize="24"
-							           FontWeight="Thin"
-							           Foreground="{ThemeResource TextColorPrimaryDark}"
+							           Style="{StaticResource SubTitle}"
 							           Text="Inbox" />
 						</StackPanel>
 						<StackPanel Orientation="Horizontal" Tapped="Drafts_Tapped">
@@ -264,10 +234,7 @@
 							       Source="{ThemeResource DraftsButtonAsset}"
 							       Stretch="UniformToFill" />
 							<TextBlock VerticalAlignment="Center"
-							           FontFamily="Segoe WP"
-							           FontSize="24"
-							           FontWeight="Thin"
-							           Foreground="{ThemeResource TextColorPrimaryDark}"
+							           Style="{StaticResource SubTitle}"
 							           Text="Drafts" />
 						</StackPanel>
 						<StackPanel Orientation="Horizontal" Tapped="Queue_Tapped">
@@ -278,10 +245,7 @@
 							       Source="{ThemeResource QueueButtonAsset}"
 							       Stretch="UniformToFill" />
 							<TextBlock VerticalAlignment="Center"
-							           FontFamily="Segoe WP"
-							           FontSize="24"
-							           FontWeight="Thin"
-							           Foreground="{ThemeResource TextColorPrimaryDark}"
+							           Style="{StaticResource SubTitle}"
 							           Text="Queue" />
 						</StackPanel>
 						<StackPanel x:Name="Favs_List"
@@ -296,10 +260,7 @@
 							       Source="{ThemeResource FavAsset}"
 							       Stretch="UniformToFill" />
 							<TextBlock VerticalAlignment="Center"
-							           FontFamily="Segoe WP"
-							           FontSize="24"
-							           FontWeight="Thin"
-							           Foreground="{ThemeResource TextColorPrimaryDark}"
+							           Style="{StaticResource SubTitle}"
 							           Text="Favorite Blogs" />
 						</StackPanel>
 					</StackPanel>
@@ -307,7 +268,7 @@
 			</PivotItem>
 
 			<PivotItem x:Name="SearchPivot" Margin="0">
-				<Grid Margin="10, 10, 10, 0">
+				<Grid Margin="5, 5, 5, 0">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
@@ -337,27 +298,20 @@
 					          ScrollViewer.VerticalScrollMode="Enabled">
 						<GridView.ItemTemplate>
 							<DataTemplate>
-								<Border Margin="0, 0, 2, 2"
-								        BorderBrush="#0C000000"
-								        BorderThickness="1"
-								        Loaded="SetSpotlightItemDimensions"
-								        Tag="{Binding tag}"
-								        Tapped="SpotlightItem_Tapped">
-									<Grid>
-										<Image Source="{Binding promo_image}" Stretch="UniformToFill" />
-										<StackPanel Height="35"
-										            VerticalAlignment="Top"
-										            Background="#33000000">
-											<TextBlock Margin="10, 5"
-											           FontSize="18"
-											           FontWeight="Normal"
-											           Foreground="White"
-											           Style="{StaticResource LargeText}"
-											           Text="{Binding title}"
-											           TextTrimming="CharacterEllipsis" />
-										</StackPanel>
-									</Grid>
-								</Border>
+								<Grid Margin="0, 0, 2, 2"
+								      Loaded="SetSpotlightItemDimensions"
+								      Tag="{Binding tag}"
+								      Tapped="SpotlightItem_Tapped">
+									<Image Source="{Binding promo_image}" Stretch="UniformToFill" />
+									<StackPanel Height="35"
+									            VerticalAlignment="Top"
+									            Background="#33000000">
+										<TextBlock FontWeight="Normal"
+										           Foreground="White"
+										           Style="{StaticResource Body}"
+										           Text="{Binding title}" />
+									</StackPanel>
+								</Grid>
 							</DataTemplate>
 						</GridView.ItemTemplate>
 					</GridView>

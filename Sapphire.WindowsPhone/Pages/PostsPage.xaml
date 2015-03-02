@@ -23,7 +23,7 @@
 			           HorizontalAlignment="Left"
 			           VerticalAlignment="Center"
 			           Foreground="{ThemeResource TextColorPrimary}"
-			           Style="{StaticResource LargeText}"
+			           Style="{StaticResource Headline}"
 			           Text="Posts" />
 
 			<Image x:Name="ToTop"
@@ -112,7 +112,7 @@
 									           FontSize="18"
 									           FontWeight="Normal"
 									           Foreground="{ThemeResource TextColorPrimaryDark}"
-									           Style="{StaticResource LargeText}"
+									           Style="{StaticResource Headline}"
 									           Tag="{Binding Name}"
 									           Tapped="GoToBlog"
 									           Text="{Binding Name}"

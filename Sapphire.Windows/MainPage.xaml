@@ -55,9 +55,9 @@
                                             <ImageBrush Stretch="Fill" ImageSource="{Binding Path=avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
                                         </Ellipse.Fill>
                                     </Ellipse>
-                                    <TextBlock Text="{Binding title, FallbackValue=BlogName}"  TextAlignment="Center" TextTrimming="CharacterEllipsis" FontSize="28" Style="{StaticResource LargeText}" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding title, FallbackValue=BlogName}"  TextAlignment="Center" TextTrimming="CharacterEllipsis" FontSize="28" Style="{StaticResource Headline}" HorizontalAlignment="Center"/>
                                     <HyperlinkButton Content="{Binding url, FallbackValue=url}" NavigateUri="{Binding url, FallbackValue=http://www.tumblr.com}" HorizontalAlignment="Center" FontSize="20" Foreground="#FFFFFFFF}"/>
-                                    <TextBlock Text="{Binding description, FallbackValue=description}" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontSize="18" Style="{StaticResource LargeText}" TextWrapping="Wrap" MaxHeight="45" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="{Binding description, FallbackValue=description}" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontSize="18" Style="{StaticResource Headline}" TextWrapping="Wrap" MaxHeight="45" HorizontalAlignment="Center"/>
                                 </StackPanel>
                                 <Image Source="Assets/Nav/Blogs.png" VerticalAlignment="Top" HorizontalAlignment="Right" Height="35" Width="35" Stretch="Uniform" Margin="10" Tapped="ManageBlogs_Tapped"/>
                             </Grid>
@@ -185,9 +185,9 @@
                                         <ImageBrush Stretch="Fill" ImageSource="{Binding Path=avatar, FallbackValue={StaticResource DefaultAvatar}}"/>
                                     </Ellipse.Fill>
                                 </Ellipse>
-                                <TextBlock Text="{Binding title, FallbackValue=BlogName}"  TextAlignment="Center" TextTrimming="CharacterEllipsis" FontSize="28" Style="{StaticResource LargeText}" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding title, FallbackValue=BlogName}"  TextAlignment="Center" TextTrimming="CharacterEllipsis" FontSize="28" Style="{StaticResource Headline}" HorizontalAlignment="Center"/>
                                 <HyperlinkButton Content="{Binding url, FallbackValue=url}" NavigateUri="{Binding url, FallbackValue=http://www.tumblr.com}" HorizontalAlignment="Center" FontSize="20" Foreground="#FFFFFFFF}"/>
-                                <TextBlock Text="{Binding description, FallbackValue=description}" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontSize="18" Style="{StaticResource LargeText}" TextWrapping="Wrap" MaxHeight="45" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding description, FallbackValue=description}" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontSize="18" Style="{StaticResource Headline}" TextWrapping="Wrap" MaxHeight="45" HorizontalAlignment="Center"/>
                             </StackPanel>
                             <Image Source="Assets/Nav/Blogs.png" VerticalAlignment="Top" HorizontalAlignment="Right" Height="35" Width="35" Stretch="Uniform" Margin="10" Tapped="ManageBlogs_Tapped"/>
                         </Grid>
@@ -262,7 +262,7 @@
                                         <Grid>
                                             <Image Stretch="UniformToFill" Source="{Binding promo_image}"/>
                                             <StackPanel VerticalAlignment="Top" Background="#33000000" Height="35">
-                                                <TextBlock Margin="10, 5" Foreground="White" Text="{Binding title}" FontSize="18" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource LargeText}"/>
+                                                <TextBlock Margin="10, 5" Foreground="White" Text="{Binding title}" FontSize="18" TextTrimming="CharacterEllipsis" FontWeight="Normal" Style="{StaticResource Headline}"/>
                                             </StackPanel>
                                         </Grid>
                                     </Border>

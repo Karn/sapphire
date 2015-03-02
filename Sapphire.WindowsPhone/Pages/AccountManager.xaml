@@ -34,7 +34,7 @@
 					           VerticalAlignment="Top"
 					           FontSize="24"
 					           Foreground="{ThemeResource TextColorPrimary}"
-					           Style="{StaticResource LargeText}"
+					           Style="{StaticResource Headline}"
 					           Tag="{Binding}"
 					           Tapped="OtherOptions_Tapped"
 					           Text="remove"
@@ -56,7 +56,7 @@
 			           HorizontalAlignment="Left"
 			           VerticalAlignment="Center"
 			           Foreground="{ThemeResource TextColorPrimary}"
-			           Style="{StaticResource LargeText}"
+			           Style="{StaticResource Headline}"
 			           Text="Account" />
 		</Grid>
 
@@ -96,7 +96,7 @@
 							           FontSize="18"
 							           FontWeight="Normal"
 							           Foreground="{ThemeResource TextColorPrimaryDark}"
-							           Style="{StaticResource LargeText}"
+							           Style="{StaticResource Headline}"
 							           Text="{Binding}"
 							           TextTrimming="CharacterEllipsis" />
 							<Button x:Name="SelectAccountButton"

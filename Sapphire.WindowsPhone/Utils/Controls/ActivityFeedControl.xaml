@@ -34,10 +34,10 @@
 					       Source="ms-appx:///Assets/AReblog.png" />
 				</Grid>
 				<TextBlock Grid.Column="1"
-				           Style="{StaticResource SmallText}"
+				           Style="{StaticResource Body}"
 				           Tag="{Binding from_tumblelog_name}"
 				           Tapped="GoToBlog">
-					<Run FontWeight="Normal" Text="{Binding from_tumblelog_name}" />
+					<Run Text="{Binding from_tumblelog_name}" />
 					<Run Text="reblogged your post." />
 				</TextBlock>
 				<Image Grid.Column="2"
@@ -73,10 +73,10 @@
 					       Source="ms-appx:///Assets/ALiked.png" />
 				</Grid>
 				<TextBlock Grid.Column="1"
-				           Style="{StaticResource SmallText}"
+				           Style="{StaticResource Body}"
 				           Tag="{Binding from_tumblelog_name}"
 				           Tapped="GoToBlog">
-					<Run FontWeight="Normal" Text="{Binding from_tumblelog_name}" />
+					<Run Text="{Binding from_tumblelog_name}" />
 					<Run Text="liked your post." />
 				</TextBlock>
 				<Image Grid.Column="2"
@@ -111,10 +111,10 @@
 					       Source="ms-appx:///Assets/AFollowing.png" />
 				</Grid>
 				<TextBlock Grid.Column="1"
-				           Style="{StaticResource SmallText}"
+				           Style="{StaticResource Body}"
 				           Tag="{Binding from_tumblelog_name}"
 				           Tapped="GoToBlog">
-					<Run FontWeight="Normal" Text="{Binding from_tumblelog_name}" />
+					<Run Text="{Binding from_tumblelog_name}" />
 					<Run Text="started following you." />
 				</TextBlock>
 				<Grid Grid.Column="2"
@@ -156,10 +156,10 @@
 					       Source="ms-appx:///Assets/AMention.png" />
 				</Grid>
 				<TextBlock Grid.Column="1"
-				           Style="{StaticResource SmallText}"
+				           Style="{StaticResource Body}"
 				           Tag="{Binding from_tumblelog_name}"
 				           Tapped="GoToBlog">
-					<Run FontWeight="Normal" Text="{Binding from_tumblelog_name}" />
+					<Run Text="{Binding from_tumblelog_name}" />
 					<Run Text="mentioned you in a post." />
 				</TextBlock>
 				<Image Grid.Column="2"
@@ -195,10 +195,10 @@
 					       Source="ms-appx:///Assets/AReply.png" />
 				</Grid>
 				<TextBlock Grid.Column="1"
-				           Style="{StaticResource SmallText}"
+				           Style="{StaticResource Body}"
 				           Tag="{Binding from_tumblelog_name}"
 				           Tapped="GoToBlog">
-					<Run FontWeight="Normal" Text="{Binding from_tumblelog_name}" />
+					<Run Text="{Binding from_tumblelog_name}" />
 					<Run Text="answerd your post." />
 				</TextBlock>
 				<Image Grid.Column="2"
@@ -232,10 +232,10 @@
 					       Source="ms-appx:///Assets/AFanMail.png" />
 				</Grid>
 				<TextBlock Grid.Column="1"
-				           Style="{StaticResource SmallText}"
+				           Style="{StaticResource Body}"
 				           Tag="{Binding from_tumblelog_name}"
 				           Tapped="GoToBlog">
-					<Run FontWeight="Normal" Text="{Binding from_tumblelog_name}" />
+					<Run Text="{Binding from_tumblelog_name}" />
 					<Run Text="sent you fan mail." />
 				</TextBlock>
 				<Image Grid.Column="2"
@@ -277,17 +277,17 @@
 						      VerticalAlignment="Center"
 						      Background="{ThemeResource WindowBackgroundAccent}"
 						      Loaded="Border_Loaded">
-							<Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
-								<TextBlock FontWeight="Normal"
-								           Style="{StaticResource SmallText}"
-								           Text="{Binding Key,
-								                          Converter={StaticResource RelativeDate}}" />
-								<TextBlock HorizontalAlignment="Right"
-								           FontWeight="Normal"
-								           Style="{StaticResource SmallText}"
-								           Text="{Binding Key,
-								                          Converter={StaticResource ToPrettyDate}}" />
-							</Grid>
+							<TextBlock FontWeight="Normal"
+							           Padding="10, 4"
+							           Style="{StaticResource BodyBold}"
+							           Text="{Binding Key,
+							                          Converter={StaticResource RelativeDate}}" />
+							<TextBlock HorizontalAlignment="Right"
+							           FontWeight="Normal"
+							           Padding="10, 4"
+							           Style="{StaticResource BodyBold}"
+							           Text="{Binding Key,
+							                          Converter={StaticResource ToPrettyDate}}" />
 						</Grid>
 					</DataTemplate>
 				</GroupStyle.HeaderTemplate>

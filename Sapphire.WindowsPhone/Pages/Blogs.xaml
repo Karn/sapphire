@@ -21,7 +21,7 @@
 		           HorizontalAlignment="Left"
 		           VerticalAlignment="Center"
 		           Foreground="{ThemeResource TextColorPrimary}"
-		           Style="{StaticResource LargeText}"
+		           Style="{StaticResource Headline}"
 		           Text="Blogs" />
 		<ListView x:Name="List"
 		          Grid.Row="1"
@@ -56,7 +56,7 @@
 							           FontSize="18"
 							           FontWeight="Normal"
 							           Foreground="{ThemeResource TextColorPrimaryDark}"
-							           Style="{StaticResource LargeText}"
+							           Style="{StaticResource Headline}"
 							           Text="{Binding Name}"
 							           TextTrimming="CharacterEllipsis" />
 							<TextBlock Margin="0, -10, 0, 0"
