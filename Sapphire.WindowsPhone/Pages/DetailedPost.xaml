@@ -41,12 +41,40 @@
 
 		<DataTemplate x:Key="NotesContainer">
 			<StackPanel Margin="0, 4, 0, 0">
-				<TextBlock Margin="7, 10"
-				           FontSize="26"
-				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           Style="{StaticResource Headline}"
-				           Text="Notes"
-				           TextWrapping="Wrap" />
+				<Grid Height="40" Tag="{Binding special_case}">
+					<TextBlock x:Name="NoteInfo" Style="{StaticResource SubTitle}">
+						<Run Text="{Binding note_count}" />
+						<Run Text="notes" />
+					</TextBlock>
+					<StackPanel x:Name="NormalCommands"
+					            HorizontalAlignment="Right"
+					            Orientation="Horizontal"
+					            Tag="{Binding reblog_key}">
+						<controls:ToggleControl x:Name="ReblogButton"
+						                        Margin="5, 0"
+						                        Click="ReblogButton_Click"
+						                        EnabledChecked="{StaticResource RebloggedAsset}"
+						                        EnabledUnchecked="{StaticResource ReblogAsset}"
+						                        IsChecked="False"
+						                        Tag="{Binding id,
+						                                      Mode=TwoWay}" />
+						<controls:ToggleControl x:Name="LikeButton"
+						                        Margin="5, 0"
+						                        Click="LikeButton_Click"
+						                        IsChecked="{Binding liked,
+						                                            FallbackValue=False,
+						                                            Mode=TwoWay}"
+						                        Tag="{Binding id}" />
+						<controls:ToggleControl x:Name="DeleteButton"
+						                        Margin="0, 0, 5, 0"
+						                        Click="DeleteButton_Click"
+						                        EnabledChecked="{StaticResource DeleteButtonAsset}"
+						                        EnabledUnchecked="{StaticResource DeleteButtonAsset}"
+						                        Tag="{Binding id}"
+						                        Visibility="{Binding IsEditable,
+						                                             FallbackValue=Collapsed}" />
+					</StackPanel>
+				</Grid>
 				<ListView ItemsSource="{Binding notes}">
 					<ListView.ItemTemplate>
 						<DataTemplate>
@@ -85,10 +113,6 @@
 
 		<Grid Background="{StaticResource ColorPrimary}" Canvas.ZIndex="99">
 			<TextBlock x:Name="PageTitle"
-			           Margin="15, 0, 0, 0"
-			           HorizontalAlignment="Left"
-			           VerticalAlignment="Center"
-			           Foreground="{ThemeResource TextColorPrimary}"
 			           Style="{StaticResource Headline}"
 			           Text="Posts Details" />
 		</Grid>
@@ -99,9 +123,10 @@
 				                ContentTemplateSelector="{StaticResource DetailedPostTemplateSelector}"
 				                DataContext="{Binding}"
 				                Padding="5, 0" />
-				<ContentPresenter VerticalAlignment="Bottom" ContentTemplate="{StaticResource NotesContainer}" />
+				<ContentPresenter HorizontalAlignment="Stretch"
+				                  VerticalAlignment="Bottom"
+				                  ContentTemplate="{StaticResource NotesContainer}" />
 			</StackPanel>
-
 		</ScrollViewer>
 
 		<Grid Grid.Row="2"

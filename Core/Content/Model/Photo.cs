@@ -12,9 +12,19 @@ namespace Core.Content.Model {
 		public int ColSpan { get; set; }
 		public int RowSpan { get; set; }
 		public OriginalSize original_size { get; set; }
+
 		public class AltSize {
+
 			public int width { get; set; }
-			public int height { get; set; }
+			private int _height = 0;
+			public int height {
+				get {
+					return _height;
+				}
+				set {
+					_height = (value / width) * (int)Window.Current.Bounds.Width;
+				}
+			}
 			public string url { get; set; }
 		}
 

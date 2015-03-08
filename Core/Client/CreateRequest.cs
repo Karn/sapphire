@@ -1,6 +1,7 @@
 ﻿using Core.AuthenticationManager;
 using Core.Content;
 using Core.Content.Model;
+using Core.Service.Exceptions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -29,31 +30,29 @@ namespace Core.Client {
 		}
 
 		public static async Task<bool> RetrieveAccount(string account) {
-			try {
-				for (int i = 0; i < 5; i++) {
-					var requestResult = await RequestService.GET("https://api.tumblr.com/v2/user/info");
+			for (int i = 0; i < 5; i++) {
+				var requestResult = await RequestService.GET("https://api.tumblr.com/v2/user/info");
 
-					if (requestResult.StatusCode == HttpStatusCode.OK) {
+				if (requestResult.StatusCode == HttpStatusCode.OK) {
 
-						var parsedData = JsonConvert.DeserializeObject<Responses.GetInfo>(await requestResult.Content.ReadAsStringAsync());
+					var parsedData = JsonConvert.DeserializeObject<Responses.GetInfo>(await requestResult.Content.ReadAsStringAsync());
 
-						UserPreferences.UserBlogs.Clear();
+					UserPreferences.UserBlogs.Clear();
 
-						foreach (var b in parsedData.response.user.AccountBlogs) {
-							b.FollowingCount = parsedData.response.user.BlogsFollowingCount;
-							b.LikedPostCount = parsedData.response.user.LikedPostCount;
+					foreach (var b in parsedData.response.user.AccountBlogs) {
+						b.FollowingCount = parsedData.response.user.BlogsFollowingCount;
+						b.LikedPostCount = parsedData.response.user.LikedPostCount;
 
-							UserPreferences.UserBlogs.Add(b);
-							if (b.Name == account || (UserPreferences.CurrentBlog == null && b.IsPrimaryBlog) || (b.Name == UserPreferences.CurrentBlog.Name)) {
-								UserPreferences.CurrentBlog = b;
-							}
+						UserPreferences.UserBlogs.Add(b);
+						if (b.Name == account || (UserPreferences.CurrentBlog == null && b.IsPrimaryBlog) || (b.Name == UserPreferences.CurrentBlog.Name)) {
+							UserPreferences.CurrentBlog = b;
 						}
-						if (UserPreferences.UserBlogs.Count > 0)
-							return true;
-						Debug.WriteLine("Rerunning call due to previous faliure. " + (i + 1));
 					}
+					if (UserPreferences.UserBlogs.Count > 0)
+						return true;
+				} else if (requestResult.StatusCode == HttpStatusCode.Forbidden) {
+					throw new Exception("Authorization Failed, check credentials.");
 				}
-			} catch (Exception ex) {
 			}
 			return false;
 		}
@@ -176,75 +175,107 @@ namespace Core.Client {
 				.response.blogs : new List<Blog>();
 		}
 
-		public static async Task<List<Post>> RetrievePosts(string url, string lastPostID = "", string post_id = "") {
-			var result = new HttpResponseMessage();
-			if (!string.IsNullOrWhiteSpace(post_id)) {
-				var request = string.Format(
-				"https://api.tumblr.com/v2/blog/{0}.tumblr.com/posts?id={1}&notes_info=true&reblog_info=true&api_key={2}",
-				UserPreferences.CurrentBlog.Name, post_id, Authentication.ConsumerKey);
-				result = await Client.GetAsync(new Uri(request));
-				Debug.WriteLine(await result.Content.ReadAsStringAsync());
-			} else if (url.Contains("/user/dashboard") || url.Contains("/submission") || url.Contains("/draft") || url.Contains("/queue")) {
-				result = string.IsNullOrEmpty(lastPostID) ?
-					await RequestService.GET(url) : await RequestService.GET(url, "max_id=" + lastPostID);
-			} else if (url.Contains("/user/likes")) {
-				result = string.IsNullOrEmpty(lastPostID) ?
-					await RequestService.GET(url) : await RequestService.GET(url, "offset=" + lastPostID);
-			} else if (url.Contains("/tagged")) {
-				var searchTag = url.Split('?')[1];
-				var newUrl = url.Split('?')[0].Replace("?", "");
-				newUrl = newUrl + "?api_key=" + Authentication.ConsumerKey + "&" + searchTag +
-					(!string.IsNullOrEmpty(lastPostID) ? "&before=" + lastPostID : "");
+		public static async Task<List<Post>> RetrievePosts(string url) {
+			return await RetrievePosts(url, new Service.Requests.RequestParameters());
+		}
 
-				result = await Client.GetAsync(new Uri(newUrl));
-			} else {
-				result = string.IsNullOrEmpty(lastPostID) ?
-					await RequestService.GET(url, "api_key=" + Authentication.ConsumerKey) :
-					await RequestService.GET(url, "offset=" + lastPostID + "&api_key=" + Authentication.ConsumerKey);
-			}
+		public static async Task<List<Post>> RetrievePosts(string url, Core.Service.Requests.RequestParameters parameters) {
 
+			HttpResponseMessage result = await RequestService.GET(url, parameters);
+			Debug.WriteLine(await result.Content.ReadAsStringAsync());
 			if (result.StatusCode == HttpStatusCode.OK) {
 				try {
 					var PostList = new List<Post>();
 					var resultAsString = await result.Content.ReadAsStringAsync();
-					Debug.WriteLine(resultAsString);
 					if (url.Contains("/likes")) {
 						PostList = JsonConvert.DeserializeObject<Responses.GetLikes>(resultAsString).response.liked_posts;
 					} else if (url.Contains("/tagged")) {
 						PostList = JsonConvert.DeserializeObject<Responses.GetTagged>(resultAsString).response;
 					} else {
-						var posts = JsonConvert.DeserializeObject<Responses.GetPosts>(resultAsString);
-						PostList = posts.response.posts;
+						PostList = JsonConvert.DeserializeObject<Responses.GetPosts>(resultAsString).response.posts;
 						if (url.Contains("/draft") || url.Contains("/queue")) {
-							foreach (var post in posts.response.posts)
+							foreach (var post in PostList)
 								post.special_case = "draft";
 						}
 					}
 
-					foreach (var p in PostList) {
-						if (p.type == "photo") {
-							if (p.path_to_low_res_pic.url.Contains(".gif")) {
-								p.type = "gif";
-							}
-							if (p.photos.Count > 1) {
-								p.type = "photoset";
-								p.photoset_layout = p.photoset_layout.Replace('1', '6').Replace('2', '4').Replace("3", "222").Replace("4", "33");
-								for (var i = 0; i < p.photoset_layout.Length; i++) {
-									p.photos.ElementAt(i).ColSpan = int.Parse(p.photoset_layout.ElementAt(i).ToString());	//Set the column span for this object
-								}
-							}
-						} else if (p.type == "video") {
-							if (p.video_type == "youtube")
-								p.type = "youtube";
-						} else if (p.type == "answer")
-							p.body = p.question;
-					}
-					return PostList;
+					return ConfigurePosts(PostList);
 				} catch (Exception ex) {
 				}
-			} else {
 			}
-			return new List<Post>();
+
+			return null;
+		}
+
+		//public static async Task<List<Post>> RetrievePosts(string url, string lastPostID = "", string post_id = "") {
+		//	var result = new HttpResponseMessage();
+		//	if (!string.IsNullOrWhiteSpace(post_id)) {
+		//		var request = string.Format(
+		//		"https://api.tumblr.com/v2/blog/{0}.tumblr.com/posts?id={1}&notes_info=true&reblog_info=true&api_key={2}",
+		//		UserPreferences.CurrentBlog.Name, post_id, Authentication.ConsumerKey);
+		//		result = await Client.GetAsync(new Uri(request));
+		//	} else if (url.Contains("/user/dashboard") || url.Contains("/submission") || url.Contains("/draft") || url.Contains("/queue")) {
+		//		result = string.IsNullOrEmpty(lastPostID) ?
+		//			await RequestService.GET(url) : await RequestService.GET(url, "max_id=" + lastPostID);
+		//	} else if (url.Contains("/user/likes")) {
+		//		result = string.IsNullOrEmpty(lastPostID) ?
+		//			await RequestService.GET(url) : await RequestService.GET(url, "offset=" + lastPostID);
+		//	} else if (url.Contains("/tagged")) {
+		//		var searchTag = url.Split('?')[1];
+		//		var newUrl = url.Split('?')[0].Replace("?", "");
+		//		newUrl = newUrl + "?api_key=" + Authentication.ConsumerKey + "&" + searchTag +
+		//			(!string.IsNullOrEmpty(lastPostID) ? "&before=" + lastPostID : "");
+		//		result = await Client.GetAsync(new Uri(newUrl));
+		//	} else {
+		//		result = string.IsNullOrEmpty(lastPostID) ?
+		//			await RequestService.GET(url, "api_key=" + Authentication.ConsumerKey) :
+		//			await RequestService.GET(url, "offset=" + lastPostID + "&api_key=" + Authentication.ConsumerKey);
+		//	}
+
+		//	if (result.StatusCode == HttpStatusCode.OK) {
+		//		try {
+		//			var PostList = new List<Post>();
+		//			var resultAsString = await result.Content.ReadAsStringAsync();
+		//			if (url.Contains("/likes")) {
+		//				PostList = JsonConvert.DeserializeObject<Responses.GetLikes>(resultAsString).response.liked_posts;
+		//			} else if (url.Contains("/tagged")) {
+		//				PostList = JsonConvert.DeserializeObject<Responses.GetTagged>(resultAsString).response;
+		//			} else {
+		//				PostList = JsonConvert.DeserializeObject<Responses.GetPosts>(resultAsString).response.posts;
+		//				if (url.Contains("/draft") || url.Contains("/queue")) {
+		//					foreach (var post in PostList)
+		//						post.special_case = "draft";
+		//				}
+		//			}
+
+		//			return ConfigurePosts(PostList);
+		//		} catch (Exception ex) {
+		//		}
+		//	} else {
+		//	}
+		//	return new List<Post>();
+		//}
+
+		public static List<Post> ConfigurePosts(List<Post> posts) {
+			foreach (var p in posts) {
+				if (p.type == "photo") {
+					if (p.path_to_low_res_pic.url.Contains(".gif")) {
+						p.type = "gif";
+					}
+					if (p.photos.Count > 1) {
+						p.type = "photoset";
+						p.photoset_layout = p.photoset_layout.Replace('1', '6').Replace('2', '4').Replace("3", "222").Replace("4", "33");
+						for (var i = 0; i < p.photoset_layout.Length; i++) {
+							p.photos.ElementAt(i).ColSpan = int.Parse(p.photoset_layout.ElementAt(i).ToString());	//Set the column span for this object
+						}
+					}
+				} else if (p.type == "video") {
+					if (p.video_type == "youtube")
+						p.type = "youtube";
+				} else if (p.type == "answer")
+					p.body = p.question;
+			}
+			return posts;
 		}
 
 		public static async Task<Blog> GetBlog(string name) {
@@ -271,9 +302,8 @@ namespace Core.Client {
 					UserPreferences.CachedSpotlight = result;
 					return JsonConvert.DeserializeObject<Responses.GetSpotlight>(result).response;
 				}
-			} else
-				return JsonConvert.DeserializeObject<Responses.GetSpotlight>(UserPreferences.CachedSpotlight).response;
-			return new List<Responses.SpotlightResponse>();
+			}
+			return JsonConvert.DeserializeObject<Responses.GetSpotlight>(UserPreferences.CachedSpotlight).response;
 		}
 
 		public static async Task<List<Responses.SpotlightResponse>> TagDiscovery(bool forceRefresh = false) {

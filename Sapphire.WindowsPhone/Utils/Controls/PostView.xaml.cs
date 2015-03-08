@@ -95,7 +95,7 @@ namespace Sapphire.Utils.Controls {
 			scrollViewer.SizeChanged -= scrollViewer_SizeChanged;
 			scrollViewer.ViewChanged -= scrollViewer_ViewChanged;
 			textBlock1.Visibility = Visibility.Collapsed;
-			Posts.ItemsSource = await CreateRequest.RetrievePosts("", "", post_id);
+			//Posts.ItemsSource = await CreateRequest.RetrievePosts("", "", post_id);
 			App.HideStatus();
 		}
 
@@ -116,7 +116,7 @@ namespace Sapphire.Utils.Controls {
 		private void GoToPostDetails(object sender, TappedRoutedEventArgs e) {
 			if (!IsSinglePost && ((FrameworkElement)sender).Tag != null) {
 				var frame = Window.Current.Content as Frame;
-				if (!frame.Navigate(typeof(Pages.PostDetails), ((FrameworkElement)sender).Tag.ToString()))
+				if (!frame.Navigate(typeof(Pages.DetailedPost), ((FrameworkElement)sender).Tag.ToString()))
 					Debug.WriteLine("Failed to Navigate");
 			}
 		}

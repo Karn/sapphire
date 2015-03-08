@@ -43,8 +43,17 @@ namespace Sapphire.Utils.Misc {
 						var posts = new List<Post>();
 						if (string.IsNullOrEmpty(LastPostID))
 							posts = await CreateRequest.RetrievePosts(URL);
-						else
-							posts = await CreateRequest.RetrievePosts(URL, LastPostID);
+						else {
+							var _key = "offset";
+							if (URL.Contains("/user/dashboard") || URL.Contains("/submission") || URL.Contains("/draft") || URL.Contains("/queue")) {
+								_key = "max_id";
+							} else if (URL.Contains("/tagged")) {
+								_key = "before";
+							}
+							posts = await CreateRequest.RetrievePosts(URL, new Core.Service.Requests.RequestParameters() {
+								{_key, LastPostID }
+							});
+						}
 
 						if (posts.Count != 0) {
 							foreach (var post in posts)

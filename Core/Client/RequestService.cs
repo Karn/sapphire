@@ -19,6 +19,45 @@ namespace Core.Client {
 
 		private CancellationTokenSource CancellationToken = new CancellationTokenSource();
 
+		public static async Task<HttpResponseMessage> GET(string URL, Service.Requests.RequestParameters parameters) {
+			try {
+				using (var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate })) {
+					client.MaxResponseContentBufferSize = int.MaxValue;
+					client.DefaultRequestHeaders.ExpectContinue = false;
+
+					string nonce = Authentication.Utils.GetNonce();
+					string timeStamp = Authentication.Utils.GetTimeStamp();
+					var requestParameters = parameters.ToString();
+					parameters.AddDefaults(nonce, timeStamp);
+					var signatureParameters = "GET&" + Authentication.Utils.UrlEncode(URL) + "&" +
+						Authentication.Utils.UrlEncode(parameters.ToString());
+
+					var authenticationData = RequestParameters.AuthenticationData(nonce, timeStamp,
+						Authentication.Utils.GenerateSignature(signatureParameters));
+
+					var requestMessage = new HttpRequestMessage() {
+						Method = HttpMethod.Get,
+						RequestUri = new Uri(URL +
+						(!string.IsNullOrEmpty(requestParameters) ? "?" + requestParameters : ""))
+					};
+
+					requestMessage.Headers.Add("Accept-Encoding", "gzip,deflate");
+					requestMessage.Headers.Add("User-Agent", "Android");
+					requestMessage.Headers.Add("X-Version", "tablet/3.8.2/0/4.0.4");
+					requestMessage.Headers.Add("X-YUser-Agent", "Dalvik/1.6.0 (Linux; U; Android 4.0.4; LePanII Build/IMM76D)/Tumblr/tablet/3.8.2/0/4.0.4");
+					requestMessage.Headers.Add("X-Features", "AUTO_PLAY_VIDEO=B&SSL=B&TOUR_GUIDE=A&POST_ACTION_BUTTON=A");
+					requestMessage.Headers.Authorization = new AuthenticationHeaderValue("OAuth", authenticationData);
+					requestMessage.Headers.IfModifiedSince = DateTime.UtcNow.Date;
+
+					Debug.WriteLine(requestMessage);
+
+					return await client.SendAsync(requestMessage);
+				}
+			} catch (Exception ex) {
+				return new HttpResponseMessage() { StatusCode = HttpStatusCode.NotFound };
+			}
+		}
+
 		public static async Task<HttpResponseMessage> GET(string URL, string additionalParameters = "", CancellationTokenSource cToken = null) {
 			try {
 				using (var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate })) {
@@ -105,17 +144,6 @@ namespace Core.Client {
 						Method = HttpMethod.Post,
 						RequestUri = new Uri(URL)
 					};
-
-					//foreach (var file in mediaFiles) {
-					//    byte[] fileBytes = null;
-					//    using (IRandomAccessStreamWithContentType stream = await file.OpenReadAsync()) {
-					//        fileBytes = new byte[stream.Size];
-					//        using (DataReader reader = new DataReader(stream)) {
-					//            await reader.LoadAsync((uint)stream.Size);
-					//            reader.ReadBytes(fileBytes);
-					//        }
-					//    }
-					//}
 
 					requestMessage.Headers.Authorization = new AuthenticationHeaderValue("OAuth", authenticationData);
 					string boundary = "---------------------------7dd36f1721dc0";

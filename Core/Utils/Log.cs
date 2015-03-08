@@ -19,6 +19,7 @@ namespace Core.Utils {
 		/// <param name="message">Message to describe an error.</param>
 		public static void e(string message) {
 			Debug.WriteLine("[ERROR]: " + message);
+			Analytics.GetInstance().ReportException(message);
 		}
 
 		/// <summary>

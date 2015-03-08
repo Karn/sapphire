@@ -82,7 +82,16 @@ namespace Core.Content.Model {
 		public string url { get; set; }
 		public string description { get; set; }
 		public string text { get; set; }
-		public string source { get; set; }
+
+		private string _source { get; set; }
+		public string source {
+			get {
+				return (!string.IsNullOrWhiteSpace(_source) ? "- " + _source : "");
+			}
+			set {
+				_source = value;
+			}
+		}
 		public Photo.AltSize path_to_low_res_pic {
 			get {
 				try {

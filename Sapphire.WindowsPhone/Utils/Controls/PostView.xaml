@@ -76,20 +76,12 @@
 
 		<DataTemplate x:Key="Text">
 			<StackPanel Background="{ThemeResource PostBG}">
-				<TextBlock FontSize="20"
-				           FontWeight="SemiBold"
-				           Foreground="{StaticResource TextColorPrimaryDark}"
-				           Padding="8"
-				           Style="{StaticResource StandardText}"
+				<TextBlock Style="{StaticResource SubTitle}"
 				           TextWrapping="WrapWholeWords"
 				           Visibility="{Binding title,
 				                                Converter={StaticResource CaptionConverter}}"
 				           misc:TextFormatter.Text="{Binding title}" />
-				<TextBlock Margin="10, 5, 10, 10"
-				           FontSize="20"
-				           FontWeight="Light"
-				           Foreground="{StaticResource TextColorPrimaryDark}"
-				           LineHeight="18"
+				<TextBlock Style="{StaticResource Body}"
 				           TextWrapping="Wrap"
 				           Visibility="{Binding body,
 				                                Converter={StaticResource CaptionConverter}}"
@@ -100,7 +92,8 @@
 		<DataTemplate x:Key="Photo">
 			<Image FlyoutBase.AttachedFlyout="{StaticResource SaveToPhoneFlyout}"
 			       Holding="Image_Holding"
-			       Source="{Binding path_to_low_res_pic.url}" />
+			       Source="{Binding path_to_low_res_pic.url,
+			                        FallbackValue={StaticResource DefaultPattern}}" />
 		</DataTemplate>
 
 		<DataTemplate x:Key="Gif">
@@ -155,53 +148,22 @@
 		</DataTemplate>
 
 		<DataTemplate x:Key="Quote">
-			<Grid Background="{ThemeResource PostBG}">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-				</Grid.RowDefinitions>
-				<TextBlock Margin="0, -20"
-				           FontSize="100"
-				           FontWeight="SemiBold"
-				           Foreground="#FF529ECC"
-				           Opacity="0.3"
-				           Padding="0"
-				           RenderTransformOrigin="0.5,0.5"
-				           Style="{StaticResource StandardText}"
-				           Text="''"
-				           TextWrapping="WrapWholeWords" />
-				<TextBlock Margin="0, 20"
-				           FontSize="20"
-				           FontWeight="SemiBold"
-				           Foreground="{StaticResource TextColorPrimaryDark}"
-				           Padding="8"
-				           Style="{StaticResource StandardText}"
+			<StackPanel Background="{ThemeResource PostBG}">
+				<TextBlock FontStyle="Italic"
+				           FontWeight="Normal"
+				           Padding="16, 16, 16, 8"
+				           Style="{StaticResource SubTitle}"
 				           TextWrapping="WrapWholeWords"
 				           Visibility="{Binding text,
 				                                Converter={StaticResource CaptionConverter}}"
 				           misc:TextFormatter.Text="{Binding text}" />
-				<TextBlock Margin="0"
-				           HorizontalAlignment="Right"
-				           VerticalAlignment="Bottom"
-				           FontSize="100"
-				           FontWeight="SemiBold"
-				           Foreground="#FF529ECC"
-				           Opacity="0.3"
-				           Padding="0"
-				           Style="{StaticResource StandardText}"
-				           Text="''"
-				           TextWrapping="WrapWholeWords" />
-				<TextBlock Grid.Row="1"
-				           Margin="10, 5, 10, 10"
-				           FontSize="20"
-				           FontWeight="Light"
-				           Foreground="{StaticResource TextColorPrimaryDark}"
-				           LineHeight="18"
+				<TextBlock Padding="16, 0"
+				           Style="{StaticResource Caption}"
 				           TextWrapping="Wrap"
 				           Visibility="{Binding source,
 				                                Converter={StaticResource CaptionConverter}}"
 				           misc:TextFormatter.Text="{Binding source}" />
-			</Grid>
+			</StackPanel>
 		</DataTemplate>
 
 		<DataTemplate x:Key="Link">
@@ -209,33 +171,19 @@
 				<HyperlinkButton HorizontalAlignment="Stretch"
 				                 Background="{ThemeResource ColorPrimary}"
 				                 NavigateUri="{Binding url}"
-				                 Padding="16">
-					<StackPanel>
-						<TextBlock Grid.Row="0"
-						           Margin="10, 0, 10, 0"
-						           FontSize="16"
-						           Foreground="{ThemeResource TextColorPrimary}"
-						           TextAlignment="Center"
-						           TextWrapping="WrapWholeWords"
-						           Visibility="{Binding title,
-						                                Converter={StaticResource CaptionConverter}}"
-						           misc:CaptionFormatter.Text="{Binding title}" />
-						<TextBlock Grid.Row="1"
-						           Margin="10, 0, 10, 0"
-						           FontSize="16"
-						           Foreground="{ThemeResource TextColorPrimary}"
-						           Opacity="0.75"
-						           TextAlignment="Center"
-						           TextWrapping="WrapWholeWords"
-						           Visibility="{Binding title,
-						                                Converter={StaticResource CaptionConverter}}"
-						           misc:CaptionFormatter.Text="{Binding url}" />
-					</StackPanel>
+				                 Padding="10"
+				                 Visibility="{Binding title,
+				                                      Converter={StaticResource CaptionConverter}}">
+					<TextBlock FontWeight="Normal"
+					           Foreground="{ThemeResource TextColorPrimary}"
+					           Style="{StaticResource SubTitle}"
+					           TextAlignment="Center"
+					           TextWrapping="WrapWholeWords"
+					           Visibility="{Binding title,
+					                                Converter={StaticResource CaptionConverter}}"
+					           misc:CaptionFormatter.Text="{Binding title}" />
 				</HyperlinkButton>
-				<TextBlock Margin="10, 5, 10, 0"
-				           FontSize="16"
-				           FontWeight="Light"
-				           Foreground="{ThemeResource TextColorPrimaryDark}"
+				<TextBlock Style="{StaticResource Caption}"
 				           TextWrapping="WrapWholeWords"
 				           Visibility="{Binding description,
 				                                Converter={StaticResource CaptionConverter}}"
@@ -481,18 +429,18 @@
 												<StackPanel Grid.Row="1"
 												            VerticalAlignment="Bottom"
 												            Background="{ThemeResource ColorPrimary}">
-													<TextBlock Margin="20, 25, 20, 16"
-													           Style="{StaticResource Title}"
+													<TextBlock Foreground="{ThemeResource TextColorPrimary}"
+													           Style="{StaticResource SubTitle}"
 													           Tag="{Binding id}"
 													           Tapped="OtherOptions_Tapped"
 													           Text="post details" />
-													<TextBlock Margin="20, 8, 20, 16"
-													           Style="{StaticResource Title}"
+													<TextBlock Foreground="{ThemeResource TextColorPrimary}"
+													           Style="{StaticResource SubTitle}"
 													           Tag="{Binding post_url}"
 													           Tapped="OtherOptions_Tapped"
 													           Text="share" />
-													<TextBlock Margin="20, 8, 20, 25"
-													           Style="{StaticResource Title}"
+													<TextBlock Foreground="{ThemeResource TextColorPrimary}"
+													           Style="{StaticResource SubTitle}"
 													           Tag="{Binding post_url}"
 													           Tapped="OtherOptions_Tapped"
 													           Text="open in browser" />
@@ -558,7 +506,8 @@
 										                     EnabledChecked="{StaticResource DeleteButtonAsset}"
 										                     EnabledUnchecked="{StaticResource DeleteButtonAsset}"
 										                     Tag="{Binding id}"
-										                     Visibility="{Binding IsEditable}" />
+										                     Visibility="{Binding IsEditable,
+										                                          FallbackValue=Collapsed}" />
 									</StackPanel>
 									<StackPanel x:Name="DraftCommands"
 									            HorizontalAlignment="Right"
