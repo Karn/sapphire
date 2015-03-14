@@ -127,22 +127,23 @@
 			<miscl:VariableGridView x:Name="itemGridView"
 			                        HorizontalContentAlignment="Stretch"
 			                        ItemsSource="{Binding photos}">
+
 				<GridView.ItemsPanel>
 					<ItemsPanelTemplate>
 						<VariableSizedWrapGrid Loaded="VariableSizedWrapGrid_Loaded" Orientation="Horizontal" />
 					</ItemsPanelTemplate>
 				</GridView.ItemsPanel>
+
 				<GridView.ItemTemplate>
 					<DataTemplate>
-						<Grid Background="Azure">
-							<Image HorizontalAlignment="Stretch"
-							       FlyoutBase.AttachedFlyout="{StaticResource SaveToPhonePSFlyout}"
-							       Holding="Image_Holding"
-							       Source="{Binding original_size.url}"
-							       Stretch="UniformToFill" />
-						</Grid>
+						<Image HorizontalAlignment="Stretch"
+						       FlyoutBase.AttachedFlyout="{StaticResource SaveToPhonePSFlyout}"
+						       Holding="Image_Holding"
+						       Source="{Binding original_size.url}"
+						       Stretch="UniformToFill" />
 					</DataTemplate>
 				</GridView.ItemTemplate>
+
 			</miscl:VariableGridView>
 
 		</DataTemplate>
@@ -427,6 +428,7 @@
 												</Grid.RowDefinitions>
 												<Grid Background="#02000000" Tapped="Grid_Tapped" />
 												<StackPanel Grid.Row="1"
+												            Margin="20, 5"
 												            VerticalAlignment="Bottom"
 												            Background="{ThemeResource ColorPrimary}">
 													<TextBlock Foreground="{ThemeResource TextColorPrimary}"

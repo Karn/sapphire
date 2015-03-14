@@ -73,10 +73,10 @@ namespace Sapphire.Utils.Controls {
 
 		#endregion
 
-		public void LoadPosts() {
+		public void LoadPosts(string loadNewer = null) {
 			if (!PostsLoading) {
 				PostsLoading = true;
-				Posts.ItemsSource = new IncrementalPostLoader(URL);
+				Posts.ItemsSource = new IncrementalPostLoader(URL, loadNewer);
 
 				PostsLoading = false;
 			}
@@ -182,10 +182,10 @@ namespace Sapphire.Utils.Controls {
 			var post = (Post)((FrameworkElement)sender).Tag;
 
 			if (await CreateRequest.PostDraft(post.id)) {
-				App.Alert("Created post.");
+				App.Alert(App.LocaleResources.GetString("PostCreated"));
 				var items = (Posts.ItemsSource as ObservableCollection<Post>).Remove(post);
 			} else
-				App.Alert("Failed to create post.");
+				App.Alert(App.LocaleResources.GetString("PostCreationFailed"));
 		}
 
 		private async void DeleteButton_Click(object sender, RoutedEventArgs e) {
@@ -196,7 +196,7 @@ namespace Sapphire.Utils.Controls {
 				var items = Posts.ItemsSource as ObservableCollection<Post>;
 				items.Remove(items.Where(x => x.id == post_id).First());
 			} else
-				App.Alert("Failed to delete post.");
+				App.Alert(App.LocaleResources.GetString("DeleteFailed"));
 			App.HideStatus();
 		}
 
@@ -221,12 +221,12 @@ namespace Sapphire.Utils.Controls {
 
 				if (((AppBarButton)sender).Tag.ToString() == "stopped") {
 					if (player.Tag != null && player.Source == null) {
-						App.DisplayStatus("Downloading GIF...");
+						App.DisplayStatus(App.LocaleResources.GetString("LoadingGIF"));
 						var mp4 = await CreateRequest.GetConvertedGIFUri(player.Tag.ToString());
 						if (!string.IsNullOrWhiteSpace(mp4))
 							player.Source = new Uri(mp4);
 						else {
-							App.Alert("Unable to load animated Image.");
+							App.Alert(App.LocaleResources.GetString("GIFLoadFailed"));
 							App.HideStatus();
 							return;
 						}
@@ -245,7 +245,7 @@ namespace Sapphire.Utils.Controls {
 					((AppBarButton)sender).Tag = "stopped";
 				}
 			} catch (Exception ex) {
-				App.Alert("Unable to load animated Image.");
+				App.Alert(App.LocaleResources.GetString("GIFLoadFailed"));
 			}
 		}
 
@@ -285,14 +285,13 @@ namespace Sapphire.Utils.Controls {
 				if (!_updating) {
 					_updating = true;
 					if (sv.VerticalOffset == 0.0) {
-						textBlock1.Text = "Release to refresh";
+						textBlock1.Text = App.LocaleResources.GetString("ReleaseToRefresh");
 					} else {
-						textBlock1.Text = "Pull to refresh";
+						textBlock1.Text = App.LocaleResources.GetString("PullToRefresh");
 					}
 
 					if (!e.IsIntermediate) {
 						if (sv.VerticalOffset == 0.0) {
-							Debug.WriteLine("Refreshing feed.");
 							RefreshPosts();
 						}
 

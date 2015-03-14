@@ -34,9 +34,11 @@ namespace Sapphire {
 			new UserPreferences();
 			Log.i("Initialized user preferences.");
 
-			RequestedTheme = UserPreferences.SelectedTheme == "Dark" ?
-				ApplicationTheme.Dark :
-				ApplicationTheme.Light;
+			//RequestedTheme = UserPreferences.SelectedTheme == "Dark" ?
+			//	ApplicationTheme.Dark :
+			//	ApplicationTheme.Light;
+
+			RequestedTheme = ApplicationTheme.Dark;
 		}
 
 		protected override async void OnLaunched(LaunchActivatedEventArgs e) {

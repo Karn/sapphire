@@ -89,21 +89,23 @@
 					          Click="AnalyticsSwitch_Toggled"
 					          RequestedTheme="Light" />
 				</StackPanel>
-				<StackPanel>
+				<!--
+					<StackPanel>
 					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="Dark theme" />
-						<LineBreak />
-						<Run Text="Enable a darker application skin." />
+					<Run FontWeight="Normal" Text="Dark theme" />
+					<LineBreak />
+					<Run Text="Enable a darker application skin." />
 					</TextBlock>
 					<CheckBox x:Name="DarkTheme"
-					          MinWidth="35"
-					          Margin="0, -50, -5, 0"
-					          HorizontalAlignment="Right"
-					          Background="#11FFFFFF"
-					          BorderBrush="#4a9bca"
-					          Click="SwitchTheme_Toggled"
-					          RequestedTheme="Light" />
-				</StackPanel>
+					MinWidth="35"
+					Margin="0, -50, -5, 0"
+					HorizontalAlignment="Right"
+					Background="#11FFFFFF"
+					BorderBrush="#4a9bca"
+					Click="SwitchTheme_Toggled"
+					RequestedTheme="Light" />
+					</StackPanel>
+				-->
 				<StackPanel>
 					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
 						<Run FontWeight="Normal" Text="Statusbar background" />

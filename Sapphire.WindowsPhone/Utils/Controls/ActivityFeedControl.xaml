@@ -210,6 +210,43 @@
 			</Grid>
 		</DataTemplate>
 
+		<DataTemplate x:Key="ask">
+			<Grid HorizontalAlignment="Stretch" Background="{Binding followed, Converter={StaticResource FollowingToBG}}">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Grid Grid.Column="0"
+				      Tag="{Binding from_tumblelog_name}"
+				      Tapped="GoToBlog">
+					<Image Width="45"
+					       Height="45"
+					       Margin="5"
+					       Source="{Binding from_tumblelog_avatar,
+					                        FallbackValue={StaticResource DefaultAvatar}}" />
+					<Image Width="18"
+					       Height="18"
+					       Margin="0 ,35, 0, 0"
+					       HorizontalAlignment="Right"
+					       Source="ms-appx:///Assets/AReply.png" />
+				</Grid>
+				<TextBlock Grid.Column="1"
+				           Style="{StaticResource Caption}"
+				           Tag="{Binding from_tumblelog_name}"
+				           Tapped="GoToBlog">
+					<Run Text="{Binding from_tumblelog_name}" />
+					<Run Text="asked you a question." />
+				</TextBlock>
+				<Image Grid.Column="2"
+				       Width="45"
+				       Height="45"
+				       Margin="10, 5"
+				       Source="ms-appx:///Assets/AReply2.png"
+				       Stretch="UniformToFill" />
+			</Grid>
+		</DataTemplate>
+
 		<DataTemplate x:Key="fanmail">
 			<Grid HorizontalAlignment="Stretch" Background="{Binding followed, Converter={StaticResource FollowingToBG}}">
 				<Grid.ColumnDefinitions>
@@ -249,6 +286,7 @@
 
 		<converter:ActivityTemplateSelector x:Key="ActivityListTemplate"
 		                                    AnswerTemplate="{StaticResource answer}"
+		                                    AskTemplate="{StaticResource ask}"
 		                                    FanmailTemplate="{StaticResource fanmail}"
 		                                    FollowTemplate="{StaticResource follow}"
 		                                    LikeTemplate="{StaticResource like}"

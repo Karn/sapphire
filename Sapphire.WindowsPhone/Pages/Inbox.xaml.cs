@@ -26,7 +26,7 @@ namespace Sapphire.Pages {
 			this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
 			this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-			Posts.ItemsSource = new IncrementalPostLoader("https://api.tumblr.com/v2/blog/" + UserPreferences.CurrentBlog.Name + ".tumblr.com/posts/submission");
+			Posts.ItemsSource = new IncrementalPostLoader("https://api.tumblr.com/v2/blog/" + UserPreferences.CurrentBlog.Name + ".tumblr.com/posts/submission", null);
 		}
 
 		/// <summary>

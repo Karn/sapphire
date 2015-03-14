@@ -1,4 +1,5 @@
-﻿using Core.Client;
+﻿using Core.AuthenticationManager;
+using Core.Client;
 using Core.Content.Model;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,11 @@ namespace Sapphire.Utils.Misc {
 		private string LastPostID;
 		public int offset = 0;
 
-		public IncrementalPostLoader(string URL) {
+		public IncrementalPostLoader(string URL, string firstPostId) {
 			this.URL = URL;
 			HasMoreItems = true;
+			if (!string.IsNullOrEmpty(firstPostId))
+				FirstPostID = firstPostId;
 		}
 
 		public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count) {
@@ -49,10 +52,17 @@ namespace Sapphire.Utils.Misc {
 								_key = "max_id";
 							} else if (URL.Contains("/tagged")) {
 								_key = "before";
+							} else {
+
 							}
-							posts = await CreateRequest.RetrievePosts(URL, new Core.Service.Requests.RequestParameters() {
-								{_key, LastPostID }
-							});
+							var _params = new Core.Service.Requests.RequestParameters() {
+								{_key, LastPostID },
+								{ "api_key", Authentication.ConsumerKey }
+							};
+							if (!string.IsNullOrEmpty(FirstPostID)) {
+								_params.Add("since", LastPostID);
+							}
+							posts = await CreateRequest.RetrievePosts(URL, _params);
 						}
 
 						if (posts.Count != 0) {
@@ -62,7 +72,6 @@ namespace Sapphire.Utils.Misc {
 							if (posts.Last().type != "nocontent") {
 								if (URL.Contains("/user/dashboard")) {
 									LastPostID = posts.Last().id;
-									FirstPostID = this.First().id;
 								} else if (URL.Contains("/tagged")) {
 									LastPostID = posts.Last().timestamp;
 								} else {
