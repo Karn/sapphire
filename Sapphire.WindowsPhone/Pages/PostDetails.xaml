@@ -34,10 +34,10 @@
 		      VerticalAlignment="Stretch"
 		      Background="{StaticResource WindowBackground}">
 			<controls:PostView x:Name="Details"
-			                          Height="{Binding ElementName=Container,
-			                                           Path=ActualHeight}"
-			                          VerticalAlignment="Stretch"
-			                          Loaded="Details_Loaded" />
+			                   Height="{Binding ElementName=Container,
+			                                    Path=ActualHeight}"
+			                   VerticalAlignment="Stretch"
+			                   Loaded="Details_Loaded" />
 		</Grid>
 		<Grid Grid.Row="2"
 		      Height="50"

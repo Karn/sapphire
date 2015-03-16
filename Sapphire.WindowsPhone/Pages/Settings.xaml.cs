@@ -19,7 +19,7 @@ namespace Sapphire.Pages {
 			this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
 			this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-			if (!Utils.AppLicenseHandler.IsTrial)
+			if (!Core.Utils.AppLicenseHandler.IsTrial)
 				UpgardePanel.Visibility = Visibility.Collapsed;
 		}
 
@@ -87,8 +87,8 @@ namespace Sapphire.Pages {
 		}
 
 		private async void UpgradeAppTapped(object sender, TappedRoutedEventArgs e) {
-			if (Utils.AppLicenseHandler.IsTrial)
-				await Utils.AppLicenseHandler.RemoveAds();
+			if (Core.Utils.AppLicenseHandler.IsTrial)
+				await Core.Utils.AppLicenseHandler.RemoveAds();
 		}
 
 		private void AboutTapped(object sender, TappedRoutedEventArgs e) {

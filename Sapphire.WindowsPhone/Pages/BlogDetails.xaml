@@ -81,7 +81,7 @@
 							           Text="ask question"
 							           TextLineBounds="Tight"
 							           TextTrimming="CharacterEllipsis"
-							           Visibility="{Binding LikesVisible,
+							           Visibility="{Binding AsksEnabled,
 							                                Converter={StaticResource BoolToVisibility},
 							                                FallbackValue=Collapsed}" />
 							<TextBlock Margin="20, 0, 20, 15"

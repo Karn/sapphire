@@ -40,8 +40,8 @@ namespace Sapphire.Pages {
             if (LayoutRoot.DataContext == null || blogName != e.NavigationParameter.ToString()) {
                 blogName = e.NavigationParameter.ToString();
                 LayoutRoot.DataContext = await CreateRequest.GetBlog(blogName);
-                Posts.URL = "https://api.tumblr.com/v2/blog/" + blogName + ".tumblr.com/posts";
-                Posts.LoadPosts();
+                //Posts.URL = "https://api.tumblr.com/v2/blog/" + blogName + ".tumblr.com/posts";
+                //Posts.LoadPosts();
             }
         }
 

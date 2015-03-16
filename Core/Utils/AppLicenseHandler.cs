@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Store;
 
-namespace Sapphire.Utils {
+namespace Core.Utils {
     public class AppLicenseHandler {
 
         private static bool TestMode = false;

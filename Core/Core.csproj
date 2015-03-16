@@ -68,6 +68,7 @@
       <DependentUpon>AlertDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\Analytics.cs" />
+    <Compile Include="Utils\AppLicenseHandler.cs" />
     <Compile Include="Utils\Log.cs" />
   </ItemGroup>
   <ItemGroup>
