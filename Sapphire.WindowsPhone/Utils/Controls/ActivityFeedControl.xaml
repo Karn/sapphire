@@ -22,11 +22,13 @@
 				<Grid Grid.Column="0"
 				      Tag="{Binding from_tumblelog_name}"
 				      Tapped="GoToBlog">
-					<Image Width="45"
-					       Height="45"
-					       Margin="5"
-					       Source="{Binding from_tumblelog_avatar,
-					                        FallbackValue={StaticResource DefaultAvatar}}" />
+					<Ellipse Width="40"
+					         Height="40"
+					         Margin="5">
+						<Ellipse.Fill>
+							<ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+						</Ellipse.Fill>
+					</Ellipse>
 					<Image Width="18"
 					       Height="18"
 					       Margin="0 ,35, 0, 0"
@@ -41,8 +43,8 @@
 					<Run Text="reblogged your post." />
 				</TextBlock>
 				<Image Grid.Column="2"
-				       Width="45"
-				       Height="45"
+				       Width="40"
+				       Height="40"
 				       Margin="10, 5"
 				       Source="{Binding media_url,
 				                        FallbackValue={StaticResource ActivityPostPlaceholder}}"
@@ -61,11 +63,13 @@
 				<Grid Grid.Column="0"
 				      Tag="{Binding from_tumblelog_name}"
 				      Tapped="GoToBlog">
-					<Image Width="45"
-					       Height="45"
-					       Margin="5"
-					       Source="{Binding from_tumblelog_avatar,
-					                        FallbackValue={StaticResource DefaultAvatar}}" />
+					<Ellipse Width="40"
+					         Height="40"
+					         Margin="5">
+						<Ellipse.Fill>
+							<ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+						</Ellipse.Fill>
+					</Ellipse>
 					<Image Width="18"
 					       Height="18"
 					       Margin="0 ,35, 0, 0"
@@ -80,8 +84,8 @@
 					<Run Text="liked your post." />
 				</TextBlock>
 				<Image Grid.Column="2"
-				       Width="45"
-				       Height="45"
+				       Width="40"
+				       Height="40"
 				       Margin="10, 5"
 				       Source="{Binding media_url}"
 				       Stretch="UniformToFill"
@@ -99,11 +103,13 @@
 				<Grid Grid.Column="0"
 				      Tag="{Binding from_tumblelog_name}"
 				      Tapped="GoToBlog">
-					<Image Width="45"
-					       Height="45"
-					       Margin="5"
-					       Source="{Binding from_tumblelog_avatar,
-					                        FallbackValue={StaticResource DefaultAvatar}}" />
+					<Ellipse Width="40"
+					         Height="40"
+					         Margin="5">
+						<Ellipse.Fill>
+							<ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+						</Ellipse.Fill>
+					</Ellipse>
 					<Image Width="18"
 					       Height="18"
 					       Margin="0 ,35, 0, 0"
@@ -118,8 +124,8 @@
 					<Run Text="started following you." />
 				</TextBlock>
 				<Grid Grid.Column="2"
-				      Width="45"
-				      Height="45"
+				      Width="40"
+				      Height="40"
 				      Margin="10, 5"
 				      Background="{ThemeResource ColorPrimary}"
 				      Tag="{Binding from_tumblelog_name}"
@@ -144,11 +150,13 @@
 				<Grid Grid.Column="0"
 				      Tag="{Binding from_tumblelog_name}"
 				      Tapped="GoToBlog">
-					<Image Width="45"
-					       Height="45"
-					       Margin="5"
-					       Source="{Binding from_tumblelog_avatar,
-					                        FallbackValue={StaticResource DefaultAvatar}}" />
+					<Ellipse Width="40"
+					         Height="40"
+					         Margin="5">
+						<Ellipse.Fill>
+							<ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+						</Ellipse.Fill>
+					</Ellipse>
 					<Image Width="18"
 					       Height="18"
 					       Margin="0 ,35, 0, 0"
@@ -163,8 +171,8 @@
 					<Run Text="mentioned you in a post." />
 				</TextBlock>
 				<Image Grid.Column="2"
-				       Width="45"
-				       Height="45"
+				       Width="40"
+				       Height="40"
 				       Margin="10, 5"
 				       Source="{Binding media_url,
 				                        FallbackValue={StaticResource ActivityPostPlaceholder}}"
@@ -183,11 +191,13 @@
 				<Grid Grid.Column="0"
 				      Tag="{Binding from_tumblelog_name}"
 				      Tapped="GoToBlog">
-					<Image Width="45"
-					       Height="45"
-					       Margin="5"
-					       Source="{Binding from_tumblelog_avatar,
-					                        FallbackValue={StaticResource DefaultAvatar}}" />
+					<Ellipse Width="40"
+					         Height="40"
+					         Margin="5">
+						<Ellipse.Fill>
+							<ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+						</Ellipse.Fill>
+					</Ellipse>
 					<Image Width="18"
 					       Height="18"
 					       Margin="0 ,35, 0, 0"
@@ -202,8 +212,8 @@
 					<Run Text="answerd your post." />
 				</TextBlock>
 				<Image Grid.Column="2"
-				       Width="45"
-				       Height="45"
+				       Width="40"
+				       Height="40"
 				       Margin="10, 5"
 				       Source="ms-appx:///Assets/AReply2.png"
 				       Stretch="UniformToFill" />
@@ -220,11 +230,13 @@
 				<Grid Grid.Column="0"
 				      Tag="{Binding from_tumblelog_name}"
 				      Tapped="GoToBlog">
-					<Image Width="45"
-					       Height="45"
-					       Margin="5"
-					       Source="{Binding from_tumblelog_avatar,
-					                        FallbackValue={StaticResource DefaultAvatar}}" />
+					<Ellipse Width="40"
+					         Height="40"
+					         Margin="5">
+						<Ellipse.Fill>
+							<ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+						</Ellipse.Fill>
+					</Ellipse>
 					<Image Width="18"
 					       Height="18"
 					       Margin="0 ,35, 0, 0"
@@ -239,8 +251,8 @@
 					<Run Text="asked you a question." />
 				</TextBlock>
 				<Image Grid.Column="2"
-				       Width="45"
-				       Height="45"
+				       Width="40"
+				       Height="40"
 				       Margin="10, 5"
 				       Source="ms-appx:///Assets/AReply2.png"
 				       Stretch="UniformToFill" />
@@ -257,11 +269,13 @@
 				<Grid Grid.Column="0"
 				      Tag="{Binding from_tumblelog_name}"
 				      Tapped="GoToBlog">
-					<Image Width="45"
-					       Height="45"
-					       Margin="5"
-					       Source="{Binding from_tumblelog_avatar,
-					                        FallbackValue={StaticResource DefaultAvatar}}" />
+					<Ellipse Width="40"
+					         Height="40"
+					         Margin="5">
+						<Ellipse.Fill>
+							<ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+						</Ellipse.Fill>
+					</Ellipse>
 					<Image Width="18"
 					       Height="18"
 					       Margin="0 ,35, 0, 0"
@@ -276,8 +290,8 @@
 					<Run Text="sent you fan mail." />
 				</TextBlock>
 				<Image Grid.Column="2"
-				       Width="45"
-				       Height="45"
+				       Width="40"
+				       Height="40"
 				       Margin="10, 5"
 				       Source="ms-appx:///Assets/AFanMail2.png"
 				       Stretch="UniformToFill" />
@@ -298,7 +312,6 @@
 	</UserControl.Resources>
 
 	<ListView x:Name="Notifications"
-	          Margin="0, 2"
 	          HorizontalAlignment="Stretch"
 	          Background="#00000000"
 	          ItemTemplateSelector="{StaticResource ActivityListTemplate}"
@@ -310,18 +323,20 @@
 			<GroupStyle HidesIfEmpty="True">
 				<GroupStyle.HeaderTemplate>
 					<DataTemplate>
-						<Grid Height="35"
+						<Grid Height="32"
 						      HorizontalAlignment="Stretch"
 						      VerticalAlignment="Center"
-						      Background="{ThemeResource WindowBackgroundAccent}"
+						      Background="{StaticResource LightPrimaryColor}"
 						      Loaded="Border_Loaded">
 							<TextBlock FontWeight="Normal"
+							           Foreground="{StaticResource PrimaryText}"
 							           Padding="10, 4"
 							           Style="{StaticResource Caption}"
 							           Text="{Binding Key,
 							                          Converter={StaticResource RelativeDate}}" />
 							<TextBlock HorizontalAlignment="Right"
 							           FontWeight="Normal"
+							           Foreground="{StaticResource PrimaryText}"
 							           Padding="10, 4"
 							           Style="{StaticResource Caption}"
 							           Text="{Binding Key,

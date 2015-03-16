@@ -54,7 +54,7 @@ namespace Sapphire.Pages {
 
 		private void SelectBlogButton_Tapped(object sender, TappedRoutedEventArgs e) {
 			UserPreferences.CurrentBlog = ((Button)sender).Tag as Blog;
-			MainPage.SwitchedBlog = true;
+			MainView.SwitchedBlog = true;
 			Frame.GoBack();
 		}
 

@@ -14,8 +14,9 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
-		<Grid Height="55" Background="{ThemeResource ColorPrimary}">
+		<Grid Height="55" Background="{ThemeResource PrimaryColor}">
 			<TextBlock x:Name="PageTitle"
+			           Foreground="{StaticResource PrimaryText}"
 			           Style="{StaticResource Headline}"
 			           Text="About" />
 		</Grid>

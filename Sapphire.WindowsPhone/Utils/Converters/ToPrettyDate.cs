@@ -7,7 +7,7 @@ namespace Sapphire.Utils.Converters {
     public sealed class ToPrettyDate : IValueConverter {
 
         public object Convert(object value, Type targetType, object parameter, string language) {
-            return DateTime.Parse(value.ToString()).ToString("dddd, MMMM dd");
+            return DateTime.Parse(value.ToString()).ToString("MMMM dd");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language) {

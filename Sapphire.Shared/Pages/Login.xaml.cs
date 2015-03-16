@@ -116,7 +116,7 @@ namespace Sapphire.Shared.Pages {
                 if (response == "OK") {
                     App.HideStatus();
                     if (Authentication.AuthenticatedTokens.Count == 1) {
-                        if (!Frame.Navigate(typeof(MainPage))) {
+                        if (!Frame.Navigate(typeof(MainView))) {
                             throw new Exception();
                         }
                     } else {

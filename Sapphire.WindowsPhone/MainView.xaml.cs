@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace Sapphire {
-	public sealed partial class MainPage : Page {
+	public sealed partial class MainView : Page {
 
 		public static string TAG = "MainPage";
 
@@ -26,7 +26,7 @@ namespace Sapphire {
 		public static bool SwitchedBlog = false;
 		public static bool SwitchedAccount = false;
 
-		public MainPage() {
+		public MainView() {
 			this.InitializeComponent();
 
 			this.NavigationCacheMode = NavigationCacheMode.Required;
@@ -41,12 +41,6 @@ namespace Sapphire {
 				RegisterBackgroundTask();
 
 			HardwareButtons.BackPressed += BackButtonPressed;
-		}
-
-		private void LayoutRoot_Loaded(object sender, RoutedEventArgs e) {
-			this.Background = UserPreferences.EnableStatusBarBG ?
-				App.Current.Resources["ColorPrimaryDark"] as SolidColorBrush :
-				App.Current.Resources["ColorPrimary"] as SolidColorBrush;
 		}
 
 		public async void CreateView() {
@@ -218,7 +212,7 @@ namespace Sapphire {
 		}
 
 		private void ManageAccountButton_Click(object sender, RoutedEventArgs e) {
-			if (!Frame.Navigate(typeof(Pages.AccountManager)))
+			if (!Frame.Navigate(typeof(Pages.AccountManager), "1"))
 				Log.e("Failed to navigate to AccountManager.");
 		}
 

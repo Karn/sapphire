@@ -2,6 +2,12 @@
 
 	<ResourceDictionary.ThemeDictionaries>
 		<ResourceDictionary x:Key="Default">
+			<SolidColorBrush x:Name="DarkPrimaryColor" Color="#FF34495E" />
+			<SolidColorBrush x:Name="PrimaryColor" Color="#FFE6E6E6" />
+			<SolidColorBrush x:Name="LightPrimaryColor" Color="#FFF0F0F0" />
+			<SolidColorBrush x:Name="AccentColor" Color="#FFd1d1d1" />
+			<SolidColorBrush x:Name="PrimaryText" Color="#FF333333" />
+
 			<SolidColorBrush x:Key="ColorPrimary" Color="#FF34495E" />
 			<SolidColorBrush x:Key="ColorPrimaryDark" Color="#FF293A4A" />
 			<SolidColorBrush x:Key="TextColorPrimary" Color="#FFEEF1F4" />
@@ -93,6 +99,7 @@
 		<Setter Property="FontSize" Value="24" />
 		<Setter Property="CharacterSpacing" Value="-10" />
 		<Setter Property="Padding" Value="5" />
+		<Setter Property="Opacity" Value="0.9" />
 	</Style>
 
 	<Style x:Name="Body"

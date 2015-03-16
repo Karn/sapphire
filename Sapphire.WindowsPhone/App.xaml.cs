@@ -38,7 +38,7 @@ namespace Sapphire {
 			//	ApplicationTheme.Dark :
 			//	ApplicationTheme.Light;
 
-			RequestedTheme = ApplicationTheme.Dark;
+			RequestedTheme = ApplicationTheme.Light;
 		}
 
 		protected override async void OnLaunched(LaunchActivatedEventArgs e) {
@@ -79,7 +79,7 @@ namespace Sapphire {
 				Analytics.GetInstance().SendEvent("Initialized analytics platform.");
 
 				if (Authentication.AuthenticatedTokens.Count != 0 && Authentication.AuthenticatedSecretTokens.Count != 0) {
-					if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
+					if (!rootFrame.Navigate(typeof(MainView), e.Arguments))
 						throw new Exception("Failed to create initial page");
 				} else {
 					if (!rootFrame.Navigate(typeof(Login), "first"))

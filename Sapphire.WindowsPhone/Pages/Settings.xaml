@@ -4,7 +4,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Sapphire.Pages"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      Background="{ThemeResource ColorPrimary}"
+      Background="{StaticResource DarkPrimaryColor}"
       mc:Ignorable="d">
 
 	<Grid x:Name="LayoutRoot">
@@ -13,16 +13,33 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
-		<Grid Height="55" Background="{ThemeResource ColorPrimary}">
+		<Grid Height="55" Background="{ThemeResource PrimaryColor}">
 			<TextBlock x:Name="PageTitle"
+			           Foreground="{StaticResource PrimaryText}"
 			           Style="{StaticResource Headline}"
 			           Text="Settings" />
 		</Grid>
 
 		<ScrollViewer Grid.Row="1"
-		              Background="{StaticResource WindowBackground}"
-		              Padding="5, 0">
+		              Background="White"
+		              Padding="10, 0">
 			<StackPanel>
+				<TextBlock FontWeight="Normal"
+				           Foreground="{StaticResource PrimaryText}"
+				           Style="{StaticResource SubTitle}"
+				           Text="General" />
+				<StackPanel Tapped="AccountManage_Tapped">
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
+						<Run FontWeight="Normal" Text="Accounts" />
+						<LineBreak />
+						<Run Text="Manage your accounts." />
+					</TextBlock>
+					<Image Width="35"
+					       Height="35"
+					       Margin="0, -40, 0, 0"
+					       HorizontalAlignment="Right"
+					       Source="ms-appx:///Assets/open_nav.png" />
+				</StackPanel>
 				<StackPanel Tapped="RateReviewTapped">
 					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
 						<Run FontWeight="Normal" Text="Like this app?" />
@@ -39,7 +56,7 @@
 					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
 						<Run FontWeight="Normal" Text="Upgrade to full version" />
 						<LineBreak />
-						<Run Text="Add features with a one time app purchase." />
+						<Run Text="Add features with a one time purchase." />
 					</TextBlock>
 					<Image Width="35"
 					       Height="35"
@@ -59,6 +76,42 @@
 					       HorizontalAlignment="Right"
 					       Source="ms-appx:///Assets/open_nav.png" />
 				</StackPanel>
+
+				<TextBlock Margin="0, 10, 0, 0"
+				           FontWeight="Normal"
+				           Foreground="{StaticResource PrimaryText}"
+				           Style="{StaticResource SubTitle}"
+				           Text="Preferences" />
+				<StackPanel>
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
+						<Run FontWeight="Normal" Text="Blog notifications" />
+						<LineBreak />
+						<Run Text="Customize your blog specific alerts." />
+					</TextBlock>
+					<Image Width="35"
+					       Height="35"
+					       Margin="0, -40, 0, 0"
+					       HorizontalAlignment="Right"
+					       Source="ms-appx:///Assets/open_nav.png" />
+				</StackPanel>
+				<StackPanel>
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
+						<Run FontWeight="Normal" Text="Auto tags" />
+						<LineBreak />
+						<Run Text="Edit what tags to add to posts by default." />
+					</TextBlock>
+					<Image Width="35"
+					       Height="35"
+					       Margin="0, -40, 0, 0"
+					       HorizontalAlignment="Right"
+					       Source="ms-appx:///Assets/open_nav.png" />
+				</StackPanel>
+
+				<TextBlock Margin="0, 10, 0, 0"
+				           FontWeight="Normal"
+				           Foreground="{StaticResource PrimaryText}"
+				           Style="{StaticResource SubTitle}"
+				           Text="Toggles" />
 				<StackPanel>
 					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
 						<Run FontWeight="Normal" Text="Notifications" />

@@ -65,7 +65,7 @@ namespace Sapphire {
 				new Authentication();
 				if (Authentication.AuthenticatedTokens.Count != 0 && Authentication.AuthenticatedSecretTokens.Count != 0) {
 
-					if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
+					if (!rootFrame.Navigate(typeof(MainView), e.Arguments))
 						throw new Exception("Failed to create initial page");
 				} else {
 					if (!rootFrame.Navigate(typeof(Login), "first"))

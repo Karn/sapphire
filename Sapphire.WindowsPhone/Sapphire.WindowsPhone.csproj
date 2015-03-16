@@ -87,11 +87,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\TestPage.xaml.cs">
-      <DependentUpon>TestPage.xaml</DependentUpon>
+    <Compile Include="MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\FavBlogs.xaml.cs">
       <DependentUpon>FavBlogs.xaml</DependentUpon>
@@ -116,9 +113,6 @@
     </Compile>
     <Compile Include="Pages\AccountManager.xaml.cs">
       <DependentUpon>AccountManager.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Blogs.xaml.cs">
-      <DependentUpon>Blogs.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\CreatePost.xaml.cs">
       <DependentUpon>CreatePost.xaml</DependentUpon>
@@ -203,11 +197,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MainPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\TestPage.xaml">
+    <Page Include="MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -242,10 +232,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\AccountManager.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\Blogs.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

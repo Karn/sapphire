@@ -28,13 +28,13 @@ namespace Sapphire.Pages {
 		}
 
 		private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
-			if (UserPreferences.SelectedTheme == "Dark")
-				DarkTheme.IsChecked = true;
-			NotificationsToggle.IsChecked = UserPreferences.NotificationsEnabled;
-			OneClickReblog.IsChecked = UserPreferences.OneClickReblog;
-			PostTags.IsChecked = UserPreferences.TagsInPosts;
-			UXFeedback.IsChecked = UserPreferences.EnableAnalytics;
-			DarkStatusbar.IsChecked = UserPreferences.EnableStatusBarBG;
+			//if (UserPreferences.SelectedTheme == "Dark")
+			//	DarkTheme.IsChecked = true;
+			//NotificationsToggle.IsChecked = UserPreferences.NotificationsEnabled;
+			//OneClickReblog.IsChecked = UserPreferences.OneClickReblog;
+			//PostTags.IsChecked = UserPreferences.TagsInPosts;
+			//UXFeedback.IsChecked = UserPreferences.EnableAnalytics;
+			//DarkStatusbar.IsChecked = UserPreferences.EnableStatusBarBG;
 		}
 
 		private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) {
@@ -94,6 +94,12 @@ namespace Sapphire.Pages {
 		private void AboutTapped(object sender, TappedRoutedEventArgs e) {
 			var frame = Window.Current.Content as Frame;
 			if (!frame.Navigate(typeof(About)))
+				throw new Exception("NavFail");
+		}
+
+		private void AccountManage_Tapped(object sender, TappedRoutedEventArgs e) {
+			var frame = Window.Current.Content as Frame;
+			if (!frame.Navigate(typeof(AccountManager), "1"))
 				throw new Exception("NavFail");
 		}
 	}
