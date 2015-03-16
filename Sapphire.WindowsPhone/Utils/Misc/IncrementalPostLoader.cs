@@ -12,22 +12,18 @@ using Windows.UI.Xaml.Data;
 
 namespace Sapphire.Utils.Misc {
 	public class IncrementalPostLoader : ObservableCollection<Post>, ISupportIncrementalLoading {
-
-		private static string TAG = "IncrementalPostLoader";
 		public string URL { get; set; }
 
 		public bool HasMoreItems { get; set; }
 		private bool _IsRunning { get; set; }
 
-		private string FirstPostID;
+		private string tag;
 		private string LastPostID;
 		public int offset = 0;
 
-		public IncrementalPostLoader(string URL, string firstPostId) {
+		public IncrementalPostLoader(string URL = "") {
 			this.URL = URL;
 			HasMoreItems = true;
-			if (!string.IsNullOrEmpty(firstPostId))
-				FirstPostID = firstPostId;
 		}
 
 		public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count) {
@@ -44,26 +40,30 @@ namespace Sapphire.Utils.Misc {
 						App.DisplayStatus(App.LocaleResources.GetString("LoadingPostsMessage"));
 
 						var posts = new List<Post>();
-						if (string.IsNullOrEmpty(LastPostID))
-							posts = await CreateRequest.RetrievePosts(URL);
-						else {
+						Core.Service.Requests.RequestParameters _params = new Core.Service.Requests.RequestParameters() {
+								{ "api_key", Authentication.ConsumerKey }
+							};
+
+						if (URL.Contains("/tagged")) {
+							if (tag == null) {
+								var x = URL.Split('?');
+								URL = x[0];
+								x = x[1].Split('=');
+								tag = x[1];
+							}
+
+							_params.Add("tag", tag);
+							if (!string.IsNullOrEmpty(LastPostID))
+								_params.Add("before", LastPostID);
+						} else if (!string.IsNullOrEmpty(LastPostID)) {
 							var _key = "offset";
 							if (URL.Contains("/user/dashboard") || URL.Contains("/submission") || URL.Contains("/draft") || URL.Contains("/queue")) {
 								_key = "max_id";
-							} else if (URL.Contains("/tagged")) {
-								_key = "before";
-							} else {
-
 							}
-							var _params = new Core.Service.Requests.RequestParameters() {
-								{_key, LastPostID },
-								{ "api_key", Authentication.ConsumerKey }
-							};
-							if (!string.IsNullOrEmpty(FirstPostID)) {
-								_params.Add("since", LastPostID);
-							}
-							posts = await CreateRequest.RetrievePosts(URL, _params);
+							_params.Add(_key, LastPostID);
 						}
+
+						posts = await CreateRequest.RetrievePosts(URL, _params);
 
 						if (posts.Count != 0) {
 							foreach (var post in posts)

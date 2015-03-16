@@ -95,7 +95,7 @@ namespace Core.Client {
 		public static async Task<List<Post>> RetrievePosts(string url, Core.Service.Requests.RequestParameters parameters) {
 
 			HttpResponseMessage result = await RequestService.GET(url, parameters);
-
+			Debug.WriteLine(await result.Content.ReadAsStringAsync());
 			if (result.StatusCode == HttpStatusCode.OK) {
 				try {
 					var PostList = new List<Post>();

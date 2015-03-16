@@ -73,10 +73,14 @@ namespace Sapphire.Utils.Controls {
 
 		#endregion
 
-		public void LoadPosts(string loadNewer = null) {
+		public void LoadPosts(string url = "") {
 			if (!PostsLoading) {
 				PostsLoading = true;
-				Posts.ItemsSource = new IncrementalPostLoader(URL, loadNewer);
+				if (!string.IsNullOrWhiteSpace(url))
+					Posts.ItemsSource = new IncrementalPostLoader(url);
+				else {
+					Posts.ItemsSource = new IncrementalPostLoader(URL);
+				}
 
 				PostsLoading = false;
 			}
