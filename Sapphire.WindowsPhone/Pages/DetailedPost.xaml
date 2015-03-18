@@ -8,7 +8,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Sapphire.Pages"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      Background="{StaticResource ColorPrimary}"
+      Background="{StaticResource DarkPrimaryColor}"
       mc:Ignorable="d">
 
 	<Page.Resources>
@@ -111,13 +111,14 @@
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
-		<Grid Background="{StaticResource ColorPrimary}" Canvas.ZIndex="99">
+		<Border Background="{StaticResource PrimaryColor}">
 			<TextBlock x:Name="PageTitle"
+			           Foreground="{ThemeResource PrimaryText}"
 			           Style="{StaticResource Headline}"
-			           Text="Posts Details" />
-		</Grid>
+			           Text="Post details" />
+		</Border>
 
-		<ScrollViewer Grid.Row="1" Background="{StaticResource WindowBackground}">
+		<ScrollViewer Grid.Row="1" Background="White">
 			<StackPanel>
 				<ContentControl Content="{Binding type}"
 				                ContentTemplateSelector="{StaticResource DetailedPostTemplateSelector}"

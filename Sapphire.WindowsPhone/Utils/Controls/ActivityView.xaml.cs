@@ -11,11 +11,11 @@ using Windows.UI.Xaml.Input;
 // Use setter to set item source of posts
 
 namespace Sapphire.Utils.Controls {
-    public sealed partial class ActivityFeedControl : UserControl {
+    public sealed partial class ActivityView : UserControl {
 
         private static string TAG = "ActivityList";
 
-        public ActivityFeedControl() {
+        public ActivityView() {
             this.InitializeComponent();
         }
 

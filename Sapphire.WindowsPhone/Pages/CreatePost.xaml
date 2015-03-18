@@ -7,7 +7,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Sapphire.Pages"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      Background="{ThemeResource ColorPrimary}"
+      Background="{ThemeResource DarkPrimaryColor}"
       mc:Ignorable="d">
 
 	<UserControl.Resources>
@@ -21,7 +21,7 @@
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
 
-				<StackPanel Margin="0, -35, 15, 0"
+				<StackPanel Margin="0, -40, 15, 0"
 				            HorizontalAlignment="Right"
 				            VerticalAlignment="Top"
 				            Orientation="Horizontal">
@@ -126,7 +126,7 @@
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
 
-				<StackPanel Margin="0, -35, 15, 0"
+				<StackPanel Margin="0, -40, 15, 0"
 				            HorizontalAlignment="Right"
 				            VerticalAlignment="Top"
 				            Orientation="Horizontal">
@@ -235,7 +235,7 @@
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
 
-				<StackPanel Margin="0, -35, 15, 0"
+				<StackPanel Margin="0, -40, 15, 0"
 				            HorizontalAlignment="Right"
 				            VerticalAlignment="Top"
 				            Orientation="Horizontal">
@@ -339,7 +339,7 @@
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
 
-				<StackPanel Margin="0, -35, 15, 0"
+				<StackPanel Margin="0, -40, 15, 0"
 				            HorizontalAlignment="Right"
 				            VerticalAlignment="Top"
 				            Orientation="Horizontal">
@@ -454,21 +454,18 @@
 
 	<Grid x:Name="LayoutRoot">
 		<Grid.RowDefinitions>
-			<RowDefinition Height="auto" />
+			<RowDefinition Height="55" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
-		<Grid Height="55" Background="{ThemeResource ColorPrimary}">
+		<Border Background="{ThemeResource PrimaryColor}">
 			<TextBlock x:Name="PageTitle"
-			           Margin="15, 0, 0, 0"
-			           HorizontalAlignment="Left"
-			           VerticalAlignment="Center"
-			           Foreground="{ThemeResource TextColorPrimary}"
+			           Foreground="{ThemeResource PrimaryText}"
 			           Style="{StaticResource Headline}"
-			           Text="New Post" />
-		</Grid>
+			           Text="New post" />
+		</Border>
 
-		<Grid Grid.Row="1" Background="{StaticResource WindowBackground}">
+		<Grid Grid.Row="1" Background="White">
 			<ContentControl x:Name="Type"
 			                Margin="5, 0"
 			                HorizontalContentAlignment="Stretch"

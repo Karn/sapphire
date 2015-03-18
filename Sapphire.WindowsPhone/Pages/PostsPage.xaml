@@ -17,12 +17,9 @@
 			<RowDefinition Height="*" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-		<Grid HorizontalAlignment="Stretch" Background="{ThemeResource ColorPrimary}">
+		<Grid HorizontalAlignment="Stretch" Background="{ThemeResource PrimaryColor}">
 			<TextBlock x:Name="PageTitle"
-			           Margin="15, 0, 0, 0"
-			           HorizontalAlignment="Left"
-			           VerticalAlignment="Center"
-			           Foreground="{ThemeResource TextColorPrimary}"
+			           Foreground="{StaticResource PrimaryText}"
 			           Style="{StaticResource Headline}"
 			           Text="Posts" />
 
@@ -36,45 +33,26 @@
 		</Grid>
 
 		<Pivot Grid.Row="1"
-		       Margin="0, -8, 0, 0"
-		       Background="{ThemeResource WindowBackground}"
+		       Margin="0"
+		       Background="White"
 		       Canvas.ZIndex="-99">
-			<PivotItem Margin="0">
-				<PivotItem.Header>
-					<TextBlock x:Name="ResultsHeader"
-					           Margin="0"
-					           HorizontalAlignment="Left"
-					           VerticalAlignment="Center"
-					           CharacterSpacing="-25"
-					           FontFamily="Segoe WP"
-					           FontSize="26"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Text="Results"
-					           Typography.Capitals="AllSmallCaps"
-					           Visibility="Collapsed" />
-				</PivotItem.Header>
-
+			<Pivot.HeaderTemplate>
+				<DataTemplate>
+					<TextBlock Foreground="{StaticResource PrimaryText}"
+					           Padding="0"
+					           Style="{StaticResource Body}"
+					           Text="{Binding}" />
+				</DataTemplate>
+			</Pivot.HeaderTemplate>
+			<PivotItem x:Name="PostsPivot" Margin="0">
 				<controls:PostView x:Name="PostFeed"
-				                          Grid.Row="1"
-				                          Margin="0, -8, 0, 0" />
+				                   Grid.Row="1"
+				                   Margin="0, -8, 0, 0" />
 			</PivotItem>
 
-			<PivotItem x:Name="Blogs"
+			<PivotItem x:Name="BlogsPivot"
 			           Margin="0"
 			           Visibility="Collapsed">
-				<PivotItem.Header>
-					<TextBlock x:Name="BlogsHeader"
-					           Margin="0"
-					           HorizontalAlignment="Left"
-					           VerticalAlignment="Center"
-					           CharacterSpacing="-25"
-					           FontFamily="Segoe WP"
-					           FontSize="26"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Text="Blogs"
-					           Typography.Capitals="AllSmallCaps"
-					           Visibility="Collapsed" />
-				</PivotItem.Header>
 				<ListView x:Name="BlogSearch"
 				          Grid.Row="1"
 				          HorizontalAlignment="Stretch"

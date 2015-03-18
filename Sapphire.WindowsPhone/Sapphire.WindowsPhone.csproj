@@ -130,8 +130,8 @@
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\Controls\ActivityFeedControl.xaml.cs">
-      <DependentUpon>ActivityFeedControl.xaml</DependentUpon>
+    <Compile Include="Utils\Controls\ActivityView.xaml.cs">
+      <DependentUpon>ActivityView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\Controls\NewPostDialog.xaml.cs">
       <DependentUpon>NewPostDialog.xaml</DependentUpon>
@@ -254,7 +254,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Utils\Controls\ActivityFeedControl.xaml">
+    <Page Include="Utils\Controls\ActivityView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

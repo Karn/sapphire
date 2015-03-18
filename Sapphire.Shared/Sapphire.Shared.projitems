@@ -29,7 +29,6 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\AReblog.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\AReply.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\AReply2.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\AudioPlaceholder.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\DefaultAvatar.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\DefaultPattern.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\LoginLogo.png" />

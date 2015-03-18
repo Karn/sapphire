@@ -279,22 +279,16 @@
 		<DataTemplate x:Key="Answer">
 			<StackPanel Background="{StaticResource PostBG}">
 				<Grid>
-					<Button MinWidth="0"
-					        MinHeight="0"
-					        Margin="0"
-					        HorizontalAlignment="Left"
-					        VerticalAlignment="Top"
-					        BorderThickness="0"
-					        Padding="0"
-					        Style="{StaticResource ButtonStyleNoBG}"
-					        UseLayoutRounding="True">
-						<Image Width="50"
-						       Height="50"
-						       Source="{Binding asking_avatar,
-						                        FallbackValue={StaticResource DefaultAvatar}}"
-						       Stretch="UniformToFill" />
-					</Button>
-					<StackPanel Margin="55, 3, 5, 5" Background="#33DCDCDC">
+					<Ellipse Width="50"
+					         Height="50"
+					         Margin="5"
+					         Tag="{Binding asking_name}"
+					         Tapped="GoToBlog">
+						<Ellipse.Fill>
+							<ImageBrush ImageSource="{Binding asking_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+						</Ellipse.Fill>
+					</Ellipse>
+					<StackPanel Margin="55, 3, 5, 5" Background="{Binding DarkPrimaryColor}">
 						<TextBlock Margin="10, 2"
 						           FontSize="22"
 						           FontWeight="Light"

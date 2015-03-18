@@ -97,7 +97,7 @@
 			</PivotItem>
 
 			<PivotItem x:Name="ActivityPivot" Margin="0">
-				<control:ActivityFeedControl x:Name="Activity" />
+				<control:ActivityView x:Name="Activity" />
 			</PivotItem>
 
 			<PivotItem x:Name="AccountPivot"
