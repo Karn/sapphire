@@ -34,10 +34,6 @@ namespace Sapphire {
 			new UserPreferences();
 			Log.i("Initialized user preferences.");
 
-			//RequestedTheme = UserPreferences.SelectedTheme == "Dark" ?
-			//	ApplicationTheme.Dark :
-			//	ApplicationTheme.Light;
-
 			RequestedTheme = ApplicationTheme.Light;
 		}
 
@@ -75,10 +71,11 @@ namespace Sapphire {
 
 				new AppLicenseHandler();
 				new Authentication();
-
-				Analytics.GetInstance().SendEvent("Initialized analytics platform.");
-
+				
 				if (Authentication.AuthenticatedTokens.Count != 0 && Authentication.AuthenticatedSecretTokens.Count != 0) {
+
+					Analytics.GetInstance().SendEvent("Initialized analytics platform.");
+
 					if (!rootFrame.Navigate(typeof(MainView), e.Arguments))
 						throw new Exception("Failed to create initial page");
 				} else {
