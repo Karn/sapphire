@@ -18,7 +18,8 @@
 			<TextBlock x:Name="PageTitle"
 			           Foreground="{StaticResource PrimaryText}"
 			           Style="{StaticResource Headline}"
-			           Text="About" />
+			           Text="{Binding [Title_About],
+			                          Source={StaticResource Localized}}" />
 		</Grid>
 
 		<ScrollViewer Grid.Row="1"
@@ -26,39 +27,53 @@
 		              Padding="5, 0">
 			<StackPanel Margin="0, 0, 0, 10" HorizontalAlignment="Stretch">
 
-				<TextBlock Style="{StaticResource Body}">
-					<Run FontWeight="Normal" Text="Application build number" />
-				</TextBlock>
-
+				<TextBlock FontWeight="Normal"
+				           Foreground="{StaticResource PrimaryText}"
+				           Style="{StaticResource SubTitle}"
+				           Text="{Binding [About_AppVersion],
+				                          Source={StaticResource Localized}}" />
 				<TextBlock x:Name="AppVersion"
 				           Style="{StaticResource Body}"
 				           Text="Version"
 				           TextWrapping="Wrap" />
 
-				<TextBlock Style="{StaticResource Body}" TextWrapping="Wrap">
-					<Run FontWeight="Normal" Text="Legal" />
-					<LineBreak />
-					<Run Text="It is important to note that this application ('Sapphire') is a 3rd party client for Tumblr and is in no way affiliated, endorsed or advocated for by Yahoo! Inc. Content that is retrieved via the Tumblr APIs is property of its respective owners and is not a reflection of the developer ('Karn, GemLabs'). Additionally, you agree that the developer is not liable for any issues that may occur whilst using this application." />
-				</TextBlock>
+				<TextBlock FontWeight="Normal"
+				           Foreground="{StaticResource PrimaryText}"
+				           Style="{StaticResource SubTitle}"
+				           Text="{Binding [About_LegalTitle],
+				                          Source={StaticResource Localized}}" />
+				<TextBlock Style="{StaticResource Body}"
+				           Text="{Binding [About_LegalDescription],
+				                          Source={StaticResource Localized}}"
+				           TextWrapping="Wrap" />
 
-				<TextBlock Style="{StaticResource Body}" TextWrapping="Wrap">
-					<Run FontWeight="Normal" Text="Privacy" />
-					<LineBreak />
-					<Run Text="Your privacy is very important. Take a look at the applications privacy poplicy below." />
-				</TextBlock>
+				<TextBlock FontWeight="Normal"
+				           Foreground="{StaticResource PrimaryText}"
+				           Style="{StaticResource SubTitle}"
+				           Text="{Binding [About_PrivacyTitle],
+				                          Source={StaticResource Localized}}" />
+				<TextBlock Style="{StaticResource Body}"
+				           Text="{Binding [About_LegalDescription],
+				                          Source={StaticResource Localized}}"
+				           TextWrapping="Wrap" />
 				<HyperlinkButton x:Name="PrivacyButton"
 				                 BorderBrush="{x:Null}"
-				                 Content="View privacy policy"
+				                 Content="{Binding [About_PrivacyLink],
+				                                   Source={StaticResource Localized}}"
 				                 FontSize="18"
 				                 Foreground="#FF529ECC"
 				                 NavigateUri="http://gemlabs.me/sapphire/privacypolicy.html"
 				                 Padding="5" />
 
-				<TextBlock Style="{StaticResource Body}" TextWrapping="Wrap">
-					<Run FontWeight="Normal" Text="Support + Feedback" />
-					<LineBreak />
-					<Run Text="If you come across a bug, or something that you feel needs improving, feel free to use the links below to get in touch!" />
-				</TextBlock>
+				<TextBlock FontWeight="Normal"
+				           Foreground="{StaticResource PrimaryText}"
+				           Style="{StaticResource SubTitle}"
+				           Text="{Binding [About_SupportTitle],
+				                          Source={StaticResource Localized}}" />
+				<TextBlock Style="{StaticResource Body}"
+				           Text="{Binding [About_SupportDescription],
+				                          Source={StaticResource Localized}}"
+				           TextWrapping="Wrap" />
 
 				<HyperlinkButton x:Name="Reddit"
 				                 BorderBrush="{x:Null}"
@@ -69,7 +84,8 @@
 				                 Padding="5" />
 				<HyperlinkButton x:Name="Email"
 				                 BorderBrush="{x:Null}"
-				                 Content="Send me an email"
+				                 Content="{Binding [About_SupportEmail],
+				                                   Source={StaticResource Localized}}"
 				                 FontSize="18"
 				                 Foreground="#FF529ECC"
 				                 NavigateUri="mailto:sapphire@gemlabs.me"

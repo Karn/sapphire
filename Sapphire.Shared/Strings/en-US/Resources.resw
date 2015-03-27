@@ -309,4 +309,34 @@
   <data name="Title_Queue" xml:space="preserve">
     <value>Queue</value>
   </data>
+  <data name="About_AppVersion" xml:space="preserve">
+    <value>Application Version</value>
+  </data>
+  <data name="About_LegalDescription" xml:space="preserve">
+    <value>It is important to note that this application ('Sapphire') is a 3rd party client for Tumblr and is in no way affiliated, endorsed or advocated for by Yahoo! Inc. Content that is retrieved via the Tumblr APIs is property of its respective owners and is not a reflection of the developer ('Karn, GemLabs'). Additionally, you agree that the developer is not liable for any issues that may occur whilst using this application.</value>
+  </data>
+  <data name="About_LegalTitle" xml:space="preserve">
+    <value>Legal</value>
+  </data>
+  <data name="About_PrivacyDescription" xml:space="preserve">
+    <value>Your privacy is very important. Take a look at the applications privacy poplicy below.</value>
+  </data>
+  <data name="About_PrivacyLink" xml:space="preserve">
+    <value>View privacy policy</value>
+  </data>
+  <data name="About_PrivacyTitle" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="About_SupportDescription" xml:space="preserve">
+    <value>If you come across a bug, or something that you feel needs improving, feel free to use the links below to get in touch!</value>
+  </data>
+  <data name="About_SupportEmail" xml:space="preserve">
+    <value>Send me an email</value>
+  </data>
+  <data name="About_SupportTitle" xml:space="preserve">
+    <value>Support + feedback</value>
+  </data>
+  <data name="Title_About" xml:space="preserve">
+    <value>About</value>
+  </data>
 </root>
