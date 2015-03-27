@@ -22,7 +22,8 @@
 			<TextBlock x:Name="PageTitle"
 			           Foreground="{ThemeResource PrimaryText}"
 			           Style="{StaticResource Headline}"
-			           Text="Inbox" />
+			           Text="{Binding [Title_Inbox],
+			                          Source={StaticResource Localized}}" />
 
 			<Image x:Name="RefreshButton"
 			       Width="35"

@@ -127,7 +127,7 @@
 				      Width="40"
 				      Height="40"
 				      Margin="10, 5"
-				      Background="{ThemeResource ColorPrimary}"
+				      Background="{ThemeResource PrimaryColor}"
 				      Tag="{Binding from_tumblelog_name}"
 				      Tapped="FollowIcon_Tapped"
 				      Visibility="{Binding followed,

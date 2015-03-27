@@ -17,7 +17,8 @@
 			<TextBlock x:Name="PageTitle"
 			           Foreground="{StaticResource PrimaryText}"
 			           Style="{StaticResource Headline}"
-			           Text="Settings" />
+			           Text="{Binding [Title_Settings],
+			                          Source={StaticResource Localized}}" />
 		</Grid>
 
 		<ScrollViewer Grid.Row="1"
@@ -27,12 +28,13 @@
 				<TextBlock FontWeight="Normal"
 				           Foreground="{StaticResource PrimaryText}"
 				           Style="{StaticResource SubTitle}"
-				           Text="General" />
+				           Text="{Binding [Heading_General],
+				                          Source={StaticResource Localized}}" />
 				<StackPanel Tapped="AccountManage_Tapped">
 					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="Accounts" />
+						<Run FontWeight="Normal" Text="{Binding [Settings_AccountTitle], Source={StaticResource Localized}}" />
 						<LineBreak />
-						<Run Text="Manage your accounts." />
+						<Run Text="{Binding [Settings_AccountDescription], Source={StaticResource Localized}}" />
 					</TextBlock>
 					<Image Width="35"
 					       Height="35"
@@ -42,9 +44,9 @@
 				</StackPanel>
 				<StackPanel Tapped="RateReviewTapped">
 					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="Like this app?" />
+						<Run FontWeight="Normal" Text="{Binding [Settings_ReviewTitle], Source={StaticResource Localized}}" />
 						<LineBreak />
-						<Run Text="Take a moment to rate/review the app." />
+						<Run Text="{Binding [Settings_ReviewDescription], Source={StaticResource Localized}}" />
 					</TextBlock>
 					<Image Width="35"
 					       Height="35"
@@ -54,9 +56,9 @@
 				</StackPanel>
 				<StackPanel x:Name="UpgardePanel" Tapped="UpgradeAppTapped">
 					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="Upgrade to full version" />
+						<Run FontWeight="Normal" Text="{Binding [Settings_UpgradeTitle], Source={StaticResource Localized}}" />
 						<LineBreak />
-						<Run Text="Add features with a one time purchase." />
+						<Run Text="{Binding [Settings_UpgradeDescription], Source={StaticResource Localized}}" />
 					</TextBlock>
 					<Image Width="35"
 					       Height="35"
@@ -66,9 +68,9 @@
 				</StackPanel>
 				<StackPanel Tapped="AboutTapped">
 					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="About Sapphire" />
+						<Run FontWeight="Normal" Text="{Binding [Settings_AboutTitle], Source={StaticResource Localized}}" />
 						<LineBreak />
-						<Run Text="Legal, privacy, and support." />
+						<Run Text="{Binding [Settings_AboutDescription], Source={StaticResource Localized}}" />
 					</TextBlock>
 					<Image Width="35"
 					       Height="35"
@@ -81,12 +83,13 @@
 				           FontWeight="Normal"
 				           Foreground="{StaticResource PrimaryText}"
 				           Style="{StaticResource SubTitle}"
-				           Text="Preferences" />
+				           Text="{Binding [Heading_Preferences],
+				                          Source={StaticResource Localized}}" />
 				<StackPanel>
 					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="Blog notifications" />
+						<Run FontWeight="Normal" Text="{Binding [Settings_BlogNotifTitle], Source={StaticResource Localized}}" />
 						<LineBreak />
-						<Run Text="Customize your blog specific alerts." />
+						<Run Text="{Binding [Settings_BlogNotifDescription], Source={StaticResource Localized}}" />
 					</TextBlock>
 					<Image Width="35"
 					       Height="35"
@@ -96,9 +99,21 @@
 				</StackPanel>
 				<StackPanel>
 					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="Auto tags" />
+						<Run FontWeight="Normal" Text="{Binding [Settings_PostActionTitle], Source={StaticResource Localized}}" />
 						<LineBreak />
-						<Run Text="Edit what tags to add to posts by default." />
+						<Run Text="{Binding [Settings_PostActionDescription], Source={StaticResource Localized}}" />
+					</TextBlock>
+					<Image Width="35"
+					       Height="35"
+					       Margin="0, -40, 0, 0"
+					       HorizontalAlignment="Right"
+					       Source="ms-appx:///Assets/open_nav.png" />
+				</StackPanel>
+				<StackPanel>
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
+						<Run FontWeight="Normal" Text="{Binding [Settings_AutoTagsTitle], Source={StaticResource Localized}}" />
+						<LineBreak />
+						<Run Text="{Binding [Settings_AutoTagsDescription], Source={StaticResource Localized}}" />
 					</TextBlock>
 					<Image Width="35"
 					       Height="35"
@@ -111,27 +126,13 @@
 				           FontWeight="Normal"
 				           Foreground="{StaticResource PrimaryText}"
 				           Style="{StaticResource SubTitle}"
-				           Text="Toggles" />
+				           Text="{Binding [Heading_Toggles],
+				                          Source={StaticResource Localized}}" />
 				<StackPanel>
 					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="Notifications" />
+						<Run FontWeight="Normal" Text="{Binding [Settings_UXFeedbackTitle], Source={StaticResource Localized}}" />
 						<LineBreak />
-						<Run Text="Manage blog alerts." />
-					</TextBlock>
-					<CheckBox x:Name="NotificationsToggle"
-					          MinWidth="35"
-					          Margin="0, -50, -5, 0"
-					          HorizontalAlignment="Right"
-					          Background="#11FFFFFF"
-					          BorderBrush="#4a9bca"
-					          Click="EnableNotifications_Toggled"
-					          RequestedTheme="Light" />
-				</StackPanel>
-				<StackPanel>
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="UX feedback" />
-						<LineBreak />
-						<Run Text="Assist in development via usage analytics." />
+						<Run Text="{Binding [Settings_UXFeedbackDescription], Source={StaticResource Localized}}" />
 					</TextBlock>
 					<CheckBox x:Name="UXFeedback"
 					          MinWidth="35"
@@ -161,24 +162,9 @@
 				-->
 				<StackPanel>
 					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="Statusbar background" />
+						<Run FontWeight="Normal" Text="{Binding [Settings_QuickPostTitle], Source={StaticResource Localized}}" />
 						<LineBreak />
-						<Run Text="Enable a darker status bar background" />
-					</TextBlock>
-					<CheckBox x:Name="DarkStatusbar"
-					          MinWidth="35"
-					          Margin="0, -50, -5, 0"
-					          HorizontalAlignment="Right"
-					          Background="#11FFFFFF"
-					          BorderBrush="#4a9bca"
-					          Click="StatusBarBGToggle_Toggled"
-					          RequestedTheme="Light" />
-				</StackPanel>
-				<StackPanel>
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="Quick-reblog" />
-						<LineBreak />
-						<Run Text="Skip addition of more details to a post." />
+						<Run Text="{Binding [Settings_QuickPostDescription], Source={StaticResource Localized}}" />
 					</TextBlock>
 					<CheckBox x:Name="OneClickReblog"
 					          MinWidth="35"
@@ -191,9 +177,9 @@
 				</StackPanel>
 				<StackPanel>
 					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="Post tags" />
+						<Run FontWeight="Normal" Text="{Binding [Settings_PostTagsTitle], Source={StaticResource Localized}}" />
 						<LineBreak />
-						<Run Text="Display post tags below the captions." />
+						<Run Text="{Binding [Settings_PostTagsDescription], Source={StaticResource Localized}}" />
 					</TextBlock>
 					<CheckBox x:Name="PostTags"
 					          MinWidth="35"

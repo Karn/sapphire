@@ -16,6 +16,8 @@ namespace Sapphire.Utils.Converters {
         public DataTemplate VideoTemplate { get; set; }
         public DataTemplate AnswerTemplate { get; set; }
 
+		public DataTemplate DefaultTemplate { get; set; }
+
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container) {
             var listItem = item as Post;
             if (listItem != null) {
@@ -43,7 +45,7 @@ namespace Sapphire.Utils.Converters {
                     return AnswerTemplate;
             }
 
-            return base.SelectTemplateCore(item, container);
+			return DefaultTemplate;
         }
     }
 }

@@ -85,8 +85,8 @@
 					        Style="{StaticResource ButtonStyleNoBG}">
 
 						<Grid>
-							<Ellipse Fill="{ThemeResource ColorPrimary}"
-							         Stroke="{StaticResource TextColorPrimaryDark}"
+							<Ellipse Fill="{ThemeResource PrimaryColor}"
+							         Stroke="{StaticResource DarkPrimaryColor}"
 							         StrokeThickness="0.1" />
 							<Image Margin="10"
 							       Canvas.ZIndex="50"
@@ -150,7 +150,7 @@
 							           Opacity=".75"
 							           Style="{StaticResource Caption}"
 							           Text="{Binding Description,
-							                          FallbackValue=description asdasdaskhdasjhdjkashd kjadjahsd}"
+							                          FallbackValue=description}"
 							           TextWrapping="Wrap" />
 						</StackPanel>
 
@@ -179,7 +179,7 @@
 						           Tapped="AccountDetails_Tapped">
 							<Run Foreground="{StaticResource DarkPrimaryColor}" Text="{Binding FollowingCount, FallbackValue=0}" />
 							<LineBreak />
-							<Run FontSize="12" Text="FOLLOWING" />
+							<Run FontSize="12" Text="{Binding [Account_Following], Source={StaticResource Localized}}" />
 						</TextBlock>
 						<TextBlock Grid.Column="2"
 						           FontWeight="Normal"
@@ -189,7 +189,7 @@
 						           Tapped="AccountDetails_Tapped">
 							<Run Foreground="{StaticResource DarkPrimaryColor}" Text="{Binding PostCount, FallbackValue=0}" />
 							<LineBreak />
-							<Run FontSize="12" Text="POSTS" />
+							<Run FontSize="12" Text="{Binding [Account_Posts], Source={StaticResource Localized}}" />
 						</TextBlock>
 						<TextBlock Grid.Column="3"
 						           FontWeight="Normal"
@@ -199,7 +199,7 @@
 						           Tapped="AccountDetails_Tapped">
 							<Run Foreground="{StaticResource DarkPrimaryColor}" Text="{Binding LikedPostCount, FallbackValue=0}" />
 							<LineBreak />
-							<Run FontSize="12" Text="LIKES" />
+							<Run FontSize="12" Text="{Binding [Account_Likes], Source={StaticResource Localized}}" />
 						</TextBlock>
 						<TextBlock Grid.Column="4"
 						           FontWeight="Normal"
@@ -209,7 +209,7 @@
 						           Tapped="AccountDetails_Tapped">
 							<Run Foreground="{StaticResource DarkPrimaryColor}" Text="{Binding FollowersCount, FallbackValue=0}" />
 							<LineBreak />
-							<Run FontSize="12" Text="FOLLOWERS" />
+							<Run FontSize="12" Text="{Binding [Account_Followers], Source={StaticResource Localized}}" />
 						</TextBlock>
 					</Grid>
 
@@ -222,7 +222,8 @@
 						<Grid Tapped="ManageBlogs_Tapped">
 							<TextBlock VerticalAlignment="Center"
 							           Style="{StaticResource SubTitle}"
-							           Text="My blogs" />
+							           Text="{Binding [Account_MyBlogs],
+							                          Source={StaticResource Localized}}" />
 							<Image Width="35"
 							       Height="35"
 							       HorizontalAlignment="Right"
@@ -231,7 +232,8 @@
 						<Grid Tapped="Inbox_Tapped">
 							<TextBlock VerticalAlignment="Center"
 							           Style="{StaticResource SubTitle}"
-							           Text="Inbox" />
+							           Text="{Binding [Title_Inbox],
+							                          Source={StaticResource Localized}}" />
 							<Image Width="35"
 							       Height="35"
 							       HorizontalAlignment="Right"
@@ -240,7 +242,8 @@
 						<Grid Tapped="Drafts_Tapped">
 							<TextBlock VerticalAlignment="Center"
 							           Style="{StaticResource SubTitle}"
-							           Text="Drafts" />
+							           Text="{Binding [Title_Drafts],
+							                          Source={StaticResource Localized}}" />
 							<Image Width="35"
 							       Height="35"
 							       HorizontalAlignment="Right"
@@ -249,7 +252,8 @@
 						<Grid Tapped="Queue_Tapped">
 							<TextBlock VerticalAlignment="Center"
 							           Style="{StaticResource SubTitle}"
-							           Text="Queue" />
+							           Text="{Binding [Title_Queue],
+							                          Source={StaticResource Localized}}" />
 							<Image Width="35"
 							       Height="35"
 							       HorizontalAlignment="Right"
@@ -258,7 +262,8 @@
 						<Grid Tapped="Favs_List_Tapped" Visibility="{Binding Converter={StaticResource IsFullVersion}, FallbackValue=Collapsed}">
 							<TextBlock VerticalAlignment="Center"
 							           Style="{StaticResource SubTitle}"
-							           Text="Favorite Blogs" />
+							           Text="{Binding [Title_FavBlogs],
+							                          Source={StaticResource Localized}}" />
 							<Image Width="35"
 							       Height="35"
 							       HorizontalAlignment="Right"
@@ -333,8 +338,8 @@
 			              Icon="Refresh"
 			              Label="refresh" />
 			<CommandBar.SecondaryCommands>
-				<AppBarButton Click="SettingsButton_Click" Label="settings" />
-				<AppBarButton Click="ManageAccountButton_Click" Label="manage accounts" />
+				<AppBarButton Click="SettingsButton_Click" Label="{Binding [Title_Settings], Source={StaticResource Localized}}" />
+				<AppBarButton Click="ManageAccountButton_Click" Label="{Binding [Heading_ManageAccounts], Source={StaticResource Localized}}" />
 			</CommandBar.SecondaryCommands>
 		</CommandBar>
 	</Page.BottomAppBar>

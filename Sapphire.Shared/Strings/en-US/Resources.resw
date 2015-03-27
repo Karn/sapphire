@@ -117,20 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Account" xml:space="preserve">
-    <value>Account</value>
-  </data>
-  <data name="Activity" xml:space="preserve">
-    <value>Activity</value>
-  </data>
   <data name="ActivityLoadFailed" xml:space="preserve">
     <value>Unable to retrieve activity feed.</value>
   </data>
   <data name="AuthorizationFailed" xml:space="preserve">
     <value>Unable to authorize account.</value>
-  </data>
-  <data name="Dashboard" xml:space="preserve">
-    <value>Dashboard</value>
   </data>
   <data name="DeleteFailed" xml:space="preserve">
     <value>Failed to delete post.</value>
@@ -141,11 +132,17 @@
   <data name="DownloadingImage" xml:space="preserve">
     <value>Downloading image...</value>
   </data>
-  <data name="Explore" xml:space="preserve">
-    <value>Explore</value>
-  </data>
   <data name="GIFLoadFailed" xml:space="preserve">
     <value>Unable to load animated Image.</value>
+  </data>
+  <data name="Heading_General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="Heading_Preferences" xml:space="preserve">
+    <value>Preferences</value>
+  </data>
+  <data name="Heading_Toggles" xml:space="preserve">
+    <value>Toggles</value>
   </data>
   <data name="InternalServerError" xml:space="preserve">
     <value>Unable to retrieve content. Try again later!</value>
@@ -186,6 +183,81 @@
   <data name="ReleaseToRefresh" xml:space="preserve">
     <value>Release to refresh...</value>
   </data>
+  <data name="Settings_AboutDescription" xml:space="preserve">
+    <value>Legal, Privacy, and Support.</value>
+  </data>
+  <data name="Settings_AboutTitle" xml:space="preserve">
+    <value>About Sapphire</value>
+  </data>
+  <data name="Settings_AccountDescription" xml:space="preserve">
+    <value>Manage your accounts.</value>
+  </data>
+  <data name="Settings_AccountTitle" xml:space="preserve">
+    <value>Accounts</value>
+  </data>
+  <data name="Settings_AutoTagsDescription" xml:space="preserve">
+    <value>Edit what tags to add to posts by default.</value>
+  </data>
+  <data name="Settings_AutoTagsTitle" xml:space="preserve">
+    <value>Automatic tags</value>
+  </data>
+  <data name="Settings_BlogNotifDescription" xml:space="preserve">
+    <value>Customize your blog specific alerts.</value>
+  </data>
+  <data name="Settings_BlogNotifTitle" xml:space="preserve">
+    <value>Blog notifications</value>
+  </data>
+  <data name="Settings_PostActionDescription" xml:space="preserve">
+    <value>Change what the quick post button does.</value>
+  </data>
+  <data name="Settings_PostActionTitle" xml:space="preserve">
+    <value>Quick post action.</value>
+  </data>
+  <data name="Settings_PostTagsDescription" xml:space="preserve">
+    <value>Enable to view post tags below captions.</value>
+  </data>
+  <data name="Settings_PostTagsTitle" xml:space="preserve">
+    <value>View post tags</value>
+  </data>
+  <data name="Settings_QuickPostDescription" xml:space="preserve">
+    <value>Skip additon of details to a post.</value>
+  </data>
+  <data name="Settings_QuickPostTitle" xml:space="preserve">
+    <value>Quick-Post</value>
+  </data>
+  <data name="Settings_ReviewDescription" xml:space="preserve">
+    <value>Take a moment to rate/review the app.</value>
+  </data>
+  <data name="Settings_ReviewTitle" xml:space="preserve">
+    <value>Like this app?</value>
+  </data>
+  <data name="Settings_UpgradeDescription" xml:space="preserve">
+    <value>Add features with a one time purchase.</value>
+  </data>
+  <data name="Settings_UpgradeTitle" xml:space="preserve">
+    <value>Upgrade to full version</value>
+  </data>
+  <data name="Settings_UXFeedbackDescription" xml:space="preserve">
+    <value>Assist in development via usage analytics.</value>
+  </data>
+  <data name="Settings_UXFeedbackTitle" xml:space="preserve">
+    <value>UX Feedback</value>
+  </data>
+  <data name="Title_Account" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="Title_Activity" xml:space="preserve">
+    <value>Activity</value>
+  </data>
+  <data name="Title_Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Title_Explore" xml:space="preserve">
+    <value>Explore</value>
+  </data>
+  <data name="Title_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="UnableToLoadAccount" xml:space="preserve">
     <value>Unable to retrieve your account. Please try again later.</value>
   </data>
@@ -194,5 +266,47 @@
   </data>
   <data name="WrongLoginCredentials" xml:space="preserve">
     <value>Invalid username/password. Please try again.</value>
+  </data>
+  <data name="AccountManager_AccountsTitle" xml:space="preserve">
+    <value>ACCOUNTS</value>
+  </data>
+  <data name="AccountManager_AddAccountButton" xml:space="preserve">
+    <value>ADD ACCOUNT</value>
+  </data>
+  <data name="AccountManager_BlogsTitle" xml:space="preserve">
+    <value>BLOGS</value>
+  </data>
+  <data name="Account_Followers" xml:space="preserve">
+    <value>FOLLOWERS</value>
+  </data>
+  <data name="Account_Following" xml:space="preserve">
+    <value>FOLLOWING</value>
+  </data>
+  <data name="Account_Likes" xml:space="preserve">
+    <value>LIKES</value>
+  </data>
+  <data name="Account_MyBlogs" xml:space="preserve">
+    <value>My blogs</value>
+  </data>
+  <data name="Account_Posts" xml:space="preserve">
+    <value>POSTS</value>
+  </data>
+  <data name="Heading_ManageAccounts" xml:space="preserve">
+    <value>Manage Accounts</value>
+  </data>
+  <data name="Title_AccountManager" xml:space="preserve">
+    <value>Accounts/blogs</value>
+  </data>
+  <data name="Title_Drafts" xml:space="preserve">
+    <value>Drafts</value>
+  </data>
+  <data name="Title_FavBlogs" xml:space="preserve">
+    <value>Favorite blogs</value>
+  </data>
+  <data name="Title_Inbox" xml:space="preserve">
+    <value>Inbox</value>
+  </data>
+  <data name="Title_Queue" xml:space="preserve">
+    <value>Queue</value>
   </data>
 </root>

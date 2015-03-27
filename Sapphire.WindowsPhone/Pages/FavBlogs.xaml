@@ -18,7 +18,8 @@
 			<TextBlock x:Name="PageTitle"
 			           Foreground="{ThemeResource PrimaryText}"
 			           Style="{StaticResource Headline}"
-			           Text="Favorite blogs" />
+			           Text="{Binding [Title_FavBlogs],
+			                          Source={StaticResource Localized}}" />
 		</Border>
 
 		<ListView x:Name="List"

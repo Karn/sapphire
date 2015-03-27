@@ -54,7 +54,8 @@
 			<TextBlock x:Name="PageTitle"
 			           Foreground="{StaticResource PrimaryText}"
 			           Style="{StaticResource Headline}"
-			           Text="Accounts/blogs" />
+			           Text="{Binding [Title_AccountManager],
+			                          Source={StaticResource Localized}}" />
 		</Grid>
 
 		<Pivot x:Name="Items"
@@ -68,7 +69,7 @@
 					           Text="{Binding}" />
 				</DataTemplate>
 			</Pivot.HeaderTemplate>
-			<PivotItem Margin="0" Header="BLOGS">
+			<PivotItem Margin="0" Header="{Binding [AccountManager_BlogsTitle], Source={StaticResource Localized}}">
 				<ListView x:Name="BlogList"
 				          Grid.Row="1"
 				          Margin="0, 2, 0, 0"
@@ -93,9 +94,7 @@
 										<ImageBrush ImageSource="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
 									</Ellipse.Fill>
 								</Ellipse>
-								<StackPanel Grid.Column="1"
-								            Margin="10"
-								            HorizontalAlignment="Left">
+								<StackPanel Grid.Column="1" HorizontalAlignment="Left">
 									<TextBlock Margin="0"
 									           HorizontalAlignment="Left"
 									           FontSize="18"
@@ -104,7 +103,7 @@
 									           Style="{StaticResource Headline}"
 									           Text="{Binding Name}"
 									           TextTrimming="CharacterEllipsis" />
-									<TextBlock Margin="0, -10, 0, 0"
+									<TextBlock Margin="12, -8, 12, 0"
 									           HorizontalAlignment="Left"
 									           FontSize="14"
 									           Foreground="{ThemeResource TextColorPrimaryDark}"
@@ -132,7 +131,7 @@
 				</ListView>
 			</PivotItem>
 
-			<PivotItem Margin="0" Header="ACCOUNTS">
+			<PivotItem Margin="0" Header="{Binding [AccountManager_AccountsTitle], Source={StaticResource Localized}}">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="*" />
@@ -203,7 +202,8 @@
 					        Background="#FF529ECC"
 					        BorderThickness="0"
 					        Click="AddAccount_Click"
-					        Content="ADD ACCOUNT"
+					        Content="{Binding [AccountManager_AddAccountButton],
+					                          Source={StaticResource Localized}}"
 					        FontSize="18"
 					        Foreground="White"
 					        Padding="0" />

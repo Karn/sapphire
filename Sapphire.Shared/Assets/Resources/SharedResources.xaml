@@ -1,4 +1,6 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:utils="using:Sapphire.Utils">
 
 	<ResourceDictionary.ThemeDictionaries>
 		<ResourceDictionary x:Key="Default">
@@ -56,6 +58,8 @@
 			<BitmapImage x:Key="QueueButtonAsset" UriSource="ms-appx:///Assets/Resources/Dark/Queue.png" />
 		</ResourceDictionary>
 	</ResourceDictionary.ThemeDictionaries>
+
+	<utils:LocalizedStrings x:Key="Localized" />
 
 	<!--  Common Resources  -->
 	<BitmapImage x:Key="DefaultAvatar" UriSource="ms-appx:///Assets/DefaultAvatar.png" />

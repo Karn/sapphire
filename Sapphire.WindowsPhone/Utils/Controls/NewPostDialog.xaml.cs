@@ -48,7 +48,7 @@ namespace Sapphire.Utils.Controls {
             if (PostButtons.Visibility == Visibility.Collapsed) {
                 BG.Visibility = Visibility.Visible;
                 CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 45 };
-                CreatePostFill.Fill = new SolidColorBrush(Color.FromArgb(255, 207, 73, 73));
+                CreatePostFill.Fill = new SolidColorBrush(Color.FromArgb(255, 180, 75, 75));
                 PostButtons.Visibility = Visibility.Visible;
                 AnimateIn();
                 IsActive = true;
@@ -58,7 +58,7 @@ namespace Sapphire.Utils.Controls {
 
         public void CreatePost_LostFocus(object sender, RoutedEventArgs e) {
             CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
-            CreatePostFill.Fill = App.Current.Resources["ColorPrimary"] as SolidColorBrush;
+            CreatePostFill.Fill = App.Current.Resources["PrimaryColor"] as SolidColorBrush;
             AnimateOut();
             BG.Visibility = Visibility.Collapsed;
             IsActive = false;

@@ -170,7 +170,7 @@ namespace Sapphire {
 			}
 			switch (SelectedItem) {
 				case 0:
-					PageTitle.Text = App.LocaleResources.GetString("Dashboard");
+					PageTitle.Text = App.LocaleResources.GetString("Title_Dashboard");
 					DashboardIcon.Opacity = 1.0;
 					AccountIcon.Opacity = 0.5;
 					ActivityIcon.Opacity = 0.5;
@@ -178,7 +178,7 @@ namespace Sapphire {
 					NavigationPivot.SelectedIndex = 0;
 					break;
 				case 1:
-					PageTitle.Text = App.LocaleResources.GetString("Activity");
+					PageTitle.Text = App.LocaleResources.GetString("Title_Activity");
 					DashboardIcon.Opacity = 0.5;
 					AccountIcon.Opacity = 0.5;
 					ActivityIcon.Opacity = 1.0;
@@ -186,7 +186,7 @@ namespace Sapphire {
 					NavigationPivot.SelectedIndex = 1;
 					break;
 				case 2:
-					PageTitle.Text = App.LocaleResources.GetString("Account");
+					PageTitle.Text = App.LocaleResources.GetString("Title_Account");
 					DashboardIcon.Opacity = 0.5;
 					AccountIcon.Opacity = 1.0;
 					ActivityIcon.Opacity = 0.5;
@@ -194,7 +194,7 @@ namespace Sapphire {
 					NavigationPivot.SelectedIndex = 2;
 					break;
 				case 3:
-					PageTitle.Text = App.LocaleResources.GetString("Explore");
+					PageTitle.Text = App.LocaleResources.GetString("Title_Explore");
 					DashboardIcon.Opacity = 0.5;
 					AccountIcon.Opacity = 0.5;
 					ActivityIcon.Opacity = 0.5;

@@ -49,8 +49,6 @@ namespace Core.Client {
 					requestMessage.Headers.Authorization = new AuthenticationHeaderValue("OAuth", authenticationData);
 					requestMessage.Headers.IfModifiedSince = DateTime.UtcNow.Date;
 
-					Debug.WriteLine(requestMessage);
-
 					return await client.SendAsync(requestMessage);
 				}
 			} catch (Exception ex) {
