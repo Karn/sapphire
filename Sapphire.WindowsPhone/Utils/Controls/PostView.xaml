@@ -425,7 +425,7 @@
 												</Grid.RowDefinitions>
 												<Grid Background="#02000000" Tapped="Grid_Tapped" />
 												<StackPanel Grid.Row="1"
-												            Margin="20, 5"
+												            Margin="0"
 												            VerticalAlignment="Bottom"
 												            Background="{ThemeResource ColorPrimary}">
 													<TextBlock Foreground="{ThemeResource TextColorPrimary}"
