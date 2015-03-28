@@ -40,7 +40,7 @@
 				           Tag="{Binding from_tumblelog_name}"
 				           Tapped="GoToBlog">
 					<Run Text="{Binding from_tumblelog_name}" />
-					<Run Text="reblogged your post." />
+					<Run Text="{Binding [Activity_ReblogDescription], Source={StaticResource Localized}}" />
 				</TextBlock>
 				<Image Grid.Column="2"
 				       Width="40"
@@ -81,7 +81,7 @@
 				           Tag="{Binding from_tumblelog_name}"
 				           Tapped="GoToBlog">
 					<Run Text="{Binding from_tumblelog_name}" />
-					<Run Text="liked your post." />
+					<Run Text="{Binding [Activity_LikeDescription], Source={StaticResource Localized}}" />
 				</TextBlock>
 				<Image Grid.Column="2"
 				       Width="40"
@@ -121,7 +121,7 @@
 				           Tag="{Binding from_tumblelog_name}"
 				           Tapped="GoToBlog">
 					<Run Text="{Binding from_tumblelog_name}" />
-					<Run Text="started following you." />
+					<Run Text="{Binding [Activity_FollowedDescription], Source={StaticResource Localized}}" />
 				</TextBlock>
 				<Grid Grid.Column="2"
 				      Width="40"
@@ -168,7 +168,7 @@
 				           Tag="{Binding from_tumblelog_name}"
 				           Tapped="GoToBlog">
 					<Run Text="{Binding from_tumblelog_name}" />
-					<Run Text="mentioned you in a post." />
+					<Run Text="{Binding [Activity_MentionDescription], Source={StaticResource Localized}}" />
 				</TextBlock>
 				<Image Grid.Column="2"
 				       Width="40"
@@ -209,7 +209,7 @@
 				           Tag="{Binding from_tumblelog_name}"
 				           Tapped="GoToBlog">
 					<Run Text="{Binding from_tumblelog_name}" />
-					<Run Text="answerd your post." />
+					<Run Text="{Binding [Activity_AnswerDescription], Source={StaticResource Localized}}" />
 				</TextBlock>
 				<Image Grid.Column="2"
 				       Width="40"
@@ -248,7 +248,7 @@
 				           Tag="{Binding from_tumblelog_name}"
 				           Tapped="GoToBlog">
 					<Run Text="{Binding from_tumblelog_name}" />
-					<Run Text="asked you a question." />
+					<Run Text="{Binding [Activity_AskDescription], Source={StaticResource Localized}}" />
 				</TextBlock>
 				<Image Grid.Column="2"
 				       Width="40"
@@ -287,7 +287,7 @@
 				           Tag="{Binding from_tumblelog_name}"
 				           Tapped="GoToBlog">
 					<Run Text="{Binding from_tumblelog_name}" />
-					<Run Text="sent you fan mail." />
+					<Run Text="{Binding [Activity_FanMailDescription], Source={StaticResource Localized}}" />
 				</TextBlock>
 				<Image Grid.Column="2"
 				       Width="40"

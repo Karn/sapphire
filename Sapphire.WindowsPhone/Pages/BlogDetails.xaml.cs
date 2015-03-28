@@ -85,10 +85,10 @@ namespace Sapphire.Pages {
 				var name = ((TextBlock)sender).Tag.ToString();
 				if (UserPreferences.FavBlogList.Any(b => b.Name == name)) {
 					UserPreferences.RemoveFav(name);
-					((TextBlock)sender).Text = "add to favorites";
+					((TextBlock)sender).Text = App.LocaleResources.GetString("BlogDetails_AddToFavs");
 				} else {
 					UserPreferences.AddFav(name);
-					((TextBlock)sender).Text = "remove from favorites";
+					((TextBlock)sender).Text = App.LocaleResources.GetString("BlogDetails_RemoveFromFavs");
 				}
 			}
 		}
@@ -105,9 +105,9 @@ namespace Sapphire.Pages {
 			if (((StackPanel)sender).Tag != null) {
 				var name = ((StackPanel)sender).Tag.ToString();
 				if (UserPreferences.FavBlogList.Any(b => b.Name == name)) {
-					((TextBlock)((StackPanel)sender).FindName("fav")).Text = "remove from favorites";
+					((TextBlock)((StackPanel)sender).FindName("fav")).Text = App.LocaleResources.GetString("BlogDetails_RemoveFromFavs");
 				} else {
-					((TextBlock)((StackPanel)sender).FindName("fav")).Text = "add to favorites";
+					((TextBlock)((StackPanel)sender).FindName("fav")).Text = App.LocaleResources.GetString("BlogDetails_AddToFavs");
 				}
 			}
 		}

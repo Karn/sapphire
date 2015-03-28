@@ -32,11 +32,11 @@ namespace Sapphire.Utils.Converters {
             // 5.
             // Handle same-day times.
             if (dayDiff == 0 || dayDiff == -1) {
-                return "today";
+                return App.LocaleResources.GetString("Activity_TodayText");
             } else if (dayDiff == 1) {
-                return "yesterday";
+                return App.LocaleResources.GetString("Activity_YesterdayText");
             } else
-                return dayDiff + " days ago";
+                return dayDiff + " " + App.LocaleResources.GetString("Activity_DaysAgoText");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language) {

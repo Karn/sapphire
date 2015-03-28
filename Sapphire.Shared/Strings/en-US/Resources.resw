@@ -220,7 +220,7 @@
     <value>View post tags</value>
   </data>
   <data name="Settings_QuickPostDescription" xml:space="preserve">
-    <value>Skip additon of details to a post.</value>
+    <value>Skip addition of details to a post.</value>
   </data>
   <data name="Settings_QuickPostTitle" xml:space="preserve">
     <value>Quick-Post</value>
@@ -232,7 +232,7 @@
     <value>Like this app?</value>
   </data>
   <data name="Settings_UpgradeDescription" xml:space="preserve">
-    <value>Add features with a one time purchase.</value>
+    <value>Add features with a one-time purchase.</value>
   </data>
   <data name="Settings_UpgradeTitle" xml:space="preserve">
     <value>Upgrade to full version</value>
@@ -336,7 +336,85 @@
   <data name="About_SupportTitle" xml:space="preserve">
     <value>Support + feedback</value>
   </data>
+  <data name="Activity_AnswerDescription" xml:space="preserve">
+    <value>answered your question.</value>
+  </data>
+  <data name="Activity_AskDescription" xml:space="preserve">
+    <value>asked you a question.</value>
+  </data>
+  <data name="Activity_DaysAgoText" xml:space="preserve">
+    <value>days ago</value>
+  </data>
+  <data name="Activity_FanMailDescription" xml:space="preserve">
+    <value>sent you fanmail.</value>
+  </data>
+  <data name="Activity_FollowedDescription" xml:space="preserve">
+    <value>started following you.</value>
+  </data>
+  <data name="Activity_LikeDescription" xml:space="preserve">
+    <value>liked your post.</value>
+  </data>
+  <data name="Activity_MentionDescription" xml:space="preserve">
+    <value>mentioned you in a post.</value>
+  </data>
+  <data name="Activity_ReblogDescription" xml:space="preserve">
+    <value>reblogged your post.</value>
+  </data>
+  <data name="Activity_TodayText" xml:space="preserve">
+    <value>today</value>
+  </data>
+  <data name="Activity_YesterdayText" xml:space="preserve">
+    <value>yesterday</value>
+  </data>
+  <data name="MainView_SearchText" xml:space="preserve">
+    <value>Search...</value>
+  </data>
+  <data name="Post_HourAgoText" xml:space="preserve">
+    <value>hour ago</value>
+  </data>
+  <data name="Post_HoursAgoText" xml:space="preserve">
+    <value>hours ago</value>
+  </data>
+  <data name="Post_JustNowText" xml:space="preserve">
+    <value>just now</value>
+  </data>
+  <data name="Post_MinAgoText" xml:space="preserve">
+    <value>minute ago</value>
+  </data>
+  <data name="Post_MinsAgoText" xml:space="preserve">
+    <value>minutes ago</value>
+  </data>
+  <data name="Post_WeeksAgoText" xml:space="preserve">
+    <value>weeks ago</value>
+  </data>
   <data name="Title_About" xml:space="preserve">
     <value>About</value>
+  </data>
+  <data name="Title_Followers" xml:space="preserve">
+    <value>Followers</value>
+  </data>
+  <data name="Title_Following" xml:space="preserve">
+    <value>Following</value>
+  </data>
+  <data name="BlogDetails_AddToFavs" xml:space="preserve">
+    <value>add to favorites</value>
+  </data>
+  <data name="BlogDetails_AskLabel" xml:space="preserve">
+    <value>ask question</value>
+  </data>
+  <data name="BlogDetails_RemoveFromFavs" xml:space="preserve">
+    <value>remove from favorites</value>
+  </data>
+  <data name="BlogDetails_ViewLikes" xml:space="preserve">
+    <value>view likes</value>
+  </data>
+  <data name="Post_NotesLabel" xml:space="preserve">
+    <value>notes</value>
+  </data>
+  <data name="Post_SaveToPhone" xml:space="preserve">
+    <value>save to phone</value>
+  </data>
+  <data name="Title_PostDetails" xml:space="preserve">
+    <value>Post details</value>
   </data>
 </root>

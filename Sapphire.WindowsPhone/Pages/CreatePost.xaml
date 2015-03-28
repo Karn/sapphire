@@ -50,7 +50,6 @@
 					                            Converter={StaticResource IsFullVersion},
 					                            FallbackValue=Collapsed}" />
 				</StackPanel>
-				<!--  <Image x:Name="PostTextButton" Tapped="PostTextButton_Tapped" HorizontalAlignment="Right" Width="35" Height="30" Source="ms-appx:///Assets/NewPost/PostOK.png" Margin="0, -100, 15, 0"/>  -->
 
 				<TextBox x:Name="Title"
 				         Grid.Row="0"

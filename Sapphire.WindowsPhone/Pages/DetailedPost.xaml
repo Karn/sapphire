@@ -44,7 +44,7 @@
 				<Grid Height="40" Tag="{Binding special_case}">
 					<TextBlock x:Name="NoteInfo" Style="{StaticResource SubTitle}">
 						<Run Text="{Binding note_count}" />
-						<Run Text="notes" />
+						<Run Text="{Binding [Post_NotesLabel], Source={StaticResource Localized}}" />
 					</TextBlock>
 					<StackPanel x:Name="NormalCommands"
 					            HorizontalAlignment="Right"
@@ -115,7 +115,8 @@
 			<TextBlock x:Name="PageTitle"
 			           Foreground="{ThemeResource PrimaryText}"
 			           Style="{StaticResource Headline}"
-			           Text="Post details" />
+			           Text="{Binding [Title_PostDetails],
+			                          Source={StaticResource Localized}}" />
 		</Border>
 
 		<ScrollViewer Grid.Row="1" Background="White">

@@ -66,14 +66,6 @@ namespace Sapphire.Pages {
 			PageTitle.Text = PageTitle.Text.ToString() + ": " + type;
 		}
 
-		/// <summary>
-		/// Preserves state associated with this page in case the application is suspended or the
-		/// page is discarded from the navigation cache.  Values must conform to the serialization
-		/// requirements of <see cref="SuspensionManager.SessionState"/>.
-		/// </summary>
-		/// <param name="sender">The source of the event; typically <see cref="NavigationHelper"/></param>
-		/// <param name="e">Event data that provides an empty dictionary to be populated with
-		/// serializable state.</param>
 		private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) {
 		}
 

@@ -37,7 +37,8 @@
 					           Style="{StaticResource Headline}"
 					           Tag="{Binding path_to_low_res_pic.url}"
 					           Tapped="OtherOptions_Tapped"
-					           Text="save to phone"
+					           Text="{Binding [Post_SaveToPhone],
+					                          Source={StaticResource Localized}}"
 					           TextLineBounds="Tight"
 					           TextTrimming="CharacterEllipsis" />
 				</Grid>
@@ -67,7 +68,8 @@
 					           Style="{StaticResource Headline}"
 					           Tag="{Binding original_size.url}"
 					           Tapped="OtherOptions_Tapped"
-					           Text="save to phone"
+					           Text="{Binding [Post_SaveToPhone],
+					                          Source={StaticResource Localized}}"
 					           TextLineBounds="Tight"
 					           TextTrimming="CharacterEllipsis" />
 				</Grid>
@@ -476,7 +478,7 @@
 									           Tag="{Binding id}"
 									           Tapped="GoToPostDetails">
 										<Run Text="{Binding note_count}" />
-										<Run Text="notes" />
+										<Run Text="{Binding [Post_NotesLabel], Source={StaticResource Localized}}" />
 									</TextBlock>
 									<StackPanel x:Name="NormalCommands"
 									            HorizontalAlignment="Right"

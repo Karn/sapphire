@@ -72,7 +72,7 @@ namespace Sapphire.Pages {
         /// a dictionary of state preserved by this page during an earlier
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
-            PageTitle.Text = e.NavigationParameter.ToString();
+            PageTitle.Text = App.LocaleResources.GetString("Title_" + e.NavigationParameter.ToString());
 
             if (List.Items == null || List.Items.Count == 0) {
                 SetItemSource();

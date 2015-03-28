@@ -8,7 +8,7 @@ namespace Sapphire.Utils.Converters {
         public object Convert(object value, Type targetType, object parameter, string language) {
             if (value != null)
                 return GetPrettyDate(DateTime.Parse(value.ToString()).ToLocalTime());
-            return "Not known";
+			return string.Empty;
         }
 
         static string GetPrettyDate(DateTime d) {
@@ -36,43 +36,43 @@ namespace Sapphire.Utils.Converters {
                 // A.
                 // Less than one minute ago.
                 if (secDiff < 60) {
-                    return "just now";
+                    return App.LocaleResources.GetString("Post_JustNowText");
                 }
                 // B.
                 // Less than 2 minutes ago.
                 if (secDiff < 120) {
-                    return "1 minute ago";
+                    return "1 " + App.LocaleResources.GetString("Post_MinAgoText");
                 }
                 // C.
                 // Less than one hour ago.
                 if (secDiff < 3600) {
-                    return string.Format("{0} minutes ago",
-                        Math.Floor((double)secDiff / 60));
+                    return string.Format("{0} {1}",
+                        Math.Floor((double)secDiff / 60), App.LocaleResources.GetString("Post_MinsAgoText"));
                 }
                 // D.
                 // Less than 2 hours ago.
                 if (secDiff < 7200) {
-                    return "1 hour ago";
+                    return "1 " + App.LocaleResources.GetString("Post_HourAgoText");
                 }
                 // E.
                 // Less than one day ago.
                 if (secDiff < 86400) {
-                    return string.Format("{0} hours ago",
-                        Math.Floor((double)secDiff / 3600));
+                    return string.Format("{0} {1}",
+                        Math.Floor((double)secDiff / 3600), App.LocaleResources.GetString("Post_HoursAgoText"));
                 }
             }
             // 6.
             // Handle previous days.
             if (dayDiff == 1) {
-                return "yesterday";
+                return App.LocaleResources.GetString("Activity_YesterdayText");
             }
             if (dayDiff < 7) {
-                return string.Format("{0} days ago",
-                dayDiff);
+                return string.Format("{0} {1}",
+                dayDiff, App.LocaleResources.GetString("Activity_DaysAgoText"));
             }
             if (dayDiff < 31) {
-                return string.Format("{0} weeks ago",
-                Math.Ceiling((double)dayDiff / 7));
+                return string.Format("{0} {1}",
+                Math.Ceiling((double)dayDiff / 7), App.LocaleResources.GetString("Post_WeeksAgoText"));
             }
             return null;
         }
