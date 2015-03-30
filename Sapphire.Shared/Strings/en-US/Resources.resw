@@ -417,4 +417,16 @@
   <data name="Title_PostDetails" xml:space="preserve">
     <value>Post details</value>
   </data>
+  <data name="Error_UnableToSendFanMail" xml:space="preserve">
+    <value>Unable to send mail.</value>
+  </data>
+  <data name="Error_UnableToSendReply" xml:space="preserve">
+    <value>Unable to send reply.</value>
+  </data>
+  <data name="Status_SendingQuestion" xml:space="preserve">
+    <value>Sending question...</value>
+  </data>
+  <data name="Status_SendingReply" xml:space="preserve">
+    <value>Sending reply...</value>
+  </data>
 </root>

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Windows.Web.Http;
 
 namespace Core.Service.Requests {
-	public interface IRequestBuilder {
+	public interface IApiRequest {
 
 		string RequestURI { get; set; }
 
@@ -15,6 +15,12 @@ namespace Core.Service.Requests {
 		CancellationTokenSource CancellationToken { get; set; }
 
 		Task<HttpResponseMessage> CreateRequest(CancellationTokenSource cancellationToken);
+
+		void Started();
+
+		void Completed();
+
+		void Failed();
 
 	}
 }

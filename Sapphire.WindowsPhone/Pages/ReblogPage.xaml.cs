@@ -44,7 +44,8 @@ namespace Sapphire.Pages {
 			this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
 			this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-
+			if (!string.IsNullOrWhiteSpace(UserPreferences.DefaultTags()))
+				Tags.Text = UserPreferences.DefaultTags();
 		}
 
 		/// <summary>
@@ -156,12 +157,12 @@ namespace Sapphire.Pages {
 			}
 			try {
 				var status = "";
-				ReplyFeilds.IsEnabled = false;
+				ReplyFields.IsEnabled = false;
 				if (((Image)sender).Tag != null) {
 					if (((Image)sender).Tag.ToString() == "queue") {
 						if (string.IsNullOrWhiteSpace(PublishOn.Text)) {
 							App.Alert("Please enter a time to publish the post on.");
-							ReplyFeilds.IsEnabled = true;
+							ReplyFields.IsEnabled = true;
 							App.HideStatus();
 							return;
 						} else {
@@ -174,25 +175,21 @@ namespace Sapphire.Pages {
 					}
 				}
 				if (IsQuestion && !string.IsNullOrWhiteSpace(Caption.Text)) {
-					App.DisplayStatus("Sending question...");
+					App.DisplayStatus(App.LocaleResources.GetString("Status_SendingQuestion"));
 					if (await CreateRequest.PostQuestion(askTo, Authentication.Utils.UrlEncode(Caption.Text))) {
-						App.Alert("Created.");
-						ReplyFeilds.IsEnabled = true;
-						App.HideStatus();
-						Frame.GoBack();
+						App.Alert(App.LocaleResources.GetString("PostCreated"));
+						Reset();
 					} else {
-						App.Alert("Failed to send mail.");
+						App.Alert(App.LocaleResources.GetString("Error_UnableToSendFanMail"));
 						App.HideStatus();
 						return;
 					}
 				} else {
-					App.DisplayStatus("Reblogging post...");
+					App.DisplayStatus(App.LocaleResources.GetString("RebloggingPost"));
 					if (await CreateRequest.ReblogPost(postID, reblogKey, Authentication.Utils.UrlEncode(Caption.Text), tags, status, blogName)) {
-						App.Alert("Created.");
-						ReplyFeilds.IsEnabled = true;
+						App.Alert(App.LocaleResources.GetString("PostCreated"));
 						reblogged = true;
-						App.HideStatus();
-						Frame.GoBack();
+						Reset();
 					} else {
 						if (((Image)sender).Tag != null) {
 							if (((Image)sender).Tag.ToString() == "queue") {
@@ -206,13 +203,19 @@ namespace Sapphire.Pages {
 					}
 				}
 				App.HideStatus();
-				ReplyFeilds.IsEnabled = false;
+				ReplyFields.IsEnabled = false;
 			} catch (Exception ex) {
 				App.HideStatus();
 				App.Alert("Failed to create post");
 				if (button != null)
 					button.IsChecked = false;
 			}
+		}
+
+		public void Reset() {
+			ReplyFields.IsEnabled = true;
+			App.HideStatus();
+			Frame.GoBack();
 		}
 
 		private void ReblogToOptions_Loaded(object sender, RoutedEventArgs e) {

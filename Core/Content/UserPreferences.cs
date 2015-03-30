@@ -152,6 +152,12 @@ namespace Core.Content {
             }
         }
 
+		public static string DefaultTags() {
+			if (Settings.Values["_DefaultTags"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_DefaultTags"].ToString()))
+				return Settings.Values["_DefaultTags"].ToString();
+			return "";
+		}
+
     }
 }
 

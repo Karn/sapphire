@@ -60,7 +60,7 @@
 		</Border>
 
 		<Grid Grid.Row="1" Background="White">
-			<ContentControl x:Name="ReplyFeilds"
+			<ContentControl x:Name="ReplyFields"
 			                HorizontalContentAlignment="Stretch"
 			                VerticalContentAlignment="Stretch">
 				<Grid Margin="5, 0">

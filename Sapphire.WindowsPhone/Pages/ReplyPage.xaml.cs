@@ -1,15 +1,9 @@
 ﻿using Core.AuthenticationManager;
 using Core.Client;
-using Core.Content;
-using Core.Utils;
 using Sapphire.Shared.Common;
-using Sapphire.Utils.Controls;
-using System;
-using System.Diagnostics;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
@@ -97,13 +91,13 @@ namespace Sapphire.Pages {
 		private async void PostButton_Tapped(object sender, TappedRoutedEventArgs e) {
 			ReplyFeilds.IsEnabled = false;
 			if (!string.IsNullOrWhiteSpace(Caption.Text)) {
-				App.DisplayStatus("Sending reply...");
+				App.DisplayStatus(App.LocaleResources.GetString("Status_SendingReply"));
 				if (await CreateRequest.CreateReply(postID, Authentication.Utils.UrlEncode(Caption.Text), ((FrameworkElement)sender).Tag.ToString() == "private")) {
 					ReplyFeilds.IsEnabled = true;
 					App.HideStatus();
 					Frame.GoBack();
 				} else {
-					App.Alert("Failed to reply to message.");
+					App.Alert(App.LocaleResources.GetString("Error_UnableToSendReply"));
 					App.HideStatus();
 				}
 			}

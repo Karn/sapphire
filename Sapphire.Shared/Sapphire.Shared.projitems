@@ -33,7 +33,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\DefaultAvatar.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\DefaultPattern.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\LoginLogo.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Logo_Dark.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\LogoDark.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Nav\About.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Nav\Account.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Nav\Activity.png" />

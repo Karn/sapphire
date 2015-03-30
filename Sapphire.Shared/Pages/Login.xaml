@@ -207,11 +207,6 @@
 	</Page.Resources>
 
 	<Grid x:Name="LayoutRoot">
-		<Grid.Background>
-			<ImageBrush ImageSource="ms-appx:///Assets/Placeholders/Login.jpg"
-			            Opacity="0.5"
-			            Stretch="UniformToFill" />
-		</Grid.Background>
 
 		<Grid.ChildrenTransitions>
 			<TransitionCollection>
@@ -225,38 +220,15 @@
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
-		<MediaElement x:Name="Player"
-		              Grid.RowSpan="3"
-		              Width="{Binding ElementName=LayoutRoot,
-		                              Path=Width}"
-		              Height="{Binding ElementName=LayoutRoot,
-		                               Path=Height}"
-		              MinHeight="100"
-		              HorizontalAlignment="Stretch"
-		              VerticalAlignment="Stretch"
-		              AutoPlay="True"
-		              IsLooping="True"
-		              Opacity="0.5"
-		              PosterSource="ms-appx:///Assets/Placeholders/Login.jpg"
-		              Source="ms-appx:///Assets/Placeholders/LoginVideo.mp4"
-		              Stretch="UniformToFill" />
-
 		<!--  TitlePanel  -->
 		<StackPanel x:Name="LogoImage"
 		            Grid.Row="0"
-		            Height="300"
-		            Margin="70, 0, 70, 0"
+		            Height="150"
+		            Margin="70, 50, 70, 0"
 		            HorizontalAlignment="Stretch"
 		            VerticalAlignment="Top">
 			<StackPanel.Background>
-				<ImageBrush ImageSource="ms-appx:///Assets/LoginLogo.png" Stretch="Uniform">
-					<ImageBrush.RelativeTransform>
-						<CompositeTransform CenterX="0.5"
-						                    CenterY="0.5"
-						                    ScaleX="0.75"
-						                    ScaleY="0.75" />
-					</ImageBrush.RelativeTransform>
-				</ImageBrush>
+				<ImageBrush ImageSource="ms-appx:///Assets/LogoDark.png" Stretch="Uniform" />
 			</StackPanel.Background>
 		</StackPanel>
 		<StackPanel x:Name="LoginBox"
@@ -265,60 +237,42 @@
 		            Margin="10, 200, 10, 50"
 		            VerticalAlignment="Bottom"
 		            Visibility="Visible">
-			<Grid MaxHeight="40"
-			      Margin="10, 4"
-			      Background="#9934495E">
-				<Image Margin="10"
-				       HorizontalAlignment="Left"
-				       Opacity="0.5"
-				       Source="ms-appx:///Assets/Nav/Account.png" />
-				<Rectangle Width="1"
-				           Margin="40, 5"
-				           HorizontalAlignment="Left"
-				           Fill="White" />
-				<TextBox x:Name="Email"
-				         Height="40"
-				         Margin="0"
-				         HorizontalAlignment="Stretch"
-				         Foreground="{ThemeResource TextColorPrimary}"
-				         GotFocus="Email_GotFocus"
-				         InputScope="EmailSmtpAddress"
-				         Padding="50, 5, 10, 0"
-				         PlaceholderText="email"
-				         Style="{StaticResource SearchBoxStyle}" />
-			</Grid>
-			<Grid MaxHeight="40"
-			      Margin="10, 4"
-			      Background="#9934495E">
-				<Image Margin="10"
-				       HorizontalAlignment="Left"
-				       Opacity="0.5"
-				       Source="ms-appx:///Assets/Nav/Password.png" />
-				<Rectangle Width="1"
-				           Margin="40, 5"
-				           HorizontalAlignment="Left"
-				           Fill="White" />
-				<PasswordBox x:Name="Password"
-				             Height="40"
-				             Margin="0"
-				             BorderThickness="0"
-				             Foreground="{ThemeResource TextColorPrimary}"
-				             GotFocus="Email_GotFocus"
-				             Padding="50, 5, 10, 0"
-				             PlaceholderText="password"
-				             Style="{StaticResource PasswordBoxStyle}" />
-			</Grid>
+
+			<TextBox x:Name="Email"
+			         Height="40"
+			         Margin="8, 2"
+			         HorizontalAlignment="Stretch"
+			         Background="{StaticResource PrimaryColor}"
+			         Foreground="{ThemeResource DarkPrimaryColor}"
+			         GotFocus="Email_GotFocus"
+			         InputScope="EmailSmtpAddress"
+			         Padding="8, 4"
+			         PlaceholderText="email"
+			         Style="{StaticResource SearchBoxStyle}" />
+
+
+			<PasswordBox x:Name="Password"
+			             Height="40"
+			             Margin="8, 2"
+			             Background="{StaticResource PrimaryColor}"
+			             BorderThickness="0"
+			             Foreground="{ThemeResource DarkPrimaryColor}"
+			             GotFocus="Email_GotFocus"
+			             Padding="8, 4"
+			             PlaceholderText="password"
+			             Style="{StaticResource PasswordBoxStyle}" />
+
 			<Button x:Name="LoginButton"
 			        Height="45"
 			        MinHeight="10"
 			        Margin="7, 0"
 			        HorizontalAlignment="Stretch"
-			        Background="#FF529ECC"
+			        Background="{StaticResource DarkPrimaryColor}"
 			        BorderThickness="0"
 			        Click="Button_Click"
 			        Content="Connect"
 			        FontSize="20"
-			        Foreground="{ThemeResource TextColorPrimary}"
+			        Foreground="{StaticResource PrimaryColor}"
 			        Style="{StaticResource ButtonStyleNoBG}" />
 			<TextBlock Margin="0, 50, 0, 0"
 			           HorizontalAlignment="Center"
@@ -347,7 +301,7 @@
 			<TextBlock HorizontalAlignment="Center"
 			           VerticalAlignment="Center"
 			           FontSize="16"
-			           Foreground="{ThemeResource TextColorPrimary}"
+			           Foreground="{ThemeResource DarkPrimaryColor}"
 			           Opacity="0.9"
 			           Padding="40, 10"
 			           Style="{StaticResource Headline}"
@@ -365,7 +319,7 @@
 			        BorderThickness="0"
 			        Content="Lets get started!"
 			        FontSize="20"
-			        Foreground="{ThemeResource TextColorPrimary}"
+			        Foreground="{ThemeResource DarkPrimaryColor}"
 			        Style="{StaticResource ButtonStyleNoBG}"
 			        Tapped="Start_Tapped" />
 		</StackPanel>
