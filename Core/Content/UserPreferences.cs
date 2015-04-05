@@ -116,26 +116,15 @@ namespace Core.Content {
         }
 
         public static bool EnableAnalytics {
-            get {
-                if (Settings.Values["_EnableAnalytics"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_EnableAnalytics"].ToString()))
-                    return Settings.Values["_EnableAnalytics"].ToString().Contains("T") ? true : false;
-                return true;
-            }
-            set {
-                Settings.Values["_EnableAnalytics"] = value ? "True" : "False";
-            }
-        }
-
-        public static bool EnableStatusBarBG {
-            get {
-                if (Settings.Values["_StatusBarBG"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_StatusBarBG"].ToString()))
-                    return Settings.Values["_StatusBarBG"].ToString().Contains("T") ? true : false;
-                return true;
-            }
-            set {
-                Settings.Values["_StatusBarBG"] = value ? "True" : "False";
-            }
-        }
+			get {
+				if (Settings.Values["_EnableAnalytics"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_EnableAnalytics"].ToString()))
+					return Settings.Values["_EnableAnalytics"].ToString().Contains("T") ? true : false;
+				return true;
+			}
+			set {
+				Settings.Values["_EnableAnalytics"] = value ? "True" : "False";
+			}
+		}
 
         public static ObservableCollection<Blog> FavBlogList {
             get {
@@ -152,10 +141,15 @@ namespace Core.Content {
             }
         }
 
-		public static string DefaultTags() {
-			if (Settings.Values["_DefaultTags"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_DefaultTags"].ToString()))
-				return Settings.Values["_DefaultTags"].ToString();
-			return "";
+		public static string DefaultTags {
+			get {
+				if (Settings.Values["_DefaultTags"] != null && !string.IsNullOrWhiteSpace(Settings.Values["_DefaultTags"].ToString()))
+					return Settings.Values["_DefaultTags"].ToString();
+				return "";
+			}
+			set {
+				Settings.Values["_DefaultTags"] = value;
+            }
 		}
 
     }

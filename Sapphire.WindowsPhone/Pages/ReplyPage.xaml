@@ -18,7 +18,8 @@
 			<TextBlock x:Name="PageTitle"
 			           Foreground="{ThemeResource PrimaryText}"
 			           Style="{StaticResource Headline}"
-			           Text="Create reply" />
+			           Text="{Binding [Title_CreateReply],
+			                          Source={StaticResource Localized}}" />
 		</Border>
 
 		<Grid Grid.Row="1" Background="White">

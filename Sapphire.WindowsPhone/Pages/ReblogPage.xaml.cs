@@ -44,8 +44,8 @@ namespace Sapphire.Pages {
 			this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
 			this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
-			if (!string.IsNullOrWhiteSpace(UserPreferences.DefaultTags()))
-				Tags.Text = UserPreferences.DefaultTags();
+			if (!string.IsNullOrWhiteSpace(UserPreferences.DefaultTags))
+				Tags.Text = UserPreferences.DefaultTags;
 		}
 
 		/// <summary>

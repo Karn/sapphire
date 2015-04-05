@@ -1,4 +1,5 @@
-﻿using Core.Client;
+﻿using Core.AuthenticationManager;
+using Core.Client;
 using Core.Content;
 using Core.Content.Model;
 using Core.Utils;
@@ -163,8 +164,12 @@ namespace Sapphire.Utils.Controls {
 
 					var id = x.Tag.ToString();
 					var reblogKey = ((StackPanel)x.Parent).Tag.ToString();
-
-					if (await CreateRequest.ReblogPost(id, reblogKey)) {
+					var tags = UserPreferences.DefaultTags;
+					if (!string.IsNullOrEmpty(tags)) {
+						tags = tags.Replace(" #", ", ");
+						tags = Authentication.Utils.UrlEncode((tags.StartsWith(" ") ? tags.Substring(1, tags.Length) : tags.Substring(0, tags.Length)));
+					}
+					if (await CreateRequest.ReblogPost(id, reblogKey, "", tags)) {
 						notes.Text = (int.Parse(notes.Text) + 1).ToString();
 						((ToggleControl)sender).IsChecked = true;
 					} else {

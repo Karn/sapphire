@@ -1,9 +1,13 @@
 ﻿using Core.Content;
 using Sapphire.Shared.Common;
 using System;
+using System.Diagnostics;
+using System.Linq;
+using Windows.ApplicationModel;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
@@ -21,6 +25,14 @@ namespace Sapphire.Pages {
 
 			if (!Core.Utils.AppLicenseHandler.IsTrial)
 				UpgardePanel.Visibility = Visibility.Collapsed;
+
+			((Run)AppVersion.Inlines.Last()).Text = string.Format("{0}.{1}.{2}.{3}",
+				Package.Current.Id.Version.Major.ToString(),
+				Package.Current.Id.Version.Minor.ToString(),
+				Package.Current.Id.Version.Build.ToString(),
+				Package.Current.Id.Version.Revision.ToString());
+
+			Tags.Text = UserPreferences.DefaultTags;
 		}
 
 		public NavigationHelper NavigationHelper {
@@ -78,10 +90,6 @@ namespace Sapphire.Pages {
 			}
 		}
 
-		private void StatusBarBGToggle_Toggled(object sender, RoutedEventArgs e) {
-			UserPreferences.EnableStatusBarBG = (bool)((CheckBox)sender).IsChecked;
-		}
-
 		private async void RateReviewTapped(object sender, TappedRoutedEventArgs e) {
 			await Launcher.LaunchUriAsync(new Uri("ms-windows-store:reviewapp?appid=d9b787e4-616a-40ea-bdb4-c81523cb0733"));
 		}
@@ -91,16 +99,52 @@ namespace Sapphire.Pages {
 				await Core.Utils.AppLicenseHandler.RemoveAds();
 		}
 
-		private void AboutTapped(object sender, TappedRoutedEventArgs e) {
-			var frame = Window.Current.Content as Frame;
-			if (!frame.Navigate(typeof(About)))
-				throw new Exception("NavFail");
-		}
-
 		private void AccountManage_Tapped(object sender, TappedRoutedEventArgs e) {
 			var frame = Window.Current.Content as Frame;
 			if (!frame.Navigate(typeof(AccountManager), "1"))
 				throw new Exception("NavFail");
 		}
+
+		private void ExpandContainer_Tapped(object sender, TappedRoutedEventArgs e) {
+			var container = ((FrameworkElement)((StackPanel)sender).Children.Last());
+			container.Visibility = (container.Visibility == Visibility.Visible) ? Visibility.Collapsed : Visibility.Visible;
+		}
+
+		private void TagBox_KeyDown(object sender, KeyRoutedEventArgs e) {
+			var tagBox = ((TextBox)sender);
+			if (e.Key.ToString() == "188") {
+				var tags = tagBox.Text.Split(',');
+				var converted = "";
+				foreach (var tag in tags) {
+					converted += string.Format("#{0}, ", tag.Trim('#', ',', ' '));
+				}
+				tagBox.Text = converted.TrimEnd(' ');
+			} else if (e.Key == Windows.System.VirtualKey.Back) {
+				if (!string.IsNullOrEmpty(tagBox.Text)) {
+					if (!"#, ".Contains(tagBox.Text.Last().ToString())) {
+						var tags = ((TextBox)sender).Text.Split(',');
+						var converted = "";
+						for (var i = 0; i < tags.Count() - 1; i++) {
+							converted += string.Format("#{0}, ", tags[i].Trim('#', ',', ' '));
+						}
+						tagBox.Text = converted.TrimEnd(' ');
+					}
+				}
+			}
+
+			((TextBox)sender).Select(((TextBox)sender).Text.Length, 0);
+		}
+
+		private void Tags_LostFocus(object sender, RoutedEventArgs e) {
+			var tagBox = ((TextBox)sender);
+			var tags = tagBox.Text.Split(',');
+			var converted = "";
+			foreach (var tag in tags) {
+				converted += string.Format("#{0}, ", tag.Trim('#', ',', ' '));
+			}
+			tagBox.Text = converted.TrimEnd('#', ',', ' ');
+
+			UserPreferences.DefaultTags = converted.TrimEnd('#', ',', ' ');
+        }
 	}
 }

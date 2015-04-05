@@ -136,13 +136,13 @@
     <value>Unable to load animated Image.</value>
   </data>
   <data name="Heading_General" xml:space="preserve">
-    <value>General</value>
+    <value>general</value>
   </data>
   <data name="Heading_Preferences" xml:space="preserve">
-    <value>Preferences</value>
+    <value>preferences</value>
   </data>
   <data name="Heading_Toggles" xml:space="preserve">
-    <value>Toggles</value>
+    <value>toggles</value>
   </data>
   <data name="InternalServerError" xml:space="preserve">
     <value>Unable to retrieve content. Try again later!</value>
@@ -387,8 +387,8 @@
   <data name="Post_WeeksAgoText" xml:space="preserve">
     <value>weeks ago</value>
   </data>
-  <data name="Title_About" xml:space="preserve">
-    <value>About</value>
+  <data name="Heading_About" xml:space="preserve">
+    <value>about</value>
   </data>
   <data name="Title_Followers" xml:space="preserve">
     <value>Followers</value>
@@ -428,5 +428,20 @@
   </data>
   <data name="Status_SendingReply" xml:space="preserve">
     <value>Sending reply...</value>
+  </data>
+  <data name="Title_CreateReply" xml:space="preserve">
+    <value>Create reply</value>
+  </data>
+  <data name="About_LegalSubHeading" xml:space="preserve">
+    <value>Legal information.</value>
+  </data>
+  <data name="About_PrivacySubHeading" xml:space="preserve">
+    <value>Read over how your data is used.</value>
+  </data>
+  <data name="About_SupportSubHeading" xml:space="preserve">
+    <value>Questions or concerns?</value>
+  </data>
+  <data name="Settings_UpgradeDetail1" xml:space="preserve">
+    <value>You get some great features by upgrading.</value>
   </data>
 </root>

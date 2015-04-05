@@ -8,7 +8,8 @@
 			<SolidColorBrush x:Name="PrimaryColor" Color="#FFE6E6E6" />
 			<SolidColorBrush x:Name="LightPrimaryColor" Color="#FFF0F0F0" />
 			<SolidColorBrush x:Name="AccentColor" Color="#FFd1d1d1" />
-			<SolidColorBrush x:Name="PrimaryText" Color="#FF333333" />
+			<SolidColorBrush x:Name="PrimaryText" Color="#FF464646" />
+			<SolidColorBrush x:Name="LightPrimaryText" Color="#FF939393" />
 
 			<SolidColorBrush x:Key="ColorPrimary" Color="#FF34495E" />
 			<SolidColorBrush x:Key="ColorPrimaryDark" Color="#FF293A4A" />
@@ -109,10 +110,9 @@
 	<Style x:Name="Body"
 	       BasedOn="{StaticResource Headline}"
 	       TargetType="TextBlock">
-		<Setter Property="Foreground" Value="{StaticResource TextColorPrimaryDark}" />
+		<Setter Property="Foreground" Value="#FF464646" />
 		<Setter Property="VerticalAlignment" Value="Top" />
 		<Setter Property="FontSize" Value="20" />
-		<Setter Property="Opacity" Value="0.8" />
 		<Setter Property="CharacterSpacing" Value="-10" />
 		<Setter Property="Padding" Value="5" />
 	</Style>
