@@ -38,6 +38,7 @@
 					<LineBreak />
 					<Run Foreground="{StaticResource LightPrimaryText}" Text="{Binding [Settings_AccountDescription], Source={StaticResource Localized}}" />
 				</TextBlock>
+
 				<TextBlock Padding="5, 5, 5, 0"
 				           Style="{StaticResource Body}"
 				           Tapped="RateReviewTapped">
@@ -45,10 +46,9 @@
 					<LineBreak />
 					<Run Foreground="{StaticResource LightPrimaryText}" Text="{Binding [Settings_ReviewDescription], Source={StaticResource Localized}}" />
 				</TextBlock>
-				<StackPanel Tapped="ExpandContainer_Tapped">
-					<TextBlock x:Name="UpgardePanel"
-					           Padding="5, 5, 5, 0"
-					           Style="{StaticResource Body}">
+
+				<StackPanel x:Name="UpgardePanel" Tapped="ExpandContainer_Tapped">
+					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
 						<Run FontWeight="Normal" Text="{Binding [Settings_UpgradeTitle], Source={StaticResource Localized}}" />
 						<LineBreak />
 						<Run Foreground="{StaticResource LightPrimaryText}" Text="{Binding [Settings_UpgradeDescription], Source={StaticResource Localized}}" />
@@ -59,13 +59,26 @@
 					       HorizontalAlignment="Right"
 					       Source="ms-appx:///Assets/open_nav.png" />
 					<StackPanel Visibility="Collapsed">
-						<TextBlock Foreground="{StaticResource LightPrimaryText}"
+						<TextBlock FontSize="18"
+						           Foreground="{StaticResource DarkPrimaryColor}"
 						           Padding="5, 5, 5, 0"
 						           Style="{StaticResource Body}">
-							<Run Text="{Binding [Settings_UpgradeDetail1], Source={StaticResource Localized}}" />
+							<Run Text="- Add to queue/drafts." />
 							<LineBreak />
-							<Run Text="- Point" />
+							<Run Text="- Asks and reply to mail." />
+							<LineBreak />
+							<Run Text="- Add blogs to favorites." />
+							<LineBreak />
+							<Run Text="- Automatic post tagging." />
+							<LineBreak />
+							<Run Text="- View blog likes." />
 						</TextBlock>
+						<HyperlinkButton BorderBrush="{x:Null}"
+						                 Content="Visit the store"
+						                 FontSize="18"
+						                 Foreground="#FF529ECC"
+						                 Padding="5"
+						                 Tapped="UpgradeAppTapped" />
 					</StackPanel>
 				</StackPanel>
 
@@ -88,6 +101,7 @@
 					       Source="ms-appx:///Assets/open_nav.png" />
 					<StackPanel Visibility="Collapsed" />
 				</StackPanel>
+
 				<StackPanel Tapped="ExpandContainer_Tapped">
 					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
 						<Run FontWeight="Normal" Text="{Binding [Settings_PostActionTitle], Source={StaticResource Localized}}" />
@@ -105,8 +119,7 @@
 						           Style="{StaticResource Body}"
 						           Text="{Binding [Settings_UXFeedbackDescription],
 						                          Source={StaticResource Localized}}" />
-						<CheckBox x:Name="UXFeedback"
-						          MinWidth="35"
+						<CheckBox MinWidth="35"
 						          Margin="0, -50, -5, 0"
 						          HorizontalAlignment="Right"
 						          Background="#11FFFFFF"
@@ -115,6 +128,7 @@
 						          RequestedTheme="Light" />
 					</StackPanel>
 				</StackPanel>
+
 				<StackPanel Tapped="ExpandContainer_Tapped" Visibility="{Binding ElementName=PageTitle, Converter={StaticResource IsFullVersion}, FallbackValue=Collapsed}">
 					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
 						<Run FontWeight="Normal" Text="{Binding [Settings_AutoTagsTitle], Source={StaticResource Localized}}" />
@@ -127,15 +141,23 @@
 					       HorizontalAlignment="Right"
 					       Source="ms-appx:///Assets/open_nav.png" />
 					<StackPanel Visibility="Collapsed">
+						<TextBlock FontSize="18"
+						           Foreground="{StaticResource DarkPrimaryColor}"
+						           Padding="5, 5, 5, 0"
+						           Style="{StaticResource Body}"
+						           Text="You can change what tags you want added to your posts by default. Tags must be comma-delimited."
+						           TextWrapping="WrapWholeWords" />
 						<TextBox x:Name="Tags"
 						         Height="45"
-						         Margin="0, 5"
+						         Margin="5"
 						         VerticalContentAlignment="Center"
 						         Background="{ThemeResource LightPrimaryColor}"
-						         BorderThickness="0"
+						         BorderBrush="{ThemeResource LightPrimaryColor}"
+						         BorderThickness="1"
 						         KeyDown="TagBox_KeyDown"
 						         LostFocus="Tags_LostFocus"
-						         Padding="5, 8, 5, 0" />
+						         Padding="8"
+						         PlaceholderText="Tags" />
 					</StackPanel>
 				</StackPanel>
 
@@ -232,7 +254,7 @@
 					       HorizontalAlignment="Right"
 					       Source="ms-appx:///Assets/open_nav.png" />
 					<StackPanel Visibility="Collapsed">
-						<TextBlock FontWeight="Normal"
+						<TextBlock FontSize="18"
 						           Foreground="{StaticResource DarkPrimaryColor}"
 						           Style="{StaticResource Body}"
 						           Text="{Binding [About_LegalDescription],
@@ -265,7 +287,8 @@
 					       HorizontalAlignment="Right"
 					       Source="ms-appx:///Assets/open_nav.png" />
 					<StackPanel Visibility="Collapsed">
-						<TextBlock Style="{StaticResource Body}"
+						<TextBlock FontSize="18"
+						           Style="{StaticResource Body}"
 						           Text="{Binding [About_SupportDescription],
 						                          Source={StaticResource Localized}}"
 						           TextWrapping="Wrap" />

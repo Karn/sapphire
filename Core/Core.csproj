@@ -57,9 +57,8 @@
     <Compile Include="Content\UserPreferences.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Exceptions\TumblrException.cs" />
-    <Compile Include="Service\Requests\Account.cs" />
+    <Compile Include="Service\Requests\AuthenticateUser.cs" />
     <Compile Include="Service\Requests\IApiRequest.cs" />
-    <Compile Include="Service\Requests\Posts.cs" />
     <Compile Include="Service\Requests\RequestParameters.cs" />
     <Compile Include="Service\Requests\RequestQueue.cs" />
     <Compile Include="Service\TumblrClient.cs" />

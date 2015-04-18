@@ -10,6 +10,9 @@ using Windows.Storage;
 
 namespace Core.AuthenticationManager {
 
+	/// <summary>
+	/// This 
+	/// </summary>
 	public class Authentication {
 
 		//OAuth URI Endpoints
@@ -21,22 +24,11 @@ namespace Core.AuthenticationManager {
 		//Keys
 		public static readonly string ConsumerKey = "BUHsuO5U9DF42uJtc8QTZlOmnUaJmBJGuU1efURxeklbdiLn9L";
 		public static readonly string ConsumerSecretKey = "olOu3aRBCdqCuMFm8fmzNjMAWmICADSIuXWTnVSFng1ZcLU1cV";
-		//public static readonly string ConsumerKey = "ylcWC3m72FF679xnYrsxFQ3VwFk4Nb0QjYyAFtVFTQQwSTFQSF";
-		//public static readonly string ConsumerSecretKey = "UH1sqE7uNdrt5It8YeONcZsG6psAyo6yAX3andyx9YRGSO98XJ";
-
-		#region OTHER KEYS
-		//["API_KEY"] = "4HL5w2Uht9FwOQZbsmUFFB8lrXUW2D4krfG24BvcF4Sijj3Bgd";
-		//["API_SECRET_KEY"] = "kIXPU2gyaZ9EYWpuNX5FbCc9jQmhVuD40Ca7trnSr7PkDdYxLE";
-		//Tumblrs API KEYS
-		//["API_KEY"] = "BUHsuO5U9DF42uJtc8QTZlOmnUaJmBJGuU1efURxeklbdiLn9L";
-		//["API_SECRET_KEY"] = "olOu3aRBCdqCuMFm8fmzNjMAWmICADSIuXWTnVSFng1ZcLU1cV";
-		//["API_KEY"] = "4MjLMcdDEDvsyAeM50KBVOLgJ1wN02Rs6AbOjy2Np9X0LA5npB";
-		//["API_SECRET_KEY"] = "1lkQGtH9N1dXeUXuDity3PZ78Cs9zqwqWXlwLNVzf5iDu3j2lT";
-		#endregion
 
 		//Authenticated Tokens
 		public static Dictionary<string, string> AuthenticatedTokens { get; private set; }
 		public static Dictionary<string, string> AuthenticatedSecretTokens { get; private set; }
+
 		public static string Token {
 			get {
 				if (LocalSettings.Values["Token"] != null)

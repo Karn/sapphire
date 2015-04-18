@@ -28,7 +28,7 @@ namespace Core.Client {
 					string nonce = Authentication.Utils.GetNonce();
 					string timeStamp = Authentication.Utils.GetTimeStamp();
 					var requestParameters = parameters.ToString();
-					parameters.AddDefaults(nonce, timeStamp);
+					parameters.AppendDefault(nonce, timeStamp);
 					var signatureParameters = "GET&" + Authentication.Utils.UrlEncode(URL) + "&" +
 						Authentication.Utils.UrlEncode(parameters.ToString());
 

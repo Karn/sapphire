@@ -199,7 +199,7 @@
     <value>Edit what tags to add to posts by default.</value>
   </data>
   <data name="Settings_AutoTagsTitle" xml:space="preserve">
-    <value>Automatic tags</value>
+    <value>Automatic post tagging</value>
   </data>
   <data name="Settings_BlogNotifDescription" xml:space="preserve">
     <value>Customize your blog specific alerts.</value>
