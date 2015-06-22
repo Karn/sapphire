@@ -58,9 +58,9 @@
 
 		<Pivot x:Name="NavigationPivot"
 		       Grid.Row="1"
-		       Margin="0, -14, 0, 0"
 		       Background="White"
 		       Canvas.ZIndex="-1"
+			   Margin="0, 22, 0, 0"
 		       SelectionChanged="NavigationPivot_SelectionChanged">
 
 			<PivotItem x:Name="DashboardPivot"
@@ -105,10 +105,11 @@
 			           DataContext="{Binding}">
 				<Grid>
 					<Grid.RowDefinitions>
-						<RowDefinition Height="175" />
+						<RowDefinition Height="200" />
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
+
 					<Grid>
 						<Grid.Background>
 							<ImageBrush ImageSource="{Binding BlogTheme.HeaderImage,
@@ -155,6 +156,7 @@
 						</StackPanel>
 
 					</Grid>
+
 					<Grid Grid.Row="1"
 					      VerticalAlignment="Top"
 					      Background="{ThemeResource LightPrimaryColor}">

@@ -5,7 +5,7 @@
 	<ResourceDictionary.ThemeDictionaries>
 		<ResourceDictionary x:Key="Default">
 			<SolidColorBrush x:Name="DarkPrimaryColor" Color="#FF34495E" />
-			<SolidColorBrush x:Name="PrimaryColor" Color="#FFE6E6E6" />
+			<SolidColorBrush x:Name="PrimaryColor" Color="#FFf7f7f7" />
 			<SolidColorBrush x:Name="LightPrimaryColor" Color="#FFF0F0F0" />
 			<SolidColorBrush x:Name="AccentColor" Color="#FFd1d1d1" />
 			<SolidColorBrush x:Name="PrimaryText" Color="#FF464646" />

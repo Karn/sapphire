@@ -23,6 +23,10 @@ namespace Core.Service.Requests {
 
 		}
 
+		/// <summary>
+		/// Retrieve the AuthenticateUser instance. Create if null.
+		/// </summary>
+		/// <returns>Singleton instance of Authenticate user</returns>
 		public static AuthenticateUser GetInstance() {
 			if (_AuthenticateUser == null)
 				_AuthenticateUser = new AuthenticateUser();

@@ -14,29 +14,29 @@ namespace BackgroundUtilities {
 
 	public sealed class NotificationHandler : IBackgroundTask {
 
-        Dictionary<string, int> NotificationDictionary = new Dictionary<string, int>();
-        Dictionary<string, List<Activity.Notification>> NotificationCounts = new Dictionary<string, List<Activity.Notification>>();
+		Dictionary<string, int> NotificationDictionary = new Dictionary<string, int>();
+		Dictionary<string, List<Activity.Notification>> NotificationCounts = new Dictionary<string, List<Activity.Notification>>();
 
-        public async void Run(IBackgroundTaskInstance taskInstance) {
+		public async void Run(IBackgroundTaskInstance taskInstance) {
 
-            BackgroundTaskDeferral _deferral = taskInstance.GetDeferral();
+			BackgroundTaskDeferral _deferral = taskInstance.GetDeferral();
 
-            new UserPreferences();
-            var x = UserPreferences.NotificationIDs;
-            if (x != null)
-                NotificationDictionary = x;
-            if (UserPreferences.NotificationsEnabled)
-                await RetrieveNotifications();
+			new UserPreferences();
+			var x = UserPreferences.NotificationIDs;
+			if (x != null)
+				NotificationDictionary = x;
+			if (UserPreferences.NotificationsEnabled)
+				await RetrieveNotifications();
 
-            _deferral.Complete();
-        }
+			_deferral.Complete();
+		}
 
-        private async Task RetrieveNotifications() {
+		private async Task RetrieveNotifications() {
 
-            try {
-                var Response = await Core.Client.RequestService.GET("https://api.tumblr.com/v2/user/notifications");
+			try {
+				var Response = await Core.Client.RequestService.GET("https://api.tumblr.com/v2/user/notifications");
 
-                if (Response.StatusCode == System.Net.HttpStatusCode.OK) {
+				if (Response.StatusCode == System.Net.HttpStatusCode.OK) {
 					var activity = JsonConvert.DeserializeObject<Responses.GetNotifications>(await Response.Content.ReadAsStringAsync());
 
 					var blogs = activity.response.blogs;
@@ -54,35 +54,34 @@ namespace BackgroundUtilities {
 					}
 				}
 
-                UserPreferences.NotificationIDs = NotificationDictionary;
-                DisplayNotification();
-            } catch (Exception ex) {
-            }
-        }
+				UserPreferences.NotificationIDs = NotificationDictionary;
+				DisplayNotification();
+			} catch (Exception ex) {
+			}
+		}
 
-        private void DisplayNotification() {
-            Debug.WriteLine("Displaying notifications.");
-            int totalCount = 0;
-            foreach (var n in NotificationCounts) {
-                if (n.Value.Count > 0) {
-                    //Later add the avatar of the blog that recieved the notification
-                    ToastTemplateType toastTemplate = ToastTemplateType.ToastText02;
-                    XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
-                    XmlNodeList textElements = toastXml.GetElementsByTagName("text");
-                    textElements[0].AppendChild(toastXml.CreateTextNode(n.Key));
-                    textElements[1].AppendChild(toastXml.CreateTextNode("You have " + n.Value.Count + " new " + (n.Value.Count == 1 ? "notification." : "notifications.")));
-                    totalCount += n.Value.Count;
-                    IXmlNode toastNode = toastXml.SelectSingleNode("/toast");
-                    ((XmlElement)toastNode).SetAttribute("launch", "Account: " + n.Key.ToString());
+		private void DisplayNotification() {
+			Debug.WriteLine("Displaying notifications.");
+			int totalCount = 0;
+			foreach (var n in NotificationCounts) {
+				if (n.Value.Count > 0) {
+					//Later add the avatar of the blog that recieved the notification
+					ToastTemplateType toastTemplate = ToastTemplateType.ToastText02;
+					XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+					XmlNodeList textElements = toastXml.GetElementsByTagName("text");
+					textElements[0].AppendChild(toastXml.CreateTextNode(n.Key));
+					textElements[1].AppendChild(toastXml.CreateTextNode("You have " + n.Value.Count + " new " + (n.Value.Count == 1 ? "notification." : "notifications.")));
+					totalCount += n.Value.Count;
+					IXmlNode toastNode = toastXml.SelectSingleNode("/toast");
+					((XmlElement)toastNode).SetAttribute("launch", "Account: " + n.Key.ToString());
 
 					ToastNotificationManager.History.Clear();
 
-					ToastNotification x = new ToastNotification(toastXml);
-					x.Tag = n.Value.Count.ToString();
-                    x.SuppressPopup = true;
-                    ToastNotificationManager.CreateToastNotifier().Show(x);
-                }
-            }
-        }
-    }
+					ToastNotification toast = new ToastNotification(toastXml);
+					toast.Tag = n.Value.Count.ToString();
+					ToastNotificationManager.CreateToastNotifier().Show(toast);
+				}
+			}
+		}
+	}
 }
