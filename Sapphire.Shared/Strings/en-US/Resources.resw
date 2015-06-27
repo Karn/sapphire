@@ -202,19 +202,19 @@
     <value>Automatic post tagging</value>
   </data>
   <data name="Settings_BlogNotifDescription" xml:space="preserve">
-    <value>Customize your blog specific alerts.</value>
+    <value>Customize your alerts.</value>
   </data>
   <data name="Settings_BlogNotifTitle" xml:space="preserve">
     <value>Blog notifications</value>
   </data>
   <data name="Settings_PostActionDescription" xml:space="preserve">
-    <value>Change what the quick post button does.</value>
+    <value>Change what the quick-post button does.</value>
   </data>
   <data name="Settings_PostActionTitle" xml:space="preserve">
     <value>Quick post action.</value>
   </data>
   <data name="Settings_PostTagsDescription" xml:space="preserve">
-    <value>Enable to view post tags below captions.</value>
+    <value>Enable post tags in posts.</value>
   </data>
   <data name="Settings_PostTagsTitle" xml:space="preserve">
     <value>View post tags</value>
@@ -223,10 +223,10 @@
     <value>Skip addition of details to a post.</value>
   </data>
   <data name="Settings_QuickPostTitle" xml:space="preserve">
-    <value>Quick-Post</value>
+    <value>Quick-post</value>
   </data>
   <data name="Settings_ReviewDescription" xml:space="preserve">
-    <value>Take a moment to rate/review the app.</value>
+    <value>Rate/review Sapphire.</value>
   </data>
   <data name="Settings_ReviewTitle" xml:space="preserve">
     <value>Like this app?</value>

@@ -5,28 +5,30 @@
              xmlns:local="using:Sapphire"
              RequestedTheme="Light">
 
-	<Application.Resources>
+    <Application.Resources>
 
-		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="Assets/Resources/SharedResources.xaml" />
-			</ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Assets/Resources/Styles/SharedResources.xaml" />
+                <ResourceDictionary Source="Assets/Resources/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="Assets/Resources/Styles/Buttons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
-			<converter:IsFullVersion x:Key="IsFullVersion" />
-			<converter:IsNotFullVersion x:Key="IsNotFullVersion" />
-			<converter:TagsEnabled x:Key="TagsEnabled" />
-			<converter:FollowingToString x:Key="FollowingToString" />
-			<converter:FollowingToSign x:Key="FollowingToSign" />
-			<converter:FollowingToVisibility x:Key="FollowingToVisibility" />
-			<converter:BooleanToVisibilityConverter x:Key="BoolToVisibility" />
-			<converter:RelativeDate x:Key="RelativeDate" />
-			<converter:ToPrettyDate x:Key="ToPrettyDate" />
-			<converter:FollowingToBG x:Key="FollowingToBG" />
-			<converter:NameToFavBrush x:Key="NameToFav" />
-			<converter:RelativeTime x:Key="ToRelativeTime" />
-			<converter:CaptionConverter x:Key="CaptionConverter" />
-		</ResourceDictionary>
+            <converter:IsFullVersion x:Key="IsFullVersion" />
+            <converter:IsNotFullVersion x:Key="IsNotFullVersion" />
+            <converter:TagsEnabled x:Key="TagsEnabled" />
+            <converter:FollowingToString x:Key="FollowingToString" />
+            <converter:FollowingToSign x:Key="FollowingToSign" />
+            <converter:FollowingToVisibility x:Key="FollowingToVisibility" />
+            <converter:BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+            <converter:RelativeDate x:Key="RelativeDate" />
+            <converter:ToPrettyDate x:Key="ToPrettyDate" />
+            <converter:FollowingToBG x:Key="FollowingToBG" />
+            <converter:NameToFavBrush x:Key="NameToFav" />
+            <converter:RelativeTime x:Key="ToRelativeTime" />
+            <converter:CaptionConverter x:Key="CaptionConverter" />
+        </ResourceDictionary>
 
-	</Application.Resources>
+    </Application.Resources>
 
 </Application>

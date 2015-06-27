@@ -278,12 +278,12 @@ namespace Sapphire {
 			Dashboard.ScrollToTop();
 		}
 
-		private void ManageBlogs_Tapped(object sender, TappedRoutedEventArgs e) {
+		private void ManageBlogs_Tapped(object sender, RoutedEventArgs e) {
 			if (!Frame.Navigate(typeof(Pages.AccountManager)))
 				Log.e("Failed to navigate to blog selection.");
 		}
 
-		private void Inbox_Tapped(object sender, TappedRoutedEventArgs e) {
+		private void Inbox_Tapped(object sender, RoutedEventArgs e) {
 			if (UserPreferences.CurrentBlog != null) {
 				if (!Frame.Navigate(typeof(Pages.Inbox))) {
 					Log.e("Failed to navigate to inbox.");
@@ -291,7 +291,7 @@ namespace Sapphire {
 			}
 		}
 
-		private void Drafts_Tapped(object sender, TappedRoutedEventArgs e) {
+		private void Drafts_Tapped(object sender, RoutedEventArgs e) {
 			if (UserPreferences.CurrentBlog != null) {
 				if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserPreferences.CurrentBlog.Name + ".tumblr.com/posts/draft")) {
 					Log.e("Failed to navigate to drafts.");
@@ -299,7 +299,7 @@ namespace Sapphire {
 			}
 		}
 
-		private void Queue_Tapped(object sender, TappedRoutedEventArgs e) {
+		private void Queue_Tapped(object sender, RoutedEventArgs e) {
 			if (UserPreferences.CurrentBlog != null) {
 				if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserPreferences.CurrentBlog.Name + ".tumblr.com/posts/queue")) {
 					Log.e("Failed to navigate to queue.");
@@ -307,7 +307,7 @@ namespace Sapphire {
 			}
 		}
 
-		private void Favs_List_Tapped(object sender, TappedRoutedEventArgs e) {
+		private void Favs_List_Tapped(object sender, RoutedEventArgs e) {
 			if (UserPreferences.CurrentBlog != null) {
 				if (!Frame.Navigate(typeof(Pages.FavBlogs)))
 					Log.e("Failed to navigate to favorite blogs.");
@@ -319,5 +319,5 @@ namespace Sapphire {
 			((Grid)sender).Width = dim;
 			((Grid)sender).Height = dim;
 		}
-	}
+    }
 }

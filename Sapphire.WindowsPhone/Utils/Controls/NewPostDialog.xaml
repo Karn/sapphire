@@ -73,7 +73,7 @@
 
 				<Ellipse x:Name="CreatePostFill"
 				         Fill="{ThemeResource PrimaryColor}"
-				         Stroke="{StaticResource DarkPrimaryColor}"
+				         Stroke="{StaticResource ColorPrimaryDark}"
 				         StrokeThickness="0.1" />
 
 				<Image x:Name="CreatePostIcon"

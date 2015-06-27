@@ -82,6 +82,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Default\Drafts.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Default\Queue.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Default\QueuePost.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Fonts\SEGMDL2.TTF" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Check.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Delete.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Drafts.png" />
@@ -98,7 +99,15 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Top.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Assets\Resources\SharedResources.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Assets\Resources\Styles\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Assets\Resources\Styles\Fonts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Assets\Resources\Styles\SharedResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

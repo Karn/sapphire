@@ -92,8 +92,8 @@ namespace Core.Client {
 			return await RetrievePosts(url, new Service.Requests.RequestParameters());
 		}
 
-		public static async Task<List<Post>> RetrievePosts(string url, Core.Service.Requests.RequestParameters parameters) {
-
+		public static async Task<List<Post>> RetrievePosts(string url, Service.Requests.RequestParameters parameters) {
+            parameters.Add("reblog_info", "true");
 			HttpResponseMessage result = await RequestService.GET(url, parameters);
 			Debug.WriteLine(await result.Content.ReadAsStringAsync());
 			if (result.StatusCode == HttpStatusCode.OK) {

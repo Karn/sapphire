@@ -4,320 +4,307 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Sapphire.Pages"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      Background="{StaticResource DarkPrimaryColor}"
+      Background="{StaticResource ColorPrimaryDark}"
       mc:Ignorable="d">
 
-	<Grid x:Name="LayoutRoot">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
+    <Grid x:Name="LayoutRoot" Background="{StaticResource WindowBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-		<Grid Height="55" Background="{ThemeResource PrimaryColor}">
-			<TextBlock x:Name="PageTitle"
-			           Foreground="{StaticResource PrimaryText}"
-			           Style="{StaticResource Headline}"
-			           Text="{Binding [Title_Settings],
-			                          Source={StaticResource Localized}}" />
-		</Grid>
+        <Grid Height="55" Background="{ThemeResource ColorPrimary}">
+            <TextBlock x:Name="PageTitle"
+                       Foreground="{StaticResource PrimaryText}"
+                       Style="{StaticResource Headline}"
+                       Text="{Binding [Title_Settings],
+                                      Source={StaticResource Localized}}" />
+        </Grid>
 
-		<ScrollViewer Grid.Row="1"
-		              Background="White"
-		              Padding="10, 0">
-			<StackPanel Margin="0, 5">
-				<TextBlock Margin="0, 5"
-				           FontWeight="Normal"
-				           Foreground="{StaticResource DarkPrimaryColor}"
-				           Style="{StaticResource Body}"
-				           Text="{Binding [Heading_General],
-				                          Source={StaticResource Localized}}" />
-				<TextBlock Padding="5, 5, 5, 0"
-				           Style="{StaticResource Body}"
-				           Tapped="AccountManage_Tapped">
-					<Run FontWeight="Normal" Text="{Binding [Settings_AccountTitle], Source={StaticResource Localized}}" />
-					<LineBreak />
-					<Run Foreground="{StaticResource LightPrimaryText}" Text="{Binding [Settings_AccountDescription], Source={StaticResource Localized}}" />
-				</TextBlock>
+        <ScrollViewer Grid.Row="1">
+            <StackPanel>
+                <Button Click="RateReviewTapped"
+                        Foreground="{StaticResource TextColorPrimaryDark}"
+                        Style="{StaticResource TransparentButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="{StaticResource ColorPrimary}"
+                                   Padding="12"
+                                   Style="{StaticResource IconStyle}"
+                                   Text="&#xE1CF;" />
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                            <Run Text="{Binding [Settings_ReviewTitle], Source={StaticResource Localized}}" />
+                            <LineBreak />
+                            <Run FontWeight="Light" Text="{Binding [Settings_ReviewDescription], Source={StaticResource Localized}}" />
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
 
-				<TextBlock Padding="5, 5, 5, 0"
-				           Style="{StaticResource Body}"
-				           Tapped="RateReviewTapped">
-					<Run FontWeight="Normal" Text="{Binding [Settings_ReviewTitle], Source={StaticResource Localized}}" />
-					<LineBreak />
-					<Run Foreground="{StaticResource LightPrimaryText}" Text="{Binding [Settings_ReviewDescription], Source={StaticResource Localized}}" />
-				</TextBlock>
+                <Button x:Name="UpgardePanel"
+                        Click="UpgradeAppTapped"
+                        Foreground="{StaticResource TextColorPrimaryDark}"
+                        Style="{StaticResource TransparentButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="{StaticResource ColorPrimary}"
+                                   Padding="12"
+                                   Style="{StaticResource IconStyle}"
+                                   Text="&#xE14D;" />
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                            <Run Text="{Binding [Settings_UpgradeTitle], Source={StaticResource Localized}}" />
+                            <LineBreak />
+                            <Run FontWeight="Light" Text="{Binding [Settings_UpgradeDescription], Source={StaticResource Localized}}" />
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
 
-				<StackPanel x:Name="UpgardePanel" Tapped="ExpandContainer_Tapped">
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="{Binding [Settings_UpgradeTitle], Source={StaticResource Localized}}" />
-						<LineBreak />
-						<Run Foreground="{StaticResource LightPrimaryText}" Text="{Binding [Settings_UpgradeDescription], Source={StaticResource Localized}}" />
-					</TextBlock>
-					<Image Width="35"
-					       Height="35"
-					       Margin="0, -40, 0, 0"
-					       HorizontalAlignment="Right"
-					       Source="ms-appx:///Assets/open_nav.png" />
-					<StackPanel Visibility="Collapsed">
-						<TextBlock FontSize="18"
-						           Foreground="{StaticResource DarkPrimaryColor}"
-						           Padding="5, 5, 5, 0"
-						           Style="{StaticResource Body}">
-							<Run Text="- Add to queue/drafts." />
-							<LineBreak />
-							<Run Text="- Asks and reply to mail." />
-							<LineBreak />
-							<Run Text="- Add blogs to favorites." />
-							<LineBreak />
-							<Run Text="- Automatic post tagging." />
-							<LineBreak />
-							<Run Text="- View blog likes." />
-						</TextBlock>
-						<HyperlinkButton BorderBrush="{x:Null}"
-						                 Content="Visit the store"
-						                 FontSize="18"
-						                 Foreground="#FF529ECC"
-						                 Padding="5"
-						                 Tapped="UpgradeAppTapped" />
-					</StackPanel>
-				</StackPanel>
+                <Rectangle Height="1"
+                           Margin="10, 5"
+                           HorizontalAlignment="Stretch"
+                           Fill="{StaticResource ColorPrimaryDark}"
+                           Opacity=".25" />
 
-				<TextBlock Margin="0, 10, 0, 5"
-				           FontWeight="Normal"
-				           Foreground="{StaticResource DarkPrimaryColor}"
-				           Style="{StaticResource Body}"
-				           Text="{Binding [Heading_Preferences],
-				                          Source={StaticResource Localized}}" />
-				<StackPanel Tapped="ExpandContainer_Tapped">
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="{Binding [Settings_BlogNotifTitle], Source={StaticResource Localized}}" />
-						<LineBreak />
-						<Run Foreground="{StaticResource LightPrimaryText}" Text="{Binding [Settings_BlogNotifDescription], Source={StaticResource Localized}}" />
-					</TextBlock>
-					<Image Width="35"
-					       Height="35"
-					       Margin="0, -40, 0, 0"
-					       HorizontalAlignment="Right"
-					       Source="ms-appx:///Assets/open_nav.png" />
-					<StackPanel Visibility="Collapsed" />
-				</StackPanel>
+                <Button Click="AccountManage_Tapped"
+                        Foreground="{StaticResource TextColorPrimaryDark}"
+                        Style="{StaticResource TransparentButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="{StaticResource ColorPrimary}"
+                                   Padding="12"
+                                   Style="{StaticResource IconStyle}"
+                                   Text="&#xE125;" />
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                            <Run Text="{Binding [Settings_AccountTitle], Source={StaticResource Localized}}" />
+                            <LineBreak />
+                            <Run FontWeight="Light" Text="{Binding [Settings_AccountDescription], Source={StaticResource Localized}}" />
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
 
-				<StackPanel Tapped="ExpandContainer_Tapped">
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="{Binding [Settings_PostActionTitle], Source={StaticResource Localized}}" />
-						<LineBreak />
-						<Run Foreground="{StaticResource LightPrimaryText}" Text="{Binding [Settings_PostActionDescription], Source={StaticResource Localized}}" />
-					</TextBlock>
-					<Image Width="35"
-					       Height="35"
-					       Margin="0, -40, 0, 0"
-					       HorizontalAlignment="Right"
-					       Source="ms-appx:///Assets/open_nav.png" />
-					<StackPanel Orientation="Horizontal" Visibility="Collapsed">
-						<TextBlock Foreground="{StaticResource LightPrimaryText}"
-						           Padding="5, 5, 5, 0"
-						           Style="{StaticResource Body}"
-						           Text="{Binding [Settings_UXFeedbackDescription],
-						                          Source={StaticResource Localized}}" />
-						<CheckBox MinWidth="35"
-						          Margin="0, -50, -5, 0"
-						          HorizontalAlignment="Right"
-						          Background="#11FFFFFF"
-						          BorderBrush="#4a9bca"
-						          Click="AnalyticsSwitch_Toggled"
-						          RequestedTheme="Light" />
-					</StackPanel>
-				</StackPanel>
+                <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="{StaticResource ColorPrimary}"
+                                   Padding="12"
+                                   Style="{StaticResource IconStyle}"
+                                   Text="&#xEA8F;" />
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                            <Run Text="{Binding [Settings_BlogNotifTitle], Source={StaticResource Localized}}" />
+                            <LineBreak />
+                            <Run FontWeight="Light" Text="{Binding [Settings_BlogNotifDescription], Source={StaticResource Localized}}" />
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
 
-				<StackPanel Tapped="ExpandContainer_Tapped" Visibility="{Binding ElementName=PageTitle, Converter={StaticResource IsFullVersion}, FallbackValue=Collapsed}">
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="{Binding [Settings_AutoTagsTitle], Source={StaticResource Localized}}" />
-						<LineBreak />
-						<Run Foreground="{StaticResource LightPrimaryText}" Text="{Binding [Settings_AutoTagsDescription], Source={StaticResource Localized}}" />
-					</TextBlock>
-					<Image Width="35"
-					       Height="35"
-					       Margin="0, -40, 0, 0"
-					       HorizontalAlignment="Right"
-					       Source="ms-appx:///Assets/open_nav.png" />
-					<StackPanel Visibility="Collapsed">
-						<TextBlock FontSize="18"
-						           Foreground="{StaticResource DarkPrimaryColor}"
-						           Padding="5, 5, 5, 0"
-						           Style="{StaticResource Body}"
-						           Text="You can change what tags you want added to your posts by default. Tags must be comma-delimited."
-						           TextWrapping="WrapWholeWords" />
-						<TextBox x:Name="Tags"
-						         Height="45"
-						         Margin="5"
-						         VerticalContentAlignment="Center"
-						         Background="{ThemeResource LightPrimaryColor}"
-						         BorderBrush="{ThemeResource LightPrimaryColor}"
-						         BorderThickness="1"
-						         KeyDown="TagBox_KeyDown"
-						         LostFocus="Tags_LostFocus"
-						         Padding="8"
-						         PlaceholderText="Tags" />
-					</StackPanel>
-				</StackPanel>
+                <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="{StaticResource ColorPrimary}"
+                                   Padding="12"
+                                   Style="{StaticResource IconStyle}"
+                                   Text="&#xE170;" />
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                            <Run Text="{Binding [Settings_UXFeedbackTitle], Source={StaticResource Localized}}" />
+                            <LineBreak />
+                            <Run FontWeight="Light" Text="{Binding [Settings_UXFeedbackDescription], Source={StaticResource Localized}}" />
+                        </TextBlock>
+                        <CheckBox MinWidth="35"
+                                  Margin="0, -50, -5, 0"
+                                  HorizontalAlignment="Right"
+                                  Background="#11FFFFFF"
+                                  BorderBrush="#4a9bca"
+                                  Click="AnalyticsSwitch_Toggled"
+                                  RequestedTheme="Light" />
+                    </StackPanel>
+                </Button>
 
-				<TextBlock Margin="0, 10, 0, 5"
-				           FontWeight="Normal"
-				           Foreground="{StaticResource DarkPrimaryColor}"
-				           Style="{StaticResource Body}"
-				           Text="{Binding [Heading_Toggles],
-				                          Source={StaticResource Localized}}" />
-				<StackPanel>
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="{Binding [Settings_UXFeedbackTitle], Source={StaticResource Localized}}" />
-						<LineBreak />
-						<Run Foreground="{StaticResource LightPrimaryText}" Text="{Binding [Settings_UXFeedbackDescription], Source={StaticResource Localized}}" />
-					</TextBlock>
-					<CheckBox MinWidth="35"
-					          Margin="0, -50, -5, 0"
-					          HorizontalAlignment="Right"
-					          Background="#11FFFFFF"
-					          BorderBrush="#4a9bca"
-					          Click="AnalyticsSwitch_Toggled"
-					          RequestedTheme="Light" />
-				</StackPanel>
-				<!--
-					<StackPanel>
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-					<Run FontWeight="Normal" Text="Dark theme" />
-					<LineBreak />
-					<Run Text="Enable a darker application skin." />
-					</TextBlock>
-					<CheckBox x:Name="DarkTheme"
-					MinWidth="35"
-					Margin="0, -50, -5, 0"
-					HorizontalAlignment="Right"
-					Background="#11FFFFFF"
-					BorderBrush="#4a9bca"
-					Click="SwitchTheme_Toggled"
-					RequestedTheme="Light" />
-					</StackPanel>
-				-->
-				<StackPanel>
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="{Binding [Settings_QuickPostTitle], Source={StaticResource Localized}}" />
-						<LineBreak />
-						<Run Foreground="{StaticResource LightPrimaryText}" Text="{Binding [Settings_QuickPostDescription], Source={StaticResource Localized}}" />
-					</TextBlock>
-					<CheckBox x:Name="OneClickReblog"
-					          MinWidth="35"
-					          Margin="0, -50, -5, 0"
-					          HorizontalAlignment="Right"
-					          Background="#11FFFFFF"
-					          BorderBrush="#4a9bca"
-					          Click="EnableOneClickReblog_Toggled"
-					          RequestedTheme="Light" />
-				</StackPanel>
-				<StackPanel>
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="{Binding [Settings_PostTagsTitle], Source={StaticResource Localized}}" />
-						<LineBreak />
-						<Run Foreground="{StaticResource LightPrimaryText}" Text="{Binding [Settings_PostTagsDescription], Source={StaticResource Localized}}" />
-					</TextBlock>
-					<CheckBox x:Name="PostTags"
-					          MinWidth="35"
-					          Margin="0, -50, -5, 0"
-					          HorizontalAlignment="Right"
-					          Background="#11FFFFFF"
-					          BorderBrush="#4a9bca"
-					          Click="DisableTagsInPosts_Toggled"
-					          RequestedTheme="Light" />
-				</StackPanel>
+                <!--
+                    <StackPanel>
+                    <TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
+                    <Run FontWeight="Normal" Text="Dark theme" />
+                    <LineBreak />
+                    <Run Text="Enable a darker application skin." />
+                    </TextBlock>
+                    <CheckBox x:Name="DarkTheme"
+                    MinWidth="35"
+                    Margin="0, -50, -5, 0"
+                    HorizontalAlignment="Right"
+                    Background="#11FFFFFF"
+                    BorderBrush="#4a9bca"
+                    Click="SwitchTheme_Toggled"
+                    RequestedTheme="Light" />
+                    </StackPanel>
+                -->
 
-				<TextBlock Margin="0, 10, 0, 0"
-				           FontWeight="Normal"
-				           Foreground="{StaticResource DarkPrimaryColor}"
-				           Style="{StaticResource Body}"
-				           Text="{Binding [Heading_About],
-				                          Source={StaticResource Localized}}" />
-				<TextBlock x:Name="AppVersion"
-				           Padding="5, 5, 5, 0"
-				           Style="{StaticResource Body}">
-					<Run FontWeight="Normal" Text="{Binding [About_AppVersion], Source={StaticResource Localized}}" />
-					<LineBreak />
-					<Run Foreground="{StaticResource LightPrimaryText}" Text="0.0.0.0" />
-				</TextBlock>
-				<StackPanel Tapped="ExpandContainer_Tapped">
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="{Binding [About_LegalTitle], Source={StaticResource Localized}}" />
-						<LineBreak />
-						<Run Foreground="{StaticResource LightPrimaryText}" Text="{Binding [About_LegalSubHeading], Source={StaticResource Localized}}" />
-					</TextBlock>
-					<Image Width="35"
-					       Height="35"
-					       Margin="0, -40, 0, 0"
-					       HorizontalAlignment="Right"
-					       Source="ms-appx:///Assets/open_nav.png" />
-					<StackPanel Visibility="Collapsed">
-						<TextBlock FontSize="18"
-						           Foreground="{StaticResource DarkPrimaryColor}"
-						           Style="{StaticResource Body}"
-						           Text="{Binding [About_LegalDescription],
-						                          Source={StaticResource Localized}}"
-						           TextWrapping="Wrap" />
-					</StackPanel>
-				</StackPanel>
-				<StackPanel Tapped="ExpandContainer_Tapped">
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="{Binding [About_PrivacyTitle], Source={StaticResource Localized}}" />
-						<LineBreak />
-						<Run Foreground="{StaticResource LightPrimaryText}" Text="{Binding [About_PrivacySubHeading], Source={StaticResource Localized}}" />
-					</TextBlock>
-					<Image Width="35"
-					       Height="35"
-					       Margin="0, -40, 0, 0"
-					       HorizontalAlignment="Right"
-					       Source="ms-appx:///Assets/open_nav.png" />
-					<StackPanel Visibility="Collapsed" />
-				</StackPanel>
-				<StackPanel Tapped="ExpandContainer_Tapped">
-					<TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-						<Run FontWeight="Normal" Text="{Binding [About_SupportTitle], Source={StaticResource Localized}}" />
-						<LineBreak />
-						<Run Foreground="{StaticResource LightPrimaryText}" Text="{Binding [About_SupportSubHeading], Source={StaticResource Localized}}" />
-					</TextBlock>
-					<Image Width="35"
-					       Height="35"
-					       Margin="0, -40, 0, 0"
-					       HorizontalAlignment="Right"
-					       Source="ms-appx:///Assets/open_nav.png" />
-					<StackPanel Visibility="Collapsed">
-						<TextBlock FontSize="18"
-						           Style="{StaticResource Body}"
-						           Text="{Binding [About_SupportDescription],
-						                          Source={StaticResource Localized}}"
-						           TextWrapping="Wrap" />
+                <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="{StaticResource ColorPrimary}"
+                                   Padding="12"
+                                   Style="{StaticResource IconStyle}"
+                                   Text="&#xEA54;" />
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                            <Run Text="{Binding [Settings_QuickPostTitle], Source={StaticResource Localized}}" />
+                            <LineBreak />
+                            <Run FontWeight="Light" Text="{Binding [Settings_QuickPostDescription], Source={StaticResource Localized}}" />
+                        </TextBlock>
+                        <CheckBox x:Name="OneClickReblog"
+                                  MinWidth="35"
+                                  Margin="0, -50, -5, 0"
+                                  HorizontalAlignment="Right"
+                                  Background="#11FFFFFF"
+                                  BorderBrush="#4a9bca"
+                                  Click="EnableOneClickReblog_Toggled"
+                                  RequestedTheme="Light" />
+                    </StackPanel>
+                </Button>
 
-						<HyperlinkButton x:Name="Reddit"
-						                 BorderBrush="{x:Null}"
-						                 Content="/r/Sapphire"
-						                 FontSize="18"
-						                 Foreground="#FF529ECC"
-						                 NavigateUri="http://reddit.com/r/sapphire"
-						                 Padding="5" />
-						<HyperlinkButton x:Name="Email"
-						                 BorderBrush="{x:Null}"
-						                 Content="{Binding [About_SupportEmail],
-						                                   Source={StaticResource Localized}}"
-						                 FontSize="18"
-						                 Foreground="#FF529ECC"
-						                 NavigateUri="mailto:sapphire@gemlabs.me"
-						                 Padding="5" />
-						<HyperlinkButton x:Name="Follow"
-						                 BorderBrush="{x:Null}"
-						                 Content="@KarnSaheb"
-						                 FontSize="18"
-						                 Foreground="#FF529ECC"
-						                 NavigateUri="http://twitter.com/intent/follow?screen_name=KarnSaheb"
-						                 Padding="5" />
-					</StackPanel>
-				</StackPanel>
-			</StackPanel>
-		</ScrollViewer>
-	</Grid>
+                <Button Foreground="{StaticResource TextColorPrimaryDark}"
+                        Style="{StaticResource TransparentButtonStyle}"
+                        Tapped="ExpandContainer_Tapped">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="{StaticResource ColorPrimary}"
+                                   Padding="12"
+                                   Style="{StaticResource IconStyle}"
+                                   Text="&#xEA54;" />
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                            <Run Text="{Binding [Settings_PostActionTitle], Source={StaticResource Localized}}" />
+                            <LineBreak />
+                            <Run FontWeight="Light" Text="{Binding [Settings_PostActionDescription], Source={StaticResource Localized}}" />
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal" Visibility="Collapsed">
+                            <TextBlock Foreground="{StaticResource LightPrimaryText}"
+                                       Padding="5, 5, 5, 0"
+                                       Style="{StaticResource Body}"
+                                       Text="{Binding [Settings_UXFeedbackDescription],
+                                                      Source={StaticResource Localized}}" />
+                            <CheckBox MinWidth="35"
+                                      Margin="0, -50, -5, 0"
+                                      HorizontalAlignment="Right"
+                                      Background="#11FFFFFF"
+                                      BorderBrush="#4a9bca"
+                                      Click="AnalyticsSwitch_Toggled"
+                                      RequestedTheme="Light" />
+                        </StackPanel>
+                    </StackPanel>
+                </Button>
+
+                <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="{StaticResource ColorPrimary}"
+                                   Padding="12"
+                                   Style="{StaticResource IconStyle}"
+                                   Text="&#xE1CB;" />
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                            <Run Text="{Binding [Settings_PostTagsTitle], Source={StaticResource Localized}}" />
+                            <LineBreak />
+                            <Run FontWeight="Light" Text="{Binding [Settings_PostTagsDescription], Source={StaticResource Localized}}" />
+                        </TextBlock>
+                        <CheckBox x:Name="PostTags"
+                                  MinWidth="35"
+                                  Margin="0, -50, -5, 0"
+                                  HorizontalAlignment="Right"
+                                  Background="#11FFFFFF"
+                                  BorderBrush="#4a9bca"
+                                  Click="DisableTagsInPosts_Toggled"
+                                  RequestedTheme="Light" />
+                    </StackPanel>
+                </Button>
+
+                <Button Foreground="{StaticResource TextColorPrimaryDark}"
+                        Style="{StaticResource TransparentButtonStyle}"
+                        Tapped="ExpandContainer_Tapped"
+                        Visibility="{Binding ElementName=PageTitle,
+                                             Converter={StaticResource IsFullVersion},
+                                             FallbackValue=Collapsed}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="{StaticResource ColorPrimary}"
+                                   Padding="12"
+                                   Style="{StaticResource IconStyle}"
+                                   Text="&#xE1CB;" />
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                            <Run Text="{Binding [Settings_AutoTagsTitle], Source={StaticResource Localized}}" />
+                            <LineBreak />
+                            <Run FontWeight="Light" Text="{Binding [Settings_AutoTagsDescription], Source={StaticResource Localized}}" />
+                        </TextBlock>
+                        <StackPanel Visibility="Collapsed">
+                            <TextBlock FontSize="18"
+                                       Foreground="{StaticResource ColorPrimaryDark}"
+                                       Padding="5, 5, 5, 0"
+                                       Style="{StaticResource Body}"
+                                       Text="You can change what tags you want added to your posts by default. Tags must be comma-delimited."
+                                       TextWrapping="WrapWholeWords" />
+                            <TextBox x:Name="Tags"
+                                     Height="45"
+                                     Margin="5"
+                                     VerticalContentAlignment="Center"
+                                     Background="{ThemeResource LightPrimaryColor}"
+                                     BorderBrush="{ThemeResource LightPrimaryColor}"
+                                     BorderThickness="1"
+                                     KeyDown="TagBox_KeyDown"
+                                     LostFocus="Tags_LostFocus"
+                                     Padding="8"
+                                     PlaceholderText="Tags" />
+                        </StackPanel>
+                    </StackPanel>
+                </Button>
+
+                <Rectangle Height="1"
+                           Margin="10, 5"
+                           HorizontalAlignment="Stretch"
+                           Fill="{StaticResource ColorPrimaryDark}"
+                           Opacity=".25" />
+
+                <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="{StaticResource ColorPrimary}"
+                                   Padding="12"
+                                   Style="{StaticResource IconStyle}"
+                                   Text="&#xE12B;" />
+                        <TextBlock x:Name="AppVersion" Style="{StaticResource BodyTextBlockStyle}">
+                            <Run Text="{Binding [About_AppVersion], Source={StaticResource Localized}}" />
+                            <LineBreak />
+                            <Run FontWeight="Light" Text="0.0.0.0" />
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="{StaticResource ColorPrimary}"
+                                   Padding="12"
+                                   Style="{StaticResource IconStyle}"
+                                   Text="&#xE1DE;" />
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                            <Run Text="{Binding [About_LegalTitle], Source={StaticResource Localized}}" />
+                            <LineBreak />
+                            <Run FontWeight="Light" Text="{Binding [About_LegalSubHeading], Source={StaticResource Localized}}" />
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="{StaticResource ColorPrimary}"
+                                   Padding="12"
+                                   Style="{StaticResource IconStyle}"
+                                   Text="&#xE192;" />
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                            <Run Text="{Binding [About_PrivacyTitle], Source={StaticResource Localized}}" />
+                            <LineBreak />
+                            <Run FontWeight="Light" Text="{Binding [About_PrivacySubHeading], Source={StaticResource Localized}}" />
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="{StaticResource ColorPrimary}"
+                                   Padding="12"
+                                   Style="{StaticResource IconStyle}"
+                                   Text="&#xE939;" />
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                            <Run Text="{Binding [About_SupportTitle], Source={StaticResource Localized}}" />
+                            <LineBreak />
+                            <Run FontWeight="Light" Text="{Binding [About_SupportSubHeading], Source={StaticResource Localized}}" />
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </Page>

@@ -8,342 +8,361 @@
       Background="{StaticResource ColorPrimaryDark}"
       mc:Ignorable="d">
 
-	<Page.Resources />
+    <Page.Resources />
 
-	<Grid x:Name="LayoutRoot">
+    <Grid x:Name="LayoutRoot">
 
-		<Grid.RowDefinitions>
-			<RowDefinition Height="55" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-		<Grid x:Name="HeaderContainer" Background="{StaticResource PrimaryColor}">
-			<TextBlock x:Name="PageTitle"
-			           Foreground="{StaticResource PrimaryText}"
-			           Style="{StaticResource Headline}"
-			           Text="Sapphire" />
+        <Grid x:Name="HeaderContainer" Background="{StaticResource PrimaryColor}">
+            <TextBlock x:Name="PageTitle"
+                       Foreground="{StaticResource PrimaryText}"
+                       Style="{StaticResource Headline}"
+                       Text="Sapphire" />
 
-			<GridView x:Name="Navigation"
-			          Margin="5, 5, 5, 0"
-			          HorizontalAlignment="Right"
-			          VerticalAlignment="Center"
-			          ScrollViewer.VerticalScrollMode="Disabled"
-			          SelectionChanged="NavigationIconsSelectionChanged">
+            <GridView x:Name="Navigation"
+                      Margin="5, 5, 5, 0"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Center"
+                      ScrollViewer.VerticalScrollMode="Disabled"
+                      SelectionChanged="NavigationIconsSelectionChanged">
 
-				<Image x:Name="DashboardIcon"
-				       Width="35"
-				       Height="35"
-				       Opacity=".5"
-				       Source="Assets/Nav/Dashboard.png" />
+                <TextBlock x:Name="DashboardIcon"
+                           Opacity=".5"
+                           Style="{StaticResource IconStyle}"
+                           Text="" />
 
-				<Image x:Name="ActivityIcon"
-				       Width="35"
-				       Height="35"
-				       Opacity=".5"
-				       Source="Assets/Nav/Activity.png" />
+                <TextBlock x:Name="ActivityIcon"
+                           Opacity=".5"
+                           Style="{StaticResource IconStyle}"
+                           Text="" />
 
-				<Image x:Name="AccountIcon"
-				       Width="35"
-				       Height="35"
-				       Opacity=".5"
-				       Source="Assets/Nav/Account.png" />
+                <TextBlock x:Name="AccountIcon"
+                           Opacity=".5"
+                           Style="{StaticResource IconStyle}"
+                           Text="" />
 
-				<Image x:Name="SearchIcon"
-				       Width="35"
-				       Height="35"
-				       Opacity=".5"
-				       Source="Assets/Nav/Search.png" />
-			</GridView>
-		</Grid>
+                <TextBlock x:Name="SearchIcon"
+                           Opacity=".5"
+                           Style="{StaticResource IconStyle}"
+                           Text="" />
+            </GridView>
+        </Grid>
 
-		<Pivot x:Name="NavigationPivot"
-		       Grid.Row="1"
-		       Background="White"
-		       Canvas.ZIndex="-1"
-			   Margin="0, 22, 0, 0"
-		       SelectionChanged="NavigationPivot_SelectionChanged">
+        <Pivot x:Name="NavigationPivot"
+               Grid.Row="1"
+               Margin="0, -13, 0, -1"
+               Background="{StaticResource WindowBackground}"
+               Canvas.ZIndex="-1"
+               SelectionChanged="NavigationPivot_SelectionChanged">
 
-			<PivotItem x:Name="DashboardPivot"
-			           Margin="0"
-			           HorizontalContentAlignment="Stretch">
+            <PivotItem x:Name="DashboardPivot"
+                       Margin="0"
+                       HorizontalContentAlignment="Stretch">
 
-				<Grid>
-					<control:PostView x:Name="Dashboard"
-					                  AffectHeader="True"
-					                  URL="https://api.tumblr.com/v2/user/dashboard" />
+                <Grid>
+                    <control:PostView x:Name="Dashboard"
+                                      AffectHeader="True"
+                                      URL="https://api.tumblr.com/v2/user/dashboard" />
 
-					<control:NewPostDialog x:Name="PostCreationView" />
+                    <control:NewPostDialog x:Name="PostCreationView" />
 
-					<Button x:Name="ToTopButton"
-					        Width="55"
-					        Height="55"
-					        Margin="80, 24"
-					        HorizontalAlignment="Right"
-					        VerticalAlignment="Bottom"
-					        Background="Transparent"
-					        Click="ToTopButton_Click"
-					        Style="{StaticResource ButtonStyleNoBG}">
+                    <Button x:Name="ToTopButton"
+                            Width="55"
+                            Height="55"
+                            Margin="80, 24"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Background="Transparent"
+                            Click="ToTopButton_Click"
+                            Style="{StaticResource ButtonStyleNoBG}">
 
-						<Grid>
-							<Ellipse Fill="{ThemeResource PrimaryColor}"
-							         Stroke="{StaticResource DarkPrimaryColor}"
-							         StrokeThickness="0.1" />
-							<Image Margin="10"
-							       Canvas.ZIndex="50"
-							       Source="ms-appx:///Assets/Top.png" />
-						</Grid>
-					</Button>
-				</Grid>
-			</PivotItem>
+                        <Grid>
+                            <Ellipse Fill="{ThemeResource ColorPrimary}"
+                                     Stroke="{StaticResource ColorPrimaryDark}"
+                                     StrokeThickness="0.1" />
+                            <Image Margin="10"
+                                   Canvas.ZIndex="50"
+                                   Source="ms-appx:///Assets/Top.png" />
+                        </Grid>
+                    </Button>
+                </Grid>
+            </PivotItem>
 
-			<PivotItem x:Name="ActivityPivot" Margin="0">
-				<control:ActivityView x:Name="Activity" />
-			</PivotItem>
+            <PivotItem x:Name="ActivityPivot" Margin="0">
+                <control:ActivityView x:Name="Activity" />
+            </PivotItem>
 
-			<PivotItem x:Name="AccountPivot"
-			           Margin="0"
-			           DataContext="{Binding}">
-				<Grid>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="200" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="*" />
-					</Grid.RowDefinitions>
+            <PivotItem x:Name="AccountPivot"
+                       Margin="0"
+                       DataContext="{Binding}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="175" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-					<Grid>
-						<Grid.Background>
-							<ImageBrush ImageSource="{Binding BlogTheme.HeaderImage,
-							                                  FallbackValue={ThemeResource DefaultPattern}}"
-							            Opacity="0.5"
-							            Stretch="UniformToFill" />
-						</Grid.Background>
+                    <Grid>
+                        <Grid.Background>
+                            <ImageBrush ImageSource="{Binding BlogTheme.HeaderImage,
+                                                              FallbackValue={ThemeResource DefaultPattern}}"
+                                        Opacity="0.5"
+                                        Stretch="UniformToFill" />
+                        </Grid.Background>
 
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto" />
-							<ColumnDefinition Width="*" />
-						</Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-						<Ellipse Width="96"
-						         Height="96"
-						         Margin="20"
-						         HorizontalAlignment="Left"
-						         VerticalAlignment="Center">
-							<Ellipse.Fill>
-								<ImageBrush ImageSource="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
-							</Ellipse.Fill>
-						</Ellipse>
+                        <Ellipse Width="96"
+                                 Height="96"
+                                 Margin="20"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Center">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+                            </Ellipse.Fill>
+                        </Ellipse>
 
-						<StackPanel Grid.Column="1"
-						            Margin="0, 20"
-						            HorizontalAlignment="Stretch">
-							<TextBlock Foreground="{StaticResource PrimaryText}"
-							           Style="{StaticResource Title}"
-							           Text="{Binding Title,
-							                          FallbackValue=Blog Name}" />
-							<TextBlock Foreground="{StaticResource PrimaryText}"
-							           Style="{StaticResource Caption}"
-							           TextWrapping="NoWrap">
-								<Hyperlink NavigateUri="{Binding URL, FallbackValue=http://www.tumblr.com}">
-									<Run Text="{Binding URL, FallbackValue=url}" />
-								</Hyperlink>
-							</TextBlock>
-							<TextBlock Foreground="{StaticResource PrimaryText}"
-							           Opacity=".75"
-							           Style="{StaticResource Caption}"
-							           Text="{Binding Description,
-							                          FallbackValue=description}"
-							           TextWrapping="Wrap" />
-						</StackPanel>
+                        <StackPanel Grid.Column="1"
+                                    Margin="0, 20"
+                                    HorizontalAlignment="Stretch">
+                            <TextBlock Foreground="{StaticResource PrimaryText}"
+                                       Style="{StaticResource Title}"
+                                       Text="{Binding Title,
+                                                      FallbackValue=Blog Name}" />
+                            <TextBlock Foreground="{StaticResource PrimaryText}"
+                                       Style="{StaticResource Caption}"
+                                       TextWrapping="NoWrap">
+                                <Hyperlink NavigateUri="{Binding URL, FallbackValue=http://www.tumblr.com}">
+                                    <Run Text="{Binding URL, FallbackValue=url}" />
+                                </Hyperlink>
+                            </TextBlock>
+                            <TextBlock Foreground="{StaticResource PrimaryText}"
+                                       Opacity=".75"
+                                       Style="{StaticResource Caption}"
+                                       Text="{Binding Description,
+                                                      FallbackValue=description}"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
 
-					</Grid>
+                    </Grid>
 
-					<Grid Grid.Row="1"
-					      VerticalAlignment="Top"
-					      Background="{ThemeResource LightPrimaryColor}">
-						<Grid.ChildrenTransitions>
-							<TransitionCollection>
-								<EntranceThemeTransition />
-							</TransitionCollection>
-						</Grid.ChildrenTransitions>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="10" />
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="10" />
-						</Grid.ColumnDefinitions>
-						<TextBlock Grid.Column="1"
-						           FontWeight="Normal"
-						           Foreground="{StaticResource PrimaryText}"
-						           Style="{StaticResource Title}"
-						           Tag="Following"
-						           Tapped="AccountDetails_Tapped">
-							<Run Foreground="{StaticResource DarkPrimaryColor}" Text="{Binding FollowingCount, FallbackValue=0}" />
-							<LineBreak />
-							<Run FontSize="12" Text="{Binding [Account_Following], Source={StaticResource Localized}}" />
-						</TextBlock>
-						<TextBlock Grid.Column="2"
-						           FontWeight="Normal"
-						           Foreground="{StaticResource PrimaryText}"
-						           Style="{StaticResource Title}"
-						           Tag="Posts"
-						           Tapped="AccountDetails_Tapped">
-							<Run Foreground="{StaticResource DarkPrimaryColor}" Text="{Binding PostCount, FallbackValue=0}" />
-							<LineBreak />
-							<Run FontSize="12" Text="{Binding [Account_Posts], Source={StaticResource Localized}}" />
-						</TextBlock>
-						<TextBlock Grid.Column="3"
-						           FontWeight="Normal"
-						           Foreground="{StaticResource PrimaryText}"
-						           Style="{StaticResource Title}"
-						           Tag="Likes"
-						           Tapped="AccountDetails_Tapped">
-							<Run Foreground="{StaticResource DarkPrimaryColor}" Text="{Binding LikedPostCount, FallbackValue=0}" />
-							<LineBreak />
-							<Run FontSize="12" Text="{Binding [Account_Likes], Source={StaticResource Localized}}" />
-						</TextBlock>
-						<TextBlock Grid.Column="4"
-						           FontWeight="Normal"
-						           Foreground="{StaticResource PrimaryText}"
-						           Style="{StaticResource Title}"
-						           Tag="Followers"
-						           Tapped="AccountDetails_Tapped">
-							<Run Foreground="{StaticResource DarkPrimaryColor}" Text="{Binding FollowersCount, FallbackValue=0}" />
-							<LineBreak />
-							<Run FontSize="12" Text="{Binding [Account_Followers], Source={StaticResource Localized}}" />
-						</TextBlock>
-					</Grid>
+                    <Grid Grid.Row="1"
+                          VerticalAlignment="Top"
+                          Background="{ThemeResource WindowBackgroundAccent}">
+                        <Grid.ChildrenTransitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition />
+                            </TransitionCollection>
+                        </Grid.ChildrenTransitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="1"
+                                   FontWeight="Normal"
+                                   Foreground="{StaticResource TextColorPrimaryDark}"
+                                   Style="{StaticResource Title}"
+                                   Tag="Following"
+                                   Tapped="AccountDetails_Tapped">
+                            <Run Foreground="{StaticResource ColorPrimaryDark}" Text="{Binding FollowingCount, FallbackValue=0}" />
+                            <LineBreak />
+                            <Run FontSize="12" Text="{Binding [Account_Following], Source={StaticResource Localized}}" />
+                        </TextBlock>
+                        <TextBlock Grid.Column="2"
+                                   FontWeight="Normal"
+                                   Foreground="{StaticResource TextColorPrimaryDark}"
+                                   Style="{StaticResource Title}"
+                                   Tag="Posts"
+                                   Tapped="AccountDetails_Tapped">
+                            <Run Foreground="{StaticResource ColorPrimaryDark}" Text="{Binding PostCount, FallbackValue=0}" />
+                            <LineBreak />
+                            <Run FontSize="12" Text="{Binding [Account_Posts], Source={StaticResource Localized}}" />
+                        </TextBlock>
+                        <TextBlock Grid.Column="3"
+                                   FontWeight="Normal"
+                                   Foreground="{StaticResource TextColorPrimaryDark}"
+                                   Style="{StaticResource Title}"
+                                   Tag="Likes"
+                                   Tapped="AccountDetails_Tapped">
+                            <Run Foreground="{StaticResource ColorPrimaryDark}" Text="{Binding LikedPostCount, FallbackValue=0}" />
+                            <LineBreak />
+                            <Run FontSize="12" Text="{Binding [Account_Likes], Source={StaticResource Localized}}" />
+                        </TextBlock>
+                        <TextBlock Grid.Column="4"
+                                   FontWeight="Normal"
+                                   Foreground="{StaticResource TextColorPrimaryDark}"
+                                   Style="{StaticResource Title}"
+                                   Tag="Followers"
+                                   Tapped="AccountDetails_Tapped">
+                            <Run Foreground="{StaticResource ColorPrimaryDark}" Text="{Binding FollowersCount, FallbackValue=0}" />
+                            <LineBreak />
+                            <Run FontSize="12" Text="{Binding [Account_Followers], Source={StaticResource Localized}}" />
+                        </TextBlock>
+                    </Grid>
 
-					<StackPanel Grid.Row="2" Margin="16">
-						<StackPanel.ChildrenTransitions>
-							<TransitionCollection>
-								<EntranceThemeTransition />
-							</TransitionCollection>
-						</StackPanel.ChildrenTransitions>
-						<Grid Tapped="ManageBlogs_Tapped">
-							<TextBlock VerticalAlignment="Center"
-							           Style="{StaticResource SubTitle}"
-							           Text="{Binding [Account_MyBlogs],
-							                          Source={StaticResource Localized}}" />
-							<Image Width="35"
-							       Height="35"
-							       HorizontalAlignment="Right"
-							       Source="ms-appx:///Assets/open_nav.png" />
-						</Grid>
-						<Grid Tapped="Inbox_Tapped">
-							<TextBlock VerticalAlignment="Center"
-							           Style="{StaticResource SubTitle}"
-							           Text="{Binding [Title_Inbox],
-							                          Source={StaticResource Localized}}" />
-							<Image Width="35"
-							       Height="35"
-							       HorizontalAlignment="Right"
-							       Source="ms-appx:///Assets/open_nav.png" />
-						</Grid>
-						<Grid Tapped="Drafts_Tapped">
-							<TextBlock VerticalAlignment="Center"
-							           Style="{StaticResource SubTitle}"
-							           Text="{Binding [Title_Drafts],
-							                          Source={StaticResource Localized}}" />
-							<Image Width="35"
-							       Height="35"
-							       HorizontalAlignment="Right"
-							       Source="ms-appx:///Assets/open_nav.png" />
-						</Grid>
-						<Grid Tapped="Queue_Tapped">
-							<TextBlock VerticalAlignment="Center"
-							           Style="{StaticResource SubTitle}"
-							           Text="{Binding [Title_Queue],
-							                          Source={StaticResource Localized}}" />
-							<Image Width="35"
-							       Height="35"
-							       HorizontalAlignment="Right"
-							       Source="ms-appx:///Assets/open_nav.png" />
-						</Grid>
-						<Grid Tapped="Favs_List_Tapped" Visibility="{Binding Converter={StaticResource IsFullVersion}, FallbackValue=Collapsed}">
-							<TextBlock VerticalAlignment="Center"
-							           Style="{StaticResource SubTitle}"
-							           Text="{Binding [Title_FavBlogs],
-							                          Source={StaticResource Localized}}" />
-							<Image Width="35"
-							       Height="35"
-							       HorizontalAlignment="Right"
-							       Source="ms-appx:///Assets/open_nav.png" />
-						</Grid>
+                    <ScrollViewer Grid.Row="2">
+                        <StackPanel>
+                            <Button Click="ManageBlogs_Tapped"
+                                    Foreground="{StaticResource TextColorPrimaryDark}"
+                                    Style="{StaticResource TransparentButtonStyle}">
+                                <Grid>
+                                    <TextBlock VerticalAlignment="Center"
+                                               Style="{StaticResource TitleTextBlockStyle}"
+                                               Text="{Binding [Account_MyBlogs],
+                                                              Source={StaticResource Localized}}" />
+                                    <TextBlock HorizontalAlignment="Right"
+                                               Foreground="{StaticResource ColorPrimary}"
+                                               Style="{StaticResource IconStyle}"
+                                               Text="&#xE00F;" />
+                                </Grid>
+                            </Button>
 
-					</StackPanel>
-				</Grid>
-			</PivotItem>
+                            <Button Click="Inbox_Tapped"
+                                    Foreground="{StaticResource TextColorPrimaryDark}"
+                                    Style="{StaticResource TransparentButtonStyle}">
+                                <Grid>
+                                    <TextBlock VerticalAlignment="Center"
+                                               Style="{StaticResource TitleTextBlockStyle}"
+                                               Text="{Binding [Title_Inbox],
+                                                              Source={StaticResource Localized}}" />
+                                    <TextBlock HorizontalAlignment="Right"
+                                               Foreground="{StaticResource ColorPrimary}"
+                                               Style="{StaticResource IconStyle}"
+                                               Text="&#xE00F;" />
+                                </Grid>
+                            </Button>
 
-			<PivotItem x:Name="SearchPivot" Margin="0">
-				<Grid Margin="5, 5, 5, 0">
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="*" />
-					</Grid.RowDefinitions>
-					<Grid>
-						<TextBox x:Name="SearchText"
-						         Height="45"
-						         Margin="1, 5"
-						         VerticalContentAlignment="Center"
-						         Background="White"
-						         BorderThickness="0"
-						         KeyDown="SearchText_KeyDown"
-						         Padding="50, 8, 0, 0"
-						         PlaceholderText="{Binding [MainView_SearchText],
-						                                   Source={StaticResource Localized}}" />
-						<Image Width="35"
-						       Height="30"
-						       Margin="7, 10"
-						       HorizontalAlignment="Left"
-						       Opacity=".5"
-						       Source="Assets/Nav/Search_Dark.png" />
-					</Grid>
-					<GridView x:Name="SpotlightTags"
-					          Grid.Row="1"
-					          VerticalAlignment="Stretch"
-					          ItemsSource="{Binding}"
-					          Loaded="Spotlight_Loaded"
-					          ScrollViewer.VerticalScrollMode="Enabled">
-						<GridView.ItemTemplate>
-							<DataTemplate>
-								<Grid Margin="0, 0, 2, 2"
-								      Loaded="SetSpotlightItemDimensions"
-								      Tag="{Binding tag}"
-								      Tapped="SpotlightItem_Tapped">
-									<Image Source="{Binding promo_image}" Stretch="UniformToFill" />
-									<StackPanel Height="35"
-									            VerticalAlignment="Top"
-									            Background="#33000000">
-										<TextBlock FontWeight="Normal"
-										           Foreground="White"
-										           Style="{StaticResource Body}"
-										           Text="{Binding title}" />
-									</StackPanel>
-								</Grid>
-							</DataTemplate>
-						</GridView.ItemTemplate>
-					</GridView>
-				</Grid>
-			</PivotItem>
+                            <Button Click="Drafts_Tapped"
+                                    Foreground="{StaticResource TextColorPrimaryDark}"
+                                    Style="{StaticResource TransparentButtonStyle}">
+                                <Grid>
+                                    <TextBlock VerticalAlignment="Center"
+                                               Style="{StaticResource TitleTextBlockStyle}"
+                                               Text="{Binding [Title_Drafts],
+                                                              Source={StaticResource Localized}}" />
+                                    <TextBlock HorizontalAlignment="Right"
+                                               Foreground="{StaticResource ColorPrimary}"
+                                               Style="{StaticResource IconStyle}"
+                                               Text="&#xE00F;" />
+                                </Grid>
+                            </Button>
 
-		</Pivot>
-	</Grid>
+                            <Button Click="Queue_Tapped"
+                                    Foreground="{StaticResource TextColorPrimaryDark}"
+                                    Style="{StaticResource TransparentButtonStyle}">
+                                <Grid>
+                                    <TextBlock VerticalAlignment="Center"
+                                               Style="{StaticResource TitleTextBlockStyle}"
+                                               Text="{Binding [Title_Queue],
+                                                              Source={StaticResource Localized}}" />
+                                    <TextBlock HorizontalAlignment="Right"
+                                               Foreground="{StaticResource ColorPrimary}"
+                                               Style="{StaticResource IconStyle}"
+                                               Text="&#xE00F;" />
+                                </Grid>
+                            </Button>
 
-	<Page.BottomAppBar>
-		<CommandBar x:Name="CommandBar"
-		            Background="{ThemeResource PrimaryColor}"
-		            ClosedDisplayMode="Minimal"
-		            Foreground="{ThemeResource PrimaryText}">
-			<AppBarButton x:Name="RefreshButton"
-			              Click="RefreshButton_Click"
-			              Icon="Refresh"
-			              Label="refresh" />
-			<CommandBar.SecondaryCommands>
-				<AppBarButton Click="SettingsButton_Click" Label="{Binding [Title_Settings], Source={StaticResource Localized}}" />
-				<AppBarButton Click="ManageAccountButton_Click" Label="{Binding [Heading_ManageAccounts], Source={StaticResource Localized}}" />
-			</CommandBar.SecondaryCommands>
-		</CommandBar>
-	</Page.BottomAppBar>
+                            <Button Click="Favs_List_Tapped"
+                                    Foreground="{StaticResource TextColorPrimaryDark}"
+                                    Style="{StaticResource TransparentButtonStyle}"
+                                    Visibility="{Binding Converter={StaticResource IsFullVersion},
+                                                         FallbackValue=Collapsed}">
+                                <Grid>
+                                    <TextBlock VerticalAlignment="Center"
+                                               Style="{StaticResource TitleTextBlockStyle}"
+                                               Text="{Binding [Title_FavBlogs],
+                                                              Source={StaticResource Localized}}" />
+                                    <TextBlock HorizontalAlignment="Right"
+                                               Foreground="{StaticResource ColorPrimary}"
+                                               Style="{StaticResource IconStyle}"
+                                               Text="&#xE00F;" />
+                                </Grid>
+                            </Button>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </PivotItem>
+
+            <PivotItem x:Name="SearchPivot" Margin="0">
+                <Grid Margin="5, 5, 5, 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <TextBox x:Name="SearchText"
+                                 Height="45"
+                                 Margin="1, 5"
+                                 VerticalContentAlignment="Center"
+                                 Background="{StaticResource WindowBackgroundAccent}"
+                                 BorderThickness="0"
+                                 KeyDown="SearchText_KeyDown"
+                                 Padding="50, 8, 0, 0"
+                                 PlaceholderText="{Binding [MainView_SearchText],
+                                                           Source={StaticResource Localized}}" />
+                        <Image Width="35"
+                               Height="30"
+                               Margin="7, 10"
+                               HorizontalAlignment="Left"
+                               Opacity=".5"
+                               Source="Assets/Nav/Search_Dark.png" />
+                    </Grid>
+                    <GridView x:Name="SpotlightTags"
+                              Grid.Row="1"
+                              VerticalAlignment="Stretch"
+                              ItemsSource="{Binding}"
+                              Loaded="Spotlight_Loaded"
+                              ScrollViewer.VerticalScrollMode="Enabled">
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0, 0, 2, 2"
+                                      Loaded="SetSpotlightItemDimensions"
+                                      Tag="{Binding tag}"
+                                      Tapped="SpotlightItem_Tapped">
+                                    <Image Source="{Binding promo_image}" Stretch="UniformToFill" />
+                                    <StackPanel Height="35"
+                                                VerticalAlignment="Top"
+                                                Background="#33000000">
+                                        <TextBlock FontWeight="Normal"
+                                                   Foreground="White"
+                                                   Style="{StaticResource Body}"
+                                                   Text="{Binding title}" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                </Grid>
+            </PivotItem>
+
+        </Pivot>
+    </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar x:Name="CommandBar"
+                    Background="{ThemeResource ColorPrimaryDark}"
+                    BorderThickness="0"
+                    ClosedDisplayMode="Minimal"
+                    Foreground="{ThemeResource PrimaryText}">
+            <AppBarButton x:Name="RefreshButton"
+                          Click="RefreshButton_Click"
+                          Icon="Refresh"
+                          Label="refresh" />
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Click="SettingsButton_Click" Label="{Binding [Title_Settings], Source={StaticResource Localized}}" />
+                <AppBarButton Click="ManageAccountButton_Click" Label="{Binding [Heading_ManageAccounts], Source={StaticResource Localized}}" />
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

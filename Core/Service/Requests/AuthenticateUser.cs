@@ -18,7 +18,7 @@ namespace Core.Service.Requests {
 
 		/// <summary>
 		/// Initialize an instance of AuthenticateUser.
-		/// </summary>
+		/// </summary> 
 		public AuthenticateUser() {
 
 		}

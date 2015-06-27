@@ -90,23 +90,24 @@ namespace Sapphire.Pages {
 			}
 		}
 
-		private async void RateReviewTapped(object sender, TappedRoutedEventArgs e) {
-			await Launcher.LaunchUriAsync(new Uri("ms-windows-store:reviewapp?appid=d9b787e4-616a-40ea-bdb4-c81523cb0733"));
-		}
-
-		private async void UpgradeAppTapped(object sender, TappedRoutedEventArgs e) {
-			if (Core.Utils.AppLicenseHandler.IsTrial)
-				await Core.Utils.AppLicenseHandler.RemoveAds();
-		}
-
-		private void AccountManage_Tapped(object sender, TappedRoutedEventArgs e) {
+		private void AccountManage_Tapped(object sender, RoutedEventArgs e) {
 			var frame = Window.Current.Content as Frame;
 			if (!frame.Navigate(typeof(AccountManager), "1"))
 				throw new Exception("NavFail");
 		}
 
+		private async void RateReviewTapped(object sender, RoutedEventArgs e) {
+			await Launcher.LaunchUriAsync(new Uri("ms-windows-store:reviewapp?appid=d9b787e4-616a-40ea-bdb4-c81523cb0733"));
+		}
+
+		private async void UpgradeAppTapped(object sender, RoutedEventArgs e) {
+			if (Core.Utils.AppLicenseHandler.IsTrial)
+				await Core.Utils.AppLicenseHandler.RemoveAds();
+		}
+
 		private void ExpandContainer_Tapped(object sender, TappedRoutedEventArgs e) {
-			var container = ((FrameworkElement)((StackPanel)sender).Children.Last());
+			var container = (FrameworkElement)((Button)sender).Content;
+            container = (FrameworkElement)((StackPanel)container).Children.Last();
 			container.Visibility = (container.Visibility == Visibility.Visible) ? Visibility.Collapsed : Visibility.Visible;
 		}
 
@@ -146,5 +147,6 @@ namespace Sapphire.Pages {
 
 			UserPreferences.DefaultTags = converted.TrimEnd('#', ',', ' ');
         }
-	}
+
+    }
 }

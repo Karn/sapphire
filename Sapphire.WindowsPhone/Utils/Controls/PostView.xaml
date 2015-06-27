@@ -12,526 +12,527 @@
              d:DesignWidth="380"
              mc:Ignorable="d">
 
-	<UserControl.Resources>
-		<Flyout x:Key="SaveToPhoneFlyout" Placement="Full">
-			<Flyout.FlyoutPresenterStyle>
-				<Style TargetType="FlyoutPresenter">
-					<Setter Property="Margin" Value="0" />
-					<Setter Property="Background" Value="Transparent" />
-				</Style>
-			</Flyout.FlyoutPresenterStyle>
-			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="*" />
-					<RowDefinition Height="Auto" />
-				</Grid.RowDefinitions>
-				<Grid Background="#02000000" Tapped="Grid_Tapped" />
-				<Grid Grid.Row="1"
-				      VerticalAlignment="Bottom"
-				      Background="{ThemeResource ColorPrimary}">
-					<TextBlock Margin="20, 25, 20, 25"
-					           HorizontalAlignment="Left"
-					           VerticalAlignment="Top"
-					           FontSize="24"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource Headline}"
-					           Tag="{Binding path_to_low_res_pic.url}"
-					           Tapped="OtherOptions_Tapped"
-					           Text="{Binding [Post_SaveToPhone],
-					                          Source={StaticResource Localized}}"
-					           TextLineBounds="Tight"
-					           TextTrimming="CharacterEllipsis" />
-				</Grid>
-			</Grid>
-		</Flyout>
-		<Flyout x:Key="SaveToPhonePSFlyout" Placement="Full">
-			<Flyout.FlyoutPresenterStyle>
-				<Style TargetType="FlyoutPresenter">
-					<Setter Property="Margin" Value="0" />
-					<Setter Property="Background" Value="Transparent" />
-				</Style>
-			</Flyout.FlyoutPresenterStyle>
-			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="*" />
-					<RowDefinition Height="Auto" />
-				</Grid.RowDefinitions>
-				<Grid Background="#02000000" Tapped="Grid_Tapped" />
-				<Grid Grid.Row="1"
-				      VerticalAlignment="Bottom"
-				      Background="{ThemeResource ColorPrimary}">
-					<TextBlock Margin="20, 25, 20, 25"
-					           HorizontalAlignment="Left"
-					           VerticalAlignment="Top"
-					           FontSize="24"
-					           Foreground="{ThemeResource TextColorPrimary}"
-					           Style="{StaticResource Headline}"
-					           Tag="{Binding original_size.url}"
-					           Tapped="OtherOptions_Tapped"
-					           Text="{Binding [Post_SaveToPhone],
-					                          Source={StaticResource Localized}}"
-					           TextLineBounds="Tight"
-					           TextTrimming="CharacterEllipsis" />
-				</Grid>
-			</Grid>
-		</Flyout>
+    <UserControl.Resources>
+        <Flyout x:Key="SaveToPhoneFlyout" Placement="Full">
+            <Flyout.FlyoutPresenterStyle>
+                <Style TargetType="FlyoutPresenter">
+                    <Setter Property="Margin" Value="0" />
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
+            </Flyout.FlyoutPresenterStyle>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Background="#02000000" Tapped="Grid_Tapped" />
+                <Grid Grid.Row="1"
+                      VerticalAlignment="Bottom"
+                      Background="{ThemeResource ColorPrimary}">
+                    <TextBlock Margin="20, 25, 20, 25"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               FontSize="24"
+                               Foreground="{ThemeResource TextColorPrimaryDark}"
+                               Style="{StaticResource Headline}"
+                               Tag="{Binding path_to_low_res_pic.url}"
+                               Tapped="OtherOptions_Tapped"
+                               Text="{Binding [Post_SaveToPhone],
+                                              Source={StaticResource Localized}}"
+                               TextLineBounds="Tight"
+                               TextTrimming="CharacterEllipsis" />
+                </Grid>
+            </Grid>
+        </Flyout>
+        <Flyout x:Key="SaveToPhonePSFlyout" Placement="Full">
+            <Flyout.FlyoutPresenterStyle>
+                <Style TargetType="FlyoutPresenter">
+                    <Setter Property="Margin" Value="0" />
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
+            </Flyout.FlyoutPresenterStyle>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Background="#02000000" Tapped="Grid_Tapped" />
+                <Grid Grid.Row="1"
+                      VerticalAlignment="Bottom"
+                      Background="{ThemeResource ColorPrimary}">
+                    <TextBlock Margin="20, 25, 20, 25"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               FontSize="24"
+                               Foreground="{ThemeResource TextColorPrimary}"
+                               Style="{StaticResource Headline}"
+                               Tag="{Binding original_size.url}"
+                               Tapped="OtherOptions_Tapped"
+                               Text="{Binding [Post_SaveToPhone],
+                                              Source={StaticResource Localized}}"
+                               TextLineBounds="Tight"
+                               TextTrimming="CharacterEllipsis" />
+                </Grid>
+            </Grid>
+        </Flyout>
 
-		<DataTemplate x:Key="Text">
-			<StackPanel Background="{ThemeResource PostBG}">
-				<TextBlock Style="{StaticResource SubTitle}"
-				           TextWrapping="WrapWholeWords"
-				           Visibility="{Binding title,
-				                                Converter={StaticResource CaptionConverter}}"
-				           misc:TextFormatter.Text="{Binding title}" />
-				<TextBlock Style="{StaticResource Body}"
-				           TextWrapping="Wrap"
-				           Visibility="{Binding body,
-				                                Converter={StaticResource CaptionConverter}}"
-				           misc:TextFormatter.Text="{Binding body}" />
-			</StackPanel>
-		</DataTemplate>
+        <DataTemplate x:Key="Text">
+            <StackPanel Background="{ThemeResource PostBG}">
+                <TextBlock Style="{StaticResource SubTitle}"
+                           TextWrapping="WrapWholeWords"
+                           Visibility="{Binding title,
+                                                Converter={StaticResource CaptionConverter}}"
+                           misc:TextFormatter.Text="{Binding title}" />
+                <TextBlock Style="{StaticResource Body}"
+                           TextWrapping="Wrap"
+                           Visibility="{Binding body,
+                                                Converter={StaticResource CaptionConverter}}"
+                           misc:TextFormatter.Text="{Binding body}" />
+            </StackPanel>
+        </DataTemplate>
 
-		<DataTemplate x:Key="Photo">
-			<Image FlyoutBase.AttachedFlyout="{StaticResource SaveToPhoneFlyout}"
-			       Holding="Image_Holding"
-			       Source="{Binding path_to_low_res_pic.url,
-			                        FallbackValue={StaticResource DefaultPattern}}" />
-		</DataTemplate>
+        <DataTemplate x:Key="Photo">
+            <Image FlyoutBase.AttachedFlyout="{StaticResource SaveToPhoneFlyout}"
+                   Holding="Image_Holding"
+                   Source="{Binding path_to_low_res_pic.url,
+                                    FallbackValue={StaticResource DefaultPattern}}" />
+        </DataTemplate>
 
-		<DataTemplate x:Key="Gif">
-			<Grid>
-				<MediaElement x:Name="Player"
-				              AutoPlay="True"
-				              IsDoubleTapEnabled="False"
-				              IsHoldingEnabled="False"
-				              IsLooping="True"
-				              IsRightTapEnabled="False"
-				              IsTapEnabled="False"
-				              PosterSource="{Binding path_to_low_res_pic.url}"
-				              Stretch="UniformToFill"
-				              Tag="{Binding path_to_low_res_pic.url}" />
-				<AppBarButton x:Name="PlayButton"
-				              HorizontalAlignment="Right"
-				              VerticalAlignment="Top"
-				              Background="#CC252525"
-				              BorderBrush="White"
-				              Click="AppBarButton_Click"
-				              Foreground="White"
-				              Icon="Play"
-				              IsCompact="True"
-				              LostFocus="PlayButton_LostFocus"
-				              RequestedTheme="Dark"
-				              Tag="stopped" />
-			</Grid>
-		</DataTemplate>
+        <DataTemplate x:Key="Gif">
+            <Grid>
+                <MediaElement x:Name="Player"
+                              AutoPlay="True"
+                              IsDoubleTapEnabled="False"
+                              IsHoldingEnabled="False"
+                              IsLooping="True"
+                              IsRightTapEnabled="False"
+                              IsTapEnabled="False"
+                              PosterSource="{Binding path_to_low_res_pic.url}"
+                              Stretch="UniformToFill"
+                              Tag="{Binding path_to_low_res_pic.url}" />
+                <AppBarButton x:Name="PlayButton"
+                              HorizontalAlignment="Right"
+                              VerticalAlignment="Top"
+                              Background="#CC252525"
+                              BorderBrush="White"
+                              Click="AppBarButton_Click"
+                              Foreground="White"
+                              Icon="Play"
+                              IsCompact="True"
+                              LostFocus="PlayButton_LostFocus"
+                              RequestedTheme="Dark"
+                              Tag="stopped" />
+            </Grid>
+        </DataTemplate>
 
-		<DataTemplate x:Key="Photoset">
-			<miscl:VariableGridView x:Name="itemGridView"
-			                        HorizontalContentAlignment="Stretch"
-			                        ItemsSource="{Binding photos}">
+        <DataTemplate x:Key="Photoset">
+            <miscl:VariableGridView x:Name="itemGridView"
+                                    HorizontalContentAlignment="Stretch"
+                                    ItemsSource="{Binding photos}">
 
-				<GridView.ItemsPanel>
-					<ItemsPanelTemplate>
-						<VariableSizedWrapGrid Loaded="VariableSizedWrapGrid_Loaded" Orientation="Horizontal" />
-					</ItemsPanelTemplate>
-				</GridView.ItemsPanel>
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VariableSizedWrapGrid Loaded="VariableSizedWrapGrid_Loaded" Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
 
-				<GridView.ItemTemplate>
-					<DataTemplate>
-						<Image HorizontalAlignment="Stretch"
-						       FlyoutBase.AttachedFlyout="{StaticResource SaveToPhonePSFlyout}"
-						       Holding="Image_Holding"
-						       Source="{Binding original_size.url}"
-						       Stretch="UniformToFill" />
-					</DataTemplate>
-				</GridView.ItemTemplate>
+                <GridView.ItemTemplate>
+                    <DataTemplate>
+                        <Image HorizontalAlignment="Stretch"
+                               FlyoutBase.AttachedFlyout="{StaticResource SaveToPhonePSFlyout}"
+                               Holding="Image_Holding"
+                               Source="{Binding original_size.url}"
+                               Stretch="UniformToFill" />
+                    </DataTemplate>
+                </GridView.ItemTemplate>
 
-			</miscl:VariableGridView>
+            </miscl:VariableGridView>
 
-		</DataTemplate>
+        </DataTemplate>
 
-		<DataTemplate x:Key="Quote">
-			<StackPanel Background="{ThemeResource PostBG}">
-				<TextBlock FontStyle="Italic"
-				           FontWeight="Normal"
-				           Padding="16, 16, 16, 8"
-				           Style="{StaticResource SubTitle}"
-				           TextWrapping="WrapWholeWords"
-				           Visibility="{Binding text,
-				                                Converter={StaticResource CaptionConverter}}"
-				           misc:TextFormatter.Text="{Binding text}" />
-				<TextBlock Padding="16, 0"
-				           Style="{StaticResource Caption}"
-				           TextWrapping="Wrap"
-				           Visibility="{Binding source,
-				                                Converter={StaticResource CaptionConverter}}"
-				           misc:TextFormatter.Text="{Binding source}" />
-			</StackPanel>
-		</DataTemplate>
+        <DataTemplate x:Key="Quote">
+            <StackPanel Background="{ThemeResource PostBG}">
+                <TextBlock FontStyle="Italic"
+                           FontWeight="Normal"
+                           Padding="16, 16, 16, 8"
+                           Style="{StaticResource SubTitle}"
+                           TextWrapping="WrapWholeWords"
+                           Visibility="{Binding text,
+                                                Converter={StaticResource CaptionConverter}}"
+                           misc:TextFormatter.Text="{Binding text}" />
+                <TextBlock Padding="16, 0"
+                           Style="{StaticResource Caption}"
+                           TextWrapping="Wrap"
+                           Visibility="{Binding source,
+                                                Converter={StaticResource CaptionConverter}}"
+                           misc:TextFormatter.Text="{Binding source}" />
+            </StackPanel>
+        </DataTemplate>
 
-		<DataTemplate x:Key="Link">
-			<StackPanel Background="{ThemeResource PostBG}">
-				<HyperlinkButton HorizontalAlignment="Stretch"
-				                 Background="{ThemeResource ColorPrimary}"
-				                 NavigateUri="{Binding url}"
-				                 Padding="10"
-				                 Visibility="{Binding title,
-				                                      Converter={StaticResource CaptionConverter}}">
-					<TextBlock FontWeight="Normal"
-					           Foreground="{ThemeResource TextColorPrimary}"
-					           Style="{StaticResource SubTitle}"
-					           TextAlignment="Center"
-					           TextWrapping="WrapWholeWords"
-					           Visibility="{Binding title,
-					                                Converter={StaticResource CaptionConverter}}"
-					           misc:CaptionFormatter.Text="{Binding title}" />
-				</HyperlinkButton>
-				<TextBlock Style="{StaticResource Caption}"
-				           TextWrapping="WrapWholeWords"
-				           Visibility="{Binding description,
-				                                Converter={StaticResource CaptionConverter}}"
-				           misc:CaptionFormatter.Text="{Binding description}" />
-			</StackPanel>
-		</DataTemplate>
+        <DataTemplate x:Key="Link">
+            <StackPanel Background="{ThemeResource PostBG}">
+                <HyperlinkButton HorizontalAlignment="Stretch"
+                                 Background="{ThemeResource ColorPrimary}"
+                                 NavigateUri="{Binding url}"
+                                 Padding="10"
+                                 Visibility="{Binding title,
+                                                      Converter={StaticResource CaptionConverter}}">
+                    <TextBlock FontWeight="Normal"
+                               Foreground="{ThemeResource TextColorPrimary}"
+                               Style="{StaticResource SubTitle}"
+                               TextAlignment="Center"
+                               TextWrapping="WrapWholeWords"
+                               Visibility="{Binding title,
+                                                    Converter={StaticResource CaptionConverter}}"
+                               misc:CaptionFormatter.Text="{Binding title}" />
+                </HyperlinkButton>
+                <TextBlock Style="{StaticResource Caption}"
+                           TextWrapping="WrapWholeWords"
+                           Visibility="{Binding description,
+                                                Converter={StaticResource CaptionConverter}}"
+                           misc:CaptionFormatter.Text="{Binding description}" />
+            </StackPanel>
+        </DataTemplate>
 
-		<DataTemplate x:Key="Chat">
-			<StackPanel Background="{ThemeResource PostBG}">
-				<TextBlock Margin="10, 0, 10, 0"
-				           FontSize="22"
-				           FontWeight="Light"
-				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           TextWrapping="WrapWholeWords"
-				           Visibility="{Binding body,
-				                                Converter={StaticResource CaptionConverter}}"
-				           misc:CaptionFormatter.Text="{Binding body}" />
-				<TextBlock Margin="10, 5, 10, 10"
-				           FontSize="18"
-				           FontWeight="Light"
-				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           TextWrapping="WrapWholeWords"
-				           Visibility="{Binding description,
-				                                Converter={StaticResource CaptionConverter}}"
-				           misc:CaptionFormatter.Text="{Binding description}" />
-			</StackPanel>
-		</DataTemplate>
+        <DataTemplate x:Key="Chat">
+            <StackPanel Background="{ThemeResource PostBG}">
+                <TextBlock Margin="10, 0, 10, 0"
+                           FontSize="22"
+                           FontWeight="Light"
+                           Foreground="{ThemeResource TextColorPrimaryDark}"
+                           TextWrapping="WrapWholeWords"
+                           Visibility="{Binding body,
+                                                Converter={StaticResource CaptionConverter}}"
+                           misc:CaptionFormatter.Text="{Binding body}" />
+                <TextBlock Margin="10, 5, 10, 10"
+                           FontSize="18"
+                           FontWeight="Light"
+                           Foreground="{ThemeResource TextColorPrimaryDark}"
+                           TextWrapping="WrapWholeWords"
+                           Visibility="{Binding description,
+                                                Converter={StaticResource CaptionConverter}}"
+                           misc:CaptionFormatter.Text="{Binding description}" />
+            </StackPanel>
+        </DataTemplate>
 
-		<DataTemplate x:Key="Audio">
-			<StackPanel Background="{ThemeResource PostBG}"
-			            Orientation="Horizontal"
-			            Tag="{Binding audio_url}">
-				<Image Width="100"
-				       Height="100"
-				       Source="{Binding album_art}" />
-				<StackPanel>
-					<TextBlock x:Name="Name"
-					           Margin="15, 0, 0, 0"
-					           HorizontalAlignment="Left"
-					           VerticalAlignment="Center"
-					           FontSize="24"
-					           Foreground="{ThemeResource TextColorPrimaryDark}"
-					           Style="{StaticResource Headline}">
-						<Run Text="{Binding artist}" />
-						<Run Text="-" />
-						<Run Text="{Binding track_name, FallbackValue=Track_Name}" />
-					</TextBlock>
-					<StackPanel Orientation="Horizontal">
-						<AppBarButton x:Name="PlayButton"
-						              Margin="10"
-						              VerticalAlignment="Center"
-						              Icon="Play"
-						              IsCompact="True"
-						              IsEnabled="False"
-						              RequestedTheme="Light" />
-						<AppBarButton x:Name="StopButton"
-						              Margin="10"
-						              VerticalAlignment="Center"
-						              Icon="Stop"
-						              IsCompact="True"
-						              IsEnabled="False"
-						              RequestedTheme="Light" />
-					</StackPanel>
-				</StackPanel>
-			</StackPanel>
-		</DataTemplate>
+        <DataTemplate x:Key="Audio">
+            <StackPanel Background="{ThemeResource PostBG}"
+                        Orientation="Horizontal"
+                        Tag="{Binding audio_url}">
+                <Image Width="100"
+                       Height="100"
+                       Source="{Binding album_art}" />
+                <StackPanel>
+                    <TextBlock x:Name="Name"
+                               Margin="15, 0, 0, 0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontSize="24"
+                               Foreground="{ThemeResource TextColorPrimaryDark}"
+                               Style="{StaticResource Headline}">
+                        <Run Text="{Binding artist}" />
+                        <Run Text="-" />
+                        <Run Text="{Binding track_name, FallbackValue=Track_Name}" />
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <AppBarButton x:Name="PlayButton"
+                                      Margin="10"
+                                      VerticalAlignment="Center"
+                                      Icon="Play"
+                                      IsCompact="True"
+                                      IsEnabled="False"
+                                      RequestedTheme="Light" />
+                        <AppBarButton x:Name="StopButton"
+                                      Margin="10"
+                                      VerticalAlignment="Center"
+                                      Icon="Stop"
+                                      IsCompact="True"
+                                      IsEnabled="False"
+                                      RequestedTheme="Light" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
 
-		<DataTemplate x:Key="Video">
-			<MediaElement MinHeight="100"
-			              AreTransportControlsEnabled="True"
-			              AutoPlay="False"
-			              IsDoubleTapEnabled="False"
-			              IsHoldingEnabled="False"
-			              IsRightTapEnabled="False"
-			              IsTapEnabled="False"
-			              PosterSource="{Binding thumbnail_url}"
-			              Source="{Binding video_url}"
-			              Stretch="UniformToFill" />
-		</DataTemplate>
+        <DataTemplate x:Key="Video">
+            <MediaElement MinHeight="100"
+                          AreTransportControlsEnabled="True"
+                          AutoPlay="False"
+                          IsDoubleTapEnabled="False"
+                          IsHoldingEnabled="False"
+                          IsRightTapEnabled="False"
+                          IsTapEnabled="False"
+                          PosterSource="{Binding thumbnail_url}"
+                          Source="{Binding video_url}"
+                          Stretch="UniformToFill" />
+        </DataTemplate>
 
-		<DataTemplate x:Key="YoutubeVideo">
-			<StackPanel Background="{StaticResource PostBG}">
-				<TextBlock Margin="10, 0, 10, 0"
-				           FontSize="22"
-				           FontWeight="Light"
-				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           Text="This is a youtube video please use the post menu to open in browser."
-				           TextWrapping="WrapWholeWords" />
-			</StackPanel>
-		</DataTemplate>
+        <DataTemplate x:Key="YoutubeVideo">
+            <StackPanel Background="{StaticResource PostBG}">
+                <TextBlock Margin="10, 0, 10, 0"
+                           FontSize="22"
+                           FontWeight="Light"
+                           Foreground="{ThemeResource TextColorPrimaryDark}"
+                           Text="This is a youtube video please use the post menu to open in browser."
+                           TextWrapping="WrapWholeWords" />
+            </StackPanel>
+        </DataTemplate>
 
-		<DataTemplate x:Key="Answer">
-			<StackPanel Background="{StaticResource PostBG}">
-				<Grid>
-					<Ellipse Width="50"
-					         Height="50"
-					         Margin="5"
-					         HorizontalAlignment="Left"
-					         Tag="{Binding asking_name}"
-					         Tapped="GoToBlog">
-						<Ellipse.Fill>
-							<ImageBrush ImageSource="{Binding asking_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
-						</Ellipse.Fill>
-					</Ellipse>
-					<StackPanel Margin="55, 3, 5, 5" Background="{Binding DarkPrimaryColor}">
-						<TextBlock Margin="10, 2"
-						           FontSize="22"
-						           FontWeight="Light"
-						           Foreground="{ThemeResource TextColorPrimaryDark}"
-						           Text="{Binding asking_name,
-						                          FallbackValue=Name}"
-						           TextLineBounds="Tight"
-						           TextWrapping="NoWrap" />
-						<TextBlock Margin="10, 0, 10, 2"
-						           FontSize="18"
-						           FontWeight="Light"
-						           Foreground="{ThemeResource TextColorPrimaryDark}"
-						           Text="{Binding question,
-						                          FallbackValue=Question}"
-						           TextLineBounds="TrimToBaseline"
-						           TextWrapping="WrapWholeWords" />
-					</StackPanel>
-				</Grid>
-				<TextBlock Margin="10, 0, 10, 40"
-				           FontSize="18"
-				           FontWeight="Light"
-				           Foreground="{ThemeResource TextColorPrimaryDark}"
-				           TextWrapping="WrapWholeWords"
-				           misc:TextFormatter.Text="{Binding answer}" />
-			</StackPanel>
-		</DataTemplate>
+        <DataTemplate x:Key="Answer">
+            <StackPanel Background="{StaticResource PostBG}">
+                <Grid>
+                    <Ellipse Width="50"
+                             Height="50"
+                             Margin="5"
+                             HorizontalAlignment="Left"
+                             Tag="{Binding asking_name}"
+                             Tapped="GoToBlog">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding asking_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <StackPanel Margin="55, 3, 5, 5" Background="{Binding ColorPrimaryDark}">
+                        <TextBlock Margin="10, 2"
+                                   FontSize="22"
+                                   FontWeight="Light"
+                                   Foreground="{ThemeResource TextColorPrimaryDark}"
+                                   Text="{Binding asking_name,
+                                                  FallbackValue=Name}"
+                                   TextLineBounds="Tight"
+                                   TextWrapping="NoWrap" />
+                        <TextBlock Margin="10, 0, 10, 2"
+                                   FontSize="18"
+                                   FontWeight="Light"
+                                   Foreground="{ThemeResource TextColorPrimaryDark}"
+                                   Text="{Binding question,
+                                                  FallbackValue=Question}"
+                                   TextLineBounds="TrimToBaseline"
+                                   TextWrapping="WrapWholeWords" />
+                    </StackPanel>
+                </Grid>
+                <TextBlock Margin="10, 0, 10, 40"
+                           FontSize="18"
+                           FontWeight="Light"
+                           Foreground="{ThemeResource TextColorPrimaryDark}"
+                           TextWrapping="WrapWholeWords"
+                           misc:TextFormatter.Text="{Binding answer}" />
+            </StackPanel>
+        </DataTemplate>
 
-		<converters:PostTemplateSelector x:Key="PostTemplate"
-		                                 AnswerTemplate="{StaticResource Answer}"
-		                                 AudioTemplate="{StaticResource Audio}"
-		                                 ChatTemplate="{StaticResource Chat}"
-		                                 GifTemplate="{StaticResource Gif}"
-		                                 LinkTemplate="{StaticResource Link}"
-		                                 PhotoSetTemplate="{StaticResource Photoset}"
-		                                 PhotoTemplate="{StaticResource Photo}"
-		                                 QuoteTemplate="{StaticResource Quote}"
-		                                 TextTemplate="{StaticResource Text}"
-		                                 VideoTemplate="{StaticResource Video}"
-		                                 YoutubeTemplate="{StaticResource YoutubeVideo}" />
+        <converters:PostTemplateSelector x:Key="PostTemplate"
+                                         AnswerTemplate="{StaticResource Answer}"
+                                         AudioTemplate="{StaticResource Audio}"
+                                         ChatTemplate="{StaticResource Chat}"
+                                         GifTemplate="{StaticResource Gif}"
+                                         LinkTemplate="{StaticResource Link}"
+                                         PhotoSetTemplate="{StaticResource Photoset}"
+                                         PhotoTemplate="{StaticResource Photo}"
+                                         QuoteTemplate="{StaticResource Quote}"
+                                         TextTemplate="{StaticResource Text}"
+                                         VideoTemplate="{StaticResource Video}"
+                                         YoutubeTemplate="{StaticResource YoutubeVideo}" />
 
-	</UserControl.Resources>
+    </UserControl.Resources>
 
-	<ScrollViewer x:Name="scrollViewer"
-	              Margin="-2, 0"
-	              HorizontalAlignment="Stretch"
-	              VerticalAlignment="Top"
-	              HorizontalContentAlignment="Stretch"
-	              VerticalContentAlignment="Stretch"
-	              HorizontalScrollMode="Disabled"
-	              SizeChanged="scrollViewer_SizeChanged"
-	              ViewChanged="scrollViewer_ViewChanged"
-	              ZoomMode="Disabled">
-		<Grid>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="*" />
-			</Grid.RowDefinitions>
-			<TextBlock x:Name="textBlock1"
-			           Height="50"
-			           HorizontalAlignment="Center"
-			           Padding="0, 20"
-			           Style="{StaticResource SubTitle}"
-			           Text="Pull to refresh..."
-			           TextLineBounds="Tight" />
-			<ListView x:Name="Posts"
-			          Grid.Row="1"
-			          Margin="0"
-			          HorizontalContentAlignment="Stretch"
-			          DataFetchSize="5"
-			          IncrementalLoadingThreshold="5"
-			          IncrementalLoadingTrigger="Edge"
-			          ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
-			          ItemsSource="{Binding}"
-			          Padding="0, 4"
-			          ScrollViewer.HorizontalScrollMode="Disabled"
-			          SelectionMode="None">
-				<ListView.ItemsPanel>
-					<ItemsPanelTemplate>
-						<ItemsStackPanel />
-					</ItemsPanelTemplate>
-				</ListView.ItemsPanel>
-				<ListView.ItemTemplate>
-					<DataTemplate>
-						<StackPanel Margin="6, 3">
-							<Grid Height="50" Background="{ThemeResource WindowBackgroundAccent}">
-								<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-									<Image Width="50"
-									       Height="50"
-									       Source="{Binding Avatar,
-									                        FallbackValue={StaticResource DefaultAvatar}}"
-									       Stretch="UniformToFill"
-									       Tag="{Binding Name}"
-									       Tapped="GoToBlog" />
+    <ScrollViewer x:Name="scrollViewer"
+                  Margin="-2, 0"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Top"
+                  HorizontalContentAlignment="Stretch"
+                  VerticalContentAlignment="Stretch"
+                  HorizontalScrollMode="Disabled"
+                  SizeChanged="scrollViewer_SizeChanged"
+                  ViewChanged="scrollViewer_ViewChanged"
+                  ZoomMode="Disabled">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="textBlock1"
+                       Height="50"
+                       HorizontalAlignment="Center"
+                       Padding="0, 20"
+                       Style="{StaticResource SubTitle}"
+                       Text="Pull to refresh..."
+                       TextLineBounds="Tight" />
+            <ListView x:Name="Posts"
+                      Grid.Row="1"
+                      Margin="0"
+                      HorizontalContentAlignment="Stretch"
+                      DataFetchSize="5"
+                      IncrementalLoadingThreshold="3"
+                      IncrementalLoadingTrigger="Edge"
+                      ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
+                      ItemsSource="{Binding}"
+                      Padding="0, 4"
+                      ScrollViewer.HorizontalScrollMode="Disabled"
+                      SelectionMode="None">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="0, 3" Background="White">
+                            <Grid Height="60">
+                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                    <Ellipse Width="50"
+                                             Height="50"
+                                             Margin="8, 0"
+                                             Tag="{Binding Name}"
+                                             Tapped="GoToBlog">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}" />
+                                        </Ellipse.Fill>
+                                    </Ellipse>
 
-									<StackPanel Margin="5, 0">
-										<TextBlock Margin="0, 0, 50, 0"
-										           Padding="5, 0"
-										           Style="{StaticResource SubTitle}"
-										           Tag="{Binding Name}"
-										           Tapped="GoToBlog"
-										           Text="{Binding Name}"
-										           TextLineBounds="TrimToBaseline" />
-										<TextBlock Foreground="{ThemeResource TextColorPrimaryDark}"
-										           Padding="7, 0"
-										           Style="{StaticResource Caption}">
-											<Run Text="{Binding date, Converter={StaticResource ToRelativeTime}}" />
-											<Run Text="{Binding RebloggedFrom}" />
-										</TextBlock>
-									</StackPanel>
-								</StackPanel>
-								<Image x:Name="OtherOptionsButton"
-								       Width="35"
-								       Height="35"
-								       Margin="10, 0"
-								       HorizontalAlignment="Right"
-								       Source="{ThemeResource MoreButtonAsset}"
-								       Stretch="UniformToFill"
-								       Tapped="OtherOptionsButton_Tapped">
-									<FlyoutBase.AttachedFlyout>
-										<Flyout x:Name="OptionsPopup" Placement="Full">
-											<Flyout.FlyoutPresenterStyle>
-												<Style TargetType="FlyoutPresenter">
-													<Setter Property="Margin" Value="0" />
-													<Setter Property="Background" Value="Transparent" />
-												</Style>
-											</Flyout.FlyoutPresenterStyle>
-											<Grid>
-												<Grid.RowDefinitions>
-													<RowDefinition Height="*" />
-													<RowDefinition Height="Auto" />
-												</Grid.RowDefinitions>
-												<Grid Background="#02000000" Tapped="Grid_Tapped" />
-												<StackPanel Grid.Row="1"
-												            Margin="0"
-												            VerticalAlignment="Bottom"
-												            Background="{ThemeResource ColorPrimary}">
-													<TextBlock Foreground="{ThemeResource TextColorPrimary}"
-													           Style="{StaticResource SubTitle}"
-													           Tag="{Binding id}"
-													           Tapped="OtherOptions_Tapped"
-													           Text="post details" />
-													<TextBlock Foreground="{ThemeResource TextColorPrimary}"
-													           Style="{StaticResource SubTitle}"
-													           Tag="{Binding post_url}"
-													           Tapped="OtherOptions_Tapped"
-													           Text="share" />
-													<TextBlock Foreground="{ThemeResource TextColorPrimary}"
-													           Style="{StaticResource SubTitle}"
-													           Tag="{Binding post_url}"
-													           Tapped="OtherOptions_Tapped"
-													           Text="open in browser" />
-												</StackPanel>
-											</Grid>
-										</Flyout>
-									</FlyoutBase.AttachedFlyout>
-								</Image>
-							</Grid>
-							<ContentControl HorizontalContentAlignment="Stretch"
-							                Content="{Binding}"
-							                ContentTemplateSelector="{StaticResource PostTemplate}" />
-							<StackPanel Background="{ThemeResource PostBG}" Tag="{Binding}">
-								<TextBlock MaxHeight="300"
-								           FontWeight="Normal"
-								           IsTextSelectionEnabled="False"
-								           Style="{StaticResource Caption}"
-								           Tapped="Caption_Tapped"
-								           TextWrapping="Wrap"
-								           Visibility="{Binding caption,
-								                                Converter={StaticResource CaptionConverter}}"
-								           misc:CaptionFormatter.Text="{Binding caption}" />
-								<TextBlock FontWeight="Normal"
-								           Style="{StaticResource Caption}"
-								           TextWrapping="Wrap"
-								           Visibility="{Binding tags_as_str,
-								                                Converter={StaticResource TagsEnabled}}"
-								           misc:TagLinks.Text="{Binding tags_as_str}" />
+                                    <StackPanel Margin="5, 0">
+                                        <TextBlock Margin="0, 0, 50, 0"
+                                                   Padding="5, 0"
+                                                   Style="{StaticResource SubTitle}"
+                                                   Tag="{Binding Name}"
+                                                   Tapped="GoToBlog"
+                                                   Text="{Binding Name}"
+                                                   TextLineBounds="TrimToBaseline" />
+                                        <TextBlock Foreground="{ThemeResource TextColorPrimaryDark}"
+                                                   Padding="7, 0"
+                                                   Style="{StaticResource Caption}">
+                                            <Run Text="{Binding date, Converter={StaticResource ToRelativeTime}}" />
+                                            <Run Text="{Binding RebloggedFrom}" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                                <Image x:Name="OtherOptionsButton"
+                                       Width="35"
+                                       Height="35"
+                                       Margin="10, 0"
+                                       HorizontalAlignment="Right"
+                                       Source="{ThemeResource MoreButtonAsset}"
+                                       Stretch="UniformToFill"
+                                       Tapped="OtherOptionsButton_Tapped">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout x:Name="OptionsPopup" Placement="Full">
+                                            <Flyout.FlyoutPresenterStyle>
+                                                <Style TargetType="FlyoutPresenter">
+                                                    <Setter Property="Margin" Value="0" />
+                                                    <Setter Property="Background" Value="Transparent" />
+                                                </Style>
+                                            </Flyout.FlyoutPresenterStyle>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <Grid Background="#02000000" Tapped="Grid_Tapped" />
+                                                <StackPanel Grid.Row="1"
+                                                            Margin="0"
+                                                            VerticalAlignment="Bottom"
+                                                            Background="{ThemeResource ColorPrimary}">
+                                                    <TextBlock Foreground="{ThemeResource TextColorPrimary}"
+                                                               Style="{StaticResource SubTitle}"
+                                                               Tag="{Binding id}"
+                                                               Tapped="OtherOptions_Tapped"
+                                                               Text="post details" />
+                                                    <TextBlock Foreground="{ThemeResource TextColorPrimary}"
+                                                               Style="{StaticResource SubTitle}"
+                                                               Tag="{Binding post_url}"
+                                                               Tapped="OtherOptions_Tapped"
+                                                               Text="share" />
+                                                    <TextBlock Foreground="{ThemeResource TextColorPrimary}"
+                                                               Style="{StaticResource SubTitle}"
+                                                               Tag="{Binding post_url}"
+                                                               Tapped="OtherOptions_Tapped"
+                                                               Text="open in browser" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                </Image>
+                            </Grid>
+                            <ContentControl HorizontalContentAlignment="Stretch"
+                                            Content="{Binding}"
+                                            ContentTemplateSelector="{StaticResource PostTemplate}" />
+                            <StackPanel Background="{ThemeResource PostBG}" Tag="{Binding}">
+                                <TextBlock MaxHeight="300"
+                                           FontWeight="Normal"
+                                           IsTextSelectionEnabled="False"
+                                           Style="{StaticResource Caption}"
+                                           Tapped="Caption_Tapped"
+                                           TextWrapping="Wrap"
+                                           Visibility="{Binding caption,
+                                                                Converter={StaticResource CaptionConverter}}"
+                                           misc:CaptionFormatter.Text="{Binding caption}" />
+                                <TextBlock FontWeight="Normal"
+                                           Style="{StaticResource Caption}"
+                                           TextWrapping="Wrap"
+                                           Visibility="{Binding tags_as_str,
+                                                                Converter={StaticResource TagsEnabled}}"
+                                           misc:TagLinks.Text="{Binding tags_as_str}" />
 
-								<Grid Height="40"
-								      Background="{ThemeResource WindowBackgroundAccent}"
-								      Loaded="CommandPanel_Loaded"
-								      Tag="{Binding special_case}">
-									<TextBlock x:Name="NoteInfo"
-									           Style="{StaticResource SubTitle}"
-									           Tag="{Binding id}"
-									           Tapped="GoToPostDetails">
-										<Run Text="{Binding note_count}" />
-										<Run Text="{Binding [Post_NotesLabel], Source={StaticResource Localized}}" />
-									</TextBlock>
-									<StackPanel x:Name="NormalCommands"
-									            HorizontalAlignment="Right"
-									            Orientation="Horizontal"
-									            Tag="{Binding reblog_key}">
-										<local:ToggleControl x:Name="ReblogButton"
-										                     Margin="5, 0"
-										                     Click="ReblogButton_Click"
-										                     EnabledChecked="{StaticResource RebloggedAsset}"
-										                     EnabledUnchecked="{StaticResource ReblogAsset}"
-										                     IsChecked="False"
-										                     Tag="{Binding id,
-										                                   Mode=TwoWay}" />
-										<local:ToggleControl x:Name="LikeButton"
-										                     Margin="5, 0"
-										                     Click="LikeButton_Click"
-										                     IsChecked="{Binding liked,
-										                                         FallbackValue=False,
-										                                         Mode=TwoWay}"
-										                     Tag="{Binding id}" />
-										<local:ToggleControl x:Name="DeleteButton"
-										                     Margin="0, 0, 5, 0"
-										                     Click="DeleteButton_Click"
-										                     EnabledChecked="{StaticResource DeleteButtonAsset}"
-										                     EnabledUnchecked="{StaticResource DeleteButtonAsset}"
-										                     Tag="{Binding id}"
-										                     Visibility="{Binding IsEditable,
-										                                          FallbackValue=Collapsed}" />
-									</StackPanel>
-									<StackPanel x:Name="DraftCommands"
-									            HorizontalAlignment="Right"
-									            Orientation="Horizontal"
-									            Tag="{Binding reblog_key}"
-									            Visibility="Collapsed">
-										<local:ToggleControl x:Name="PostButton"
-										                     Margin="0, 0, 5, 0"
-										                     Click="PostDraftButton_Click"
-										                     EnabledChecked="{StaticResource PostButtonAsset}"
-										                     EnabledUnchecked="{StaticResource PostButtonAsset}"
-										                     Tag="{Binding}" />
-										<local:ToggleControl x:Name="DeleteButton_"
-										                     Margin="0, 0, 5, 0"
-										                     Click="DeleteButton_Click"
-										                     EnabledChecked="{StaticResource DeleteButtonAsset}"
-										                     EnabledUnchecked="{StaticResource DeleteButtonAsset}"
-										                     Tag="{Binding id}" />
-									</StackPanel>
-								</Grid>
-							</StackPanel>
-						</StackPanel>
-					</DataTemplate>
-				</ListView.ItemTemplate>
-			</ListView>
-		</Grid>
-	</ScrollViewer>
+                                <Grid Height="40"
+                                      Loaded="CommandPanel_Loaded"
+                                      Tag="{Binding special_case}">
+                                    <TextBlock x:Name="NoteInfo"
+                                               Style="{StaticResource SubTitle}"
+                                               Tag="{Binding id}"
+                                               Tapped="GoToPostDetails">
+                                        <Run Text="{Binding note_count}" />
+                                        <Run Text="{Binding [Post_NotesLabel], Source={StaticResource Localized}}" />
+                                    </TextBlock>
+                                    <StackPanel x:Name="NormalCommands"
+                                                HorizontalAlignment="Right"
+                                                Orientation="Horizontal"
+                                                Tag="{Binding reblog_key}">
+                                        <local:ToggleControl x:Name="ReblogButton"
+                                                             Margin="5, 0"
+                                                             Click="ReblogButton_Click"
+                                                             EnabledChecked="{StaticResource RebloggedAsset}"
+                                                             EnabledUnchecked="{StaticResource ReblogAsset}"
+                                                             IsChecked="False"
+                                                             Tag="{Binding id,
+                                                                           Mode=TwoWay}" />
+                                        <local:ToggleControl x:Name="LikeButton"
+                                                             Margin="5, 0"
+                                                             Click="LikeButton_Click"
+                                                             IsChecked="{Binding liked,
+                                                                                 FallbackValue=False,
+                                                                                 Mode=TwoWay}"
+                                                             Tag="{Binding id}" />
+                                        <local:ToggleControl x:Name="DeleteButton"
+                                                             Margin="0, 0, 5, 0"
+                                                             Click="DeleteButton_Click"
+                                                             EnabledChecked="{StaticResource DeleteButtonAsset}"
+                                                             EnabledUnchecked="{StaticResource DeleteButtonAsset}"
+                                                             Tag="{Binding id}"
+                                                             Visibility="{Binding IsEditable,
+                                                                                  FallbackValue=Collapsed}" />
+                                    </StackPanel>
+                                    <StackPanel x:Name="DraftCommands"
+                                                HorizontalAlignment="Right"
+                                                Orientation="Horizontal"
+                                                Tag="{Binding reblog_key}"
+                                                Visibility="Collapsed">
+                                        <local:ToggleControl x:Name="PostButton"
+                                                             Margin="0, 0, 5, 0"
+                                                             Click="PostDraftButton_Click"
+                                                             EnabledChecked="{StaticResource PostButtonAsset}"
+                                                             EnabledUnchecked="{StaticResource PostButtonAsset}"
+                                                             Tag="{Binding}" />
+                                        <local:ToggleControl x:Name="DeleteButton_"
+                                                             Margin="0, 0, 5, 0"
+                                                             Click="DeleteButton_Click"
+                                                             EnabledChecked="{StaticResource DeleteButtonAsset}"
+                                                             EnabledUnchecked="{StaticResource DeleteButtonAsset}"
+                                                             Tag="{Binding id}" />
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

@@ -10,346 +10,349 @@
              d:DesignWidth="380"
              mc:Ignorable="d">
 
-	<UserControl.Resources>
+    <UserControl.Resources>
 
-		<DataTemplate x:Key="reblog">
-			<Grid HorizontalAlignment="Stretch" Background="{Binding followed, Converter={StaticResource FollowingToBG}}">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="Auto" />
-				</Grid.ColumnDefinitions>
-				<Grid Grid.Column="0"
-				      Tag="{Binding from_tumblelog_name}"
-				      Tapped="GoToBlog">
-					<Ellipse Width="40"
-					         Height="40"
-					         Margin="5">
-						<Ellipse.Fill>
-							<ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
-						</Ellipse.Fill>
-					</Ellipse>
-					<Image Width="18"
-					       Height="18"
-					       Margin="0 ,35, 0, 0"
-					       HorizontalAlignment="Right"
-					       Source="ms-appx:///Assets/AReblog.png" />
-				</Grid>
-				<TextBlock Grid.Column="1"
-				           Style="{StaticResource Caption}"
-				           Tag="{Binding from_tumblelog_name}"
-				           Tapped="GoToBlog">
-					<Run Text="{Binding from_tumblelog_name}" />
-					<Run Text="{Binding [Activity_ReblogDescription], Source={StaticResource Localized}}" />
-				</TextBlock>
-				<Image Grid.Column="2"
-				       Width="40"
-				       Height="40"
-				       Margin="10, 5"
-				       Source="{Binding media_url,
-				                        FallbackValue={StaticResource ActivityPostPlaceholder}}"
-				       Stretch="UniformToFill"
-				       Tag="{Binding target_post_id}"
-				       Tapped="GoToPost" />
-			</Grid>
-		</DataTemplate>
-		<DataTemplate x:Key="like">
-			<Grid HorizontalAlignment="Stretch" Background="{Binding followed, Converter={StaticResource FollowingToBG}}">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="Auto" />
-				</Grid.ColumnDefinitions>
-				<Grid Grid.Column="0"
-				      Tag="{Binding from_tumblelog_name}"
-				      Tapped="GoToBlog">
-					<Ellipse Width="40"
-					         Height="40"
-					         Margin="5">
-						<Ellipse.Fill>
-							<ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
-						</Ellipse.Fill>
-					</Ellipse>
-					<Image Width="18"
-					       Height="18"
-					       Margin="0 ,35, 0, 0"
-					       HorizontalAlignment="Right"
-					       Source="ms-appx:///Assets/ALiked.png" />
-				</Grid>
-				<TextBlock Grid.Column="1"
-				           Style="{StaticResource Caption}"
-				           Tag="{Binding from_tumblelog_name}"
-				           Tapped="GoToBlog">
-					<Run Text="{Binding from_tumblelog_name}" />
-					<Run Text="{Binding [Activity_LikeDescription], Source={StaticResource Localized}}" />
-				</TextBlock>
-				<Image Grid.Column="2"
-				       Width="40"
-				       Height="40"
-				       Margin="10, 5"
-				       Source="{Binding media_url}"
-				       Stretch="UniformToFill"
-				       Tag="{Binding target_post_id}"
-				       Tapped="GoToPost" />
-			</Grid>
-		</DataTemplate>
-		<DataTemplate x:Key="follow">
-			<Grid HorizontalAlignment="Stretch" Background="{Binding followed, Converter={StaticResource FollowingToBG}}">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="Auto" />
-				</Grid.ColumnDefinitions>
-				<Grid Grid.Column="0"
-				      Tag="{Binding from_tumblelog_name}"
-				      Tapped="GoToBlog">
-					<Ellipse Width="40"
-					         Height="40"
-					         Margin="5">
-						<Ellipse.Fill>
-							<ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
-						</Ellipse.Fill>
-					</Ellipse>
-					<Image Width="18"
-					       Height="18"
-					       Margin="0 ,35, 0, 0"
-					       HorizontalAlignment="Right"
-					       Source="ms-appx:///Assets/AFollowing.png" />
-				</Grid>
-				<TextBlock Grid.Column="1"
-				           Style="{StaticResource Caption}"
-				           Tag="{Binding from_tumblelog_name}"
-				           Tapped="GoToBlog">
-					<Run Text="{Binding from_tumblelog_name}" />
-					<Run Text="{Binding [Activity_FollowedDescription], Source={StaticResource Localized}}" />
-				</TextBlock>
-				<Grid Grid.Column="2"
-				      Width="40"
-				      Height="40"
-				      Margin="10, 5"
-				      Background="{ThemeResource PrimaryColor}"
-				      Tag="{Binding from_tumblelog_name}"
-				      Tapped="FollowIcon_Tapped"
-				      Visibility="{Binding followed,
-				                           Converter={StaticResource FollowingToVisibility}}">
-					<Image x:Name="CreatePostIcon"
-					       Margin="10"
-					       HorizontalAlignment="Center"
-					       VerticalAlignment="Center"
-					       Source="ms-appx:///Assets/New.png" />
-				</Grid>
-			</Grid>
-		</DataTemplate>
-		<DataTemplate x:Key="user_mention">
-			<Grid HorizontalAlignment="Stretch" Background="{Binding followed, Converter={StaticResource FollowingToBG}}">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="Auto" />
-				</Grid.ColumnDefinitions>
-				<Grid Grid.Column="0"
-				      Tag="{Binding from_tumblelog_name}"
-				      Tapped="GoToBlog">
-					<Ellipse Width="40"
-					         Height="40"
-					         Margin="5">
-						<Ellipse.Fill>
-							<ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
-						</Ellipse.Fill>
-					</Ellipse>
-					<Image Width="18"
-					       Height="18"
-					       Margin="0 ,35, 0, 0"
-					       HorizontalAlignment="Right"
-					       Source="ms-appx:///Assets/AMention.png" />
-				</Grid>
-				<TextBlock Grid.Column="1"
-				           Style="{StaticResource Caption}"
-				           Tag="{Binding from_tumblelog_name}"
-				           Tapped="GoToBlog">
-					<Run Text="{Binding from_tumblelog_name}" />
-					<Run Text="{Binding [Activity_MentionDescription], Source={StaticResource Localized}}" />
-				</TextBlock>
-				<Image Grid.Column="2"
-				       Width="40"
-				       Height="40"
-				       Margin="10, 5"
-				       Source="{Binding media_url,
-				                        FallbackValue={StaticResource ActivityPostPlaceholder}}"
-				       Stretch="UniformToFill"
-				       Tag="{Binding target_post_id}"
-				       Tapped="GoToPost" />
-			</Grid>
-		</DataTemplate>
-		<DataTemplate x:Key="answer">
-			<Grid HorizontalAlignment="Stretch" Background="{Binding followed, Converter={StaticResource FollowingToBG}}">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="Auto" />
-				</Grid.ColumnDefinitions>
-				<Grid Grid.Column="0"
-				      Tag="{Binding from_tumblelog_name}"
-				      Tapped="GoToBlog">
-					<Ellipse Width="40"
-					         Height="40"
-					         Margin="5">
-						<Ellipse.Fill>
-							<ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
-						</Ellipse.Fill>
-					</Ellipse>
-					<Image Width="18"
-					       Height="18"
-					       Margin="0 ,35, 0, 0"
-					       HorizontalAlignment="Right"
-					       Source="ms-appx:///Assets/AReply.png" />
-				</Grid>
-				<TextBlock Grid.Column="1"
-				           Style="{StaticResource Caption}"
-				           Tag="{Binding from_tumblelog_name}"
-				           Tapped="GoToBlog">
-					<Run Text="{Binding from_tumblelog_name}" />
-					<Run Text="{Binding [Activity_AnswerDescription], Source={StaticResource Localized}}" />
-				</TextBlock>
-				<Image Grid.Column="2"
-				       Width="40"
-				       Height="40"
-				       Margin="10, 5"
-				       Source="ms-appx:///Assets/AReply2.png"
-				       Stretch="UniformToFill" />
-			</Grid>
-		</DataTemplate>
+        <DataTemplate x:Key="reblog">
+            <Grid HorizontalAlignment="Stretch" Background="{Binding followed, Converter={StaticResource FollowingToBG}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0"
+                      Tag="{Binding from_tumblelog_name}"
+                      Tapped="GoToBlog">
+                    <Ellipse Width="40"
+                             Height="40"
+                             Margin="5">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Image Width="18"
+                           Height="18"
+                           Margin="0 ,35, 0, 0"
+                           HorizontalAlignment="Right"
+                           Source="ms-appx:///Assets/AReblog.png" />
+                </Grid>
+                <TextBlock Grid.Column="1"
+                           Style="{StaticResource Caption}"
+                           Tag="{Binding from_tumblelog_name}"
+                           Tapped="GoToBlog">
+                    <Run Text="{Binding from_tumblelog_name}" />
+                    <Run Text="{Binding [Activity_ReblogDescription], Source={StaticResource Localized}}" />
+                </TextBlock>
+                <Image Grid.Column="2"
+                       Width="40"
+                       Height="40"
+                       Margin="10, 5"
+                       Source="{Binding media_url,
+                                        FallbackValue={StaticResource ActivityPostPlaceholder}}"
+                       Stretch="UniformToFill"
+                       Tag="{Binding target_post_id}"
+                       Tapped="GoToPost" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="like">
+            <Grid Margin="4, 2"
+                  HorizontalAlignment="Stretch"
+                  Background="{Binding followed,
+                                       Converter={StaticResource FollowingToBG}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0"
+                      Tag="{Binding from_tumblelog_name}"
+                      Tapped="GoToBlog">
+                    <Ellipse Width="40"
+                             Height="40"
+                             Margin="5">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Image Width="18"
+                           Height="18"
+                           Margin="0 ,35, 0, 0"
+                           HorizontalAlignment="Right"
+                           Source="ms-appx:///Assets/ALiked.png" />
+                </Grid>
+                <TextBlock Grid.Column="1"
+                           Style="{StaticResource Caption}"
+                           Tag="{Binding from_tumblelog_name}"
+                           Tapped="GoToBlog">
+                    <Run Text="{Binding from_tumblelog_name}" />
+                    <Run Text="{Binding [Activity_LikeDescription], Source={StaticResource Localized}}" />
+                </TextBlock>
+                <Image Grid.Column="2"
+                       Width="40"
+                       Height="40"
+                       Margin="10, 5"
+                       Source="{Binding media_url}"
+                       Stretch="UniformToFill"
+                       Tag="{Binding target_post_id}"
+                       Tapped="GoToPost" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="follow">
+            <Grid HorizontalAlignment="Stretch" Background="{Binding followed, Converter={StaticResource FollowingToBG}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0"
+                      Tag="{Binding from_tumblelog_name}"
+                      Tapped="GoToBlog">
+                    <Ellipse Width="40"
+                             Height="40"
+                             Margin="5">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Image Width="18"
+                           Height="18"
+                           Margin="0 ,35, 0, 0"
+                           HorizontalAlignment="Right"
+                           Source="ms-appx:///Assets/AFollowing.png" />
+                </Grid>
+                <TextBlock Grid.Column="1"
+                           Style="{StaticResource Caption}"
+                           Tag="{Binding from_tumblelog_name}"
+                           Tapped="GoToBlog">
+                    <Run Text="{Binding from_tumblelog_name}" />
+                    <Run Text="{Binding [Activity_FollowedDescription], Source={StaticResource Localized}}" />
+                </TextBlock>
+                <Grid Grid.Column="2"
+                      Width="40"
+                      Height="40"
+                      Margin="10, 5"
+                      Background="{ThemeResource PrimaryColor}"
+                      Tag="{Binding from_tumblelog_name}"
+                      Tapped="FollowIcon_Tapped"
+                      Visibility="{Binding followed,
+                                           Converter={StaticResource FollowingToVisibility}}">
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Style="{StaticResource IconStyle}"
+                               Text="" />
+                </Grid>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="user_mention">
+            <Grid HorizontalAlignment="Stretch" Background="{Binding followed, Converter={StaticResource FollowingToBG}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0"
+                      Tag="{Binding from_tumblelog_name}"
+                      Tapped="GoToBlog">
+                    <Ellipse Width="40"
+                             Height="40"
+                             Margin="5">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Image Width="18"
+                           Height="18"
+                           Margin="0 ,35, 0, 0"
+                           HorizontalAlignment="Right"
+                           Source="ms-appx:///Assets/AMention.png" />
+                </Grid>
+                <TextBlock Grid.Column="1"
+                           Style="{StaticResource Caption}"
+                           Tag="{Binding from_tumblelog_name}"
+                           Tapped="GoToBlog">
+                    <Run Text="{Binding from_tumblelog_name}" />
+                    <Run Text="{Binding [Activity_MentionDescription], Source={StaticResource Localized}}" />
+                </TextBlock>
+                <Image Grid.Column="2"
+                       Width="40"
+                       Height="40"
+                       Margin="10, 5"
+                       Source="{Binding media_url,
+                                        FallbackValue={StaticResource ActivityPostPlaceholder}}"
+                       Stretch="UniformToFill"
+                       Tag="{Binding target_post_id}"
+                       Tapped="GoToPost" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="answer">
+            <Grid HorizontalAlignment="Stretch" Background="{Binding followed, Converter={StaticResource FollowingToBG}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0"
+                      Tag="{Binding from_tumblelog_name}"
+                      Tapped="GoToBlog">
+                    <Ellipse Width="40"
+                             Height="40"
+                             Margin="5">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Image Width="18"
+                           Height="18"
+                           Margin="0 ,35, 0, 0"
+                           HorizontalAlignment="Right"
+                           Source="ms-appx:///Assets/AReply.png" />
+                </Grid>
+                <TextBlock Grid.Column="1"
+                           Style="{StaticResource Caption}"
+                           Tag="{Binding from_tumblelog_name}"
+                           Tapped="GoToBlog">
+                    <Run Text="{Binding from_tumblelog_name}" />
+                    <Run Text="{Binding [Activity_AnswerDescription], Source={StaticResource Localized}}" />
+                </TextBlock>
+                <Image Grid.Column="2"
+                       Width="40"
+                       Height="40"
+                       Margin="10, 5"
+                       Source="ms-appx:///Assets/AReply2.png"
+                       Stretch="UniformToFill" />
+            </Grid>
+        </DataTemplate>
 
-		<DataTemplate x:Key="ask">
-			<Grid HorizontalAlignment="Stretch" Background="{Binding followed, Converter={StaticResource FollowingToBG}}">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="Auto" />
-				</Grid.ColumnDefinitions>
-				<Grid Grid.Column="0"
-				      Tag="{Binding from_tumblelog_name}"
-				      Tapped="GoToBlog">
-					<Ellipse Width="40"
-					         Height="40"
-					         Margin="5">
-						<Ellipse.Fill>
-							<ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
-						</Ellipse.Fill>
-					</Ellipse>
-					<Image Width="18"
-					       Height="18"
-					       Margin="0 ,35, 0, 0"
-					       HorizontalAlignment="Right"
-					       Source="ms-appx:///Assets/AReply.png" />
-				</Grid>
-				<TextBlock Grid.Column="1"
-				           Style="{StaticResource Caption}"
-				           Tag="{Binding from_tumblelog_name}"
-				           Tapped="GoToBlog">
-					<Run Text="{Binding from_tumblelog_name}" />
-					<Run Text="{Binding [Activity_AskDescription], Source={StaticResource Localized}}" />
-				</TextBlock>
-				<Image Grid.Column="2"
-				       Width="40"
-				       Height="40"
-				       Margin="10, 5"
-				       Source="ms-appx:///Assets/AReply2.png"
-				       Stretch="UniformToFill" />
-			</Grid>
-		</DataTemplate>
+        <DataTemplate x:Key="ask">
+            <Grid HorizontalAlignment="Stretch" Background="{Binding followed, Converter={StaticResource FollowingToBG}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0"
+                      Tag="{Binding from_tumblelog_name}"
+                      Tapped="GoToBlog">
+                    <Ellipse Width="40"
+                             Height="40"
+                             Margin="5">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Image Width="18"
+                           Height="18"
+                           Margin="0 ,35, 0, 0"
+                           HorizontalAlignment="Right"
+                           Source="ms-appx:///Assets/AReply.png" />
+                </Grid>
+                <TextBlock Grid.Column="1"
+                           Style="{StaticResource Caption}"
+                           Tag="{Binding from_tumblelog_name}"
+                           Tapped="GoToBlog">
+                    <Run Text="{Binding from_tumblelog_name}" />
+                    <Run Text="{Binding [Activity_AskDescription], Source={StaticResource Localized}}" />
+                </TextBlock>
+                <Image Grid.Column="2"
+                       Width="40"
+                       Height="40"
+                       Margin="10, 5"
+                       Source="ms-appx:///Assets/AReply2.png"
+                       Stretch="UniformToFill" />
+            </Grid>
+        </DataTemplate>
 
-		<DataTemplate x:Key="fanmail">
-			<Grid HorizontalAlignment="Stretch" Background="{Binding followed, Converter={StaticResource FollowingToBG}}">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="Auto" />
-				</Grid.ColumnDefinitions>
-				<Grid Grid.Column="0"
-				      Tag="{Binding from_tumblelog_name}"
-				      Tapped="GoToBlog">
-					<Ellipse Width="40"
-					         Height="40"
-					         Margin="5">
-						<Ellipse.Fill>
-							<ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
-						</Ellipse.Fill>
-					</Ellipse>
-					<Image Width="18"
-					       Height="18"
-					       Margin="0 ,35, 0, 0"
-					       HorizontalAlignment="Right"
-					       Source="ms-appx:///Assets/AFanMail.png" />
-				</Grid>
-				<TextBlock Grid.Column="1"
-				           Style="{StaticResource Caption}"
-				           Tag="{Binding from_tumblelog_name}"
-				           Tapped="GoToBlog">
-					<Run Text="{Binding from_tumblelog_name}" />
-					<Run Text="{Binding [Activity_FanMailDescription], Source={StaticResource Localized}}" />
-				</TextBlock>
-				<Image Grid.Column="2"
-				       Width="40"
-				       Height="40"
-				       Margin="10, 5"
-				       Source="ms-appx:///Assets/AFanMail2.png"
-				       Stretch="UniformToFill" />
-			</Grid>
-		</DataTemplate>
+        <DataTemplate x:Key="fanmail">
+            <Grid HorizontalAlignment="Stretch" Background="{Binding followed, Converter={StaticResource FollowingToBG}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0"
+                      Tag="{Binding from_tumblelog_name}"
+                      Tapped="GoToBlog">
+                    <Ellipse Width="40"
+                             Height="40"
+                             Margin="5">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding from_tumblelog_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Image Width="18"
+                           Height="18"
+                           Margin="0 ,35, 0, 0"
+                           HorizontalAlignment="Right"
+                           Source="ms-appx:///Assets/AFanMail.png" />
+                </Grid>
+                <TextBlock Grid.Column="1"
+                           Style="{StaticResource Caption}"
+                           Tag="{Binding from_tumblelog_name}"
+                           Tapped="GoToBlog">
+                    <Run Text="{Binding from_tumblelog_name}" />
+                    <Run Text="{Binding [Activity_FanMailDescription], Source={StaticResource Localized}}" />
+                </TextBlock>
+                <Image Grid.Column="2"
+                       Width="40"
+                       Height="40"
+                       Margin="10, 5"
+                       Source="ms-appx:///Assets/AFanMail2.png"
+                       Stretch="UniformToFill" />
+            </Grid>
+        </DataTemplate>
 
-		<converter:ActivityTemplateSelector x:Key="ActivityListTemplate"
-		                                    AnswerTemplate="{StaticResource answer}"
-		                                    AskTemplate="{StaticResource ask}"
-		                                    FanmailTemplate="{StaticResource fanmail}"
-		                                    FollowTemplate="{StaticResource follow}"
-		                                    LikeTemplate="{StaticResource like}"
-		                                    ReblogTemplate="{StaticResource reblog}"
-		                                    UserMentionTemplate="{StaticResource user_mention}" />
+        <converter:ActivityTemplateSelector x:Key="ActivityListTemplate"
+                                            AnswerTemplate="{StaticResource answer}"
+                                            AskTemplate="{StaticResource ask}"
+                                            FanmailTemplate="{StaticResource fanmail}"
+                                            FollowTemplate="{StaticResource follow}"
+                                            LikeTemplate="{StaticResource like}"
+                                            ReblogTemplate="{StaticResource reblog}"
+                                            UserMentionTemplate="{StaticResource user_mention}" />
 
 
-		<CollectionViewSource x:Name="csvNotifications" IsSourceGrouped="True" />
-	</UserControl.Resources>
+        <CollectionViewSource x:Name="csvNotifications" IsSourceGrouped="True" />
+    </UserControl.Resources>
 
-	<ListView x:Name="Notifications"
-	          HorizontalAlignment="Stretch"
-	          Background="#00000000"
-	          ItemTemplateSelector="{StaticResource ActivityListTemplate}"
-	          ItemsSource="{Binding Source={StaticResource csvNotifications}}">
-		<ListView.ItemContainerStyle>
-			<StaticResource ResourceKey="ListViewItemContainerStyle" />
-		</ListView.ItemContainerStyle>
-		<ListView.GroupStyle>
-			<GroupStyle HidesIfEmpty="True">
-				<GroupStyle.HeaderTemplate>
-					<DataTemplate>
-						<Grid Height="32"
-						      HorizontalAlignment="Stretch"
-						      VerticalAlignment="Center"
-						      Background="{StaticResource LightPrimaryColor}"
-						      Loaded="Border_Loaded">
-							<TextBlock FontWeight="Normal"
-							           Foreground="{StaticResource PrimaryText}"
-							           Padding="10, 4"
-							           Style="{StaticResource Caption}"
-							           Text="{Binding Key,
-							                          Converter={StaticResource RelativeDate}}" />
-							<TextBlock HorizontalAlignment="Right"
-							           FontWeight="Normal"
-							           Foreground="{StaticResource PrimaryText}"
-							           Padding="10, 4"
-							           Style="{StaticResource Caption}"
-							           Text="{Binding Key,
-							                          Converter={StaticResource ToPrettyDate}}" />
-						</Grid>
-					</DataTemplate>
-				</GroupStyle.HeaderTemplate>
-			</GroupStyle>
-		</ListView.GroupStyle>
-		<ListView.ItemsPanel>
-			<ItemsPanelTemplate>
-				<ItemsStackPanel />
-			</ItemsPanelTemplate>
-		</ListView.ItemsPanel>
-	</ListView>
+    <ListView x:Name="Notifications"
+              HorizontalAlignment="Stretch"
+              Background="#00000000"
+              ItemTemplateSelector="{StaticResource ActivityListTemplate}"
+              ItemsSource="{Binding Source={StaticResource csvNotifications}}">
+        <ListView.ItemContainerStyle>
+            <StaticResource ResourceKey="ListViewItemContainerStyle" />
+        </ListView.ItemContainerStyle>
+        <ListView.GroupStyle>
+            <GroupStyle HidesIfEmpty="True">
+                <GroupStyle.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid Height="32"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Center"
+                              Background="White"
+                              Loaded="Border_Loaded">
+                            <TextBlock FontWeight="Normal"
+                                       Foreground="{StaticResource TextColorPrimaryDark}"
+                                       Padding="10, 4"
+                                       Style="{StaticResource Caption}"
+                                       Text="{Binding Key,
+                                                      Converter={StaticResource RelativeDate}}" />
+                            <TextBlock HorizontalAlignment="Right"
+                                       FontWeight="Normal"
+                                       Foreground="{StaticResource TextColorPrimaryDark}"
+                                       Padding="10, 4"
+                                       Style="{StaticResource Caption}"
+                                       Text="{Binding Key,
+                                                      Converter={StaticResource ToPrettyDate}}" />
+                        </Grid>
+                    </DataTemplate>
+                </GroupStyle.HeaderTemplate>
+            </GroupStyle>
+        </ListView.GroupStyle>
+        <ListView.ItemsPanel>
+            <ItemsPanelTemplate>
+                <ItemsStackPanel />
+            </ItemsPanelTemplate>
+        </ListView.ItemsPanel>
+    </ListView>
 </UserControl>

@@ -8,7 +8,7 @@ namespace Sapphire.Utils.Converters {
     public sealed class FollowingToBG : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, string language) {
             if ((bool)value) {
-                return new SolidColorBrush(Color.FromArgb(100, 240, 240, 240));
+                return App.Current.Resources["WindowBackgroundAccent"] as SolidColorBrush;
             }
             return new SolidColorBrush(Colors.Transparent);
         }

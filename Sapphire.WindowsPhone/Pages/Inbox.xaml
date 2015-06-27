@@ -9,7 +9,7 @@
       xmlns:local="using:Sapphire.Pages"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:misc="using:Sapphire.Shared.Utils.Misc"
-      Background="{ThemeResource DarkPrimaryColor}"
+      Background="{ThemeResource ColorPrimaryDark}"
       mc:Ignorable="d">
 
 	<Grid x:Name="LayoutRoot" Background="White">
