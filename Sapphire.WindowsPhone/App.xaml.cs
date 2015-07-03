@@ -3,6 +3,7 @@ using Core.Content;
 using Core.Utils;
 using Sapphire.Shared.Common;
 using Sapphire.Shared.Pages;
+using Sapphire.Utils.DataBase;
 using Sapphire.Utils.Misc;
 using System;
 using Windows.ApplicationModel;
@@ -19,112 +20,118 @@ namespace Sapphire {
 
     public sealed partial class App : Application {
 
-		public static ResourceLoader LocaleResources = new ResourceLoader();
+        public static ResourceLoader LocaleResources = new ResourceLoader();
 
-		private static StatusBar statusBar;
-		private TransitionCollection transitions;
+        private static StatusBar statusBar;
+        private TransitionCollection transitions;
+        public static DatabaseHelperClass dbHelper;
 
-		public ContinuationManager ContinuationManager { get; private set; }
+        public ContinuationManager ContinuationManager { get; private set; }
 
-		public App() {
-			this.InitializeComponent();
-			this.Suspending += this.OnSuspending;
+        public App() {
+            this.InitializeComponent();
+            this.Suspending += this.OnSuspending;
 
-			new UserPreferences();
-			Log.i("Initialized user preferences.");
+            new UserPreferences();
+            Log.i("Initialized user preferences.");
 
-			RequestedTheme = ApplicationTheme.Light;
-		}
+            dbHelper = new DatabaseHelperClass();
+            dbHelper.CreateDB();
 
-		protected override async void OnLaunched(LaunchActivatedEventArgs e) {
+            Log.i("Initialized application data store.");
 
-			Frame rootFrame = Window.Current.Content as Frame;
+            RequestedTheme = ApplicationTheme.Light;
+        }
 
-			// Do not repeat app initialization when the Window already has content,
-			// just ensure that the window is active.
-			if (rootFrame == null) {
-				rootFrame = new Frame();
+        protected override async void OnLaunched(LaunchActivatedEventArgs e) {
 
-				// Associate the frame with a SuspensionManager key.
-				SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
+            Frame rootFrame = Window.Current.Content as Frame;
 
-				rootFrame.CacheSize = 1;
+            // Do not repeat app initialization when the Window already has content,
+            // just ensure that the window is active.
+            if (rootFrame == null) {
+                rootFrame = new Frame();
 
-				if (e.PreviousExecutionState == ApplicationExecutionState.Terminated) {
-					try {
-						await SuspensionManager.RestoreAsync();
-					} catch (SuspensionManagerException) { }
-				}
+                // Associate the frame with a SuspensionManager key.
+                SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
 
-				Window.Current.Content = rootFrame;
-			}
+                rootFrame.CacheSize = 1;
 
-			if (rootFrame.Content == null) {
+                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated) {
+                    try {
+                        await SuspensionManager.RestoreAsync();
+                    } catch (SuspensionManagerException) { }
+                }
 
-				rootFrame.ContentTransitions = null;
-				//rootFrame.Navigated += this.RootFrame_FirstNavigated;
+                Window.Current.Content = rootFrame;
+            }
 
-				if (statusBar == null)
-					statusBar = StatusBar.GetForCurrentView();
-				statusBar.ForegroundColor = Colors.White;
+            if (rootFrame.Content == null) {
 
-				new AppLicenseHandler();
-				new Authentication();
-				
-				if (Authentication.AuthenticatedTokens.Count != 0 && Authentication.AuthenticatedSecretTokens.Count != 0) {
+                rootFrame.ContentTransitions = null;
+                //rootFrame.Navigated += this.RootFrame_FirstNavigated;
 
-					Analytics.GetInstance().SendEvent("Initialized analytics platform.");
+                if (statusBar == null)
+                    statusBar = StatusBar.GetForCurrentView();
+                statusBar.ForegroundColor = Colors.White;
 
-					if (!rootFrame.Navigate(typeof(MainView), e.Arguments))
-						throw new Exception("Failed to create initial page");
-				} else {
-					if (!rootFrame.Navigate(typeof(Login), "first"))
-						throw new Exception("Failed to create initial page");
-				}
-			}
+                new AppLicenseHandler();
+                new Authentication();
 
-			Window.Current.Activate();
-		}
+                if (Authentication.AuthenticatedTokens.Count != 0 && Authentication.AuthenticatedSecretTokens.Count != 0) {
 
-		private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e) {
-			var rootFrame = sender as Frame;
+                    Analytics.GetInstance().SendEvent("Initialized analytics platform.");
+
+                    if (!rootFrame.Navigate(typeof(MainView), e.Arguments))
+                        throw new Exception("Failed to create initial page");
+                } else {
+                    if (!rootFrame.Navigate(typeof(Login), "first"))
+                        throw new Exception("Failed to create initial page");
+                }
+            }
+
+            Window.Current.Activate();
+        }
+
+        private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e) {
+            var rootFrame = sender as Frame;
             rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() { DefaultNavigationTransitionInfo = new ContinuumNavigationTransitionInfo() } };
-			rootFrame.Navigated -= this.RootFrame_FirstNavigated;
-		}
+            rootFrame.Navigated -= this.RootFrame_FirstNavigated;
+        }
 
-		private async void OnSuspending(object sender, SuspendingEventArgs e) {
-			var deferral = e.SuspendingOperation.GetDeferral();
-			await SuspensionManager.SaveAsync();
-			deferral.Complete();
-		}
+        private async void OnSuspending(object sender, SuspendingEventArgs e) {
+            var deferral = e.SuspendingOperation.GetDeferral();
+            await SuspensionManager.SaveAsync();
+            deferral.Complete();
+        }
 
-		protected override void OnActivated(IActivatedEventArgs e) {
-			base.OnActivated(e);
+        protected override void OnActivated(IActivatedEventArgs e) {
+            base.OnActivated(e);
 
-			if (statusBar == null)
-				statusBar = StatusBar.GetForCurrentView();
+            if (statusBar == null)
+                statusBar = StatusBar.GetForCurrentView();
 
-			ContinuationManager = new ContinuationManager();
+            ContinuationManager = new ContinuationManager();
 
-			var continuationEventArgs = e as IContinuationActivatedEventArgs;
-			if (continuationEventArgs != null)
-				ContinuationManager.Continue(continuationEventArgs);
+            var continuationEventArgs = e as IContinuationActivatedEventArgs;
+            if (continuationEventArgs != null)
+                ContinuationManager.Continue(continuationEventArgs);
 
-			Window.Current.Activate();
-		}
+            Window.Current.Activate();
+        }
 
-		public static async void DisplayStatus(string message = "") {
-			statusBar.ProgressIndicator.Text = message;
-			await statusBar.ProgressIndicator.ShowAsync();
-		}
+        public static async void DisplayStatus(string message = "") {
+            statusBar.ProgressIndicator.Text = message;
+            await statusBar.ProgressIndicator.ShowAsync();
+        }
 
-		public static async void HideStatus() {
-			await statusBar.ProgressIndicator.HideAsync();
-		}
+        public static async void HideStatus() {
+            await statusBar.ProgressIndicator.HideAsync();
+        }
 
-		public static void Alert(string message) {
-			var dialog = (AlertDialog)((Grid)((Page)((Frame)Window.Current.Content).Content).FindName("LayoutRoot")).FindName("PageAlertDialog");
-			dialog.DisplayMessage(message);
-		}
-	}
+        public static void Alert(string message) {
+            var dialog = (AlertDialog)((Grid)((Page)((Frame)Window.Current.Content).Content).FindName("LayoutRoot")).FindName("PageAlertDialog");
+            dialog.DisplayMessage(message);
+        }
+    }
 }

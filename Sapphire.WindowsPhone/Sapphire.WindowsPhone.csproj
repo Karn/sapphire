@@ -156,6 +156,10 @@
     <Compile Include="Utils\Converters\RelativeDate.cs" />
     <Compile Include="Utils\Converters\RelativeTime.cs" />
     <Compile Include="Utils\Converters\ToPrettyDate.cs" />
+    <Compile Include="Utils\DataBase\DatabaseHelperClass.cs" />
+    <Compile Include="Utils\DataBase\DataTables\UserBlogs.cs" />
+    <Compile Include="Utils\DataBase\SQLite.cs" />
+    <Compile Include="Utils\DataBase\SQLiteAsync.cs" />
     <Compile Include="Utils\Misc\ContinuationManager.cs" />
     <Compile Include="Utils\Misc\EventHandlers.cs" />
     <Compile Include="Utils\Misc\IncrementalPostLoader.cs" />
@@ -294,6 +298,12 @@
   <ItemGroup>
     <SDKReference Include="Microsoft.AdMediator81, Version=1.0">
       <Name>Microsoft.AdMediator81</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.VCLibs, version=12.0">
+      <Name>Microsoft Visual C++ 2013 Runtime Package for Windows Phone</Name>
+    </SDKReference>
+    <SDKReference Include="SQLite.WP81, Version=3.8.10.2">
+      <Name>SQLite for Windows Phone 8.1</Name>
     </SDKReference>
   </ItemGroup>
   <ItemGroup>

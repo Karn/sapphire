@@ -194,15 +194,14 @@
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
-    <MainPackageIdentityName>16658Awefull.Sapphir</MainPackageIdentityName>
-    <MainPackageIdentityName>16658Awefull.Snapy</MainPackageIdentityName>
     <MainPackageIdentityName>16658Awefull.UservoiceHub</MainPackageIdentityName>
+    <MainPackageIdentityName />
   </AccountPackageIdentityNames>
-  <PackageInfoList LandingUrl="https://dev.windowsphone.com/AppSubmission/AssociationLanding?windowsProductId=06db7209-108c-4b88-8490-de85f235d093">
+  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9WZDNCRDN2RX">
     <PackageInfo>
       <OsMinVersion>6.3.0.0</OsMinVersion>
-      <PackageArchitecture>neutral</PackageArchitecture>
-      <PackageMaxArchitectureVersion>1.3.0.0</PackageMaxArchitectureVersion>
+      <PackageArchitecture>Neutral</PackageArchitecture>
+      <PackageMaxArchitectureVersion>1.3.0.1</PackageMaxArchitectureVersion>
     </PackageInfo>
   </PackageInfoList>
 </StoreAssociation>
