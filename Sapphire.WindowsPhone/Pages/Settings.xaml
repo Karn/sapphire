@@ -28,7 +28,7 @@
                         Style="{StaticResource TransparentButtonStyle}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="12"
+                                   Padding="8, 12"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xE1CF;" />
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}">
@@ -45,7 +45,7 @@
                         Style="{StaticResource TransparentButtonStyle}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="12"
+                                   Padding="8, 12"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xE14D;" />
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}">
@@ -67,7 +67,7 @@
                         Style="{StaticResource TransparentButtonStyle}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="12"
+                                   Padding="8, 12"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xE125;" />
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}">
@@ -81,7 +81,7 @@
                 <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="12"
+                                   Padding="8, 12"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xEA8F;" />
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}">
@@ -93,64 +93,66 @@
                 </Button>
 
                 <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="12"
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Foreground="{StaticResource ColorPrimary}"
+                                   Padding="8, 12"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xE170;" />
-                        <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                        <TextBlock Grid.Column="1"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   TextTrimming="CharacterEllipsis">
                             <Run Text="{Binding [Settings_UXFeedbackTitle], Source={StaticResource Localized}}" />
                             <LineBreak />
                             <Run FontWeight="Light" Text="{Binding [Settings_UXFeedbackDescription], Source={StaticResource Localized}}" />
                         </TextBlock>
-                        <CheckBox MinWidth="35"
-                                  Margin="0, -50, -5, 0"
+                        <CheckBox Grid.Column="2"
+                                  MinWidth="0"
                                   HorizontalAlignment="Right"
+                                  VerticalAlignment="Center"
                                   Background="#11FFFFFF"
-                                  BorderBrush="#4a9bca"
+                                  BorderBrush="{StaticResource ColorPrimary}"
+                                  BorderThickness="1.5"
                                   Click="AnalyticsSwitch_Toggled"
                                   RequestedTheme="Light" />
-                    </StackPanel>
+                    </Grid>
                 </Button>
 
-                <!--
-                    <StackPanel>
-                    <TextBlock Padding="5, 5, 5, 0" Style="{StaticResource Body}">
-                    <Run FontWeight="Normal" Text="Dark theme" />
-                    <LineBreak />
-                    <Run Text="Enable a darker application skin." />
-                    </TextBlock>
-                    <CheckBox x:Name="DarkTheme"
-                    MinWidth="35"
-                    Margin="0, -50, -5, 0"
-                    HorizontalAlignment="Right"
-                    Background="#11FFFFFF"
-                    BorderBrush="#4a9bca"
-                    Click="SwitchTheme_Toggled"
-                    RequestedTheme="Light" />
-                    </StackPanel>
-                -->
-
                 <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="12"
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Foreground="{StaticResource ColorPrimary}"
+                                   Padding="8, 12"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xEA54;" />
-                        <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                        <TextBlock Grid.Column="1"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   TextTrimming="CharacterEllipsis">
                             <Run Text="{Binding [Settings_QuickPostTitle], Source={StaticResource Localized}}" />
                             <LineBreak />
                             <Run FontWeight="Light" Text="{Binding [Settings_QuickPostDescription], Source={StaticResource Localized}}" />
                         </TextBlock>
                         <CheckBox x:Name="OneClickReblog"
-                                  MinWidth="35"
-                                  Margin="0, -50, -5, 0"
+                                  Grid.Column="2"
+                                  MinWidth="0"
                                   HorizontalAlignment="Right"
+                                  VerticalAlignment="Center"
                                   Background="#11FFFFFF"
-                                  BorderBrush="#4a9bca"
+                                  BorderBrush="{StaticResource ColorPrimary}"
+                                  BorderThickness="1.5"
                                   Click="EnableOneClickReblog_Toggled"
                                   RequestedTheme="Light" />
-                    </StackPanel>
+                    </Grid>
                 </Button>
 
                 <Button Foreground="{StaticResource TextColorPrimaryDark}"
@@ -158,7 +160,7 @@
                         Tapped="ExpandContainer_Tapped">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="12"
+                                   Padding="8, 12"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xEA54;" />
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}">
@@ -172,37 +174,40 @@
                                        Style="{StaticResource Body}"
                                        Text="{Binding [Settings_UXFeedbackDescription],
                                                       Source={StaticResource Localized}}" />
-                            <CheckBox MinWidth="35"
-                                      Margin="0, -50, -5, 0"
-                                      HorizontalAlignment="Right"
-                                      Background="#11FFFFFF"
-                                      BorderBrush="#4a9bca"
-                                      Click="AnalyticsSwitch_Toggled"
-                                      RequestedTheme="Light" />
                         </StackPanel>
                     </StackPanel>
                 </Button>
 
                 <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="12"
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Foreground="{StaticResource ColorPrimary}"
+                                   Padding="8, 12"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xE1CB;" />
-                        <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                        <TextBlock Grid.Column="1"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   TextTrimming="CharacterEllipsis">
                             <Run Text="{Binding [Settings_PostTagsTitle], Source={StaticResource Localized}}" />
                             <LineBreak />
                             <Run FontWeight="Light" Text="{Binding [Settings_PostTagsDescription], Source={StaticResource Localized}}" />
                         </TextBlock>
                         <CheckBox x:Name="PostTags"
-                                  MinWidth="35"
-                                  Margin="0, -50, -5, 0"
+                                  Grid.Column="2"
+                                  MinWidth="0"
                                   HorizontalAlignment="Right"
+                                  VerticalAlignment="Center"
                                   Background="#11FFFFFF"
-                                  BorderBrush="#4a9bca"
+                                  BorderBrush="{StaticResource ColorPrimary}"
+                                  BorderThickness="1.5"
                                   Click="DisableTagsInPosts_Toggled"
                                   RequestedTheme="Light" />
-                    </StackPanel>
+                    </Grid>
                 </Button>
 
                 <Button Foreground="{StaticResource TextColorPrimaryDark}"
@@ -211,16 +216,33 @@
                         Visibility="{Binding ElementName=PageTitle,
                                              Converter={StaticResource IsFullVersion},
                                              FallbackValue=Collapsed}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="12"
-                                   Style="{StaticResource IconStyle}"
-                                   Text="&#xE1CB;" />
-                        <TextBlock Style="{StaticResource BodyTextBlockStyle}">
-                            <Run Text="{Binding [Settings_AutoTagsTitle], Source={StaticResource Localized}}" />
-                            <LineBreak />
-                            <Run FontWeight="Light" Text="{Binding [Settings_AutoTagsDescription], Source={StaticResource Localized}}" />
-                        </TextBlock>
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Foreground="{StaticResource ColorPrimary}"
+                                       Padding="8, 12"
+                                       Style="{StaticResource IconStyle}"
+                                       Text="&#xE1CB;" />
+                            <TextBlock Grid.Column="1"
+                                       Style="{StaticResource BodyTextBlockStyle}"
+                                       TextTrimming="CharacterEllipsis">
+                                <Run Text="{Binding [Settings_AutoTagsTitle], Source={StaticResource Localized}}" />
+                                <LineBreak />
+                                <Run FontWeight="Light" Text="{Binding [Settings_AutoTagsDescription], Source={StaticResource Localized}}" />
+                            </TextBlock>
+                            <TextBlock Grid.Column="2"
+                                       HorizontalAlignment="Right"
+                                       Foreground="{StaticResource ColorPrimary}"
+                                       Padding="8, 12"
+                                       Style="{StaticResource IconStyle}"
+                                       Text="&#xE011;" />
+                        </Grid>
+
                         <StackPanel Visibility="Collapsed">
                             <TextBlock FontSize="18"
                                        Foreground="{StaticResource ColorPrimaryDark}"
@@ -229,12 +251,14 @@
                                        Text="You can change what tags you want added to your posts by default. Tags must be comma-delimited."
                                        TextWrapping="WrapWholeWords" />
                             <TextBox x:Name="Tags"
-                                     Height="45"
+                                     Height="40"
                                      Margin="5"
                                      VerticalContentAlignment="Center"
-                                     Background="{ThemeResource LightPrimaryColor}"
-                                     BorderBrush="{ThemeResource LightPrimaryColor}"
+                                     Background="{ThemeResource WindowBackgroundAccent}"
+                                     BorderBrush="{ThemeResource ColorPrimary}"
                                      BorderThickness="1"
+                                     FontSize="24"
+                                     FontWeight="SemiLight"
                                      KeyDown="TagBox_KeyDown"
                                      LostFocus="Tags_LostFocus"
                                      Padding="8"
@@ -252,7 +276,7 @@
                 <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="12"
+                                   Padding="8, 12"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xE12B;" />
                         <TextBlock x:Name="AppVersion" Style="{StaticResource BodyTextBlockStyle}">
@@ -263,24 +287,55 @@
                     </StackPanel>
                 </Button>
 
-                <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="12"
-                                   Style="{StaticResource IconStyle}"
-                                   Text="&#xE1DE;" />
-                        <TextBlock Style="{StaticResource BodyTextBlockStyle}">
-                            <Run Text="{Binding [About_LegalTitle], Source={StaticResource Localized}}" />
-                            <LineBreak />
-                            <Run FontWeight="Light" Text="{Binding [About_LegalSubHeading], Source={StaticResource Localized}}" />
-                        </TextBlock>
+                <Button Foreground="{StaticResource TextColorPrimaryDark}"
+                        Style="{StaticResource TransparentButtonStyle}"
+                        Tapped="ExpandContainer_Tapped"
+                        Visibility="{Binding ElementName=PageTitle,
+                                             Converter={StaticResource IsFullVersion},
+                                             FallbackValue=Collapsed}">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Foreground="{StaticResource ColorPrimary}"
+                                       Padding="8, 12"
+                                       Style="{StaticResource IconStyle}"
+                                       Text="&#xE1DE;" />
+                            <TextBlock Grid.Column="1"
+                                       Style="{StaticResource BodyTextBlockStyle}"
+                                       TextTrimming="CharacterEllipsis">
+                                <Run Text="{Binding [About_LegalTitle], Source={StaticResource Localized}}" />
+                                <LineBreak />
+                                <Run FontWeight="Light" Text="{Binding [About_LegalSubHeading], Source={StaticResource Localized}}" />
+                            </TextBlock>
+                            <TextBlock Grid.Column="2"
+                                       HorizontalAlignment="Right"
+                                       Foreground="{StaticResource ColorPrimary}"
+                                       Padding="8, 12"
+                                       Style="{StaticResource IconStyle}"
+                                       Text="&#xE011;" />
+                        </Grid>
+
+                        <StackPanel Visibility="Collapsed">
+                            <TextBlock FontSize="18"
+                                       Foreground="{StaticResource ColorPrimaryDark}"
+                                       Padding="5, 5, 5, 0"
+                                       Style="{StaticResource Body}"
+                                       Text="{Binding [About_LegalDescription],
+                                                      Source={StaticResource Localized}}"
+                                       TextWrapping="WrapWholeWords" />
+                        </StackPanel>
                     </StackPanel>
                 </Button>
 
                 <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="12"
+                                   Padding="8, 12"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xE192;" />
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}">
@@ -291,17 +346,70 @@
                     </StackPanel>
                 </Button>
 
-                <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="12"
-                                   Style="{StaticResource IconStyle}"
-                                   Text="&#xE939;" />
-                        <TextBlock Style="{StaticResource BodyTextBlockStyle}">
-                            <Run Text="{Binding [About_SupportTitle], Source={StaticResource Localized}}" />
-                            <LineBreak />
-                            <Run FontWeight="Light" Text="{Binding [About_SupportSubHeading], Source={StaticResource Localized}}" />
-                        </TextBlock>
+                <Button Foreground="{StaticResource TextColorPrimaryDark}"
+                        Style="{StaticResource TransparentButtonStyle}"
+                        Tapped="ExpandContainer_Tapped"
+                        Visibility="{Binding ElementName=PageTitle,
+                                             Converter={StaticResource IsFullVersion},
+                                             FallbackValue=Collapsed}">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Foreground="{StaticResource ColorPrimary}"
+                                       Padding="8, 12"
+                                       Style="{StaticResource IconStyle}"
+                                       Text="&#xE939;" />
+                            <TextBlock Grid.Column="1"
+                                       Style="{StaticResource BodyTextBlockStyle}"
+                                       TextTrimming="CharacterEllipsis">
+                                <Run Text="{Binding [About_SupportTitle], Source={StaticResource Localized}}" />
+                                <LineBreak />
+                                <Run FontWeight="Light" Text="{Binding [About_SupportSubHeading], Source={StaticResource Localized}}" />
+                            </TextBlock>
+                            <TextBlock Grid.Column="2"
+                                       HorizontalAlignment="Right"
+                                       Foreground="{StaticResource ColorPrimary}"
+                                       Padding="8, 12"
+                                       Style="{StaticResource IconStyle}"
+                                       Text="&#xE011;" />
+                        </Grid>
+
+                        <StackPanel Visibility="Collapsed">
+                            <TextBlock FontSize="18"
+                                       Foreground="{StaticResource ColorPrimaryDark}"
+                                       Padding="5, 5, 5, 0"
+                                       Style="{StaticResource Body}"
+                                       Text="{Binding [About_SupportDescription],
+                                                      Source={StaticResource Localized}}"
+                                       TextWrapping="WrapWholeWords" />
+                            <HyperlinkButton x:Name="Reddit"
+                                             BorderBrush="{x:Null}"
+                                             Content="/r/Sapphire"
+                                             FontSize="18"
+                                             Foreground="#FF529ECC"
+                                             NavigateUri="http://reddit.com/r/sapphire"
+                                             Padding="5" />
+                            <HyperlinkButton x:Name="Email"
+                                             BorderBrush="{x:Null}"
+                                             Content="{Binding [About_SupportEmail],
+                                                               Source={StaticResource Localized}}"
+                                             FontSize="18"
+                                             Foreground="#FF529ECC"
+                                             NavigateUri="mailto:sapphire@gemlabs.me"
+                                             Padding="5" />
+                            <HyperlinkButton x:Name="Follow"
+                                             BorderBrush="{x:Null}"
+                                             Content="@KarnSaheb"
+                                             FontSize="18"
+                                             Foreground="#FF529ECC"
+                                             NavigateUri="http://twitter.com/intent/follow?screen_name=KarnSaheb"
+                                             Padding="5" />
+                        </StackPanel>
                     </StackPanel>
                 </Button>
             </StackPanel>

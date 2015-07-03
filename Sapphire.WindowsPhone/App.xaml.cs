@@ -1,9 +1,9 @@
 ﻿using Core.AuthenticationManager;
 using Core.Content;
 using Core.Utils;
-using Sapphire.Utils;
-using Sapphire.Utils.Misc;
 using Sapphire.Shared.Common;
+using Sapphire.Shared.Pages;
+using Sapphire.Utils.Misc;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -14,16 +14,15 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
-using Sapphire.Shared.Pages;
 
 namespace Sapphire {
 
-	public sealed partial class App : Application {
+    public sealed partial class App : Application {
 
 		public static ResourceLoader LocaleResources = new ResourceLoader();
 
 		private static StatusBar statusBar;
-		//private TransitionCollection transitions;
+		private TransitionCollection transitions;
 
 		public ContinuationManager ContinuationManager { get; private set; }
 
@@ -89,7 +88,7 @@ namespace Sapphire {
 
 		private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e) {
 			var rootFrame = sender as Frame;
-			//rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() { } };
+            rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() { DefaultNavigationTransitionInfo = new ContinuumNavigationTransitionInfo() } };
 			rootFrame.Navigated -= this.RootFrame_FirstNavigated;
 		}
 
