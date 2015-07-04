@@ -46,7 +46,7 @@ namespace Core.Content.Model.DatabaseHelpers {
         public Blog GetBlog(string blogName) {
             using (var dbConn = new SQLiteConnection(DatabaseConstants.DB_PATH)) {
                 try {
-                    return dbConn.Query<Blog>("select * from Blog where AccountEmail =" + AuthenticationManager.Authentication.SelectedAccount + " and Name =" + blogName).FirstOrDefault();
+                    return dbConn.Query<Blog>("select * from Blog where AccountEmail = ? and Name = ?", AuthenticationManager.Authentication.SelectedAccount, blogName).FirstOrDefault();
                 } catch {
                     return null;
                 }
@@ -62,7 +62,7 @@ namespace Core.Content.Model.DatabaseHelpers {
         //Update existing conatct    
         public void UpdateBlog(Blog blog) {
             using (var dbConn = new SQLiteConnection(DatabaseConstants.DB_PATH)) {
-                var existingBlog = dbConn.Query<Blog>("select * from Blog where AccountEmail =" + AuthenticationManager.Authentication.SelectedAccount + " and Name =" + blog.Name).FirstOrDefault();
+                var existingBlog = dbConn.Query<Blog>("select * from Blog where AccountEmail = ? and Name = ?", AuthenticationManager.Authentication.SelectedAccount, blog.Name).FirstOrDefault();
                 if (existingBlog != null) {
                     existingBlog = blog;
                     dbConn.RunInTransaction(() => {
@@ -87,7 +87,7 @@ namespace Core.Content.Model.DatabaseHelpers {
         //Delete specific contact    
         public void RemoveBlog(string blogName) {
             using (var dbConn = new SQLiteConnection(DatabaseConstants.DB_PATH)) {
-                var existingconact = dbConn.Query<Blog>("select * from Blog where AccountEmail =" + AuthenticationManager.Authentication.SelectedAccount + " and Name =" + blogName).FirstOrDefault();
+                var existingconact = dbConn.Query<Blog>("select * from Blog where AccountEmail = ? and Name = ?", AuthenticationManager.Authentication.SelectedAccount, blogName).FirstOrDefault();
                 if (existingconact != null) {
                     dbConn.RunInTransaction(() => {
                         dbConn.Delete(existingconact);
@@ -128,7 +128,7 @@ namespace Core.Content.Model.DatabaseHelpers {
         public Account GetAccount(string accountEmail) {
             using (var dbConn = new SQLiteConnection(DatabaseConstants.DB_PATH)) {
                 try {
-                    return dbConn.Query<Account>("select * from Account where AccountEmail =" + accountEmail).FirstOrDefault();
+                    return dbConn.Query<Account>("select * from Account where AccountEmail = ?", accountEmail).FirstOrDefault();
                 } catch {
                     return null;
                 }
@@ -137,7 +137,7 @@ namespace Core.Content.Model.DatabaseHelpers {
 
         public void UpdateAccount(Account user) {
             using (var dbConn = new SQLiteConnection(DatabaseConstants.DB_PATH)) {
-                var existingUser = dbConn.Query<Account>("select * from Account where AccountEmail =" + user.AccountEmail).FirstOrDefault();
+                var existingUser = dbConn.Query<Account>("select * from Account where AccountEmail = ?", user.AccountEmail).FirstOrDefault();
                 if (existingUser != null) {
                     existingUser = user;
                     dbConn.RunInTransaction(() => {
@@ -149,7 +149,7 @@ namespace Core.Content.Model.DatabaseHelpers {
  
         public void RemoveAccount(string accountEmail) {
             using (var dbConn = new SQLiteConnection(DatabaseConstants.DB_PATH)) {
-                var existingAccount = dbConn.Query<Account>("select * from Account where AccountEmail =" + accountEmail).FirstOrDefault();
+                var existingAccount = dbConn.Query<Account>("select * from Account where AccountEmail = ?", accountEmail).FirstOrDefault();
                 if (existingAccount != null) {
                     dbConn.RunInTransaction(() => {
                         dbConn.Delete(existingAccount);

@@ -79,7 +79,7 @@
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Button Click="Button_Click"
+                            <Button Click="Blog_Click"
                                     Foreground="{StaticResource TextColorPrimaryDark}"
                                     Style="{StaticResource TransparentButtonStyle}"
                                     Tag="{Binding}">
@@ -115,50 +115,20 @@
                         </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Grid HorizontalAlignment="Stretch"
-                                      FlyoutBase.AttachedFlyout="{StaticResource RemoveAccount}"
-                                      Holding="Image_Holding">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Ellipse Grid.Column="0"
-                                             Width="65"
-                                             Height="65"
-                                             Margin="10, 5">
-                                        <Ellipse.Fill>
-                                            <ImageBrush ImageSource="{StaticResource DefaultAvatar}" Stretch="Fill" />
-                                        </Ellipse.Fill>
-                                    </Ellipse>
-                                    <TextBlock Grid.Column="1"
-                                               Margin="0"
-                                               HorizontalAlignment="Stretch"
-                                               VerticalAlignment="Center"
-                                               FontSize="18"
-                                               FontWeight="Normal"
-                                               Foreground="{ThemeResource TextColorPrimaryDark}"
-                                               Style="{StaticResource Headline}"
-                                               Text="{Binding AccountName}"
-                                               TextTrimming="CharacterEllipsis" />
-                                    <Button x:Name="SelectAccountButton"
-                                            Grid.Column="2"
-                                            Height="35"
-                                            MinWidth="120"
-                                            MinHeight="0"
-                                            Margin="5, 0"
-                                            VerticalAlignment="Center"
-                                            Background="#FFFFFFFF"
-                                            BorderBrush="#66FFFFFF"
-                                            BorderThickness="0"
-                                            Content="SELECT"
-                                            FontSize="18"
-                                            Foreground="{StaticResource ColorPrimary}"
-                                            Padding="3"
-                                            Style="{StaticResource ButtonStyleNoBG}"
-                                            Tag="{Binding}"
-                                            Tapped="SelectAccountButton_Tapped" />
-                                </Grid>
+                                <Button Click="Account_Click"
+                                        Foreground="{StaticResource TextColorPrimaryDark}"
+                                        Holding="Image_Holding"
+                                        Style="{StaticResource TransparentButtonStyle}"
+                                        Tag="{Binding}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Ellipse Width="60" Height="60">
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource="{StaticResource DefaultAvatar}" Stretch="Fill" />
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{Binding AccountEmail}" />
+                                    </StackPanel>
+                                </Button>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                         <Border />

@@ -75,25 +75,6 @@ namespace Sapphire.Pages {
 
         #endregion
 
-        private void SelectAccountButton_Tapped(object sender, TappedRoutedEventArgs e) {
-            if (Authentication.SelectedAccount != ((Button)sender).Tag.ToString()) {
-                Authentication.SelectedAccount = ((Button)sender).Tag.ToString();
-
-                Account user = DatabaseController.GetInstance().GetAccount(Authentication.SelectedAccount);
-                Authentication.Token = user.AuthenticatedToken;
-                Authentication.TokenSecret = user.AuthenticationTokenSecret;
-
-                MainView.SwitchedAccount = true;
-                if (!Frame.Navigate(typeof(MainView))) {
-                    throw new Exception();
-                }
-            } else {
-                if (!Frame.Navigate(typeof(MainView))) {
-                    throw new Exception();
-                }
-            }
-        }
-
         private void AddAccount_Click(object sender, RoutedEventArgs e) {
             if (!Frame.Navigate(typeof(Login))) {
                 throw new Exception();
@@ -152,15 +133,30 @@ namespace Sapphire.Pages {
             }
         }
 
-        private void SelectBlogButton_Tapped(object sender, TappedRoutedEventArgs e) {
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e) {
+        private void Blog_Click(object sender, RoutedEventArgs e) {
             if (((Button)sender).Tag != null) {
                 UserPreferences.CurrentBlog = ((Button)sender).Tag as Blog;
                 MainView.SwitchedBlog = true;
                 Frame.GoBack();
+            }
+        }
+
+        private void Account_Click(object sender, RoutedEventArgs e) {
+            if (Authentication.SelectedAccount != ((Button)sender).Tag.ToString()) {
+                Authentication.SelectedAccount = ((Button)sender).Tag.ToString();
+
+                Account user = DatabaseController.GetInstance().GetAccount(Authentication.SelectedAccount);
+                Authentication.Token = user.AuthenticatedToken;
+                Authentication.TokenSecret = user.AuthenticationTokenSecret;
+
+                MainView.SwitchedAccount = true;
+                if (!Frame.Navigate(typeof(MainView))) {
+                    throw new Exception();
+                }
+            } else {
+                if (!Frame.Navigate(typeof(MainView))) {
+                    throw new Exception();
+                }
             }
         }
     }

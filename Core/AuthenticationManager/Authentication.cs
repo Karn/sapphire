@@ -110,7 +110,7 @@ namespace Core.AuthenticationManager {
 
                     //Add token to token dictionary
                     Account user = new Account();
-                    user.AccountEmail = userName.Substring(0, userName.IndexOf('@'));
+                    user.AccountEmail = userName;
                     user.AuthenticatedToken = accessToken[1];
                     user.AuthenticationTokenSecret = accessTokenSecret[1];
 

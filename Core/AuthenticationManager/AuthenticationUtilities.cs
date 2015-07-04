@@ -61,7 +61,6 @@ namespace Core.AuthenticationManager {
                     requestMsg.Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 
                     var response = await httpClient.SendAsync(requestMsg);
-                    Debug.WriteLine(response);
                     return await response.Content.ReadAsStringAsync();
                 }
             } catch (Exception ex) {

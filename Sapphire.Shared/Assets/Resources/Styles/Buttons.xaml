@@ -7,7 +7,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="Padding" Value="8" />
+        <Setter Property="Padding" Value="12, 2" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">

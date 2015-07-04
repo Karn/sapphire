@@ -41,8 +41,8 @@ namespace Sapphire {
             if (UserPreferences.NotificationsEnabled)
                 RegisterBackgroundTask();
 
-            foreach (var b in DatabaseController.GetInstance().GetBlogs()) {
-                Debug.WriteLine(b.Name);
+            foreach (var b in DatabaseController.GetInstance().GetAccounts()) {
+                Debug.WriteLine(b.AccountEmail);
             }
 
             HardwareButtons.BackPressed += BackButtonPressed;
