@@ -1,9 +1,9 @@
 ﻿using Core.AuthenticationManager;
 using Core.Content;
+using Core.Content.Model.DatabaseHelpers;
 using Core.Utils;
 using Sapphire.Shared.Common;
 using Sapphire.Shared.Pages;
-using Sapphire.Utils.DataBase;
 using Sapphire.Utils.Misc;
 using System;
 using Windows.ApplicationModel;
@@ -24,7 +24,6 @@ namespace Sapphire {
 
         private static StatusBar statusBar;
         private TransitionCollection transitions;
-        public static DatabaseController dbHelper;
 
         public ContinuationManager ContinuationManager { get; private set; }
 
@@ -35,9 +34,7 @@ namespace Sapphire {
             new UserPreferences();
             Log.i("Initialized user preferences.");
 
-            dbHelper = new DatabaseController();
-            dbHelper.CreateDB();
-
+            DatabaseController.GetInstance();
             Log.i("Initialized application data store.");
 
             RequestedTheme = ApplicationTheme.Light;
@@ -78,7 +75,7 @@ namespace Sapphire {
                 new AppLicenseHandler();
                 new Authentication();
 
-                if (Authentication.AuthenticatedTokens.Count != 0 && Authentication.AuthenticatedSecretTokens.Count != 0) {
+                if (DatabaseController.GetInstance().GetAccounts().Count != 0) {
 
                     Analytics.GetInstance().SendEvent("Initialized analytics platform.");
 

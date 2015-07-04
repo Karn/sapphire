@@ -1,4 +1,5 @@
 ﻿using Core.AuthenticationManager;
+using Core.Content.Model.DatabaseHelpers;
 using Sapphire.Shared.Common;
 using System;
 using System.Net.NetworkInformation;
@@ -31,7 +32,7 @@ namespace Sapphire.Shared.Pages {
 #if WINDOWS_PHONE_APP
         private void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e) {
             //Fix navigating
-            if (Authentication.AuthenticatedTokens.Count == 0) {
+            if (DatabaseController.GetInstance().GetAccounts().Count == 0) {
                 Application.Current.Exit();
             }
             e.Handled = true;
@@ -59,13 +60,6 @@ namespace Sapphire.Shared.Pages {
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
             Frame.BackStack.Clear();
-            if (e.NavigationParameter != null) {
-                StartBox.Visibility = Visibility.Visible;
-                LoginBox.Visibility = Visibility.Collapsed;
-            } else {
-                StartBox.Visibility = Visibility.Collapsed;
-                LoginBox.Visibility = Visibility.Visible;
-            }
         }
 
         /// <summary>
@@ -115,7 +109,7 @@ namespace Sapphire.Shared.Pages {
 
                 if (response == "OK") {
                     App.HideStatus();
-                    if (Authentication.AuthenticatedTokens.Count == 1) {
+                    if (DatabaseController.GetInstance().GetAccounts().Count == 1) {
                         if (!Frame.Navigate(typeof(MainView))) {
                             throw new Exception();
                         }
@@ -144,11 +138,6 @@ namespace Sapphire.Shared.Pages {
             LogoImage.Height = 150;
             LoginBox.VerticalAlignment = VerticalAlignment.Top;
 #endif
-        }
-
-        private void Start_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e) {
-            StartBox.Visibility = Visibility.Collapsed;
-            LoginBox.Visibility = Visibility.Visible;
         }
     }
 }

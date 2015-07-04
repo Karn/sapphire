@@ -1,4 +1,5 @@
 ﻿using Core.AuthenticationManager;
+using Core.Content.Model.DatabaseHelpers;
 using Core.Utils;
 using Sapphire.Shared.Pages;
 using System;
@@ -63,7 +64,7 @@ namespace Sapphire {
 
 			if (rootFrame.Content == null) {
 				new Authentication();
-				if (Authentication.AuthenticatedTokens.Count != 0 && Authentication.AuthenticatedSecretTokens.Count != 0) {
+				if (DatabaseController.GetInstance().GetAccounts().Count != 0) {
 
 					if (!rootFrame.Navigate(typeof(MainView), e.Arguments))
 						throw new Exception("Failed to create initial page");

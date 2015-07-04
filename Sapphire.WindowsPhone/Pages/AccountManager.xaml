@@ -9,208 +9,178 @@
       Background="{ThemeResource ColorPrimary}"
       mc:Ignorable="d">
 
-	<Page.Resources>
-		<Flyout x:Key="RemoveAccount"
-		        x:Name="OptionsPopup"
-		        Placement="Full">
-			<Flyout.FlyoutPresenterStyle>
-				<Style TargetType="FlyoutPresenter">
-					<Setter Property="Margin" Value="0" />
-					<Setter Property="Background" Value="Transparent" />
-				</Style>
-			</Flyout.FlyoutPresenterStyle>
-			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="*" />
-					<RowDefinition Height="Auto" />
-				</Grid.RowDefinitions>
-				<Grid Background="#02000000" Tapped="Grid_Tapped" />
-				<ListView Grid.Row="1"
-				          VerticalAlignment="Bottom"
-				          Background="{ThemeResource ColorPrimary}"
-				          Padding="0, 0, 0, 23">
-					<TextBlock Margin="20, 25, 20, 8"
-					           HorizontalAlignment="Left"
-					           VerticalAlignment="Top"
-					           FontSize="24"
-					           Foreground="{ThemeResource TextColorPrimary}"
-					           Style="{StaticResource Headline}"
-					           Tag="{Binding}"
-					           Tapped="OtherOptions_Tapped"
-					           Text="remove"
-					           TextLineBounds="Tight"
-					           TextTrimming="CharacterEllipsis" />
-				</ListView>
-			</Grid>
-		</Flyout>
-	</Page.Resources>
+    <Page.Resources>
+        <Flyout x:Key="RemoveAccount"
+                x:Name="OptionsPopup"
+                Placement="Full">
+            <Flyout.FlyoutPresenterStyle>
+                <Style TargetType="FlyoutPresenter">
+                    <Setter Property="Margin" Value="0" />
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
+            </Flyout.FlyoutPresenterStyle>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Background="#02000000" Tapped="Grid_Tapped" />
+                <ListView Grid.Row="1"
+                          VerticalAlignment="Bottom"
+                          Background="{ThemeResource ColorPrimary}"
+                          Padding="0, 0, 0, 23">
+                    <TextBlock Margin="20, 25, 20, 8"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               FontSize="24"
+                               Foreground="{ThemeResource TextColorPrimary}"
+                               Style="{StaticResource Headline}"
+                               Tag="{Binding}"
+                               Tapped="OtherOptions_Tapped"
+                               Text="remove"
+                               TextLineBounds="Tight"
+                               TextTrimming="CharacterEllipsis" />
+                </ListView>
+            </Grid>
+        </Flyout>
+    </Page.Resources>
 
-	<Grid x:Name="LayoutRoot" Background="White">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
-		<Grid Height="55" Background="{ThemeResource PrimaryColor}">
-			<TextBlock x:Name="PageTitle"
-			           Foreground="{StaticResource PrimaryText}"
-			           Style="{StaticResource Headline}"
-			           Text="{Binding [Title_AccountManager],
-			                          Source={StaticResource Localized}}" />
-		</Grid>
+    <Grid x:Name="LayoutRoot" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Height="55" Background="{ThemeResource PrimaryColor}">
+            <TextBlock x:Name="PageTitle"
+                       Foreground="{StaticResource PrimaryText}"
+                       Style="{StaticResource Headline}"
+                       Text="{Binding [Title_AccountManager],
+                                      Source={StaticResource Localized}}" />
+        </Grid>
 
-		<Pivot x:Name="Items"
-		       Grid.Row="1"
-		       Margin="0">
-			<Pivot.HeaderTemplate>
-				<DataTemplate>
-					<TextBlock Foreground="{StaticResource PrimaryText}"
-					           Padding="0"
-					           Style="{StaticResource Body}"
-					           Text="{Binding}" />
-				</DataTemplate>
-			</Pivot.HeaderTemplate>
-			<PivotItem Margin="0" Header="{Binding [AccountManager_BlogsTitle], Source={StaticResource Localized}}">
-				<ListView x:Name="BlogList"
-				          Grid.Row="1"
-				          Margin="0, 2, 0, 0"
-				          ItemsSource="{Binding}">
-					<ListView.ItemContainerStyle>
-						<StaticResource ResourceKey="ListViewItemContainerStyle" />
-					</ListView.ItemContainerStyle>
-					<ListView.ItemTemplate>
-						<DataTemplate>
-							<Grid HorizontalAlignment="Stretch">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto" />
-									<ColumnDefinition Width="*" />
-									<ColumnDefinition Width="Auto" />
-								</Grid.ColumnDefinitions>
-								<Ellipse Grid.Column="0"
-								         Width="65"
-								         Height="65"
-								         Margin="10, 5"
-								         HorizontalAlignment="Left">
-									<Ellipse.Fill>
-										<ImageBrush ImageSource="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
-									</Ellipse.Fill>
-								</Ellipse>
-								<StackPanel Grid.Column="1" HorizontalAlignment="Left">
-									<TextBlock Margin="0"
-									           HorizontalAlignment="Left"
-									           FontSize="18"
-									           FontWeight="Normal"
-									           Foreground="{ThemeResource TextColorPrimaryDark}"
-									           Style="{StaticResource Headline}"
-									           Text="{Binding Name}"
-									           TextTrimming="CharacterEllipsis" />
-									<TextBlock Margin="12, -8, 12, 0"
-									           HorizontalAlignment="Left"
-									           FontSize="14"
-									           Foreground="{ThemeResource TextColorPrimaryDark}"
-									           Text="{Binding URL}"
-									           TextTrimming="CharacterEllipsis" />
-								</StackPanel>
-								<Button Grid.Column="2"
-								        Height="35"
-								        MinWidth="120"
-								        MinHeight="0"
-								        Margin="5, 0"
-								        Background="#FFFFFFFF"
-								        BorderBrush="#66FFFFFF"
-								        BorderThickness="0"
-								        Content="SELECT"
-								        FontSize="18"
-								        Foreground="{StaticResource ColorPrimary}"
-								        Padding="3"
-								        Style="{StaticResource ButtonStyleNoBG}"
-								        Tag="{Binding}"
-								        Tapped="SelectBlogButton_Tapped" />
-							</Grid>
-						</DataTemplate>
-					</ListView.ItemTemplate>
-				</ListView>
-			</PivotItem>
+        <Pivot x:Name="Items"
+               Grid.Row="1"
+               Margin="0">
+            <Pivot.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Foreground="{StaticResource ColorPrimary}"
+                               Padding="0"
+                               Style="{StaticResource Body}"
+                               Text="{Binding}" />
+                </DataTemplate>
+            </Pivot.HeaderTemplate>
+            <PivotItem Margin="0" Header="{Binding [AccountManager_BlogsTitle], Source={StaticResource Localized}}">
+                <ListView x:Name="BlogList"
+                          Grid.Row="1"
+                          Margin="0, 2, 0, 0"
+                          ItemsSource="{Binding}">
+                    <ListView.ItemContainerStyle>
+                        <StaticResource ResourceKey="ListViewItemContainerStyle" />
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Button Click="Button_Click"
+                                    Foreground="{StaticResource TextColorPrimaryDark}"
+                                    Style="{StaticResource TransparentButtonStyle}"
+                                    Tag="{Binding}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse Width="60" Height="60">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                                        <Run Text="{Binding Name}" />
+                                        <LineBreak />
+                                        <Run FontWeight="Light" Text="{Binding Url}" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
 
-			<PivotItem Margin="0" Header="{Binding [AccountManager_AccountsTitle], Source={StaticResource Localized}}">
-				<Grid>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="*" />
-						<RowDefinition Height="Auto" />
-					</Grid.RowDefinitions>
-					<ListView x:Name="List"
-					          Margin="0, 2, 0, 0"
-					          ItemsSource="{Binding}">
-						<ListView.ItemContainerStyle>
-							<StaticResource ResourceKey="ListViewItemContainerStyle" />
-						</ListView.ItemContainerStyle>
-						<ListView.ItemTemplate>
-							<DataTemplate>
-								<Grid HorizontalAlignment="Stretch"
-								      FlyoutBase.AttachedFlyout="{StaticResource RemoveAccount}"
-								      Holding="Image_Holding">
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="Auto" />
-										<ColumnDefinition Width="*" />
-										<ColumnDefinition Width="Auto" />
-									</Grid.ColumnDefinitions>
-									<Ellipse Grid.Column="0"
-									         Width="65"
-									         Height="65"
-									         Margin="10, 5">
-										<Ellipse.Fill>
-											<ImageBrush ImageSource="{StaticResource DefaultAvatar}" Stretch="Fill" />
-										</Ellipse.Fill>
-									</Ellipse>
-									<TextBlock Grid.Column="1"
-									           Margin="0"
-									           HorizontalAlignment="Stretch"
-									           VerticalAlignment="Center"
-									           FontSize="18"
-									           FontWeight="Normal"
-									           Foreground="{ThemeResource TextColorPrimaryDark}"
-									           Style="{StaticResource Headline}"
-									           Text="{Binding}"
-									           TextTrimming="CharacterEllipsis" />
-									<Button x:Name="SelectAccountButton"
-									        Grid.Column="2"
-									        Height="35"
-									        MinWidth="120"
-									        MinHeight="0"
-									        Margin="5, 0"
-									        VerticalAlignment="Center"
-									        Background="#FFFFFFFF"
-									        BorderBrush="#66FFFFFF"
-									        BorderThickness="0"
-									        Content="SELECT"
-									        FontSize="18"
-									        Foreground="{StaticResource ColorPrimary}"
-									        Padding="3"
-									        Style="{StaticResource ButtonStyleNoBG}"
-									        Tag="{Binding}"
-									        Tapped="SelectAccountButton_Tapped" />
-								</Grid>
-							</DataTemplate>
-						</ListView.ItemTemplate>
-						<Border />
-					</ListView>
-					<Button x:Name="AddAccount"
-					        Grid.Row="1"
-					        Height="55"
-					        MinHeight="10"
-					        Margin="10, 0"
-					        HorizontalAlignment="Stretch"
-					        Background="#FF529ECC"
-					        BorderThickness="0"
-					        Click="AddAccount_Click"
-					        Content="{Binding [AccountManager_AddAccountButton],
-					                          Source={StaticResource Localized}}"
-					        FontSize="18"
-					        Foreground="White"
-					        Padding="0" />
-				</Grid>
-			</PivotItem>
-		</Pivot>
+            <PivotItem Margin="0" Header="{Binding [AccountManager_AccountsTitle], Source={StaticResource Localized}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <ListView x:Name="List"
+                              Margin="0, 2, 0, 0"
+                              ItemsSource="{Binding}">
+                        <ListView.ItemContainerStyle>
+                            <StaticResource ResourceKey="ListViewItemContainerStyle" />
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Stretch"
+                                      FlyoutBase.AttachedFlyout="{StaticResource RemoveAccount}"
+                                      Holding="Image_Holding">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Ellipse Grid.Column="0"
+                                             Width="65"
+                                             Height="65"
+                                             Margin="10, 5">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{StaticResource DefaultAvatar}" Stretch="Fill" />
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <TextBlock Grid.Column="1"
+                                               Margin="0"
+                                               HorizontalAlignment="Stretch"
+                                               VerticalAlignment="Center"
+                                               FontSize="18"
+                                               FontWeight="Normal"
+                                               Foreground="{ThemeResource TextColorPrimaryDark}"
+                                               Style="{StaticResource Headline}"
+                                               Text="{Binding AccountName}"
+                                               TextTrimming="CharacterEllipsis" />
+                                    <Button x:Name="SelectAccountButton"
+                                            Grid.Column="2"
+                                            Height="35"
+                                            MinWidth="120"
+                                            MinHeight="0"
+                                            Margin="5, 0"
+                                            VerticalAlignment="Center"
+                                            Background="#FFFFFFFF"
+                                            BorderBrush="#66FFFFFF"
+                                            BorderThickness="0"
+                                            Content="SELECT"
+                                            FontSize="18"
+                                            Foreground="{StaticResource ColorPrimary}"
+                                            Padding="3"
+                                            Style="{StaticResource ButtonStyleNoBG}"
+                                            Tag="{Binding}"
+                                            Tapped="SelectAccountButton_Tapped" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <Border />
+                    </ListView>
+                    <Button x:Name="AddAccount"
+                            Grid.Row="1"
+                            Height="55"
+                            MinHeight="10"
+                            Margin="10, 0"
+                            HorizontalAlignment="Stretch"
+                            Background="#FF529ECC"
+                            BorderThickness="0"
+                            Click="AddAccount_Click"
+                            Content="{Binding [AccountManager_AddAccountButton],
+                                              Source={StaticResource Localized}}"
+                            FontSize="18"
+                            Foreground="White"
+                            Padding="0" />
+                </Grid>
+            </PivotItem>
+        </Pivot>
 
 
-	</Grid>
+    </Grid>
 </Page>

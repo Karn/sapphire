@@ -1,6 +1,7 @@
 ﻿using Core.AuthenticationManager;
 using Core.Client;
 using Core.Content;
+using Core.Content.Model.DatabaseHelpers;
 using Core.Utils;
 using Sapphire.Shared.Common;
 using Sapphire.Utils.Controls;
@@ -219,17 +220,17 @@ namespace Sapphire.Pages {
 		}
 
 		private void ReblogToOptions_Loaded(object sender, RoutedEventArgs e) {
-			var mainblog = UserPreferences.UserBlogs.First();
+            var mainblog = UserPreferences.CurrentBlog;
 			ReblogToOptions.DataContext = mainblog;
 		}
 
 		private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e) {
-			ReblogToOptions.DataContext = UserPreferences.UserBlogs.Where(b => b.Name == ((TextBlock)sender).Text).FirstOrDefault();
+			ReblogToOptions.DataContext = DatabaseController.GetInstance().GetBlog(((TextBlock)sender).Text);
 			Grid_Tapped(null, null);
 		}
 
 		private void ListView_Loaded(object sender, RoutedEventArgs e) {
-			((ListView)sender).ItemsSource = UserPreferences.UserBlogs;
+			((ListView)sender).ItemsSource = DatabaseController.GetInstance().GetBlogs();
 		}
 
 		private void ReblogToOptions_Tapped(object sender, TappedRoutedEventArgs e) {

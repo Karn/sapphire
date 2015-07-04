@@ -14,7 +14,7 @@ namespace Core.Content.Model {
         }
 
         public class UserResponse {
-            public User user { get; set; }
+            public Account user { get; set; }
         }
 
         public class ActivityResponse {

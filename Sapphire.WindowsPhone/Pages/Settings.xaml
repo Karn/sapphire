@@ -28,7 +28,7 @@
                         Style="{StaticResource TransparentButtonStyle}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="8, 12"
+                                   Padding="0, 8"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xE1CF;" />
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}">
@@ -45,7 +45,7 @@
                         Style="{StaticResource TransparentButtonStyle}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="8, 12"
+                                   Padding="0, 8"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xE14D;" />
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}">
@@ -67,7 +67,7 @@
                         Style="{StaticResource TransparentButtonStyle}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="8, 12"
+                                   Padding="0, 8"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xE125;" />
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}">
@@ -81,7 +81,7 @@
                 <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="8, 12"
+                                   Padding="0, 8"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xEA8F;" />
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}">
@@ -101,7 +101,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0"
                                    Foreground="{StaticResource ColorPrimary}"
-                                   Padding="8, 12"
+                                   Padding="0, 8"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xE170;" />
                         <TextBlock Grid.Column="1"
@@ -132,7 +132,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0"
                                    Foreground="{StaticResource ColorPrimary}"
-                                   Padding="8, 12"
+                                   Padding="0, 8"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xEA54;" />
                         <TextBlock Grid.Column="1"
@@ -160,7 +160,7 @@
                         Tapped="ExpandContainer_Tapped">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="8, 12"
+                                   Padding="0, 8"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xEA54;" />
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}">
@@ -187,7 +187,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0"
                                    Foreground="{StaticResource ColorPrimary}"
-                                   Padding="8, 12"
+                                   Padding="0, 8"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xE1CB;" />
                         <TextBlock Grid.Column="1"
@@ -225,7 +225,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
                                        Foreground="{StaticResource ColorPrimary}"
-                                       Padding="8, 12"
+                                       Padding="0, 8"
                                        Style="{StaticResource IconStyle}"
                                        Text="&#xE1CB;" />
                             <TextBlock Grid.Column="1"
@@ -238,7 +238,7 @@
                             <TextBlock Grid.Column="2"
                                        HorizontalAlignment="Right"
                                        Foreground="{StaticResource ColorPrimary}"
-                                       Padding="8, 12"
+                                       Padding="0, 8"
                                        Style="{StaticResource IconStyle}"
                                        Text="&#xE011;" />
                         </Grid>
@@ -276,7 +276,7 @@
                 <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="8, 12"
+                                   Padding="0, 8"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xE12B;" />
                         <TextBlock x:Name="AppVersion" Style="{StaticResource BodyTextBlockStyle}">
@@ -302,7 +302,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
                                        Foreground="{StaticResource ColorPrimary}"
-                                       Padding="8, 12"
+                                       Padding="0, 8"
                                        Style="{StaticResource IconStyle}"
                                        Text="&#xE1DE;" />
                             <TextBlock Grid.Column="1"
@@ -315,7 +315,7 @@
                             <TextBlock Grid.Column="2"
                                        HorizontalAlignment="Right"
                                        Foreground="{StaticResource ColorPrimary}"
-                                       Padding="8, 12"
+                                       Padding="0, 8"
                                        Style="{StaticResource IconStyle}"
                                        Text="&#xE011;" />
                         </Grid>
@@ -335,7 +335,7 @@
                 <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Foreground="{StaticResource ColorPrimary}"
-                                   Padding="8, 12"
+                                   Padding="0, 8"
                                    Style="{StaticResource IconStyle}"
                                    Text="&#xE192;" />
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}">
@@ -361,7 +361,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
                                        Foreground="{StaticResource ColorPrimary}"
-                                       Padding="8, 12"
+                                       Padding="0, 8"
                                        Style="{StaticResource IconStyle}"
                                        Text="&#xE939;" />
                             <TextBlock Grid.Column="1"
@@ -374,7 +374,7 @@
                             <TextBlock Grid.Column="2"
                                        HorizontalAlignment="Right"
                                        Foreground="{StaticResource ColorPrimary}"
-                                       Padding="8, 12"
+                                       Padding="0, 8"
                                        Style="{StaticResource IconStyle}"
                                        Text="&#xE011;" />
                         </Grid>

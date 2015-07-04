@@ -1,8 +1,10 @@
 ﻿using Core.Client;
 using Core.Content;
+using Core.Content.Model.DatabaseHelpers;
 using Core.Utils;
 using Sapphire.Shared.Common;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
@@ -39,6 +41,10 @@ namespace Sapphire {
             if (UserPreferences.NotificationsEnabled)
                 RegisterBackgroundTask();
 
+            foreach (var b in DatabaseController.GetInstance().GetBlogs()) {
+                Debug.WriteLine(b.Name);
+            }
+
             HardwareButtons.BackPressed += BackButtonPressed;
         }
 
@@ -59,21 +65,17 @@ namespace Sapphire {
 
             if (await CreateRequest.RetrieveAccount(account)) {
                 AccountPivot.DataContext = UserPreferences.CurrentBlog;
-                if (App.dbHelper.GetBlog(UserPreferences.CurrentBlog.Name) != null)
-                    App.dbHelper.UpdateBlog(UserPreferences.CurrentBlog);
-                else
-                    App.dbHelper.AddBlog(UserPreferences.CurrentBlog);
                 App.HideStatus();
                 return true;
             } else {
                 if (!string.IsNullOrWhiteSpace(account)) {
-                    var blog = App.dbHelper.GetBlog(account);
+                    var blog = DatabaseController.GetInstance().GetBlog(account);
                     if (blog != null) {
                         AccountPivot.DataContext = blog;
                     } else
                         App.Alert(App.LocaleResources.GetString("UnableToLoadAccount"));
                 } else {
-                    var blog = App.dbHelper.GetBlogs().FirstOrDefault();
+                    var blog = DatabaseController.GetInstance().GetBlogs().FirstOrDefault();
                     if (blog != null) {
                         AccountPivot.DataContext = blog;
                     } else
@@ -262,7 +264,7 @@ namespace Sapphire {
                         break;
                     case "Followers":
                     case "Following":
-                        if (!Frame.Navigate(typeof(Pages.FollowersFollowing), ((StackPanel)sender).Tag.ToString()))
+                        if (!Frame.Navigate(typeof(Pages.FollowersFollowing), ((FrameworkElement)sender).Tag.ToString()))
                             Log.e("Failed to navigate to Following.");
                         break;
                 }

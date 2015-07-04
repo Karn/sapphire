@@ -13,8 +13,6 @@ namespace Core.Content {
 		public static string TAG = "UserStore";
 
 		public static Blog CurrentBlog;
-
-		public static ObservableCollection<Blog> UserBlogs = new ObservableCollection<Blog>();
 		private static ObservableCollection<Blog> FavBlogs;
 
 		private static ApplicationDataContainer Settings = ApplicationData.Current.LocalSettings;

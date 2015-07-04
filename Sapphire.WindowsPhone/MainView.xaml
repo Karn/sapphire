@@ -108,7 +108,7 @@
 
                     <Grid>
                         <Grid.Background>
-                            <ImageBrush ImageSource="{Binding BlogTheme.HeaderImage,
+                            <ImageBrush ImageSource="{Binding HeaderImage,
                                                               FallbackValue={ThemeResource DefaultPattern}}"
                                         Opacity="0.5"
                                         Stretch="UniformToFill" />
@@ -139,8 +139,8 @@
                             <TextBlock Foreground="{StaticResource PrimaryText}"
                                        Style="{StaticResource Caption}"
                                        TextWrapping="NoWrap">
-                                <Hyperlink NavigateUri="{Binding URL, FallbackValue=http://www.tumblr.com}">
-                                    <Run Text="{Binding URL, FallbackValue=url}" />
+                                <Hyperlink NavigateUri="{Binding Url, FallbackValue=http://www.tumblr.com}">
+                                    <Run Text="{Binding Url, FallbackValue=url}" />
                                 </Hyperlink>
                             </TextBlock>
                             <TextBlock Foreground="{StaticResource PrimaryText}"
@@ -195,7 +195,7 @@
                                    Style="{StaticResource Title}"
                                    Tag="Likes"
                                    Tapped="AccountDetails_Tapped">
-                            <Run Foreground="{StaticResource ColorPrimaryDark}" Text="{Binding LikedPostCount, FallbackValue=0}" />
+                            <Run Foreground="{StaticResource ColorPrimaryDark}" Text="{Binding LikesCount, FallbackValue=0}" />
                             <LineBreak />
                             <Run FontSize="12" Text="{Binding [Account_Likes], Source={StaticResource Localized}}" />
                         </TextBlock>
@@ -205,7 +205,7 @@
                                    Style="{StaticResource Title}"
                                    Tag="Followers"
                                    Tapped="AccountDetails_Tapped">
-                            <Run Foreground="{StaticResource ColorPrimaryDark}" Text="{Binding FollowersCount, FallbackValue=0}" />
+                            <Run Foreground="{StaticResource ColorPrimaryDark}" Text="{Binding Followers, FallbackValue=0}" />
                             <LineBreak />
                             <Run FontSize="12" Text="{Binding [Account_Followers], Source={StaticResource Localized}}" />
                         </TextBlock>

@@ -18,7 +18,7 @@ namespace Core.Utils {
 
 		public Analytics() {
 			var trackerManager = new TrackerManager(new PlatformInfoProvider() {
-				AnonymousClientId = AuthenticationManager.Authentication.AuthenticatedTokens.Keys.First(),
+				AnonymousClientId = AuthenticationManager.Authentication.SelectedAccount,
 				UserAgent = string.Format("Mozilla/5.0 (Windows Phone 8.1; Android 4.2.1; {0}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Mobile Safari/537.36 Edge/12.0",
 				_DeviceInformation.SystemManufacturer.ToString(),
 				_DeviceInformation.SystemSku.ToString().Split('_')[0])

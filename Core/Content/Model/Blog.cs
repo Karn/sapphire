@@ -25,7 +25,7 @@ namespace Core.Content.Model {
         /// The name of this blog.
         /// </summary>
         [JsonProperty("name")]
-        [SQLite.Net.Attributes.PrimaryKey]
+        [SQLite.PrimaryKey]
         public string Name { get; set; }
 
         /// <summary>
@@ -79,9 +79,8 @@ namespace Core.Content.Model {
         /// <summary>
         /// ThemeObject which represents the theming values
         /// </summary>
-        [SQLite.Net.Attributes.Ignore]
         [JsonProperty("theme")]
-        public Theme BlogTheme { get; set; }
+        internal Theme BlogTheme { get; set; }
 
         /// <summary>
         /// Number of other blogs that are following this blog.
@@ -108,6 +107,11 @@ namespace Core.Content.Model {
         public int Drafts { get; set; }
 
         /// <summary>
+        /// Email/Tumblr Username associated with the account.
+        /// </summary>
+        public string AccountEmail { get; set; }
+
+        /// <summary>
         /// Reference to the header image of the blog.
         /// </summary>
         public string HeaderImage { get; set; }
@@ -125,7 +129,6 @@ namespace Core.Content.Model {
         /// <summary>
         /// The uri to the blogs avatar.
         /// </summary>
-        [SQLite.Net.Attributes.Ignore]
         public string Avatar { get { return "http://api.tumblr.com/v2/blog/" + Name + ".tumblr.com/avatar/128"; } }
     }
 }

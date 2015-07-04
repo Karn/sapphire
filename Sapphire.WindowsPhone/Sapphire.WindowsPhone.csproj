@@ -156,9 +156,6 @@
     <Compile Include="Utils\Converters\RelativeDate.cs" />
     <Compile Include="Utils\Converters\RelativeTime.cs" />
     <Compile Include="Utils\Converters\ToPrettyDate.cs" />
-    <Compile Include="Utils\DataBase\DatabaseController.cs" />
-    <Compile Include="Utils\DataBase\SQLite.cs" />
-    <Compile Include="Utils\DataBase\SQLiteAsync.cs" />
     <Compile Include="Utils\Misc\ContinuationManager.cs" />
     <Compile Include="Utils\Misc\EventHandlers.cs" />
     <Compile Include="Utils\Misc\IncrementalPostLoader.cs" />
