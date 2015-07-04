@@ -43,7 +43,7 @@ namespace Sapphire.Pages {
             } else if (PageTitle.Text.ToString() == "Following") {
                 foreach (var blog in await CreateRequest.RetrieveFollowing(offset)) {
                     //if (!BlogList.Contains(blog)) {
-                    blog.IsFollowing = true;
+                    //blog.Following = true;
                     BlogList.Add(blog);
                     //}
                 }

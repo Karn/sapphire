@@ -40,11 +40,12 @@ namespace Core.Client {
 					UserPreferences.UserBlogs.Clear();
 
 					foreach (var b in parsedData.response.user.AccountBlogs) {
+                        b.HeaderImage = b.BlogTheme.HeaderImage;
 						b.FollowingCount = parsedData.response.user.BlogsFollowingCount;
-						b.LikedPostCount = parsedData.response.user.LikedPostCount;
+						b.LikesCount = parsedData.response.user.LikedPostCount;
 
 						UserPreferences.UserBlogs.Add(b);
-						if (b.Name == account || (UserPreferences.CurrentBlog == null && b.IsPrimaryBlog) || (b.Name == UserPreferences.CurrentBlog.Name)) {
+						if (b.Name == account || (UserPreferences.CurrentBlog == null && b.IsPrimary) || (b.Name == UserPreferences.CurrentBlog.Name)) {
 							UserPreferences.CurrentBlog = b;
 						}
 					}

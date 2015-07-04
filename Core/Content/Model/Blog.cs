@@ -1,87 +1,131 @@
-﻿using Core.Client;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
-using System.Diagnostics;
 
 namespace Core.Content.Model {
-	public class Blog : IEquatable<Blog> {
 
-		[JsonProperty("primary")]
-		public bool IsPrimaryBlog { get; set; }
+    /// <summary>
+    /// Handles 'Blog' JSON deserialzation and DataBase object manipulations.
+    /// </summary>
+    [JsonObject(MemberSerialization.OptIn)]
+    public class Blog {
 
-		public string _name = "";
+        /// <summary>
+        /// Returns 'true' if this object is the primary blog.
+        /// </summary>
+        [JsonProperty("primary")]
+        public bool IsPrimary { get; set; }
 
-		[JsonProperty("name")]
-		public string Name {
-			get { return _name; }
-			set { _name = value; }
-		}
+        /// <summary>
+        /// Friendly name of the blog.
+        /// </summary>
+        [JsonProperty("title")]
+        public string Title { get; set; }
 
-		[JsonProperty("title")]
-		public string Title { get; set; }
+        /// <summary>
+        /// The name of this blog.
+        /// </summary>
+        [JsonProperty("name")]
+        [SQLite.Net.Attributes.PrimaryKey]
+        public string Name { get; set; }
 
-		public string Avatar {
-			get { return "http://api.tumblr.com/v2/blog/" + Name + ".tumblr.com/avatar/128"; }
-		}
+        /// <summary>
+        /// Number of posts created or reblogged by user.
+        /// </summary>
+        [JsonProperty("posts")]
+        public string PostCount { get; set; }
 
-		[JsonProperty("description")]
-		private string _description;
+        /// <summary>
+        /// Url to the blog.
+        /// </summary>
+        [JsonProperty("url")]
+        public string Url { get; set; }
 
-		public string Description {
-			get { return _description; }
-			set { _description = CreateRequest.GetPlainTextFromHtml(value); }
-		}
+        /// <summary>
+        /// Description of the blog.
+        /// </summary>
+        [JsonProperty("description")]
+        public string Description { get; set; }
 
-		[JsonProperty("url")]
-		public string URL { get; set; }
+        /// <summary>
+        /// Sets/Returns 'true' if the blog contains adult content.
+        /// </summary>
+        [JsonProperty("nsfw")]
+        public bool IsNsfw { get; set; }
 
-		[JsonProperty("posts")]
-		public string PostCount { get; set; }
+        /// <summary>
+        /// Sets/Returns 'true' if the blog allows other users to post questions to their mailbox.
+        /// </summary>
+        [JsonProperty("ask")]
+        public bool AsksEnabled { get; set; }
 
-		[JsonProperty("theme")]
-		public Theme BlogTheme { get; set; }
+        /// <summary>
+        /// Sets/Returns 'true' if the blog allows other user to post questions to their mailbox anonymously.
+        /// </summary>
+        [JsonProperty("ask_anon")]
+        public bool AllowAnonAsks { get; set; }
 
-		public int LikedPostCount { get; set; }
+        /// <summary>
+        /// Sets/Returns 'true' if the blog is being followed by this account.
+        /// </summary>
+        [JsonProperty("followed")]
+        public bool Followed { get; set; }
 
-		[JsonProperty("followers")]
-		public int FollowersCount { get; set; }
+        /// <summary>
+        /// Sets/Returns 'true' if the blog allows for the accounts likes to be visible publically.
+        /// </summary>
+        [JsonProperty("share_likes")]
+        public bool LikesVisible { get; set; }
 
-		public int FollowingCount { get; set; }
+        /// <summary>
+        /// ThemeObject which represents the theming values
+        /// </summary>
+        [SQLite.Net.Attributes.Ignore]
+        [JsonProperty("theme")]
+        public Theme BlogTheme { get; set; }
 
-		[JsonProperty("following")]
-		public bool _following { get; set; }
+        /// <summary>
+        /// Number of other blogs that are following this blog.
+        /// </summary>
+        [JsonProperty("followers")]
+        public int Followers { get; set; }
 
-		[JsonProperty("followed")]
-		public bool _followed { get; set; }
+        /// <summary>
+        /// Sets/Returns 'true' if the account is following this blog.
+        /// </summary>
+        [JsonProperty("following")]
+        public bool Following { get; set; }
 
-		public bool IsFollowing {
-			get {
-				return (_following || _followed);
-			}
-			set {
-				_following = value;
-			}
-		}
+        /// <summary>
+        /// Number of posts that are queued by the blog.
+        /// </summary>
+        [JsonProperty("queue")]
+        public int Queue { get; set; }
 
-		[JsonProperty("share_likes")]
-		public bool LikesVisible { get; set; }
+        /// <summary>
+        /// Number of drafts that are pending by the blog.
+        /// </summary>
+        [JsonProperty("drafts")]
+        public int Drafts { get; set; }
 
-		private bool _AsksEnabled { get; set; }
+        /// <summary>
+        /// Reference to the header image of the blog.
+        /// </summary>
+        public string HeaderImage { get; set; }
 
-		[JsonProperty("ask")]
-		public bool AsksEnabled {
-			get {
-				if (Utils.AppLicenseHandler.IsTrial)
-					return false;
-				return _AsksEnabled;
-			}
-			set {
-				_AsksEnabled = value;
-			}
-		}
+        /// <summary>
+        /// Number of posts likes by the account.
+        /// </summary>
+        public int LikesCount { get; set; }
 
-		public bool Equals(Blog other) {
-			return this.Name == other.Name;
-		}
-	}
+        /// <summary>
+        /// Number of other blogs following this blog.
+        /// </summary>
+        public int FollowingCount { get; set; }
+
+        /// <summary>
+        /// The uri to the blogs avatar.
+        /// </summary>
+        [SQLite.Net.Attributes.Ignore]
+        public string Avatar { get { return "http://api.tumblr.com/v2/blog/" + Name + ".tumblr.com/avatar/128"; } }
+    }
 }

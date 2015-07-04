@@ -1,4 +1,4 @@
-﻿using Sapphire.Utils.DataBase.DataTables;
+﻿using Core.Content.Model;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using Windows.Storage;
 
 namespace Sapphire.Utils.DataBase {
     //This class for perform all database CRUD operations    
-    public class DatabaseHelperClass {
+    public class DatabaseController {
         SQLiteConnection dbConn;
 
 
@@ -20,7 +20,7 @@ namespace Sapphire.Utils.DataBase {
         public void CreateDB() {
             if (!CheckFileExists(DB_NAME).Result) {
                 using (dbConn = new SQLiteConnection(DB_PATH)) {
-                    dbConn.CreateTable<UserBlogs>();
+                    dbConn.CreateTable<Blog>();
                 }
             }
         }
@@ -38,7 +38,7 @@ namespace Sapphire.Utils.DataBase {
             try {
                 if (!CheckFileExists(DB_PATH).Result) {
                     using (dbConn = new SQLiteConnection(DB_PATH)) {
-                        dbConn.CreateTable<UserBlogs>();
+                        dbConn.CreateTable<Blog>();
                     }
                 }
                 return true;
@@ -48,42 +48,32 @@ namespace Sapphire.Utils.DataBase {
         }
 
         // Retrieve the specific contact from the database.    
-        public UserBlogs GetBlog(string blogName) {
+        public Blog GetBlog(string blogName) {
             using (var dbConn = new SQLiteConnection(DB_PATH)) {
-                return dbConn.Query<UserBlogs>("select * from UserBlogs where BlogName =" + blogName).FirstOrDefault();
+                return dbConn.Query<Blog>("select * from Blog where BlogName =" + blogName).FirstOrDefault();
             }
         }
         // Retrieve the all contact list from the database.    
-        public List<UserBlogs> GetBlogs() {
+        public List<Blog> GetBlogs() {
             using (var dbConn = new SQLiteConnection(DB_PATH)) {
-                return dbConn.Table<UserBlogs>().ToList();
+                return dbConn.Table<Blog>().ToList();
             }
         }
 
         //Update existing conatct    
-        public void AddOrUpdateBlog(UserBlogs blog) {
+        public void UpdateBlog(Blog blog) {
             using (var dbConn = new SQLiteConnection(DB_PATH)) {
-                var existingBlog = dbConn.Query<UserBlogs>("select * from UserBlogs where BlogName =" + blog.BlogName).FirstOrDefault();
+                var existingBlog = dbConn.Query<Blog>("select * from Blog where Name =" + blog.Name).FirstOrDefault();
                 if (existingBlog != null) {
-                    existingBlog.BlogName = blog.BlogName;
-                    existingBlog.Title = blog.Title;
-                    existingBlog.Avatar = blog.Avatar;
-                    existingBlog.Description = blog.Description;
-                    existingBlog.Url = blog.Url;
-                    existingBlog.PostCount = blog.PostCount;
-                    existingBlog.LikedPostCount = blog.LikedPostCount;
-                    existingBlog.FollowersCount = blog.FollowersCount;
-                    existingBlog.FollowingCount = blog.FollowingCount;
+                    existingBlog = blog;
                     dbConn.RunInTransaction(() => {
                         dbConn.Update(existingBlog);
                     });
-                } else {
-                    AddBlog(blog);
                 }
             }
         }
         // Insert the new contact in the Contacts table.    
-        public void AddBlog(UserBlogs newBlog) {
+        public void AddBlog(Blog newBlog) {
             using (var dbConn = new SQLiteConnection(DB_PATH)) {
                 dbConn.RunInTransaction(() => {
                     dbConn.Insert(newBlog);
@@ -94,7 +84,7 @@ namespace Sapphire.Utils.DataBase {
         //Delete specific contact    
         public void RemoveBlog(string blogName) {
             using (var dbConn = new SQLiteConnection(DB_PATH)) {
-                var existingconact = dbConn.Query<UserBlogs>("select * from UserBlogs where BlogName =" + blogName).FirstOrDefault();
+                var existingconact = dbConn.Query<Blog>("select * from UserBlogs where Name =" + blogName).FirstOrDefault();
                 if (existingconact != null) {
                     dbConn.RunInTransaction(() => {
                         dbConn.Delete(existingconact);
@@ -108,8 +98,8 @@ namespace Sapphire.Utils.DataBase {
             using (var dbConn = new SQLiteConnection(DB_PATH)) {
                 //dbConn.RunInTransaction(() =>    
                 //   {    
-                dbConn.DropTable<UserBlogs>();
-                dbConn.CreateTable<UserBlogs>();
+                dbConn.DropTable<Blog>();
+                dbConn.CreateTable<Blog>();
                 dbConn.Dispose();
                 dbConn.Close();
                 //});    

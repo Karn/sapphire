@@ -24,7 +24,7 @@ namespace Sapphire {
 
         private static StatusBar statusBar;
         private TransitionCollection transitions;
-        public static DatabaseHelperClass dbHelper;
+        public static DatabaseController dbHelper;
 
         public ContinuationManager ContinuationManager { get; private set; }
 
@@ -35,7 +35,7 @@ namespace Sapphire {
             new UserPreferences();
             Log.i("Initialized user preferences.");
 
-            dbHelper = new DatabaseHelperClass();
+            dbHelper = new DatabaseController();
             dbHelper.CreateDB();
 
             Log.i("Initialized application data store.");

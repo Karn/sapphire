@@ -2,9 +2,6 @@
 using Core.Content;
 using Core.Utils;
 using Sapphire.Shared.Common;
-using Sapphire.Utils;
-using Sapphire.Utils.DataBase;
-using Sapphire.Utils.DataBase.DataTables;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +12,6 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace Sapphire {
@@ -63,20 +59,10 @@ namespace Sapphire {
 
             if (await CreateRequest.RetrieveAccount(account)) {
                 AccountPivot.DataContext = UserPreferences.CurrentBlog;
-                UserBlogs blog = new UserBlogs();
-                blog.BlogName = UserPreferences.CurrentBlog.Name;
-                blog.Title = UserPreferences.CurrentBlog.Title;
-                blog.Avatar = UserPreferences.CurrentBlog.Avatar;
-                blog.Description = UserPreferences.CurrentBlog.Description;
-                blog.Url = UserPreferences.CurrentBlog.URL;
-                blog.PostCount = UserPreferences.CurrentBlog.PostCount;
-                blog.LikedPostCount = UserPrefere8nces.CurrentBlog.LikedPostCount;
-                blog.FollowersCount = UserPreferences.CurrentBlog.FollowersCount;
-                blog.FollowingCount = UserPreferences.CurrentBlog.FollowingCount;
-                if (App.dbHelper.GetBlogs().Contains(blog))
-                    App.dbHelper.AddOrUpdateBlog(blog);
+                if (App.dbHelper.GetBlog(UserPreferences.CurrentBlog.Name) != null)
+                    App.dbHelper.UpdateBlog(UserPreferences.CurrentBlog);
                 else
-                    App.dbHelper.AddBlog(blog);
+                    App.dbHelper.AddBlog(UserPreferences.CurrentBlog);
                 App.HideStatus();
                 return true;
             } else {
