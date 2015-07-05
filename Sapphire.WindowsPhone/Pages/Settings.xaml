@@ -289,10 +289,7 @@
 
                 <Button Foreground="{StaticResource TextColorPrimaryDark}"
                         Style="{StaticResource TransparentButtonStyle}"
-                        Tapped="ExpandContainer_Tapped"
-                        Visibility="{Binding ElementName=PageTitle,
-                                             Converter={StaticResource IsFullVersion},
-                                             FallbackValue=Collapsed}">
+                        Tapped="ExpandContainer_Tapped">
                     <StackPanel>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -348,10 +345,7 @@
 
                 <Button Foreground="{StaticResource TextColorPrimaryDark}"
                         Style="{StaticResource TransparentButtonStyle}"
-                        Tapped="ExpandContainer_Tapped"
-                        Visibility="{Binding ElementName=PageTitle,
-                                             Converter={StaticResource IsFullVersion},
-                                             FallbackValue=Collapsed}">
+                        Tapped="ExpandContainer_Tapped">
                     <StackPanel>
                         <Grid>
                             <Grid.ColumnDefinitions>

@@ -119,6 +119,10 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
+                        <Grid Grid.ColumnSpan="2"
+                              Background="Black"
+                              Opacity="0.15" />
+
                         <Ellipse Width="96"
                                  Height="96"
                                  Margin="20"
@@ -132,19 +136,19 @@
                         <StackPanel Grid.Column="1"
                                     Margin="0, 20"
                                     HorizontalAlignment="Stretch">
-                            <TextBlock Foreground="{StaticResource PrimaryText}"
+                            <TextBlock Foreground="{StaticResource TextColorPrimary}"
                                        Style="{StaticResource Title}"
                                        Text="{Binding Title,
                                                       FallbackValue=Blog Name}" />
-                            <TextBlock Foreground="{StaticResource PrimaryText}"
+                            <TextBlock Foreground="{StaticResource TextColorPrimary}"
                                        Style="{StaticResource Caption}"
                                        TextWrapping="NoWrap">
                                 <Hyperlink NavigateUri="{Binding Url, FallbackValue=http://www.tumblr.com}">
                                     <Run Text="{Binding Url, FallbackValue=url}" />
                                 </Hyperlink>
                             </TextBlock>
-                            <TextBlock Foreground="{StaticResource PrimaryText}"
-                                       Opacity=".75"
+                            <TextBlock Foreground="{StaticResource TextColorPrimary}"
+                                       Opacity=".85"
                                        Style="{StaticResource Caption}"
                                        Text="{Binding Description,
                                                       FallbackValue=description}"

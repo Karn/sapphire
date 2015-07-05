@@ -1,7 +1,6 @@
 ﻿using Core.Content;
 using Sapphire.Shared.Common;
 using System;
-using System.Diagnostics;
 using System.Linq;
 using Windows.ApplicationModel;
 using Windows.System;
@@ -13,7 +12,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Sapphire.Pages {
 
-	public sealed partial class Settings : Page {
+    public sealed partial class Settings : Page {
 		private NavigationHelper navigationHelper;
 
 		public Settings() {
