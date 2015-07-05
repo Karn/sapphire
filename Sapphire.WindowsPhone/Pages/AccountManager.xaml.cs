@@ -33,9 +33,6 @@ namespace Sapphire.Pages {
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
-
-            BlogList.ItemsSource = DatabaseController.GetInstance().GetBlogs();
-            List.ItemsSource = DatabaseController.GetInstance().GetAccounts();
         }
 
         private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e) {
@@ -59,6 +56,9 @@ namespace Sapphire.Pages {
                 if (e.NavigationParameter.ToString() == "1")
                     Items.SelectedIndex = 1;
             }
+
+            BlogList.ItemsSource = DatabaseController.GetInstance().GetBlogs();
+            List.ItemsSource = DatabaseController.GetInstance().GetAccounts();
         }
 
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e) {
@@ -79,7 +79,6 @@ namespace Sapphire.Pages {
             if (!Frame.Navigate(typeof(Login))) {
                 throw new Exception();
             }
-            List.ItemsSource = DatabaseController.GetInstance().GetAccounts();
         }
 
         private void Image_Holding(object sender, HoldingRoutedEventArgs e) {
@@ -118,7 +117,7 @@ namespace Sapphire.Pages {
                             Authentication.Token = newAccount.AuthenticatedToken;
                             Authentication.TokenSecret = newAccount.AuthenticationTokenSecret;
 
-                            MainView.SwitchedAccount = true;
+                            MainView.SwitchedAccount = "Sapphire.Default";
                         }
                     } else {
                         Grid_Tapped(null, null);
@@ -146,10 +145,11 @@ namespace Sapphire.Pages {
                 Authentication.SelectedAccount = ((Button)sender).Tag.ToString();
 
                 Account user = DatabaseController.GetInstance().GetAccount(Authentication.SelectedAccount);
+                Debug.WriteLine(user.AuthenticatedToken);
                 Authentication.Token = user.AuthenticatedToken;
                 Authentication.TokenSecret = user.AuthenticationTokenSecret;
 
-                MainView.SwitchedAccount = true;
+                MainView.SwitchedAccount = "Sapphire.Default";
                 if (!Frame.Navigate(typeof(MainView))) {
                     throw new Exception();
                 }

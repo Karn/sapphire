@@ -1,4 +1,5 @@
-﻿using Core.Client;
+﻿using Core.AuthenticationManager;
+using Core.Client;
 using Core.Content;
 using Core.Content.Model.DatabaseHelpers;
 using Core.Utils;
@@ -25,7 +26,7 @@ namespace Sapphire {
 
         private static int LastIndex = -1;
         public static bool SwitchedBlog = false;
-        public static bool SwitchedAccount = false;
+        public static string SwitchedAccount;
 
         public MainView() {
             this.InitializeComponent();
@@ -40,10 +41,6 @@ namespace Sapphire {
 
             if (UserPreferences.NotificationsEnabled)
                 RegisterBackgroundTask();
-
-            foreach (var b in DatabaseController.GetInstance().GetAccounts()) {
-                Debug.WriteLine(b.AccountEmail);
-            }
 
             HardwareButtons.BackPressed += BackButtonPressed;
         }
@@ -68,7 +65,7 @@ namespace Sapphire {
                 App.HideStatus();
                 return true;
             } else {
-                if (!string.IsNullOrWhiteSpace(account)) {
+                if (!string.IsNullOrWhiteSpace(account) && account != "Sapphire.Default") {
                     var blog = DatabaseController.GetInstance().GetBlog(account);
                     if (blog != null) {
                         AccountPivot.DataContext = blog;
@@ -108,14 +105,17 @@ namespace Sapphire {
             if (AccountPivot.DataContext == null)
                 CreateView();
 
-            if (SwitchedAccount) {
+            if (LastIndex != -1)
+                NavigationPivot.SelectedIndex = LastIndex;
+
+            if (!string.IsNullOrWhiteSpace(SwitchedAccount)) {
                 Log.i("Refreshing due to account switch.");
                 NavigationPivot.SelectedIndex = 0;
-                await GetUserAccount(string.Empty);
+                await GetUserAccount(SwitchedAccount);
                 Dashboard.RefreshPosts();
                 Activity.ClearPosts();
                 await Activity.RetrieveNotifications();
-                SwitchedAccount = false;
+                SwitchedAccount = null;
             } else if (SwitchedBlog) {
                 Log.i("Refreshing due to blog switch.");
                 AccountPivot.DataContext = UserPreferences.CurrentBlog;
@@ -130,9 +130,6 @@ namespace Sapphire {
                     NavigationPivot.SelectedIndex = 1;
                 }
             }
-
-            if (LastIndex != -1)
-                NavigationPivot.SelectedIndex = LastIndex;
 
             //Remove entries before this page.
             Frame.BackStack.Clear();

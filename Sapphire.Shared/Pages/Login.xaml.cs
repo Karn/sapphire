@@ -116,7 +116,7 @@ namespace Sapphire.Shared.Pages {
                     } else {
 #if WINDOWS_PHONE_APP
 
-                        if (!Frame.Navigate(typeof(Sapphire.Pages.AccountManager))) {
+                        if (!Frame.Navigate(typeof(Sapphire.Pages.AccountManager), "1")) {
                             throw new Exception();
                         }
 #endif

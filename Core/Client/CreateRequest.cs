@@ -44,7 +44,8 @@ namespace Core.Client {
                     user.PushEnabled = parsedData.response.user.PushEnabled;
 
                     foreach (var blog in parsedData.response.user.AccountBlogs) {
-
+                        blog.AccountEmail = user.AccountEmail;
+                        blog.HeaderImage = blog.BlogTheme.HeaderImage;
                         blog.FollowingCount = parsedData.response.user.FollowingCount;
                         blog.LikesCount = parsedData.response.user.LikesCount;
 
@@ -53,13 +54,16 @@ namespace Core.Client {
                         else
                             DatabaseController.GetInstance().AddBlog(blog);
 
-                        if (blog.Name == account || (UserPreferences.CurrentBlog == null && blog.IsPrimary) || (blog.Name == UserPreferences.CurrentBlog.Name)) {
+                        if (blog.AccountEmail != Authentication.SelectedAccount || (UserPreferences.CurrentBlog == null && blog.IsPrimary) || UserPreferences.CurrentBlog.Name == blog.Name) {
                             UserPreferences.CurrentBlog = blog;
                         }
                     }
 
+                    if (account == "Sapphire.Default")
+                        UserPreferences.CurrentBlog = DatabaseController.GetInstance().GetBlogs().FirstOrDefault();
+
                     DatabaseController.GetInstance().UpdateAccount(user);
-                    if (DatabaseController.GetInstance().GetBlogs().Count > 0)
+                    if (UserPreferences.CurrentBlog != null)
                         return true;
                 } else if (result.StatusCode == HttpStatusCode.InternalServerError) {
                     throw new Exception("InternalServerError");

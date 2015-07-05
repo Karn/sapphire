@@ -55,7 +55,7 @@ namespace Core.Content.Model.DatabaseHelpers {
         // Retrieve the all contact list from the database.    
         public List<Blog> GetBlogs() {
             using (var dbConn = new SQLiteConnection(DatabaseConstants.DB_PATH)) {
-                return dbConn.Table<Blog>().ToList();
+                return dbConn.Query<Blog>("select * from Blog where AccountEmail = ?", AuthenticationManager.Authentication.SelectedAccount);
             }
         }
 
@@ -146,7 +146,7 @@ namespace Core.Content.Model.DatabaseHelpers {
                 }
             }
         }
- 
+
         public void RemoveAccount(string accountEmail) {
             using (var dbConn = new SQLiteConnection(DatabaseConstants.DB_PATH)) {
                 var existingAccount = dbConn.Query<Account>("select * from Account where AccountEmail = ?", accountEmail).FirstOrDefault();
@@ -157,7 +157,7 @@ namespace Core.Content.Model.DatabaseHelpers {
                 }
             }
         }
- 
+
         public List<Account> GetAccounts() {
             using (var dbConn = new SQLiteConnection(DatabaseConstants.DB_PATH)) {
                 return dbConn.Table<Account>().ToList();

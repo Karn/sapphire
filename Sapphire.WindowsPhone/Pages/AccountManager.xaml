@@ -119,8 +119,8 @@
                                         Foreground="{StaticResource TextColorPrimaryDark}"
                                         Holding="Image_Holding"
                                         Style="{StaticResource TransparentButtonStyle}"
-                                        Tag="{Binding}">
-                                    <StackPanel Orientation="Horizontal">
+                                        Tag="{Binding AccountEmail}">
+                                    <StackPanel Margin="0, 4" Orientation="Horizontal">
                                         <Ellipse Width="60" Height="60">
                                             <Ellipse.Fill>
                                                 <ImageBrush ImageSource="{StaticResource DefaultAvatar}" Stretch="Fill" />
