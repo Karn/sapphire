@@ -65,7 +65,7 @@ namespace Sapphire.Utils.Misc {
 
 						posts = await CreateRequest.RetrievePosts(URL, _params);
 
-						if (posts.Count != 0) {
+						if (posts != null && posts.Count != 0) {
 							foreach (var post in posts)
 								this.Add(post);
 
@@ -83,12 +83,12 @@ namespace Sapphire.Utils.Misc {
 							App.Alert(App.LocaleResources.GetString("PostLoadFailed"));
 						}
 
-						if (posts.Count < 20)
+						if (posts == null || posts.Count < 20)
 							HasMoreItems = false;
 
 						_IsRunning = false;
 						App.HideStatus();
-						return new LoadMoreItemsResult() { Count = (uint)posts.Count };
+						return new LoadMoreItemsResult() { Count = (posts == null) ? 0 : (uint)posts.Count };
 					});
 				} catch (Exception ex) {
 				}
