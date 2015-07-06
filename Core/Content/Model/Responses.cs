@@ -48,11 +48,10 @@ namespace Core.Content.Model {
             public int liked_count { get; set; }
         }
 
-        public class SpotlightResponse {
-            public string tag { get; set; }
-            public string title { get; set; }
+        public class SpotlightItem {
+            public string Title { get; set; }
             public List<string> images { get; set; }
-            public string promo_image {
+            public string Image {
                 get {
                     return images.ElementAt(new Random().Next(0, images.Count));
                 }
@@ -110,7 +109,7 @@ namespace Core.Content.Model {
 
         public class GetSpotlight {
             public Meta meta { get; set; }
-            public List<SpotlightResponse> response { get; set; }
+            public List<SpotlightItem> response { get; set; }
         }
 
         public class GetSearch {

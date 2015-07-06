@@ -322,31 +322,33 @@
                                Opacity=".5"
                                Source="Assets/Nav/Search_Dark.png" />
                     </Grid>
-                    <GridView x:Name="SpotlightTags"
+                    <ListView x:Name="SpotlightTags"
                               Grid.Row="1"
+                              Padding="0, 0, 0, 4"
+                              HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch"
-                              ItemsSource="{Binding}"
-                              Loaded="Spotlight_Loaded"
-                              ScrollViewer.VerticalScrollMode="Enabled">
-                        <GridView.ItemTemplate>
+                              HorizontalContentAlignment="Stretch"
+                              ItemsSource="{Binding}">
+                        <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="0, 0, 2, 2"
-                                      Loaded="SetSpotlightItemDimensions"
-                                      Tag="{Binding tag}"
+                                <Grid Height="100"
+                                      Margin="0, 0, 2, 2"
+                                      HorizontalAlignment="Stretch"
+                                      Tag="{Binding Title}"
                                       Tapped="SpotlightItem_Tapped">
-                                    <Image Source="{Binding promo_image}" Stretch="UniformToFill" />
+                                    <Image Source="{Binding Image}" Stretch="UniformToFill" />
                                     <StackPanel Height="35"
                                                 VerticalAlignment="Top"
                                                 Background="#33000000">
                                         <TextBlock FontWeight="Normal"
                                                    Foreground="White"
                                                    Style="{StaticResource Body}"
-                                                   Text="{Binding title}" />
+                                                   Text="{Binding Title}" />
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>
-                        </GridView.ItemTemplate>
-                    </GridView>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
             </PivotItem>
 

@@ -301,23 +301,23 @@ namespace Core.Client {
                 .response.blogs : new List<Blog>();
         }
 
-        public static async Task<List<Responses.SpotlightResponse>> RetrieveSpotlight(bool forceRefresh = false) {
-            if (string.IsNullOrEmpty(UserPreferences.CachedSpotlight) || forceRefresh && UserPreferences.CurrentBlog != null) {
-                var response = await Client.GetAsync(new Uri(EndpointManager.Spotlight));
-                var result = await response.Content.ReadAsStringAsync();
+        public static async Task<List<Responses.SpotlightItem>> RetrieveSpotlight(bool forceRefresh = false) {
+            var response = await Client.GetAsync(new Uri(EndpointManager.Spotlight));
+            var result = await response.Content.ReadAsStringAsync();
 
-                if (result.Contains("status\":200")) {
-                    UserPreferences.CachedSpotlight = result;
-                    return JsonConvert.DeserializeObject<Responses.GetSpotlight>(result).response;
-                }
+            if (result.Contains("status\":200")) {
+                UserPreferences.CachedSpotlight = result;
+                Debug.WriteLine("Search: {0}", UserPreferences.CachedSpotlight);
+                return JsonConvert.DeserializeObject<Responses.GetSpotlight>(result).response;
+            } else {
+                return null;
             }
-            return JsonConvert.DeserializeObject<Responses.GetSpotlight>(UserPreferences.CachedSpotlight).response;
         }
 
-        public static async Task<List<Responses.SpotlightResponse>> TagDiscovery(bool forceRefresh = false) {
+        public static async Task<List<Responses.SpotlightItem>> TagDiscovery(bool forceRefresh = false) {
             var response = await Client.GetAsync(new Uri(EndpointManager.TagDiscovery));
             var result = await response.Content.ReadAsStringAsync();
-            return new List<Responses.SpotlightResponse>();
+            return new List<Responses.SpotlightItem>();
         }
 
         public static async Task<string> GetConvertedGIFUri(string gif) {

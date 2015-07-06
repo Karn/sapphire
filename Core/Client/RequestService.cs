@@ -1,7 +1,6 @@
 ﻿using Core.AuthenticationManager;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -13,7 +12,7 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 
 namespace Core.Client {
-	public class RequestService {
+    public class RequestService {
 
 		//private static string TAG = "RequestService";
 

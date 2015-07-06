@@ -1,10 +1,12 @@
 ﻿using Core.AuthenticationManager;
 using Core.Client;
 using Core.Content;
+using Core.Content.Model;
 using Core.Content.Model.DatabaseHelpers;
 using Core.Utils;
 using Sapphire.Shared.Common;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -54,8 +56,29 @@ namespace Sapphire {
                         return;
                 }
                 await Activity.RetrieveNotifications();
+                if (SpotlightTags.DataContext == null)
+                    SpotlightTags.ItemsSource = await CreateRequest.RetrieveSpotlight();
             }
         }
+
+        //public List<Responses.SpotlightItem> CreateSpotlightTags() {
+        //    var items = new List<Responses.SpotlightItem>();
+        //    items.Add(new Responses.SpotlightItem { Title = "Art", Image = "" });
+        //    items.Add(new Responses.SpotlightItem { Title = "Architecture", Image = "" });
+        //    items.Add(new Responses.SpotlightItem { Title = "Photography", Image = "" });
+        //    items.Add(new Responses.SpotlightItem { Title = "Funny", Image = "" });
+        //    items.Add(new Responses.SpotlightItem { Title = "Fashion", Image = "" });
+        //    items.Add(new Responses.SpotlightItem { Title = "Gaming", Image = "" });
+        //    items.Add(new Responses.SpotlightItem { Title = "Technology", Image = "" });
+        //    items.Add(new Responses.SpotlightItem { Title = "Food", Image = "" });
+        //    items.Add(new Responses.SpotlightItem { Title = "News", Image = "" });
+        //    items.Add(new Responses.SpotlightItem { Title = "Entertainment", Image = "" });
+        //    items.Add(new Responses.SpotlightItem { Title = "Literature", Image = "" });
+        //    items.Add(new Responses.SpotlightItem { Title = "Sports", Image = "" });
+        //    items.Add(new Responses.SpotlightItem { Title = "Science", Image = "" });
+        //    items.Add(new Responses.SpotlightItem { Title = "History", Image = "" });
+        //    return items;
+        //}
 
         public async Task<bool> GetUserAccount(string account = "") {
             App.DisplayStatus(App.LocaleResources.GetString("LoadingAccountDataMessage"));
@@ -268,11 +291,6 @@ namespace Sapphire {
             }
         }
 
-        private async void Spotlight_Loaded(object sender, RoutedEventArgs e) {
-            if (SpotlightTags.ItemsSource == null || sender == null)
-                SpotlightTags.ItemsSource = await CreateRequest.RetrieveSpotlight();
-        }
-
         private void SearchText_KeyDown(object sender, KeyRoutedEventArgs e) {
             if (e.Key == VirtualKey.Enter) {
                 e.Handled = true;
@@ -328,12 +346,6 @@ namespace Sapphire {
                 if (!Frame.Navigate(typeof(Pages.FavBlogs)))
                     Log.e("Failed to navigate to favorite blogs.");
             }
-        }
-
-        private void SetSpotlightItemDimensions(object sender, RoutedEventArgs e) {
-            var dim = (Window.Current.Bounds.Width - 25) / 3;
-            ((Grid)sender).Width = dim;
-            ((Grid)sender).Height = dim;
         }
     }
 }
