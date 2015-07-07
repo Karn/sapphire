@@ -57,28 +57,28 @@ namespace Sapphire {
                 }
                 await Activity.RetrieveNotifications();
                 if (SpotlightTags.DataContext == null)
-                    SpotlightTags.ItemsSource = await CreateRequest.RetrieveSpotlight();
+                    SpotlightTags.ItemsSource = CreateSpotlightTags();
             }
         }
 
-        //public List<Responses.SpotlightItem> CreateSpotlightTags() {
-        //    var items = new List<Responses.SpotlightItem>();
-        //    items.Add(new Responses.SpotlightItem { Title = "Art", Image = "" });
-        //    items.Add(new Responses.SpotlightItem { Title = "Architecture", Image = "" });
-        //    items.Add(new Responses.SpotlightItem { Title = "Photography", Image = "" });
-        //    items.Add(new Responses.SpotlightItem { Title = "Funny", Image = "" });
-        //    items.Add(new Responses.SpotlightItem { Title = "Fashion", Image = "" });
-        //    items.Add(new Responses.SpotlightItem { Title = "Gaming", Image = "" });
-        //    items.Add(new Responses.SpotlightItem { Title = "Technology", Image = "" });
-        //    items.Add(new Responses.SpotlightItem { Title = "Food", Image = "" });
-        //    items.Add(new Responses.SpotlightItem { Title = "News", Image = "" });
-        //    items.Add(new Responses.SpotlightItem { Title = "Entertainment", Image = "" });
-        //    items.Add(new Responses.SpotlightItem { Title = "Literature", Image = "" });
-        //    items.Add(new Responses.SpotlightItem { Title = "Sports", Image = "" });
-        //    items.Add(new Responses.SpotlightItem { Title = "Science", Image = "" });
-        //    items.Add(new Responses.SpotlightItem { Title = "History", Image = "" });
-        //    return items;
-        //}
+        public List<Responses.SpotlightItem> CreateSpotlightTags() {
+            var items = new List<Responses.SpotlightItem>();
+            items.Add(new Responses.SpotlightItem { Title = "Art", _Image = "ms-appx:///Assets/Resources/Assets/SpotlightItems/Art.jpg" });
+            items.Add(new Responses.SpotlightItem { Title = "Architecture", _Image = "ms-appx:///Assets/Resources/Assets/SpotlightItems/Architechture.jpg" });
+            items.Add(new Responses.SpotlightItem { Title = "Photography", _Image = "ms-appx:///Assets/Resources/Assets/SpotlightItems/Photography.jpg" });
+            items.Add(new Responses.SpotlightItem { Title = "Funny", _Image = "ms-appx:///Assets/Resources/Assets/SpotlightItems/Funny.jpg" });
+            items.Add(new Responses.SpotlightItem { Title = "Fashion", _Image = "ms-appx:///Assets/Resources/Assets/SpotlightItems/Fashion.jpg" });
+            items.Add(new Responses.SpotlightItem { Title = "Gaming", _Image = "ms-appx:///Assets/Resources/Assets/SpotlightItems/Gaming.jpg" });
+            items.Add(new Responses.SpotlightItem { Title = "Technology", _Image = "ms-appx:///Assets/Resources/Assets/SpotlightItems/Technology.jpg" });
+            //items.Add(new Responses.SpotlightItem { Title = "Food", _Image = "" });
+            //items.Add(new Responses.SpotlightItem { Title = "News", _Image = "" });
+            //items.Add(new Responses.SpotlightItem { Title = "Entertainment", _Image = "" });
+            //items.Add(new Responses.SpotlightItem { Title = "Literature", _Image = "" });
+            //items.Add(new Responses.SpotlightItem { Title = "Sports", _Image = "" });
+            //items.Add(new Responses.SpotlightItem { Title = "Science", _Image = "" });
+            //items.Add(new Responses.SpotlightItem { Title = "History", _Image = "" });
+            return items;
+        }
 
         public async Task<bool> GetUserAccount(string account = "") {
             App.DisplayStatus(App.LocaleResources.GetString("LoadingAccountDataMessage"));
@@ -198,11 +198,9 @@ namespace Sapphire {
         }
 
         private void HandleNav(int SelectedItem) {
-            if (NavigationPivot.SelectedIndex != 0) {
+            if (SelectedItem == 1 || SelectedItem == 2) {
                 RefreshButton.Visibility = Visibility.Visible;
                 CommandBar.ClosedDisplayMode = AppBarClosedDisplayMode.Compact;
-            } else if (NavigationPivot.SelectedIndex == 3) {
-                RefreshButton.Visibility = Visibility.Collapsed;
             } else {
                 RefreshButton.Visibility = Visibility.Collapsed;
                 CommandBar.ClosedDisplayMode = AppBarClosedDisplayMode.Minimal;
@@ -266,9 +264,20 @@ namespace Sapphire {
                 case 2:
                     await GetUserAccount(string.Empty); break;
                 case 3:
-                    SpotlightTags.ItemsSource = await CreateRequest.RetrieveSpotlight(true); break;
+                    break;
             }
             RefreshButton.IsEnabled = true;
+        }
+
+
+        private void PageTitle_Tapped(object sender, TappedRoutedEventArgs e) {
+            switch (NavigationPivot.SelectedIndex) {
+                default:
+                case 0:
+                    Dashboard.ScrollToTop(); break;
+                case 1:
+                    Activity.ScrollToTop(); break;
+            }
         }
 
         private void AccountDetails_Tapped(object sender, TappedRoutedEventArgs e) {
@@ -306,10 +315,6 @@ namespace Sapphire {
                 if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + ((FrameworkElement)sender).Tag))
                     Log.e("Failed to navigate to search page via tag.");
             }
-        }
-
-        private void ToTopButton_Click(object sender, RoutedEventArgs e) {
-            Dashboard.ScrollToTop();
         }
 
         private void ManageBlogs_Tapped(object sender, RoutedEventArgs e) {

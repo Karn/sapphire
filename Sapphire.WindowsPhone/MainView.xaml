@@ -21,6 +21,7 @@
             <TextBlock x:Name="PageTitle"
                        Foreground="{StaticResource PrimaryText}"
                        Style="{StaticResource Headline}"
+                       Tapped="PageTitle_Tapped"
                        Text="Sapphire" />
 
             <GridView x:Name="Navigation"
@@ -69,26 +70,6 @@
                                       URL="https://api.tumblr.com/v2/user/dashboard" />
 
                     <control:NewPostDialog x:Name="PostCreationView" />
-
-                    <Button x:Name="ToTopButton"
-                            Width="55"
-                            Height="55"
-                            Margin="80, 24"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Background="Transparent"
-                            Click="ToTopButton_Click"
-                            Style="{StaticResource ButtonStyleNoBG}">
-
-                        <Grid>
-                            <Ellipse Fill="{ThemeResource ColorPrimary}"
-                                     Stroke="{StaticResource ColorPrimaryDark}"
-                                     StrokeThickness="0.1" />
-                            <Image Margin="10"
-                                   Canvas.ZIndex="50"
-                                   Source="ms-appx:///Assets/Top.png" />
-                        </Grid>
-                    </Button>
                 </Grid>
             </PivotItem>
 
@@ -322,13 +303,17 @@
                                Opacity=".5"
                                Source="Assets/Nav/Search_Dark.png" />
                     </Grid>
+
                     <ListView x:Name="SpotlightTags"
                               Grid.Row="1"
-                              Padding="0, 0, 0, 4"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Stretch"
-                              HorizontalContentAlignment="Stretch"
-                              ItemsSource="{Binding}">
+                              ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
+                              ItemsSource="{Binding}"
+                              Padding="0, 0, 0, 4">
+                        <ListView.ItemContainerTransitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition />
+                            </TransitionCollection>
+                        </ListView.ItemContainerTransitions>
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid Height="100"
@@ -336,7 +321,7 @@
                                       HorizontalAlignment="Stretch"
                                       Tag="{Binding Title}"
                                       Tapped="SpotlightItem_Tapped">
-                                    <Image Source="{Binding Image}" Stretch="UniformToFill" />
+                                    <Image Source="{Binding _Image}" Stretch="UniformToFill" />
                                     <StackPanel Height="35"
                                                 VerticalAlignment="Top"
                                                 Background="#33000000">
@@ -365,6 +350,9 @@
                           Click="RefreshButton_Click"
                           Icon="Refresh"
                           Label="refresh" />
+            <AppBarButton x:Name="CreatePostButton"
+                          Icon="Add"
+                          Label="new" />
             <CommandBar.SecondaryCommands>
                 <AppBarButton Click="SettingsButton_Click" Label="{Binding [Title_Settings], Source={StaticResource Localized}}" />
                 <AppBarButton Click="ManageAccountButton_Click" Label="{Binding [Heading_ManageAccounts], Source={StaticResource Localized}}" />

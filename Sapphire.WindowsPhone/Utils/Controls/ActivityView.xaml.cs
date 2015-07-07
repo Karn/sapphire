@@ -31,7 +31,7 @@ namespace Sapphire.Utils.Controls {
         }
 
         public void ClearPosts() {
-            Notifications.Visibility = Visibility.Collapsed;
+            Activity.Visibility = Visibility.Collapsed;
         }
 
         private void GoToBlog(object sender, TappedRoutedEventArgs e) {
@@ -45,7 +45,7 @@ namespace Sapphire.Utils.Controls {
         public void GroupData(List<Activity.Notification> items) {
             var result = from item in items group item by item.date into itemGroup orderby itemGroup.Key select itemGroup;
             csvNotifications.Source = result.Reverse();
-            Notifications.Visibility = Visibility.Visible;
+            Activity.Visibility = Visibility.Visible;
         }
 
         private void GoToPost(object sender, TappedRoutedEventArgs e) {
@@ -64,6 +64,12 @@ namespace Sapphire.Utils.Controls {
 
         private void Border_Loaded(object sender, RoutedEventArgs e) {
             ((Grid)sender).Width = Window.Current.Bounds.Width;
+        }
+
+        public void ScrollToTop() {
+            try {
+                Activity.ScrollIntoView(Activity.Items.First());
+            } catch { }
         }
     }
 }

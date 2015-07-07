@@ -411,12 +411,13 @@
         <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
         <Setter Property="TabNavigation" Value="Local" />
         <Setter Property="IsHoldingEnabled" Value="False" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />        
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Top" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListViewItem">
-                    <Border x:Name="OuterContainer" RenderTransformOrigin="0.5,0.5">
+                    <Border x:Name="OuterContainer">
                         <Border.RenderTransform>
                             <ScaleTransform x:Name="ContentScaleTransform" />
                         </Border.RenderTransform>
@@ -462,31 +463,6 @@
                                                          To="1" />
                                     </Storyboard>
                                 </VisualState>
-                            </VisualStateGroup>
-                            <VisualStateGroup x:Name="ReorderModeStates">
-                                <VisualStateGroup.Transitions>
-                                    <VisualTransition From="ReorderEnabled"
-                                                      GeneratedDuration="00:00:00.2"
-                                                      To="ReorderDisabled" />
-                                </VisualStateGroup.Transitions>
-                                <VisualState x:Name="ReorderEnabled">
-                                    <Storyboard>
-                                        <DropTargetItemThemeAnimation Storyboard.TargetName="OuterContainer" />
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Reorderable">
-                                    <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ContentScaleTransform" Storyboard.TargetProperty="ScaleX">
-                                            <LinearDoubleKeyFrame KeyTime="00:00:00.075" Value="1.05" />
-                                            <LinearDoubleKeyFrame KeyTime="00:00:00.2" Value="1.0" />
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ContentScaleTransform" Storyboard.TargetProperty="ScaleY">
-                                            <LinearDoubleKeyFrame KeyTime="00:00:00.075" Value="1.05" />
-                                            <LinearDoubleKeyFrame KeyTime="00:00:00.2" Value="1.0" />
-                                        </DoubleAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="ReorderDisabled" />
                             </VisualStateGroup>
                             <VisualStateGroup x:Name="ReorderHintStates">
                                 <VisualStateGroup.Transitions>

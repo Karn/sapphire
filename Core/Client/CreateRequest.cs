@@ -110,8 +110,9 @@ namespace Core.Client {
         public static async Task<List<Post>> RetrievePosts(string url, Service.Requests.RequestParameters parameters) {
             parameters.Add("reblog_info", "true");
             HttpResponseMessage result = await RequestService.GET(url, parameters);
-            Debug.WriteLine(await result.Content.ReadAsStringAsync());
+
             if (result.StatusCode == HttpStatusCode.OK) {
+                Debug.WriteLine(await result.Content.ReadAsStringAsync());
                 try {
                     var PostList = new List<Post>();
                     var resultAsString = await result.Content.ReadAsStringAsync();
@@ -299,19 +300,6 @@ namespace Core.Client {
             return (requestResult.StatusCode == HttpStatusCode.OK) ?
                 JsonConvert.DeserializeObject<Responses.GetSearch>(await requestResult.Content.ReadAsStringAsync())
                 .response.blogs : new List<Blog>();
-        }
-
-        public static async Task<List<Responses.SpotlightItem>> RetrieveSpotlight(bool forceRefresh = false) {
-            var response = await Client.GetAsync(new Uri(EndpointManager.Spotlight));
-            var result = await response.Content.ReadAsStringAsync();
-
-            if (result.Contains("status\":200")) {
-                UserPreferences.CachedSpotlight = result;
-                Debug.WriteLine("Search: {0}", UserPreferences.CachedSpotlight);
-                return JsonConvert.DeserializeObject<Responses.GetSpotlight>(result).response;
-            } else {
-                return null;
-            }
         }
 
         public static async Task<List<Responses.SpotlightItem>> TagDiscovery(bool forceRefresh = false) {

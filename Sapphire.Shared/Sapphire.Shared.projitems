@@ -65,6 +65,15 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\PostOK.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\PostPrivate.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Refresh.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Assets\SpotlightItems\Architechture.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Assets\SpotlightItems\Art.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Assets\SpotlightItems\Fashion.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Assets\SpotlightItems\Food.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Assets\SpotlightItems\Funny.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Assets\SpotlightItems\Gaming.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Assets\SpotlightItems\News.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Assets\SpotlightItems\Photography.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Assets\SpotlightItems\Technology.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Check.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Delete.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Drafts.png" />
@@ -119,8 +128,5 @@
   <ItemGroup>
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en-US\Resources.resw" />
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\es-ES\Resources.resw" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Assets\Resources\Assets\SpotlightItems\" />
   </ItemGroup>
 </Project>

@@ -314,14 +314,10 @@
         <CollectionViewSource x:Name="csvNotifications" IsSourceGrouped="True" />
     </UserControl.Resources>
 
-    <ListView x:Name="Notifications"
-              HorizontalAlignment="Stretch"
-              Background="#00000000"
+    <ListView x:Name="Activity"
+              ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
               ItemTemplateSelector="{StaticResource ActivityListTemplate}"
               ItemsSource="{Binding Source={StaticResource csvNotifications}}">
-        <ListView.ItemContainerStyle>
-            <StaticResource ResourceKey="ListViewItemContainerStyle" />
-        </ListView.ItemContainerStyle>
         <ListView.GroupStyle>
             <GroupStyle HidesIfEmpty="True">
                 <GroupStyle.HeaderTemplate>
@@ -331,17 +327,22 @@
                               VerticalAlignment="Center"
                               Background="White"
                               Loaded="Border_Loaded">
-                            <TextBlock FontWeight="Normal"
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
                                        Foreground="{StaticResource TextColorPrimaryDark}"
                                        Padding="10, 4"
-                                       Style="{StaticResource Caption}"
+                                       Style="{StaticResource BaseTextBlockStyle}"
                                        Text="{Binding Key,
                                                       Converter={StaticResource RelativeDate}}" />
-                            <TextBlock HorizontalAlignment="Right"
-                                       FontWeight="Normal"
+                            <TextBlock Grid.Column="2"
+                                       HorizontalAlignment="Right"
                                        Foreground="{StaticResource TextColorPrimaryDark}"
                                        Padding="10, 4"
-                                       Style="{StaticResource Caption}"
+                                       Style="{StaticResource BaseTextBlockStyle}"
                                        Text="{Binding Key,
                                                       Converter={StaticResource ToPrettyDate}}" />
                         </Grid>

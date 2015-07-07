@@ -377,34 +377,38 @@
                     <DataTemplate>
                         <StackPanel Margin="0, 3" Background="White">
                             <Grid Height="60">
-                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                                    <Ellipse Width="50"
-                                             Height="50"
-                                             Margin="8, 0"
-                                             Tag="{Binding Name}"
-                                             Tapped="GoToBlog">
-                                        <Ellipse.Fill>
-                                            <ImageBrush ImageSource="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}" />
-                                        </Ellipse.Fill>
-                                    </Ellipse>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="50"
+                                         Height="50"
+                                         Margin="12, 0"
+                                         Tag="{Binding Name}"
+                                         Tapped="GoToBlog">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding Avatar, FallbackValue={StaticResource DefaultAvatar}}" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
 
-                                    <StackPanel Margin="5, 0">
-                                        <TextBlock Margin="0, 0, 50, 0"
-                                                   Padding="5, 0"
-                                                   Style="{StaticResource SubTitle}"
-                                                   Tag="{Binding Name}"
-                                                   Tapped="GoToBlog"
-                                                   Text="{Binding Name}"
-                                                   TextLineBounds="TrimToBaseline" />
-                                        <TextBlock Foreground="{ThemeResource TextColorPrimaryDark}"
-                                                   Padding="7, 0"
-                                                   Style="{StaticResource Caption}">
-                                            <Run Text="{Binding date, Converter={StaticResource ToRelativeTime}}" />
-                                            <Run Text="{Binding RebloggedFrom}" />
-                                        </TextBlock>
-                                    </StackPanel>
+                                <StackPanel Grid.Column="1" Margin="4, 0">
+                                    <TextBlock Padding="0"
+                                               Style="{StaticResource TitleTextBlockStyle}"
+                                               Tag="{Binding Name}"
+                                               Tapped="GoToBlog"
+                                               Text="{Binding Name}" />
+                                    <TextBlock Foreground="{ThemeResource TextColorPrimaryDark}"
+                                               Padding="0"
+                                               Style="{StaticResource CaptionTextBlockStyle}"
+                                               TextTrimming="CharacterEllipsis">
+                                        <Run Text="{Binding date, Converter={StaticResource ToRelativeTime}}" />
+                                        <Run Text="{Binding RebloggedFrom}" />
+                                    </TextBlock>
                                 </StackPanel>
+
                                 <Image x:Name="OtherOptionsButton"
+                                       Grid.Column="2"
                                        Width="35"
                                        Height="35"
                                        Margin="10, 0"

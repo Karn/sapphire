@@ -7,9 +7,9 @@ using Windows.UI.Xaml.Media;
 namespace Sapphire.Utils.Converters {
     public sealed class FollowingToBG : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, string language) {
-            if ((bool)value) {
-                return App.Current.Resources["WindowBackgroundAccent"] as SolidColorBrush;
-            }
+            //if ((bool)value) {
+            //    return App.Current.Resources["WindowBackgroundAccent"] as SolidColorBrush;
+            //}
             return new SolidColorBrush(Colors.Transparent);
         }
 

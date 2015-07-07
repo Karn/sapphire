@@ -56,6 +56,8 @@ namespace Core.Content.Model {
                     return images.ElementAt(new Random().Next(0, images.Count));
                 }
             }
+
+            public string _Image { get; set; }
         }
 
         public class SearchResponse {
