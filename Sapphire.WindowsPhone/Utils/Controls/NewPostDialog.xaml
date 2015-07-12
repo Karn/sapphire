@@ -72,7 +72,7 @@
 			<Grid>
 
 				<Ellipse x:Name="CreatePostFill"
-				         Fill="{ThemeResource PrimaryColor}"
+				         Fill="{ThemeResource ColorPrimary}"
 				         Stroke="{StaticResource ColorPrimaryDark}"
 				         StrokeThickness="0.1" />
 

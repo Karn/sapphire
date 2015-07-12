@@ -58,7 +58,7 @@ namespace Sapphire.Utils.Controls {
 
         public void CreatePost_LostFocus(object sender, RoutedEventArgs e) {
             CreatePostIcon.RenderTransform = new CompositeTransform() { Rotation = 0 };
-            CreatePostFill.Fill = App.Current.Resources["PrimaryColor"] as SolidColorBrush;
+            CreatePostFill.Fill = App.Current.Resources["ColorPrimary"] as SolidColorBrush;
             AnimateOut();
             BG.Visibility = Visibility.Collapsed;
             IsActive = false;

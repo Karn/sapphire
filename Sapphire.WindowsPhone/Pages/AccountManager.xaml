@@ -50,7 +50,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Height="55" Background="{ThemeResource PrimaryColor}">
+        <Grid Height="55" Background="{ThemeResource ColorPrimary}">
             <TextBlock x:Name="PageTitle"
                        Foreground="{StaticResource PrimaryText}"
                        Style="{StaticResource Headline}"

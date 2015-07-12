@@ -457,7 +457,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Border Background="{ThemeResource PrimaryColor}">
+        <Border Background="{ThemeResource ColorPrimary}">
             <TextBlock x:Name="PageTitle"
                        Foreground="{ThemeResource PrimaryText}"
                        Style="{StaticResource Headline}"

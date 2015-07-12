@@ -9,54 +9,54 @@
       Background="{ThemeResource ColorPrimaryDark}"
       mc:Ignorable="d">
 
-	<Grid x:Name="LayoutRoot">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="55" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
-		<Border Background="{ThemeResource PrimaryColor}">
-			<TextBlock x:Name="PageTitle"
-			           Foreground="{ThemeResource PrimaryText}"
-			           Style="{StaticResource Headline}"
-			           Text="{Binding [Title_CreateReply],
-			                          Source={StaticResource Localized}}" />
-		</Border>
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border Background="{ThemeResource ColorPrimary}">
+            <TextBlock x:Name="PageTitle"
+                       Foreground="{ThemeResource PrimaryText}"
+                       Style="{StaticResource Headline}"
+                       Text="{Binding [Title_CreateReply],
+                                      Source={StaticResource Localized}}" />
+        </Border>
 
-		<Grid Grid.Row="1" Background="White">
-			<ContentControl x:Name="ReplyFeilds"
-			                HorizontalContentAlignment="Stretch"
-			                VerticalContentAlignment="Stretch">
-				<Grid Margin="5, 0">
-					<StackPanel Margin="0, -40, 15, 0"
-					            HorizontalAlignment="Right"
-					            VerticalAlignment="Top"
-					            Orientation="Horizontal">
-						<Image Width="40"
-						       Height="30"
-						       Source="ms-appx:///Assets/PostOK.png"
-						       Tag="public"
-						       Tapped="PostButton_Tapped" />
-						<Image Width="40"
-						       Height="30"
-						       Source="ms-appx:///Assets/PostPrivate.png"
-						       Tag="private"
-						       Tapped="PostButton_Tapped"
-						       Visibility="Collapsed" />
-					</StackPanel>
-					<TextBox x:Name="Caption"
-					         Grid.Row="0"
-					         Margin="0, 5"
-					         HorizontalAlignment="Stretch"
-					         VerticalAlignment="Stretch"
-					         Background="{ThemeResource LightPrimaryColor}"
-					         BorderThickness="0"
-					         IsSpellCheckEnabled="True"
-					         IsTextPredictionEnabled="True"
-					         Padding="10, 8"
-					         PlaceholderText="Reply"
-					         TextWrapping="Wrap" />
-				</Grid>
-			</ContentControl>
-		</Grid>
-	</Grid>
+        <Grid Grid.Row="1" Background="White">
+            <ContentControl x:Name="ReplyFeilds"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch">
+                <Grid Margin="5, 0">
+                    <StackPanel Margin="0, -40, 15, 0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Orientation="Horizontal">
+                        <Image Width="40"
+                               Height="30"
+                               Source="ms-appx:///Assets/PostOK.png"
+                               Tag="public"
+                               Tapped="PostButton_Tapped" />
+                        <Image Width="40"
+                               Height="30"
+                               Source="ms-appx:///Assets/PostPrivate.png"
+                               Tag="private"
+                               Tapped="PostButton_Tapped"
+                               Visibility="Collapsed" />
+                    </StackPanel>
+                    <TextBox x:Name="Caption"
+                             Grid.Row="0"
+                             Margin="0, 5"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                             Background="{ThemeResource TextBoxBackground}"
+                             BorderThickness="0"
+                             IsSpellCheckEnabled="True"
+                             IsTextPredictionEnabled="True"
+                             Padding="10, 8"
+                             PlaceholderText="Reply"
+                             TextWrapping="Wrap" />
+                </Grid>
+            </ContentControl>
+        </Grid>
+    </Grid>
 </Page>

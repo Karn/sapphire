@@ -77,7 +77,7 @@
         </Flyout>
 
         <DataTemplate x:Key="Text">
-            <StackPanel Background="{ThemeResource PostBG}">
+            <StackPanel Background="{ThemeResource PostBackground}">
                 <TextBlock Style="{StaticResource SubTitle}"
                            TextWrapping="WrapWholeWords"
                            Visibility="{Binding title,
@@ -151,7 +151,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="Quote">
-            <StackPanel Background="{ThemeResource PostBG}">
+            <StackPanel Background="{ThemeResource PostBackground}">
                 <TextBlock FontStyle="Italic"
                            FontWeight="Normal"
                            Padding="16, 16, 16, 8"
@@ -170,7 +170,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="Link">
-            <StackPanel Background="{ThemeResource PostBG}">
+            <StackPanel Background="{ThemeResource PostBackground}">
                 <HyperlinkButton HorizontalAlignment="Stretch"
                                  Background="{ThemeResource ColorPrimary}"
                                  NavigateUri="{Binding url}"
@@ -195,7 +195,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="Chat">
-            <StackPanel Background="{ThemeResource PostBG}">
+            <StackPanel Background="{ThemeResource PostBackground}">
                 <TextBlock Margin="10, 0, 10, 0"
                            FontSize="22"
                            FontWeight="Light"
@@ -216,7 +216,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="Audio">
-            <StackPanel Background="{ThemeResource PostBG}"
+            <StackPanel Background="{ThemeResource PostBackground}"
                         Orientation="Horizontal"
                         Tag="{Binding audio_url}">
                 <Image Width="100"
@@ -268,7 +268,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="YoutubeVideo">
-            <StackPanel Background="{StaticResource PostBG}">
+            <StackPanel Background="{StaticResource PostBackground}">
                 <TextBlock Margin="10, 0, 10, 0"
                            FontSize="22"
                            FontWeight="Light"
@@ -279,7 +279,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="Answer">
-            <StackPanel Background="{StaticResource PostBG}">
+            <StackPanel Background="{StaticResource PostBackground}">
                 <Grid>
                     <Ellipse Width="50"
                              Height="50"
@@ -458,7 +458,7 @@
                             <ContentControl HorizontalContentAlignment="Stretch"
                                             Content="{Binding}"
                                             ContentTemplateSelector="{StaticResource PostTemplate}" />
-                            <StackPanel Background="{ThemeResource PostBG}" Tag="{Binding}">
+                            <StackPanel Background="{ThemeResource PostBackground}" Tag="{Binding}">
                                 <TextBlock MaxHeight="300"
                                            FontWeight="Normal"
                                            IsTextSelectionEnabled="False"

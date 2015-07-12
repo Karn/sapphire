@@ -130,7 +130,7 @@
                       Width="40"
                       Height="40"
                       Margin="10, 5"
-                      Background="{ThemeResource PrimaryColor}"
+                      Background="{ThemeResource ColorPrimary}"
                       Tag="{Binding from_tumblelog_name}"
                       Tapped="FollowIcon_Tapped"
                       Visibility="{Binding followed,
@@ -352,7 +352,7 @@
         </ListView.GroupStyle>
         <ListView.ItemsPanel>
             <ItemsPanelTemplate>
-                <ItemsStackPanel />
+                <VirtualizingStackPanel />
             </ItemsPanelTemplate>
         </ListView.ItemsPanel>
     </ListView>

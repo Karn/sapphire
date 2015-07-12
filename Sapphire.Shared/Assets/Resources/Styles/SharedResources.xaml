@@ -4,20 +4,20 @@
 
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Default">
-            <SolidColorBrush x:Name="PrimaryColor" Color="#FF34679B" />
-            <SolidColorBrush x:Name="LightPrimaryColor" Color="#FFF0F0F0" />
             <SolidColorBrush x:Name="AccentColor" Color="#FFd1d1d1" />
             <SolidColorBrush x:Name="PrimaryText" Color="#FFFFFFFF" />
             <SolidColorBrush x:Name="LightPrimaryText" Color="#FF939393" />
 
-            <SolidColorBrush x:Key="ColorPrimary" Color="#FF34679B" />
-            <SolidColorBrush x:Key="ColorPrimaryDark" Color="#FF31608F" />
+            <SolidColorBrush x:Key="ColorPrimary" Color="#FF34495E" />
+            <SolidColorBrush x:Key="ColorPrimaryDark" Color="#FF2D3f52" />
             <SolidColorBrush x:Key="ColorSecondary" Color="#FF2B323A" />
             <SolidColorBrush x:Key="TextColorPrimary" Color="#FFFFFFFF" />
             <SolidColorBrush x:Key="TextColorPrimaryDark" Color="#FF2B323A" />
             <SolidColorBrush x:Key="WindowBackground" Color="#FFEEF2F4" />
             <SolidColorBrush x:Key="WindowBackgroundAccent" Color="#FFE3E7E8" />
-            <SolidColorBrush x:Key="PostBG" Color="#FFFFFFFF" />
+            <SolidColorBrush x:Key="PostBackground" Color="#FFFFFFFF" />
+
+            <SolidColorBrush x:Name="TextBoxBackground" Color="#FFF0F0F0" />
 
             <BitmapImage x:Key="ReblogAsset" UriSource="ms-appx:///Assets/Resources/Light/Reblog.png" />
             <BitmapImage x:Key="RebloggedAsset" UriSource="ms-appx:///Assets/Resources/Light/Reblogged.png" />
@@ -411,7 +411,7 @@
         <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
         <Setter Property="TabNavigation" Value="Local" />
         <Setter Property="IsHoldingEnabled" Value="False" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />        
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Top" />
         <Setter Property="Template">
