@@ -154,3 +154,7 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+
+# Manual additions
+packages/
+Sapphire.Shared/Assets/Nav/*.psd
