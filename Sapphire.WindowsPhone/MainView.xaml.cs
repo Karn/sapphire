@@ -63,13 +63,13 @@ namespace Sapphire {
 
         public List<Responses.SpotlightItem> CreateSpotlightTags() {
             var items = new List<Responses.SpotlightItem>();
-            items.Add(new Responses.SpotlightItem { Title = "Art", _Image = "ms-appx:///Assets/Resources/Assets/SpotlightItems/Art.jpg" });
-            items.Add(new Responses.SpotlightItem { Title = "Architecture", _Image = "ms-appx:///Assets/Resources/Assets/SpotlightItems/Architechture.jpg" });
-            items.Add(new Responses.SpotlightItem { Title = "Photography", _Image = "ms-appx:///Assets/Resources/Assets/SpotlightItems/Photography.jpg" });
-            items.Add(new Responses.SpotlightItem { Title = "Funny", _Image = "ms-appx:///Assets/Resources/Assets/SpotlightItems/Funny.jpg" });
-            items.Add(new Responses.SpotlightItem { Title = "Fashion", _Image = "ms-appx:///Assets/Resources/Assets/SpotlightItems/Fashion.jpg" });
-            items.Add(new Responses.SpotlightItem { Title = "Gaming", _Image = "ms-appx:///Assets/Resources/Assets/SpotlightItems/Gaming.jpg" });
-            items.Add(new Responses.SpotlightItem { Title = "Technology", _Image = "ms-appx:///Assets/Resources/Assets/SpotlightItems/Technology.jpg" });
+            items.Add(new Responses.SpotlightItem { Title = "Art", _Image = "ms-appx:///Resources/Assets/SpotlightItems/Art.jpg" });
+            items.Add(new Responses.SpotlightItem { Title = "Architecture", _Image = "ms-appx:///Resources/Assets/SpotlightItems/Architechture.jpg" });
+            items.Add(new Responses.SpotlightItem { Title = "Photography", _Image = "ms-appx:///Resources/Assets/SpotlightItems/Photography.jpg" });
+            items.Add(new Responses.SpotlightItem { Title = "Funny", _Image = "ms-appx:///Resources/Assets/SpotlightItems/Funny.jpg" });
+            items.Add(new Responses.SpotlightItem { Title = "Fashion", _Image = "ms-appx:///Resources/Assets/SpotlightItems/Fashion.jpg" });
+            items.Add(new Responses.SpotlightItem { Title = "Gaming", _Image = "ms-appx:///Resources/Assets/SpotlightItems/Gaming.jpg" });
+            items.Add(new Responses.SpotlightItem { Title = "Technology", _Image = "ms-appx:///Resources/Assets/SpotlightItems/Technology.jpg" });
             //items.Add(new Responses.SpotlightItem { Title = "Food", _Image = "" });
             //items.Add(new Responses.SpotlightItem { Title = "News", _Image = "" });
             //items.Add(new Responses.SpotlightItem { Title = "Entertainment", _Image = "" });

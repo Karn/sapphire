@@ -9,9 +9,9 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Assets/Resources/Styles/SharedResources.xaml" />
-                <ResourceDictionary Source="Assets/Resources/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="Assets/Resources/Styles/Buttons.xaml" />
+                <ResourceDictionary Source="Resources/Styles/SharedResources.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Buttons.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <converter:IsFullVersion x:Key="IsFullVersion" />

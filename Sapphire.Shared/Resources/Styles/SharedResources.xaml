@@ -19,20 +19,20 @@
 
             <SolidColorBrush x:Name="TextBoxBackground" Color="#FFF0F0F0" />
 
-            <BitmapImage x:Key="ReblogAsset" UriSource="ms-appx:///Assets/Resources/Light/Reblog.png" />
-            <BitmapImage x:Key="RebloggedAsset" UriSource="ms-appx:///Assets/Resources/Light/Reblogged.png" />
-            <BitmapImage x:Key="ReplyAsset" UriSource="ms-appx:///Assets/Resources/Light/Reply.png" />
-            <BitmapImage x:Key="LikeAsset" UriSource="ms-appx:///Assets/Resources/Light/Likes.png" />
-            <BitmapImage x:Key="LikedAsset" UriSource="ms-appx:///Assets/Resources/Light/Liked.png" />
-            <BitmapImage x:Key="FavAsset" UriSource="ms-appx:///Assets/Resources/Light/Star.png" />
-            <BitmapImage x:Key="DeleteButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Delete.png" />
-            <BitmapImage x:Key="PostButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Check.png" />
-            <BitmapImage x:Key="BlogButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Blog.png" />
-            <BitmapImage x:Key="MoreButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/More.png" />
-            <BitmapImage x:Key="UserOptionsButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/UserOptions.png" />
-            <BitmapImage x:Key="InboxButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Inbox.png" />
-            <BitmapImage x:Key="DraftsButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Drafts.png" />
-            <BitmapImage x:Key="QueueButtonAsset" UriSource="ms-appx:///Assets/Resources/Light/Queue.png" />
+            <BitmapImage x:Key="ReblogAsset" UriSource="ms-appx:///Resources/Light/Reblog.png" />
+            <BitmapImage x:Key="RebloggedAsset" UriSource="ms-appx:///Resources/Light/Reblogged.png" />
+            <BitmapImage x:Key="ReplyAsset" UriSource="ms-appx:///Resources/Light/Reply.png" />
+            <BitmapImage x:Key="LikeAsset" UriSource="ms-appx:///Resources/Light/Likes.png" />
+            <BitmapImage x:Key="LikedAsset" UriSource="ms-appx:///Resources/Light/Liked.png" />
+            <BitmapImage x:Key="FavAsset" UriSource="ms-appx:///Resources/Light/Star.png" />
+            <BitmapImage x:Key="DeleteButtonAsset" UriSource="ms-appx:///Resources/Light/Delete.png" />
+            <BitmapImage x:Key="PostButtonAsset" UriSource="ms-appx:///Resources/Light/Check.png" />
+            <BitmapImage x:Key="BlogButtonAsset" UriSource="ms-appx:///Resources/Light/Blog.png" />
+            <BitmapImage x:Key="MoreButtonAsset" UriSource="ms-appx:///Resources/Light/More.png" />
+            <BitmapImage x:Key="UserOptionsButtonAsset" UriSource="ms-appx:///Resources/Light/UserOptions.png" />
+            <BitmapImage x:Key="InboxButtonAsset" UriSource="ms-appx:///Resources/Light/Inbox.png" />
+            <BitmapImage x:Key="DraftsButtonAsset" UriSource="ms-appx:///Resources/Light/Drafts.png" />
+            <BitmapImage x:Key="QueueButtonAsset" UriSource="ms-appx:///Resources/Light/Queue.png" />
         </ResourceDictionary>
 
     </ResourceDictionary.ThemeDictionaries>

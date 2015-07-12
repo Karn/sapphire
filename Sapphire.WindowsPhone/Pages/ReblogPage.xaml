@@ -84,7 +84,7 @@
                                Width="35"
                                Height="30"
                                Margin="5, 0"
-                               Source="ms-appx:///Assets/Resources/Default/AddDraft.png"
+                               Source="ms-appx:///Resources/Default/AddDraft.png"
                                Tag="draft"
                                Tapped="PostButton_Tapped"
                                Visibility="{Binding ElementName=PageTitle,
@@ -93,7 +93,7 @@
                         <Image x:Name="AddToQueueButton"
                                Width="35"
                                Height="30"
-                               Source="ms-appx:///Assets/Resources/Default/QueuePost.png"
+                               Source="ms-appx:///Resources/Default/QueuePost.png"
                                Tag="queue"
                                Tapped="PostButton_Tapped"
                                Visibility="{Binding ElementName=PageTitle,

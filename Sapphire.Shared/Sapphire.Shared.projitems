@@ -65,62 +65,62 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\PostOK.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\PostPrivate.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Refresh.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Assets\SpotlightItems\Architechture.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Assets\SpotlightItems\Art.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Assets\SpotlightItems\Fashion.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Assets\SpotlightItems\Food.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Assets\SpotlightItems\Funny.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Assets\SpotlightItems\Gaming.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Assets\SpotlightItems\News.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Assets\SpotlightItems\Photography.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Assets\SpotlightItems\Technology.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Check.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Delete.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Drafts.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Inbox.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Liked.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Likes.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\More.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Queue.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Reblog.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Reblogged.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Reply.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\Star.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Dark\UserOptions.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Default\AddDraft.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Default\Drafts.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Default\Queue.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Default\QueuePost.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Fonts\SEGMDL2.TTF" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Check.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Delete.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Drafts.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Inbox.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Liked.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Likes.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\More.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Queue.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Reblog.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Reblogged.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Reply.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\Star.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Resources\Light\UserOptions.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Top.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Assets\SpotlightItems\Architechture.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Assets\SpotlightItems\Art.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Assets\SpotlightItems\Fashion.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Assets\SpotlightItems\Food.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Assets\SpotlightItems\Funny.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Assets\SpotlightItems\Gaming.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Assets\SpotlightItems\News.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Assets\SpotlightItems\Photography.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Assets\SpotlightItems\Technology.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Dark\Check.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Dark\Delete.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Dark\Drafts.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Dark\Inbox.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Dark\Liked.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Dark\Likes.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Dark\More.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Dark\Queue.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Dark\Reblog.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Dark\Reblogged.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Dark\Reply.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Dark\Star.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Dark\UserOptions.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Default\AddDraft.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Default\Drafts.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Default\Queue.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Default\QueuePost.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Fonts\SEGMDL2.TTF" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Light\Check.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Light\Delete.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Light\Drafts.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Light\Inbox.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Light\Liked.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Light\Likes.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Light\More.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Light\Queue.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Light\Reblog.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Light\Reblogged.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Light\Reply.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Light\Star.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Light\UserOptions.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Assets\Resources\Styles\Buttons.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Assets\Resources\Styles\Fonts.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Assets\Resources\Styles\SharedResources.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Pages\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Resources\Styles\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Resources\Styles\Fonts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Resources\Styles\SharedResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

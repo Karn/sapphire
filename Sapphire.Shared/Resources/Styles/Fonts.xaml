@@ -4,7 +4,7 @@
 
     <!--  http://modernicons.io/segoe-mdl2/cheatsheet/  -->
     <Style x:Key="IconStyle" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="ms-appx:///Assets/Resources/Fonts/SEGMDL2.TTF#Segoe MDL2 Assets" />
+        <Setter Property="FontFamily" Value="ms-appx:///Resources/Fonts/SEGMDL2.TTF#Segoe MDL2 Assets" />
         <Setter Property="FontSize" Value="24" />
         <Setter Property="FontWeight" Value="Light" />
         <Setter Property="Foreground" Value="White" />
