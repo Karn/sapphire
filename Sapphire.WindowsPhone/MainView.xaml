@@ -81,24 +81,17 @@
                        Margin="0"
                        DataContext="{Binding}">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="175" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <Grid>
+                    <Grid Height="175" VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
                         <Grid.Background>
                             <ImageBrush ImageSource="{Binding HeaderImage,
                                                               FallbackValue={ThemeResource DefaultPattern}}"
                                         Opacity="0.5"
                                         Stretch="UniformToFill" />
                         </Grid.Background>
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
 
                         <Grid Grid.ColumnSpan="2"
                               Background="Black"
@@ -135,145 +128,145 @@
                                                       FallbackValue=description}"
                                        TextWrapping="Wrap" />
                         </StackPanel>
-
                     </Grid>
 
-                    <Grid Grid.Row="1"
-                          VerticalAlignment="Top"
-                          Background="{ThemeResource WindowBackgroundAccent}">
-                        <Grid.ChildrenTransitions>
-                            <TransitionCollection>
-                                <EntranceThemeTransition />
-                            </TransitionCollection>
-                        </Grid.ChildrenTransitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="10" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="1"
-                                   FontWeight="Normal"
-                                   Foreground="{StaticResource TextColorPrimaryDark}"
-                                   Style="{StaticResource Title}"
-                                   Tag="Following"
-                                   Tapped="AccountDetails_Tapped">
-                            <Run Foreground="{StaticResource ColorPrimaryDark}" Text="{Binding FollowingCount, FallbackValue=0}" />
-                            <LineBreak />
-                            <Run FontSize="12" Text="{Binding [Account_Following], Source={StaticResource Localized}}" />
-                        </TextBlock>
-                        <TextBlock Grid.Column="2"
-                                   FontWeight="Normal"
-                                   Foreground="{StaticResource TextColorPrimaryDark}"
-                                   Style="{StaticResource Title}"
-                                   Tag="Posts"
-                                   Tapped="AccountDetails_Tapped">
-                            <Run Foreground="{StaticResource ColorPrimaryDark}" Text="{Binding PostCount, FallbackValue=0}" />
-                            <LineBreak />
-                            <Run FontSize="12" Text="{Binding [Account_Posts], Source={StaticResource Localized}}" />
-                        </TextBlock>
-                        <TextBlock Grid.Column="3"
-                                   FontWeight="Normal"
-                                   Foreground="{StaticResource TextColorPrimaryDark}"
-                                   Style="{StaticResource Title}"
-                                   Tag="Likes"
-                                   Tapped="AccountDetails_Tapped">
-                            <Run Foreground="{StaticResource ColorPrimaryDark}" Text="{Binding LikesCount, FallbackValue=0}" />
-                            <LineBreak />
-                            <Run FontSize="12" Text="{Binding [Account_Likes], Source={StaticResource Localized}}" />
-                        </TextBlock>
-                        <TextBlock Grid.Column="4"
-                                   FontWeight="Normal"
-                                   Foreground="{StaticResource TextColorPrimaryDark}"
-                                   Style="{StaticResource Title}"
-                                   Tag="Followers"
-                                   Tapped="AccountDetails_Tapped">
-                            <Run Foreground="{StaticResource ColorPrimaryDark}" Text="{Binding Followers, FallbackValue=0}" />
-                            <LineBreak />
-                            <Run FontSize="12" Text="{Binding [Account_Followers], Source={StaticResource Localized}}" />
-                        </TextBlock>
-                    </Grid>
+                    <ScrollViewer>
+                        <StackPanel Margin="0, 175, 0, 0">
+                            <Grid VerticalAlignment="Top" Background="{ThemeResource WindowBackgroundAccent}">
+                                <Grid.ChildrenTransitions>
+                                    <TransitionCollection>
+                                        <EntranceThemeTransition />
+                                    </TransitionCollection>
+                                </Grid.ChildrenTransitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="10" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="1"
+                                           FontWeight="Normal"
+                                           Foreground="{StaticResource TextColorPrimaryDark}"
+                                           Style="{StaticResource Title}"
+                                           Tag="Following"
+                                           Tapped="AccountDetails_Tapped">
+                                    <Run Foreground="{StaticResource ColorPrimaryDark}" Text="{Binding FollowingCount, FallbackValue=0}" />
+                                    <LineBreak />
+                                    <Run FontSize="12" Text="{Binding [Account_Following], Source={StaticResource Localized}}" />
+                                </TextBlock>
+                                <TextBlock Grid.Column="2"
+                                           FontWeight="Normal"
+                                           Foreground="{StaticResource TextColorPrimaryDark}"
+                                           Style="{StaticResource Title}"
+                                           Tag="Posts"
+                                           Tapped="AccountDetails_Tapped">
+                                    <Run Foreground="{StaticResource ColorPrimaryDark}" Text="{Binding PostCount, FallbackValue=0}" />
+                                    <LineBreak />
+                                    <Run FontSize="12" Text="{Binding [Account_Posts], Source={StaticResource Localized}}" />
+                                </TextBlock>
+                                <TextBlock Grid.Column="3"
+                                           FontWeight="Normal"
+                                           Foreground="{StaticResource TextColorPrimaryDark}"
+                                           Style="{StaticResource Title}"
+                                           Tag="Likes"
+                                           Tapped="AccountDetails_Tapped">
+                                    <Run Foreground="{StaticResource ColorPrimaryDark}" Text="{Binding LikesCount, FallbackValue=0}" />
+                                    <LineBreak />
+                                    <Run FontSize="12" Text="{Binding [Account_Likes], Source={StaticResource Localized}}" />
+                                </TextBlock>
+                                <TextBlock Grid.Column="4"
+                                           FontWeight="Normal"
+                                           Foreground="{StaticResource TextColorPrimaryDark}"
+                                           Style="{StaticResource Title}"
+                                           Tag="Followers"
+                                           Tapped="AccountDetails_Tapped">
+                                    <Run Foreground="{StaticResource ColorPrimaryDark}" Text="{Binding Followers, FallbackValue=0}" />
+                                    <LineBreak />
+                                    <Run FontSize="12" Text="{Binding [Account_Followers], Source={StaticResource Localized}}" />
+                                </TextBlock>
+                            </Grid>
 
-                    <ScrollViewer Grid.Row="2">
-                        <StackPanel>
-                            <Button Click="ManageBlogs_Tapped"
-                                    Foreground="{StaticResource TextColorPrimaryDark}"
-                                    Style="{StaticResource TransparentButtonStyle}">
-                                <Grid>
-                                    <TextBlock VerticalAlignment="Center"
-                                               Style="{StaticResource TitleTextBlockStyle}"
-                                               Text="{Binding [Account_MyBlogs],
-                                                              Source={StaticResource Localized}}" />
-                                    <TextBlock HorizontalAlignment="Right"
-                                               Foreground="{StaticResource ColorPrimary}"
-                                               Style="{StaticResource IconStyle}"
-                                               Text="&#xE00F;" />
-                                </Grid>
-                            </Button>
+                            <StackPanel Background="{ThemeResource WindowBackground}">
+                                <Button Click="ManageBlogs_Tapped"
+                                        Foreground="{StaticResource TextColorPrimaryDark}"
+                                        Style="{StaticResource TransparentButtonStyle}">
+                                    <Grid>
+                                        <TextBlock VerticalAlignment="Center"
+                                                   Style="{StaticResource TitleTextBlockStyle}"
+                                                   Text="{Binding [Account_MyBlogs],
+                                                                  Source={StaticResource Localized}}" />
+                                        <TextBlock HorizontalAlignment="Right"
+                                                   Foreground="{StaticResource ColorPrimary}"
+                                                   Style="{StaticResource IconStyle}"
+                                                   Text="&#xE00F;" />
+                                    </Grid>
+                                </Button>
 
-                            <Button Click="Inbox_Tapped"
-                                    Foreground="{StaticResource TextColorPrimaryDark}"
-                                    Style="{StaticResource TransparentButtonStyle}">
-                                <Grid>
-                                    <TextBlock VerticalAlignment="Center"
-                                               Style="{StaticResource TitleTextBlockStyle}"
-                                               Text="{Binding [Title_Inbox],
-                                                              Source={StaticResource Localized}}" />
-                                    <TextBlock HorizontalAlignment="Right"
-                                               Foreground="{StaticResource ColorPrimary}"
-                                               Style="{StaticResource IconStyle}"
-                                               Text="&#xE00F;" />
-                                </Grid>
-                            </Button>
+                                <Button Click="Inbox_Tapped"
+                                        Foreground="{StaticResource TextColorPrimaryDark}"
+                                        Style="{StaticResource TransparentButtonStyle}">
+                                    <Grid>
+                                        <TextBlock VerticalAlignment="Center"
+                                                   Style="{StaticResource TitleTextBlockStyle}"
+                                                   Text="{Binding [Title_Inbox],
+                                                                  Source={StaticResource Localized}}" />
+                                        <TextBlock HorizontalAlignment="Right"
+                                                   Foreground="{StaticResource ColorPrimary}"
+                                                   Style="{StaticResource IconStyle}"
+                                                   Text="&#xE00F;" />
+                                    </Grid>
+                                </Button>
 
-                            <Button Click="Drafts_Tapped"
-                                    Foreground="{StaticResource TextColorPrimaryDark}"
-                                    Style="{StaticResource TransparentButtonStyle}">
-                                <Grid>
-                                    <TextBlock VerticalAlignment="Center"
-                                               Style="{StaticResource TitleTextBlockStyle}"
-                                               Text="{Binding [Title_Drafts],
-                                                              Source={StaticResource Localized}}" />
-                                    <TextBlock HorizontalAlignment="Right"
-                                               Foreground="{StaticResource ColorPrimary}"
-                                               Style="{StaticResource IconStyle}"
-                                               Text="&#xE00F;" />
-                                </Grid>
-                            </Button>
+                                <Button Click="Drafts_Tapped"
+                                        Foreground="{StaticResource TextColorPrimaryDark}"
+                                        Style="{StaticResource TransparentButtonStyle}">
+                                    <Grid>
+                                        <TextBlock VerticalAlignment="Center"
+                                                   Style="{StaticResource TitleTextBlockStyle}"
+                                                   Text="{Binding [Title_Drafts],
+                                                                  Source={StaticResource Localized}}" />
+                                        <TextBlock HorizontalAlignment="Right"
+                                                   Foreground="{StaticResource ColorPrimary}"
+                                                   Style="{StaticResource IconStyle}"
+                                                   Text="&#xE00F;" />
+                                    </Grid>
+                                </Button>
 
-                            <Button Click="Queue_Tapped"
-                                    Foreground="{StaticResource TextColorPrimaryDark}"
-                                    Style="{StaticResource TransparentButtonStyle}">
-                                <Grid>
-                                    <TextBlock VerticalAlignment="Center"
-                                               Style="{StaticResource TitleTextBlockStyle}"
-                                               Text="{Binding [Title_Queue],
-                                                              Source={StaticResource Localized}}" />
-                                    <TextBlock HorizontalAlignment="Right"
-                                               Foreground="{StaticResource ColorPrimary}"
-                                               Style="{StaticResource IconStyle}"
-                                               Text="&#xE00F;" />
-                                </Grid>
-                            </Button>
+                                <Button Click="Queue_Tapped"
+                                        Foreground="{StaticResource TextColorPrimaryDark}"
+                                        Style="{StaticResource TransparentButtonStyle}">
+                                    <Grid>
+                                        <TextBlock VerticalAlignment="Center"
+                                                   Style="{StaticResource TitleTextBlockStyle}"
+                                                   Text="{Binding [Title_Queue],
+                                                                  Source={StaticResource Localized}}" />
+                                        <TextBlock HorizontalAlignment="Right"
+                                                   Foreground="{StaticResource ColorPrimary}"
+                                                   Style="{StaticResource IconStyle}"
+                                                   Text="&#xE00F;" />
+                                    </Grid>
+                                </Button>
 
-                            <Button Click="Favs_List_Tapped"
-                                    Foreground="{StaticResource TextColorPrimaryDark}"
-                                    Style="{StaticResource TransparentButtonStyle}"
-                                    Visibility="{Binding Converter={StaticResource IsFullVersion},
-                                                         FallbackValue=Collapsed}">
-                                <Grid>
-                                    <TextBlock VerticalAlignment="Center"
-                                               Style="{StaticResource TitleTextBlockStyle}"
-                                               Text="{Binding [Title_FavBlogs],
-                                                              Source={StaticResource Localized}}" />
-                                    <TextBlock HorizontalAlignment="Right"
-                                               Foreground="{StaticResource ColorPrimary}"
-                                               Style="{StaticResource IconStyle}"
-                                               Text="&#xE00F;" />
-                                </Grid>
-                            </Button>
+                                <Button Click="Favs_List_Tapped"
+                                        Foreground="{StaticResource TextColorPrimaryDark}"
+                                        Style="{StaticResource TransparentButtonStyle}"
+                                        Visibility="{Binding Converter={StaticResource IsFullVersion},
+                                                             FallbackValue=Collapsed}">
+                                    <Grid>
+                                        <TextBlock VerticalAlignment="Center"
+                                                   Style="{StaticResource TitleTextBlockStyle}"
+                                                   Text="{Binding [Title_FavBlogs],
+                                                                  Source={StaticResource Localized}}" />
+                                        <TextBlock HorizontalAlignment="Right"
+                                                   Foreground="{StaticResource ColorPrimary}"
+                                                   Style="{StaticResource IconStyle}"
+                                                   Text="&#xE00F;" />
+                                    </Grid>
+                                </Button>
+                            </StackPanel>
+
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
@@ -355,7 +348,6 @@
                           Label="new" />
             <CommandBar.SecondaryCommands>
                 <AppBarButton Click="SettingsButton_Click" Label="{Binding [Title_Settings], Source={StaticResource Localized}}" />
-                <AppBarButton Click="ManageAccountButton_Click" Label="{Binding [Heading_ManageAccounts], Source={StaticResource Localized}}" />
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

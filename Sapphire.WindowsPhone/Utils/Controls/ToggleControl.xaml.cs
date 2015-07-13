@@ -69,9 +69,9 @@ namespace Sapphire.Utils.Controls {
         private void ChangeImage() {
             if (IsEnabled) {
                 if (IsChecked == true)
-                    ButtonImage.Source = EnabledChecked;
+                    ButtonContent.Source = EnabledChecked;
                 else
-                    ButtonImage.Source = EnabledUnchecked;
+                    ButtonContent.Source = EnabledUnchecked;
             }
         }
     }

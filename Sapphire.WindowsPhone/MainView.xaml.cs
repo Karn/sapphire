@@ -1,5 +1,4 @@
-﻿using Core.AuthenticationManager;
-using Core.Client;
+﻿using Core.Client;
 using Core.Content;
 using Core.Content.Model;
 using Core.Content.Model.DatabaseHelpers;
@@ -7,7 +6,6 @@ using Core.Utils;
 using Sapphire.Shared.Common;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
@@ -248,11 +246,6 @@ namespace Sapphire {
                 Log.e("Failed to navigate to Settings.");
         }
 
-        private void ManageAccountButton_Click(object sender, RoutedEventArgs e) {
-            if (!Frame.Navigate(typeof(Pages.AccountManager), "1"))
-                Log.e("Failed to navigate to AccountManager.");
-        }
-
         private async void RefreshButton_Click(object sender, RoutedEventArgs e) {
             RefreshButton.IsEnabled = false;
             switch (NavigationPivot.SelectedIndex) {
@@ -268,7 +261,6 @@ namespace Sapphire {
             }
             RefreshButton.IsEnabled = true;
         }
-
 
         private void PageTitle_Tapped(object sender, TappedRoutedEventArgs e) {
             switch (NavigationPivot.SelectedIndex) {

@@ -92,5 +92,5 @@
             </Setter>
         </Style>
     </ToggleButton.Style>
-    <Image x:Name="ButtonImage" />
+    <Image x:Name="ButtonContent" />
 </ToggleButton>

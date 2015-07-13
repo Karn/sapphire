@@ -249,7 +249,6 @@
                      PlaceholderText="email"
                      Style="{StaticResource SearchBoxStyle}" />
 
-
             <PasswordBox x:Name="Password"
                          Height="40"
                          Margin="8, 2"

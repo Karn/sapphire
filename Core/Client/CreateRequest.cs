@@ -112,7 +112,6 @@ namespace Core.Client {
             HttpResponseMessage result = await RequestService.GET(url, parameters);
 
             if (result.StatusCode == HttpStatusCode.OK) {
-                Debug.WriteLine(await result.Content.ReadAsStringAsync());
                 try {
                     var PostList = new List<Post>();
                     var resultAsString = await result.Content.ReadAsStringAsync();

@@ -31,17 +31,6 @@ namespace Sapphire.Pages {
             this.navigationHelper = new NavigationHelper(this);
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
-
-            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
-        }
-
-        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e) {
-            //Fix navigating
-            if (!Frame.Navigate(typeof(MainView))) {
-                throw new Exception();
-            }
-            e.Handled = true;
-            return;
         }
 
         /// <summary>
@@ -113,7 +102,7 @@ namespace Sapphire.Pages {
                         if (Authentication.SelectedAccount == accountEmail) {
                             Account newAccount = DatabaseController.GetInstance().GetAccounts().First();
                             Authentication.SelectedAccount = newAccount.AccountEmail;
-                            
+
                             Authentication.Token = newAccount.AuthenticatedToken;
                             Authentication.TokenSecret = newAccount.AuthenticationTokenSecret;
 

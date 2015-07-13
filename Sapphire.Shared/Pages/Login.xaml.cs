@@ -25,20 +25,7 @@ namespace Sapphire.Shared.Pages {
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
 
             var applicationView = ApplicationView.GetForCurrentView();
-#if WINDOWS_PHONE_APP
-            Windows.Phone.UI.Input.HardwareButtons.BackPressed += HardwareButtons_BackPressed;
-#endif
         }
-#if WINDOWS_PHONE_APP
-        private void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e) {
-            //Fix navigating
-            if (DatabaseController.GetInstance().GetAccounts().Count == 0) {
-                Application.Current.Exit();
-            }
-            e.Handled = true;
-            return;
-        }
-#endif
 
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
@@ -59,7 +46,6 @@ namespace Sapphire.Shared.Pages {
         /// a dictionary of state preserved by this page during an earlier
         /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e) {
-            Frame.BackStack.Clear();
         }
 
         /// <summary>
