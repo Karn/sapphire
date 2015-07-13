@@ -350,10 +350,5 @@
                 </GroupStyle.HeaderTemplate>
             </GroupStyle>
         </ListView.GroupStyle>
-        <ListView.ItemsPanel>
-            <ItemsPanelTemplate>
-                <VirtualizingStackPanel />
-            </ItemsPanelTemplate>
-        </ListView.ItemsPanel>
     </ListView>
 </UserControl>
