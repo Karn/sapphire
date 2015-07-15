@@ -2,7 +2,6 @@
 using Core.Content;
 using Core.Content.Model;
 using Core.Content.Model.DatabaseHelpers;
-using Core.Service.Exceptions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
