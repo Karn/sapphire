@@ -123,6 +123,9 @@
     <Compile Include="Pages\PostsPage.xaml.cs">
       <DependentUpon>PostsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\NotificationManager.xaml.cs">
+      <DependentUpon>NotificationManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
@@ -239,6 +242,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\PostsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\NotificationManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -42,6 +42,9 @@ namespace Sapphire {
             if (UserPreferences.NotificationsEnabled)
                 RegisterBackgroundTask();
 
+            if (SpotlightTags.DataContext == null)
+                SpotlightTags.ItemsSource = CreateSpotlightTags();
+
             HardwareButtons.BackPressed += BackButtonPressed;
         }
 
@@ -54,8 +57,6 @@ namespace Sapphire {
                         return;
                 }
                 await Activity.RetrieveNotifications();
-                if (SpotlightTags.DataContext == null)
-                    SpotlightTags.ItemsSource = CreateSpotlightTags();
             }
         }
 

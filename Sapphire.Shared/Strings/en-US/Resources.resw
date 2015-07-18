@@ -196,7 +196,7 @@
     <value>Accounts</value>
   </data>
   <data name="Settings_AutoTagsDescription" xml:space="preserve">
-    <value>Edit what tags to add to posts by default.</value>
+    <value>Customize default tags.</value>
   </data>
   <data name="Settings_AutoTagsTitle" xml:space="preserve">
     <value>Automatic post tagging</value>
@@ -205,10 +205,10 @@
     <value>Customize your alerts.</value>
   </data>
   <data name="Settings_BlogNotifTitle" xml:space="preserve">
-    <value>Blog notifications</value>
+    <value>Notifications</value>
   </data>
   <data name="Settings_PostActionDescription" xml:space="preserve">
-    <value>Change what the quick-post button does.</value>
+    <value>Change quick-post action.</value>
   </data>
   <data name="Settings_PostActionTitle" xml:space="preserve">
     <value>Quick post action.</value>
@@ -220,7 +220,7 @@
     <value>View post tags</value>
   </data>
   <data name="Settings_QuickPostDescription" xml:space="preserve">
-    <value>Skip addition of details to a post.</value>
+    <value>Post even faster.</value>
   </data>
   <data name="Settings_QuickPostTitle" xml:space="preserve">
     <value>Quick-post</value>
@@ -232,16 +232,16 @@
     <value>Like this app?</value>
   </data>
   <data name="Settings_UpgradeDescription" xml:space="preserve">
-    <value>Add features with a one-time purchase.</value>
+    <value>Add more features.</value>
   </data>
   <data name="Settings_UpgradeTitle" xml:space="preserve">
     <value>Upgrade to full version</value>
   </data>
-  <data name="Settings_UXFeedbackDescription" xml:space="preserve">
-    <value>Assist in development via usage analytics.</value>
+  <data name="Settings_FeedbackDescription" xml:space="preserve">
+    <value>Help make Sapphire better.</value>
   </data>
-  <data name="Settings_UXFeedbackTitle" xml:space="preserve">
-    <value>UX Feedback</value>
+  <data name="Settings_FeedbackTitle" xml:space="preserve">
+    <value>Feedback</value>
   </data>
   <data name="Title_Account" xml:space="preserve">
     <value>Account</value>
@@ -405,9 +405,6 @@
   <data name="BlogDetails_RemoveFromFavs" xml:space="preserve">
     <value>remove from favorites</value>
   </data>
-  <data name="BlogDetails_ViewLikes" xml:space="preserve">
-    <value>view likes</value>
-  </data>
   <data name="Post_NotesLabel" xml:space="preserve">
     <value>notes</value>
   </data>
@@ -443,5 +440,11 @@
   </data>
   <data name="Settings_UpgradeDetail1" xml:space="preserve">
     <value>You get some great features by upgrading.</value>
+  </data>
+  <data name="BlogDetails_ViewLikes" xml:space="preserve">
+    <value>view likes</value>
+  </data>
+  <data name="Settings_PostTagsDetail" xml:space="preserve">
+    <value>You can change what tags you want added to your posts by default. Tags must be comma-delimited.</value>
   </data>
 </root>
