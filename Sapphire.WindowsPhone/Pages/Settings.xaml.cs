@@ -44,6 +44,7 @@ namespace Sapphire.Pages {
 
             OneClickReblog.IsChecked = UserPreferences.OneClickReblog;
             PostTags.IsChecked = UserPreferences.TagsInPosts;
+            OneClickReblog.IsChecked = QuickPostAction.IsEnabled = UserPreferences.OneClickReblog;
             //UXFeedback.IsChecked = UserPreferences.EnableAnalytics;
             //DarkStatusbar.IsChecked = UserPreferences.EnableStatusBarBG;
         }
