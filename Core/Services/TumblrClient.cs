@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Core.Service {
+namespace Core.Services {
 
     /// <summary>
     /// Class that handles interfacing with the Tumblr API.

@@ -58,10 +58,9 @@
     <Compile Include="Content\Model\Account.cs" />
     <Compile Include="Content\UserPreferences.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\Requests\AuthenticateUser.cs" />
-    <Compile Include="Service\Requests\RequestParameters.cs" />
-    <Compile Include="Service\TumblrClient.cs" />
-    <Compile Include="Service\Utils\APIHelper.cs" />
+    <Compile Include="Services\Utils\RequestParameters.cs" />
+    <Compile Include="Services\TumblrClient.cs" />
+    <Compile Include="Services\Utils\APIHelper.cs" />
     <Compile Include="Content\Model\DatabaseHelpers\SQLite.cs" />
     <Compile Include="Content\Model\DatabaseHelpers\SQLiteAsync.cs" />
     <Compile Include="Utils\AlertDialog.xaml.cs">
@@ -100,7 +99,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Service\Responses\Model\" />
+    <Folder Include="Services\Requests\" />
+    <Folder Include="Services\Responses\Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

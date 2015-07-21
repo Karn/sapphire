@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Core.Service.Requests {
+namespace Core.Services.Utils {
 
 	/// <summary>
 	/// Initializes a dictionary to store client application parameters for 

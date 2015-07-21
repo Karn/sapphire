@@ -6,7 +6,6 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -14,21 +13,16 @@ using Windows.Storage.Streams;
 namespace Core.Client {
     public class RequestService {
 
-        //private static string TAG = "RequestService";
-
-        private CancellationTokenSource CancellationToken = new CancellationTokenSource();
-
-        public static async Task<HttpResponseMessage> GET(string URL, Service.Requests.RequestParameters parameters) {
+        public static async Task<HttpResponseMessage> GET(string URL, Services.Utils.RequestParameters parameters) {
             try {
                 using (var client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate })) {
-                    client.MaxResponseContentBufferSize = int.MaxValue;
-                    client.DefaultRequestHeaders.ExpectContinue = false;
 
                     string nonce = Authentication.Utils.GetNonce();
                     string timeStamp = Authentication.Utils.GetTimeStamp();
                     var requestParameters = parameters.ToString();
+
                     parameters.AppendDefault(nonce, timeStamp);
-                    var signatureParameters = "GET&" + Authentication.Utils.UrlEncode(URL) + "&" +
+                    string signatureParameters = "GET&" + Authentication.Utils.UrlEncode(URL) + "&" +
                         Authentication.Utils.UrlEncode(parameters.ToString());
 
                     var authenticationData = RequestParameters.AuthenticationData(nonce, timeStamp,
@@ -36,15 +30,14 @@ namespace Core.Client {
 
                     var requestMessage = new HttpRequestMessage() {
                         Method = HttpMethod.Get,
-                        RequestUri = new Uri(URL +
+                        RequestUri = new Uri(URL + 
                         (!string.IsNullOrEmpty(requestParameters) ? "?" + requestParameters : ""))
                     };
 
                     requestMessage.Headers.Add("Accept-Encoding", "gzip,deflate");
                     requestMessage.Headers.Add("User-Agent", "Android");
-                    requestMessage.Headers.Add("X-Version", "tablet/3.8.2/0/4.0.4");
-                    requestMessage.Headers.Add("X-YUser-Agent", "Dalvik/1.6.0 (Linux; U; Android 4.0.4; LePanII Build/IMM76D)/Tumblr/tablet/3.8.2/0/4.0.4");
-                    requestMessage.Headers.Add("X-Features", "AUTO_PLAY_VIDEO=B&SSL=B&TOUR_GUIDE=A&POST_ACTION_BUTTON=A");
+                    requestMessage.Headers.Add("X-Version", "device/3.8.8.41/0/4.4.4");
+                    requestMessage.Headers.Add("X-YUser-Agent", "Mozilla/5.0 (Linux; Android 4.4; Nexus 5 Build/KRT16M)/Tumblr/device/3.8.8.41/0/4.4.4");
                     requestMessage.Headers.Authorization = new AuthenticationHeaderValue("OAuth", authenticationData);
                     requestMessage.Headers.IfModifiedSince = DateTime.UtcNow.Date;
 

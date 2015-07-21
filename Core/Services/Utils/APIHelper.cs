@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Service.Utils {
+namespace Core.Services.Utils {
 	public class APIHelper {
 	}
 }

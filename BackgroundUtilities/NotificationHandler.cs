@@ -33,7 +33,7 @@ namespace BackgroundUtilities {
 
 		private async Task RetrieveNotifications() {
 			try {
-				var Response = await Core.Client.RequestService.GET("https://api.tumblr.com/v2/user/notifications", new Core.Service.Requests.RequestParameters());
+				var Response = await Core.Client.RequestService.GET("https://api.tumblr.com/v2/user/notifications", new Core.Services.Utils.RequestParameters());
 
 				if (Response.StatusCode == System.Net.HttpStatusCode.OK) {
 					var activity = JsonConvert.DeserializeObject<Responses.GetNotifications>(await Response.Content.ReadAsStringAsync());

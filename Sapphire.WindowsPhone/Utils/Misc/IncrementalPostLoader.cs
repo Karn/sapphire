@@ -40,7 +40,7 @@ namespace Sapphire.Utils.Misc {
 						App.DisplayStatus(App.LocaleResources.GetString("LoadingPostsMessage"));
 
 						var posts = new List<Post>();
-						Core.Service.Requests.RequestParameters _params = new Core.Service.Requests.RequestParameters() {
+						Core.Services.Utils.RequestParameters _params = new Core.Services.Utils.RequestParameters() {
 								{ "api_key", Authentication.ConsumerKey }
 							};
 

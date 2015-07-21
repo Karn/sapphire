@@ -31,7 +31,7 @@ namespace Core.Client {
 
         public static async Task<bool> RetrieveAccount(string account) {
             for (int i = 0; i < 5; i++) {
-                var result = await RequestService.GET("https://api.tumblr.com/v2/user/info", new Service.Requests.RequestParameters());
+                var result = await RequestService.GET("https://api.tumblr.com/v2/user/info", new Services.Utils.RequestParameters());
 
                 if (result.StatusCode == HttpStatusCode.OK) {
 
@@ -77,7 +77,7 @@ namespace Core.Client {
             if (UserPreferences.CurrentBlog != null) {
                 try {
                     var result = await RequestService.GET("https://api.tumblr.com/v2/blog/" + UserPreferences.CurrentBlog.Name + ".tumblr.com/notifications",
-                        new Service.Requests.RequestParameters() {
+                        new Services.Utils.RequestParameters() {
                                 { "rfg", "true" }
                         });
 
@@ -100,12 +100,12 @@ namespace Core.Client {
             }
             throw new Exception("No active account.");
         }
-
+        
         public static async Task<List<Post>> RetrievePosts(string url) {
-            return await RetrievePosts(url, new Service.Requests.RequestParameters());
+            return await RetrievePosts(url, new Services.Utils.RequestParameters());
         }
 
-        public static async Task<List<Post>> RetrievePosts(string url, Service.Requests.RequestParameters parameters) {
+        public static async Task<List<Post>> RetrievePosts(string url, Services.Utils.RequestParameters parameters) {
             parameters.Add("reblog_info", "true");
             HttpResponseMessage result = await RequestService.GET(url, parameters);
 
@@ -161,7 +161,7 @@ namespace Core.Client {
 
         public static async Task<bool> LikePost(string id, string reblogKey) {
             return (await RequestService.GET(EndpointManager.LikePost,
-                new Service.Requests.RequestParameters() {
+                new Services.Utils.RequestParameters() {
                     {"id", id },
                     {"reblog_key", reblogKey}
                 })).StatusCode == HttpStatusCode.OK;
@@ -169,7 +169,7 @@ namespace Core.Client {
 
         public static async Task<bool> UnlikePost(string id, string reblogKey) {
             return (await RequestService.GET(EndpointManager.UnlikePost,
-                new Service.Requests.RequestParameters() {
+                new Services.Utils.RequestParameters() {
                     {"id", id },
                     {"reblog_key", reblogKey}
                 })).StatusCode == HttpStatusCode.OK;
@@ -237,7 +237,7 @@ namespace Core.Client {
         /// <returns>List of blogs</returns>
         public static async Task<List<Blog>> RetrieveFollowers(int offset) {
             var requestResult = await RequestService.GET(EndpointManager.Followers,
-                new Service.Requests.RequestParameters() {
+                new Services.Utils.RequestParameters() {
                     {"offset", offset.ToString() }
                 });
             return requestResult.StatusCode == HttpStatusCode.OK ? JsonConvert.DeserializeObject<Responses.GetFollowers>(await requestResult.Content.ReadAsStringAsync())
@@ -250,7 +250,7 @@ namespace Core.Client {
         /// <returns>List of blogs</returns>
         public static async Task<List<Blog>> RetrieveFollowing(int offset) {
             var requestResult = await RequestService.GET(EndpointManager.Following,
-                new Service.Requests.RequestParameters() {
+                new Services.Utils.RequestParameters() {
                     {"offset", offset.ToString() }
                 });
             return requestResult.StatusCode == HttpStatusCode.OK ? JsonConvert.DeserializeObject<Responses.GetFollowing>(await requestResult.Content.ReadAsStringAsync())
@@ -258,7 +258,7 @@ namespace Core.Client {
         }
 
         public static async Task<Post> RetrievePost(string url, string postid) {
-            HttpResponseMessage result = await RequestService.GET(url, new Service.Requests.RequestParameters() {
+            HttpResponseMessage result = await RequestService.GET(url, new Services.Utils.RequestParameters() {
                 { "id", postid },
                 { "notes_info", "true" },
                 { "reblog_info", "true" },
@@ -294,7 +294,7 @@ namespace Core.Client {
 
         public static async Task<Blog> GetBlog(string name) {
             var requestResult = await RequestService.GET(string.Format(EndpointManager.Blog + "{0}.tumblr.com/info", name),
-                new Service.Requests.RequestParameters() {
+                new Services.Utils.RequestParameters() {
                     { "api_key", Authentication.ConsumerKey }
                 });
             return (requestResult.StatusCode == HttpStatusCode.OK) ?
@@ -304,7 +304,7 @@ namespace Core.Client {
 
         public static async Task<List<Blog>> BlogSearch(string tag) {
             var requestResult = await RequestService.GET(EndpointManager.Search + tag,
-                new Service.Requests.RequestParameters() {
+                new Services.Utils.RequestParameters() {
                     { "api_key", Authentication.ConsumerKey }
                 });
             return (requestResult.StatusCode == HttpStatusCode.OK) ?
