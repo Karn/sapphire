@@ -60,7 +60,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Requests\AuthenticateUser.cs" />
     <Compile Include="Service\Requests\RequestParameters.cs" />
-    <Compile Include="Service\Requests\RequestQueue.cs" />
     <Compile Include="Service\TumblrClient.cs" />
     <Compile Include="Service\Utils\APIHelper.cs" />
     <Compile Include="Content\Model\DatabaseHelpers\SQLite.cs" />

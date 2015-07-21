@@ -27,6 +27,7 @@ namespace Sapphire.Utils.Controls {
                     GroupData(activity);
                 App.HideStatus();
             } catch (Exception ex) {
+                //TODO: Dispaly error message
             }
         }
 
