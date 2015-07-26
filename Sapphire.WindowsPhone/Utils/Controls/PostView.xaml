@@ -83,11 +83,11 @@
                            Visibility="{Binding title,
                                                 Converter={StaticResource CaptionConverter}}"
                            misc:TextFormatter.Text="{Binding title}" />
-                <TextBlock Style="{StaticResource Body}"
-                           TextWrapping="Wrap"
-                           Visibility="{Binding body,
-                                                Converter={StaticResource CaptionConverter}}"
-                           misc:TextFormatter.Text="{Binding body}" />
+                <local:CaptionContainer Caption="{Binding body}"
+                                        Tapped="Caption_Tapped"
+                                        Visibility="{Binding body,
+                                                             Converter={StaticResource CaptionConverter}}" />
+
             </StackPanel>
         </DataTemplate>
 
@@ -319,6 +319,8 @@
             </StackPanel>
         </DataTemplate>
 
+        <DataTemplate x:Key="Empty" />
+
         <converters:PostTemplateSelector x:Key="PostTemplate"
                                          AnswerTemplate="{StaticResource Answer}"
                                          AudioTemplate="{StaticResource Audio}"
@@ -328,6 +330,7 @@
                                          PhotoSetTemplate="{StaticResource Photoset}"
                                          PhotoTemplate="{StaticResource Photo}"
                                          QuoteTemplate="{StaticResource Quote}"
+                                         TakeOverBannerTemplate="{StaticResource Empty}"
                                          TextTemplate="{StaticResource Text}"
                                          VideoTemplate="{StaticResource Video}"
                                          YoutubeTemplate="{StaticResource YoutubeVideo}" />
@@ -459,15 +462,11 @@
                                             Content="{Binding}"
                                             ContentTemplateSelector="{StaticResource PostTemplate}" />
                             <StackPanel Background="{ThemeResource PostBackground}" Tag="{Binding}">
-                                <TextBlock MaxHeight="300"
-                                           FontWeight="Normal"
-                                           IsTextSelectionEnabled="False"
-                                           Style="{StaticResource Caption}"
-                                           Tapped="Caption_Tapped"
-                                           TextWrapping="Wrap"
-                                           Visibility="{Binding caption,
-                                                                Converter={StaticResource CaptionConverter}}"
-                                           misc:CaptionFormatter.Text="{Binding caption}" />
+                                <local:CaptionContainer MaxHeight="300"
+                                                        Caption="{Binding caption}"
+                                                        Tapped="Caption_Tapped"
+                                                        Visibility="{Binding caption,
+                                                                             Converter={StaticResource CaptionConverter}}" />
                                 <TextBlock FontWeight="Normal"
                                            Style="{StaticResource Caption}"
                                            TextWrapping="Wrap"

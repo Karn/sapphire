@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="using:Sapphire.Utils.Controls"
                     xmlns:utils="using:Sapphire.Utils">
 
     <ResourceDictionary.ThemeDictionaries>
@@ -47,7 +48,6 @@
     <BitmapImage x:Key="TagsIcon" UriSource="ms-appx:///Assets/Nav/Tag.png" />
     <BitmapImage x:Key="PlayIcon" UriSource="ms-appx:///Assets/PlayIcon.png" />
     <BitmapImage x:Key="PauseIcon" UriSource="ms-appx:///Assets/PauseIcon.png" />
-
 
     <Style x:Name="Headline" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{ThemeResource TextColorPrimary}" />

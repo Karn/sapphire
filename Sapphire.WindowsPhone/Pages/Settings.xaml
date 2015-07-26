@@ -162,7 +162,8 @@
                         IsEnabled="False"
                         Style="{StaticResource TransparentButtonStyle}"
                         Tapped="ExpandContainer_Tapped"
-                        Visibility="{Binding ElementName=PageTitle, Path=Visibility,
+                        Visibility="{Binding ElementName=PageTitle,
+                                             Path=Visibility,
                                              Converter={StaticResource IsFullVersion},
                                              FallbackValue=Collapsed}">
                     <StackPanel>
@@ -231,7 +232,8 @@
                 <Button Foreground="{StaticResource TextColorPrimaryDark}"
                         Style="{StaticResource TransparentButtonStyle}"
                         Tapped="ExpandContainer_Tapped"
-                        Visibility="{Binding ElementName=PageTitle, Path=Visibility,
+                        Visibility="{Binding ElementName=PageTitle,
+                                             Path=Visibility,
                                              Converter={StaticResource IsFullVersion},
                                              FallbackValue=Collapsed}">
                     <StackPanel>

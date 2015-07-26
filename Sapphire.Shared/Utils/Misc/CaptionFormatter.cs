@@ -1,6 +1,7 @@
 ﻿using Core.Client;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Windows.UI.Xaml;

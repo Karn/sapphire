@@ -344,10 +344,10 @@ namespace Sapphire.Utils.Controls {
 		}
 
 		private void Caption_Tapped(object sender, TappedRoutedEventArgs e) {
-			if (((TextBlock)sender).MaxHeight == 300)
-				((TextBlock)sender).MaxHeight = 9999;
+			if (((FrameworkElement)sender).MaxHeight == 300)
+				((FrameworkElement)sender).MaxHeight = 9999;
 			else
-				((TextBlock)sender).MaxHeight = 300;
+				((FrameworkElement)sender).MaxHeight = 300;
 		}
 
 		private void MediatedAdControl_AdSdkError(object sender, Microsoft.AdMediator.Core.Events.AdFailedEventArgs e) {

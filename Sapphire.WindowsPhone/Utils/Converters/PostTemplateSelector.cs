@@ -15,34 +15,39 @@ namespace Sapphire.Utils.Converters {
         public DataTemplate YoutubeTemplate { get; set; }
         public DataTemplate VideoTemplate { get; set; }
         public DataTemplate AnswerTemplate { get; set; }
-
-		public DataTemplate DefaultTemplate { get; set; }
+        public DataTemplate TakeOverBannerTemplate { get; set; }
+        public DataTemplate DefaultTemplate { get; set; }
 
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container) {
             var listItem = item as Post;
             if (listItem != null) {
-                if (listItem.type.Equals("text"))
-                    return TextTemplate;
-                else if (listItem.type.Equals("photoset"))
-                    return PhotoSetTemplate;
-                else if (listItem.type.Equals("gif"))
-                    return GifTemplate;
-                else if (listItem.type.Equals("photo"))
-                    return PhotoTemplate;
-                else if (listItem.type.Equals("quote"))
-                    return QuoteTemplate;
-                else if (listItem.type.Equals("link"))
-                    return LinkTemplate;
-                else if (listItem.type.Equals("chat"))
-                    return ChatTemplate;
-                else if (listItem.type.Equals("audio"))
-                    return AudioTemplate;
-                else if (listItem.type.Equals("youtube"))
-                    return YoutubeTemplate;
-                else if (listItem.type.Equals("video"))
-                    return VideoTemplate;
-                else if (listItem.type.Equals("answer"))
-                    return AnswerTemplate;
+                if (listItem.object_type.Equals("post")) {
+                    if (listItem.type.Equals("text"))
+                        return TextTemplate;
+                    else if (listItem.type.Equals("photoset"))
+                        return PhotoSetTemplate;
+                    else if (listItem.type.Equals("gif"))
+                        return GifTemplate;
+                    else if (listItem.type.Equals("photo"))
+                        return PhotoTemplate;
+                    else if (listItem.type.Equals("quote"))
+                        return QuoteTemplate;
+                    else if (listItem.type.Equals("link"))
+                        return LinkTemplate;
+                    else if (listItem.type.Equals("chat"))
+                        return ChatTemplate;
+                    else if (listItem.type.Equals("audio"))
+                        return AudioTemplate;
+                    else if (listItem.type.Equals("youtube"))
+                        return YoutubeTemplate;
+                    else if (listItem.type.Equals("video"))
+                        return VideoTemplate;
+                    else if (listItem.type.Equals("answer"))
+                        return AnswerTemplate;
+                } else {
+                    if (listItem.object_type.Equals("takeover_banner"))
+                        return TakeOverBannerTemplate;
+                }
             }
 
 			return DefaultTemplate;

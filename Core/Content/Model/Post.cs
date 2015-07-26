@@ -26,6 +26,7 @@ namespace Core.Content.Model {
 
 		public string id { get; set; }
 		public string post_url { get; set; }
+        public string object_type { get; set; }
 		public string type { get; set; }
 		public string timestamp { get; set; }
 		public string date { get; set; }

@@ -134,6 +134,9 @@
     <Compile Include="Utils\Controls\ActivityView.xaml.cs">
       <DependentUpon>ActivityView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\Controls\CaptionContainer.xaml.cs">
+      <DependentUpon>CaptionContainer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\Controls\NewPostDialog.xaml.cs">
       <DependentUpon>NewPostDialog.xaml</DependentUpon>
     </Compile>
@@ -258,6 +261,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Utils\Controls\CaptionContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Utils\Controls\NewPostDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -279,6 +286,9 @@
     <Reference Include="AdDuplex.Universal.WinPhone.WinRT, Version=9.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AdDuplexWinPhone81.9.0.0.1\lib\portable-win81+wpa81\AdDuplex.Universal.WinPhone.WinRT.winmd</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid+MonoTouch\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AdMediator.WindowsPhone81.AdDuplex">
       <HintPath>..\packages\Microsoft.AdMediator.WindowsPhone81.AdDuplex.1.0.11\lib\wpa\Microsoft.AdMediator.WindowsPhone81.AdDuplex.dll</HintPath>
