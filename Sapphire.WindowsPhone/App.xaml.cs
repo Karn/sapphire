@@ -6,6 +6,7 @@ using Sapphire.Shared.Common;
 using Sapphire.Shared.Pages;
 using Sapphire.Utils.Misc;
 using System;
+using System.Diagnostics;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Resources;
@@ -32,10 +33,10 @@ namespace Sapphire {
             this.Suspending += this.OnSuspending;
 
             new UserPreferences();
-            Log.i("Initialized user preferences.");
+            Debug.WriteLine("Initialized user preferences.");
 
             DatabaseController.GetInstance();
-            Log.i("Initialized application data store.");
+            Debug.WriteLine("Initialized application data store.");
 
             RequestedTheme = ApplicationTheme.Light;
         }
@@ -76,9 +77,6 @@ namespace Sapphire {
                 new Authentication();
 
                 if (DatabaseController.GetInstance().GetAccounts().Count != 0) {
-
-                    Analytics.GetInstance().SendEvent("Initialized analytics platform.");
-
                     if (!rootFrame.Navigate(typeof(MainView), e.Arguments))
                         throw new Exception("Failed to create initial page");
                 } else {

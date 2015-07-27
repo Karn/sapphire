@@ -1,29 +1,17 @@
-﻿using Core.Client;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
+using System.Collections.Generic;
 
 namespace Sapphire.Utils.Controls {
     public sealed partial class CaptionContainer : UserControl {
 
-        private static Regex stripHtmlRegex = new Regex(@"<(?!\/?(blockquote|a)(?=>|\s.*>))\/?.*?>", RegexOptions.IgnoreCase);
+        private static Regex stripHtmlRegex = new Regex(@"<(?!\/?(blockquote|a|img)(?=>|\s.*>))\/?.*?>", RegexOptions.IgnoreCase);
 
         public UIElement Container { get; set; }
 
@@ -38,10 +26,7 @@ namespace Sapphire.Utils.Controls {
         }
 
         private static void OnCaptionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
-            var captionContainer = d as CaptionContainer;
-            var text = FilterTags(e.NewValue.ToString());
 
-            captionContainer.Container = GenerateElements(text);
         }
 
         public CaptionContainer() {
@@ -53,28 +38,37 @@ namespace Sapphire.Utils.Controls {
 
         private void CaptionContainer_Loaded(object sender, RoutedEventArgs e) {
             if (!string.IsNullOrEmpty(Caption)) {
-                Debug.WriteLine("Caption: {0}", Caption);
 
                 var text = FilterTags(Caption);
-                this.LayoutRoot.Child = GenerateElements(text);
+                Debug.WriteLine("Caption: {0}", text);
+
+                HtmlDocument x = new HtmlDocument();
+                x.LoadHtml(text);
+
+                this.LayoutRoot.Child = GenerateElements(x.DocumentNode.Descendants());
             }
+        }
+
+        private UIElement GenerateElements() {
+            throw new NotImplementedException();
         }
 
         public static string FilterTags(string input) {
             return stripHtmlRegex.Replace(input, string.Empty);
         }
 
-        public static StackPanel GenerateElements(string input) {
+        public static StackPanel GenerateElements(IEnumerable<HtmlNode> nodes) {
             var control = new StackPanel();
             try {
-                HtmlDocument x = new HtmlDocument();
-                x.LoadHtml(input);
-
-                foreach (HtmlNode t in x.DocumentNode.Descendants()) {
+                foreach (HtmlNode t in nodes) {
                     if (t.Name.ToLower() == "blockquote") {
-                        control.Children.Add(new Border() { BorderThickness = new Thickness(2, 0, 0, 0), BorderBrush = new SolidColorBrush(Colors.Black), Margin = new Thickness(8, 0, 0, 0), Child = GenerateElements(t.InnerHtml.ToString()) });
-                    } else {
-                        control.Children.Add(new TextBlock() { Style = App.Current.Resources["Caption"] as Style, Text = CreateRequest.GetPlainTextFromHtml(t.InnerHtml) });
+                        control.Children.Add(new Border() { BorderThickness = new Thickness(2, 0, 0, 0), BorderBrush = App.Current.Resources["WindowBackground"] as SolidColorBrush, Margin = new Thickness(16, 0, 0, 0), Child = GenerateElements(t.Descendants()) });
+                    } else if (t.Name.ToLower() == "a") {
+                        control.Children.Add(new HyperlinkButton() { Style = App.Current.Resources["HyperlinkButtonStyle"] as Style, Foreground = App.Current.Resources["HyperlinkColor"] as SolidColorBrush, Content = t.InnerText, NavigateUri = new Uri(t.Attributes.AttributesWithName("href").First().Value) });
+                    } else if (t.Name.ToLower() == "img") {
+                        control.Children.Add(new HyperlinkButton() { Style = App.Current.Resources["HyperlinkButtonStyle"] as Style, Foreground = App.Current.Resources["HyperlinkColor"] as SolidColorBrush, Content = "(Image)", NavigateUri = new Uri(t.Attributes.AttributesWithName("src").First().Value) });
+                    } else if (t.InnerText.Trim() != ":") {
+                        control.Children.Add(new TextBlock() { Style = App.Current.Resources["BodyTextBlockStyle"] as Style, Text = t.InnerText, TextWrapping = TextWrapping.Wrap });
                     }
                 }
             } catch { }

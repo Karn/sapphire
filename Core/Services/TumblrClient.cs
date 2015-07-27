@@ -1,5 +1,6 @@
 ﻿using Core.Utils;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Core.Services {
@@ -26,7 +27,7 @@ namespace Core.Services {
         /// <param name="consumerKey"></param>
         /// <param name="consumerSecret"></param>
         public TumblrClient(string consumerKey, string consumerSecret) {
-            Log.i("Creating client instance with keys.");
+            Debug.WriteLine("Creating client instance with keys.");
             this.ConsumerKey = consumerKey;
             this.ConsumerSecret = consumerSecret;
         }

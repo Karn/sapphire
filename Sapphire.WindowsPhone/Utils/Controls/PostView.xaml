@@ -462,11 +462,7 @@
                                             Content="{Binding}"
                                             ContentTemplateSelector="{StaticResource PostTemplate}" />
                             <StackPanel Background="{ThemeResource PostBackground}" Tag="{Binding}">
-                                <local:CaptionContainer MaxHeight="300"
-                                                        Caption="{Binding caption}"
-                                                        Tapped="Caption_Tapped"
-                                                        Visibility="{Binding caption,
-                                                                             Converter={StaticResource CaptionConverter}}" />
+                                <local:CaptionContainer Caption="{Binding caption}" Visibility="{Binding caption, Converter={StaticResource CaptionConverter}}" />
                                 <TextBlock FontWeight="Normal"
                                            Style="{StaticResource Caption}"
                                            TextWrapping="Wrap"

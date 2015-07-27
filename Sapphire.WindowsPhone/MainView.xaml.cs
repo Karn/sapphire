@@ -2,10 +2,10 @@
 using Core.Content;
 using Core.Content.Model;
 using Core.Content.Model.DatabaseHelpers;
-using Core.Utils;
 using Sapphire.Shared.Common;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
@@ -131,7 +131,7 @@ namespace Sapphire {
                 NavigationPivot.SelectedIndex = LastIndex;
 
             if (!string.IsNullOrWhiteSpace(SwitchedAccount)) {
-                Log.i("Refreshing due to account switch.");
+                Debug.WriteLine("Refreshing due to account switch.");
                 NavigationPivot.SelectedIndex = 0;
                 await GetUserAccount(SwitchedAccount);
                 Dashboard.RefreshPosts();
@@ -139,7 +139,7 @@ namespace Sapphire {
                 await Activity.RetrieveNotifications();
                 SwitchedAccount = null;
             } else if (SwitchedBlog) {
-                Log.i("Refreshing due to blog switch.");
+                Debug.WriteLine("Refreshing due to blog switch.");
                 AccountPivot.DataContext = UserPreferences.CurrentBlog;
                 await Activity.RetrieveNotifications();
                 SwitchedBlog = false;
@@ -176,7 +176,7 @@ namespace Sapphire {
         private async void RegisterBackgroundTask() {
             foreach (var cur in BackgroundTaskRegistration.AllTasks) {
                 if (cur.Value.Name == "PushNotificationTask") {
-                    Log.i("Previous task found.");
+                    Debug.WriteLine("Previous task found.");
                     return;
                 }
             }
@@ -244,7 +244,7 @@ namespace Sapphire {
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e) {
             if (!Frame.Navigate(typeof(Pages.Settings)))
-                Log.e("Failed to navigate to Settings.");
+                Debug.WriteLine("Failed to navigate to Settings.");
         }
 
         private async void RefreshButton_Click(object sender, RoutedEventArgs e) {
@@ -278,16 +278,16 @@ namespace Sapphire {
                 switch (((FrameworkElement)sender).Tag.ToString()) {
                     case "Posts":
                         if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserPreferences.CurrentBlog.Name + ".tumblr.com/posts"))
-                            Log.e("Failed to navigate to current blogs posts.");
+                            Debug.WriteLine("Failed to navigate to current blogs posts.");
                         break;
                     case "Likes":
                         if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/user/likes"))
-                            Log.e("Failed to navigate to current blogs likes.");
+                            Debug.WriteLine("Failed to navigate to current blogs likes.");
                         break;
                     case "Followers":
                     case "Following":
                         if (!Frame.Navigate(typeof(Pages.FollowersFollowing), ((FrameworkElement)sender).Tag.ToString()))
-                            Log.e("Failed to navigate to Following.");
+                            Debug.WriteLine("Failed to navigate to Following.");
                         break;
                 }
             }
@@ -299,26 +299,26 @@ namespace Sapphire {
                 var searchTerm = SearchText.Text;
                 SearchText.Text = string.Empty;
                 if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + Uri.EscapeUriString(searchTerm)))
-                    Log.e("Failed to navigate to search page.");
+                    Debug.WriteLine("Failed to navigate to search page.");
             }
         }
 
         private void SpotlightItem_Tapped(object sender, TappedRoutedEventArgs e) {
             if (((FrameworkElement)sender).Tag != null) {
                 if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/tagged?tag=" + ((FrameworkElement)sender).Tag))
-                    Log.e("Failed to navigate to search page via tag.");
+                    Debug.WriteLine("Failed to navigate to search page via tag.");
             }
         }
 
         private void ManageBlogs_Tapped(object sender, RoutedEventArgs e) {
             if (!Frame.Navigate(typeof(Pages.AccountManager)))
-                Log.e("Failed to navigate to blog selection.");
+                Debug.WriteLine("Failed to navigate to blog selection.");
         }
 
         private void Inbox_Tapped(object sender, RoutedEventArgs e) {
             if (UserPreferences.CurrentBlog != null) {
                 if (!Frame.Navigate(typeof(Pages.Inbox))) {
-                    Log.e("Failed to navigate to inbox.");
+                    Debug.WriteLine("Failed to navigate to inbox.");
                 }
             }
         }
@@ -326,7 +326,7 @@ namespace Sapphire {
         private void Drafts_Tapped(object sender, RoutedEventArgs e) {
             if (UserPreferences.CurrentBlog != null) {
                 if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserPreferences.CurrentBlog.Name + ".tumblr.com/posts/draft")) {
-                    Log.e("Failed to navigate to drafts.");
+                    Debug.WriteLine("Failed to navigate to drafts.");
                 }
             }
         }
@@ -334,7 +334,7 @@ namespace Sapphire {
         private void Queue_Tapped(object sender, RoutedEventArgs e) {
             if (UserPreferences.CurrentBlog != null) {
                 if (!Frame.Navigate(typeof(Pages.PostsPage), "https://api.tumblr.com/v2/blog/" + UserPreferences.CurrentBlog.Name + ".tumblr.com/posts/queue")) {
-                    Log.e("Failed to navigate to queue.");
+                    Debug.WriteLine("Failed to navigate to queue.");
                 }
             }
         }
@@ -342,7 +342,7 @@ namespace Sapphire {
         private void Favs_List_Tapped(object sender, RoutedEventArgs e) {
             if (UserPreferences.CurrentBlog != null) {
                 if (!Frame.Navigate(typeof(Pages.FavBlogs)))
-                    Log.e("Failed to navigate to favorite blogs.");
+                    Debug.WriteLine("Failed to navigate to favorite blogs.");
             }
         }
     }

@@ -14,6 +14,7 @@
             <SolidColorBrush x:Key="ColorSecondary" Color="#FF2B323A" />
             <SolidColorBrush x:Key="TextColorPrimary" Color="#FFFFFFFF" />
             <SolidColorBrush x:Key="TextColorPrimaryDark" Color="#FF2B323A" />
+            <SolidColorBrush x:Key="HyperlinkColor" Color="#529ECC" />
             <SolidColorBrush x:Key="WindowBackground" Color="#FFEEF2F4" />
             <SolidColorBrush x:Key="WindowBackgroundAccent" Color="#FFE3E7E8" />
             <SolidColorBrush x:Key="PostBackground" Color="#FFFFFFFF" />

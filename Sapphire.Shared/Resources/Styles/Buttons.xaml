@@ -55,7 +55,13 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
 
+
+    <Style x:Key="HyperlinkButtonStyle" TargetType="HyperlinkButton">
+        <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Padding" Value="16, 4" />
     </Style>
 
 </ResourceDictionary>

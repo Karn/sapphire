@@ -329,7 +329,7 @@ namespace Sapphire.Utils.Controls {
 
 				App.HideStatus();
 			} catch (Exception ex) {
-				Log.e("Unable to save media to photos folder.");
+                Debug.WriteLine("Unable to save media to photos folder.");
 			}
 		}
 

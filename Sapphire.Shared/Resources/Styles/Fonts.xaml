@@ -69,7 +69,7 @@
         <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}" />
         <Setter Property="FontSize" Value="20" />
         <Setter Property="FontWeight" Value="SemiLight" />
-        <Setter Property="TextTrimming" Value="WordEllipsis" />
+        <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="Padding" Value="16, 8" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
     </Style>
