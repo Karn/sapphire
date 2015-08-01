@@ -137,7 +137,7 @@
                                    Foreground="{StaticResource ColorPrimary}"
                                    Padding="8"
                                    Style="{StaticResource IconStyle}"
-                                   Text="&#xE1CB;" />
+                                   Text="&#xE7BA;" />
                         <TextBlock Grid.Column="1"
                                    Style="{StaticResource BodyTextBlockStyle}"
                                    TextTrimming="CharacterEllipsis">
