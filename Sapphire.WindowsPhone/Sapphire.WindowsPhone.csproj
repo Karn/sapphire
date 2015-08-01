@@ -140,6 +140,9 @@
     <Compile Include="Utils\Controls\NewPostDialog.xaml.cs">
       <DependentUpon>NewPostDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\Controls\PageHeader.xaml.cs">
+      <DependentUpon>PageHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\Controls\PostView.xaml.cs">
       <DependentUpon>PostView.xaml</DependentUpon>
     </Compile>
@@ -266,6 +269,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Utils\Controls\NewPostDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utils\Controls\PageHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -125,6 +125,40 @@
                     </Grid>
                 </Button>
 
+
+                <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Foreground="{StaticResource ColorPrimary}"
+                                   Padding="8"
+                                   Style="{StaticResource IconStyle}"
+                                   Text="&#xE1CB;" />
+                        <TextBlock Grid.Column="1"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   TextTrimming="CharacterEllipsis">
+                            <Run Text="{Binding [Settings_ExplicitSearchTitle], Source={StaticResource Localized}}" />
+                            <LineBreak />
+                            <Run FontWeight="Light" Text="{Binding [Settings_ExplicitSearchDescription], Source={StaticResource Localized}}" />
+                        </TextBlock>
+                        <CheckBox x:Name="ExplicitSearch"
+                                  Grid.Column="2"
+                                  MinWidth="0"
+                                  HorizontalAlignment="Right"
+                                  VerticalAlignment="Center"
+                                  Background="#11FFFFFF"
+                                  BorderBrush="{StaticResource ColorPrimary}"
+                                  BorderThickness="1.5"
+                                  Click="ExplicitSearch_Click"
+                                  RequestedTheme="Light" />
+                    </Grid>
+                </Button>
+
+
                 <Button Foreground="{StaticResource TextColorPrimaryDark}" Style="{StaticResource TransparentButtonStyle}">
                     <Grid>
                         <Grid.ColumnDefinitions>

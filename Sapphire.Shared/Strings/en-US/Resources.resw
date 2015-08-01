@@ -447,4 +447,10 @@
   <data name="Settings_PostTagsDetail" xml:space="preserve">
     <value>You can change what tags you want added to your posts by default. Tags must be comma-delimited.</value>
   </data>
+  <data name="Settings_ExplicitSearchDescription" xml:space="preserve">
+    <value>Enable retrival of NSFW posts</value>
+  </data>
+  <data name="Settings_ExplicitSearchTitle" xml:space="preserve">
+    <value>Explicit content</value>
+  </data>
 </root>

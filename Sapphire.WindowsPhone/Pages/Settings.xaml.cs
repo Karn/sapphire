@@ -45,6 +45,7 @@ namespace Sapphire.Pages {
             OneClickReblog.IsChecked = UserPreferences.OneClickReblog;
             PostTags.IsChecked = UserPreferences.TagsInPosts;
             OneClickReblog.IsChecked = QuickPostAction.IsEnabled = UserPreferences.OneClickReblog;
+            ExplicitSearch.IsChecked = UserPreferences.ExplicitSearch;
             //UXFeedback.IsChecked = UserPreferences.EnableAnalytics;
             //DarkStatusbar.IsChecked = UserPreferences.EnableStatusBarBG;
         }
@@ -79,6 +80,10 @@ namespace Sapphire.Pages {
 
         private void TagsInPosts_Toggled(object sender, RoutedEventArgs e) {
             UserPreferences.TagsInPosts = (bool)(PostTags).IsChecked;
+        }
+
+        private void ExplicitSearch_Click(object sender, RoutedEventArgs e) {
+            UserPreferences.ExplicitSearch = (bool)(ExplicitSearch).IsChecked;
         }
 
         private void AnalyticsSwitch_Toggled(object sender, RoutedEventArgs e) {

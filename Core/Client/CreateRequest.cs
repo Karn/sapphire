@@ -100,13 +100,14 @@ namespace Core.Client {
             }
             throw new Exception("No active account.");
         }
-        
+
         public static async Task<List<Post>> RetrievePosts(string url) {
             return await RetrievePosts(url, new Services.Utils.RequestParameters());
         }
 
         public static async Task<List<Post>> RetrievePosts(string url, Services.Utils.RequestParameters parameters) {
             parameters.Add("reblog_info", "true");
+            if (UserPreferences.ExplicitSearch) parameters.Add("explicit", "true");
             HttpResponseMessage result = await RequestService.GET(url, parameters);
 
             Debug.WriteLine(await result.Content.ReadAsStringAsync());
