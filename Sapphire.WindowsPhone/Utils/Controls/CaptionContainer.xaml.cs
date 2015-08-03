@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Sapphire.Utils.Controls {
     public sealed partial class CaptionContainer : UserControl {
 
-        private static Regex stripHtmlRegex = new Regex(@"<(?!\/?(blockquote|a|img)(?=>|\s.*>))\/?.*?>", RegexOptions.IgnoreCase);
+        private static Regex stripHtmlRegex = new Regex(@"<(?!\/?(blockquote|a|p|img)(?=>|\s.*>))\/?.*?>", RegexOptions.IgnoreCase);
 
         public UIElement Container { get; set; }
 
@@ -45,7 +45,7 @@ namespace Sapphire.Utils.Controls {
                 HtmlDocument x = new HtmlDocument();
                 x.LoadHtml(text);
 
-                this.LayoutRoot.Child = GenerateElements(x.DocumentNode.Descendants());
+                this.LayoutRoot.Child = GenerateElements(x.DocumentNode.Descendants("p"));
             }
         }
 
@@ -61,8 +61,9 @@ namespace Sapphire.Utils.Controls {
             var control = new StackPanel();
             try {
                 foreach (HtmlNode t in nodes) {
+                    Debug.WriteLine(t.InnerHtml);
                     if (t.Name.ToLower() == "blockquote") {
-                        control.Children.Add(new Border() { BorderThickness = new Thickness(2, 0, 0, 0), BorderBrush = App.Current.Resources["WindowBackground"] as SolidColorBrush, Margin = new Thickness(16, 0, 0, 0), Child = GenerateElements(t.Descendants()) });
+                        control.Children.Add(new Border() { BorderThickness = new Thickness(2, 0, 0, 0), BorderBrush = App.Current.Resources["WindowBackground"] as SolidColorBrush, Margin = new Thickness(16, 0, 0, 0), Child = GenerateElements(t.Descendants("p")) });
                     } else if (t.Name.ToLower() == "a") {
                         control.Children.Add(new HyperlinkButton() { Style = App.Current.Resources["HyperlinkButtonStyle"] as Style, Foreground = App.Current.Resources["HyperlinkColor"] as SolidColorBrush, Content = t.InnerText, NavigateUri = new Uri(t.Attributes.AttributesWithName("href").First().Value) });
                     } else if (t.Name.ToLower() == "img") {
@@ -71,6 +72,7 @@ namespace Sapphire.Utils.Controls {
                         control.Children.Add(new TextBlock() { Style = App.Current.Resources["BodyTextBlockStyle"] as Style, Text = t.InnerText, TextWrapping = TextWrapping.Wrap });
                     }
                 }
+                Debug.WriteLine("-------");
             } catch { }
 
             return control;
