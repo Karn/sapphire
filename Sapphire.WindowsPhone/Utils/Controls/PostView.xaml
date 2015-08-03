@@ -291,7 +291,7 @@
                             <ImageBrush ImageSource="{Binding asking_avatar, FallbackValue={StaticResource DefaultAvatar}}" Stretch="Fill" />
                         </Ellipse.Fill>
                     </Ellipse>
-                    <StackPanel Margin="55, 3, 5, 5" Background="{Binding ColorPrimaryDark}">
+                    <StackPanel Margin="55, 3, 5, 5" Background="{StaticResource ColorPrimaryDark}">
                         <TextBlock Margin="10, 2"
                                    FontSize="22"
                                    FontWeight="Light"

@@ -45,7 +45,7 @@ namespace Sapphire.Utils.Controls {
                 HtmlDocument x = new HtmlDocument();
                 x.LoadHtml(text);
 
-                this.LayoutRoot.Child = GenerateElements(x.DocumentNode.Descendants("p"));
+                this.LayoutRoot.Child = GenerateElements(x.DocumentNode.ChildNodes);
             }
         }
 
@@ -57,19 +57,21 @@ namespace Sapphire.Utils.Controls {
             return stripHtmlRegex.Replace(input, string.Empty);
         }
 
-        public static StackPanel GenerateElements(IEnumerable<HtmlNode> nodes) {
+        public static StackPanel GenerateElements(HtmlNodeCollection nodes) {
             var control = new StackPanel();
             try {
                 foreach (HtmlNode t in nodes) {
-                    Debug.WriteLine(t.InnerHtml);
-                    if (t.Name.ToLower() == "blockquote") {
-                        control.Children.Add(new Border() { BorderThickness = new Thickness(2, 0, 0, 0), BorderBrush = App.Current.Resources["WindowBackground"] as SolidColorBrush, Margin = new Thickness(16, 0, 0, 0), Child = GenerateElements(t.Descendants("p")) });
-                    } else if (t.Name.ToLower() == "a") {
-                        control.Children.Add(new HyperlinkButton() { Style = App.Current.Resources["HyperlinkButtonStyle"] as Style, Foreground = App.Current.Resources["HyperlinkColor"] as SolidColorBrush, Content = t.InnerText, NavigateUri = new Uri(t.Attributes.AttributesWithName("href").First().Value) });
-                    } else if (t.Name.ToLower() == "img") {
-                        control.Children.Add(new HyperlinkButton() { Style = App.Current.Resources["HyperlinkButtonStyle"] as Style, Foreground = App.Current.Resources["HyperlinkColor"] as SolidColorBrush, Content = "(Image)", NavigateUri = new Uri(t.Attributes.AttributesWithName("src").First().Value) });
-                    } else if (t.InnerText.Trim() != ":") {
-                        control.Children.Add(new TextBlock() { Style = App.Current.Resources["BodyTextBlockStyle"] as Style, Text = t.InnerText, TextWrapping = TextWrapping.Wrap });
+                    if (!string.IsNullOrWhiteSpace(t.InnerHtml)) {
+                        Debug.WriteLine("Type {0}, Inner: {1}", t.Name, t.InnerHtml);
+                        if (t.Name.ToLower() == "blockquote") {
+                            control.Children.Add(new Border() { BorderThickness = new Thickness(2, 0, 0, 0), BorderBrush = App.Current.Resources["WindowBackground"] as SolidColorBrush, Margin = new Thickness(16, 0, 0, 0), Child = GenerateElements(t.ChildNodes) });
+                        } else if (t.Name.ToLower() == "a") {
+                            control.Children.Add(new HyperlinkButton() { Style = App.Current.Resources["HyperlinkButtonStyle"] as Style, Foreground = App.Current.Resources["HyperlinkColor"] as SolidColorBrush, Content = t.InnerText, NavigateUri = new Uri(t.Attributes.AttributesWithName("href").First().Value) });
+                        } else if (t.Name.ToLower() == "img") {
+                            control.Children.Add(new HyperlinkButton() { Style = App.Current.Resources["HyperlinkButtonStyle"] as Style, Foreground = App.Current.Resources["HyperlinkColor"] as SolidColorBrush, Content = "(Image)", NavigateUri = new Uri(t.Attributes.AttributesWithName("src").First().Value) });
+                        } else {
+                            control.Children.Add(new TextBlock() { Style = App.Current.Resources["BodyTextBlockStyle"] as Style, Text = t.InnerText, TextWrapping = TextWrapping.Wrap });
+                        }
                     }
                 }
                 Debug.WriteLine("-------");
