@@ -7,6 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using System.Collections.Generic;
+using Windows.UI.Xaml.Documents;
 
 namespace Sapphire.Utils.Controls {
     public sealed partial class CaptionContainer : UserControl {
@@ -61,16 +62,28 @@ namespace Sapphire.Utils.Controls {
             var control = new StackPanel();
             try {
                 foreach (HtmlNode t in nodes) {
-                    if (!string.IsNullOrWhiteSpace(t.InnerHtml)) {
+                    if (!string.IsNullOrWhiteSpace(t.InnerText) && t.InnerText.Trim() != ":") {
                         Debug.WriteLine("Type {0}, Inner: {1}", t.Name, t.InnerHtml);
                         if (t.Name.ToLower() == "blockquote") {
                             control.Children.Add(new Border() { BorderThickness = new Thickness(2, 0, 0, 0), BorderBrush = App.Current.Resources["WindowBackground"] as SolidColorBrush, Margin = new Thickness(16, 0, 0, 0), Child = GenerateElements(t.ChildNodes) });
-                        } else if (t.Name.ToLower() == "a") {
-                            control.Children.Add(new HyperlinkButton() { Style = App.Current.Resources["HyperlinkButtonStyle"] as Style, Foreground = App.Current.Resources["HyperlinkColor"] as SolidColorBrush, Content = t.InnerText, NavigateUri = new Uri(t.Attributes.AttributesWithName("href").First().Value) });
-                        } else if (t.Name.ToLower() == "img") {
-                            control.Children.Add(new HyperlinkButton() { Style = App.Current.Resources["HyperlinkButtonStyle"] as Style, Foreground = App.Current.Resources["HyperlinkColor"] as SolidColorBrush, Content = "(Image)", NavigateUri = new Uri(t.Attributes.AttributesWithName("src").First().Value) });
                         } else {
-                            control.Children.Add(new TextBlock() { Style = App.Current.Resources["BodyTextBlockStyle"] as Style, Text = t.InnerText, TextWrapping = TextWrapping.Wrap });
+                            TextBlock tb = new TextBlock() { Style = App.Current.Resources["BodyTextBlockStyle"] as Style, TextWrapping = TextWrapping.Wrap };
+                            if (t.Name.ToLower() == "a") {
+                                var link = new Hyperlink();
+                                link.NavigateUri = new Uri(t.Attributes.AttributesWithName("href").First().Value);
+                                link.Inlines.Add(new Run() { Text = t.InnerText.Trim() });
+
+                                tb.Inlines.Add(link);
+                            } else if (t.Name.ToLower() == "img") {
+                                var link = new Hyperlink();
+                                link.NavigateUri = new Uri(t.Attributes.AttributesWithName("href").First().Value);
+                                link.Inlines.Add(new Run() { Text = "[image]" });
+
+                                tb.Inlines.Add(link);
+                            } else {
+                                tb.Inlines.Add(new Run() { Text = t.InnerText.Trim() });
+                            }
+                            control.Children.Add(tb);
                         }
                     }
                 }
