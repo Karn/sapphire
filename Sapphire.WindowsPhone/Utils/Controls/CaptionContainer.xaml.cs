@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Sapphire.Utils.Controls {
     public sealed partial class CaptionContainer : UserControl {
 
-        private static Regex stripHtmlRegex = new Regex(@"<(?!\/?(blockquote|a|p|img)(?=>|\s.*>))\/?.*?>", RegexOptions.IgnoreCase);
+        private static Regex stripHtmlRegex = new Regex(@"<(?!\/?(blockquote|a|img)(?=>|\s.*>))\/?.*?>", RegexOptions.IgnoreCase);
 
         public UIElement Container { get; set; }
 
