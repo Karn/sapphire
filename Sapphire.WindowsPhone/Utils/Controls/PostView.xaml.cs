@@ -341,18 +341,6 @@ namespace Sapphire.Utils.Controls {
 				((TextBlock)sender).MaxHeight = 300;
 		}
 
-		private void MediatedAdControl_AdSdkError(object sender, Microsoft.AdMediator.Core.Events.AdFailedEventArgs e) {
-			Debug.WriteLine("Failed to load ad: {0}", e.ToString());
-		}
-
-		private void MediatedAdControl_AdMediatorError(object sender, Microsoft.AdMediator.Core.Events.AdMediatorFailedEventArgs e) {
-			Debug.WriteLine("Failed to load ad: {0}", e.ToString());
-		}
-
-		private void MediatedAdControl_AdSdkEvent(object sender, Microsoft.AdMediator.Core.Events.AdSdkEventArgs e) {
-
-		}
-
 		private void OtherOptionsButton_Tapped(object sender, TappedRoutedEventArgs e) {
 			options = sender;
 			FrameworkElement element = sender as FrameworkElement;

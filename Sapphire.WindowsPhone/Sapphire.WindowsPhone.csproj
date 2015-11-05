@@ -280,37 +280,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="AdDuplex.Universal.Controls.WinPhone.XAML, Version=9.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AdDuplexWinPhone81.9.0.0.1\lib\portable-win81+wpa81\AdDuplex.Universal.Controls.WinPhone.XAML.dll</HintPath>
-    </Reference>
-    <Reference Include="AdDuplex.Universal.WinPhone.WinRT, Version=9.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AdDuplexWinPhone81.9.0.0.1\lib\portable-win81+wpa81\AdDuplex.Universal.WinPhone.WinRT.winmd</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AdMediator.WindowsPhone81.AdDuplex">
-      <HintPath>..\packages\Microsoft.AdMediator.WindowsPhone81.AdDuplex.1.0.11\lib\wpa\Microsoft.AdMediator.WindowsPhone81.AdDuplex.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AdMediator.WindowsPhone81.MicrosoftAdvertising">
-      <HintPath>..\packages\Microsoft.AdMediator.WindowsPhone81.MicrosoftAdvertising.1.0.12\lib\wpa\Microsoft.AdMediator.WindowsPhone81.MicrosoftAdvertising.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Advertising.Mobile.Common">
-      <HintPath>..\packages\Microsoft.Advertising.WindowsPhone.Xaml81.8.1.40505.0\lib\wpa81\Microsoft.Advertising.Mobile.Common.winmd</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Advertising.Mobile.Display">
-      <HintPath>..\packages\Microsoft.Advertising.WindowsPhone.Xaml81.8.1.40505.0\lib\wpa81\Microsoft.Advertising.Mobile.Display.winmd</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Advertising.Mobile.UI">
-      <HintPath>..\packages\Microsoft.Advertising.WindowsPhone.Xaml81.8.1.40505.0\lib\wpa81\Microsoft.Advertising.Mobile.UI.winmd</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.7\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <SDKReference Include="Microsoft.AdMediator81, Version=1.0">
-      <Name>Microsoft.AdMediator81</Name>
-    </SDKReference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

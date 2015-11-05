@@ -1,7 +1,9 @@
 ﻿using Core.Client;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Core.Content.Model {
     public class Blog : IEquatable<Blog> {
@@ -19,10 +21,6 @@ namespace Core.Content.Model {
 
         [JsonProperty("title")]
         public string Title { get; set; }
-
-        public string Avatar {
-            get { return "http://api.tumblr.com/v2/blog/" + Name + ".tumblr.com/avatar/128"; }
-        }
 
         [JsonProperty("description")]
         private string _description;
@@ -71,6 +69,29 @@ namespace Core.Content.Model {
 
         public bool Equals(Blog other) {
             return this.Name == other.Name;
+        }
+
+        /// <summary>
+        /// The uri to the blogs avatar.
+        /// </summary>
+        public string Avatar { get { return (AvatarItems == null || AvatarItems.Count == 0) ? "http://api.tumblr.com/v2/blog/" + Name + ".tumblr.com/avatar/128" : AvatarItems.First().URL; } }
+
+        /// <summary>
+        /// Contains a list of avatars with various dimensions.
+        /// </summary>
+        [JsonProperty("avatar")]
+        public List<AvatarItem> AvatarItems { get; set; }
+
+        /// <summary>
+        /// Class that represents an avatar of a given width and height.
+        /// </summary>
+        public class AvatarItem {
+
+            /// <summary>
+            /// The url to the avatar with this size.
+            /// </summary>
+            [JsonProperty("url")]
+            public string URL { get; set; }
         }
     }
 }

@@ -40,12 +40,11 @@ namespace Core.Client {
 						(!string.IsNullOrEmpty(additionalParameters) ? "?" + additionalParameters : ""))
 					};
 
-					requestMessage.Headers.Add("Accept-Encoding", "gzip,deflate");
-					requestMessage.Headers.Add("User-Agent", "Android");
-					requestMessage.Headers.Add("X-Version", "tablet/3.8.2/0/4.0.4");
-					requestMessage.Headers.Add("X-YUser-Agent", "Dalvik/1.6.0 (Linux; U; Android 4.0.4; LePanII Build/IMM76D)/Tumblr/tablet/3.8.2/0/4.0.4");
-					requestMessage.Headers.Add("X-Features", "AUTO_PLAY_VIDEO=B&SSL=B&TOUR_GUIDE=A&POST_ACTION_BUTTON=A");
-					requestMessage.Headers.Authorization = new AuthenticationHeaderValue("OAuth", authenticationData);
+                    requestMessage.Headers.Add("Accept-Encoding", "gzip,deflate");
+                    requestMessage.Headers.Add("User-Agent", "Android");
+                    requestMessage.Headers.Add("X-Version", "device/3.8.8.41/0/4.4.4");
+                    requestMessage.Headers.Add("X-YUser-Agent", "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/KRT16M)/Tumblr/device/3.8.8.41/0/4.4.4");
+                    requestMessage.Headers.Authorization = new AuthenticationHeaderValue("OAuth", authenticationData);
 					requestMessage.Headers.IfModifiedSince = DateTime.UtcNow.Date;
 
 					return (cToken != null) ? await client.SendAsync(requestMessage, HttpCompletionOption.ResponseContentRead, cToken.Token) :

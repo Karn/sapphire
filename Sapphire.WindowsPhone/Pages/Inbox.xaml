@@ -2,7 +2,6 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:CommonControl="using:Core.Utils"
-      xmlns:ac="using:Microsoft.AdMediator.WindowsPhone81"
       xmlns:controls="using:Sapphire.Utils.Controls"
       xmlns:converter="using:Sapphire.Utils.Converters"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -36,7 +35,7 @@
 			       Tapped="RefreshButton_Tapped" />
 		</Grid>
 
-		<ListView x:Name="Posts"
+        <ListView x:Name="Posts"
 		          Grid.Row="1"
 		          Margin="0"
 		          HorizontalAlignment="Stretch"
@@ -50,17 +49,17 @@
 		          ScrollViewer.HorizontalScrollMode="Disabled"
 		          ScrollViewer.VerticalScrollBarVisibility="Auto"
 		          SelectionMode="None">
-			<ListView.ItemsPanel>
-				<ItemsPanelTemplate>
-					<ItemsStackPanel />
-				</ItemsPanelTemplate>
-			</ListView.ItemsPanel>
-			<ListView.ItemTemplate>
-				<DataTemplate>
-					<StackPanel Margin="6, 3" Background="{ThemeResource PostBG}">
-						<Grid Height="50" Background="{ThemeResource WindowBackgroundAccent}">
-							<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-								<Image Width="50"
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="6, 3" Background="{ThemeResource PostBG}">
+                        <Grid Height="50" Background="{ThemeResource WindowBackgroundAccent}">
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                <Image Width="50"
 								       Height="50"
 								       Source="{Binding asking_avatar,
 								                        FallbackValue={StaticResource DefaultAvatar}}"
@@ -68,8 +67,8 @@
 								       Tag="{Binding asking_name}"
 								       Tapped="GoToBlog" />
 
-								<StackPanel Margin="5, 0">
-									<TextBlock Margin="5,5,50,0"
+                                <StackPanel Margin="5, 0">
+                                    <TextBlock Margin="5,5,50,0"
 									           HorizontalAlignment="Left"
 									           VerticalAlignment="Top"
 									           FontSize="24"
@@ -80,27 +79,27 @@
 									           Text="{Binding asking_name}"
 									           TextLineBounds="Tight"
 									           TextTrimming="CharacterEllipsis" />
-									<TextBlock Margin="5, 0"
+                                    <TextBlock Margin="5, 0"
 									           HorizontalAlignment="Left"
 									           VerticalAlignment="Top"
 									           FontSize="14"
 									           Foreground="{ThemeResource TextColorPrimaryDark}"
 									           Text="asked:"
 									           TextTrimming="CharacterEllipsis" />
-								</StackPanel>
-							</StackPanel>
-						</Grid>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
 
-						<TextBlock FontSize="20"
+                        <TextBlock FontSize="20"
 						           FontWeight="Thin"
 						           Padding="8"
 						           Style="{StaticResource StandardText}"
 						           TextWrapping="WrapWholeWords"
 						           misc:TextFormatter.Text="{Binding body}" />
 
-						<Grid Height="40" Background="{ThemeResource WindowBackgroundAccent}">
-							<StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-								<controls:ToggleControl x:Name="PostButton"
+                        <Grid Height="40" Background="{ThemeResource WindowBackgroundAccent}">
+                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                <controls:ToggleControl x:Name="PostButton"
 								                        Margin="0, 0, 5, 0"
 								                        Click="ReplyButton_Click"
 								                        EnabledChecked="{StaticResource ReplyAsset}"
@@ -108,28 +107,17 @@
 								                        Tag="{Binding id}"
 								                        Visibility="{Binding Converter={StaticResource IsFullVersion},
 								                                             FallbackValue=Collapsed}" />
-								<controls:ToggleControl x:Name="DeleteButton_"
+                                <controls:ToggleControl x:Name="DeleteButton_"
 								                        Margin="0, 0, 5, 0"
 								                        Click="DeleteButton_Click"
 								                        EnabledChecked="{StaticResource DeleteButtonAsset}"
 								                        EnabledUnchecked="{StaticResource DeleteButtonAsset}"
 								                        Tag="{Binding id}" />
-							</StackPanel>
-						</Grid>
-					</StackPanel>
-				</DataTemplate>
-			</ListView.ItemTemplate>
-		</ListView>
-
-		<Grid Grid.Row="2"
-		      Height="50"
-		      Background="Black"
-		      Visibility="{Binding ElementName=PageTitle,
-		                           Converter={StaticResource IsNotFullVersion},
-		                           FallbackValue=Collapsed}">
-			<ac:AdMediatorControl x:Name="AdMediator_8D72AF"
-			                      HorizontalAlignment="Stretch"
-			                      Id="AdMediator-Id-08EC04B6-3C0D-4157-B23E-4DDEFC54CC26" />
-		</Grid>
-	</Grid>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
 </Page>

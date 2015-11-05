@@ -73,9 +73,7 @@ namespace Sapphire {
 
 				new AppLicenseHandler();
 				new Authentication();
-
-				Analytics.GetInstance().SendEvent("Initialized analytics platform.");
-
+               
 				if (Authentication.AuthenticatedTokens.Count != 0 && Authentication.AuthenticatedSecretTokens.Count != 0) {
 					if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
 						throw new Exception("Failed to create initial page");
